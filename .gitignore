@@ -17,6 +17,7 @@ Thumbs.db
 *.swp
 
 ### === apps/core (Java / Gradle / Spring Boot) === ###
+/.gradle/
 apps/core/.gradle/
 apps/core/build/
 apps/core/out/
