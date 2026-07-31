@@ -1,0 +1,38 @@
+name: ci-brain
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/brain/**"
+      - "pyproject.toml"
+      - "uv.lock"
+      - ".github/workflows/ci-brain.yml"
+  pull_request:
+    paths:
+      - "apps/brain/**"
+      - "pyproject.toml"
+      - "uv.lock"
+      - ".github/workflows/ci-brain.yml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          version: "0.12.0"
+          enable-cache: true
+
+      - name: Set up Python 3.12
+        run: uv python install 3.12
+
+      - name: Install dependencies
+        run: uv sync --project apps/brain
+
+      - name: Run tests
+        run: uv run --project apps/brain pytest

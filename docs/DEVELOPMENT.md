@@ -14,15 +14,18 @@ If you're on macOS with Homebrew and don't already have a JDK 21:
 brew install openjdk@21
 ```
 
-Homebrew installs it keg-only (it won't override your default `java` on `PATH` if you have a different version linked). The project's `gradle.properties` points Gradle directly at the Homebrew keg path so `./gradlew` works without you having to export `JAVA_HOME` yourself:
+Homebrew installs it keg-only (it won't override your default `java` on `PATH` if you have a different version linked). Point Gradle at it directly so `./gradlew` works without exporting `JAVA_HOME` every session, by adding this to your **user-level** `~/.gradle/gradle.properties`, not the project's (a hardcoded per-machine path doesn't belong in a file that's committed and shared with CI):
 
 ```properties
 org.gradle.java.home=/opt/homebrew/opt/openjdk@21
 ```
 
-**If that path doesn't exist on your machine** (different OS, different chip architecture, or a different install method — e.g. sdkman, jenv, Intel Mac using `/usr/local` instead of `/opt/homebrew`), find your actual JDK 21 path and either:
-- update `org.gradle.java.home` in `gradle.properties` to match, or
-- delete that line and export `JAVA_HOME` yourself before running `./gradlew`.
+```bash
+mkdir -p ~/.gradle
+echo 'org.gradle.java.home=/opt/homebrew/opt/openjdk@21' >> ~/.gradle/gradle.properties
+```
+
+**If that path doesn't exist on your machine** (different OS, different chip architecture, or a different install method — e.g. sdkman, jenv, Intel Mac using `/usr/local` instead of `/opt/homebrew`), find your actual JDK 21 path and use that instead. CI doesn't need any of this — `.github/workflows/ci-core.yml` installs its own JDK 21 via `actions/setup-java` and picks it up from the environment, since there's no project-level override to conflict with it.
 
 Verify it's working:
 
