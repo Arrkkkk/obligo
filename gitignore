@@ -1,0 +1,92 @@
+### Secrets — never commit these ###
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+
+### macOS / OS noise ###
+.DS_Store
+Thumbs.db
+
+### Editors / IDEs ###
+.vscode/
+.idea/
+*.iml
+*.swp
+
+### === apps/core (Java / Gradle / Spring Boot) === ###
+apps/core/.gradle/
+apps/core/build/
+apps/core/out/
+apps/core/**/build/
+apps/core/bin/
+!apps/core/**/src/**/build/
+apps/core/HELP.md
+apps/core/*.log
+
+# Gradle wrapper jar IS committed — do not ignore gradle-wrapper.jar
+
+### === apps/brain, apps/mcp (Python) === ###
+apps/brain/__pycache__/
+apps/brain/**/__pycache__/
+apps/brain/*.pyc
+apps/brain/.venv/
+apps/brain/venv/
+apps/brain/.pytest_cache/
+apps/brain/.mypy_cache/
+apps/brain/.ruff_cache/
+apps/brain/*.egg-info/
+apps/brain/dist/
+apps/brain/build/
+apps/brain/.coverage
+apps/brain/htmlcov/
+
+apps/mcp/__pycache__/
+apps/mcp/**/__pycache__/
+apps/mcp/*.pyc
+apps/mcp/.venv/
+apps/mcp/venv/
+apps/mcp/.pytest_cache/
+apps/mcp/.mypy_cache/
+
+# local model weight caches — never commit these, they're multi-GB
+**/models_cache/
+**/.cache/huggingface/
+
+### === apps/web (Next.js / Node) === ###
+apps/web/node_modules/
+apps/web/.next/
+apps/web/out/
+apps/web/.turbo/
+apps/web/*.tsbuildinfo
+apps/web/next-env.d.ts
+apps/web/coverage/
+
+# any other node_modules in the monorepo (packages/*, root)
+node_modules/
+**/node_modules/
+.turbo/
+*.tsbuildinfo
+
+### === packages/ts-client (generated — see note) === ###
+# ts-client IS committed intentionally (blueprint §16.9 / §22.4 —
+# CI fails on an uncommitted diff to catch breaking API changes).
+# Do NOT add packages/ts-client/ here.
+
+### === infra / local data === ###
+infra/docker/volumes/
+*.db
+*.sqlite3
+
+### === logs / temp === ###
+*.log
+logs/
+tmp/
+.tmp/
+
+### === test / eval artifacts === ###
+apps/brain/evals/reports/*.html
+apps/brain/evals/reports/*.json
+!apps/brain/evals/reports/.gitkeep
