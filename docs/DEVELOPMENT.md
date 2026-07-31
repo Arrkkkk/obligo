@@ -2,6 +2,8 @@
 
 This doc is built up incrementally, one setup step at a time, as each part of Phase 1 lands. It is not a complete guide yet.
 
+**On timing:** the "clean clone to all three services running" target assumes Java 21, Gradle, uv, and Node/npm are already installed. First-time `brew install` of those, plus cold downloads of the Gradle distribution, Maven dependencies, and npm packages, add real time on top of the steps below — budget more than the steps alone suggest if this is a genuinely new machine.
+
 ## Prerequisites
 
 ### Java 21 (apps/core)
@@ -37,9 +39,10 @@ This should succeed without you setting `JAVA_HOME` in your shell.
 
 ### Running apps/core locally
 
-`apps/core` connects to Neon Postgres using `DATABASE_URL` from `.env` (see `.env.example` — get the real values from whoever set up the Neon project). Source `.env` into your shell before running:
+`apps/core` connects to Neon Postgres using `DATABASE_URL` from `.env`. Copy `.env.example` to `.env` and fill in the real values (Neon connection string, Upstash REST URL/token — `.env.example` has comments on where to get each). Source `.env` into your shell before running:
 
 ```bash
+cp .env.example .env  # first time only — then fill in real values
 set -a; source .env; set +a
 ./gradlew :apps:core:bootRun
 ```
@@ -48,8 +51,15 @@ Then check:
 
 ```bash
 curl http://localhost:8080/healthz
-# {"status":"ok","database":"reachable"}
 ```
+
+**At this point, with only `core` running, expect this — and it's correct:**
+
+```json
+{"status":"down","database":"reachable","brain":"unreachable","brainError":null}
+```
+
+HTTP 503. `core`'s `/healthz` also checks `brain` (see below), so it can't return a clean `"ok"` until `brain` is up too — `database: reachable` is the part this step is actually verifying. The full green response comes once all three services are running together; see "Running all three together" below.
 
 ### Python 3.12 + uv (apps/brain)
 
