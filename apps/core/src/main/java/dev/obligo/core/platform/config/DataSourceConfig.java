@@ -4,32 +4,26 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 
 import javax.sql.DataSource;
-import java.net.URI;
 
 @Configuration
 public class DataSourceConfig {
 
+    // Flyway (owner role) must run first — V2 is what creates the obligo_app
+    // role this pool authenticates as.
     @Bean
+    @DependsOn("flyway")
     public DataSource dataSource() {
-        String databaseUrl = System.getenv("DATABASE_URL");
-        if (databaseUrl == null || databaseUrl.isBlank()) {
-            throw new IllegalStateException("DATABASE_URL environment variable is not set");
-        }
-
-        URI uri = URI.create(databaseUrl);
-        String[] userInfo = uri.getUserInfo().split(":", 2);
-        String jdbcUrl = "jdbc:postgresql://" + uri.getHost()
-                + (uri.getPort() != -1 ? ":" + uri.getPort() : "")
-                + uri.getPath()
-                + (uri.getQuery() != null ? "?" + uri.getQuery() : "");
+        DatabaseConnectionDetails details = DatabaseConnectionDetails.appRoleFromEnv();
+        String maxPoolSizeEnv = System.getenv("DATABASE_MAX_POOL_SIZE");
 
         HikariConfig config = new HikariConfig();
-        config.setJdbcUrl(jdbcUrl);
-        config.setUsername(userInfo[0]);
-        config.setPassword(userInfo[1]);
-        config.setMaximumPoolSize(5);
+        config.setJdbcUrl(details.jdbcUrl());
+        config.setUsername(details.username());
+        config.setPassword(details.password());
+        config.setMaximumPoolSize(maxPoolSizeEnv != null ? Integer.parseInt(maxPoolSizeEnv) : 5);
         config.setPoolName("core-hikari");
 
         return new HikariDataSource(config);

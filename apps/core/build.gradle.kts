@@ -22,6 +22,9 @@ val otelAgent by configurations.creating
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
+    implementation("org.springframework.boot:spring-boot-starter-aop")
+    implementation("org.flywaydb:flyway-core")
+    implementation("org.flywaydb:flyway-database-postgresql")
     runtimeOnly("org.postgresql:postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 
@@ -30,6 +33,10 @@ dependencies {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+    // Pins the pool to a single physical connection so the tenant-isolation
+    // test can prove isolation holds even when HikariCP hands the same
+    // connection to two different tenant contexts (the §10.9 pooling trap).
+    environment("DATABASE_MAX_POOL_SIZE", "1")
 }
 
 tasks.named<org.springframework.boot.gradle.tasks.run.BootRun>("bootRun") {
