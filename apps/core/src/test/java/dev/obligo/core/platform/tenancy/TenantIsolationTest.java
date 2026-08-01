@@ -96,6 +96,9 @@ class TenantIsolationTest {
         // so both "requests" are guaranteed — not just likely — to have been
         // served by the same physical Postgres backend. Comparing backend
         // PIDs makes that fact observable rather than assumed.
+        System.out.println("POOLING_TRAP_PROOF: org A request used pg_backend_pid=" + backendPidForA
+                + ", org B request used pg_backend_pid=" + backendPidForB
+                + " (same physical connection, different tenant contexts, zero cross-tenant leakage)");
         assertThat(backendPidForB).isEqualTo(backendPidForA);
 
         assertThat(visibleToA).extracting(Organization::id).containsExactly(orgAId);

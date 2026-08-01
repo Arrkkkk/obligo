@@ -37,6 +37,10 @@ tasks.withType<Test> {
     // test can prove isolation holds even when HikariCP hands the same
     // connection to two different tenant contexts (the §10.9 pooling trap).
     environment("DATABASE_MAX_POOL_SIZE", "1")
+    testLogging {
+        events("passed", "skipped", "failed")
+        showStandardStreams = true
+    }
 }
 
 tasks.named<org.springframework.boot.gradle.tasks.run.BootRun>("bootRun") {
