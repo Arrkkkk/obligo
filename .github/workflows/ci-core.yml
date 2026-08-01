@@ -36,4 +36,14 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
 
       - name: Build and test
+        env:
+          # Dedicated Neon branch for CI only (see V1-V3 migrations under
+          # apps/core/src/main/resources/db/migration) — separate from the
+          # local dev branch in .env. DATABASE_URL is the owner role, used
+          # only to run Flyway; APP_DB_PASSWORD is the login for the
+          # least-privileged obligo_app role Flyway provisions and that the
+          # app's Hikari pool actually queries as (see blueprint §10.9 on
+          # why the app can't run as the owner role).
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          APP_DB_PASSWORD: ${{ secrets.APP_DB_PASSWORD }}
         run: ./gradlew build

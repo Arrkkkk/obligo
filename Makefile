@@ -51,9 +51,17 @@ dev-stop:
 
 # Runs each service's test suite. Mirrors the three CI workflows exactly,
 # so a green `make test` locally should mean green CI.
+#
+# apps/core's tenant-isolation tests hit a real Neon branch (no mocks —
+# see CLAUDE.md), so DATABASE_URL must be in the environment: the local
+# dev branch here, a dedicated CI branch via secrets in ci-core.yml.
 test:
 	@echo "== apps/core: ./gradlew test =="
-	./gradlew test
+	@if [ ! -f .env ]; then \
+		echo "No .env found. Copy .env.example to .env and fill in real values first."; \
+		exit 1; \
+	fi
+	@bash -c 'set -a; . ./.env; set +a; ./gradlew test'
 	@echo "== apps/brain: pytest =="
 	uv run --project apps/brain pytest
 	@echo "== apps/web: no test suite yet (Phase 6 adds Playwright/vitest per the blueprint) — lint + build, matching ci-web.yml =="
