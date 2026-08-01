@@ -29,18 +29,22 @@ The differentiator is the compiler (LLM candidate extraction → Lark grammar pa
 
 ## Current phase
 
-**Phase 1 — Foundation & Walking Skeleton** (see blueprint §21).
+**Phase 2 — Identity, Tenancy & Authorization** (see blueprint §21 / §10).
 
-Do not write domain code (obligations, compiler, verifier, auth logic) yet. The only goal of this phase is:
-- Monorepo structure per §22 exists.
-- Postgres (Neon, with pgvector enabled) reachable from a Spring Boot skeleton, a FastAPI skeleton, and a Next.js shell — each running natively, each with a working health endpoint.
-- A single OpenTelemetry trace spans a request from `web` → `core` → `brain`.
-- CI (GitHub Actions) builds and tests all three services, even though there's almost nothing to test yet. CI *does* build Docker images even though local dev doesn't use them.
-- A developer can go from clean clone to all three services running in under 10 minutes, following `docs/DEVELOPMENT.md`.
+Phase 1 is complete and verified: monorepo structure, all three service skeletons with working health endpoints, a single OpenTelemetry trace spanning web → core → brain (verified from a genuine clean clone), CI green on all three services with real evidence, and a tested Makefile (`dev`/`dev-stop`/`test`).
 
-**Do not start Phase 2 (auth/tenancy) until Phase 1's acceptance criteria in blueprint §21 are met.** If you (Claude Code) find yourself writing an OAuth flow or a database migration for `organizations`, stop and check whether Phase 1 is actually done first.
+The goal of this phase is making multi-tenancy structurally safe before any domain data exists — everything after this inherits the isolation model. Per blueprint §21 Phase 2, the acceptance criteria are:
+- Org A cannot read any org B resource through **any** endpoint — proven by an automated cross-tenant leakage test suite, not by inspection.
+- Google OAuth2 + PKCE sign-in works end to end.
+- Replaying a rotated refresh token revokes the entire token family and emits a `SECURITY_TOKEN_REUSE` audit event.
+- Every capability in the §10.7 RBAC matrix has a passing positive and negative test.
+- Removing the tenant predicate from any repository method fails the build (ArchUnit rule).
 
-When a phase is completed and I confirm it, update this section to reflect the new current phase before continuing work.
+**Do not start Phase 3 (ingestion/storage) until these are met.** If you (Claude Code) find yourself writing file-upload or document-parsing code, stop and check whether Phase 2 is actually done first.
+
+The single highest-severity risk in this phase is the RLS + connection-pooling trap described in blueprint §10.9 — read that section before writing `TenantContext` or any Hibernate filter code. Tenant isolation is enforced at three layers (gateway → application → database); the application layer is the primary control, RLS is defense in depth, not the other way around.
+
+When this phase is completed and I confirm it, update this section to reflect Phase 3 before continuing work.
 
 ---
 
