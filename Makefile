@@ -21,6 +21,7 @@ dev:
 		exec ./gradlew :apps:core:bootRun' \
 		> $(DEV_LOG_DIR)/core.log 2>&1 & echo $$! > $(DEV_LOG_DIR)/core.pid
 	@nohup bash -c 'export CORE_URL=http://localhost:8080; \
+		export NEXT_PUBLIC_CORE_URL=http://localhost:8080; \
 		exec npm --prefix apps/web run dev' \
 		> $(DEV_LOG_DIR)/web.log 2>&1 & echo $$! > $(DEV_LOG_DIR)/web.pid
 	@echo ""
