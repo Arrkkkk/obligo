@@ -29,20 +29,21 @@ The differentiator is the compiler (LLM candidate extraction → Lark grammar pa
 
 ## Current phase
 
-**Phase 2 — Identity, Tenancy & Authorization** (see blueprint §21 / §10).
+**Phase 2 — Identity, Tenancy & Authorization** (see blueprint §21 / §10). In progress, most of it done and verified.
 
-Phase 1 is complete and verified: monorepo structure, all three service skeletons with working health endpoints, a single OpenTelemetry trace spanning web → core → brain (verified from a genuine clean clone), CI green on all three services with real evidence, and a tested Makefile (`dev`/`dev-stop`/`test`).
+Done and verified, locally and in CI, against real databases (no mocks):
+- Tenant isolation (§10.9) — proven under adversarial connection-pooling conditions (identical pg_backend_pid across two tenant contexts), including two real findings fixed: Neon's owner role has rolbypassrls=true (RLS silently no-ops for it — the app now connects as a dedicated obligo_app role with NOBYPASSRLS), and a touched-then-reset custom GUC reverts to '' not NULL (fixed via NULLIF in the RLS policy).
+- Google OAuth2 + PKCE sign-in, RS256 JWT issuance with a real JWKS endpoint (hand-rolled, not a JWT library — the mechanics are the point per §10.2).
+- Refresh token rotation with reuse detection — replaying a used token kills the entire family and audits it, tested to the same rigor as tenant isolation.
+- Full 5-role RBAC (§10.7) — capability-based, not role-name checks. RoleCapabilities is the single source of truth for the role→capability matrix; capabilities are baked into the JWT's scopes claim at mint time. Deliberate, stated decision: a role change doesn't take effect until the access token naturally expires (≤15 min) — consistent with §10.10's failure-mode table, not a token_epoch mechanism, since that's explicitly [PROD] scope.
 
-The goal of this phase is making multi-tenancy structurally safe before any domain data exists — everything after this inherits the isolation model. Per blueprint §21 Phase 2, the acceptance criteria are:
-- Org A cannot read any org B resource through **any** endpoint — proven by an automated cross-tenant leakage test suite, not by inspection.
-- Google OAuth2 + PKCE sign-in works end to end.
-- Replaying a rotated refresh token revokes the entire token family and emits a `SECURITY_TOKEN_REUSE` audit event.
-- Every capability in the §10.7 RBAC matrix has a passing positive and negative test.
-- Removing the tenant predicate from any repository method fails the build (ArchUnit rule).
+Remaining for Phase 2 sign-off:
+- Invitations (§10.8) — email-matched, single-use, 7-day expiry. Not started.
+- The full HTTP-level cross-tenant leakage suite (§17.8) — only one real protected endpoint exists so far (org member role assignment); the suite is worth building out as more endpoints exist, not necessarily as a blocking gate on invitations.
+- The ArchUnit rule from blueprint §21/§10.9 — "removing the tenant predicate from any repository method fails the build." Not started; every repository built so far scopes correctly by hand, but nothing yet fails the build if a future one doesn't.
+- Known, deliberately deferred gap: apps/web's dashboard fetches the access token once at load with no silent/scheduled refresh — not a security gap (the token is cryptographically dead at 15 min regardless) but a UX one, worth a note in docs/TROUBLESHOOTING.md before Phase 6's frontend work.
 
-**Do not start Phase 3 (ingestion/storage) until these are met.** If you (Claude Code) find yourself writing file-upload or document-parsing code, stop and check whether Phase 2 is actually done first.
-
-The single highest-severity risk in this phase is the RLS + connection-pooling trap described in blueprint §10.9 — read that section before writing `TenantContext` or any Hibernate filter code. Tenant isolation is enforced at three layers (gateway → application → database); the application layer is the primary control, RLS is defense in depth, not the other way around.
+**Do not start Phase 3 (ingestion/storage) until invitations and the remaining acceptance criteria in blueprint §21 are met.**
 
 When this phase is completed and I confirm it, update this section to reflect Phase 3 before continuing work.
 
