@@ -7,3 +7,6 @@ server:
 
 brain:
   url: ${BRAIN_URL:http://localhost:8000}
+
+app:
+  web-url: ${WEB_APP_URL:http://localhost:3000}
