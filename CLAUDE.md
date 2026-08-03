@@ -29,24 +29,34 @@ The differentiator is the compiler (LLM candidate extraction → Lark grammar pa
 
 ## Current phase
 
-**Phase 2 — Identity, Tenancy & Authorization** (see blueprint §21 / §10). In progress, most of it done and verified.
+**Phase 3 — Ingestion, Storage & Segmentation** (see blueprint §21 / §11 / §3 Phase 3 deliverables).
 
-Done and verified, locally and in CI, against real databases (no mocks):
-- Tenant isolation (§10.9) — proven under adversarial connection-pooling conditions (identical pg_backend_pid across two tenant contexts), including two real findings fixed: Neon's owner role has rolbypassrls=true (RLS silently no-ops for it — the app now connects as a dedicated obligo_app role with NOBYPASSRLS), and a touched-then-reset custom GUC reverts to '' not NULL (fixed via NULLIF in the RLS policy).
+Phase 2 (Identity, Tenancy & Authorization) is complete and verified, locally and in CI, against real databases (no mocks):
+- Tenant isolation (§10.9) — proven under adversarial connection-pooling conditions (identical `pg_backend_pid` across two tenant contexts). Two real findings fixed along the way: Neon's owner role has `rolbypassrls=true` (RLS silently no-ops for it — the app now connects as a dedicated `obligo_app` role with `NOBYPASSRLS`), and a touched-then-reset custom GUC reverts to `''` not `NULL` (fixed via `NULLIF` in the RLS policy).
 - Google OAuth2 + PKCE sign-in, RS256 JWT issuance with a real JWKS endpoint (hand-rolled, not a JWT library — the mechanics are the point per §10.2).
 - Refresh token rotation with reuse detection — replaying a used token kills the entire family and audits it, tested to the same rigor as tenant isolation.
-- Full 5-role RBAC (§10.7) — capability-based, not role-name checks. RoleCapabilities is the single source of truth for the role→capability matrix; capabilities are baked into the JWT's scopes claim at mint time. Deliberate, stated decision: a role change doesn't take effect until the access token naturally expires (≤15 min) — consistent with §10.10's failure-mode table, not a token_epoch mechanism, since that's explicitly [PROD] scope.
-- Invitations (§10.8) — email-matched (rejected mismatches are a security check, not UX), single-use, 7-day expiry, re-invite rotates the token rather than resending it. Deliberate scope decision worth knowing about: accepting an invitation while already belonging to an org is rejected with 409 by design, not a bug — multi-org support is deferred, see ADR-0021.
+- Full 5-role RBAC (§10.7) — capability-based, not role-name checks. `RoleCapabilities` is the single source of truth for the role→capability matrix; capabilities are baked into the JWT's `scopes` claim at mint time. Deliberate, stated decision: a role change doesn't take effect until the access token naturally expires (≤15 min) — consistent with §10.10's failure-mode table, not a `token_epoch` mechanism, since that's explicitly `[PROD]` scope.
+- Invitations (§10.8) — email-matched (rejected mismatches are a security check, not UX), single-use, 7-day expiry, re-invite rotates the token rather than resending it. Deliberate scope decision: accepting an invitation while already belonging to an org is rejected with 409 by design, not a bug — multi-org support is deferred, see ADR-0021.
 
-Remaining for Phase 2 sign-off:
-- No public revoke endpoint for invitations — revocation is internal-only (exercised by re-invite rotation, and directly testable via the repository). Deliberate: only three endpoints were asked for. Add a real one if a use case needs it standalone.
-- The full HTTP-level cross-tenant leakage suite (§17.8) — only one real protected endpoint exists so far (org member role assignment); the suite is worth building out as more endpoints exist, not necessarily as a blocking gate.
-- The ArchUnit rule from blueprint §21/§10.9 — "removing the tenant predicate from any repository method fails the build." Not started; every repository built so far scopes correctly by hand, but nothing yet fails the build if a future one doesn't.
-- Known, deliberately deferred gap: apps/web's dashboard fetches the access token once at load with no silent/scheduled refresh — not a security gap (the token is cryptographically dead at 15 min regardless) but a UX one, worth a note in docs/TROUBLESHOOTING.md before Phase 6's frontend work.
+Carried-forward technical debt from Phase 2 (real, tracked, not blocking Phase 3):
+- No public revoke endpoint for invitations — revocation is internal-only (exercised by re-invite rotation, directly testable via the repository). Add a real one if a use case needs it standalone.
+- The ArchUnit rule from blueprint §21/§10.9 — "removing the tenant predicate from any repository method fails the build." Not started; every repository built so far scopes correctly by hand, but nothing yet fails the build if a future one doesn't. Worth building early in Phase 3, since Phase 3 adds new tenant-scoped tables (sources, segments) that should inherit this discipline from day one.
+- The full HTTP-level cross-tenant leakage suite (§17.8) — only two real protected endpoints exist so far (org member role assignment, invitations); worth building out as Phase 3 adds real endpoints (document upload, listing) rather than as a standalone gate.
+- Known, deliberately deferred gap: apps/web's dashboard fetches the access token once at load with no silent/scheduled refresh — not a security gap (the token is cryptographically dead at 15 min regardless) but a UX one, worth a note before Phase 6's frontend work.
 
-**Do not start Phase 3 (ingestion/storage) until the remaining acceptance criteria in blueprint §21 are met.**
+The goal of Phase 3 is turning an uploaded file into layout-aware segments with exact character offsets — the foundation span-grounding (Phase 4) depends on. Per blueprint §21 Phase 3, the acceptance criteria are:
+- 10 varied PDFs (born-digital, scanned, mixed, multi-column, table-heavy) produce segments whose offsets round-trip exactly to the source text.
+- Malicious fixtures (JS-embedded PDF, zip bomb, macro DOCX, oversized file) are all rejected with correct typed errors.
+- Duplicate upload (same org, same SHA-256) returns `deduplicated: true` without reprocessing.
+- Ingest progress streams live to a client (SSE).
 
-When this phase is completed and I confirm it, update this section to reflect Phase 3 before continuing work.
+**Do not start Phase 4 (the compiler/verifier) until these are met.** If you (Claude Code) find yourself writing LLM extraction, grammar, or Z3 code, stop and check whether Phase 3 is actually done first.
+
+Two things worth flagging before writing any code in this phase:
+- Storage is presigned-upload-based (§11.2) — the browser uploads directly to Supabase Storage, never through Spring. Spring issues a signed URL, then verifies via a server-side `HEAD` after the client claims to have uploaded. Never trust the client's claim alone.
+- File-security controls (§11.6) — magic-byte MIME sniffing, size/page-count caps, decompression-bomb guards, PDF active-content rejection — are not optional hardening to add later. Build them alongside the happy path, since the malicious-fixture acceptance criterion above depends on them existing from the start.
+
+When this phase is completed and I confirm it, update this section to reflect Phase 4 before continuing work.
 
 ---
 
@@ -54,7 +64,7 @@ When this phase is completed and I confirm it, update this section to reflect Ph
 
 1. **The system must be demoable at every commit.** Don't leave the stack in a broken state overnight.
 2. **Deterministic core, probabilistic edge.** Anything a parser, typechecker, or solver can decide must not be decided by an LLM. If you're about to have a model output something that determines correctness (not just a draft/candidate), stop and ask.
-3. **One trust boundary, three enforcement layers** for tenant isolation: gateway → application (Hibernate filter + `@PreAuthorize`) → database (RLS). All three, always, once we reach Phase 2.
+3. **One trust boundary, three enforcement layers** for tenant isolation: gateway → application (Hibernate filter + `@PreAuthorize`) → database (RLS). All three, always.
 4. **Every LLM output is untrusted input** — including, especially, when it originates from a document the user uploaded. Never concatenate document text into a system prompt.
 5. **Prefer deleting a technology over adding one.** If a task seems to need a new piece of infrastructure, check the "explicitly deferred" list below first — it's probably already been considered and rejected for now.
 
@@ -104,7 +114,7 @@ These were considered in the blueprint and deliberately cut from MVP. Reintroduc
 ## Non-negotiable engineering rules
 
 - **Idempotency:** every mutating endpoint accepts `Idempotency-Key`. Every response carries `X-Request-Id`.
-- **Tenant isolation:** every tenant-scoped table has `org_id` and an RLS policy from the moment it's created — not retrofitted later. Every new repository method needs a tenant predicate; there's an ArchUnit rule for this once Phase 2 lands, but don't wait for the rule to write it correctly.
+- **Tenant isolation:** every tenant-scoped table has `org_id` and an RLS policy from the moment it's created — not retrofitted later. Every new repository method needs a tenant predicate; there's no ArchUnit rule enforcing this yet (tracked as Phase 2 carried-forward debt, see Current Phase) — write every repository method correctly by hand until it exists.
 - **No `localStorage`/`sessionStorage` for tokens.** Access tokens live in JS memory only. Refresh tokens are `HttpOnly` cookies.
 - **Migrations are immutable once merged.** Corrections are new migrations, never edits to old ones. Use expand/contract for anything destructive.
 - **No raw SQL string concatenation, ever.** Parameterized queries only, in both Java and Python.
