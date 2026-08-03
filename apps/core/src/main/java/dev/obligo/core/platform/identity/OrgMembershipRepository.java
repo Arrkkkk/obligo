@@ -13,6 +13,11 @@ import java.util.UUID;
  * resolved tenant for the request. Only one membership per user exists in
  * this phase (auto-created personal org, §10.8) — multi-org support and
  * org-switching are future work.
+ *
+ * Because there's no RLS here, updateRole must never trust a client-
+ * supplied org_id — every caller in this codebase passes the org_id from
+ * the caller's own verified token (see OrgMemberController), the same
+ * discipline TenantContext enforces for tenant-scoped tables.
  */
 @Repository
 public class OrgMembershipRepository {
@@ -31,7 +36,7 @@ public class OrgMembershipRepository {
                     (rs, rowNum) -> new OrgMembership(
                             UUID.fromString(rs.getString("org_id")),
                             UUID.fromString(rs.getString("user_id")),
-                            rs.getString("role")),
+                            Role.valueOf(rs.getString("role"))),
                     userId);
         } catch (EmptyResultDataAccessException e) {
             throw new IllegalStateException("No org membership found for user " + userId);
@@ -39,8 +44,19 @@ public class OrgMembershipRepository {
     }
 
     @Transactional
-    public void insert(UUID orgId, UUID userId, String role) {
-        jdbcTemplate.update("INSERT INTO org_members (org_id, user_id, role) VALUES (?, ?, ?)", orgId, userId, role);
+    public void insert(UUID orgId, UUID userId, Role role) {
+        jdbcTemplate.update(
+                "INSERT INTO org_members (org_id, user_id, role) VALUES (?, ?, ?)", orgId, userId, role.name());
+    }
+
+    /** orgId must come from the caller's own token — never a client-supplied value. */
+    @Transactional
+    public void updateRole(UUID orgId, UUID userId, Role role) {
+        int rowsUpdated = jdbcTemplate.update(
+                "UPDATE org_members SET role = ? WHERE org_id = ? AND user_id = ?", role.name(), orgId, userId);
+        if (rowsUpdated == 0) {
+            throw new NoSuchOrgMembershipException(orgId, userId);
+        }
     }
 
     @Transactional

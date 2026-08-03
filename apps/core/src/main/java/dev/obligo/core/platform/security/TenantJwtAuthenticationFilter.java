@@ -6,6 +6,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -37,8 +39,17 @@ public class TenantJwtAuthenticationFilter extends OncePerRequestFilter {
             try {
                 AccessTokenClaims claims = accessTokenService.verify(header.substring(BEARER_PREFIX.length()));
                 TenantContext.set(claims.orgId());
+
+                // Authorities come straight from the token's own "scopes"
+                // claim (baked in at mint time from role, §10.3) — never
+                // re-derived from role here, and never from anything
+                // client-supplied.
+                List<GrantedAuthority> authorities = claims.scopes().stream()
+                        .map(Capability::wireName)
+                        .<GrantedAuthority>map(SimpleGrantedAuthority::new)
+                        .toList();
                 SecurityContextHolder.getContext()
-                        .setAuthentication(new UsernamePasswordAuthenticationToken(claims, null, List.of()));
+                        .setAuthentication(new UsernamePasswordAuthenticationToken(claims, null, authorities));
             } catch (InvalidAccessTokenException e) {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 return;

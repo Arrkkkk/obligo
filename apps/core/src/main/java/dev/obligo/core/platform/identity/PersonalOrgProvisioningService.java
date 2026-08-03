@@ -26,7 +26,7 @@ public class PersonalOrgProvisioningService {
         this.organizationRepository = organizationRepository;
     }
 
-    public record SignedInUser(UUID userId, UUID orgId, String role) {}
+    public record SignedInUser(UUID userId, UUID orgId, Role role) {}
 
     public SignedInUser findOrProvision(String googleSub, String email) {
         User user = userRepository.findByGoogleSub(googleSub).orElseGet(() -> provisionNewUser(googleSub, email));
@@ -48,7 +48,7 @@ public class PersonalOrgProvisioningService {
             TenantContext.clear();
         }
 
-        orgMembershipRepository.insert(orgId, user.id(), "OWNER");
+        orgMembershipRepository.insert(orgId, user.id(), Role.OWNER);
         return user;
     }
 }

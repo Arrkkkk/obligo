@@ -1,6 +1,7 @@
 package dev.obligo.core.platform.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.obligo.core.platform.identity.Role;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
@@ -9,8 +10,11 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Base64;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * Hand-rolled RS256 JWT mint/verify (§10.2/§10.3) — deliberately not using a
@@ -18,6 +22,13 @@ import java.util.UUID;
  * mechanics, not outsourcing them. Access tokens carry exactly one org_id
  * (§10.4); TenantJwtAuthenticationFilter is the only thing that ever reads
  * it back out to populate TenantContext.
+ *
+ * The "scopes" claim (§10.3: "derived capability list, denormalised for
+ * gateway checks") is computed from role once, here, at mint time — not
+ * re-derived from role on every request. That's deliberate: a downstream
+ * verifier (brain/mcp, or a dumb gateway) can authorize purely off the
+ * token's scopes without needing to know the role->capability mapping
+ * itself.
  */
 @Service
 public class AccessTokenService {
@@ -37,7 +48,7 @@ public class AccessTokenService {
         this.objectMapper = objectMapper;
     }
 
-    public String issue(UUID userId, UUID orgId, String role) {
+    public String issue(UUID userId, UUID orgId, Role role) {
         try {
             Instant now = Instant.now();
             Instant expiresAt = now.plus(TTL_MINUTES, ChronoUnit.MINUTES);
@@ -47,10 +58,16 @@ public class AccessTokenService {
             header.put("typ", "JWT");
             header.put("kid", keyManager.kid());
 
+            List<String> scopes = RoleCapabilities.capabilitiesFor(role).stream()
+                    .map(Capability::wireName)
+                    .sorted()
+                    .collect(Collectors.toList());
+
             Map<String, Object> payload = new LinkedHashMap<>();
             payload.put("sub", userId.toString());
             payload.put("org_id", orgId.toString());
-            payload.put("role", role);
+            payload.put("role", role.name());
+            payload.put("scopes", scopes);
             payload.put("jti", UUID.randomUUID().toString());
             payload.put("iat", now.getEpochSecond());
             payload.put("exp", expiresAt.getEpochSecond());
@@ -110,10 +127,15 @@ public class AccessTokenService {
                 throw new InvalidAccessTokenException("Unexpected issuer/audience");
             }
 
+            List<String> rawScopes = (List<String>) payload.getOrDefault("scopes", List.of());
+            Set<Capability> scopes =
+                    rawScopes.stream().map(Capability::fromWireName).collect(Collectors.toUnmodifiableSet());
+
             return new AccessTokenClaims(
                     UUID.fromString((String) payload.get("sub")),
                     UUID.fromString((String) payload.get("org_id")),
-                    (String) payload.get("role"),
+                    Role.valueOf((String) payload.get("role")),
+                    scopes,
                     (String) payload.get("jti"),
                     Instant.ofEpochSecond(((Number) payload.get("iat")).longValue()),
                     Instant.ofEpochSecond(exp));

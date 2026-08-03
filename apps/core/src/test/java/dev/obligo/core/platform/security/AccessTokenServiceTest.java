@@ -1,6 +1,7 @@
 package dev.obligo.core.platform.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.obligo.core.platform.identity.Role;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigInteger;
@@ -35,18 +36,19 @@ class AccessTokenServiceTest {
         UUID userId = UUID.randomUUID();
         UUID orgId = UUID.randomUUID();
 
-        String token = accessTokenService.issue(userId, orgId, "OWNER");
+        String token = accessTokenService.issue(userId, orgId, Role.OWNER);
         AccessTokenClaims claims = accessTokenService.verify(token);
 
         assertThat(claims.userId()).isEqualTo(userId);
         assertThat(claims.orgId()).isEqualTo(orgId);
-        assertThat(claims.role()).isEqualTo("OWNER");
+        assertThat(claims.role()).isEqualTo(Role.OWNER);
+        assertThat(claims.scopes()).isEqualTo(RoleCapabilities.capabilitiesFor(Role.OWNER));
         assertThat(claims.expiresAt()).isAfter(Instant.now());
     }
 
     @Test
     void tamperedPayloadFailsVerificationEvenThoughSignatureLooksWellFormed() {
-        String token = accessTokenService.issue(UUID.randomUUID(), UUID.randomUUID(), "OWNER");
+        String token = accessTokenService.issue(UUID.randomUUID(), UUID.randomUUID(), Role.OWNER);
         String[] parts = token.split("\\.");
 
         String decodedPayload = new String(Base64.getUrlDecoder().decode(parts[1]), StandardCharsets.UTF_8);
@@ -84,7 +86,7 @@ class AccessTokenServiceTest {
 
         assertThat(reconstructedPublicKey).isEqualTo(keyManager.publicKey());
 
-        String token = accessTokenService.issue(UUID.randomUUID(), UUID.randomUUID(), "OWNER");
+        String token = accessTokenService.issue(UUID.randomUUID(), UUID.randomUUID(), Role.OWNER);
         String[] parts = token.split("\\.");
 
         Signature signature = Signature.getInstance("SHA256withRSA");
