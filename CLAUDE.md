@@ -36,14 +36,15 @@ Done and verified, locally and in CI, against real databases (no mocks):
 - Google OAuth2 + PKCE sign-in, RS256 JWT issuance with a real JWKS endpoint (hand-rolled, not a JWT library — the mechanics are the point per §10.2).
 - Refresh token rotation with reuse detection — replaying a used token kills the entire family and audits it, tested to the same rigor as tenant isolation.
 - Full 5-role RBAC (§10.7) — capability-based, not role-name checks. RoleCapabilities is the single source of truth for the role→capability matrix; capabilities are baked into the JWT's scopes claim at mint time. Deliberate, stated decision: a role change doesn't take effect until the access token naturally expires (≤15 min) — consistent with §10.10's failure-mode table, not a token_epoch mechanism, since that's explicitly [PROD] scope.
+- Invitations (§10.8) — email-matched (rejected mismatches are a security check, not UX), single-use, 7-day expiry, re-invite rotates the token rather than resending it. Deliberate scope decision worth knowing about: accepting an invitation while already belonging to an org is rejected with 409 by design, not a bug — multi-org support is deferred, see ADR-0021.
 
 Remaining for Phase 2 sign-off:
-- Invitations (§10.8) — email-matched, single-use, 7-day expiry. Not started.
-- The full HTTP-level cross-tenant leakage suite (§17.8) — only one real protected endpoint exists so far (org member role assignment); the suite is worth building out as more endpoints exist, not necessarily as a blocking gate on invitations.
+- No public revoke endpoint for invitations — revocation is internal-only (exercised by re-invite rotation, and directly testable via the repository). Deliberate: only three endpoints were asked for. Add a real one if a use case needs it standalone.
+- The full HTTP-level cross-tenant leakage suite (§17.8) — only one real protected endpoint exists so far (org member role assignment); the suite is worth building out as more endpoints exist, not necessarily as a blocking gate.
 - The ArchUnit rule from blueprint §21/§10.9 — "removing the tenant predicate from any repository method fails the build." Not started; every repository built so far scopes correctly by hand, but nothing yet fails the build if a future one doesn't.
 - Known, deliberately deferred gap: apps/web's dashboard fetches the access token once at load with no silent/scheduled refresh — not a security gap (the token is cryptographically dead at 15 min regardless) but a UX one, worth a note in docs/TROUBLESHOOTING.md before Phase 6's frontend work.
 
-**Do not start Phase 3 (ingestion/storage) until invitations and the remaining acceptance criteria in blueprint §21 are met.**
+**Do not start Phase 3 (ingestion/storage) until the remaining acceptance criteria in blueprint §21 are met.**
 
 When this phase is completed and I confirm it, update this section to reflect Phase 3 before continuing work.
 

@@ -43,6 +43,18 @@ public class OrgMembershipRepository {
         }
     }
 
+    /**
+     * Used by invitation acceptance to reject joining a second org (multi-org
+     * support isn't built yet — see InvitationService) without touching
+     * findByUserId's exactly-one-row contract above.
+     */
+    @Transactional(readOnly = true)
+    public boolean existsForUserId(UUID userId) {
+        Integer count =
+                jdbcTemplate.queryForObject("SELECT count(*) FROM org_members WHERE user_id = ?", Integer.class, userId);
+        return count != null && count > 0;
+    }
+
     @Transactional
     public void insert(UUID orgId, UUID userId, Role role) {
         jdbcTemplate.update(

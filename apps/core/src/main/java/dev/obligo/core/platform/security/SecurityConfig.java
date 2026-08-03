@@ -4,6 +4,7 @@ import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -69,6 +70,10 @@ public class SecurityConfig {
                                 "/login/**",
                                 "/api/v1/auth/refresh",
                                 "/api/v1/auth/logout")
+                        .permitAll()
+                        // Preview only — POST .../accept still requires
+                        // authentication via the default rule below.
+                        .requestMatchers(HttpMethod.GET, "/api/v1/invitations/*")
                         .permitAll()
                         .anyRequest()
                         .authenticated())

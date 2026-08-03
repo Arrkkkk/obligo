@@ -39,6 +39,23 @@ public class UserRepository {
         }
     }
 
+    @Transactional(readOnly = true)
+    public Optional<User> findById(UUID id) {
+        try {
+            User user = jdbcTemplate.queryForObject(
+                    "SELECT id, google_sub, email, created_at FROM users WHERE id = ?",
+                    (rs, rowNum) -> new User(
+                            UUID.fromString(rs.getString("id")),
+                            rs.getString("google_sub"),
+                            rs.getString("email"),
+                            rs.getTimestamp("created_at").toInstant()),
+                    id);
+            return Optional.ofNullable(user);
+        } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
+        }
+    }
+
     @Transactional
     public User insert(String googleSub, String email) {
         UUID id = UUID.randomUUID();
