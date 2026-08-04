@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Repository
-public class OrganizationRepository {
+public class OrganizationRepository implements TenantScopedRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
