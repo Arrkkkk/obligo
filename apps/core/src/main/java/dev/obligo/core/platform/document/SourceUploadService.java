@@ -2,10 +2,11 @@ package dev.obligo.core.platform.document;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.Duration;
-import java.time.Instant;
+import java.util.HexFormat;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.UUID;
@@ -29,10 +30,15 @@ public class SourceUploadService {
      * over how long a real upload plus a slow connection takes, but far
      * under the 2h Supabase actually grants, so an abandoned intent can't
      * sit race-able for the full token lifetime.
+     *
+     * Package-private, not private: SourceCommitGateway's gatekeep() needs
+     * the same value for its own staleness check.
      */
-    private static final Duration MAX_PENDING_AGE = Duration.ofMinutes(30);
+    static final Duration MAX_PENDING_AGE = Duration.ofMinutes(30);
 
     private final SourceRepository sourceRepository;
+    private final SourceCommitGateway sourceCommitGateway;
+    private final PdfStructuralValidator pdfStructuralValidator = new PdfStructuralValidator();
     private final ObjectProvider<BlobStore> blobStoreProvider;
 
     /**
@@ -46,8 +52,12 @@ public class SourceUploadService {
      * configured. requireBlobStore() below is where that becomes a
      * deliberate, typed, lazy failure instead.
      */
-    public SourceUploadService(SourceRepository sourceRepository, ObjectProvider<BlobStore> blobStoreProvider) {
+    public SourceUploadService(
+            SourceRepository sourceRepository,
+            SourceCommitGateway sourceCommitGateway,
+            ObjectProvider<BlobStore> blobStoreProvider) {
         this.sourceRepository = sourceRepository;
+        this.sourceCommitGateway = sourceCommitGateway;
         this.blobStoreProvider = blobStoreProvider;
     }
 
@@ -110,28 +120,31 @@ public class SourceUploadService {
         return new UploadIntentResult.Created(sourceId, signedUpload.uploadUrl(), storageKey);
     }
 
-    public sealed interface CommitResult {
-        record Committed(UUID sourceId) implements CommitResult {}
-
-        record NotFound() implements CommitResult {}
-
-        record ObjectNotFound() implements CommitResult {}
-
-        record Invalid(String reason) implements CommitResult {}
-
-        record AlreadyRejected(String reason) implements CommitResult {}
-
-        record Expired(String reason) implements CommitResult {}
-    }
-
     /**
-     * The whole method is @Transactional, holding findByIdForUpdate's row
-     * lock across the headObject/readRange calls to Supabase -- a
-     * deliberate tradeoff (a DB transaction spanning two small, bounded
-     * network calls) rather than the usual "no I/O inside a transaction"
-     * rule: this is exactly the operation that needs serialization against
-     * a concurrent commit retry, and the calls involved are a HEAD and a
-     * 5-byte range GET, not a 50 MB transfer.
+     * Three phases, none of which is itself @Transactional -- the two that
+     * need a transaction (gatekeep, finalizeVerification) live on
+     * SourceCommitGateway, a separate bean, and are called through it
+     * rather than as private methods here. See SourceCommitGateway's
+     * Javadoc for exactly why that separation is required, not just tidy.
+     *
+     * Before this design: the whole method was one @Transactional block
+     * holding findByIdForUpdate's row lock across a HEAD and a 5-byte
+     * range GET -- both sub-second, so holding a pooled connection that
+     * long was reasonable, and Postgres's lock fully serialized concurrent
+     * commit() calls on the same source for free (the loser blocks, then
+     * sees the winner's committed state once unblocked -- no redundant
+     * work, no race). Once commit needs a full download (up to 50 MB) and
+     * a PDFBox parse (up to PdfStructuralValidator's 10s timeout), holding
+     * that same lock for potentially several seconds risks exhausting this
+     * app's small Hikari pool (5 connections; 1 in tests) under
+     * concurrent large-file commits. Splitting the lock into "gatekeep,
+     * release" and "verify unlocked" then "finalize, guarded" trades that
+     * held-lock cost for a reopened race window -- two requests could both
+     * pass gatekeep() as PENDING and both redundantly do the expensive
+     * verification -- which finalizeVerification's WHERE status='PENDING'
+     * guard, plus its zero-rows-affected reconciliation read, is the new
+     * mitigation for. That race is a consequence of this restructuring,
+     * not a bug the restructuring discovered.
      *
      * Idempotent for retries by construction, not via an Idempotency-Key
      * header (see CLAUDE.md's carried-forward debt note on that gap):
@@ -139,50 +152,74 @@ public class SourceUploadService {
      * headObject but never re-runs markUploaded, so there's no double
      * side effect.
      */
-    @Transactional
     public CommitResult commit(UUID orgId, UUID sourceId) {
-        Optional<Source> maybeSource = sourceRepository.findByIdForUpdate(orgId, sourceId);
-        if (maybeSource.isEmpty()) {
-            return new CommitResult.NotFound();
+        SourceCommitGateway.GatekeepOutcome outcome = sourceCommitGateway.gatekeep(orgId, sourceId);
+        if (outcome instanceof SourceCommitGateway.GatekeepOutcome.Terminal terminal) {
+            return terminal.result();
         }
-        Source source = maybeSource.get();
+        Source source = ((SourceCommitGateway.GatekeepOutcome.ProceedToVerify) outcome).source();
 
-        if (source.status() == SourceStatus.UPLOADED) {
-            return requireBlobStore().headObject(source.storageKey()).isPresent()
-                    ? new CommitResult.Committed(source.id())
-                    : new CommitResult.ObjectNotFound();
-        }
-        if (source.status() == SourceStatus.REJECTED) {
-            return new CommitResult.AlreadyRejected(source.rejectionReason());
-        }
-
-        if (source.createdAt().isBefore(Instant.now().minus(MAX_PENDING_AGE))) {
-            String reason = "upload intent expired (older than %d minutes); request a new upload-intent"
-                    .formatted(MAX_PENDING_AGE.toMinutes());
-            sourceRepository.markRejected(orgId, sourceId, reason);
-            return new CommitResult.Expired(reason);
-        }
-
-        BlobStore blobStore = requireBlobStore();
-        Optional<BlobStore.ObjectMetadata> metadata = blobStore.headObject(source.storageKey());
-        if (metadata.isEmpty()) {
+        VerificationOutcome verification = verify(source);
+        if (verification instanceof VerificationOutcome.ObjectNotFound) {
+            // No DB write: the row stays PENDING, retryable once the client's
+            // PUT actually lands, same as before this restructuring.
             return new CommitResult.ObjectNotFound();
         }
+
+        return sourceCommitGateway.finalizeVerification(orgId, sourceId, verification);
+    }
+
+    /**
+     * The unlocked, expensive phase -- no transaction, no lock, touches no
+     * SQL at all. Operates purely on the in-memory Source snapshot
+     * gatekeep() already verified belongs to the caller's org, and on
+     * BlobStore calls scoped by that snapshot's storageKey (org_id baked
+     * into the path since upload-intent time, never re-derived here).
+     */
+    private VerificationOutcome verify(Source source) {
+        BlobStore blobStore = requireBlobStore();
+
+        Optional<BlobStore.ObjectMetadata> metadata = blobStore.headObject(source.storageKey());
+        if (metadata.isEmpty()) {
+            return new VerificationOutcome.ObjectNotFound();
+        }
         if (metadata.get().sizeBytes() != source.byteSize()) {
-            String reason = "declared size (%d) does not match the uploaded object's size (%d)"
-                    .formatted(source.byteSize(), metadata.get().sizeBytes());
-            sourceRepository.markRejected(orgId, sourceId, reason);
-            return new CommitResult.Invalid(reason);
+            return new VerificationOutcome.Invalid("declared size (%d) does not match the uploaded object's size (%d)"
+                    .formatted(source.byteSize(), metadata.get().sizeBytes()));
         }
 
         byte[] header = blobStore.readRange(source.storageKey(), 0, PDF_SNIFF_BYTES - 1);
         if (!PdfMagicBytes.isPdf(header)) {
-            String reason = "uploaded object is not a valid PDF (magic-byte check failed)";
-            sourceRepository.markRejected(orgId, sourceId, reason);
-            return new CommitResult.Invalid(reason);
+            return new VerificationOutcome.Invalid("uploaded object is not a valid PDF (magic-byte check failed)");
         }
 
-        sourceRepository.markUploaded(orgId, sourceId, "application/pdf", Instant.now());
-        return new CommitResult.Committed(sourceId);
+        // Only reached after the cheap magic-byte pre-check passes -- avoids
+        // paying for a full download on obviously-wrong uploads. Bounded to
+        // FileSecurityLimits.MAX_SOURCE_SIZE_BYTES: the size-equality check
+        // above already confirmed the object is no larger than the
+        // declared size, which upload-intent already capped.
+        byte[] fullBytes = blobStore.readObject(source.storageKey());
+
+        String actualSha256 = sha256Hex(fullBytes);
+        if (!actualSha256.equals(source.sha256())) {
+            return new VerificationOutcome.Invalid(
+                    "uploaded object's sha256 does not match the declared value (recomputed server-side)");
+        }
+
+        Optional<String> structuralViolation = pdfStructuralValidator.findViolation(fullBytes, source.byteSize());
+        if (structuralViolation.isPresent()) {
+            return new VerificationOutcome.Invalid(structuralViolation.get());
+        }
+
+        return new VerificationOutcome.Valid("application/pdf");
+    }
+
+    private static String sha256Hex(byte[] bytes) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            return HexFormat.of().formatHex(digest.digest(bytes));
+        } catch (NoSuchAlgorithmException e) {
+            throw new IllegalStateException("SHA-256 not available", e);
+        }
     }
 }

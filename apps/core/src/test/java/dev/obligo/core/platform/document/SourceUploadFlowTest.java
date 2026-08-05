@@ -52,9 +52,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @EnabledIfEnvironmentVariable(named = "SUPABASE_URL", matches = ".+")
 class SourceUploadFlowTest {
 
-    private static final byte[] REAL_PDF_BYTES =
-            "%PDF-1.4\n%obligo-test-fixture\n1 0 obj\n<< /Type /Catalog >>\nendobj\n%%EOF\n"
-                    .getBytes(StandardCharsets.US_ASCII);
+    // A genuinely PDFBox-parseable PDF, not a hand-approximated byte string --
+    // the first run of these tests after adding PdfStructuralValidator caught
+    // exactly why that distinction matters: a "%PDF-1.4\n..." literal passes
+    // magic-byte sniffing but isn't a structurally valid PDF PDFBox's own
+    // loader can round-trip, so it was rejected as unparseable once real
+    // structural validation was added.
+    private static final byte[] REAL_PDF_BYTES = PdfTestFixtures.validPdf();
     private static final byte[] NOT_A_PDF_BYTES = "this is definitely not a pdf\n".getBytes(StandardCharsets.US_ASCII);
 
     @Autowired
@@ -293,6 +297,76 @@ class SourceUploadFlowTest {
         mockMvc.perform(post("/api/v1/sources/{id}/commit", sourceId).header("Authorization", "Bearer " + token))
                 .andExpect(status().isAccepted())
                 .andExpect(jsonPath("$.status").value("UPLOADED"));
+    }
+
+    @Test
+    void commitRejectsAPdfWithEmbeddedJavaScript() throws Exception {
+        String token = accessTokenService.issue(owner.userId(), owner.orgId(), owner.role());
+        byte[] maliciousPdf = PdfTestFixtures.pdfWithEmbeddedJavaScript();
+        String sha256 = sha256Hex(maliciousPdf);
+
+        Map<String, Object> intent =
+                requestUploadIntent(owner.orgId(), token, "malicious.pdf", maliciousPdf.length, sha256);
+        String uploadUrl = (String) intent.get("uploadUrl");
+        storageKeysToDelete.add((String) intent.get("storageKey"));
+        UUID sourceId = UUID.fromString((String) intent.get("sourceId"));
+
+        putToSignedUrl(uploadUrl, maliciousPdf);
+
+        mockMvc.perform(post("/api/v1/sources/{id}/commit", sourceId).header("Authorization", "Bearer " + token))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(jsonPath("$.error").value(org.hamcrest.Matchers.containsString("JavaScript")));
+
+        TenantContext.set(owner.orgId());
+        try {
+            assertThat(sourceRepository.findByIdForUpdate(owner.orgId(), sourceId))
+                    .hasValueSatisfying(s -> assertThat(s.status()).isEqualTo(SourceStatus.REJECTED));
+        } finally {
+            TenantContext.clear();
+        }
+    }
+
+    @Test
+    void commitRejectsADecompressionBombPdf() throws Exception {
+        String token = accessTokenService.issue(owner.userId(), owner.orgId(), owner.role());
+        byte[] bombPdf = PdfTestFixtures.decompressionBombPdf();
+        assertThat((long) bombPdf.length)
+                .as("fixture must stay under the app/bucket size cap so upload-intent accepts it")
+                .isLessThan(FileSecurityLimits.MAX_SOURCE_SIZE_BYTES);
+        String sha256 = sha256Hex(bombPdf);
+
+        Map<String, Object> intent = requestUploadIntent(owner.orgId(), token, "bomb.pdf", bombPdf.length, sha256);
+        String uploadUrl = (String) intent.get("uploadUrl");
+        storageKeysToDelete.add((String) intent.get("storageKey"));
+        UUID sourceId = UUID.fromString((String) intent.get("sourceId"));
+
+        putToSignedUrl(uploadUrl, bombPdf);
+
+        mockMvc.perform(post("/api/v1/sources/{id}/commit", sourceId).header("Authorization", "Bearer " + token))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(jsonPath("$.error").value(org.hamcrest.Matchers.containsString("decompression-bomb")));
+    }
+
+    @Test
+    void commitRejectsAnUploadWhoseContentDoesNotMatchTheDeclaredHash() throws Exception {
+        String token = accessTokenService.issue(owner.userId(), owner.orgId(), owner.role());
+        // A real-looking but WRONG hash -- some other valid PDF's actual
+        // hash, not the one for the bytes about to be PUT -- so magic-byte
+        // and size checks both pass and server-side hash recomputation is
+        // what's actually under test.
+        String wrongButWellFormedSha256 = sha256Hex(PdfTestFixtures.pdfWithEmbeddedJavaScript());
+
+        Map<String, Object> intent = requestUploadIntent(
+                owner.orgId(), token, "tampered.pdf", REAL_PDF_BYTES.length, wrongButWellFormedSha256);
+        String uploadUrl = (String) intent.get("uploadUrl");
+        storageKeysToDelete.add((String) intent.get("storageKey"));
+        UUID sourceId = UUID.fromString((String) intent.get("sourceId"));
+
+        putToSignedUrl(uploadUrl, REAL_PDF_BYTES);
+
+        mockMvc.perform(post("/api/v1/sources/{id}/commit", sourceId).header("Authorization", "Bearer " + token))
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(jsonPath("$.error").value(org.hamcrest.Matchers.containsString("sha256")));
     }
 
     private void backdateCreatedAt(UUID orgId, UUID sourceId, Instant createdAt) {

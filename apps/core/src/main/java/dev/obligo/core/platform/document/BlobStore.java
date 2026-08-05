@@ -26,6 +26,14 @@ public interface BlobStore {
      */
     byte[] readRange(String key, int startInclusive, int endInclusive);
 
+    /**
+     * The full object, for server-side sha256 recomputation and PDF
+     * structural validation (§11.6) -- only called after headObject has
+     * already confirmed the object's size is within FileSecurityLimits'
+     * cap, so this never pulls more than that into memory.
+     */
+    byte[] readObject(String key);
+
     record SignedUpload(String uploadUrl, String key) {}
 
     record ObjectMetadata(long sizeBytes, String contentType) {}

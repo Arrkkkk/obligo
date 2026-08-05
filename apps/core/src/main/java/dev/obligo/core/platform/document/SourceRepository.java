@@ -54,10 +54,13 @@ public class SourceRepository implements TenantScopedRepository {
     }
 
     /**
-     * Locks the row for the duration of the commit transaction so two
+     * Locks the row for the duration of the enclosing transaction so two
      * concurrent commit calls for the same source can't both observe
      * PENDING and both transition it -- same TOCTOU concern, same fix, as
-     * RefreshTokenRepository.findByHashForUpdate.
+     * RefreshTokenRepository.findByHashForUpdate. Only used by
+     * SourceCommitGateway's short gatekeeper transaction now -- see its
+     * Javadoc for why the lock is deliberately NOT held across the
+     * expensive verification work anymore.
      */
     @Transactional
     public Optional<Source> findByIdForUpdate(UUID orgId, UUID id) {
@@ -71,20 +74,41 @@ public class SourceRepository implements TenantScopedRepository {
         }
     }
 
+    /** Unlocked read, for reconciling state after a guarded write affected zero rows (see SourceCommitGateway). */
+    @Transactional(readOnly = true)
+    public Optional<Source> findById(UUID orgId, UUID id) {
+        try {
+            return Optional.ofNullable(jdbcTemplate.queryForObject(
+                    "SELECT " + COLUMNS + " FROM sources WHERE id = ? AND org_id = ?",
+                    SourceRepository::mapRow,
+                    id, orgId));
+        } catch (EmptyResultDataAccessException e) {
+            return Optional.empty();
+        }
+    }
+
+    /**
+     * Returns whether a row was actually transitioned -- false means a
+     * concurrent commit already moved this source out of PENDING first
+     * (see SourceCommitGateway.finalizeVerification's reconciliation path).
+     */
     @Transactional
-    public void markUploaded(UUID orgId, UUID id, String mimeType, Instant committedAt) {
-        jdbcTemplate.update(
+    public boolean markUploaded(UUID orgId, UUID id, String mimeType, Instant committedAt) {
+        int rowsUpdated = jdbcTemplate.update(
                 "UPDATE sources SET status = 'UPLOADED', mime_type = ?, committed_at = ? "
                         + "WHERE id = ? AND org_id = ? AND status = 'PENDING'",
                 mimeType, Timestamp.from(committedAt), id, orgId);
+        return rowsUpdated == 1;
     }
 
+    /** See markUploaded's Javadoc on the return value. */
     @Transactional
-    public void markRejected(UUID orgId, UUID id, String reason) {
-        jdbcTemplate.update(
+    public boolean markRejected(UUID orgId, UUID id, String reason) {
+        int rowsUpdated = jdbcTemplate.update(
                 "UPDATE sources SET status = 'REJECTED', rejection_reason = ? "
                         + "WHERE id = ? AND org_id = ? AND status = 'PENDING'",
                 reason, id, orgId);
+        return rowsUpdated == 1;
     }
 
     /** Test-cleanup only, same role this method plays on every other repository in this codebase. */

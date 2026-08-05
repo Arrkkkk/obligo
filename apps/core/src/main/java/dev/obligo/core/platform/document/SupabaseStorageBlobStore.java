@@ -103,6 +103,25 @@ public class SupabaseStorageBlobStore implements BlobStore {
                 });
     }
 
+    @Override
+    public byte[] readObject(String key) {
+        return restClient
+                .get()
+                .uri("/object/authenticated/{bucket}/{key}", bucket, key)
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + serviceRoleKey)
+                .exchange((request, response) -> {
+                    if (!response.getStatusCode().is2xxSuccessful()) {
+                        throw new BlobStoreUnavailableException(
+                                "Supabase Storage returned " + response.getStatusCode() + " for a full read of " + key);
+                    }
+                    try {
+                        return StreamUtils.copyToByteArray(response.getBody());
+                    } catch (IOException e) {
+                        throw new UncheckedIOException(e);
+                    }
+                });
+    }
+
     /**
      * Not part of the BlobStore port -- the port is what SourceUploadService
      * needs, and business logic has no business reading bucket config. Used

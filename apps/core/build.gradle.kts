@@ -26,6 +26,11 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
     implementation("org.flywaydb:flyway-core")
     implementation("org.flywaydb:flyway-database-postgresql")
+    // §11.6 structural checks (active-content rejection, decompression-bomb
+    // guard) -- confirmed Apache 2.0, zero known CVEs at this version per
+    // OSV.dev, and the only mature non-AGPL PDF-parsing library in the JVM
+    // ecosystem (iText's alternative license is inappropriate here).
+    implementation("org.apache.pdfbox:pdfbox:3.0.7")
     runtimeOnly("org.postgresql:postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
