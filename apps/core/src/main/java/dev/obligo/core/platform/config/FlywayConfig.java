@@ -26,9 +26,17 @@ public class FlywayConfig {
         if (appDbPassword == null || appDbPassword.isBlank()) {
             throw new IllegalStateException("APP_DB_PASSWORD environment variable is not set");
         }
+        // V11 provisions obligo_brain (apps/brain's own, minimally-scoped
+        // Postgres role -- see that migration for why it isn't obligo_app).
+        // Schema ownership stays in apps/core per the blueprint even though
+        // this password is consumed by a Python process.
+        String brainDbPassword = System.getenv("BRAIN_DB_PASSWORD");
+        if (brainDbPassword == null || brainDbPassword.isBlank()) {
+            throw new IllegalStateException("BRAIN_DB_PASSWORD environment variable is not set");
+        }
         return Flyway.configure()
                 .dataSource(details.jdbcUrl(), details.username(), details.password())
-                .placeholders(Map.of("app_db_password", appDbPassword))
+                .placeholders(Map.of("app_db_password", appDbPassword, "brain_db_password", brainDbPassword))
                 .load();
     }
 }

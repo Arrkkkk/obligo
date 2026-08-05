@@ -34,5 +34,117 @@ jobs:
       - name: Install dependencies
         run: uv sync --project apps/brain
 
+      - name: Cache Flyway CLI
+        uses: actions/cache@v4
+        with:
+          path: /tmp/flyway-cli
+          key: flyway-cli-10.10.0
+
+      - name: Apply apps/core Flyway migrations
+        # This job is deliberately self-sufficient rather than depending on
+        # ci-core.yml having run first. Two reasons that ordering can't be
+        # relied on, not just one: (1) today's CI Neon branch is a single
+        # persistent branch (see ci-core.yml's comment), so the two
+        # workflows racing on the very first PR that adds a migration
+        # ci-brain's tests depend on is a real, recurring possibility --
+        # every future migration a brain test newly depends on reopens the
+        # same race, it isn't a one-off from V11/V12 specifically; (2) if
+        # this project ever implements the branch-per-PR CI database this
+        # file's tech-choices table used to (incorrectly) claim was already
+        # done -- see CLAUDE.md's "Managed DB (CI)" row and its Phase 3
+        # note -- there would be no prior ci-core run against that PR's
+        # fresh branch to depend on *at all*, on every single PR. Running
+        # Flyway directly here is correct under both today's setup and
+        # that future one; a workflow_run/needs dependency on ci-core would
+        # only have covered today's case.
+        #
+        # apps/brain owns no migrations itself (schema ownership is
+        # apps/core's, per the blueprint), so this uses the standalone
+        # Flyway CLI against DATABASE_URL directly rather than running
+        # apps/core's Gradle build just to get its Flyway bean to fire --
+        # no JDK/Gradle needed in this job. Idempotent: Flyway's own
+        # schema-history tracking makes re-running this a no-op once a
+        # migration has already been applied by any prior run (this job's
+        # or ci-core's), regardless of which one got there first.
+        env:
+          # Owner role (rolbypassrls=true) -- the only role with the
+          # DDL/GRANT privileges migrations need, exactly like apps/core's
+          # own FlywayConfig. APP_DB_PASSWORD is required even though this
+          # job only tests apps/brain: Flyway applies every migration in
+          # order, and V2 needs app_db_password regardless of what's under
+          # test here.
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          APP_DB_PASSWORD: ${{ secrets.APP_DB_PASSWORD }}
+          BRAIN_DB_PASSWORD: ${{ secrets.BRAIN_DB_PASSWORD }}
+        run: |
+          set -euo pipefail
+
+          # Must track apps/core's actual resolved Flyway version (Spring
+          # Boot's BOM manages it -- there's no explicit version pin to
+          # read). Check with:
+          #   ./gradlew :apps:core:dependencies --configuration runtimeClasspath | grep flyway-core
+          # and update both this and the cache key above if it drifts.
+          # Verified locally against the real dev Neon branch (info +
+          # migrate, both idempotent no-ops against already-applied
+          # migrations) before trusting this in CI.
+          FLYWAY_VERSION="10.10.0"
+          FLYWAY_HOME="/tmp/flyway-cli/flyway-${FLYWAY_VERSION}"
+
+          if [ ! -x "${FLYWAY_HOME}/flyway" ]; then
+            mkdir -p /tmp/flyway-cli
+            curl -sSL -o /tmp/flyway.tar.gz \
+              "https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/${FLYWAY_VERSION}/flyway-commandline-${FLYWAY_VERSION}.tar.gz"
+            tar -xzf /tmp/flyway.tar.gz -C /tmp/flyway-cli
+          fi
+
+          # Parses DATABASE_URL into a JDBC URL + owner credentials the
+          # same way DatabaseConnectionDetails.parse() does on the Java
+          # side -- same level of rigor as that code (no URL-decoding of
+          # the password; matches the format DATABASE_URL is actually in
+          # today). Plain bash regex rather than a Python heredoc: this
+          # `run:` block is itself a YAML block scalar, so a heredoc body
+          # here carries the step's own indentation as literal leading
+          # whitespace into whatever reads it -- harmless for another
+          # shell command, but a Python heredoc would read those spaces as
+          # real indentation and fail with IndentationError. Verified
+          # locally under bash (the shell GitHub Actions actually runs
+          # `run:` steps with) against the real DATABASE_URL before
+          # trusting it here.
+          if [[ "$DATABASE_URL" =~ ^postgresql://([^:]+):([^@]+)@([^:/]+)(:([0-9]+))?/([^?]+)(\?(.*))?$ ]]; then
+            OWNER_USER="${BASH_REMATCH[1]}"
+            OWNER_PASSWORD="${BASH_REMATCH[2]}"
+            HOST="${BASH_REMATCH[3]}"
+            PORT="${BASH_REMATCH[5]}"
+            DBNAME="${BASH_REMATCH[6]}"
+            QUERY="${BASH_REMATCH[8]}"
+          else
+            echo "Could not parse DATABASE_URL" >&2
+            exit 1
+          fi
+
+          JDBC_URL="jdbc:postgresql://${HOST}"
+          [ -n "$PORT" ] && JDBC_URL="${JDBC_URL}:${PORT}"
+          JDBC_URL="${JDBC_URL}/${DBNAME}"
+          [ -n "$QUERY" ] && JDBC_URL="${JDBC_URL}?${QUERY}"
+
+          "${FLYWAY_HOME}/flyway" \
+            "-url=${JDBC_URL}" \
+            "-user=${OWNER_USER}" \
+            "-password=${OWNER_PASSWORD}" \
+            "-locations=filesystem:apps/core/src/main/resources/db/migration" \
+            "-placeholders.app_db_password=${APP_DB_PASSWORD}" \
+            "-placeholders.brain_db_password=${BRAIN_DB_PASSWORD}" \
+            migrate
+
       - name: Run tests
+        env:
+          # Same CI Neon branch, now guaranteed migrated by the step above
+          # regardless of ci-core's scheduling. DATABASE_URL (owner role)
+          # is used only to seed/tear down fixture rows in
+          # organizations/users/sources -- see test_tenant_isolation.py's
+          # docstring for why obligo_brain can't do that itself.
+          # BRAIN_DB_PASSWORD is the login for the obligo_brain role the
+          # actual tenant-isolation assertions run as.
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          BRAIN_DB_PASSWORD: ${{ secrets.BRAIN_DB_PASSWORD }}
         run: uv run --project apps/brain pytest
