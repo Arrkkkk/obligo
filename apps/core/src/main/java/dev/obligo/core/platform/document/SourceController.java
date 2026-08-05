@@ -66,26 +66,32 @@ public class SourceController {
     @PreAuthorize("hasAuthority('source:upload')")
     public ResponseEntity<Map<String, Object>> commit(Authentication authentication, @PathVariable UUID id) {
         AccessTokenClaims claims = (AccessTokenClaims) authentication.getPrincipal();
-        SourceUploadService.CommitResult result = sourceUploadService.commit(claims.orgId(), id);
+        try {
+            SourceUploadService.CommitResult result = sourceUploadService.commit(claims.orgId(), id);
 
-        return switch (result) {
-            case SourceUploadService.CommitResult.Committed c -> ResponseEntity.status(HttpStatus.ACCEPTED)
-                    .body(Map.of("sourceId", c.sourceId(), "status", "UPLOADED"));
-            case SourceUploadService.CommitResult.NotFound ignored -> ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(Map.of("error", "Source not found."));
-            case SourceUploadService.CommitResult.ObjectNotFound ignored -> ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(Map.of(
-                            "error",
-                            "Uploaded object not found in storage -- the PUT to the signed URL may not have completed yet."));
-            case SourceUploadService.CommitResult.Invalid invalid -> ResponseEntity.status(
-                            HttpStatus.UNPROCESSABLE_ENTITY)
-                    .body(Map.of("error", invalid.reason()));
-            case SourceUploadService.CommitResult.AlreadyRejected rejected -> ResponseEntity.status(
-                            HttpStatus.UNPROCESSABLE_ENTITY)
-                    .body(Map.of("error", rejected.reason()));
-            case SourceUploadService.CommitResult.Expired expired -> ResponseEntity.status(HttpStatus.GONE)
-                    .body(Map.of("error", expired.reason()));
-        };
+            return switch (result) {
+                case SourceUploadService.CommitResult.Committed c -> ResponseEntity.status(HttpStatus.ACCEPTED)
+                        .body(Map.of("sourceId", c.sourceId(), "status", "UPLOADED"));
+                case SourceUploadService.CommitResult.NotFound ignored -> ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(Map.of("error", "Source not found."));
+                case SourceUploadService.CommitResult.ObjectNotFound ignored -> ResponseEntity.status(
+                                HttpStatus.CONFLICT)
+                        .body(Map.of(
+                                "error",
+                                "Uploaded object not found in storage -- the PUT to the signed URL may not have completed yet."));
+                case SourceUploadService.CommitResult.Invalid invalid -> ResponseEntity.status(
+                                HttpStatus.UNPROCESSABLE_ENTITY)
+                        .body(Map.of("error", invalid.reason()));
+                case SourceUploadService.CommitResult.AlreadyRejected rejected -> ResponseEntity.status(
+                                HttpStatus.UNPROCESSABLE_ENTITY)
+                        .body(Map.of("error", rejected.reason()));
+                case SourceUploadService.CommitResult.Expired expired -> ResponseEntity.status(HttpStatus.GONE)
+                        .body(Map.of("error", expired.reason()));
+            };
+        } catch (BlobStoreUnavailableException e) {
+            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+                    .body(Map.of("error", "Storage is temporarily unavailable; please retry."));
+        }
     }
 
     public record UploadIntentRequest(String filename, long sizeBytes, String sha256, String mimeType) {}

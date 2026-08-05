@@ -1,5 +1,6 @@
 package dev.obligo.core.platform.document;
 
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,11 +33,31 @@ public class SourceUploadService {
     private static final Duration MAX_PENDING_AGE = Duration.ofMinutes(30);
 
     private final SourceRepository sourceRepository;
-    private final BlobStore blobStore;
+    private final ObjectProvider<BlobStore> blobStoreProvider;
 
-    public SourceUploadService(SourceRepository sourceRepository, BlobStore blobStore) {
+    /**
+     * ObjectProvider, not a direct BlobStore dependency: BlobStoreConfig's
+     * bean is @Conditional on Supabase credentials being present (same
+     * pattern as SecurityConfig's ObjectProvider<ClientRegistrationRepository>
+     * for Google), so no bean may exist at all. Constructor injection of
+     * BlobStore directly would fail bean creation for this whole service --
+     * and therefore for every endpoint under /api/v1/sources, including
+     * ones that don't touch storage -- the moment Supabase isn't
+     * configured. requireBlobStore() below is where that becomes a
+     * deliberate, typed, lazy failure instead.
+     */
+    public SourceUploadService(SourceRepository sourceRepository, ObjectProvider<BlobStore> blobStoreProvider) {
         this.sourceRepository = sourceRepository;
-        this.blobStore = blobStore;
+        this.blobStoreProvider = blobStoreProvider;
+    }
+
+    private BlobStore requireBlobStore() {
+        BlobStore blobStore = blobStoreProvider.getIfAvailable();
+        if (blobStore == null) {
+            throw new BlobStoreUnavailableException(
+                    "Storage is not configured in this environment (SUPABASE_URL/SUPABASE_SERVICE_ROLE_KEY/SUPABASE_STORAGE_BUCKET not set).");
+        }
+        return blobStore;
     }
 
     public sealed interface UploadIntentResult {
@@ -82,7 +103,7 @@ public class SourceUploadService {
         // source_versions table yet (see V10's comment), so n is always 1.
         String storageKey = "%s/%s/v1/%s.pdf".formatted(orgId, sourceId, normalizedSha256);
 
-        BlobStore.SignedUpload signedUpload = blobStore.createSignedUploadUrl(storageKey);
+        BlobStore.SignedUpload signedUpload = requireBlobStore().createSignedUploadUrl(storageKey);
 
         sourceRepository.insert(sourceId, orgId, uploadedBy, filename, sizeBytes, normalizedSha256, storageKey);
 
@@ -127,7 +148,7 @@ public class SourceUploadService {
         Source source = maybeSource.get();
 
         if (source.status() == SourceStatus.UPLOADED) {
-            return blobStore.headObject(source.storageKey()).isPresent()
+            return requireBlobStore().headObject(source.storageKey()).isPresent()
                     ? new CommitResult.Committed(source.id())
                     : new CommitResult.ObjectNotFound();
         }
@@ -142,6 +163,7 @@ public class SourceUploadService {
             return new CommitResult.Expired(reason);
         }
 
+        BlobStore blobStore = requireBlobStore();
         Optional<BlobStore.ObjectMetadata> metadata = blobStore.headObject(source.storageKey());
         if (metadata.isEmpty()) {
             return new CommitResult.ObjectNotFound();
