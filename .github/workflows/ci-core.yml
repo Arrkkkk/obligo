@@ -46,4 +46,14 @@ jobs:
           # why the app can't run as the owner role).
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           APP_DB_PASSWORD: ${{ secrets.APP_DB_PASSWORD }}
+          # Same Supabase project as local dev (§11's "sources" bucket) —
+          # unlike Neon, Supabase Storage has no low-cost per-branch
+          # bucket, so CI writes to the same shared bucket. Safe because
+          # every object key is namespaced by a fresh UUID source_id
+          # (SourceUploadService) and every test in SourceUploadFlowTest/
+          # BucketConfigAgreementTest deletes what it creates in @AfterEach
+          # — verified empty after both local and CI runs, not assumed.
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          SUPABASE_STORAGE_BUCKET: ${{ secrets.SUPABASE_STORAGE_BUCKET }}
         run: ./gradlew build
