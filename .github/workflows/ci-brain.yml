@@ -147,4 +147,4 @@ jobs:
           # actual tenant-isolation assertions run as.
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           BRAIN_DB_PASSWORD: ${{ secrets.BRAIN_DB_PASSWORD }}
-        run: uv run --project apps/brain pytest
+        run: uv run --project apps/brain pytest -v
