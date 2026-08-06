@@ -96,8 +96,8 @@ def two_orgs_with_one_segment_each() -> Iterator[TwoOrgFixture]:
             ):
                 conn.execute(
                     text(
-                        "INSERT INTO segments (id, org_id, source_id, text, char_start, char_end) "
-                        "VALUES (:id, :org_id, :source_id, :text, 0, :end)"
+                        "INSERT INTO segments (id, org_id, source_id, ordinal, page, text, char_start, char_end) "
+                        "VALUES (:id, :org_id, :source_id, 0, 1, :text, 0, :end)"
                     ),
                     {
                         "id": segment_id,
@@ -190,8 +190,8 @@ def test_org_can_insert_its_own_segment_but_rls_rejects_writing_another_orgs_org
         with tenant_scope() as conn:
             conn.execute(
                 text(
-                    "INSERT INTO segments (id, org_id, source_id, text, char_start, char_end) "
-                    "VALUES (:id, :org_id, :source_id, 'org a writing its own segment', 0, 29)"
+                    "INSERT INTO segments (id, org_id, source_id, ordinal, page, text, char_start, char_end) "
+                    "VALUES (:id, :org_id, :source_id, 1, 1, 'org a writing its own segment', 0, 29)"
                 ),
                 {"id": own_segment_id, "org_id": fixture.org_a_id, "source_id": fixture.source_a_id},
             )
@@ -207,8 +207,8 @@ def test_org_can_insert_its_own_segment_but_rls_rejects_writing_another_orgs_org
             with tenant_scope() as conn:
                 conn.execute(
                     text(
-                        "INSERT INTO segments (id, org_id, source_id, text, char_start, char_end) "
-                        "VALUES (:id, :org_id, :source_id, 'impersonation attempt', 0, 21)"
+                        "INSERT INTO segments (id, org_id, source_id, ordinal, page, text, char_start, char_end) "
+                        "VALUES (:id, :org_id, :source_id, 1, 1, 'impersonation attempt', 0, 21)"
                     ),
                     {"id": uuid.uuid4(), "org_id": fixture.org_b_id, "source_id": fixture.source_b_id},
                 )

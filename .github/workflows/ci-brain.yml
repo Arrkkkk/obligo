@@ -147,4 +147,24 @@ jobs:
           # actual tenant-isolation assertions run as.
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           BRAIN_DB_PASSWORD: ${{ secrets.BRAIN_DB_PASSWORD }}
+          # Added for the segmentation checkpoint (§21 Phase 3):
+          # test_segment_source.py needs real Supabase Storage to prove the
+          # full fetch-extract-persist path, no mocks -- same three vars
+          # ci-core.yml already wires for SourceUploadFlowTest, reused here
+          # rather than duplicated under a different name. Without these,
+          # that test file skips cleanly (see its own skipif); with them,
+          # it actually runs. tests/ingestion/test_pdf_round_trip.py (the
+          # pure-unit round-trip proof) needs neither DB nor storage and
+          # always runs regardless.
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          SUPABASE_STORAGE_BUCKET: ${{ secrets.SUPABASE_STORAGE_BUCKET }}
+          # Interim apps/core <-> apps/brain shared-secret gate (see
+          # CLAUDE.md's debt list -- this is not real per-request auth, just
+          # the cheapest defense-in-depth against the endpoint being
+          # reachable from somewhere it shouldn't be). Required for
+          # test_segment_source.py's real-infra tests to run rather than
+          # skip; must exist as a repo secret for this to have any value
+          # here, same as the others in this block.
+          BRAIN_SERVICE_TOKEN: ${{ secrets.BRAIN_SERVICE_TOKEN }}
         run: uv run --project apps/brain pytest -v
