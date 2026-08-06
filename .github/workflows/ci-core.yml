@@ -46,6 +46,15 @@ jobs:
           # why the app can't run as the owner role).
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           APP_DB_PASSWORD: ${{ secrets.APP_DB_PASSWORD }}
+          # obligo_brain (V11) — required unconditionally by FlywayConfig
+          # for the same reason APP_DB_PASSWORD is: Flyway migrations
+          # always run to boot the app, and V11 needs this placeholder.
+          # Omitting it here previously broke every test needing the
+          # Spring context (IllegalStateException at bean construction),
+          # not just apps/brain-related ones — same failure shape as the
+          # BlobStoreConfig regression CLAUDE.md documents, caught the
+          # same way: a real CI run, not assumed fixed by inspection.
+          BRAIN_DB_PASSWORD: ${{ secrets.BRAIN_DB_PASSWORD }}
           # Same Supabase project as local dev (§11's "sources" bucket) —
           # unlike Neon, Supabase Storage has no low-cost per-branch
           # bucket, so CI writes to the same shared bucket. Safe because
