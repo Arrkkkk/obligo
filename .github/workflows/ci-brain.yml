@@ -179,4 +179,19 @@ jobs:
           # skip; must exist as a repo secret for this to have any value
           # here, same as the others in this block.
           BRAIN_SERVICE_TOKEN: ${{ secrets.BRAIN_SERVICE_TOKEN }}
+          # Async-segmentation checkpoint (§21 Phase 3): Celery's broker
+          # connection (Upstash Redis TCP+TLS, a different credential pair
+          # from UPSTASH_REDIS_REST_URL/TOKEN -- see .env.example). Most of
+          # this checkpoint's tests (tests/tasks/test_segmentation_task.py,
+          # most of tests/api/test_segment_source.py) deliberately need
+          # NO broker at all -- they use Celery's .apply() (in-process,
+          # synchronous, no broker) or specifically test the
+          # broker-unavailable failure path. Only
+          # tests/tasks/test_celery_broker_integration.py (the real
+          # .delay()->Redis->separate-worker-process round trip and
+          # acks_late's redelivery behavior) needs this -- skips cleanly if
+          # unset, same pattern as the other real-infra guards in this
+          # file. Must exist as a repo secret (added via the GitHub UI, not
+          # this file) for that one file to run rather than skip.
+          CELERY_BROKER_URL: ${{ secrets.CELERY_BROKER_URL }}
         run: uv run --project apps/brain pytest -v

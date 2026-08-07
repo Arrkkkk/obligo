@@ -54,6 +54,31 @@ def _brain_role_url() -> str:
 _engine: Engine | None = None
 
 
+def reset_engine_for_forked_process() -> None:
+    """Celery's prefork pool forks worker child processes from a parent.
+    psycopg connections are not fork-safe -- if anything in the parent
+    process called get_engine() before the fork (opening real TCP
+    connections), every forked child would inherit those already-open
+    sockets/connection state, silently corrupting them. This is a
+    documented SQLAlchemy-under-Celery-prefork failure mode, not
+    speculation, and it's tenant-isolation-adjacent, not just a stability
+    concern: tenant_scope()'s guarantee rests on "one connection = one
+    transaction = one SET LOCAL app.org_id" holding for every checkout, and
+    a corrupted post-fork connection can violate that in ways that
+    misbehave rather than cleanly crash.
+
+    Wired to Celery's worker_process_init signal (tasks/celery_app.py),
+    which fires in each child process immediately after fork, before it
+    starts consuming tasks. Dropping the module-level singleton here --
+    rather than calling engine.dispose() on it -- means the next
+    get_engine() call in that child builds a brand new Engine from scratch,
+    never reusing anything (including internal connection-pool state) that
+    existed before the fork.
+    """
+    global _engine
+    _engine = None
+
+
 def get_engine() -> Engine:
     """One engine per process, created lazily on first use -- the Python
     analog of DataSourceConfig's single HikariDataSource bean.

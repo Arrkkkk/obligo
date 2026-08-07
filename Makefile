@@ -3,9 +3,19 @@ DEV_LOG_DIR := tmp/dev-logs
 
 .PHONY: dev dev-stop test seed demo
 
-# Starts brain, core, web natively (no Docker — see CLAUDE.md), each
-# backgrounded with its own log file. Mirrors docs/DEVELOPMENT.md's
-# "Running all three together" section exactly.
+# Starts brain, celery (async segmentation), core, web natively (no Docker
+# — see CLAUDE.md), each backgrounded with its own log file. Mirrors
+# docs/DEVELOPMENT.md's "Running all three together" section exactly.
+#
+# celery worker runs --pool=solo here, not Celery's own --pool=prefork
+# default: verified empirically (tests/platform/tenancy/test_fork_safety.py)
+# that opening a new network connection inside a forked child segfaults on
+# macOS (process.exitcode == -SIGSEGV, rooted in socket.getaddrinfo() —
+# Apple's system frameworks don't survive fork()), independent of anything
+# in this codebase. --pool=prefork is what CI and the real x86 Linux
+# Hetzner prod target use — that platform doesn't have this fork hazard.
+# Do not "fix" this by switching local dev to --pool=prefork; it's a
+# verified platform limitation, not a config someone forgot to set.
 dev:
 	@mkdir -p $(DEV_LOG_DIR)
 	@if [ ! -f .env ]; then \
@@ -17,6 +27,9 @@ dev:
 		exec uv run --project apps/brain uvicorn obligo_brain.main:app --app-dir apps/brain/src --port 8000' \
 		> $(DEV_LOG_DIR)/brain.log 2>&1 & echo $$! > $(DEV_LOG_DIR)/brain.pid
 	@nohup bash -c 'set -a; . ./.env; set +a; \
+		exec uv run --project apps/brain celery -A obligo_brain.tasks.celery_app worker --pool=solo -Q ocr --loglevel=info' \
+		> $(DEV_LOG_DIR)/celery.log 2>&1 & echo $$! > $(DEV_LOG_DIR)/celery.pid
+	@nohup bash -c 'set -a; . ./.env; set +a; \
 		export BRAIN_URL=http://localhost:8000; \
 		exec ./gradlew :apps:core:bootRun' \
 		> $(DEV_LOG_DIR)/core.log 2>&1 & echo $$! > $(DEV_LOG_DIR)/core.pid
@@ -26,6 +39,7 @@ dev:
 		> $(DEV_LOG_DIR)/web.log 2>&1 & echo $$! > $(DEV_LOG_DIR)/web.pid
 	@echo ""
 	@echo "brain:  http://localhost:8000/healthz      (log: $(DEV_LOG_DIR)/brain.log)"
+	@echo "celery: --pool=solo, queue=ocr              (log: $(DEV_LOG_DIR)/celery.log)"
 	@echo "core:   http://localhost:8080/healthz      (log: $(DEV_LOG_DIR)/core.log)"
 	@echo "web:    http://localhost:3000/api/healthz  (log: $(DEV_LOG_DIR)/web.log)"
 	@echo ""
@@ -34,7 +48,7 @@ dev:
 
 # Stops whatever `make dev` started, using the PID files it wrote.
 dev-stop:
-	@for svc in brain core web; do \
+	@for svc in brain celery core web; do \
 		pidfile=$(DEV_LOG_DIR)/$$svc.pid; \
 		if [ -f $$pidfile ]; then \
 			pid=$$(cat $$pidfile); \
