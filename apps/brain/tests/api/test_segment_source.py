@@ -3,10 +3,14 @@ Phase 3), no mocks -- mirrors SourceUploadFlowTest's discipline on the Java
 side: real Neon Postgres, real Supabase Storage, real PyMuPDF extraction,
 real HTTP request/response through the actual FastAPI route.
 
-test_pdf_round_trip.py already proves offset correctness against the pure
-extraction function; this file proves the same property survives the full
-path -- storage fetch, DB insert, DB read-back -- not just the in-memory
-return value.
+test_pdf_round_trip.py / test_ocr_round_trip.py already prove offset
+correctness against the pure extraction function (born-digital and OCR
+respectively); this file proves the same property survives the full path
+-- storage fetch, DB insert, DB read-back, including ocr_confidence (V14)
+-- not just the in-memory return value. FIXTURE_NAMES below includes the
+OCR checkpoint's three new fixtures (scanned, low-quality, mixed) alongside
+the four born-digital ones, so this suite exercises every extraction path
+through the real endpoint, not just PyMuPDF's.
 
 Storage objects are written directly via Supabase's authenticated-upload
 endpoint (service-role bearer, bypassing the presigned-URL flow) rather
@@ -53,6 +57,12 @@ FIXTURE_NAMES = [
     "bert_two_column.pdf",
     "irs_1040_table_heavy.pdf",
     "public_domain_chart.pdf",
+    # OCR checkpoint additions -- proves the full fetch-extract-persist path
+    # for the scanned and mixed cases too, not just born-digital. See
+    # tests/fixtures/pdfs/build_ocr_fixtures.py for how these were built.
+    "scanned_irs_1040.pdf",
+    "scanned_low_quality.pdf",
+    "mixed_born_digital_and_scanned.pdf",
 ]
 
 
@@ -174,7 +184,7 @@ def test_segment_source_persists_segments_that_round_trip_exactly(seeded_uploade
         with tenant_scope() as conn:
             rows = conn.execute(
                 text(
-                    "SELECT ordinal, page, char_start, char_end, text FROM segments "
+                    "SELECT ordinal, page, char_start, char_end, text, ocr_confidence FROM segments "
                     "WHERE source_id = :id ORDER BY ordinal"
                 ),
                 {"id": fixture.source_id},
@@ -186,14 +196,21 @@ def test_segment_source_persists_segments_that_round_trip_exactly(seeded_uploade
 
     # Full DB round trip: what got persisted must exactly match a fresh,
     # independent re-extraction of the original bytes -- not just "some N
-    # rows got written," but the exact (page, char_start, char_end, text)
-    # for every one of them, in order.
+    # rows got written," but the exact (page, char_start, char_end, text,
+    # ocr_confidence) for every one of them, in order. ocr_confidence is
+    # compared with a tolerance: the column is REAL (single-precision), and
+    # extract_segments computes in Python's native double precision, so a
+    # tiny float4/float8 rounding difference is expected and not a bug.
     for row, expected in zip(rows, expected_segments, strict=True):
         assert row["ordinal"] == expected.ordinal
         assert row["page"] == expected.page
         assert row["char_start"] == expected.char_start
         assert row["char_end"] == expected.char_end
         assert row["text"] == expected.text
+        if expected.ocr_confidence is None:
+            assert row["ocr_confidence"] is None
+        else:
+            assert row["ocr_confidence"] == pytest.approx(expected.ocr_confidence, abs=0.01)
 
     # And the defining offset property, recomputed from the persisted rows
     # alone (no dependency on extract_segments' internals): grouping by

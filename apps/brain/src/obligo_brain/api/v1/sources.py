@@ -1,5 +1,7 @@
 """Segmentation endpoint (blueprint §11, §21 Phase 3): given an already-
-committed source, extract PyMuPDF segments and persist them.
+committed source, extract segments (PyMuPDF text-layer per page, or
+Tesseract OCR per page for scanned pages -- see
+obligo_brain.ingestion.loaders.pdf's per-page routing) and persist them.
 
 **Known, deliberate gap -- not silently assumed solved:** this endpoint
 takes `org_id` as a plain request-body field, trusted from the caller.
@@ -85,8 +87,8 @@ def segment_source(source_id: UUID, body: SegmentSourceRequest) -> SegmentSource
                     conn.execute(
                         text(
                             "INSERT INTO segments "
-                            "(org_id, source_id, ordinal, page, char_start, char_end, text) "
-                            "VALUES (:org_id, :source_id, :ordinal, :page, :char_start, :char_end, :text)"
+                            "(org_id, source_id, ordinal, page, char_start, char_end, text, ocr_confidence) "
+                            "VALUES (:org_id, :source_id, :ordinal, :page, :char_start, :char_end, :text, :ocr_confidence)"
                         ),
                         {
                             "org_id": body.org_id,
@@ -96,6 +98,7 @@ def segment_source(source_id: UUID, body: SegmentSourceRequest) -> SegmentSource
                             "char_start": segment.char_start,
                             "char_end": segment.char_end,
                             "text": segment.text,
+                            "ocr_confidence": segment.ocr_confidence,
                         },
                     )
         except IntegrityError as e:

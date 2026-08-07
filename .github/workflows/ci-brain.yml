@@ -32,6 +32,17 @@ jobs:
       - name: Set up Python 3.12
         run: uv python install 3.12
 
+      - name: Install Tesseract OCR
+        # OCR checkpoint (§21 Phase 3): pytesseract is a thin wrapper around
+        # the tesseract binary/library, not a self-contained engine -- the
+        # binary has to actually exist on the runner or every OCR-path test
+        # fails closed with OcrExtractionError/TesseractNotFoundError
+        # rather than skipping. Matches CLAUDE.md's dev-engine note: this
+        # is the same Tesseract-for-non-x86-dev choice, run here because
+        # ubuntu-latest (x86_64) is still what CI runs on regardless of
+        # this being a dev-only engine choice for the arm64 local machine.
+        run: sudo apt-get update && sudo apt-get install -y tesseract-ocr
+
       - name: Install dependencies
         run: uv sync --project apps/brain
 
