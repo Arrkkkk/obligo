@@ -39,6 +39,12 @@ class RoleCapabilitiesTest {
                 row(Capability.EVIDENCE_APPROVE, true, true, true, false, false),
                 row(Capability.FINDING_RESOLVE, true, true, true, false, false),
                 row(Capability.SOURCE_UPLOAD, true, true, true, true, false),
+                // source:read has no row in blueprint §10.7's own table at
+                // all (see RoleCapabilities' class javadoc) — granted to
+                // every role, since it's implied by SOURCE_UPLOAD for four
+                // of them and by AUDITOR's own stated "read everything"
+                // intent for the fifth.
+                row(Capability.SOURCE_READ, true, true, true, true, true),
                 row(Capability.SOURCE_DELETE, true, true, false, false, false),
                 row(Capability.MEMBER_INVITE, true, true, false, false, false),
                 row(Capability.MEMBER_MANAGE_ROLES, true, true, false, false, false),

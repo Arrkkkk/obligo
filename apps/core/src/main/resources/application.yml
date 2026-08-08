@@ -8,5 +8,16 @@ server:
 brain:
   url: ${BRAIN_URL:http://localhost:8000}
 
+# SegmentationService's SSE polling loop (§21 Phase 3 SSE checkpoint).
+# poll-interval and heartbeat-interval are cheap to poll often -- brain's
+# GET /segment status is a single indexed row read -- so these defaults
+# favor responsiveness; max-stream-duration deliberately matches brain's
+# own STALE_PROCESSING_AFTER (sources.py, 900s), see SegmentationService's
+# own javadoc for why.
+segmentation:
+  poll-interval-ms: ${SEGMENTATION_POLL_INTERVAL_MS:2000}
+  heartbeat-interval-ms: ${SEGMENTATION_HEARTBEAT_INTERVAL_MS:15000}
+  max-stream-duration-seconds: ${SEGMENTATION_MAX_STREAM_DURATION_SECONDS:900}
+
 app:
   web-url: ${WEB_APP_URL:http://localhost:3000}

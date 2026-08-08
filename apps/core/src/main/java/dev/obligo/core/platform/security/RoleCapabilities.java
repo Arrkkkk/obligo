@@ -21,6 +21,17 @@ import java.util.Set;
  * yet (no obligations table until Phase 3+/5); granting the capability
  * here is correct, but until that predicate lands, a MEMBER with this
  * capability would see all obligations, not just their own.
+ *
+ * SOURCE_READ (§21 Phase 3 SSE checkpoint) has no row in blueprint §10.7's
+ * own capability table at all — that table only names source:upload and
+ * source:delete. Granted here to every role that already has SOURCE_UPLOAD
+ * (OWNER/ADMIN via their existing catch-all grants, LEGAL_OPS, MEMBER —
+ * reading the status of something you can upload is not a new trust
+ * boundary), plus AUDITOR on the strength of blueprint §10.7's own stated
+ * role intent ("Read everything including the audit log. Write nothing,
+ * ever.") even though AUDITOR has no SOURCE_UPLOAD. A real gap-fill, not a
+ * guess — documented here since it deviates from a table blueprint
+ * otherwise treats as authoritative.
  */
 public final class RoleCapabilities {
 
@@ -42,6 +53,7 @@ public final class RoleCapabilities {
                         Capability.EVIDENCE_APPROVE,
                         Capability.FINDING_RESOLVE,
                         Capability.SOURCE_UPLOAD,
+                        Capability.SOURCE_READ,
                         Capability.MCP_INVOKE_WRITE,
                         Capability.EXPORT_CREATE));
 
@@ -51,11 +63,16 @@ public final class RoleCapabilities {
                         Capability.OBLIGATION_READ, // scoped¹ — see class javadoc
                         Capability.OBLIGATION_WRITE, // scoped¹ — see class javadoc
                         Capability.EVIDENCE_ATTACH,
-                        Capability.SOURCE_UPLOAD));
+                        Capability.SOURCE_UPLOAD,
+                        Capability.SOURCE_READ));
 
         BY_ROLE.put(
                 Role.AUDITOR,
-                EnumSet.of(Capability.OBLIGATION_READ, Capability.AUDIT_READ, Capability.EXPORT_CREATE));
+                EnumSet.of(
+                        Capability.OBLIGATION_READ,
+                        Capability.AUDIT_READ,
+                        Capability.EXPORT_CREATE,
+                        Capability.SOURCE_READ));
     }
 
     private RoleCapabilities() {}

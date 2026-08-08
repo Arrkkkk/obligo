@@ -65,4 +65,13 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           SUPABASE_STORAGE_BUCKET: ${{ secrets.SUPABASE_STORAGE_BUCKET }}
+          # §21 Phase 3 SSE checkpoint (SegmentationFlowTest, BrainClientTest)
+          # — the real apps/brain service is never actually contacted in
+          # this job (a FakeBrainServer stands in, see FakeBrainServer's own
+          # javadoc for why); this secret only needs to be *some* non-empty
+          # value so BrainClientConfig's @Conditional bean gets created and
+          # so @EnabledIfEnvironmentVariable doesn't skip these tests.
+          # Already an existing repo secret, reused from ci-brain.yml — not
+          # a new one.
+          BRAIN_SERVICE_TOKEN: ${{ secrets.BRAIN_SERVICE_TOKEN }}
         run: ./gradlew build

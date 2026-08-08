@@ -19,6 +19,7 @@ public enum Capability {
     EVIDENCE_APPROVE("evidence:approve"),
     FINDING_RESOLVE("finding:resolve"),
     SOURCE_UPLOAD("source:upload"),
+    SOURCE_READ("source:read"),
     SOURCE_DELETE("source:delete"),
     MEMBER_INVITE("member:invite"),
     MEMBER_MANAGE_ROLES("member:manage_roles"),
