@@ -1,10 +1,11 @@
-"""One-off generator for this checkpoint's two new OCR fixtures. Run once
-(`uv run python tests/fixtures/pdfs/build_ocr_fixtures.py` from apps/brain)
-to (re)produce the committed PDFs below it in this directory -- not
-imported by any test, same role PdfTestFixtures plays as a generator on the
-Java side, or PDFBox-generated fixtures for the born-digital PdfTestFixtures
-suite: a real, reproducible generation script, not a hand-written byte
-string.
+"""One-off generator for this checkpoint's OCR fixtures, extended by the
+Phase 3 volume checkpoint (the 10-varied-PDF acceptance criterion) to add a
+fourth. Run once (`uv run python tests/fixtures/pdfs/build_ocr_fixtures.py`
+from apps/brain) to (re)produce the committed PDFs below it in this
+directory -- not imported by any test, same role PdfTestFixtures plays as a
+generator on the Java side, or PDFBox-generated fixtures for the
+born-digital PdfTestFixtures suite: a real, reproducible generation script,
+not a hand-written byte string.
 
 **scanned_irs_1040.pdf** -- genuinely image-only, zero embedded text layer.
 Built by rasterizing the real, already-committed irs_1040_table_heavy.pdf
@@ -51,6 +52,25 @@ per-document detector could not produce this file's expected result at
 all: page 1 must come back with ocr_confidence None on every segment, page
 2 with ocr_confidence set on every segment, from a single extract_segments
 call.
+
+**scanned_skewed.pdf** (added for the 10-varied-PDF volume checkpoint) --
+a genuinely different degradation mechanism from scanned_low_quality.pdf's
+blur/contrast/noise recipe: page 1 of the real, already-committed
+attention_is_all_you_need.pdf, rasterized at 300 DPI and rotated 6 degrees
+(`Image.rotate(6, expand=True, fillcolor=white)`) before being embedded
+image-only -- simulating a real, common scanning artifact (a page fed
+askew) rather than a low-resolution/noisy original. Tuned empirically
+against real Tesseract output, same discipline as scanned_low_quality.pdf,
+not guessed once: 3 degrees produced almost no degradation (word-level avg
+confidence 93+); 9 degrees made Tesseract's layout analysis give up
+entirely (image_to_data returned zero recognized words -- not a gradual
+degradation but a cliff). 6 degrees is the tuned middle ground -- 13
+blocks, 9 below LOW_OCR_CONFIDENCE_THRESHOLD, but several genuinely
+well-recognized (block confidences up to 96) with the misreads looking
+like real skew-induced OCR errors (e.g. "Attention {s All You Need" for
+"Attention Is All You Need") rather than noise. Real numbers recorded in
+tests/ingestion/test_ocr_round_trip.py's own comments, not just claimed
+here.
 """
 
 from __future__ import annotations
@@ -110,6 +130,16 @@ def _jpeg_bytes(image: Image.Image, quality: int = 85) -> bytes:
     return buf.getvalue()
 
 
+def _skew(image: Image.Image, degrees: float = 6.0) -> Image.Image:
+    """Rotation, not blur/noise -- a genuinely different real-world scan
+    artifact (a page fed askew) from _degrade's recipe. expand=True so the
+    rotated page's corners aren't clipped; fillcolor=white matches a real
+    scanner's blank background rather than leaving black corners that
+    would themselves confuse Tesseract in an unrealistic way.
+    """
+    return image.rotate(degrees, expand=True, fillcolor=(255, 255, 255), resample=Image.BICUBIC)
+
+
 def _build_mixed_fixture() -> bytes:
     out = fitz.open()
 
@@ -147,6 +177,14 @@ def main() -> None:
     mixed_bytes = _build_mixed_fixture()
     (FIXTURE_DIR / "mixed_born_digital_and_scanned.pdf").write_bytes(mixed_bytes)
     print(f"wrote mixed_born_digital_and_scanned.pdf ({len(mixed_bytes)} bytes, 2 pages)")
+
+    academic_doc = fitz.open(FIXTURE_DIR / "attention_is_all_you_need.pdf")
+    academic_page_1 = _rasterize(academic_doc[0])
+    academic_doc.close()
+    skewed_images = [_skew(academic_page_1)]
+    skewed_bytes = _build_image_only_pdf(skewed_images)
+    (FIXTURE_DIR / "scanned_skewed.pdf").write_bytes(skewed_bytes)
+    print(f"wrote scanned_skewed.pdf ({len(skewed_bytes)} bytes, 1 page)")
 
 
 if __name__ == "__main__":

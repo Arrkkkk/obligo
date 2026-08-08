@@ -26,6 +26,17 @@ rasterization or ocr.py's degradation logic ever changes.
   layer, copied losslessly from public_domain_chart.pdf), page 2 scanned.
   Proves per-page routing, not per-document -- see
   test_mixed_document_routes_each_page_independently.
+- scanned_skewed.pdf (added for the 10-varied-PDF volume checkpoint) --
+  page 1 of attention_is_all_you_need.pdf, rasterized and rotated 6
+  degrees before being embedded image-only. A genuinely different
+  degradation mechanism from scanned_low_quality.pdf's blur/contrast/noise
+  recipe -- a real, common scanning artifact (a page fed askew) instead of
+  a low-quality original. See
+  test_skewed_fixture_produces_real_sub_threshold_confidence for the
+  actual numbers observed, and build_ocr_fixtures.py's own docstring for
+  how 6 degrees was chosen (3 degrees barely degraded anything; 9 degrees
+  made Tesseract's layout analysis give up entirely -- not a gradual
+  slope).
 """
 
 from __future__ import annotations
@@ -136,6 +147,36 @@ def test_low_quality_fixture_produces_real_sub_threshold_confidence() -> None:
     _assert_offsets_round_trip(segments)
 
 
+def test_skewed_fixture_produces_real_sub_threshold_confidence() -> None:
+    """The rotation-based sibling of
+    test_low_quality_fixture_produces_real_sub_threshold_confidence --
+    same shape of proof, deliberately different degradation mechanism (see
+    this module's own docstring and build_ocr_fixtures.py's for why a
+    second, mechanically distinct degraded fixture is worth having, not
+    just a second blur/noise variant). Observed when this test was
+    written: 13 segments, confidences 0-96, 9/13 below the 60.0 threshold
+    -- real skew-induced misreads (e.g. "Attention {s All You Need" for
+    "Attention Is All You Need"), not fabricated. Exact counts aren't
+    pinned for the same Tesseract-version reason as the low-quality test.
+    """
+    pdf_bytes = (FIXTURE_DIR / "scanned_skewed.pdf").read_bytes()
+    segments = extract_segments(pdf_bytes)
+
+    assert segments, "scanned_skewed.pdf: extraction produced zero segments"
+    low_confidence_segments = [s for s in segments if is_low_confidence(s)]
+    assert low_confidence_segments, (
+        f"expected at least one segment below LOW_OCR_CONFIDENCE_THRESHOLD "
+        f"({LOW_OCR_CONFIDENCE_THRESHOLD}); confidences were "
+        f"{[s.ocr_confidence for s in segments]}"
+    )
+    assert any(not is_low_confidence(s) for s in segments), (
+        "expected at least one segment above threshold too -- a skewed but "
+        "still-legible scan, not unrecognizable noise"
+    )
+
+    _assert_offsets_round_trip(segments)
+
+
 def test_mixed_document_routes_each_page_independently() -> None:
     """The case per-page (not per-document) detection exists for: one
     born-digital page, one scanned page, in the same file. A per-document
@@ -162,11 +203,18 @@ def test_mixed_document_routes_each_page_independently() -> None:
 
 @pytest.mark.parametrize(
     "fixture_name",
-    ["attention_is_all_you_need.pdf", "bert_two_column.pdf", "irs_1040_table_heavy.pdf", "public_domain_chart.pdf"],
+    [
+        "attention_is_all_you_need.pdf",
+        "bert_two_column.pdf",
+        "irs_1040_table_heavy.pdf",
+        "public_domain_chart.pdf",
+        "us_copyright_act_definitions.pdf",
+        "federal_register_three_column.pdf",
+    ],
 )
 def test_born_digital_fixtures_never_get_ocr_confidence_set(fixture_name: str) -> None:
-    """Regression guard for the per-page routing change in pdf.py: the four
-    born-digital fixtures test_pdf_round_trip.py already proves exact
+    """Regression guard for the per-page routing change in pdf.py: every
+    born-digital fixture test_pdf_round_trip.py already proves exact
     round-tripping for must still route entirely through the text-layer
     path -- none of them should accidentally trip the scanned-page
     threshold and get routed to OCR.

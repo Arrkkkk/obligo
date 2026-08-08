@@ -41,6 +41,17 @@ class PdfStructuralValidatorTest {
     }
 
     @Test
+    void rejectsAPdfExceedingThePageCap() {
+        // Blueprint §21 Phase 3's own literal malicious-fixture example --
+        // "a 600-page file" -- found untested during the Phase 3 sign-off
+        // pass and closed here rather than left open.
+        byte[] pdf = PdfTestFixtures.manyPagesPdf(600);
+
+        assertThat(validator.findViolation(pdf, pdf.length))
+                .hasValueSatisfying(reason -> assertThat(reason).contains("page count"));
+    }
+
+    @Test
     void rejectsContentThatIsNotAStructurallyValidPdf() {
         byte[] garbage = "%PDF-1.4\nthis satisfies magic bytes but is not a real PDF structure\n"
                 .getBytes(StandardCharsets.US_ASCII);

@@ -76,6 +76,30 @@ final class PdfTestFixtures {
         }
     }
 
+    /**
+     * Blueprint §21 Phase 3's own literal example of a malicious fixture --
+     * "a 600-page file" -- distinct from the byte-size cap
+     * (FileSecurityLimits.MAX_SOURCE_SIZE_BYTES, tested separately at
+     * upload-intent) and from decompressionBombPdf() above (a
+     * highly-compressed stream tripping the expansion-ratio cap). This one
+     * exercises PdfStructuralValidator's page-count cap (MAX_PAGES = 500)
+     * specifically -- a real, literal acceptance-criteria case that had no
+     * fixture at all until the Phase 3 sign-off pass found the gap. Blank
+     * pages, no content streams: the page-count check runs before this
+     * class's stream-scanning loop, so nothing else needs to be present to
+     * trip it.
+     */
+    static byte[] manyPagesPdf(int pageCount) {
+        try (PDDocument document = new PDDocument()) {
+            for (int i = 0; i < pageCount; i++) {
+                document.addPage(new PDPage());
+            }
+            return toBytes(document);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+
     private static byte[] toBytes(PDDocument document) throws IOException {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         document.save(out);

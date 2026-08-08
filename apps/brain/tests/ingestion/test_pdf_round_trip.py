@@ -21,6 +21,25 @@ extraction and layout heuristics, which a minimal fixture wouldn't.
   layout, very different block shapes than prose.
 - public_domain_chart.pdf -- 2-page chart/table document, unusual mixed
   formatting relative to the other three.
+- us_copyright_act_definitions.pdf -- 3 pages excerpted from the real,
+  downloaded U.S. Copyright Office publication of Title 17 (17 U.S.C.
+  §101, "Definitions"), copyright.gov/title17/title17.pdf. Single-column
+  dense statutory prose -- genuinely different from all four fixtures
+  above (no equations/figures, no columns, no tabular structure), and
+  thematically apt for an obligations-extraction project. Confirmed
+  single-column via real x-coordinate block inspection before adding, not
+  assumed from the source's reputation.
+- federal_register_three_column.pdf -- 3 pages excerpted from a real
+  Federal Register issue (govinfo.gov/content/pkg/FR-2024-01-05/pdf/
+  FR-2024-01-05.pdf), pages covering an actual proposed-rule notice
+  (TTB/Alcohol and Tobacco Tax and Trade Bureau, Mendocino Ridge AVA
+  petition). Genuinely three-column, confirmed by inspecting real block
+  x-coordinates (three distinct column bands, not two) before choosing
+  these pages over the document's own two-column table-of-contents
+  pages -- the multi-column case bert_two_column.pdf doesn't cover
+  (2 columns vs. 3), with denser small-print blocks than academic prose.
+  Both federal government works (17 U.S.C. §105 -- no copyright), same
+  public-domain footing as the IRS/arXiv/ACL fixtures above.
 """
 
 from __future__ import annotations
@@ -38,6 +57,8 @@ FIXTURE_NAMES = [
     "bert_two_column.pdf",
     "irs_1040_table_heavy.pdf",
     "public_domain_chart.pdf",
+    "us_copyright_act_definitions.pdf",
+    "federal_register_three_column.pdf",
 ]
 
 
