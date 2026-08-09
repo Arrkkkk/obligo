@@ -1,0 +1,26 @@
+{
+  "source_text": "Vendor may issue a refund to Customer after receipt of the returned Product.",
+  "notes": "MAY + RELATIVE_TO_TRIGGER(AFTER) -- the merged form standing in for the grammar sketch's separate AFTER/BEFORE alternatives (see SPEC.md section 4). Note the absence of a duration here: unlike WITHIN, this form expresses 'sometime after X' with no bounded window -- a real, distinct shape of vagueness that the typechecker may or may not choose to flag, per its own future design.",
+  "ir": {
+    "grammar_version": "1.0.0",
+    "modality": "MAY",
+    "obligor": { "status": "UNRESOLVED", "alias": "Vendor" },
+    "obligee": { "status": "UNRESOLVED", "alias": "Customer" },
+    "action": "PROVIDE",
+    "object": { "class": "refund", "raw_text": "a refund" },
+    "temporal": {
+      "kind": "RELATIVE_TO_TRIGGER",
+      "direction": "AFTER",
+      "trigger": { "status": "UNRESOLVED", "raw": "receipt of the returned Product" }
+    },
+    "conditions": [],
+    "source": {
+      "segment_id": "00000000-0000-0000-0000-000000000004",
+      "char_start": 0,
+      "char_end": 76
+    },
+    "confidence": 0.88,
+    "underspecified": false,
+    "missing_fields": []
+  }
+}

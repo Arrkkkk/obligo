@@ -1,0 +1,5 @@
+{
+  "source_text": "Vendor must deliver the Deliverables if the Purchase Order is signed, unless the Purchase Order is cancelled within 5 days.",
+  "why_not_representable_in_v1": "Combines an IF condition (representable) with an UNLESS exception (not representable) on the same obligation. Under the alternative reading of 'conditions only' that was explicitly considered and rejected during this checkpoint (flat exceptions allowed, just not nested ones), this sentence would have been representable -- it is exactly the kind of case that reading would have let through. Naming it here pins down that the rejected reading is in fact rejected.",
+  "expected_parser_behavior": "Same as exception-unless.json: the UNLESS clause causes a parse failure routed through the repair loop, regardless of the IF clause sitting right next to it. The presence of a valid IF does not make the sentence partially compilable by silently keeping the condition and dropping the exception -- that would be exactly the silent-drop failure mode this boundary exists to prevent."
+}

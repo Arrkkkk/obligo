@@ -1,0 +1,30 @@
+{
+  "source_text": "Vendor must not disclose Confidential Information to any third party.",
+  "notes": "MUST_NOT with no temporal constraint at all -- demonstrates `temporal` present-but-null (the grammar's `temporal?` slot is optional). Both parties RESOLVED, showing the post-typecheck PartyRef state.",
+  "ir": {
+    "grammar_version": "1.0.0",
+    "modality": "MUST_NOT",
+    "obligor": {
+      "status": "RESOLVED",
+      "party_id": "11111111-1111-1111-1111-111111111111",
+      "canonical_name": "Acme Vendor Corp."
+    },
+    "obligee": {
+      "status": "RESOLVED",
+      "party_id": "22222222-2222-2222-2222-222222222222",
+      "canonical_name": "Beta Customer Inc."
+    },
+    "action": "DISCLOSE",
+    "object": { "class": "confidential_information", "raw_text": "Confidential Information" },
+    "temporal": null,
+    "conditions": [],
+    "source": {
+      "segment_id": "00000000-0000-0000-0000-000000000002",
+      "char_start": 0,
+      "char_end": 69
+    },
+    "confidence": 0.97,
+    "underspecified": false,
+    "missing_fields": []
+  }
+}

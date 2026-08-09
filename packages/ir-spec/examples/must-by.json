@@ -1,0 +1,25 @@
+{
+  "source_text": "Vendor must deliver the Deliverables to Customer by March 1, 2027.",
+  "notes": "MUST + BY. Both parties UNRESOLVED (pre-typecheck default -- symbol resolution hasn't run yet).",
+  "ir": {
+    "grammar_version": "1.0.0",
+    "modality": "MUST",
+    "obligor": { "status": "UNRESOLVED", "alias": "Vendor" },
+    "obligee": { "status": "UNRESOLVED", "alias": "Customer" },
+    "action": "DELIVER",
+    "object": { "class": "deliverables", "raw_text": "the Deliverables" },
+    "temporal": {
+      "kind": "BY",
+      "datetime": { "status": "RESOLVED", "date": "2027-03-01" }
+    },
+    "conditions": [],
+    "source": {
+      "segment_id": "00000000-0000-0000-0000-000000000001",
+      "char_start": 0,
+      "char_end": 66
+    },
+    "confidence": 0.94,
+    "underspecified": false,
+    "missing_fields": []
+  }
+}

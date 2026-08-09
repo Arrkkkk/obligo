@@ -1,0 +1,22 @@
+{
+  "source_text": "Vendor should notify Customer promptly of any security incident.",
+  "notes": "The blueprint's own headline underspecification example: 'promptly' is not a deadline. `temporal` is null here rather than a malformed WITHIN node -- how the parser/LLM candidate stage recognizes a vague temporal phrase as an underspecified WITHIN *candidate* (vs. simply absent temporal) is a grammar/typechecker design question for the next checkpoint; this example documents only the compiled IR's final shape once underspecification has been flagged, not the intermediate extraction mechanism. missing_fields' exact path-naming convention is illustrative, not frozen by this spec.",
+  "ir": {
+    "grammar_version": "1.0.0",
+    "modality": "SHOULD",
+    "obligor": { "status": "UNRESOLVED", "alias": "Vendor" },
+    "obligee": { "status": "UNRESOLVED", "alias": "Customer" },
+    "action": "NOTIFY",
+    "object": { "class": "security_incident", "raw_text": "any security incident" },
+    "temporal": null,
+    "conditions": [],
+    "source": {
+      "segment_id": "00000000-0000-0000-0000-000000000008",
+      "char_start": 0,
+      "char_end": 64
+    },
+    "confidence": 0.8,
+    "underspecified": true,
+    "missing_fields": ["temporal.unit"]
+  }
+}

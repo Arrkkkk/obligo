@@ -1,0 +1,104 @@
+// Obligation IR v1 -- frozen reference grammar.
+//
+// This file is DOCUMENTATION, not a wired-up parser. It captures the v1
+// surface syntax precisely enough to be loadable by `lark` for a syntax
+// sanity-check, but nothing in apps/brain imports or executes it yet --
+// that is the next Phase 4 checkpoint (apps/brain/compiler/grammar/
+// obligation.lark, per blueprint SS6.1's module layout). See SPEC.md for
+// the full rationale behind every production below.
+
+start: obligation
+
+obligation: modality party_ref ACTION object temporal? condition* source confidence
+
+// Four modalities, frozen (blueprint SS21's risk mitigation). Never add a
+// fifth without a grammar_version bump -- see SPEC.md section 10.
+modality: MUST | MUST_NOT | SHOULD | MAY
+MUST: "MUST"
+MUST_NOT: "MUST NOT" | "MUST_NOT"
+SHOULD: "SHOULD"
+MAY: "MAY"
+
+// party_ref is written here in its *parsed* (pre-typecheck) shape only: a
+// raw alias exactly as it appears in text. Resolution to a canonical
+// party_id is the typechecker's symbol-resolution job (next checkpoint's
+// typecheck.py/symbols.py), not this grammar's. A single obligation
+// production references party_ref twice at the AST-construction level
+// (obligor, obligee) -- both roles exist even though this grammar sketch,
+// like blueprint SS6.2's own, only spells out one production for it. See
+// SPEC.md section 5.
+party_ref: ALIAS
+ALIAS: ESCAPED_STRING | CNAME (" " CNAME)*
+
+// The closed action taxonomy (~40 verbs per blueprint SS6.2) is a
+// deliberate, tracked OPEN ITEM -- see SPEC.md section 12. Only the
+// lexical shape (upper snake case) is fixed here; the actual closed list
+// is not enumerated as literal terminals yet, on purpose.
+ACTION: /[A-Z][A-Z_]*/
+
+object: OBJECT_CLASS raw_text
+OBJECT_CLASS: /[a-z][a-z_]*/
+raw_text: ESCAPED_STRING
+
+// Five temporal forms, frozen (blueprint SS21). AFTER and BEFORE are
+// merged into one directional `relative_form` here -- this checkpoint's
+// own resolution of a real discrepancy between blueprint SS6.2's grammar
+// sketch (six alternatives) and SS21's stated count of five. See SPEC.md
+// section 4 for the full reasoning, not just this rule.
+temporal: by_form
+        | within_form
+        | every_form
+        | during_form
+        | relative_form
+
+by_form: "BY" datetime_ref
+within_form: "WITHIN" duration "OF" trigger_ref
+every_form: "EVERY" duration
+during_form: "DURING" interval
+relative_form: RELATIVE_DIRECTION trigger_ref
+RELATIVE_DIRECTION: "BEFORE" | "AFTER"
+
+// datetime_ref / trigger_ref are written in their unresolved (raw text)
+// shape only, same reasoning as party_ref above -- resolving a DATE
+// literal vs. a defined-term reference, or a trigger against a declared
+// event type vs. a defined term (type rule 4, SS6.2), is the
+// typechecker's job.
+datetime_ref: DATE | ALIAS
+interval: datetime_ref ".." datetime_ref
+duration: NUMBER UNIT
+UNIT: "h" | "d" | "bd" | "w" | "mo" | "y"
+trigger_ref: FREE_TEXT
+
+// Conditions only. There is deliberately NO `exception` / UNLESS
+// production anywhere in this grammar -- not omitted by oversight, and
+// not because "conditions only" was read as "exceptions are fine if
+// flat." See SPEC.md section 7 for the full reasoning: source text
+// expressing an UNLESS carve-out must fail to parse against this
+// grammar and be routed through the repair loop -- never silently
+// absorbed into `condition`, which would misrepresent a conditional
+// obligation as an unconditional one.
+condition: "IF" predicate
+predicate: atom
+         | predicate "AND" predicate
+         | predicate "OR" predicate
+         | "NOT" predicate
+atom: FREE_TEXT
+
+// The span-grounding citation (Standing Principle 4) and extraction
+// confidence. Both mandatory -- there is no obligation without a source
+// span, by construction.
+source: SEGMENT_ID CHAR_START CHAR_END
+confidence: FLOAT
+
+DATE: /\d{4}-\d{2}-\d{2}/
+NUMBER: /\d+(\.\d+)?/
+FLOAT: /0(\.\d+)?|1(\.0+)?/
+SEGMENT_ID: /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/
+CHAR_START: NUMBER
+CHAR_END: NUMBER
+FREE_TEXT: ESCAPED_STRING
+
+%import common.CNAME
+%import common.ESCAPED_STRING
+%import common.WS
+%ignore WS

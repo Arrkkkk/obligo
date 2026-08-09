@@ -1,0 +1,28 @@
+{
+  "source_text": "Vendor must maintain the Software for Customer in accordance with the SLA during the Term.",
+  "notes": "MUST + DURING, with a concrete resolved interval (showing DateRef's RESOLVED variant on both interval bounds, as a contrast to the UNRESOLVED defined-term references used elsewhere in this example set).",
+  "ir": {
+    "grammar_version": "1.0.0",
+    "modality": "MUST",
+    "obligor": { "status": "UNRESOLVED", "alias": "Vendor" },
+    "obligee": { "status": "UNRESOLVED", "alias": "Customer" },
+    "action": "MAINTAIN",
+    "object": { "class": "software", "raw_text": "the Software" },
+    "temporal": {
+      "kind": "DURING",
+      "interval": {
+        "start": { "status": "RESOLVED", "date": "2027-01-01" },
+        "end": { "status": "RESOLVED", "date": "2027-12-31" }
+      }
+    },
+    "conditions": [],
+    "source": {
+      "segment_id": "00000000-0000-0000-0000-000000000006",
+      "char_start": 0,
+      "char_end": 90
+    },
+    "confidence": 0.91,
+    "underspecified": false,
+    "missing_fields": []
+  }
+}

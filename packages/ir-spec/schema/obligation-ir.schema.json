@@ -1,0 +1,307 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://obligo.dev/schemas/obligation-ir-v1.schema.json",
+  "title": "Obligation IR v1",
+  "description": "The canonical, language-agnostic shape of a compiled obligation. This is the source of truth both apps/core (Java) and apps/brain (Python) validate against -- see SPEC.md for the full rationale behind every field and every deliberate omission. Scope: the compiler-produced IR only (what the extraction pipeline emits). Obligation *lifecycle* fields owned by Phase 5's domain model (status, risk_score, due_at, owner_user_id, version, deleted_at, binding_strength) are deliberately out of scope for this schema -- see SPEC.md section 11.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "grammar_version",
+    "modality",
+    "obligor",
+    "obligee",
+    "action",
+    "object",
+    "temporal",
+    "conditions",
+    "source",
+    "confidence",
+    "underspecified",
+    "missing_fields"
+  ],
+  "properties": {
+    "grammar_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$",
+      "const": "1.0.0",
+      "description": "Semver of the grammar this IR instance was compiled under. A grammar bump triggers a recompile job over affected obligations (blueprint SS6.2) -- IR is never silently reinterpreted under a new grammar version."
+    },
+    "modality": { "$ref": "#/$defs/Modality" },
+    "obligor": { "$ref": "#/$defs/PartyRef" },
+    "obligee": { "$ref": "#/$defs/PartyRef" },
+    "action": {
+      "type": "string",
+      "pattern": "^[A-Z][A-Z_]*$",
+      "description": "A verb from the closed action taxonomy (~40 verbs per blueprint SS6.2, e.g. NOTIFY, DELIVER, PAY, DELETE, RETAIN, MAINTAIN, INDEMNIFY, REPORT, PROVIDE, CURE). The full ~40-verb list is an explicit, tracked open item -- see SPEC.md section 12 -- NOT enumerated as a closed schema enum yet. Only the lexical shape (upper-snake-case) is validated here."
+    },
+    "object": { "$ref": "#/$defs/ObjectRef" },
+    "temporal": {
+      "description": "Present-but-nullable, matching the persisted `temporal jsonb` column: the grammar's `temporal?` slot is optional (e.g. MUST_NOT obligations often carry none at all), so the key is always present and is JSON null when no temporal constraint was extracted.",
+      "anyOf": [
+        { "$ref": "#/$defs/Temporal" },
+        { "type": "null" }
+      ]
+    },
+    "conditions": {
+      "type": "array",
+      "description": "Zero or more IF clauses (blueprint's `condition*`). Deliberately no sibling `exceptions` field -- see SPEC.md section 6. additionalProperties:false at the top level means a payload carrying an `exceptions` key fails validation outright, in both runtimes, rather than silently passing through.",
+      "items": { "$ref": "#/$defs/Condition" }
+    },
+    "source": { "$ref": "#/$defs/SourceRef" },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Extraction confidence, matching the `obligations.confidence` CHECK (BETWEEN 0 AND 1)."
+    },
+    "underspecified": {
+      "type": "boolean",
+      "description": "True if the typechecker could not fully resolve one or more fields (missing unit, missing anchor, unresolved party, undefined trigger, missing jurisdiction). Underspecified obligations are stored and surfaced, never discarded -- blueprint SS6.2's own design principle: the checker's failures are product features."
+    },
+    "missing_fields": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Named paths of fields the typechecker could not resolve (e.g. \"temporal.unit\", \"obligor\"). The exact path-naming convention is a typechecker-design detail for the next checkpoint, not frozen by this spec -- examples in this package use a plausible convention illustratively."
+    }
+  },
+  "$defs": {
+    "Modality": {
+      "type": "string",
+      "enum": ["MUST", "MUST_NOT", "SHOULD", "MAY"],
+      "description": "Frozen at exactly these four per blueprint SS21's risk mitigation. Never add a fifth without a grammar_version bump."
+    },
+
+    "PartyRef": {
+      "description": "A reference to an obligor or obligee. The parser only ever produces UNRESOLVED (the alias exactly as it appeared in source text); RESOLVED is written only by the typechecker's symbol-resolution stage (not designed by this checkpoint) once the alias is matched against the org's parties/aliases table.",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "alias"],
+          "properties": {
+            "status": { "const": "UNRESOLVED" },
+            "alias": { "type": "string", "minLength": 1 }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "party_id", "canonical_name"],
+          "properties": {
+            "status": { "const": "RESOLVED" },
+            "party_id": { "type": "string", "format": "uuid" },
+            "canonical_name": { "type": "string", "minLength": 1 }
+          }
+        }
+      ]
+    },
+
+    "ObjectRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["class", "raw_text"],
+      "properties": {
+        "class": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The object's class (e.g. \"customer_personal_data\", \"goods\", \"software\"), used by the verifier's conflict-candidate-set matching (blueprint SS6.7). Open vocabulary for v1, same tracked-open-item footing as the action taxonomy -- see SPEC.md section 12."
+        },
+        "raw_text": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The literal object phrase as it appeared in source text, preserved for traceability even after `class` is assigned."
+        }
+      }
+    },
+
+    "Duration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["amount", "unit"],
+      "properties": {
+        "amount": { "type": "number", "exclusiveMinimum": 0 },
+        "unit": {
+          "type": "string",
+          "enum": ["h", "d", "bd", "w", "mo", "y"],
+          "description": "bd = business days, requiring a jurisdiction to resolve a calendar (type rule 6, SS6.2) -- else UNDERSPECIFIED[missing:jurisdiction]."
+        }
+      }
+    },
+
+    "DateRef": {
+      "description": "An absolute date, either resolved to a concrete calendar date or an unresolved reference to a defined term/constant (e.g. \"the Delivery Date\") awaiting typechecker resolution against the document's effective_date and defined terms.",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "date"],
+          "properties": {
+            "status": { "const": "RESOLVED" },
+            "date": { "type": "string", "format": "date" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "raw"],
+          "properties": {
+            "status": { "const": "UNRESOLVED" },
+            "raw": { "type": "string", "minLength": 1 }
+          }
+        }
+      ]
+    },
+
+    "TriggerRef": {
+      "description": "An event or defined-term reference an obligation's timing depends on. RESOLVED distinguishes a declared event type from a defined term (type rule 4, SS6.2: 'trigger must be a declared event type or a defined term in the document -> else UNDEFINED_TRIGGER').",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "raw"],
+          "properties": {
+            "status": { "const": "UNRESOLVED" },
+            "raw": { "type": "string", "minLength": 1 }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status", "ref_type", "ref_id", "raw"],
+          "properties": {
+            "status": { "const": "RESOLVED" },
+            "ref_type": { "type": "string", "enum": ["EVENT", "DEFINED_TERM"] },
+            "ref_id": { "type": "string", "minLength": 1 },
+            "raw": { "type": "string", "minLength": 1 }
+          }
+        }
+      ]
+    },
+
+    "Temporal": {
+      "description": "Frozen at exactly these five forms (blueprint SS21's risk mitigation, with AFTER/BEFORE merged into one directional RELATIVE_TO_TRIGGER form per this checkpoint's own resolution of a real discrepancy between SS6.2's six-alternative grammar sketch and SS21's stated count of five -- see SPEC.md section 3). A genuinely compound expression (e.g. EVERY + DURING together) cannot be represented by any single variant here -- see examples/not-supported/every-during-composition.json.",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "datetime"],
+          "properties": {
+            "kind": { "const": "BY" },
+            "datetime": { "$ref": "#/$defs/DateRef" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "duration", "of"],
+          "properties": {
+            "kind": { "const": "WITHIN" },
+            "duration": { "$ref": "#/$defs/Duration" },
+            "of": { "$ref": "#/$defs/TriggerRef" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "duration"],
+          "properties": {
+            "kind": { "const": "EVERY" },
+            "duration": { "$ref": "#/$defs/Duration" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "interval"],
+          "properties": {
+            "kind": { "const": "DURING" },
+            "interval": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["start", "end"],
+              "properties": {
+                "start": { "$ref": "#/$defs/DateRef" },
+                "end": { "$ref": "#/$defs/DateRef" }
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "direction", "trigger"],
+          "properties": {
+            "kind": { "const": "RELATIVE_TO_TRIGGER" },
+            "direction": { "type": "string", "enum": ["BEFORE", "AFTER"] },
+            "trigger": { "$ref": "#/$defs/TriggerRef" }
+          }
+        }
+      ]
+    },
+
+    "Predicate": {
+      "description": "Boolean-combinable atoms (blueprint's `predicate := <atom> | predicate (AND|OR) predicate | NOT predicate`). This recursion is ordinary boolean logic within a single IF clause -- distinct from, and unaffected by, the 'no nested exceptions' decision in section 6, which excludes the UNLESS construct entirely, not boolean recursion within a condition's own predicate.",
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "raw"],
+          "properties": {
+            "type": { "const": "atom" },
+            "raw": { "type": "string", "minLength": 1 }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "left", "right"],
+          "properties": {
+            "type": { "const": "and" },
+            "left": { "$ref": "#/$defs/Predicate" },
+            "right": { "$ref": "#/$defs/Predicate" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "left", "right"],
+          "properties": {
+            "type": { "const": "or" },
+            "left": { "$ref": "#/$defs/Predicate" },
+            "right": { "$ref": "#/$defs/Predicate" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["type", "operand"],
+          "properties": {
+            "type": { "const": "not" },
+            "operand": { "$ref": "#/$defs/Predicate" }
+          }
+        }
+      ]
+    },
+
+    "Condition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["predicate"],
+      "properties": {
+        "predicate": { "$ref": "#/$defs/Predicate" }
+      }
+    },
+
+    "SourceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["segment_id", "char_start", "char_end"],
+      "description": "The span-grounding citation (Standing Principle 4: extraction output must cite a verbatim source span). NOT NULL on the persisted obligations row -- every IR instance must carry one. char_end > char_start is enforced by the database CHECK constraint and by application-level validation, not expressible in vanilla JSON Schema (no cross-field comparison without vendor extensions).",
+      "properties": {
+        "segment_id": { "type": "string", "format": "uuid" },
+        "char_start": { "type": "integer", "minimum": 0 },
+        "char_end": { "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}

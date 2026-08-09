@@ -1,0 +1,30 @@
+{
+  "source_text": "Vendor must indemnify Customer for direct damages if a claim arises from Vendor's breach and the claim is finally adjudicated.",
+  "notes": "MUST with a compound (AND) predicate inside a single IF condition -- demonstrates the Predicate type's boolean recursion, which is ordinary boolean logic and entirely unaffected by the 'no nested exceptions' decision (SPEC.md section 7): this is not an exception, and it is not nested conditions-within-conditions, just AND of two atoms within one condition.",
+  "ir": {
+    "grammar_version": "1.0.0",
+    "modality": "MUST",
+    "obligor": { "status": "UNRESOLVED", "alias": "Vendor" },
+    "obligee": { "status": "UNRESOLVED", "alias": "Customer" },
+    "action": "INDEMNIFY",
+    "object": { "class": "direct_damages", "raw_text": "direct damages" },
+    "temporal": null,
+    "conditions": [
+      {
+        "predicate": {
+          "type": "and",
+          "left": { "type": "atom", "raw": "a claim arises from Vendor's breach" },
+          "right": { "type": "atom", "raw": "the claim is finally adjudicated" }
+        }
+      }
+    ],
+    "source": {
+      "segment_id": "00000000-0000-0000-0000-000000000007",
+      "char_start": 0,
+      "char_end": 126
+    },
+    "confidence": 0.85,
+    "underspecified": false,
+    "missing_fields": []
+  }
+}

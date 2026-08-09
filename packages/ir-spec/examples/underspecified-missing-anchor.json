@@ -1,0 +1,25 @@
+{
+  "source_text": "Vendor must deliver the Deliverables to Customer by the Delivery Date.",
+  "notes": "A different underspecification mechanism than the missing-unit example: here `temporal` DOES have a recognized BY shape, but its DateRef is UNRESOLVED because 'the Delivery Date' isn't a resolvable defined term or constant in the document (type rule 2: BY requires a resolvable absolute date after constant folding against effective_date -> else UNDERSPECIFIED[missing:anchor]).",
+  "ir": {
+    "grammar_version": "1.0.0",
+    "modality": "MUST",
+    "obligor": { "status": "UNRESOLVED", "alias": "Vendor" },
+    "obligee": { "status": "UNRESOLVED", "alias": "Customer" },
+    "action": "DELIVER",
+    "object": { "class": "deliverables", "raw_text": "the Deliverables" },
+    "temporal": {
+      "kind": "BY",
+      "datetime": { "status": "UNRESOLVED", "raw": "the Delivery Date" }
+    },
+    "conditions": [],
+    "source": {
+      "segment_id": "00000000-0000-0000-0000-000000000009",
+      "char_start": 0,
+      "char_end": 70
+    },
+    "confidence": 0.87,
+    "underspecified": true,
+    "missing_fields": ["temporal.datetime"]
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "source_text": "Vendor must provide a status report to Customer every 30 days.",
+  "notes": "MUST + EVERY (recurring). Note this obligation carries no outer bound of its own -- v1's EVERY form has no companion DURING slot (a single obligation gets one temporal node, not a composition). The recurrence's real-world outer bound (e.g. 'during the Term') is left implicit to the source document's own effective_date/expiration, not re-encoded here -- see examples/not-supported/every-during-composition.json for the case this explicitly cannot represent.",
+  "ir": {
+    "grammar_version": "1.0.0",
+    "modality": "MUST",
+    "obligor": { "status": "UNRESOLVED", "alias": "Vendor" },
+    "obligee": { "status": "UNRESOLVED", "alias": "Customer" },
+    "action": "REPORT",
+    "object": { "class": "status_report", "raw_text": "a status report" },
+    "temporal": {
+      "kind": "EVERY",
+      "duration": { "amount": 30, "unit": "d" }
+    },
+    "conditions": [],
+    "source": {
+      "segment_id": "00000000-0000-0000-0000-000000000005",
+      "char_start": 0,
+      "char_end": 62
+    },
+    "confidence": 0.92,
+    "underspecified": false,
+    "missing_fields": []
+  }
+}

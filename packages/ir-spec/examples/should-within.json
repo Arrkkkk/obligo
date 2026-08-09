@@ -1,0 +1,26 @@
+{
+  "source_text": "Vendor should notify Customer within 5 business days of discovering a Security Incident.",
+  "notes": "SHOULD + WITHIN...OF. `bd` (business days) is the unit that requires a jurisdiction to resolve a calendar (type rule 6) -- not modeled in this example since that's a typechecker concern, not an IR-shape one.",
+  "ir": {
+    "grammar_version": "1.0.0",
+    "modality": "SHOULD",
+    "obligor": { "status": "UNRESOLVED", "alias": "Vendor" },
+    "obligee": { "status": "UNRESOLVED", "alias": "Customer" },
+    "action": "NOTIFY",
+    "object": { "class": "security_incident", "raw_text": "a Security Incident" },
+    "temporal": {
+      "kind": "WITHIN",
+      "duration": { "amount": 5, "unit": "bd" },
+      "of": { "status": "UNRESOLVED", "raw": "discovering a Security Incident" }
+    },
+    "conditions": [],
+    "source": {
+      "segment_id": "00000000-0000-0000-0000-000000000003",
+      "char_start": 0,
+      "char_end": 88
+    },
+    "confidence": 0.9,
+    "underspecified": false,
+    "missing_fields": []
+  }
+}
