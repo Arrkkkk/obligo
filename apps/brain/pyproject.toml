@@ -15,11 +15,14 @@ dependencies = [
     "pytesseract>=0.3.13",
     "pillow>=11.0",
     "celery[redis]>=5.5",
+    "lark>=1.2",
 ]
 
 [dependency-groups]
 dev = [
     "pytest>=8.3",
+    "hypothesis>=6.115",
+    "jsonschema>=4.23",
 ]
 
 [build-system]

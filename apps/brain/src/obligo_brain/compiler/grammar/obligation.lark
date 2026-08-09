@@ -1,0 +1,179 @@
+// Obligation IR v1 -- REAL, wired-up grammar.
+//
+// Parses the structured DSL string that the pipeline's IR Compiler stage
+// builds from an LLM Extractor candidate (blueprint SS6.2's LangGraph:
+// Extractor -> Span Grounder -> IR Compiler). This is NOT a natural-language
+// parser of raw contract text -- by the time a string reaches this grammar,
+// the modality word, action verb, party aliases, object phrase, temporal
+// phrase and condition text have already been segmented out of the source
+// sentence. This grammar's only job is to validate and structure that
+// candidate, deterministically, per Standing Principle 2 ("anything a
+// parser... can decide must not be decided by an LLM").
+//
+// Mirrors packages/ir-spec/grammar.lark's shape (same modalities, same five
+// temporal forms, same conditions-only boundary) but resolves two things
+// that reference grammar deliberately left as documentation-only gaps:
+//
+// 1. THE CLOSED ACTION TAXONOMY (packages/ir-spec/SPEC.md section 12's
+//    tracked open item). Derived from real obligation sentences pulled from
+//    three actual SEC EDGAR contract exhibits (a clinical-services MSA, a
+//    cross-border separation agreement with a DPA schedule, and a
+//    transition-services agreement) -- not invented in the abstract. 34
+//    verbs: blueprint's 10 named examples (NOTIFY, DELIVER, PAY, DELETE,
+//    RETAIN, MAINTAIN, INDEMNIFY, REPORT, PROVIDE, CURE) plus 24 more that
+//    recurred across those real filings. See the taxonomy discussion in
+//    this checkpoint's chat transcript for the full verb-by-verb citations.
+//
+// 2. TWO PARTIES, NOT ONE. packages/ir-spec/grammar.lark's `obligation` rule
+//    only spells out a single `party_ref`, with a comment explaining the
+//    AST is supposed to carry two roles (obligor, obligee) "at the
+//    AST-construction level" despite the rule showing one -- a real,
+//    admitted gap in that reference grammar, left for this checkpoint to
+//    resolve (SPEC.md section 4: "Obligation.obligor: PartyRef,
+//    Obligation.obligee: PartyRef" are both required by the frozen schema).
+//    Resolved here with two distinct rule names (`obligor`, `obligee`) at
+//    different grammar positions, so the Transformer can disambiguate by
+//    rule name without ambiguity.
+
+start: obligation
+
+obligation: modality obligor ACTION obligee object temporal? condition* source confidence
+
+// Four modalities, frozen (blueprint SS21's risk mitigation).
+modality: MUST | MUST_NOT | SHOULD | MAY
+MUST: "MUST"
+MUST_NOT: "MUST NOT" | "MUST_NOT"
+SHOULD: "SHOULD"
+MAY: "MAY"
+
+// PartyRef, in its *parsed* (pre-typecheck) shape only -- always
+// UNRESOLVED. Resolution to a canonical party_id is the typechecker's
+// symbol-resolution job (next checkpoint), not this grammar's.
+//
+// ALIAS is ESCAPED_STRING only -- deliberately NOT the bare
+// `CNAME (" " CNAME)*` alternative the reference grammar.lark carries.
+// Tested directly against this real, wired-up grammar: with the standard
+// Lark lexer, a bare multi-word alias has no terminator other than a token
+// that is only contextually valid elsewhere in the rule (e.g. the ACTION
+// keyword following the obligor position), so the lexer greedily consumes
+// the following ACTION token as though it were more of the alias --
+// producing a silent misparse, not a clean failure. Requiring a quoted
+// string closes that hazard entirely; it does not reduce what the DSL can
+// express, since the IR Compiler stage that emits this DSL always has the
+// alias as a discrete string field already.
+obligor: ALIAS
+obligee: ALIAS
+ALIAS: ESCAPED_STRING
+
+// The closed action taxonomy (~34 verbs, derived from real contract
+// language -- see header comment). Literal terminals, not an open regex:
+// this is the actual resolution of packages/ir-spec/SPEC.md section 12's
+// tracked open item, not a placeholder.
+ACTION: "NOTIFY" | "DELIVER" | "PAY" | "DELETE" | "RETAIN" | "MAINTAIN"
+      | "INDEMNIFY" | "REPORT" | "PROVIDE" | "CURE"
+      | "COOPERATE" | "COMPLY" | "DISCLOSE" | "TERMINATE" | "ASSIGN"
+      | "TRANSFER" | "WAIVE" | "EXECUTE" | "REPRESENT" | "ENSURE"
+      | "PROCURE" | "WITHHOLD" | "REIMBURSE" | "RETURN" | "GRANT"
+      | "USE" | "ESTABLISH" | "FINALIZE" | "CONSULT" | "NEGOTIATE"
+      | "PROCESS" | "RECOVER" | "REPAIR" | "APPOINT"
+
+object: OBJECT_CLASS raw_text
+OBJECT_CLASS: /[a-z][a-z_]*/
+raw_text: ESCAPED_STRING
+
+// Five temporal forms, frozen (blueprint SS21). AFTER and BEFORE merged
+// into one directional `relative_form`, per packages/ir-spec/SPEC.md
+// section 3's already-resolved discrepancy.
+temporal: by_form
+        | within_form
+        | every_form
+        | during_form
+        | relative_form
+
+by_form: "BY" datetime_ref
+within_form: "WITHIN" duration "OF" trigger_ref
+// The real compositional gap named in packages/ir-spec/examples/
+// not-supported/every-during-composition.json: "EVERY 30d DURING X..Y" is
+// legal per-clause but the schema's Temporal is a `oneOf` with exactly one
+// variant selected, so there is nowhere in the IR for the DURING bound to
+// attach once EVERY has claimed the obligation's one temporal slot. That
+// fixture explicitly assigns the deliberate choice here to "the next
+// checkpoint's grammar" -- this one. Resolved as: recognize the trailing
+// DURING as legal grammar (not a parse failure, unlike an UNLESS clause,
+// which has no production at all), compile as EVERY alone per SPEC.md
+// section 7's documented v1 workaround, and the parser emits a real
+// warning rather than dropping it with no trace -- consistent with this
+// project's standing "never silently drop" discipline.
+every_form: "EVERY" duration during_bound?
+during_bound: "DURING" interval
+during_form: "DURING" interval
+relative_form: RELATIVE_DIRECTION trigger_ref
+RELATIVE_DIRECTION: "BEFORE" | "AFTER"
+
+// datetime_ref: a DATE literal compiles directly to a RESOLVED DateRef (the
+// literal itself is already fully resolved -- no typechecker step needed,
+// consistent with examples/must-by.json). An ALIAS (a defined-term
+// reference like "the Delivery Date") compiles to an UNRESOLVED DateRef,
+// consistent with examples/underspecified-missing-anchor.json. Both
+// outcomes are produced by the parser alone; no typechecking involved.
+datetime_ref: DATE | ALIAS
+interval: datetime_ref ".." datetime_ref
+duration: NUMBER UNIT
+UNIT: "h" | "d" | "bd" | "w" | "mo" | "y"
+
+// trigger_ref is always UNRESOLVED at parse time (SPEC.md section 4: only
+// the typechecker distinguishes a declared EVENT from a DEFINED_TERM).
+trigger_ref: FREE_TEXT
+
+// Conditions only. No `exception`/UNLESS production anywhere in this
+// grammar -- verified mechanically in tests/compiler, not just asserted.
+//
+// predicate uses explicit `->` rule aliases for AND/OR/NOT. The reference
+// packages/ir-spec/grammar.lark's unaliased `predicate: atom | predicate
+// "AND" predicate | predicate "OR" predicate | "NOT" predicate` was tested
+// directly against this real grammar and found to produce a genuine bug,
+// not just a style nit: AND and OR both yield a `predicate` tree with two
+// `predicate`-wrapped children and no surviving token to tell them apart
+// (Lark filters the anonymous "AND"/"OR" string-literal terminals from the
+// tree by default) -- an AST built from that tree cannot tell "a AND b"
+// from "a OR b" at all. The `?predicate` prefix additionally inlines the
+// trivial single-child (`atom`) case so a Transformer doesn't need a
+// separate no-op passthrough method for it.
+// `predicate: predicate "AND" predicate` (three or more terms chained) is
+// genuinely ambiguous without grouping: "a AND b AND c" has no way to tell
+// ((a AND b) AND c) from (a AND (b AND c)) apart in the surface syntax, and
+// Lark's LALR builder resolves that ambiguity silently (it does not error)
+// by picking one associativity -- which is real but is not necessarily the
+// same nesting a caller intended when constructing the compound predicate.
+// Confirmed empirically, not assumed: a hypothesis-generated
+// AndPredicate(left=AndPredicate(a,b), right=c) printed without grouping
+// and reparsed came back as AndPredicate(left=a, right=AndPredicate(b,c))
+// -- same flat string, different tree. The `"(" predicate ")"` production
+// below closes this: unparse.py always parenthesizes a compound (And/Or/
+// Not) operand, so nesting is explicit in the DSL and never left to the
+// grammar's own default resolution.
+condition: "IF" predicate
+?predicate: atom
+          | predicate "AND" predicate -> and_predicate
+          | predicate "OR" predicate -> or_predicate
+          | "NOT" predicate -> not_predicate
+          | "(" predicate ")"
+atom: FREE_TEXT
+
+// The span-grounding citation (Standing Principle 4) and extraction
+// confidence. Both mandatory -- there is no obligation without a source
+// span, by construction.
+source: SEGMENT_ID CHAR_START CHAR_END
+confidence: FLOAT
+
+DATE: /\d{4}-\d{2}-\d{2}/
+NUMBER: /\d+(\.\d+)?/
+FLOAT: /0(\.\d+)?|1(\.0+)?/
+SEGMENT_ID: /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/
+CHAR_START: NUMBER
+CHAR_END: NUMBER
+FREE_TEXT: ESCAPED_STRING
+
+%import common.ESCAPED_STRING
+%import common.WS
+%ignore WS
