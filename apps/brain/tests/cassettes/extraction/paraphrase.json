@@ -1,0 +1,23 @@
+{
+  "recorded_at": "2026-08-10T07:46:12.614395+00:00",
+  "model_id": "llama-3.3-70b-versatile",
+  "segment_id": "00000000-0000-0000-0000-000000000002",
+  "segment_text": "Vendor shall, within the period commencing upon the earlier of (a) Vendor's actual knowledge of an event constituting a Security\nIncident, or (b) Vendor's receipt of notice thereof from a subprocessor, and ending five (5) business days thereafter, provide written notice to Customer describing such Security Incident in reasonable detail.",
+  "response": {
+    "status_code": 200,
+    "json": {
+      "model": "llama-3.3-70b-versatile",
+      "choices": [
+        {
+          "message": {
+            "content": "{\n  \"obligations\": [\n       {\n           \"span_text\": \"Vendor shall, within the period commencing upon the earlier of (a) Vendor's actual knowledge of an event constituting a Security Incident, or (b) Vendor's receipt of notice thereof from a subprocessor, and ending five (5) business days thereafter, provide written notice to Customer describing such Security Incident in reasonable detail.\",\n           \"modality\": \"MUST\",\n           \"obligor_alias\": \"Vendor\",\n           \"obligee_alias\": \"Customer\",\n           \"action\": \"PROVIDE\",\n           \"object_class\": \"security_incident\",\n           \"object_raw_text\": \"a Security Incident\",\n           \"temporal_raw\": \"within the period commencing upon the earlier of (a) Vendor's actual knowledge of an event constituting a Security Incident, or (b) Vendor's receipt of notice thereof from a subprocessor, and ending five (5) business days thereafter\",\n           \"condition_raws\": [],\n           \"confidence\": 0.9\n       }\n   ]\n}"
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 1047,
+        "completion_tokens": 219
+      }
+    }
+  }
+}

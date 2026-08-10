@@ -1,0 +1,23 @@
+{
+  "recorded_at": "2026-08-10T07:45:22.418274+00:00",
+  "model_id": "llama-3.3-70b-versatile",
+  "segment_id": "00000000-0000-0000-0000-000000000001",
+  "segment_text": "Vendor shall notify Customer in writing within five (5) business days of Vendor's discovery of any Security Incident affecting Customer Personal Data. Vendor shall not disclose Customer Personal Data to any third party without Customer's prior written consent.",
+  "response": {
+    "status_code": 200,
+    "json": {
+      "model": "llama-3.3-70b-versatile",
+      "choices": [
+        {
+          "message": {
+            "content": "{\n  \"obligations\": [\n       {\n           \"span_text\": \"Vendor shall notify Customer in writing within five (5) business days of Vendor's discovery of any Security Incident affecting Customer Personal Data.\",\n           \"modality\": \"MUST\",\n           \"obligor_alias\": \"Vendor\",\n           \"obligee_alias\": \"Customer\",\n           \"action\": \"NOTIFY\",\n           \"object_class\": \"security_incident\",\n           \"object_raw_text\": \"any Security Incident affecting Customer Personal Data\",\n           \"temporal_raw\": \"within five (5) business days\",\n           \"condition_raws\": [],\n           \"confidence\": 0.9\n       },\n       {\n           \"span_text\": \"Vendor shall not disclose Customer Personal Data to any third party without Customer's prior written consent.\",\n           \"modality\": \"MUST_NOT\",\n           \"obligor_alias\": \"Vendor\",\n           \"obligee_alias\": \"Customer\",\n           \"action\": \"DISCLOSE\",\n           \"object_class\": \"customer_personal_data\",\n           \"object_raw_text\": \"Customer Personal Data\",\n           \"temporal_raw\": null,\n           \"condition_raws\": [\"without Customer's prior written consent\"],\n           \"confidence\": 0.9\n       }\n   ]\n}"
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 1021,
+        "completion_tokens": 258
+      }
+    }
+  }
+}

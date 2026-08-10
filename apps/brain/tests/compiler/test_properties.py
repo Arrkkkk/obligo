@@ -12,7 +12,7 @@ explicitly told not to build:
 | Hash stability             | deferred | needs ir_hash's canonicalization function (typecheck-adjacent, not built) |
 | Typecheck soundness       | deferred | needs typecheck.py + Z3 lowering, neither built |
 | Temporal totality          | deferred | "resolves to a concrete interval or is UNDERSPECIFIED" is a typecheck-rule question (SPEC.md section 8); the parser alone has no notion of underspecification (see test_ir_spec_examples.py's underspecified-* tests) |
-| Grounding invariant        | deferred | needs real segment text to check a span against; this DSL-level parser never receives segment text as input (see grammar/obligation.lark's header: it parses an already-extracted candidate, not raw source text) |
+| Grounding invariant        | deferred here | needs real segment text to check a span against; this DSL-level parser never receives segment text as input (see grammar/obligation.lark's header: it parses an already-extracted candidate, not raw source text). Proven instead at tests/graphs/test_ground.py (the Extractor -> Span Grounder checkpoint, §21), the layer that actually has segment text to check against |
 | Conflict symmetry           | deferred | needs the verifier (Z3), not built |
 """
 

@@ -1,0 +1,9 @@
+# task -> environment -> active prompt version. Flip a value here to roll
+# a prompt back or forward -- no code change, no redeploy (blueprint
+# §13.5). Every new prompt version is a NEW file under prompts/<task>/ --
+# never edit an existing vN.yaml in place, same immutability discipline as
+# apps/core's Flyway migrations.
+
+extraction:
+  environments:
+    default: v1

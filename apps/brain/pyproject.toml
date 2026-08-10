@@ -16,6 +16,8 @@ dependencies = [
     "pillow>=11.0",
     "celery[redis]>=5.5",
     "lark>=1.2",
+    "pydantic>=2.9",
+    "pyyaml>=6.0",
 ]
 
 [dependency-groups]

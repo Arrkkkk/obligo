@@ -1,0 +1,23 @@
+{
+  "recorded_at": "2026-08-10T07:46:13.702671+00:00",
+  "model_id": "llama-3.3-70b-versatile",
+  "segment_id": "00000000-0000-0000-0000-000000000002",
+  "segment_text": "[Exhibit intentionally left blank. See separately delivered Schedule C for the referenced pricing tables, which are not reproduced in this document.]",
+  "response": {
+    "status_code": 200,
+    "json": {
+      "model": "llama-3.3-70b-versatile",
+      "choices": [
+        {
+          "message": {
+            "content": "{\n  \"obligations\": []\n}"
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 1008,
+        "completion_tokens": 9
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "recorded_at": "2026-08-10T07:46:13.374345+00:00",
+  "model_id": "llama-3.3-70b-versatile",
+  "segment_id": "00000000-0000-0000-0000-000000000002",
+  "segment_text": "Notification Requirements Table -- Security Incident: 5 business days. Data Breach: 24 hours. All notifications directed to Customer's designated security contact per Schedule B.",
+  "response": {
+    "status_code": 200,
+    "json": {
+      "model": "llama-3.3-70b-versatile",
+      "choices": [
+        {
+          "message": {
+            "content": "{\n  \"obligations\": [\n       {\n           \"span_text\": \"All notifications directed to Customer's designated security contact per Schedule B.\",\n           \"modality\": \"MUST\",\n           \"obligor_alias\": \"Vendor\",\n           \"obligee_alias\": \"Customer\",\n           \"action\": \"NOTIFY\",\n           \"object_class\": \"security_incident\",\n           \"object_raw_text\": \"notifications\",\n           \"temporal_raw\": null,\n           \"condition_raws\": [],\n           \"confidence\": 0.8\n       },\n       {\n           \"span_text\": \"Security Incident: 5 business days.\",\n           \"modality\": \"MUST\",\n           \"obligor_alias\": \"\",\n           \"obligee_alias\": \"\",\n           \"action\": \"NOTIFY\",\n           \"object_class\": \"security_incident\",\n           \"object_raw_text\": \"Security Incident\",\n           \"temporal_raw\": \"5 business days\",\n           \"condition_raws\": [],\n           \"confidence\": 0.7\n       },\n       {\n           \"span_text\": \"Data Breach: 24 hours.\",\n           \"modality\": \"MUST\",\n           \"obligor_alias\": \"\",\n           \"obligee_alias\": \"\",\n           \"action\": \"NOTIFY\",\n           \"object_class\": \"data_breach\",\n           \"object_raw_text\": \"Data Breach\",\n           \"temporal_raw\": \"24 hours\",\n           \"condition_raws\": [],\n           \"confidence\": 0.7\n       }\n   ]\n}"
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 1018,
+        "completion_tokens": 310
+      }
+    }
+  }
+}
