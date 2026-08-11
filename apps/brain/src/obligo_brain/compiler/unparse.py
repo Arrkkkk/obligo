@@ -100,11 +100,11 @@ def unparse(ob: ast.Obligation) -> str:
     parts.append(ob.source.segment_id)
     parts.append(str(ob.source.char_start))
     parts.append(str(ob.source.char_end))
-    parts.append(_format_confidence(ob.confidence))
+    parts.append(format_confidence(ob.confidence))
     return " ".join(parts)
 
 
-def _format_confidence(confidence: float) -> str:
+def format_confidence(confidence: float) -> str:
     # FLOAT terminal: /0(\.\d+)?|1(\.0+)?/ -- fixed-point only, no exponent
     # support. repr() is the shortest string that round-trips exactly back
     # to the same float, but for very small values (e.g. a low-confidence
