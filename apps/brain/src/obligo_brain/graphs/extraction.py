@@ -374,6 +374,14 @@ class ExtractionResult:
     grounded: list[GroundedCandidate]
     rejected: list[RejectedCandidate]
     agent_run_id: str
+    # The SegmentRecord this run fetched, exposed so a caller orchestrating
+    # a further stage against the SAME segment (graphs/pipeline.py's
+    # run_pipeline(), which needs one to hand to run_repair()) doesn't have
+    # to re-fetch it. Re-fetching would be a redundant query whose only
+    # effect would be a chance for the two to disagree -- the identical
+    # reasoning run_repair()'s own docstring already gives for taking a
+    # SegmentRecord instead of a segment_id.
+    segment: SegmentRecord
 
 
 def _fetch_segment(segment_id: str, conn: Connection) -> SegmentRecord:
@@ -523,4 +531,6 @@ def run_extraction(
             rejected=all_rejected,
         )
 
-    return ExtractionResult(grounded=grounded, rejected=all_rejected, agent_run_id=agent_run_id)
+    return ExtractionResult(
+        grounded=grounded, rejected=all_rejected, agent_run_id=agent_run_id, segment=segment
+    )

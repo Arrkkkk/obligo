@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 DEV_LOG_DIR := tmp/dev-logs
 
-.PHONY: dev dev-stop test seed demo
+.PHONY: dev dev-stop test seed demo check-migrations
 
 # Starts brain, celery (async segmentation), core, web natively (no Docker
 # — see CLAUDE.md), each backgrounded with its own log file. Mirrors
@@ -16,7 +16,13 @@ DEV_LOG_DIR := tmp/dev-logs
 # Hetzner prod target use — that platform doesn't have this fork hazard.
 # Do not "fix" this by switching local dev to --pool=prefork; it's a
 # verified platform limitation, not a config someone forgot to set.
-dev:
+#
+# Depends on check-migrations so a pending migration fails loudly here
+# instead of surfacing later as a confusing runtime error -- closing the
+# real gap CLAUDE.md's debt list names: V17__create_agent_runs.sql once
+# sat merged-but-unapplied for a whole Phase 4 checkpoint because `make
+# dev` never migrated and nothing local caught it.
+dev: check-migrations
 	@mkdir -p $(DEV_LOG_DIR)
 	@if [ ! -f .env ]; then \
 		echo "No .env found. Copy .env.example to .env and fill in real values first."; \
@@ -77,11 +83,26 @@ test:
 		exit 1; \
 	fi
 	@bash -c 'set -a; . ./.env; set +a; ./gradlew test'
+	@echo "== check-migrations: confirming no drift after apps/core's own Flyway bean ran =="
+	@$(MAKE) check-migrations
 	@echo "== apps/brain: pytest =="
 	uv run --project apps/brain pytest
 	@echo "== apps/web: no test suite yet (Phase 6 adds Playwright/vitest per the blueprint) — lint + build, matching ci-web.yml =="
 	npm --prefix apps/web run lint
 	npm --prefix apps/web run build
+
+# Read-only: reports migration drift (a migration in apps/core's directory
+# that isn't actually applied to whatever database DATABASE_URL points at),
+# never fixes it -- fixing it is Flyway's own `migrate`, run via apps/core's
+# Spring Boot bean or ci-brain.yml's standalone-CLI recipe. See
+# apps/brain/src/obligo_brain/scripts/check_migrations.py's module
+# docstring for the real incident (V17) that motivated this.
+check-migrations:
+	@if [ ! -f .env ]; then \
+		echo "No .env found. Copy .env.example to .env and fill in real values first."; \
+		exit 1; \
+	fi
+	@bash -c 'set -a; . ./.env; set +a; uv run --project apps/brain python -m obligo_brain.scripts.check_migrations'
 
 # No data model exists yet to seed — obligations, documents, etc. land in
 # Phase 3 (ingestion) and Phase 5 (obligation domain). See

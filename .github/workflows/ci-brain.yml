@@ -148,6 +148,27 @@ jobs:
             "-placeholders.brain_db_password=${BRAIN_DB_PASSWORD}" \
             migrate
 
+      - name: Check for migration drift
+        # Runs immediately after the Flyway apply step above, in CI's own
+        # environment -- genuinely different from local dev, where
+        # apps/brain/src/obligo_brain/scripts/check_migrations.py's
+        # `make check-migrations` invocation is what's supposed to catch
+        # this before it ships (the real gap: V17__create_agent_runs.sql
+        # sat merged-but-unapplied for a whole Phase 4 checkpoint because
+        # local dev had no equivalent check). This step exists to prove
+        # the checker behaves correctly here too, not just locally: it
+        # reuses the Flyway CLI already downloaded to /tmp/flyway-cli by
+        # the step above (same conventional path the script itself
+        # checks first), and must report zero drift immediately after a
+        # real `flyway migrate` run against the real CI branch -- a
+        # false positive here would mean this checker can't be trusted
+        # anywhere.
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          APP_DB_PASSWORD: ${{ secrets.APP_DB_PASSWORD }}
+          BRAIN_DB_PASSWORD: ${{ secrets.BRAIN_DB_PASSWORD }}
+        run: uv run --project apps/brain python -m obligo_brain.scripts.check_migrations
+
       - name: Run tests
         env:
           # Same CI Neon branch, now guaranteed migrated by the step above
@@ -156,8 +177,14 @@ jobs:
           # organizations/users/sources -- see test_tenant_isolation.py's
           # docstring for why obligo_brain can't do that itself.
           # BRAIN_DB_PASSWORD is the login for the obligo_brain role the
-          # actual tenant-isolation assertions run as.
+          # actual tenant-isolation assertions run as. APP_DB_PASSWORD is
+          # added here (previously only present in the Flyway-apply step
+          # above) so tests/scripts/test_check_migrations.py's one live
+          # test -- the one that has to pass for a real reason -- actually
+          # runs in CI instead of skipping for missing env, same as the
+          # "Check for migration drift" step just above needing it.
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          APP_DB_PASSWORD: ${{ secrets.APP_DB_PASSWORD }}
           BRAIN_DB_PASSWORD: ${{ secrets.BRAIN_DB_PASSWORD }}
           # Added for the segmentation checkpoint (§21 Phase 3):
           # test_segment_source.py needs real Supabase Storage to prove the
