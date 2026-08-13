@@ -67,6 +67,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import uuid
 from collections.abc import Sequence
 from dataclasses import dataclass
 
@@ -402,6 +403,20 @@ def _record_agent_run(
     pricing table, which is model-router/budget-enforcement scope (§6.10),
     not built at this checkpoint. Recording tokens (which cost_usd would
     be derived from) is what this function does today.
+
+    The row id is generated CLIENT-SIDE rather than read back with
+    `RETURNING id`, and that is load-bearing, not stylistic: Postgres
+    requires SELECT privilege on any column a RETURNING clause names, and
+    V17 grants obligo_brain INSERT and nothing else, on purpose. This
+    function originally used `RETURNING id` and would have failed with
+    "permission denied for table agent_runs" on EVERY call against the real
+    database -- found only when V18's checkpoint applied V17 to Neon for the
+    first time and ran a real-database test (tests/graphs/test_repair_db.py;
+    verified against the live database that the identical statement without
+    RETURNING gets past the privilege check and reaches the RLS policy).
+    Generating a surrogate key in the application is the fix that keeps
+    V17's minimal grant intact; widening it to SELECT to satisfy a
+    convenience clause would trade a real privilege for nothing.
     """
     node_trace = {
         "grounded": [
@@ -414,19 +429,30 @@ def _record_agent_run(
         ],
         "rejected": [{"reason": r.reason.value, "detail": r.detail} for r in rejected],
     }
+    # The general rule for input_hash is "hash the actual rendered call
+    # inputs" (it is V17's recorded key for §6.10's future content-hash
+    # response cache). This formula is a valid SPECIAL CASE of that rule,
+    # not a different one: for extraction, segment_id plus prompt_hash fully
+    # determine the rendered messages, so hashing the identifiers is
+    # equivalent to hashing the text. That equivalence does NOT hold for
+    # every caller -- graphs/repair.py's repair_input_hash() hashes the
+    # rendered system/user directly, because several failing candidates can
+    # share one segment_id and would otherwise collide on a cache key. See
+    # that function's docstring.
     input_hash = hashlib.sha256(f"{segment.id}:{prompt.prompt_hash}:{model_id}".encode()).hexdigest()
 
-    row = conn.execute(
+    agent_run_id = str(uuid.uuid4())
+    conn.execute(
         text(
             "INSERT INTO agent_runs "
-            "(org_id, node, provider, model_id, prompt_id, prompt_version, prompt_hash, "
+            "(id, org_id, node, provider, model_id, prompt_id, prompt_version, prompt_hash, "
             " input_hash, segment_id, input_tokens, output_tokens, latency_ms, status, node_trace) "
-            "VALUES (:org_id, 'extractor', 'groq', :model_id, :prompt_id, :prompt_version, :prompt_hash, "
+            "VALUES (:id, :org_id, 'extractor', 'groq', :model_id, :prompt_id, :prompt_version, :prompt_hash, "
             " :input_hash, :segment_id, :input_tokens, :output_tokens, :latency_ms, 'ok', "
-            " CAST(:node_trace AS jsonb)) "
-            "RETURNING id"
+            " CAST(:node_trace AS jsonb))"
         ),
         {
+            "id": agent_run_id,
             "org_id": org_id,
             "model_id": model_id,
             "prompt_id": prompt.id,
@@ -439,8 +465,8 @@ def _record_agent_run(
             "latency_ms": int(completion.latency_ms),
             "node_trace": json.dumps(node_trace),
         },
-    ).one()
-    return str(row.id)
+    )
+    return agent_run_id
 
 
 def run_extraction(

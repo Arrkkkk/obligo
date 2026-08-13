@@ -21,6 +21,7 @@ back. No redeploy, no code change (§13.5).
 from __future__ import annotations
 
 import hashlib
+import secrets
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -110,8 +111,33 @@ def render(prompt: Prompt, *, segment_text: str) -> tuple[str, str]:
     downstream of this call can mutate state without the grammar,
     typechecker, and grounder all agreeing first.
     """
-    import secrets
-
     nonce = secrets.token_hex(8)
     user = prompt.user_template.format(nonce=nonce, segment_text=segment_text)
+    return prompt.system, user
+
+
+def render_repair(prompt: Prompt, *, segment_text: str, failures: str) -> tuple[str, str]:
+    """The repair task's renderer (graphs/repair.py; blueprint §6.3 stage 3).
+
+    A separate function rather than a generalized `render(prompt, **vars)`
+    on purpose: render()'s guarantee above is a property of its *signature*
+    as much as its body -- a caller physically cannot pass anything but
+    segment_text, so the set of things that could ever reach a system prompt
+    is enumerable by reading one line. Widening it to **kwargs would trade
+    that for a convention. Each task gets its own explicitly-typed renderer;
+    every one of them returns `prompt.system` completely unmodified, which
+    is the invariant that actually matters (Standing Principle 4).
+
+    `failures` is a JSON string this codebase builds from its own compiler
+    diagnostics, but it embeds candidate fields that originated in the
+    document, so it is treated as untrusted content and fenced with the same
+    per-call nonce as segment_text. Note that str.format only scans the
+    TEMPLATE for placeholders -- brace characters inside the substituted
+    values are inert, so neither the document nor the diagnostic payload can
+    introduce a new substitution point.
+    """
+    nonce = secrets.token_hex(8)
+    user = prompt.user_template.format(
+        nonce=nonce, segment_text=segment_text, failures=failures
+    )
     return prompt.system, user

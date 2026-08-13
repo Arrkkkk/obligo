@@ -158,6 +158,25 @@ def _date_or_alias_dsl(raw: str) -> str:
     return _q(stripped)
 
 
+def canonical_modality(raw: str) -> str:
+    """The exact modality string this module puts into the DSL. Extracted as
+    a public function (behavior unchanged) so graphs/repair.py's hint
+    derivation can ask "which field did the grammar actually reject" about
+    the SAME value the grammar saw, rather than re-deriving it and drifting.
+    """
+    return raw.strip().upper()
+
+
+def canonical_action(raw: str) -> str:
+    """See canonical_modality()."""
+    return raw.strip().upper()
+
+
+def canonical_object_class(raw: str) -> str:
+    """See canonical_modality()."""
+    return re.sub(r"\s+", "_", raw.strip().lower())
+
+
 class CompileFailureReason(str, Enum):
     """Why a GroundedCandidate never became an ast.Obligation. Recorded,
     never silently dropped -- same discipline as
@@ -206,9 +225,9 @@ def _classify_temporal(temporal_raw: str) -> str | None:
 def _build_dsl(candidate: GroundedCandidate) -> str | CompileFailure:
     llm = candidate.llm_candidate
 
-    modality = llm.modality.strip().upper()
-    action = llm.action.strip().upper()
-    object_class = re.sub(r"\s+", "_", llm.object_class.strip().lower())
+    modality = canonical_modality(llm.modality)
+    action = canonical_action(llm.action)
+    object_class = canonical_object_class(llm.object_class)
 
     parts = [
         modality,

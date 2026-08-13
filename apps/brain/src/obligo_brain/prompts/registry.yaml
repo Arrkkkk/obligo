@@ -7,3 +7,7 @@
 extraction:
   environments:
     default: v1
+
+repair:
+  environments:
+    default: v1
