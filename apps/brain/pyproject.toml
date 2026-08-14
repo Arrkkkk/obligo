@@ -18,6 +18,7 @@ dependencies = [
     "lark>=1.2",
     "pydantic>=2.9",
     "pyyaml>=6.0",
+    "z3-solver>=4.13",
 ]
 
 [dependency-groups]
