@@ -12,11 +12,18 @@ import pytest
 from obligo_brain.prompts import registry
 
 
-def test_load_extraction_v1_round_trips_expected_fields():
+def test_load_extraction_round_trips_expected_fields():
+    """Asserts against registry.yaml's currently active extraction version
+    (v2 as of the clause-boundary-fix checkpoint, CLAUDE.md's Phase 4
+    section) rather than a hardcoded "v1" -- a version bump via
+    registry.yaml is meant to need no code change, and that includes this
+    test, which cares about the loading mechanics, not which specific
+    version happens to be active.
+    """
     prompt = registry.load("extraction")
 
     assert prompt.id == "extraction"
-    assert prompt.version == "v1"
+    assert prompt.version == "v2"
     assert prompt.model_constraints["provider"] == "groq"
     assert prompt.model_constraints["temperature"] == 0.0
     assert len(prompt.prompt_hash) == 64  # sha256 hex digest

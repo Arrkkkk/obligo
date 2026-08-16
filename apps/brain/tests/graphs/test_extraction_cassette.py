@@ -185,6 +185,101 @@ def test_malformed_json_attempt_cassette_actually_demonstrates_clean_empty_extra
     assert rejected == []
 
 
+def test_leading_temporal_clause_v1_reproduces_the_eval_pilot_bug():
+    """Regression pin for the real bug found live during the eval-pilot
+    checkpoint (CLAUDE.md's Phase 4 section, synthetic pilot item s5): for
+    a sentence that opens with a subordinate clause establishing timing
+    before the main obligation clause ("During the period from X to Y,
+    Vendor may access..."), the v1 prompt sometimes returned a span_text
+    narrowed to just the main clause while still quoting the excluded
+    leading clause verbatim into temporal_raw -- an internally
+    inconsistent candidate, correctly caught by ground_candidates() as
+    NESTED_FIELD_NOT_IN_SPAN. This is a REAL v1 model response, recorded
+    live on 2026-08-17 (a fresh reproduction, not the original pilot run),
+    kept on record as a permanent proof the bug was real and reproducible,
+    not a one-off. See prompts/extraction/v2.yaml's changelog for the fix
+    and test_leading_temporal_clause_v2_is_fixed below for its real-model
+    proof.
+    """
+    cassette = load_cassette("leading_temporal_clause_v1")
+    if cassette is None:
+        pytest.skip("cassettes/extraction/leading_temporal_clause_v1.json not recorded yet")
+
+    segment, call_result = _extract(cassette)
+    grounded, rejected = ground_candidates(segment, call_result.candidates)
+
+    assert grounded == []
+    assert len(rejected) == 1
+    assert rejected[0].reason == RejectionReason.NESTED_FIELD_NOT_IN_SPAN
+    assert "temporal_raw" in rejected[0].detail
+
+
+def test_leading_temporal_clause_v2_is_fixed():
+    """Same real segment as the v1 regression above, recorded again
+    (2026-08-17) after prompts/extraction/v2.yaml added an explicit
+    instruction plus a self-check step for leading scope-establishing
+    clauses. Proves the fix changes real model behavior, not just that the
+    instruction wording reads correctly: span_text now includes the
+    leading clause, so temporal_raw grounds cleanly.
+    """
+    cassette = load_cassette("leading_temporal_clause_v2")
+    if cassette is None:
+        pytest.skip("cassettes/extraction/leading_temporal_clause_v2.json not recorded yet")
+
+    segment, call_result = _extract(cassette)
+    grounded, rejected = ground_candidates(segment, call_result.candidates)
+
+    assert rejected == []
+    assert len(grounded) == 1
+    g = grounded[0]
+    grounded_text = segment.text[g.source.char_start : g.source.char_end]
+    assert "During the period from 2027-01-01 to 2027-12-31" in grounded_text
+    assert g.llm_candidate.temporal_raw == "During the period from 2027-01-01 to 2027-12-31"
+
+
+def test_leading_condition_clauses_v1_reproduces_the_eval_pilot_bug():
+    """Regression pin for the real bug's second recorded shape (eval-pilot
+    checkpoint's synthetic pilot item s10): a sentence opening with two
+    stacked leading "if" clauses ("If the Agreement is renewed and if
+    Customer requests it in writing, Vendor should provide..."). Same root
+    cause as the temporal case above -- v1's span_text excluded the
+    leading clauses while condition_raws still quoted from them. Real v1
+    model response, recorded live 2026-08-17.
+    """
+    cassette = load_cassette("leading_condition_clauses_v1")
+    if cassette is None:
+        pytest.skip("cassettes/extraction/leading_condition_clauses_v1.json not recorded yet")
+
+    segment, call_result = _extract(cassette)
+    grounded, rejected = ground_candidates(segment, call_result.candidates)
+
+    assert grounded == []
+    assert len(rejected) == 1
+    assert rejected[0].reason == RejectionReason.NESTED_FIELD_NOT_IN_SPAN
+    assert "condition_raws[0]" in rejected[0].detail
+
+
+def test_leading_condition_clauses_v2_is_fixed():
+    """Same real segment as the v1 regression above, recorded again
+    (2026-08-17) against the v2 prompt. span_text now includes both
+    leading "if" clauses, so both condition_raws entries ground cleanly.
+    """
+    cassette = load_cassette("leading_condition_clauses_v2")
+    if cassette is None:
+        pytest.skip("cassettes/extraction/leading_condition_clauses_v2.json not recorded yet")
+
+    segment, call_result = _extract(cassette)
+    grounded, rejected = ground_candidates(segment, call_result.candidates)
+
+    assert rejected == []
+    assert len(grounded) == 1
+    g = grounded[0]
+    grounded_text = segment.text[g.source.char_start : g.source.char_end]
+    assert "If the Agreement is renewed" in grounded_text
+    assert "if Customer requests it in writing" in grounded_text
+    assert len(g.llm_candidate.condition_raws) == 2
+
+
 def test_injection_canary_cassette_never_bypasses_grounding():
     """§17.5's injection-canary discipline, this checkpoint's first real
     entry: a segment whose text contains a planted instruction (e.g.

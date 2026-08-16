@@ -1,0 +1,24 @@
+{
+  "recorded_at": "2026-08-16T18:49:03.969669+00:00",
+  "model_id": "llama-3.3-70b-versatile",
+  "prompt_version": "v1",
+  "segment_id": "00000000-0000-0000-0000-000000000003",
+  "segment_text": "If the Agreement is renewed and if Customer requests it in writing, Vendor should provide an updated data processing addendum to Customer.",
+  "response": {
+    "status_code": 200,
+    "json": {
+      "model": "llama-3.3-70b-versatile",
+      "choices": [
+        {
+          "message": {
+            "content": "{\n  \"obligations\": [\n       {\n           \"span_text\": \"Vendor should provide an updated data processing addendum to Customer\",\n           \"modality\": \"SHOULD\",\n           \"obligor_alias\": \"Vendor\",\n           \"obligee_alias\": \"Customer\",\n           \"action\": \"PROVIDE\",\n           \"object_class\": \"data_processing_addendum\",\n           \"object_raw_text\": \"an updated data processing addendum\",\n           \"temporal_raw\": null,\n           \"condition_raws\": [\n               \"if the Agreement is renewed\",\n               \"if Customer requests it in writing\"\n           ],\n           \"confidence\": 0.8\n       }\n   ]\n}"
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 1004,
+        "completion_tokens": 139
+      }
+    }
+  }
+}

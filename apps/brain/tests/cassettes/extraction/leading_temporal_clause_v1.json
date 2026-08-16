@@ -1,0 +1,24 @@
+{
+  "recorded_at": "2026-08-16T18:49:03.467130+00:00",
+  "model_id": "llama-3.3-70b-versatile",
+  "prompt_version": "v1",
+  "segment_id": "00000000-0000-0000-0000-000000000003",
+  "segment_text": "During the period from 2027-01-01 to 2027-12-31, Vendor may access Customer's testing environment for integration purposes.",
+  "response": {
+    "status_code": 200,
+    "json": {
+      "model": "llama-3.3-70b-versatile",
+      "choices": [
+        {
+          "message": {
+            "content": "{\n  \"obligations\": [\n       {\n           \"span_text\": \"Vendor may access Customer's testing environment for integration purposes.\",\n           \"modality\": \"MAY\",\n           \"obligor_alias\": \"Vendor\",\n           \"obligee_alias\": \"Customer\",\n           \"action\": \"ACCESS\",\n           \"object_class\": \"testing_environment\",\n           \"object_raw_text\": \"Customer's testing environment\",\n           \"temporal_raw\": \"During the period from 2027-01-01 to 2027-12-31\",\n           \"condition_raws\": [],\n           \"confidence\": 0.8\n       }\n   ]\n}"
+          }
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 1014,
+        "completion_tokens": 132
+      }
+    }
+  }
+}
