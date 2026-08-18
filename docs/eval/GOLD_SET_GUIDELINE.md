@@ -1,6 +1,6 @@
 # Obligo Tier-2 Gold Set — Annotation Guideline
 
-**Version:** v0.7 (DRAFT — not yet frozen)
+**Version:** v0.8 (DRAFT — not yet frozen)
 **Created:** 2026-08-17
 **Status:** No items have been annotated against this document yet.
 **v0.2 change:** corpus rebuilt after a selection-bias audit — see §13.
@@ -11,6 +11,14 @@
 **v0.7 change:** corpus independently re-verified and the statistics made reproducible — see
 §18. Three open questions decided: absent-obligee confirmed (§3.5), synthetic items confirmed
 OUT (§11), held-out mechanism fixed (§7). Two stale internal numbers corrected (§9, §13).
+**v0.8 change:** the last open question decided — parenthetical-numeral `WITHIN` items are
+annotated honestly and criterion 1b is reported both ways (§11, §9). One field added to §1.
+**No open questions remain.** v0.8 is the version batch 1 is annotated under.
+
+*Why v0.8 and not an edit to v0.7:* v0.7 was committed, and every gold item stamps the
+guideline version it was annotated under. Amending a committed version in place would make
+one version string denote two different rulesets — precisely what this document's own
+versioning discipline forbids.
 
 This guideline governs the construction of the 100-item Tier-2 gold set that blueprint
 §19.7 specifies and that Phase 4 acceptance criterion 2 (Tier-2 fully-correct-IR rate
@@ -51,7 +59,9 @@ Each item records:
 | `underspecified` | annotated | bool (§3.9) |
 | `missing_fields` | annotated | reported, **excluded from the scoring predicate** |
 | `vague_temporal_phrase` | annotated | literal phrase or `null`; **not scored** (§15) |
+| `known_gap` | annotated | `null`, or the named v1 gap this item exercises (§8, §11) |
 | `annotator_confidence` | annotated | `CONFIDENT` \| `AMBIGUOUS` \| `UNCERTAIN` (§14) |
+| `annotated_at` | stamped | ISO-8601 timestamp; feeds per-item pace measurement |
 | `rules_cited` | annotated | **required** — the § numbers invoked (§14.5) |
 | `guideline_version` | stamped | e.g. `v0.6` |
 | `annotator_notes` | free text | required whenever a rule was close to the line |
@@ -373,6 +383,10 @@ scope decision in §11.
 **1b is gameable in isolation**: a prompt emitting fewer, safer candidates scores higher
 while extracting less. **1b is therefore always reported paired with the `MISSED` count.**
 
+**1b is also always reported twice (v0.8, §11):** once over all items, once excluding
+items tagged `known_gap`. Both are published together; neither is quoted alone. The split
+is computed mechanically from the `known_gap` field, not reconstructed by hand.
+
 Both numbers are reported alongside: the spurious-extraction count over zero-obligation
 segments, the share of items correctly `underspecified` (so "compiled faithfully" is not
 misread as "resolved"), and the prompt/model/grammar versions in force.
@@ -392,18 +406,32 @@ misread as "resolved"), and the prompt/model/grammar versions in force.
 
 ## 11. Open questions for review
 
-**OPEN — 1 of 4. The parenthetical-numeral finding (§8).** The large majority of real
-`WITHIN` deadlines in this corpus use a form v1 deliberately rejects. The figure was
-deferred pending verification and **has now been independently verified** (§18): 74% by
-the original measurement, 84% by a second, differently-defined measurement taken against
-`_WITHIN_RE` itself. The finding is real at either number, so the scope decision is live.
-Three options, and this is a scope decision, not an annotation one: **(a)** annotate them
-and let criterion 1b absorb the loss — honest, but likely puts ≥90% out of reach;
-**(b)** widen `_WITHIN_RE` to accept spelled-number-plus-parenthetical before measurement
-— a real code change, arguably in-scope for Phase 4's classifier, but it is tuning the
-compiler to the corpus it will be graded on; **(c)** annotate them, measure both, and
-report 1b with and without the known-gap items. **Recommend (c)**, then decide on (b) with
-a real number in hand. **This must be decided before batch 1 is drawn.**
+**RESOLVED v0.8 — 1. The parenthetical-numeral finding (§8).** Decided as **(c)**:
+annotate, measure both ways, and only then consider a code change. The figure was deferred
+pending verification and **was independently verified** (§18): 74% by the original
+measurement, 84% by a second, differently-defined measurement taken against `_WITHIN_RE`
+itself. The finding is real at either number.
+
+**The rule this fixes, binding on every batch:**
+
+- Parenthetical-form `WITHIN` items are **annotated honestly**, exactly as the document
+  writes them. The annotator records what the contract says; the expected v1 outcome is
+  `UNMAPPABLE_TEMPORAL` under the current grammar, and that is a **measurement, not an
+  annotation error** (§8's standing rule, unchanged).
+- **Criterion 1b is reported twice**: over all items, and excluding known-gap items. Both
+  numbers are published together. Neither is presented alone, in either direction — the
+  with-gap number is not buried, and the without-gap number is not quoted as if it were
+  the headline compile rate.
+- Every such item is tagged `known_gap: "within_parenthetical"` so the two denominators
+  are computed mechanically rather than reconstructed by hand afterward.
+- **Widening `_WITHIN_RE` is deferred, not rejected.** Revisit only once the paired
+  numbers exist. Changing the classifier first would tune the compiler to the corpus it is
+  about to be graded on, and would destroy the baseline that makes the widening's value
+  measurable at all.
+
+Rejected alternatives, recorded so they are not relitigated: **(a)** absorb the loss into
+a single 1b number — honest but discards the diagnostic split for free; **(b)** widen
+`_WITHIN_RE` before measuring — the tuning-to-the-corpus objection above.
 
 **RESOLVED v0.7 — 2. Absent-obligee rule (§3.5).** Confirmed: carried as underspecification
 (`missing_fields: ["obligee"]`), not a compile failure. The basis is that the extraction

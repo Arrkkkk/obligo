@@ -532,6 +532,87 @@ def enumerate_pool(text: str) -> list[str]:
     ]
 
 
+def build_pool(dest: Path, manifest: dict) -> list[dict]:
+    """Enumerates the pool with document identity and stratum attached.
+
+    Stratum is read from the manifest's own `xref_pct` field, which is what
+    guideline section 2.2 names -- deliberately not this script's
+    recomputed value, so the stratum boundary does not move with a metric
+    definition.
+    """
+    pool: list[dict] = []
+    for kind, doc in _iter_docs(manifest):
+        path = _doc_path(dest, kind, doc["id"])
+        segments = enumerate_pool(extract_text(path.read_bytes(), kind))
+        stratum = "hard" if int(doc["xref_pct"]) >= 20 else "standard"
+        for ordinal, text in enumerate(segments, start=1):
+            pool.append(
+                {
+                    "segment_id": f"{doc['id']}-{ordinal:03d}",
+                    "doc_id": doc["id"],
+                    "stratum": stratum,
+                    "chars": len(text),
+                    "text": text,
+                }
+            )
+    return pool
+
+
+def cmd_draw(dest: Path, seed: int, count: int, hard: int, out: Path | None) -> int:
+    """Runs the seeded batch draw guideline section 2.1 assigns to the reviewer.
+
+    Section 2.1 is explicit that the drafter does not choose which passages
+    become gold items -- "discretion at this step is the largest and least
+    visible bias risk in the whole build." This makes the draw mechanical
+    and reproducible from the reviewer's seed: the same seed always yields
+    the same ordered sequence, and anyone can re-run it to audit that the
+    items annotated are the items drawn.
+
+    Emits *ordered queues*, not a flat set of N. Some drawn segments will
+    be rejected under section 2's semantic exclusions (definitions,
+    cross-reference-dependent, and so on), which are annotator judgments
+    this code deliberately does not make. The annotator walks each queue in
+    order, logs every rejection with its rule, and takes the next segment
+    -- so a rejection can never become a quiet re-pick of something easier.
+    """
+    import random
+
+    manifest = load_manifest()
+    pool = build_pool(dest, manifest)
+    by_stratum = {
+        "hard": [s for s in pool if s["stratum"] == "hard"],
+        "standard": [s for s in pool if s["stratum"] == "standard"],
+    }
+
+    rng = random.Random(seed)
+    queues: dict[str, list[dict]] = {}
+    targets = {"hard": hard, "standard": count - hard}
+    for stratum, target in targets.items():
+        candidates = sorted(by_stratum[stratum], key=lambda s: s["segment_id"])
+        # Overdraw 3x the target so rejections have replacements already
+        # fixed by the seed, rather than drawn ad hoc once a rejection
+        # happens -- an ad-hoc replacement is a re-pick.
+        queues[stratum] = rng.sample(candidates, min(len(candidates), target * 3))
+
+    print(f"draw: seed={seed}  target={count} items ({hard} hard, {count - hard} standard)")
+    print(f"draw: pool = {len(pool)} segments ({len(by_stratum['hard'])} hard, {len(by_stratum['standard'])} standard)")
+    for stratum in ("hard", "standard"):
+        print(f"\n--- {stratum} queue (take in order; target {targets[stratum]}) ---")
+        for i, seg in enumerate(queues[stratum][: targets[stratum] * 3], start=1):
+            print(f"  {i:>2}. {seg['segment_id']}  {seg['chars']:>5} chars")
+
+    if out:
+        out.write_text(
+            json.dumps(
+                {"seed": seed, "count": count, "hard": hard, "queues": queues},
+                indent=2,
+            )
+            + "\n"
+        )
+        print(f"\ndraw: wrote {out}")
+    return 0
+
+
 def cmd_pool(dest: Path) -> int:
     """Recomputes the eligible-segment pool and its section 15-17 frequencies.
 
@@ -575,11 +656,19 @@ def cmd_pool(dest: Path) -> int:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("command", choices=("fetch", "verify", "profile", "pool"))
+    parser.add_argument("command", choices=("fetch", "verify", "profile", "pool", "draw"))
     parser.add_argument("--dest", type=Path, default=DEFAULT_DEST)
     parser.add_argument("--compare", action="store_true", help="profile: diff against the manifest")
-    parser.add_argument("--write", type=Path, default=None, help="profile: write recomputed JSON here")
+    parser.add_argument("--write", type=Path, default=None, help="profile/draw: write JSON here")
+    parser.add_argument("--seed", type=int, default=None, help="draw: the reviewer's seed")
+    parser.add_argument("--count", type=int, default=10, help="draw: items in the batch")
+    parser.add_argument("--hard", type=int, default=3, help="draw: items from the hard stratum (section 2.2)")
     args = parser.parse_args(argv)
+
+    if args.command == "draw":
+        if args.seed is None:
+            parser.error("draw requires --seed: guideline section 2.1 assigns the seed to the reviewer")
+        return cmd_draw(args.dest, args.seed, args.count, args.hard, args.write)
 
     if args.command == "fetch":
         return cmd_fetch(args.dest)
