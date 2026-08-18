@@ -1,13 +1,16 @@
 # Obligo Tier-2 Gold Set — Annotation Guideline
 
-**Version:** v0.6 (DRAFT — not yet frozen)
+**Version:** v0.7 (DRAFT — not yet frozen)
 **Created:** 2026-08-17
-**Status:** Session 1 deliverable. No items have been annotated against this document yet.
+**Status:** No items have been annotated against this document yet.
 **v0.2 change:** corpus rebuilt after a selection-bias audit — see §13.
 **v0.3 change:** annotator-uncertainty protocol added — see §14. Two fields added to §1.
 **v0.4 change:** vague-temporal-qualifier rule added — see §15. One non-scored field added to §1.
 **v0.5 change:** efforts-qualifier rule added (§16); §3.2's contradictory "reasonable efforts" row corrected.
 **v0.6 change:** internal-boolean condition rule added — see §17. §3.8 cross-referenced.
+**v0.7 change:** corpus independently re-verified and the statistics made reproducible — see
+§18. Three open questions decided: absent-obligee confirmed (§3.5), synthetic items confirmed
+OUT (§11), held-out mechanism fixed (§7). Two stale internal numbers corrected (§9, §13).
 
 This guideline governs the construction of the 100-item Tier-2 gold set that blueprint
 §19.7 specifies and that Phase 4 acceptance criterion 2 (Tier-2 fully-correct-IR rate
@@ -162,10 +165,10 @@ Real contracts routinely omit the beneficiary: *"Vendor shall maintain insurance
 Owed to whom? The grammar requires an obligee, and the current extraction prompt's own
 worked example emits `"obligee_alias": ""` — undesigned behavior, not a chosen rule.
 
-**Rule (v0.1 default, pending confirmation):** a party genuinely not stated in the span is
-annotated `ABSENT`. An item with an `ABSENT` party is `underspecified = true` with that
-role in `missing_fields`. It is **not** a compile failure and **not** a correct fully-
-specified extraction.
+**Rule (CONFIRMED v0.7):** a party genuinely not stated in the span is annotated `ABSENT`.
+An item with an `ABSENT` party is `underspecified = true` with that role in
+`missing_fields`. It is **not** a compile failure and **not** a correct fully-specified
+extraction.
 
 Rationale: this matches how v1 already treats every other unresolvable reference
 (`PartyRef`/`DateRef`/`TriggerRef` are two-state, and "unresolved" is an honest state, not
@@ -294,9 +297,24 @@ No single-run number is ever published without this caveat attached.
 - Withheld drafts live in `gold/holdout/drafts/` (gitignored). Review packets are
   *generated* documents containing only the reviewable items — the reviewer never
   navigates the raw annotation tree.
-- At the held-out checkpoint, the reviewer annotates all 20 cold from
-  `holdout_annotation.md` (guideline + raw segments + empty templates; no drafts), and
-  the completed annotations are **committed and hashed before** the comparison is run.
+
+**Second-annotator mechanism (CONFIRMED v0.7).** At the held-out checkpoint, a **fresh
+subagent** annotates all 20 cold from `holdout_annotation.md` (guideline + raw segments +
+empty templates; no drafts, no access to this session's history). Its completed
+annotations are **committed and hashed before** the comparison is run. The reviewer then
+adjudicates every disagreement, and additionally **spot-checks 5 of the 20 items** drawn
+by the same seeded mechanism — the spot-check is what keeps the reviewer's own eyes on
+items where the two annotators *agreed*, which is exactly where a shared blind spot hides.
+
+**This is a weaker claim than an independent human second annotator, and is reported as
+one.** The subagent shares a model family, and therefore shares priors, with the drafter.
+Its errors are **correlated** with the drafter's in a way a second human's would not be:
+where the guideline is ambiguous in a way that biases a language model, both annotators
+tend to go wrong in the same direction, and the disagreement count K cannot see it. K is
+therefore a **lower bound** on the true disagreement rate against a genuinely independent
+annotator, not an estimate of it. Every published use of K must say so. The 5-item
+reviewer spot-check is a partial, deliberately-acknowledged-as-partial mitigation: five
+items cannot certify anything, but they can catch a gross shared error.
 - **K counts disagreements, not confirmed first-pass errors** — if adjudication finds the
   second annotator wrong, it still counts. Item-level, not field-level. A prediction
   inside the accept-set is not a disagreement; a defensible label *outside* it is.
@@ -333,13 +351,23 @@ form v1 rejects.** See §11 — this is the open scope question from session 1. 
 held at 74% both before and after the corpus was rebuilt (§13), across 12 and then 28
 documents, which makes it a property of real contract drafting rather than of the sample.
 
+**Independently re-measured in v0.7: 84% (152 of 180).** The second measurement
+(`apps/brain/evals/corpus.py profile`) counts every `WITHIN` deadline in the corpus and
+classifies it by asking the real `_WITHIN_RE` — imported from `compiler/ir_compile.py`,
+not reimplemented — whether it would accept the numeral. It therefore measures what the
+compiler actually rejects rather than what a proxy regex predicts it rejects. The two
+measurements disagree on the exact count (their sentence-splitting and phrase-extraction
+rules differ) and agree on the finding: **the large majority of real `WITHIN` deadlines in
+this corpus are uncompilable under v1.** No plausible reading of either number changes the
+scope decision in §11.
+
 ---
 
 ## 9. The two criteria have different denominators
 
 - **Criterion 2 (≥80%)** — `FULLY_CORRECT` / 100 gold items.
 - **Criterion 1b (≥90%)** — of candidates that survive grounding and reach the compiler,
-  the fraction producing a typechecked `Obligation` within ≤2 repairs, over all 18
+  the fraction producing a typechecked `Obligation` within ≤2 repairs, over all 28
   documents.
 
 **1b is gameable in isolation**: a prompt emitting fewer, safer candidates scores higher
@@ -364,17 +392,32 @@ misread as "resolved"), and the prompt/model/grammar versions in force.
 
 ## 11. Open questions for review
 
-1. **The parenthetical-numeral finding (§8).** 74% of real `WITHIN` deadlines in this
-   corpus use a form v1 deliberately rejects. Three options, and this is a scope decision,
-   not an annotation one: **(a)** annotate them and let criterion 1b absorb the loss —
-   honest, but likely puts ≥90% out of reach; **(b)** widen `_WITHIN_RE` to accept
-   spelled-number-plus-parenthetical before measurement — a real code change, arguably
-   in-scope for Phase 4's classifier, but it is tuning the compiler to the corpus;
-   **(c)** annotate them, measure both, and report 1b with and without the known-gap
-   items. **Recommend (c)**, then decide on (b) with a real number in hand.
-2. **Absent-obligee rule (§3.5)** — carried as underspecification. Confirm or overrule.
-3. **Synthetic items** — currently OUT; the corpus is 28 real documents. Confirm.
-4. **Held-out mechanism** — subagent-then-reviewer (§7), or reviewer on all 20.
+**OPEN — 1 of 4. The parenthetical-numeral finding (§8).** The large majority of real
+`WITHIN` deadlines in this corpus use a form v1 deliberately rejects. The figure was
+deferred pending verification and **has now been independently verified** (§18): 74% by
+the original measurement, 84% by a second, differently-defined measurement taken against
+`_WITHIN_RE` itself. The finding is real at either number, so the scope decision is live.
+Three options, and this is a scope decision, not an annotation one: **(a)** annotate them
+and let criterion 1b absorb the loss — honest, but likely puts ≥90% out of reach;
+**(b)** widen `_WITHIN_RE` to accept spelled-number-plus-parenthetical before measurement
+— a real code change, arguably in-scope for Phase 4's classifier, but it is tuning the
+compiler to the corpus it will be graded on; **(c)** annotate them, measure both, and
+report 1b with and without the known-gap items. **Recommend (c)**, then decide on (b) with
+a real number in hand. **This must be decided before batch 1 is drawn.**
+
+**RESOLVED v0.7 — 2. Absent-obligee rule (§3.5).** Confirmed: carried as underspecification
+(`missing_fields: ["obligee"]`), not a compile failure. The basis is that the extraction
+prompt's own worked example already emits an empty `obligee_alias` as undesigned behavior
+rather than a chosen rule, so treating it as a failure would penalise the pipeline for
+faithfully representing what the document says.
+
+**RESOLVED v0.7 — 3. Synthetic items.** Confirmed **OUT**. The gold set is 100% real
+across the corpus. Synthetic items probing the `DURING`/`EVERY`/`BY` forms may be kept as
+a separate probe set, but are **excluded from every reported and headline number**.
+
+**RESOLVED v0.7 — 4. Held-out mechanism.** Confirmed: fresh subagent on all 20, reviewer
+adjudicates disagreements plus a 5-item spot-check. Its correlated-error limitation is
+recorded in §7 and must be stated wherever K is published.
 
 ---
 
@@ -395,7 +438,9 @@ Recorded because the finding is real and the corpus was rebuilt because of it.
 
 **What happened.** The v0.1 corpus was selected by hand-writing a list of 16
 "obligation-dense" agreement types and drawing seeded-random within each. That type
-filter **excluded 319 of 506 CUAD documents — 63% of the corpus.** The stated motivation
+filter **excluded 319 of 510 CUAD documents — 63% of the corpus.** (The count is 510,
+corrected in v0.7 from a stale 506: CUAD v1's `full_contract_txt/` holds exactly 510
+`.txt` files, verified directly against the Zenodo archive — see §18.) The stated motivation
 was obligation density, and that does appear to have been the actual motivation: sentence
 length and cross-referencing were never measured or looked at during selection.
 
@@ -699,4 +744,79 @@ Named so the two facts are not later conflated.
 ### 17.5 Frequency
 
 The 960-segment pool contains **2** segments with chained conditions (0.2%). This class is
-rare in the real corpus; the rule exists for correctness, not volume.
+rare in the real corpus; the rule exists for correctness, not volume. **Did not reproduce
+in v0.7's re-measurement — see §18.4.**
+
+---
+
+## 18. Corpus verification (v0.7)
+
+Recorded because the gap this closes was real and the result is load-bearing for every
+number above.
+
+### 18.1 The gap
+
+This guideline and `corpus_manifest.json` were committed. **The corpus they describe was
+not, and neither was the code that produced any statistic in either file.** The 28
+documents lived only in a session scratchpad, which is deleted between sessions. The
+hashes therefore survived; everything derived from them became unreproducible. A reader
+could not confirm any density figure, and no corpus change could be re-measured.
+
+`apps/brain/evals/corpus.py` closes it: `fetch` re-acquires all 28 documents from their
+archival sources, `verify` hash-checks them, `profile` recomputes every per-document
+statistic, and `pool` rebuilds the eligible-segment pool §§15–17 cite. Its metric
+definitions are the specification — previously there was none.
+
+### 18.2 Hash verification — unambiguous, and it passes
+
+**All 28 documents re-acquired and verified byte-for-byte: 22/22 CUAD, 6/6 EDGAR, zero
+mismatches.** CUAD from Zenodo (DOI `10.5281/zenodo.4595826`, `CUAD_v1.zip`, SHA-256
+pinned in the script), EDGAR from the per-document URLs in the manifest.
+
+**The corpus is exactly what the manifest says it is.** This is the one check in §18 with
+no interpretation in it.
+
+**CUAD license re-confirmed at the source**: the Zenodo record's own metadata returns
+`"license": {"id": "cc-by-4.0"}`. CC BY 4.0 permits redistribution with attribution, which
+every published eval number must carry (§12).
+
+### 18.3 What re-measurement confirms
+
+The original metric definitions were never written down, so the recomputation uses new,
+explicitly-documented ones. **A delta is therefore ambiguous** between a wrong prior number
+and a differing definition, and is not treated as convicting either. What matters is which
+*findings* survive an independent measurement:
+
+| Claim | Original | v0.7 re-measurement | Verdict |
+| :--- | :--- | :--- | :--- |
+| §8 `WITHIN` parenthetical share | 74% (119/161) | 84% (152/180) | **Confirmed** — differs in count, agrees in finding |
+| §15 vague-temporal share of pool | 12% (111/960) | 12% (193/1603) | **Confirmed — exact rate match** |
+| §16 efforts-qualifier share of pool | 3% (28/960) | 3% (53/1603) | **Confirmed — exact rate match** |
+| §17 chained conditions | 0.2% (2/960) | 1.0% (16/1603) | **Not reproduced** — see §18.4 |
+| Per-document raw counts | manifest | 134 of 196 values differ | Ambiguous by construction |
+
+§15's and §16's rates reproducing **exactly**, off a pool 67% larger built by a different
+rule, is strong evidence both were genuinely measured. Rates do not survive that kind of
+change by accident.
+
+### 18.4 §17's frequency did not reproduce, and is corrected downward in confidence
+
+v0.7 measures chained conditions at 1.0% of the pool against the claimed 0.2% — a 5×
+difference in rate, not a counting quibble. Both measurements agree the class is **rare**,
+which is the only load-bearing part of §17.5's reasoning ("the rule exists for
+correctness, not volume"), so §17's rule stands unchanged. But the specific figure `2` is
+**no longer cited as established**; use the reproducible measurement or none.
+
+### 18.5 What is still not verified
+
+- **§13's selection-bias audit.** Its comparison table comes from re-running the original
+  selection against the excluded types. Re-deriving it means redoing the sampling, not
+  just re-profiling the 28 documents that were kept. The audit's conclusion is unaffected
+  by anything in §18, and equally is not corroborated by it.
+- **The eligible-segment pool is not the same pool.** v0.7's enumeration applies only
+  §2.1's two mechanical criteria (length band, modal presence); the original 960 was
+  reached some other way. §§15–17's *rates* reproduce, so the two pools appear to sample
+  the same population — but they are not the same pool, and the 960 figure itself is not
+  confirmed.
+- **Nothing here is an annotation.** No gold item exists. §18 verifies the corpus and the
+  statistics reasoned from it, nothing downstream of either.

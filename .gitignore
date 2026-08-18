@@ -91,3 +91,9 @@ tmp/
 apps/brain/evals/reports/*.html
 apps/brain/evals/reports/*.json
 !apps/brain/evals/reports/.gitkeep
+
+# Gold-set corpus working copy: 28 source documents plus CUAD's 106MB zip.
+# Re-acquired and hash-verified on demand by `apps/brain/evals/corpus.py fetch`,
+# so it is reproducible rather than committed. Every byte is pinned by sha256 in
+# docs/eval/corpus_manifest.json.
+.corpus/

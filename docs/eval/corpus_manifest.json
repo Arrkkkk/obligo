@@ -1,8 +1,23 @@
 {
-  "version": "0.2",
+  "version": "0.3",
   "created": "2026-08-17",
   "gold_set_target_items": 100,
   "selection_note": "Type filter bias found and corrected; see GOLD_SET_GUIDELINE.md section 13.",
+  "verification": {
+    "date": "2026-08-18",
+    "script": "apps/brain/evals/corpus.py",
+    "commands": "fetch | verify | profile --compare | pool",
+    "result": "All 28 documents re-acquired from their archival sources and verified byte-for-byte against the sha256 values below. 22/22 CUAD, 6/6 EDGAR, zero mismatches.",
+    "cuad_source": {
+      "doi": "10.5281/zenodo.4595826",
+      "file": "CUAD_v1.zip",
+      "sha256": "88b694d99007d39777fa44cd72daf8297773d285dc3eab0091ba32078888d18e",
+      "bytes": 105883672,
+      "license_verified": "cc-by-4.0, read from the Zenodo record's own metadata on 2026-08-18",
+      "full_contract_txt_count": 510
+    },
+    "statistics_provenance": "The per-document statistics below (modal_sentences, temporal, fronted_clause, xref_pct, p90_len, paren, bare) were computed by a script that was never committed, and are RETAINED AS THE ORIGINAL RECORD rather than overwritten. corpus.py recomputes them from explicitly documented definitions and 134 of 196 values differ, which is ambiguous between a wrong prior number and a differing definition -- see GOLD_SET_GUIDELINE.md section 18.3. Findings that survived independent re-measurement: section 8's WITHIN parenthetical majority (74% vs 84%), section 15's 12% vague-temporal rate (exact), section 16's 3% efforts rate (exact). Did not reproduce: section 17's 0.2% chained-condition rate (recomputed 1.0%)."
+  },
   "documents": {
     "cuad": [
       {
