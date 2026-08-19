@@ -1,5 +1,5 @@
 {
-  "version": "0.3",
+  "version": "0.4",
   "created": "2026-08-17",
   "gold_set_target_items": 100,
   "selection_note": "Type filter bias found and corrected; see GOLD_SET_GUIDELINE.md section 13.",
@@ -448,23 +448,26 @@
         "bare": 0
       },
       {
-        "id": "E06",
+        "id": "E07",
         "source": "SEC EDGAR",
         "license": "Public filing",
-        "company": "AES RED OAK LLC  (CIK 0001117445)",
-        "accession": "0001104659-04-007640",
-        "document": "a04-3512_110k.htm",
-        "url": "https://www.sec.gov/Archives/edgar/data/1117445/000110465904007640/a04-3512_110k.htm",
+        "company": "INSTINET GROUP INC  (CIK 0001132327)",
+        "accession": "0000950123-02-002976",
+        "document": "y58681ex10-35.txt",
+        "url": "https://www.sec.gov/Archives/edgar/data/1132327/000095012302002976/y58681ex10-35.txt",
         "contract_type": "maintenance",
-        "sha256": "8582c2d47b208d1b86f4fc596e09c117345575baec6b0e868decd12c54c6f35b",
-        "bytes": 1092692,
-        "modal_sentences": 248,
-        "temporal": 22,
-        "fronted_clause": 35,
-        "xref_pct": 1,
-        "p90_len": 614,
-        "paren": 0,
-        "bare": 25
+        "title": "SOFTWARE MAINTENANCE AGREEMENT",
+        "sha256": "d1c38880902dbb28349b165e646671ddf0f32def5861306e1d82a262def7564c",
+        "bytes": 30246,
+        "modal_sentences": 68,
+        "temporal": 4,
+        "fronted_clause": 14,
+        "xref_pct": 13,
+        "p90_len": 379,
+        "paren": 4,
+        "bare": 0,
+        "note": "Replaces E06 (v0.4). E06 was a complete Form 10-K, not a contract -- see GOLD_SET_GUIDELINE.md section 18.6. Drawn by seeded random (seed 20260817) from an EDGAR full-text hit list, per section 13's method, with 5 logged rejections above it; selection required 'MAINTEN' in the document's own title, not merely in its body, which is the check whose absence produced E06.",
+        "statistics_source": "apps/brain/evals/corpus.py profile (v0.4 definitions), not the original uncommitted script"
       }
     ]
   },
@@ -476,5 +479,13 @@
     "median_xref_pct": 11,
     "within_bare": 42,
     "within_parenthetical": 119
-  }
+  },
+  "retired_documents": [
+    {
+      "id": "E06",
+      "reason": "Not a contract: complete Form 10-K annual report for AES Red Oak LLC labelled contract_type 'maintenance'; 'MAINTENANCE AGREEMENT' appears zero times. Retired at manifest v0.4, replaced by E07.",
+      "url": "https://www.sec.gov/Archives/edgar/data/1117445/000110465904007640/a04-3512_110k.htm",
+      "sha256": "8582c2d47b208d1b86f4fc596e09c117345575baec6b0e868decd12c54c6f35b"
+    }
+  ]
 }

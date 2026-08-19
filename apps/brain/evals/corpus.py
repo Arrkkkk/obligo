@@ -394,8 +394,20 @@ def cmd_fetch(dest: Path) -> int:
     return cmd_verify(dest)
 
 
-def _doc_path(dest: Path, kind: str, doc_id: str) -> Path:
-    return dest / kind / (f"{doc_id}.txt" if kind == "cuad" else f"{doc_id}.htm")
+def _doc_path(dest: Path, kind: str, doc_id: str, doc: dict | None = None) -> Path:
+    """Locates a document on disk, honouring its real filename extension.
+
+    EDGAR exhibits are not all HTML: older filings are SGML-wrapped `.txt`.
+    The extension is taken from the manifest's own `document` field rather
+    than assumed, so a `.txt` exhibit is not silently looked for under
+    `.htm`. Both are still parsed by the HTML extractor, which strips
+    SGML wrapper tags (`<DOCUMENT>`, `<TYPE>`, `<PAGE>`) the same way it
+    strips HTML.
+    """
+    if kind == "cuad":
+        return dest / kind / f"{doc_id}.txt"
+    suffix = Path(doc["document"]).suffix if doc and doc.get("document") else ".htm"
+    return dest / kind / f"{doc_id}{suffix}"
 
 
 def _iter_docs(manifest: dict) -> Iterable[tuple[str, dict]]:
@@ -414,7 +426,7 @@ def cmd_verify(dest: Path) -> int:
     manifest = load_manifest()
     failures = 0
     for kind, doc in _iter_docs(manifest):
-        path = _doc_path(dest, kind, doc["id"])
+        path = _doc_path(dest, kind, doc["id"], doc)
         if not path.exists():
             print(f"verify: {doc['id']}  MISSING ({path}) -- run `fetch` first")
             failures += 1
@@ -447,7 +459,7 @@ def cmd_profile(dest: Path, compare: bool, write: Path | None) -> int:
     }
 
     for kind, doc in _iter_docs(manifest):
-        path = _doc_path(dest, kind, doc["id"])
+        path = _doc_path(dest, kind, doc["id"], doc)
         if not path.exists():
             print(f"profile: FAILED -- {doc['id']} missing; run `fetch` first")
             return 1
@@ -642,7 +654,7 @@ def build_pool(dest: Path, manifest: dict) -> list[dict]:
     """
     pool: list[dict] = []
     for kind, doc in _iter_docs(manifest):
-        path = _doc_path(dest, kind, doc["id"])
+        path = _doc_path(dest, kind, doc["id"], doc)
         segments = enumerate_pool(extract_text(path.read_bytes(), kind))
         stratum = "hard" if int(doc["xref_pct"]) >= 20 else "standard"
         for ordinal, text in enumerate(segments, start=1):
@@ -725,7 +737,7 @@ def cmd_pool(dest: Path) -> int:
     manifest = load_manifest()
     pool: list[str] = []
     for kind, doc in _iter_docs(manifest):
-        path = _doc_path(dest, kind, doc["id"])
+        path = _doc_path(dest, kind, doc["id"], doc)
         if not path.exists():
             print(f"pool: FAILED -- {doc['id']} missing; run `fetch` first")
             return 1

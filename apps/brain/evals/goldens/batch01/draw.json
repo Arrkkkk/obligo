@@ -70,13 +70,6 @@
     ],
     "standard": [
       {
-        "segment_id": "E06-050",
-        "doc_id": "E06",
-        "stratum": "standard",
-        "chars": 1047,
-        "text": "Additionally, on November 21, 2001, we and Raytheon entered into the Owner/Guarantor Supplemental Agreement pursuant to which (i) Raytheon and we acknowledged that, notwithstanding the rejection of the construction agreement by WGI, Raytheon would cause the project to be completed in accordance with the terms of the construction agreement pursuant to Raytheon\u2019s performance guaranty obligations, and the construction agreement will have continuing applicability insofar as it defines (x) the obligations owed to us by Raytheon under its guaranty and (y) our obligations to Raytheon arising from the performance of those obligations, (ii) Raytheon (or their designees) was designated as our agent for purposes of administering the subcontracts and vendor contracts assigned by WGI to us, (iii) all future payments by us would be paid in accordance with the terms of the construction agreement directly to Raytheon, and (iv) Raytheon would indemnify us with respect to any claims arising out of the subcontracts and vendor contracts assumed by us."
-      },
-      {
         "segment_id": "C06-028",
         "doc_id": "C06",
         "stratum": "standard",
@@ -117,13 +110,6 @@
         "stratum": "standard",
         "chars": 516,
         "text": "time to time on and after the date hereof, the parties shall deliver or cause to be delivered to the Escrow Agent such further documents and instruments and shall do or cause to be done such further acts as the Escrow Agent shall reasonably request (it being understood that the Escrow Agent shall have no obligation to make such request) to carry out more effectively the provisions and purposes of this Escrow Agreement, to evidence compliance herewith or to assure itself that it is protected in acting hereunder."
-      },
-      {
-        "segment_id": "E06-084",
-        "doc_id": "E06",
-        "stratum": "standard",
-        "chars": 727,
-        "text": "soon as Raytheon becomes aware of any circumstances which Raytheon has reason to believe may necessitate a scope change, Raytheon will issue to us a scope change order notice at Raytheon\u2019s expense. If we desire to make a scope change, in response to a scope change order notice or otherwise, we will submit a scope change order request to Raytheon. Raytheon will promptly review the scope change order request and notify us in writing of the options for implementing the proposed scope change and the effect, if any, each option would have on the contract price, the guaranteed completion dates, the construction progress milestone dates, the payment and milestone schedule, our project schedule and the performance guarantees."
       },
       {
         "segment_id": "C15-046",
@@ -182,13 +168,6 @@
         "text": "(g) Termination Charges - AT&T shall not be liable for any termination charges (or any charges for any Material or Services already ordered or performed at the time of termination) in any case when any termination results from a termination right granted to AT&T in this Agreement; provided that AT&T shall remain obligated to make Structured Payments with respect to any Cell Sites that have reached Location Acceptance prior to the effective date of such termination and pay any Maintenance Fees for Services performed under the Maintenance Addendum prior to the effective date of such termination."
       },
       {
-        "segment_id": "E06-142",
-        "doc_id": "E06",
-        "stratum": "standard",
-        "chars": 494,
-        "text": "Borough or we reasonably determines that capital improvements to the infrastructure are required, the party will notify the other party and the parties will meet in good faith to determine the scope of the capital improvements. We will pay for our costs and expenses arising from the capital improvements as well as those of the Borough. If we damage either infrastructure or capital improvements, we will restore the damaged portions thereof or pay the Borough to restore the damaged portions."
-      },
-      {
         "segment_id": "C11-094",
         "doc_id": "C11",
         "stratum": "standard",
@@ -215,6 +194,27 @@
         "stratum": "standard",
         "chars": 491,
         "text": "(a) Upon the occurrence of the Closing and until the earlier to occur of (i) the end of the Designation Rights Period applicable to a particular Lease or Contract and (ii) the Designation Rights Termination Date, Purchaser shall have the exclusive right to designate the assignees of Merchant's right, title, and interest in and to any or all of the Leases and Contracts (the \"Lease/Contract Designation Rights\") upon the terms and conditions agreed upon between Purchaser and such designee."
+      },
+      {
+        "segment_id": "C03-088",
+        "doc_id": "C03",
+        "stratum": "standard",
+        "chars": 977,
+        "text": "3.30 Publicity. Other than use of AT&T's name in connection with Permit applications, Vendor shall not use AT&T's or its Affiliates' names, trademarks, service marks, designs, Proprietary and Confidential This Agreement and information contained therein is not for use or disclosure outside of AT&T, its Affiliates, and third party representatives, and Vendor except under written agreement by the contracting parties. 33 Source: ATN INTERNATIONAL, INC., 10-Q, 11/8/2019 logos or symbols. In addition, Vendor shall not use any language or pictures which could in AT&T's judgment imply AT&T's or its Affiliates' identities, or endorsement by AT&T, its Affiliates or any of its or their employees, in any (i) written, electronic, or oral advertising or presentation, or sales meeting, or (ii) brochure, newsletter, book, electronic database, testimonial quotation, thank you letter, reference letter or other communication of whatever nature, without prior written ATTIP Consent."
+      },
+      {
+        "segment_id": "C03-070",
+        "doc_id": "C03",
+        "stratum": "standard",
+        "chars": 520,
+        "text": "1. include AT&T, its Affiliates, and their directors, officers, and employees as additional insureds. Vendor shall provide a copy of the additional insured endorsement to AT&T. The additional insured endorsement may either be specific to AT&T or may be \"blanket\" or \"automatic\" addressing any Person as required by contract. A copy of the additional insured endorsement must be provided within sixty (60) days of execution of this Agreement and within sixty (60) days of each Commercial General Liability policy renewal;"
+      },
+      {
+        "segment_id": "C03-062",
+        "doc_id": "C03",
+        "stratum": "standard",
+        "chars": 324,
+        "text": "2. with respect to any coverage maintained in a \"claims-made\" policy, for two (2) years following the term of this Agreement or completion of all Work associated with this Agreement, whichever is later. If a \"claims-made\" policy is maintained, the retroactive date must precede the commencement of Work under this Agreement;"
       }
     ]
   }

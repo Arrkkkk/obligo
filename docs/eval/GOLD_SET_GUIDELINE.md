@@ -1,6 +1,6 @@
 # Obligo Tier-2 Gold Set — Annotation Guideline
 
-**Version:** v0.9 (DRAFT — not yet frozen)
+**Version:** v0.10 (DRAFT — not yet frozen)
 **Created:** 2026-08-17
 **Status:** No items have been annotated against this document yet.
 **v0.2 change:** corpus rebuilt after a selection-bias audit — see §13.
@@ -16,8 +16,11 @@ annotated honestly and criterion 1b is reported both ways (§11, §9). One field
 **v0.9 change:** a difficulty-correlated segment-enumeration defect found and fixed before
 batch 1 was drawn — see §18.6. §18.3's re-measurement column updated to the corrected pool
 and given a segment-size caveat. §11 retitled (all four questions are decided).
-**One open question added by §18.6: whether to keep, drop, or replace E06.**
-v0.9 is the version batch 1 is annotated under.
+**v0.10 change:** two annotation rules added for classes found while walking batch 1's own
+draw — redacted values (§8.1) and `UNLESS`-dependent clauses (§8.2), both as tagged
+`known_gap` items rather than exclusions. One non-scored field added to §1
+(`redacted_phrase`). E06 retired and replaced by E07 (§18.6); manifest v0.4.
+**No open questions remain.** v0.10 is the version batch 1 is annotated under.
 
 *Why v0.8 and not an edit to v0.7:* v0.7 was committed, and every gold item stamps the
 guideline version it was annotated under. Amending a committed version in place would make
@@ -63,6 +66,7 @@ Each item records:
 | `underspecified` | annotated | bool (§3.9) |
 | `missing_fields` | annotated | reported, **excluded from the scoring predicate** |
 | `vague_temporal_phrase` | annotated | literal phrase or `null`; **not scored** (§15) |
+| `redacted_phrase` | annotated | literal redacted phrase or `null`; **not scored** (§8.1) |
 | `known_gap` | annotated | `null`, or the named v1 gap this item exercises (§8, §11) |
 | `annotator_confidence` | annotated | `CONFIDENT` \| `AMBIGUOUS` \| `UNCERTAIN` (§14) |
 | `annotated_at` | stamped | ISO-8601 timestamp; feeds per-item pace measurement |
@@ -359,6 +363,8 @@ says; if v1 cannot compile it, that is a measurement, not an annotation error.
 | business-day durations | always `underspecified` (no calendar model) |
 | any trigger-bearing temporal | always `underspecified` (`resolve_trigger()` returns `None`) |
 | `EVERY` + `DURING` composed | `EVERY` only, with a composition warning |
+| `UNLESS` / any exception carve-out | **Fails to parse** — v1's grammar has no exception construct at all (§8.2) |
+| Redacted value (`**`, `[***]`) | Value withheld in the filing; unresolvable by any pipeline stage (§8.1) |
 
 **Measured in this corpus: 74% of `WITHIN` deadlines (119 of 161) use the parenthetical
 form v1 rejects.** See §11 — this is the open scope question from session 1. The ratio
@@ -374,6 +380,47 @@ measurements disagree on the exact count (their sentence-splitting and phrase-ex
 rules differ) and agree on the finding: **the large majority of real `WITHIN` deadlines in
 this corpus are uncompilable under v1.** No plausible reading of either number changes the
 scope decision in §11.
+
+### 8.1 Redacted values (v0.10)
+
+Confidential-treatment redactions (`**`, `[***]`) replace the operative value of a field —
+most often a deadline or a quantity. **Measured: 96 of 1,679 pool segments (5.7%) carry
+one, but 14.5% of the hard stratum does** — the high-cross-reference documents are the
+complex commercial agreements that got confidential treatment (C04, C02 and E03 hold 91 of
+the 96).
+
+**Rule.** Annotate the item. Set the affected field to `null`, `underspecified = true` with
+the field named in `missing_fields`, `known_gap = "redacted_value"`, and record the literal
+redacted phrase in the non-scored `redacted_phrase` field.
+
+**Why not exclude them.** Excluding redacted segments is the one answer that is clearly
+wrong: at 2.5× concentration in the hard stratum it would deplete exactly the documents
+§2.2's 25-item floor exists to protect — the same failure mode as the enumeration defect in
+§18.6, arriving through an annotation rule instead of a parsing one.
+
+**Why not simply `temporal: null` with no tag.** That conflates *"the contract states no
+deadline"* with *"a deadline exists and was withheld from the filing"*. They are different
+facts about the document, and untagged they become indistinguishable in criterion 1b and
+criterion 2.
+
+### 8.2 `UNLESS`-dependent clauses (v0.10)
+
+IR v1 has **no exception construct at all** — `UNLESS` does not underspecify, it fails to
+parse, by the deliberate freeze decision recorded in `packages/ir-spec/`. A clause whose
+operative meaning sits in an `unless` therefore cannot be represented faithfully.
+
+**Rule.** Annotate the **carve-out-free reading** with `known_gap = "unless_unsupported"`,
+and record the full carve-out verbatim in `annotator_notes`.
+
+**The cost, stated rather than hidden:** the annotated obligation is *stronger* than the
+one the contract imposes — a flat prohibition where the document has a conditional one.
+That is deliberate. The alternative, excluding the class, makes v1's single largest
+representational gap invisible in the gold set, and §8's standing posture is that a known
+gap is annotated honestly and measured, never avoided. Every such item is tagged, so the
+overstatement is always recoverable from the data rather than baked silently into a score.
+
+---
+
 
 ---
 
@@ -911,7 +958,24 @@ financial statements. The manifest labels it `contract_type: "maintenance"`, but
 "MAINTENANCE AGREEMENT" appears **zero** times in it; the single "Maintenance Agreement"
 hit is an MD&A heading *describing* a contract executed elsewhere. It contributes 194 pool
 segments (11.6%) of disclosure prose and accounts for 114 of EDGAR's 137 residual
-fragments — excluding it takes the pool to 4.6% overall and EDGAR to 13.1%. **This is a
-corpus-composition defect in the committed manifest, not an enumeration defect, and is
-recorded here pending a decision** to drop it, replace it by a seeded redraw, or keep it.
-E06 is standard-stratum (`xref_pct` 1), so §2.2's hard floor is unaffected either way.
+fragments — excluding it takes the pool to 4.6% overall and EDGAR to 13.1%. This was a
+corpus-composition defect in the committed manifest, not an enumeration defect.
+
+**Resolved in v0.10: E06 retired, replaced by E07** (manifest v0.4). E07 is Instinet
+Group's `SOFTWARE MAINTENANCE AGREEMENT` (EX-10.35, accession 0000950123-02-002976,
+30,246 bytes), drawn by seeded random — seed `20260817`, the reviewer's — from an EDGAR
+full-text hit list of 352 exhibit-shaped candidates, per §13's own method, with **five
+logged rejections above it**.
+
+**The selection check that E06's original selection lacked:** a candidate now qualifies
+only if `MAINTEN` appears in the document's **own title**, not merely somewhere in its
+body. This was added after the first pass of the redraw selected an *LLC Membership
+Interest Purchase Agreement* that mentions maintenance agreements 24 times — reproducing
+E06's exact failure mode inside the fix for it. Body-frequency is not evidence of document
+type; only the title is.
+
+E06 is retained in the manifest under `retired_documents` with its real SHA-256, so the
+substitution is auditable rather than silent. It was standard-stratum (`xref_pct` 1), so
+§2.2's hard floor was unaffected and the hard queue is unchanged by the swap. Pool after
+replacement: **1,514 segments** (408 hard, 1,106 standard); §15's and §16's rates still
+reproduce at 12% and 3%.
