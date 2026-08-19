@@ -822,9 +822,9 @@ and a differing definition, and is not treated as convicting either. What matter
 | Claim | Original | v0.7 re-measurement | Verdict |
 | :--- | :--- | :--- | :--- |
 | §8 `WITHIN` parenthetical share | 74% (119/161) | 84% (152/180) | **Confirmed** — differs in count, agrees in finding |
-| §15 vague-temporal share of pool | 12% (111/960) | 12% (202/1681) | **Confirmed — exact rate match** |
-| §16 efforts-qualifier share of pool | 3% (28/960) | 3% (52/1681) | **Confirmed — exact rate match** |
-| §17 chained conditions | 0.2% (2/960) | 0.9% (15/1681) | **Not reproduced** — see §18.4 |
+| §15 vague-temporal share of pool | 12% (111/960) | 12% (202/1679) | **Confirmed — exact rate match** |
+| §16 efforts-qualifier share of pool | 3% (28/960) | 3% (52/1679) | **Confirmed — exact rate match** |
+| §17 chained conditions | 0.2% (2/960) | 0.9% (15/1679) | **Not reproduced** — see §18.4 |
 | Per-document raw counts | manifest | 134 of 196 values differ | Ambiguous by construction |
 
 §15's and §16's rates reproducing **exactly**, off a pool built by a different rule, is
@@ -896,8 +896,8 @@ Two candidate fixes were measured and one was rejected:
 | Standard stratum | 20% | **4.5%** |
 | CUAD | 21% | 3.4% |
 
-The hard and standard strata are now within 0.1 points of each other. Pool: **1,681
-segments** (409 hard, 1,272 standard), median segment 561 characters.
+The hard and standard strata are now within 0.1 points of each other. Pool: **1,679
+segments** (408 hard, 1,271 standard), median segment 563 characters.
 
 **The residual 4.6% is mostly the fragment detector's own false positives**, not
 fragments: 34 complete clauses opening with a list marker (`(b) Except where AMAG is
@@ -910,7 +910,7 @@ complete Form 10-K annual report for AES Red Oak LLC (1.09 MB) — cover page, M
 financial statements. The manifest labels it `contract_type: "maintenance"`, but
 "MAINTENANCE AGREEMENT" appears **zero** times in it; the single "Maintenance Agreement"
 hit is an MD&A heading *describing* a contract executed elsewhere. It contributes 194 pool
-segments (11.5%) of disclosure prose and accounts for 114 of EDGAR's 137 residual
+segments (11.6%) of disclosure prose and accounts for 114 of EDGAR's 137 residual
 fragments — excluding it takes the pool to 4.6% overall and EDGAR to 13.1%. **This is a
 corpus-composition defect in the committed manifest, not an enumeration defect, and is
 recorded here pending a decision** to drop it, replace it by a seeded redraw, or keep it.
