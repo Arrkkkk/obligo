@@ -1,6 +1,6 @@
 # Obligo Tier-2 Gold Set — Annotation Guideline
 
-**Version:** v0.10 (DRAFT — not yet frozen)
+**Version:** v0.11 (DRAFT — not yet frozen)
 **Created:** 2026-08-17
 **Status:** No items have been annotated against this document yet.
 **v0.2 change:** corpus rebuilt after a selection-bias audit — see §13.
@@ -20,7 +20,10 @@ and given a segment-size caveat. §11 retitled (all four questions are decided).
 draw — redacted values (§8.1) and `UNLESS`-dependent clauses (§8.2), both as tagged
 `known_gap` items rather than exclusions. One non-scored field added to §1
 (`redacted_phrase`). E06 retired and replaced by E07 (§18.6); manifest v0.4.
-**No open questions remain.** v0.10 is the version batch 1 is annotated under.
+**v0.11 change:** the four-step EDGAR sourcing rule made binding (§12.1) after an audit of
+all six originally-sourced EDGAR documents. **E04 found defective — a whole Form 8-K, the
+same defect as E06 — a 33% defect rate for the pre-step-3 method. E04's replacement is the
+one open question.** v0.11 is the version batch 1 is annotated under.
 
 *Why v0.8 and not an edit to v0.7:* v0.7 was committed, and every gold item stamps the
 guideline version it was annotated under. Amending a committed version in place would make
@@ -508,6 +511,54 @@ recorded in §7 and must be stated wherever K is published.
 
 **Corpus v0.2: 28 documents** — 22 CUAD + 6 EDGAR. 3,760 obligation-bearing sentences,
 242 with temporal phrases, 475 with a fronted subordinate clause.
+
+### 12.1 EDGAR sourcing method — binding for all future draws (v0.11)
+
+The original method (§13) was "seeded random from full hit lists" of an EDGAR full-text
+keyword search. **That method is not sufficient on its own and must never be used alone
+again**, because a full-text query for a contract type matches every contract that merely
+*mentions* that type. Measured over a 28-document unique sample of a `"MAINTENANCE
+AGREEMENT"` hit list: **21% had that type as their own title, 75% were other contract types
+mentioning it in the body, and 3% were whole SEC forms.**
+
+**Every EDGAR document entering this corpus must pass all four steps:**
+
+1. EDGAR full-text search for the contract type, seeded-random over the hit list (§13).
+2. Filter to exhibit-shaped filenames (`ex-10`, `exv10`, …).
+3. **Fetch the document and require the type term in its own title** — the
+   `<DESCRIPTION>` field *and* the document body's own heading. Body frequency is not
+   evidence of document type; only the title is.
+4. Reject whole SEC forms (a `10-K`/`10-Q`/`8-K`/`S-1` header) and anything failing a
+   contract-shape floor: ≥15 KB, ≥20 `shall`, and at least one of `by and between` /
+   `WHEREAS`.
+
+Step 3 is the step whose absence produced both defects below. It was validated in use: the
+first pass of E07's own redraw selected an *LLC Membership Interest Purchase Agreement*
+that mentions maintenance agreements 24 times — E06's failure mode reproduced inside the
+fix for it, and caught by step 3.
+
+**Audit of the five originally-sourced EDGAR documents (v0.11).** Run because all six were
+sourced by the pre-step-3 method, so all six carried the same risk:
+
+| id | claimed type | `shall` | `by and between` / `WHEREAS` | verdict |
+| :--- | :--- | ---: | :--- | :--- |
+| E01 | data_processing | 105 | 1 / 3 | **CONTRACT** |
+| E02 | service_level | 39 | 3 / 2 | **CONTRACT** |
+| E03 | supply | 157 | 1 / 3 | **CONTRACT** |
+| **E04** | **logistics** | **9** | **0 / 0** | **WHOLE SEC FORM — defective** |
+| E05 | escrow | 66 | 1 / 5 | **CONTRACT** |
+| E07 | maintenance | 34 | 1 / 2 | **CONTRACT** (sourced under the four-step rule) |
+
+**E04 is a second instance of E06's defect**: `tllp8-k06x23x2014.htm` is a complete Form
+8-K current report *announcing* a West Coast logistics drop-down, not the agreement itself
+— no `by and between`, no `WHEREAS`, 9 `shall` in 20,631 characters. Two of the six
+originally-sourced EDGAR documents were therefore not contracts, which is a **33% defect
+rate for the pre-step-3 method** and the justification for making step 3 binding rather
+than advisory.
+
+E04 is standard-stratum (`xref_pct` 2) and contributes 20 of 1,514 pool segments (1.3%),
+none of them to the hard stratum — so §2.2's floor and the hard queue are unaffected by
+its fate. **Its replacement is pending a decision, the same one taken for E06.**
 
 ---
 
