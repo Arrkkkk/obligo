@@ -58,6 +58,7 @@ import hashlib
 import html
 import json
 import re
+import random
 import statistics
 import sys
 import time
@@ -725,6 +726,98 @@ def cmd_draw(dest: Path, seed: int, count: int, hard: int, out: Path | None) -> 
     return 0
 
 
+EDGAR_FTS_URL = "https://efts.sec.gov/LATEST/search-index"
+SOURCE_MIN_BYTES = 15000
+SOURCE_MIN_SHALL = 20
+
+
+def is_contract(text: str, type_term: str) -> tuple[bool, str]:
+    """Applies guideline section 12.1 steps 3 and 4 to one fetched document.
+
+    This is the check whose absence put two non-contracts (E06, a Form 10-K;
+    E04, a Form 8-K) into the corpus -- a 33% defect rate for the six EDGAR
+    documents sourced by keyword search alone. It is code rather than a
+    documented convention precisely because it was skipped once already.
+
+    The load-bearing rule: **body frequency is not evidence of document
+    type; only the title is.** An LLC Membership Interest Purchase Agreement
+    that mentions maintenance agreements 24 times is not a maintenance
+    agreement, and a full-text hit list is full of exactly that -- measured
+    at 75% of one such list.
+    """
+    flat = re.sub(r"\s+", " ", text)
+    if re.match(r"\s*(10-K|10-Q|8-K|S-1)\b", flat[:40], re.IGNORECASE):
+        return False, "whole SEC form, not a contract exhibit"
+    title = flat[:1500]
+    m = re.search(r"<DESCRIPTION>([^<]{3,120})", title)
+    heading = m.group(1) if m else title[:200]
+    # The term must QUALIFY the type noun, not merely appear in the title.
+    # A first version of this check required only presence, and selected a
+    # GROUND LEASE whose title reads "...BETWEEN TESORO ALASKA COMPANY LLC,
+    # AS LANDLORD, AND TESORO LOGISTICS OPERATIONS LLC, AS TENANT" -- the
+    # term matched a party's *name*. Requiring the term to sit within two
+    # words of AGREEMENT/CONTRACT rejects that while still accepting
+    # "SOFTWARE MAINTENANCE AGREEMENT".
+    qualifies = re.search(
+        rf"\b{re.escape(type_term)}\b(?:\s+\w+){{0,2}}\s+(?:AGREEMENT|CONTRACT)\b",
+        heading,
+        re.IGNORECASE,
+    )
+    if not qualifies:
+        return False, f"title does not name a {type_term} agreement"
+    shall = len(re.findall(r"\bshall\b", text, re.IGNORECASE))
+    if shall < SOURCE_MIN_SHALL:
+        return False, f"only {shall} 'shall' clauses (floor {SOURCE_MIN_SHALL})"
+    if not re.search(r"by and between|WHEREAS", flat, re.IGNORECASE):
+        return False, "no 'by and between' / 'WHEREAS' contract marker"
+    return True, f"CONTRACT ({shall} shall)"
+
+
+def cmd_source(query: str, type_term: str, seed: int, limit: int) -> int:
+    """Sources one EDGAR document under guideline section 12.1's four-step rule."""
+    import urllib.parse
+
+    headers = {"User-Agent": EDGAR_USER_AGENT}
+    hits: list[dict] = []
+    for start in range(0, 300, 100):
+        url = f"{EDGAR_FTS_URL}?{urllib.parse.urlencode({'q': query, 'from': str(start)})}"
+        with urllib.request.urlopen(urllib.request.Request(url, headers=headers), timeout=60) as r:
+            hits.extend(json.load(r)["hits"]["hits"])
+        time.sleep(EDGAR_DELAY_SECONDS)
+
+    seen: set[tuple[str, str]] = set()
+    candidates = []
+    for hit in hits:
+        accession, filename = hit["_id"].split(":", 1)
+        if not re.search(r"ex.?10|exv10", filename, re.IGNORECASE):
+            continue
+        if (accession, filename) in seen:
+            continue
+        seen.add((accession, filename))
+        candidates.append((accession, filename, hit["_source"]["display_names"][0]))
+    print(f"source: {len(hits)} hits -> {len(candidates)} unique exhibit-shaped candidates")
+
+    order = random.Random(seed).sample(candidates, min(limit, len(candidates)))
+    for i, (accession, filename, company) in enumerate(order, start=1):
+        cik = re.search(r"CIK (\d{10})", company)
+        if not cik:
+            continue
+        url = f"https://www.sec.gov/Archives/edgar/data/{int(cik.group(1))}/{accession.replace('-', '')}/{filename}"
+        try:
+            blob = _download(url, headers)
+        except Exception as exc:  # noqa: BLE001 - a dead EDGAR link is a skip, not a crash
+            print(f"  {i:>2}. {filename:<34} SKIP ({exc})")
+            continue
+        time.sleep(EDGAR_DELAY_SECONDS)
+        ok, why = is_contract(extract_text(blob, "edgar"), type_term)
+        print(f"  {i:>2}. {filename:<34} {len(blob):>7}B  {'SELECTED' if ok else 'reject'}: {why}")
+        if ok and len(blob) >= SOURCE_MIN_BYTES:
+            print(f"\nsource: SELECTED {url}\n  sha256 {_sha256(blob)}\n  bytes  {len(blob)}\n  company {company}")
+            return 0
+    print("\nsource: no candidate passed section 12.1 in the seeded order")
+    return 1
+
+
 def cmd_pool(dest: Path) -> int:
     """Recomputes the eligible-segment pool and its section 15-17 frequencies.
 
@@ -768,14 +861,22 @@ def cmd_pool(dest: Path) -> int:
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("command", choices=("fetch", "verify", "profile", "pool", "draw"))
+    parser.add_argument("command", choices=("fetch", "verify", "profile", "pool", "draw", "source"))
     parser.add_argument("--dest", type=Path, default=DEFAULT_DEST)
     parser.add_argument("--compare", action="store_true", help="profile: diff against the manifest")
     parser.add_argument("--write", type=Path, default=None, help="profile/draw: write JSON here")
     parser.add_argument("--seed", type=int, default=None, help="draw: the reviewer's seed")
     parser.add_argument("--count", type=int, default=10, help="draw: items in the batch")
     parser.add_argument("--hard", type=int, default=3, help="draw: items from the hard stratum (section 2.2)")
+    parser.add_argument("--query", default=None, help="source: EDGAR full-text query")
+    parser.add_argument("--type-term", default=None, help="source: term required in the document's own title")
+    parser.add_argument("--limit", type=int, default=25, help="source: candidates to check in seeded order")
     args = parser.parse_args(argv)
+
+    if args.command == "source":
+        if not args.query or not args.type_term:
+            parser.error("source requires --query and --type-term (guideline section 12.1)")
+        return cmd_source(args.query, args.type_term, args.seed or 0, args.limit)
 
     if args.command == "draw":
         if args.seed is None:

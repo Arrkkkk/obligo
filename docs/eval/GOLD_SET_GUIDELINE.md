@@ -1,6 +1,6 @@
 # Obligo Tier-2 Gold Set — Annotation Guideline
 
-**Version:** v0.11 (DRAFT — not yet frozen)
+**Version:** v0.12 (DRAFT — not yet frozen)
 **Created:** 2026-08-17
 **Status:** No items have been annotated against this document yet.
 **v0.2 change:** corpus rebuilt after a selection-bias audit — see §13.
@@ -22,8 +22,10 @@ draw — redacted values (§8.1) and `UNLESS`-dependent clauses (§8.2), both as
 (`redacted_phrase`). E06 retired and replaced by E07 (§18.6); manifest v0.4.
 **v0.11 change:** the four-step EDGAR sourcing rule made binding (§12.1) after an audit of
 all six originally-sourced EDGAR documents. **E04 found defective — a whole Form 8-K, the
-same defect as E06 — a 33% defect rate for the pre-step-3 method. E04's replacement is the
-one open question.** v0.11 is the version batch 1 is annotated under.
+same defect as E06 — a 33% defect rate for the pre-step-3 method.**
+**v0.12 change:** E04 retired and replaced by E08 under §12.1 (manifest v0.5); §12.1 step 3
+tightened after its first version selected a GROUND LEASE. **No open questions remain.**
+v0.12 is the version batch 1 is annotated under.
 
 *Why v0.8 and not an edit to v0.7:* v0.7 was committed, and every gold item stamps the
 guideline version it was annotated under. Amending a committed version in place would make
@@ -556,9 +558,24 @@ originally-sourced EDGAR documents were therefore not contracts, which is a **33
 rate for the pre-step-3 method** and the justification for making step 3 binding rather
 than advisory.
 
-E04 is standard-stratum (`xref_pct` 2) and contributes 20 of 1,514 pool segments (1.3%),
-none of them to the hard stratum — so §2.2's floor and the hard queue are unaffected by
-its fate. **Its replacement is pending a decision, the same one taken for E06.**
+E04 is standard-stratum (`xref_pct` 2) and contributed 20 of 1,514 pool segments (1.3%),
+none to the hard stratum — so §2.2's floor and the hard queue were unaffected by its fate.
+
+**Resolved in v0.12: E04 retired, replaced by E08** (manifest v0.5) — Kirkland's Inc.
+`LOGISTICS SERVICES AGREEMENT` (EX-10.20, accession 0001056285-19-000017, 123,630 bytes,
+140 `shall`, 5 `WHEREAS`), sourced under §12.1 with three logged rejections above it.
+
+**§12.1 step 3 was tightened as a direct result of this draw, and the reason is worth
+recording: the first version of the automated check selected a GROUND LEASE.** Its title —
+"GROUND LEASE BETWEEN TESORO ALASKA COMPANY LLC, AS LANDLORD, AND TESORO **LOGISTICS**
+OPERATIONS LLC, AS TENANT" — contains the type term inside a **party's name**. Requiring
+only that the term appear in the title was therefore not enough; the term must **qualify
+the type noun** (within two words of `AGREEMENT`/`CONTRACT`). This is the third distinct
+variant of the same error class (E06: a whole 10-K; E04: a whole 8-K; this: a party-name
+match), and the first produced by the automated rule written to prevent the other two —
+which is the argument for keeping the manual body-verification step even now that the
+check is code. `is_contract()` carries regression coverage: it accepts E07, and rejects
+both the ground lease and E04.
 
 ---
 
