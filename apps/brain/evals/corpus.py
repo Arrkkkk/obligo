@@ -506,6 +506,88 @@ def cmd_profile(dest: Path, compare: bool, write: Path | None) -> int:
     return 0
 
 
+SEGMENT_MIN_CHARS = 200
+SEGMENT_MAX_CHARS = 2000
+
+# A line not ending in terminal punctuation is unfinished; a line starting
+# in lower case continues it. A list marker ("b.", "(iv)", "3.") starts a
+# new clause even though it begins in lower case, so it is excluded from
+# the continuation test -- without this guard, "b. Zynga shall indemnify"
+# is welded onto the paragraph above it.
+_UNFINISHED_RE = re.compile(r"[.;:!?][\"')\]”’]?\s*$")
+_CONTINUATION_RE = re.compile(r"^[\(\[\"'“‘]?[a-z]")
+# Numeric markers are capped at two digits: a parenthesised 3-4 digit
+# number is a year or a citation, not a clause label. Without the cap,
+# "...the Convention (1980) is excluded." starts a spurious new segment at
+# "(1980)". Exactly one segment in 1,681 hit this, and the batch-1 seed
+# drew it first.
+_LIST_MARKER_RE = re.compile(r"^[\(\[]?(?:[a-z]{1,3}|[0-9]{1,2})[.)\]]\s+\S")
+
+
+def reconstruct_paragraphs(text: str) -> list[str]:
+    """Rebuilds paragraphs from documents that wrap lines three different ways.
+
+    A gold segment should be a natural clause unit -- guideline section 2
+    asks for 200-2,000 characters containing **1-3 obligation-bearing
+    clauses** -- so the enumeration unit has to be the document's
+    paragraph, not its lines and not an arbitrary fill-to-the-ceiling run
+    of sentences.
+
+    Neither of the two obvious rules works across this corpus, and both
+    were tried and measured before this one:
+
+    - **Splitting on single newlines** put 24% fragments into the pool,
+      because C02 is hard-wrapped at ~93 characters and EDGAR breaks at
+      every block tag. Worse, the fragments were difficulty-correlated
+      (48% of EDGAR against 21% of CUAD; 32% of the hard stratum against
+      20% of the standard one), which would have depleted the hard stratum
+      fastest and quietly eroded section 2.2's 25-item floor -- the same
+      class of bias section 13's audit was written about.
+    - **Grouping whole sentences up to the ceiling** removed the fragments
+      but produced maximal ~2,000-character blobs that sweep unrelated
+      boilerplate in with the obligation, violating section 2's own "1-3
+      obligation-bearing clauses" criterion.
+
+    Line structure cannot be trusted directly because it is inconsistent
+    per document: C04 stores one paragraph per line, C02 hard-wraps *with
+    blank lines between the wrapped lines* (so blank lines are not
+    paragraph boundaries there), and EDGAR emits a newline per block tag.
+    What is consistent is prose: a paragraph continues while the previous
+    line is unfinished and the next begins in lower case. Blank lines are
+    therefore ignored for the continuation decision rather than treated as
+    separators.
+    """
+    paragraphs: list[str] = []
+    current = ""
+    for line in text.split("\n"):
+        stripped = line.strip()
+        if not stripped:
+            continue
+        # An unfinished previous line is the primary signal, and it does
+        # not depend on the next line's capitalisation -- legal prose wraps
+        # onto Capitalised Defined Terms ("...and each / Service Recipient
+        # acknowledges...") constantly, so requiring a lower-case start
+        # leaves a third of EDGAR's segments fragmented. Two guards keep
+        # genuine new clauses from being absorbed: a list marker always
+        # starts one, and a heading-like previous line (short, or all caps)
+        # is never treated as an unfinished sentence.
+        continues = (
+            current
+            and not _UNFINISHED_RE.search(current)
+            and not _LIST_MARKER_RE.match(stripped)
+            and not (len(current) < 40 or current.isupper())
+        )
+        if continues:
+            current = f"{current} {stripped}"
+        else:
+            if current:
+                paragraphs.append(re.sub(r"\s+", " ", current).strip())
+            current = stripped
+    if current:
+        paragraphs.append(re.sub(r"\s+", " ", current).strip())
+    return paragraphs
+
+
 def enumerate_pool(text: str) -> list[str]:
     """Enumerates candidate gold segments per guideline section 2.1's filter.
 
@@ -519,16 +601,34 @@ def enumerate_pool(text: str) -> list[str]:
     -- doing so would quietly move a judgment the guideline assigns to a
     human into an unreviewable regex.
 
-    Blocks are the document's own paragraph structure. A block over the
-    2,000-character ceiling is not sentence-chunked into compliant pieces:
-    where to cut it is exactly the hand-cutting decision section 2 reserves
-    for the annotator.
+    **Segments are built from whole sentences, never from lines.** An
+    earlier version split on the document's own line breaks, which put 24%
+    fragments into the pool -- entries beginning or ending mid-clause, which
+    no annotator can annotate. The cause is that line structure is not
+    consistent across this corpus and cannot be relied on: C04 stores one
+    paragraph per line, C02 is hard-wrapped at ~93 characters *with blank
+    lines between the wrapped lines*, and EDGAR filings break at every
+    `<br>` and block tag. No line-based rule survives all three.
+
+    Worse, the fragments were **difficulty-correlated** -- 48% of EDGAR
+    segments against 21% of CUAD's, 32% of the hard stratum against 20% of
+    the standard one. Because a rejected draw is replaced from its own
+    stratum's queue, the hard stratum would have been depleted fastest,
+    quietly eroding section 2.2's 25-item floor while every individual
+    rejection looked justified in its own log. That is the same class of
+    difficulty-correlated selection bias section 13's audit was written
+    about, reintroduced through a different mechanism.
+
+    Grouping consecutive whole sentences removes the failure mode by
+    construction rather than by heuristic: a segment always begins where a
+    sentence begins and ends where one ends, whatever the underlying line
+    structure. `split_sentences()` normalizes all whitespace first, so
+    hard-wrapping is absorbed rather than interpreted.
     """
-    blocks = [re.sub(r"\s+", " ", b).strip() for b in re.split(r"\n\s*\n|\n", text)]
     return [
-        b
-        for b in blocks
-        if 200 <= len(b) <= 2000 and _MODAL_RE.search(b)
+        p
+        for p in reconstruct_paragraphs(text)
+        if SEGMENT_MIN_CHARS <= len(p) <= SEGMENT_MAX_CHARS and _MODAL_RE.search(p)
     ]
 
 

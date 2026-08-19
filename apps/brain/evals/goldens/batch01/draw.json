@@ -1,0 +1,221 @@
+{
+  "seed": 20260817,
+  "count": 10,
+  "hard": 3,
+  "queues": {
+    "hard": [
+      {
+        "segment_id": "E03-051",
+        "doc_id": "E03",
+        "stratum": "hard",
+        "chars": 855,
+        "text": "11.2Entire Agreement; Amendment. This Supply Agreement, including the Exhibits, together with the Collaboration and License Agreement, is both a final expression of the Parties\u2019 agreement and a complete and exclusive statement with respect to all of its terms. This Supply Agreement supersedes all prior and contemporaneous agreements and communications, whether oral, written, or otherwise, concerning any and all matters contained herein. This Supply Agreement may only be modified or supplemented in a writing expressly stated for such purpose and signed by the Parties to this Supply Agreement. No modification to this Supply Agreement will be effected by the acknowledgment or acceptance of any Purchase Order or shipping instruction forms or similar documents containing terms or conditions at variance with or in addition to those set forth herein."
+      },
+      {
+        "segment_id": "E01-047",
+        "doc_id": "E01",
+        "stratum": "hard",
+        "chars": 267,
+        "text": "SECTION 8.14. Amendments. No provisions of this Agreement shall be deemed waived, amended, supplemented or modified by any Party hereto, unless such waiver, amendment, supplement or modification is in writing and signed by the authorized representative of each Party."
+      },
+      {
+        "segment_id": "C04-018",
+        "doc_id": "C04",
+        "stratum": "hard",
+        "chars": 951,
+        "text": "(a) The supply of the Miltenyi Products hereunder conveys to Bellicum the limited, non-exclusive, non-transferable (except as expressly provided herein, including as set forth in Article 17) right to use, and to permit its Subcontractors and Licensees to use the Miltenyi Products solely for Ex Vivo Cell Processing in the manufacture of Bellicum Products for use in the Field in the Territory (including for research, pre-clinical, clinical, regulatory and commercial purposes), in accordance with applicable Regulatory Authority requirements and approvals (including (to the extent applicable) any relevant clinical trial protocol, IND, and/or IRB approval pertaining to such Bellicum Products), in each case consistent with the terms and conditions of this Agreement and in accordance with Applicable Laws (the \"Permitted Use\"). Bellicum's Permitted Use of the Miltenyi Products shall be limited to the Designated Countries, subject to Section 2.3."
+      },
+      {
+        "segment_id": "C04-174",
+        "doc_id": "C04",
+        "stratum": "hard",
+        "chars": 233,
+        "text": "20.1 Governing Further Actions. Each Party will execute, acknowledge and deliver such further instruments, and do all such other acts, as may be necessary or appropriate in order to carry out the purposes and intent of the Agreement."
+      },
+      {
+        "segment_id": "C04-032",
+        "doc_id": "C04",
+        "stratum": "hard",
+        "chars": 463,
+        "text": "2.7 Violations. Nothing herein contained shall oblige Miltenyi to continue supplying, or Bellicum to continue ordering or purchasing, any Miltenyi Product if such supply or purchase is reasonably believed by Miltenyi or Bellicum, as the case may be, based on objective grounds, to violate Applicable Laws or such Party's licenses, or if the Miltenyi Products supplied to Bellicum infringe, or are alleged to infringe, a Third Party's Intellectual Property Rights."
+      },
+      {
+        "segment_id": "E03-005",
+        "doc_id": "E03",
+        "stratum": "hard",
+        "chars": 1203,
+        "text": "(a)Rolling Forecast. At least ** before the ** of each Calendar Quarter during the Term of this Supply Agreement, Kissei shall provide Rigel a rolling forecast of its monthly requirements for the quantity of Products to be used for (i) Development purposes for the following ** period commencing from such Calendar Quarter and (ii) Commercial use for the following ** period commencing from such Calendar Quarter (\u201cOrder Forecast\u201d). For clarity, each Order Forecast shall itemize the applicable quantity (i.e., the unit of Drum or naked bottle, but not limited to such unit) of the Product and its placebo (if applicable) for each of Development and Commercial use. Each Order Forecast shall be made in good faith for budget and capacity planning purposes only and shall be non-binding on Kissei and Rigel, except as provided in Section 2.2(b). The Parties shall discuss and review the Order Forecast at each regularly scheduled meeting of the JSC established by the Parties under the Collaboration and License Agreement (or by a subcommittee established by the JSC to oversee the manufacture and supply of the Product). The Order Forecast will be in substantially the form attached hereto as Exhibit B."
+      },
+      {
+        "segment_id": "C04-024",
+        "doc_id": "C04",
+        "stratum": "hard",
+        "chars": 505,
+        "text": "(2) Reverse engineer, disassemble or otherwise analyze, or cause any Third Party to reverse engineer, disassemble or otherwise analyze, any Miltenyi Product supplied hereunder, in whole or in part; provided, however, that the foregoing shall not limit the right or ability of Bellicum or its Licensees or Subcontractors to identify defects, troubleshoot problems, evaluate, test, use or conduct any study utilizing any Miltenyi Product(s) as reasonably necessary to achieve the purposes of this Agreement;"
+      },
+      {
+        "segment_id": "C22-029",
+        "doc_id": "C22",
+        "stratum": "hard",
+        "chars": 545,
+        "text": "(a) Termination of Third Party Contracts. The license rights granted to the Purchaser Licensees under any Licensed IP that constitutes Third-Party Intellectual Property, if any, are subject to the terms and conditions of the Contracts applicable to such Licensed IP, and will terminate upon (i) termination of such Contracts, or (ii) termination of the Seller Parties' right to sublicense the Purchaser Licensees under such Contracts, in each case by the applicable third party licensor or sublicensor, as applicable (and not by a Seller Party)."
+      },
+      {
+        "segment_id": "C04-068",
+        "doc_id": "C04",
+        "stratum": "hard",
+        "chars": 625,
+        "text": "4.10 Disclaimer. Except as provided in this Article 4 or otherwise in the Agreement, Miltenyi provides no warranty that any Master File or other regulatory dossier or submission by Miltenyi or Bellicum will be approved by any Regulatory Authority. Miltenyi shall in no way be held responsible for any refusal by any Regulatory Authority or ethics committee to grant permission to conduct a clinical trial(s) and/or for any refusal by any Regulatory Authority to grant approval under an Investigational New Drug Application (IND) or under a Biological License Application (BLA) or for compassionate use for a Bellicum Product."
+      }
+    ],
+    "standard": [
+      {
+        "segment_id": "E06-050",
+        "doc_id": "E06",
+        "stratum": "standard",
+        "chars": 1047,
+        "text": "Additionally, on November 21, 2001, we and Raytheon entered into the Owner/Guarantor Supplemental Agreement pursuant to which (i) Raytheon and we acknowledged that, notwithstanding the rejection of the construction agreement by WGI, Raytheon would cause the project to be completed in accordance with the terms of the construction agreement pursuant to Raytheon\u2019s performance guaranty obligations, and the construction agreement will have continuing applicability insofar as it defines (x) the obligations owed to us by Raytheon under its guaranty and (y) our obligations to Raytheon arising from the performance of those obligations, (ii) Raytheon (or their designees) was designated as our agent for purposes of administering the subcontracts and vendor contracts assigned by WGI to us, (iii) all future payments by us would be paid in accordance with the terms of the construction agreement directly to Raytheon, and (iv) Raytheon would indemnify us with respect to any claims arising out of the subcontracts and vendor contracts assumed by us."
+      },
+      {
+        "segment_id": "C06-028",
+        "doc_id": "C06",
+        "stratum": "standard",
+        "chars": 373,
+        "text": "(xlii) upon receipt by the DIP Administrative Agent (as defined in the Final DIP Order) and certain other persons as directed in the Payoff Letter (as defined below) of the DIP Payoff (as defined below) pursuant to Section 3.1(a) of this Agreement, all ongoing commitments under the DIP Credit Agreement (as defined in the Final DIP Order) shall be canceled and terminated;"
+      },
+      {
+        "segment_id": "C05-011",
+        "doc_id": "C05",
+        "stratum": "standard",
+        "chars": 308,
+        "text": "1.15 \"Professional Component\" shall mean the performance of the professional component of the steps of the Assay, which is the interpretation of results (generated in the Technical Component) of an Assay by a pathologist, and is covered by CPT codes from the Professional Fee Schedule with the modifier \"26\"."
+      },
+      {
+        "segment_id": "C03-192",
+        "doc_id": "C03",
+        "stratum": "standard",
+        "chars": 1093,
+        "text": "4.23 Technical Support. Vendor will provide, at no additional cost to AT&T, full and complete technical assistance to AT&T for the Material and Services provisioned under this Agreement, including ongoing technical support and field service and assistance, and telephone assistance to assist with installation, operation, maintenance and problem resolution as set forth in the terms of the Maintenance Addendum. The availability or performance of this technical support will not be construed as altering or affecting Vendor's obligations as set forth in the \"Warranty\" Section or as provided elsewhere in this Agreement. Field Service and technical support, including emergency support (service affecting), will be available on call twenty-four (24) hours a day. Vendor will provide to AT&T, and keep current, an escalation document that includes names, titles and telephone numbers, including after-hours telephone numbers, of Vendor personnel responsible for providing technical support to AT&T. Vendor will maintain a streamlined escalation process to speed resolution of reported problems."
+      },
+      {
+        "segment_id": "C05-043",
+        "doc_id": "C05",
+        "stratum": "standard",
+        "chars": 1204,
+        "text": "(e) Data Sharing. Life Technologies and Biocept have entered into this Agreement to, among other things, establish individual databases of results from the Tests performed, which databases will include patient information such as demographic, disease characterization, treatment and outcome information. To that end, to the extent permitted by applicable law and as mutually agreed by the parties, where available each party will share all patient data, Test data and results, and corresponding tissue data with the other party, as well as any follow up or outcome data that may become available or provided by the physician or patient for Tests performed and will cooperate in good faith with the other party to agree upon procedures for sharing such information. Such information may be used only for longitudinal reporting, outcomes correlation and related research, shall be handled in accordance with all applicable Laws, including, without limitation, HIPAA, and applicable institutional review board guidelines, and shall not be used for the purpose of obtaining information about the other party's clients or customers. To the extent feasible, all such information will be properly de-identified."
+      },
+      {
+        "segment_id": "C05-009",
+        "doc_id": "C05",
+        "stratum": "standard",
+        "chars": 408,
+        "text": "1.12 \"Intellectual Property Rights\" means all now or hereafter existing patents, patent applications, copyrights, trademarks (including service marks), trade secrets, know-how, mask work rights and design rights, whether registered or unregistered, and all rights or forms of protection of a similar nature having equivalent or similar effect to any of the foregoing, which may subsist anywhere in the world."
+      },
+      {
+        "segment_id": "E05-020",
+        "doc_id": "E05",
+        "stratum": "standard",
+        "chars": 516,
+        "text": "time to time on and after the date hereof, the parties shall deliver or cause to be delivered to the Escrow Agent such further documents and instruments and shall do or cause to be done such further acts as the Escrow Agent shall reasonably request (it being understood that the Escrow Agent shall have no obligation to make such request) to carry out more effectively the provisions and purposes of this Escrow Agreement, to evidence compliance herewith or to assure itself that it is protected in acting hereunder."
+      },
+      {
+        "segment_id": "E06-084",
+        "doc_id": "E06",
+        "stratum": "standard",
+        "chars": 727,
+        "text": "soon as Raytheon becomes aware of any circumstances which Raytheon has reason to believe may necessitate a scope change, Raytheon will issue to us a scope change order notice at Raytheon\u2019s expense. If we desire to make a scope change, in response to a scope change order notice or otherwise, we will submit a scope change order request to Raytheon. Raytheon will promptly review the scope change order request and notify us in writing of the options for implementing the proposed scope change and the effect, if any, each option would have on the contract price, the guaranteed completion dates, the construction progress milestone dates, the payment and milestone schedule, our project schedule and the performance guarantees."
+      },
+      {
+        "segment_id": "C15-046",
+        "doc_id": "C15",
+        "stratum": "standard",
+        "chars": 340,
+        "text": "Attn: Jeremy Bolander E-mail: Jeremy.bolander@memorialrd.com Notices of change of address of either of the Parties shall be given in writing to the other Party in the manner aforesaid and shall be observed in the giving of all future notices, statements, payments, claims or other communications required or permitted to be given hereunder."
+      },
+      {
+        "segment_id": "C17-021",
+        "doc_id": "C17",
+        "stratum": "standard",
+        "chars": 933,
+        "text": "Section 4.3 Viruses. Provider and Recipient shall each use its commercially reasonable efforts consistent with its past practices to prevent the introduction or coding of viruses or similar items into the Systems of the other Party. Without limiting the rights and remedies of any party hereunder, in the event a virus or similar item is introduced into the Systems of a Party, whether or not such introduction is attributable to the other Party (including such other Party's failure to perform its obligations under this Agreement), the other Party shall, as soon as practicable, use its commercially reasonable efforts to assist such Party in reducing the effects of the virus or similar item, and if the virus or similar item causes a loss of operational efficiency or loss of data, upon such Party's request, work as soon as practicable to contain and remedy the problem and to restore lost data resulting from such introduction."
+      },
+      {
+        "segment_id": "C03-071",
+        "doc_id": "C03",
+        "stratum": "standard",
+        "chars": 395,
+        "text": "(iv) Business Automobile Liability insurance if vehicles will be used in the performance of the Agreement with limits of at least $1,000,000 each accident for bodily injury and property damage, extending to all owned, hired, and non-owned vehicles. AT&T, its Affiliates and their directors, officers and employees shall be included as additional insureds on a primary and non-contributory basis."
+      },
+      {
+        "segment_id": "C11-079",
+        "doc_id": "C11",
+        "stratum": "standard",
+        "chars": 243,
+        "text": "15.4.4 SALE; BKC CONSENT. If BKC does not exercise its option under Subparagraph 15.4.1, Franchisee may conclude the sale to the purchaser who made the offer provided BKC's consent to the assignment or sale be first obtained as provided below."
+      },
+      {
+        "segment_id": "C17-047",
+        "doc_id": "C17",
+        "stratum": "standard",
+        "chars": 295,
+        "text": "Section 8.1 Ownership of Intellectual Property. Any intellectual property owned by a Party, its Affiliates or third-party vendors and used in connection with the provision or receipt of the Services, as applicable, shall remain the property of such Party, its Affiliates, or third-party vendors."
+      },
+      {
+        "segment_id": "C17-066",
+        "doc_id": "C17",
+        "stratum": "standard",
+        "chars": 954,
+        "text": "Section 10.11 Multi-party Contracts. The Company and RGHI will use all commercially reasonable efforts to obtain within 24 months following the Commencement Date, from the counterparty to each Multi-party Contract any needed consent to separate the portion of such contract that relates to the goods or services purchased from or supplied to the Business under such Multi-party Contract (including but not limited to assignment or partial assignment of such contracts to the Company or RGHI or its Affiliates). The contract constituting the separated portion of any Multi-party Contract that relates to the Business as described in the preceding sentence shall be assumed by and become the responsibility of the Company. Each Party making purchases or receiving services under any Multi-party Contract shall indemnify and hold harmless the other Party and its Affiliates for any claims, damages, etc. arising out of such purchases or receipt of services."
+      },
+      {
+        "segment_id": "C03-116",
+        "doc_id": "C03",
+        "stratum": "standard",
+        "chars": 727,
+        "text": "(e) Termination Events. In addition to all other termination rights set forth herein, this Agreement may be terminated by AT&T or AT&T may terminate its obligations hereunder (including terminating only specific addendums or specific Cell Sites), upon the occurrence of (i) any Termination Event (as defined in the Build Addendum) applicable to one or more Cell Sites and upon such termination AT&T may exercise any or all of the Termination Remedies (as defined in the Build Addendum) available to it pursuant to the Build Addendum with respect to such impacted Cell Sites; or (ii) any termination (regardless of the reason therefor) of the Master License Agreement resulting in AT&T's inability to use the impacted Cell Site."
+      },
+      {
+        "segment_id": "C03-118",
+        "doc_id": "C03",
+        "stratum": "standard",
+        "chars": 600,
+        "text": "(g) Termination Charges - AT&T shall not be liable for any termination charges (or any charges for any Material or Services already ordered or performed at the time of termination) in any case when any termination results from a termination right granted to AT&T in this Agreement; provided that AT&T shall remain obligated to make Structured Payments with respect to any Cell Sites that have reached Location Acceptance prior to the effective date of such termination and pay any Maintenance Fees for Services performed under the Maintenance Addendum prior to the effective date of such termination."
+      },
+      {
+        "segment_id": "E06-142",
+        "doc_id": "E06",
+        "stratum": "standard",
+        "chars": 494,
+        "text": "Borough or we reasonably determines that capital improvements to the infrastructure are required, the party will notify the other party and the parties will meet in good faith to determine the scope of the capital improvements. We will pay for our costs and expenses arising from the capital improvements as well as those of the Borough. If we damage either infrastructure or capital improvements, we will restore the damaged portions thereof or pay the Borough to restore the damaged portions."
+      },
+      {
+        "segment_id": "C11-094",
+        "doc_id": "C11",
+        "stratum": "standard",
+        "chars": 1310,
+        "text": "15.7 DEATH OR MENTAL INCAPACITY OF PRINCIPAL. If the Principal is a natural person, upon the death or mental incapacity of a Principal, the executor, administrator, or personal representative of such Principal shall transfer the Principal's interest in Franchisee to a third party approved by BKC within a reasonable time after the Principal's death or mental incapacity. Transfers by devise or inheritance shall not be subject to BKC's right of first refusal under Paragraph 15.4 above, but shall be subject to the same conditions imposed on any INTER VIVOS transfer under Paragraph 15.5 above. All other transfers shall be subject to BKC's right of first refusal under Paragraph 15.4 above, or if such right is not exercised, the same conditions as may be imposed on any INTER VIVOS transfer under Paragraph 15.5 above. In the case of transfer by devise or inheritance, if the heir is not approved or there is no heir, the executor shall use best efforts to transfer the Principal's interest to another party approved by BKC within twelve (12) months from the date of the Principal's death. If the conveyance of the Principal's interest to a party acceptable to BKC has not taken place within the twelve (12) month period, BKC shall have the option, to purchase the Principal's interest at fair market value."
+      },
+      {
+        "segment_id": "C03-050",
+        "doc_id": "C03",
+        "stratum": "standard",
+        "chars": 407,
+        "text": "(f) Notwithstanding anything to the contrary in this Agreement (including in this Section), Vendor understands and acknowledges that Vendor information related to installation, operation, repair, or maintenance shall not be considered confidential or proprietary, and AT&T may disclose any such information for purposes of installing, operating, repairing, replacing, removing, and maintaining the Material."
+      },
+      {
+        "segment_id": "C02-019",
+        "doc_id": "C02",
+        "stratum": "standard",
+        "chars": 1917,
+        "text": "2.7 Labelling and Packaging. Antares or its Subcontractor shall label and package the Products, sample Products and Trainers as set out in the Specifications. AMAG shall be responsible for the cost of artwork development for the Products, sample Products and Trainers. In addition, Antares or its Subcontractor shall arrange for and implement (a) the imprinting of batch numbers and expiration dates for each batch of Products and sample Products shipped, and (b) the imprinting of batch numbers for each batch of Trainers shipped. Such batch numbers and expiration dates shall be affixed on the Products, sample Products and Trainers and, on the shipping carton of each Product, sample Product and Trainer as outlined in the Specifications and, as required by cGMPs and Applicable Laws. The system used by Antares or its Subcontractor for batch numbering and expiration dates is detailed in Exhibit F hereto. AMAG shall be solely responsible for the content of the labelling and the provision of such content. Notwithstanding anything to the contrary in this Agreement, Antares' obligation to perform the Manufacturing Services is subject to AMAG's reasonably timely approval and provision of all labelling content. AMAG may, in its sole discretion, make changes to labels, product inserts and other packaging for the Products, sample Products and Trainers, which changes shall be submitted by AMAG to all applicable Regulatory Authorities from which approval of such changes is required. AMAG shall be responsible for the cost of labeling obsolescence due to changes to such labeling made by AMAG, including the reasonable cost of disposal and replacement of packaging materials. Antares' name shall appear on the label or anywhere else on the Products, sample Products and Trainers as reasonably agreed upon by the Parties, unless: (i) prohibited by Applicable Laws; or (ii) the Parties otherwise agree in writing."
+      },
+      {
+        "segment_id": "C06-092",
+        "doc_id": "C06",
+        "stratum": "standard",
+        "chars": 491,
+        "text": "(a) Upon the occurrence of the Closing and until the earlier to occur of (i) the end of the Designation Rights Period applicable to a particular Lease or Contract and (ii) the Designation Rights Termination Date, Purchaser shall have the exclusive right to designate the assignees of Merchant's right, title, and interest in and to any or all of the Leases and Contracts (the \"Lease/Contract Designation Rights\") upon the terms and conditions agreed upon between Purchaser and such designee."
+      }
+    ]
+  }
+}

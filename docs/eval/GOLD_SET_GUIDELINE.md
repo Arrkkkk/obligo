@@ -1,6 +1,6 @@
 # Obligo Tier-2 Gold Set — Annotation Guideline
 
-**Version:** v0.8 (DRAFT — not yet frozen)
+**Version:** v0.9 (DRAFT — not yet frozen)
 **Created:** 2026-08-17
 **Status:** No items have been annotated against this document yet.
 **v0.2 change:** corpus rebuilt after a selection-bias audit — see §13.
@@ -13,7 +13,11 @@
 OUT (§11), held-out mechanism fixed (§7). Two stale internal numbers corrected (§9, §13).
 **v0.8 change:** the last open question decided — parenthetical-numeral `WITHIN` items are
 annotated honestly and criterion 1b is reported both ways (§11, §9). One field added to §1.
-**No open questions remain.** v0.8 is the version batch 1 is annotated under.
+**v0.9 change:** a difficulty-correlated segment-enumeration defect found and fixed before
+batch 1 was drawn — see §18.6. §18.3's re-measurement column updated to the corrected pool
+and given a segment-size caveat. §11 retitled (all four questions are decided).
+**One open question added by §18.6: whether to keep, drop, or replace E06.**
+v0.9 is the version batch 1 is annotated under.
 
 *Why v0.8 and not an edit to v0.7:* v0.7 was committed, and every gold item stamps the
 guideline version it was annotated under. Amending a committed version in place would make
@@ -404,7 +408,7 @@ misread as "resolved"), and the prompt/model/grammar versions in force.
 
 ---
 
-## 11. Open questions for review
+## 11. Decisions (formerly open questions)
 
 **RESOLVED v0.8 — 1. The parenthetical-numeral finding (§8).** Decided as **(c)**:
 annotate, measure both ways, and only then consider a code change. The figure was deferred
@@ -818,14 +822,22 @@ and a differing definition, and is not treated as convicting either. What matter
 | Claim | Original | v0.7 re-measurement | Verdict |
 | :--- | :--- | :--- | :--- |
 | §8 `WITHIN` parenthetical share | 74% (119/161) | 84% (152/180) | **Confirmed** — differs in count, agrees in finding |
-| §15 vague-temporal share of pool | 12% (111/960) | 12% (193/1603) | **Confirmed — exact rate match** |
-| §16 efforts-qualifier share of pool | 3% (28/960) | 3% (53/1603) | **Confirmed — exact rate match** |
-| §17 chained conditions | 0.2% (2/960) | 1.0% (16/1603) | **Not reproduced** — see §18.4 |
+| §15 vague-temporal share of pool | 12% (111/960) | 12% (202/1681) | **Confirmed — exact rate match** |
+| §16 efforts-qualifier share of pool | 3% (28/960) | 3% (52/1681) | **Confirmed — exact rate match** |
+| §17 chained conditions | 0.2% (2/960) | 0.9% (15/1681) | **Not reproduced** — see §18.4 |
 | Per-document raw counts | manifest | 134 of 196 values differ | Ambiguous by construction |
 
-§15's and §16's rates reproducing **exactly**, off a pool 67% larger built by a different
-rule, is strong evidence both were genuinely measured. Rates do not survive that kind of
-change by accident.
+§15's and §16's rates reproducing **exactly**, off a pool built by a different rule, is
+strong evidence both were genuinely measured.
+
+**With one caveat found the hard way (§18.6): these rates are sensitive to segment size,
+not just to segment count.** A defective intermediate enumeration that produced maximal
+~2,000-character segments measured the same two properties at 24% and 7% — because a
+longer segment has more chances to contain a qualifier. The agreement above therefore says
+the original pool was built from *paragraph-sized* segments like the corrected one (median
+561 characters), and is not a claim that any pool of any shape would reproduce it. A future
+re-measurement must report its segment-size distribution alongside the rate, or the number
+is not comparable.
 
 ### 18.4 §17's frequency did not reproduce, and is corrected downward in confidence
 
@@ -848,3 +860,58 @@ correctness, not volume"), so §17's rule stands unchanged. But the specific fig
   confirmed.
 - **Nothing here is an annotation.** No gold item exists. §18 verifies the corpus and the
   statistics reasoned from it, nothing downstream of either.
+
+### 18.6 The segment-enumeration defect (found before batch 1 was drawn)
+
+The first enumeration split documents on single newlines. It put **24% fragments** into
+the pool — entries beginning or ending mid-clause, which no annotator can annotate — and
+they were **difficulty-correlated**: 48% of EDGAR segments against 21% of CUAD's, and 32%
+of the hard stratum against 20% of the standard one.
+
+**That is why this mattered enough to stop batch 1 for.** A drawn segment rejected under
+§2 is replaced from its own stratum's queue, so the hard stratum would have been depleted
+fastest — eroding §2.2's 25-item floor while every individual rejection looked perfectly
+justified in its own log entry. It is the same class of difficulty-correlated selection
+bias §13's audit was written about, arriving through a different mechanism, and it would
+have been invisible in the finished gold set.
+
+**Root cause: line structure is not consistent across this corpus and cannot be relied
+on.** C04 stores one paragraph per line; C02 is hard-wrapped at ~93 characters *with blank
+lines between the wrapped lines*, so blank lines are not paragraph boundaries there; EDGAR
+emits a newline per block tag. No line-based rule survives all three.
+
+Two candidate fixes were measured and one was rejected:
+
+| Approach | Fragments | Verdict |
+| :--- | :--- | :--- |
+| Split on single newlines | 24% | Rejected — the original defect |
+| Group whole sentences to the 2,000-char ceiling | 4.8% | **Rejected** — produced maximal blobs violating §2's "1–3 obligation-bearing clauses", and distorted §§15–16's rates to 24%/7% |
+| Reconstruct paragraphs by sentence continuation | **4.6%** | Adopted (`reconstruct_paragraphs`) |
+
+**Difficulty correlation is resolved**, which was the actual reason to stop:
+
+| Slice | Before | After |
+| :--- | :--- | :--- |
+| Hard stratum | 32% | **4.6%** |
+| Standard stratum | 20% | **4.5%** |
+| CUAD | 21% | 3.4% |
+
+The hard and standard strata are now within 0.1 points of each other. Pool: **1,681
+segments** (409 hard, 1,272 standard), median segment 561 characters.
+
+**The residual 4.6% is mostly the fragment detector's own false positives**, not
+fragments: 34 complete clauses opening with a list marker (`(b) Except where AMAG is
+required by Applicable Law…`), 24 opening with `$` in insurance-limit tables, 7 redaction
+headers, 2 CUAD page-footer artifacts, 1 bankruptcy docket header. The last three classes
+are removed by §2's semantic exclusions regardless.
+
+**Separate finding, still open: E06 is not a contract.** It is `a04-3512_110k.htm`, a
+complete Form 10-K annual report for AES Red Oak LLC (1.09 MB) — cover page, MD&A,
+financial statements. The manifest labels it `contract_type: "maintenance"`, but
+"MAINTENANCE AGREEMENT" appears **zero** times in it; the single "Maintenance Agreement"
+hit is an MD&A heading *describing* a contract executed elsewhere. It contributes 194 pool
+segments (11.5%) of disclosure prose and accounts for 114 of EDGAR's 137 residual
+fragments — excluding it takes the pool to 4.6% overall and EDGAR to 13.1%. **This is a
+corpus-composition defect in the committed manifest, not an enumeration defect, and is
+recorded here pending a decision** to drop it, replace it by a seeded redraw, or keep it.
+E06 is standard-stratum (`xref_pct` 1), so §2.2's hard floor is unaffected either way.
