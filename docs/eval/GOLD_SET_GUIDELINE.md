@@ -1,6 +1,6 @@
 # Obligo Tier-2 Gold Set — Annotation Guideline
 
-**Version:** v0.12 (DRAFT — not yet frozen)
+**Version:** v0.13 (DRAFT — not yet frozen)
 **Created:** 2026-08-17
 **Status:** No items have been annotated against this document yet.
 **v0.2 change:** corpus rebuilt after a selection-bias audit — see §13.
@@ -25,7 +25,11 @@ all six originally-sourced EDGAR documents. **E04 found defective — a whole Fo
 same defect as E06 — a 33% defect rate for the pre-step-3 method.**
 **v0.12 change:** E04 retired and replaced by E08 under §12.1 (manifest v0.5); §12.1 step 3
 tightened after its first version selected a GROUND LEASE. **No open questions remain.**
-v0.12 is the version batch 1 is annotated under.
+**v0.13 change:** redaction split into two tags — `redacted_value` and `redacted_clause`
+(§3.7.1) — because "a deadline exists but its value is hidden" and "whether an obligation
+exists at all is hidden" are different facts. Measured 155 embedded vs 85 whole-clause
+occurrences. `redacted_clause` spans are unscoreable and leave both criteria's
+denominators. v0.13 is the version batch 1 is annotated under.
 
 *Why v0.8 and not an edit to v0.7:* v0.7 was committed, and every gold item stamps the
 guideline version it was annotated under. Amending a committed version in place would make
@@ -229,6 +233,38 @@ temporal from no-temporal by design (`typecheck.py`'s module docstring), so gold
 pretend to either.
 
 **Known-gap forms (§8) are annotated normally.** Do not avoid them.
+
+#### 3.7.1 Two redaction tags, because they are two different facts (v0.13)
+
+Confidential-treatment redactions come in two shapes, and collapsing them would destroy
+real information — the same reason §14.1 keeps `AMBIGUOUS` and `UNCERTAIN` strictly apart.
+**Measured across the corpus: 155 embedded occurrences against 85 whole-clause ones, over
+96 segments.** Both are common; neither is a corner case.
+
+| Tag | The fact it records | Shape in the document |
+| :--- | :--- | :--- |
+| `redacted_value` | **A constraint of this kind exists; its magnitude is unknown.** | The clause survives and its wording establishes what kind of constraint it is; only the operative value is withheld — *"At least \*\* before the \*\* of each Calendar Quarter"* |
+| `redacted_clause` | **Whether an obligation exists here at all is unknown.** | An entire clause or sentence is replaced, leaving nothing to read — *"…unless otherwise mutually agreed. \[\*\*\] ."* |
+
+**`redacted_value` — annotate the item.** The obligor, action and object survive, so the
+obligation is real and annotatable. Set the affected field to `null`, `underspecified =
+true` with that field in `missing_fields`, `known_gap = "redacted_value"`, and the literal
+phrase in `redacted_phrase` (§8.1, unchanged).
+
+**`redacted_clause` — do not annotate an item for the redacted clause.** There is no
+obligation to annotate; asserting one would be fabrication, and asserting its absence would
+be equally unfounded. Other obligations in the same segment are annotated normally. The
+segment is tagged `redacted_clause` at segment level so the gap is visible downstream.
+
+**The scoring consequence, which is the real reason this needs its own tag.** A
+whole-clause redaction makes the ground truth for that span *unknowable*, not merely
+absent. So over a `redacted_clause` span the pipeline's output cannot be scored in either
+direction: an extraction there is **not** counted as a spurious extraction, and the absence
+of one is **not** counted as a `MISSED`. Both are excluded from criterion 1b's and
+criterion 2's denominators and reported separately as an unscoreable count. Tagging these
+as `redacted_value` would have silently pushed 85 unknowable spans into a denominator as
+though they were known-empty — which is precisely the information loss this split
+prevents.
 
 ### 3.8 `conditions`
 
