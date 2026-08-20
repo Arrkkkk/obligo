@@ -1,6 +1,6 @@
 # Obligo Tier-2 Gold Set — Annotation Guideline
 
-**Version:** v0.13 (DRAFT — not yet frozen)
+**Version:** v0.17 (DRAFT — not yet frozen)
 **Created:** 2026-08-17
 **Status:** No items have been annotated against this document yet.
 **v0.2 change:** corpus rebuilt after a selection-bias audit — see §13.
@@ -29,7 +29,16 @@ tightened after its first version selected a GROUND LEASE. **No open questions r
 (§3.7.1) — because "a deadline exists but its value is hidden" and "whether an obligation
 exists at all is hidden" are different facts. Measured 155 embedded vs 85 whole-clause
 occurrences. `redacted_clause` spans are unscoreable and leave both criteria's
-denominators. v0.13 is the version batch 1 is annotated under.
+denominators. **v0.14 change:** compound-action rule added (§8.3) — one item on the primary verb,
+`known_gap: "compound_action"`, dropped verb recorded.
+**v0.15 change:** §8.3 confirmed by the reviewer and given its named rule — shared
+indivisible object stays one item, separate objects split. v0.15 is the version batch 1 is
+annotated under.
+**v0.16 change:** mutual-obligation rule added (§8.4) — one item, `known_gap:
+"mutual_obligation"`. PII redaction convention recorded (§2.3).
+**v0.17 change:** `within_preposition` gap added (§8.6, 7 confirmed bare-numeral instances);
+joint-obligor rule added (§3.5.1) as an accept-set, explicitly NOT a gap. v0.17 is the
+version batch 1 is annotated under.
 
 *Why v0.8 and not an edit to v0.7:* v0.7 was committed, and every gold item stamps the
 guideline version it was annotated under. Amending a committed version in place would make
@@ -75,6 +84,7 @@ Each item records:
 | `underspecified` | annotated | bool (§3.9) |
 | `missing_fields` | annotated | reported, **excluded from the scoring predicate** |
 | `vague_temporal_phrase` | annotated | literal phrase or `null`; **not scored** (§15) |
+| `obligor_accept_set` | annotated | co-obligors for a joint duty (§3.5.1) |
 | `redacted_phrase` | annotated | literal redacted phrase or `null`; **not scored** (§8.1) |
 | `known_gap` | annotated | `null`, or the named v1 gap this item exercises (§8, §11) |
 | `annotator_confidence` | annotated | `CONFIDENT` \| `AMBIGUOUS` \| `UNCERTAIN` (§14) |
@@ -124,6 +134,48 @@ the largest and least visible bias risk in the whole build (§13).
 4. Every segment rejected as ineligible is logged **with its verbatim text and the rule
    invoked**, and a random sample of rejections goes into the reviewer's batch packet —
    so an exclusion that was really a difficulty dodge is visible.
+
+### 3.5.1 Joint obligors — accept-set, not a gap (v0.17)
+
+**Motivating case** — `C17-066`: *"**The Company and RGHI** will use all commercially
+reasonable efforts to obtain … **from the counterparty** …"* Both parties are bound, but
+toward a **third party**.
+
+**Distinguish from §8.4's mutual obligation.** The test is whether the co-obligor is also
+the obligee:
+
+| | Mutual (`C17-021`) | Joint (`C17-066`) |
+| :--- | :--- | :--- |
+| Obligee | the co-party | a third party |
+| Duties that exist | **two**, mirror images | **one** |
+| Lost by annotating one | **an entire second obligation** | only *which* co-obligor is named |
+| Representable in IR v1 | **No** | **Yes** |
+
+**Rule.** A joint duty is annotated as **one item** with `obligor` set to the
+first-named party and **`obligor_accept_set`** listing every co-obligor. **No `known_gap`
+tag.**
+
+**Why no tag.** Mutual is an *item-count* problem — gold under-counts obligations by one
+per instance, and no accept-set can supply a missing item. Joint is a *field-value*
+problem — the obligation is fully representable, and the only question is which co-obligor
+a correct extraction may name, which is exactly what an accept-set decides. Tagging it
+would assert a v1 limitation that does not exist, and would dilute
+`mutual_obligation`'s count with cases that are not losses.
+
+---
+
+### 2.3 PII in archived segment text (v0.16)
+
+Email addresses are replaced with a **same-length** placeholder
+(`apps/brain/evals/corpus.py::redact_pii`) in the **exclusion log**, which is committed
+permanently. Item files are **not** redacted: `segment_text` must stay byte-identical to
+what `run_pipeline()` would be handed from the real document, or gold is measuring against
+a text the pipeline never sees.
+
+Measured: 6 of 1,547 pool segments carry an email, and **all six are notice or address
+blocks** — already §2 exclusions — so PII does not reach item files in practice. Names are
+left intact: they are sometimes part of the clause text, and §2.1 requires verbatim
+exclusion text so a reviewer can tell a genuine exclusion from a difficulty dodge.
 
 ### 2.2 Hard-document stratum
 
@@ -404,6 +456,9 @@ says; if v1 cannot compile it, that is a measurement, not an annotation error.
 | business-day durations | always `underspecified` (no calendar model) |
 | any trigger-bearing temporal | always `underspecified` (`resolve_trigger()` returns `None`) |
 | `EVERY` + `DURING` composed | `EVERY` only, with a composition warning |
+| `within N <unit> after/from/following` | `UNMAPPABLE_TEMPORAL` — `_WITHIN_RE` requires the preposition `of` (§8.6) |
+| Mutual/reciprocal duty (both parties bound) | Unrepresentable — one `obligor`, one `obligee`, CHECK they differ (§8.4) |
+| Compound-action duty (two verbs, one object) | Only the primary verb is representable — `action` holds one verb (§8.3) |
 | `UNLESS` / any exception carve-out | **Fails to parse** — v1's grammar has no exception construct at all (§8.2) |
 | Redacted value (`**`, `[***]`) | Value withheld in the filing; unresolvable by any pipeline stage (§8.1) |
 
@@ -444,6 +499,58 @@ deadline"* with *"a deadline exists and was withheld from the filing"*. They are
 facts about the document, and untagged they become indistinguishable in criterion 1b and
 criterion 2.
 
+### 8.3 Compound-action duties (v0.15 — REVIEWER-CONFIRMED)
+
+**The rule, as ruled:** *compound action verbs governing one shared, indivisible object
+stay a single item with the full action recorded verbatim; only split when the verbs
+govern genuinely separate objects.*
+
+| Shape | Treatment |
+| :--- | :--- |
+| Two verbs, **one shared indivisible object** — *"provide to AT&T, **and keep current**, an escalation document"* | **One item.** Primary verb in `action`, full verb phrase verbatim in `annotator_notes`, `known_gap: "compound_action"` |
+| Two verbs, **genuinely separate objects** — *"responsible for **the installation of new software releases** … **and the distribution of documentation updates**"* | **Two items** (§4.3) |
+
+The discriminating test is **not** "one object or two" on its own: *"shall promptly notify
+and remedy any breach"* shares an object yet the performances are independent. The test is
+whether the verbs are **aspects of one indivisible performance** or **separate
+performances**. Splitting the former would manufacture two items that are not actually
+separable — the same over-mechanical failure this project already declined for AND/OR
+inside a single condition (§17.2).
+
+`known_gap: "compound_action"` is retained on single items even though the annotation is
+*correct* under this rule: IR v1's `action` still holds one verb, so the field genuinely
+under-records the sentence, and the tag keeps that recoverable from data rather than from
+prose.
+
+**Open consequence, recorded not resolved:** for the split case, two items drawn from one
+coordinated verb phrase cannot both satisfy §3.1's *minimal contiguous substring*
+requirement — "shall … notify … any breach" is not contiguous once "and remedy" is removed.
+Overlapping or identical spans then collide under §4.1's IoU alignment. **No split case has
+arisen in batch 1** (the one candidate, `E07-010` sentence 3, fails first on its obligor
+being "These personnel", not a party), so this is flagged for whichever batch first hits
+it rather than solved speculatively.
+
+**Superseded status note:** One sentence can impose two duties on one object
+with two verbs — *"Vendor will provide to AT&T, **and keep current**, an escalation
+document"* is a one-time `PROVIDE` and an ongoing `MAINTAIN`. IR v1's `action` holds a
+single verb, so the sentence cannot be represented whole.
+
+**Rule.** Annotate **one** item on the primary (first) verb, tag
+`known_gap = "compound_action"`, and record the dropped verb(s) verbatim in
+`annotator_notes`.
+
+**Why not two items on the same span.** Two gold items with byte-identical spans collide
+under §4.1's IoU alignment, which assumes one item per span region — it would create a
+scoring defect to record an annotation nuance.
+
+**Why not silence.** Dropping *"keep current"* with only a prose note weakens a continuing
+duty into a one-off, the same silent-weakening `ir_compile.py` refuses for temporals (it
+raises `UNMAPPABLE_TEMPORAL` rather than quietly emitting `temporal=None`). The tag keeps
+the loss recoverable from the data.
+
+**Consequence for §2's clause count:** a compound-action sentence counts as **one**
+obligation-bearing clause, not two, for the 1–3 eligibility band.
+
 ### 8.2 `UNLESS`-dependent clauses (v0.10)
 
 IR v1 has **no exception construct at all** — `UNLESS` does not underspecify, it fails to
@@ -462,6 +569,59 @@ overstatement is always recoverable from the data rather than baked silently int
 
 ---
 
+
+### 8.4 Mutual obligations (v0.16 — REVIEWER-CONFIRMED)
+
+*"Provider and Recipient shall **each** use its commercially reasonable efforts to prevent
+… into the Systems of the other Party."* Both parties bear the same duty toward each
+other. IR v1's `Obligation` holds exactly one `obligor` and one `obligee`, with a CHECK
+that they differ, so a reciprocal duty **cannot be represented at all**.
+
+**Rule.** Annotate **one** item in the natural reading order (first-named party as
+`obligor`), tag `known_gap = "mutual_obligation"`, and record in `annotator_notes` that
+the reciprocal direction is structurally unrepresentable.
+
+**Why not two items.** The two duties genuinely *are* separable — different obligor,
+different obligee — so §8.3's "split when genuinely separate" principle points that way.
+But both would carry a byte-identical span and collide under §4.1's IoU alignment, the
+same wall §8.3 hit. The tag preserves the fact at no cost to alignment.
+
+**Why not just let it fall into `UNRESOLVED_PARTY`.** Annotating `obligor` as the verbatim
+"Provider and Recipient" would resolve to nothing and land in the generic unresolved-party
+bucket, hiding a *representational* gap inside what looks like a *resolution* failure.
+Mutual obligations are a common real-world contract pattern; that they cannot be expressed
+in IR v1 is a diagnostic fact about the IR, and it should be countable.
+
+### 8.6 `WITHIN` preposition gap (v0.17)
+
+**Motivating case** — `C17-066`: *"The Company and RGHI will use all commercially
+reasonable efforts to obtain **within 24 months following the Commencement Date** … any
+needed consent…"*
+
+**This is NOT §8's parenthetical-numeral gap, and NOT scope/location "within".** The
+numeral is bare (`24`), so §8's stated cause — *"`_WITHIN_RE` requires a bare digit"* —
+does not apply, and both phrasings are duration usages. The failure is the **preposition
+following the duration**, verified against the production regex:
+
+| Phrase | `_WITHIN_RE` |
+| :--- | :--- |
+| `within 24 months of the Commencement Date` | MATCH |
+| `within 24 months following the Commencement Date` | **NO MATCH** |
+| `within twenty-four (24) months of X` | NO MATCH — the separate §8 gap |
+
+**Measured across the pool**, the word following `within N <unit>`: `of` 40, **`after` 34,
+`from` 17, `following` 8**. Only `of` matches — the rejected prepositions outnumber the
+accepted one 59 to 40. Restricted to bare numerals, where §8 cannot explain the failure,
+there are **7 confirmed instances across 7 documents** (`C09`, `C13`, `C14`, `C17`×2,
+`E08`).
+
+**Rule.** `temporal: null`, `underspecified: true`, `known_gap: "within_preposition"`.
+
+**Why its own tag rather than §8's row.** Different cause, different fix: this is a
+one-word regex widening (`of|after|from|following`), while the parenthetical case is a
+genuine numeral-parsing problem. Filing them together would inflate the parenthetical
+gap's measured size with cases that are trivially fixable — and §11's scope decision is
+being made against that number.
 
 ---
 

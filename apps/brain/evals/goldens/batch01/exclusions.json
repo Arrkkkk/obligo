@@ -1,0 +1,140 @@
+[
+  {
+    "segment_id": "E03-051",
+    "doc_id": "E03",
+    "rule": "section 2",
+    "reason": "No obligation-bearing clause: subject is the agreement, not a party; MODIFY/AMEND are not in the closed 34-verb taxonomy (checked against ast.ACTIONS).",
+    "segment_text": "11.2Entire Agreement; Amendment. This Supply Agreement, including the Exhibits, together with the Collaboration and License Agreement, is both a final expression of the Parties\u2019 agreement and a complete and exclusive statement with respect to all of its terms. This Supply Agreement supersedes all prior and contemporaneous agreements and communications, whether oral, written, or otherwise, concerning any and all matters contained herein. This Supply Agreement may only be modified or supplemented in a writing expressly stated for such purpose and signed by the Parties to this Supply Agreement. No modification to this Supply Agreement will be effected by the acknowledgment or acceptance of any Purchase Order or shipping instruction forms or similar documents containing terms or conditions at variance with or in addition to those set forth herein.",
+    "logged_at": "2026-08-19T20:48:26+00:00"
+  },
+  {
+    "segment_id": "C04-018",
+    "doc_id": "C04",
+    "rule": "section 2",
+    "reason": "Cross-reference-dependent in three places ('except as expressly provided herein, including as set forth in Article 17', 'subject to Section 2.3'); and a right/licence grant with no correlative duty.",
+    "segment_text": "(a) The supply of the Miltenyi Products hereunder conveys to Bellicum the limited, non-exclusive, non-transferable (except as expressly provided herein, including as set forth in Article 17) right to use, and to permit its Subcontractors and Licensees to use the Miltenyi Products solely for Ex Vivo Cell Processing in the manufacture of Bellicum Products for use in the Field in the Territory (including for research, pre-clinical, clinical, regulatory and commercial purposes), in accordance with applicable Regulatory Authority requirements and approvals (including (to the extent applicable) any relevant clinical trial protocol, IND, and/or IRB approval pertaining to such Bellicum Products), in each case consistent with the terms and conditions of this Agreement and in accordance with Applicable Laws (the \"Permitted Use\"). Bellicum's Permitted Use of the Miltenyi Products shall be limited to the Designated Countries, subject to Section 2.3.",
+    "logged_at": "2026-08-19T20:48:26+00:00"
+  },
+  {
+    "segment_id": "C04-174",
+    "doc_id": "C04",
+    "rule": "section 2",
+    "reason": "4+ chained obligations in one sentence: execute / acknowledge / deliver / 'do all such other acts'. Only EXECUTE and DELIVER exist in the taxonomy; object 'such further instruments' is vague.",
+    "segment_text": "20.1 Governing Further Actions. Each Party will execute, acknowledge and deliver such further instruments, and do all such other acts, as may be necessary or appropriate in order to carry out the purposes and intent of the Agreement.",
+    "logged_at": "2026-08-19T20:48:26+00:00"
+  },
+  {
+    "segment_id": "C04-032",
+    "doc_id": "C04",
+    "rule": "section 2",
+    "reason": "States the ABSENCE of an obligation ('Nothing herein contained shall oblige Miltenyi to continue supplying...'), so there is no obligation-bearing clause.",
+    "segment_text": "2.7 Violations. Nothing herein contained shall oblige Miltenyi to continue supplying, or Bellicum to continue ordering or purchasing, any Miltenyi Product if such supply or purchase is reasonably believed by Miltenyi or Bellicum, as the case may be, based on objective grounds, to violate Applicable Laws or such Party's licenses, or if the Miltenyi Products supplied to Bellicum infringe, or are alleged to infringe, a Third Party's Intellectual Property Rights.",
+    "logged_at": "2026-08-19T20:48:26+00:00"
+  },
+  {
+    "segment_id": "C04-024",
+    "doc_id": "C04",
+    "rule": "section 2",
+    "reason": "Not self-contained: the modality and obligor live in a parent stem ('Bellicum shall not:') outside the segment; the segment is a bare list item. 'Reverse engineer' is also absent from the 34-verb taxonomy.",
+    "segment_text": "(2) Reverse engineer, disassemble or otherwise analyze, or cause any Third Party to reverse engineer, disassemble or otherwise analyze, any Miltenyi Product supplied hereunder, in whole or in part; provided, however, that the foregoing shall not limit the right or ability of Bellicum or its Licensees or Subcontractors to identify defects, troubleshoot problems, evaluate, test, use or conduct any study utilizing any Miltenyi Product(s) as reasonably necessary to achieve the purposes of this Agreement;",
+    "logged_at": "2026-08-20T08:34:36+00:00"
+  },
+  {
+    "segment_id": "E03-005#itemize",
+    "doc_id": "E03",
+    "rule": "section 1 / section 3.5",
+    "reason": "NOT AN ITEM (drafter's judgment, reviewer did not rule -- reversible at batch review). 'For clarity, each Order Forecast shall itemize...' has a DOCUMENT as its grammatical subject, not a party, so it has no obligor; section 3.5 forbids importing one from another sentence. 'Itemize' is also absent from the 34-verb taxonomy. Read as a content specification elaborating the preceding PROVIDE obligation (E03-01) rather than a separate duty -- the opening 'For clarity' is the drafter signalling exactly that. CONSEQUENCE: the segment yields TWO obligations, not the three the reviewer's ruling assumed.",
+    "segment_text": "For clarity, each Order Forecast shall itemize the applicable quantity (i.e., the unit of Drum or naked bottle, but not limited to such unit) of the Product and its placebo (if applicable) for each of Development and Commercial use.",
+    "logged_at": "2026-08-20T08:34:36+00:00",
+    "reviewer_status": "DRAFTER_JUDGMENT_PENDING_REVIEW"
+  },
+  {
+    "segment_id": "E03-005#discuss",
+    "doc_id": "E03",
+    "rule": "section 2",
+    "reason": "Cross-reference-dependent: 'at each regularly scheduled meeting of the JSC established by the Parties under the Collaboration and License Agreement (or by a subcommittee established by the JSC...)' -- the JSC is defined in a DIFFERENT agreement, so the obligation's content is unreadable at segment scope. Separately, 'discuss and review' has no clean taxonomy verb (nearest CONSULT), and the obligor 'The Parties' is generic.",
+    "segment_text": "Each Order Forecast shall be made in good faith for budget and capacity planning purposes only and shall be non-binding on Kissei and Rigel, except as provided in Section 2.2(b). The Parties shall discuss and review the Order Forecast at each regularly scheduled meeting of the JSC established by the Parties under the Collaboration and License Agreement (or by a subcommittee established by the JSC to oversee the manufacture and supply of the Product). The Order Forecast will be in substantially the form attached hereto as Exhibit B.",
+    "logged_at": "2026-08-20T08:34:36+00:00"
+  },
+  {
+    "segment_id": "C05-043",
+    "doc_id": "C05",
+    "rule": "section 2",
+    "reason": "Cross-reference/agreement-to-agree: the primary duty is qualified 'to the extent permitted by applicable law and as mutually agreed by the parties' -- its content is not readable at segment scope until a separate agreement exists. Excluded for consistency with C04-101, logged earlier on the same ground ('provided that additional terms... have been negotiated in good faith and mutually agreed upon'). Drafter's judgment: reviewer did not rule. Secondary problems noted but not the basis: 'share' has no 34-verb taxonomy match (nearest DISCLOSE/PROVIDE/TRANSFER, none clean); a compound 'will cooperate'; and two clauses whose subject is 'Such information', not a party.",
+    "segment_text": "(e) Data Sharing. Life Technologies and Biocept have entered into this Agreement to, among other things, establish individual databases of results from the Tests performed, which databases will include patient information such as demographic, disease characterization, treatment and outcome information. To that end, to the extent permitted by applicable law and as mutually agreed by the parties, where available each party will share all patient data, Test data and results, and corresponding tissue data with the other party, as well as any follow up or outcome data that may become available or provided by the physician or patient for Tests performed and will cooperate in good faith with the other party to agree upon procedures for sharing such information. Such information may be used only for longitudinal reporting, outcomes correlation and related research, shall be handled in accordance with all applicable Laws, including, without limitation, HIPAA, and applicable institutional review board guidelines, and shall not be used for the purpose of obtaining information about the other party's clients or customers. To the extent feasible, all such information will be properly de-identified.",
+    "logged_at": "2026-08-20T09:05:12+00:00",
+    "reviewer_status": "DRAFTER_JUDGMENT_PENDING_REVIEW"
+  },
+  {
+    "segment_id": "C05-009",
+    "doc_id": "C05",
+    "rule": "section 2",
+    "reason": "Definitions clause: '1.12 \"Intellectual Property Rights\" means all now or hereafter existing patents...'. No obligation-bearing sentence -- section 2's first exclusion row.",
+    "segment_text": "1.12 \"Intellectual Property Rights\" means all now or hereafter existing patents, patent applications, copyrights, trademarks (including service marks), trade secrets, know-how, mask work rights and design rights, whether registered or unregistered, and all rights or forms of protection of a similar nature having equivalent or similar effect to any of the foregoing, which may subsist anywhere in the world.",
+    "logged_at": "2026-08-20T09:05:12+00:00"
+  },
+  {
+    "segment_id": "E07-010#sentence2",
+    "doc_id": "E07",
+    "rule": "section 2",
+    "reason": "4+ chained obligations in one sentence: system administration, monitoring, reconfiguration and tuning, problem diagnosis, resolution, and interfacing -- six coordinated activities. Also carries a page-break artifact spliced mid-sentence, and its subject 'On-site personnel' is not a party.",
+    "segment_text": " On-site personnel will perform ongoing -------------------------------------------------------------------------------- 98-9-14 TIBCO Maintenance Agreement Page 3 CONFIDENTIAL INFORMATION system administration, monitoring, reconfiguration and tuning, problem diagnosis, and resolution, and interfacing with Client personnel on production system issues, to the extent possible during normal business hours",
+    "logged_at": "2026-08-20T09:14:01+00:00"
+  },
+  {
+    "segment_id": "E07-010#sentence3",
+    "doc_id": "E07",
+    "rule": "section 3.5",
+    "reason": "Obligor is 'These personnel', not a party -- same non-party-subject ground on which the E03-005 'itemize' clause was logged a non-item; section 3.5 forbids importing TIBCO from the neighbouring sentence. Would otherwise have been the batch's first section 8.3 SPLIT case (installation of software releases / distribution of documentation updates are genuinely separate objects), so the split branch of section 8.3 remains untested in batch 1.",
+    "segment_text": " These personnel shall also be responsible for the installation of new TIBCO software releases on the production system and the distribution of documentation updates.",
+    "logged_at": "2026-08-20T09:14:01+00:00"
+  },
+  {
+    "segment_id": "C15-046",
+    "doc_id": "C15",
+    "rule": "section 2",
+    "reason": "Cross-reference-dependent: 'Notices... shall be given in writing to the other Party IN THE MANNER AFORESAID' -- a backward cross-reference with no section number, pointing at a notice-method clause outside this segment. The operative METHOD of the duty is unreadable at segment scope. Distinguished from C03-01 (item 4), where 'as set forth in the terms of the Maintenance Addendum' qualified scope detail only; reviewer confirmed that distinction as the right basis. Segment also leaks the tail of an address block ('Attn: ... E-mail: ...'), a section 2 signature/address-block exclusion in its own right.",
+    "segment_text": "Attn: Jeremy Bolander E-mail: [REDACTED-EMAIL--------------] Notices of change of address of either of the Parties shall be given in writing to the other Party in the manner aforesaid and shall be observed in the giving of all future notices, statements, payments, claims or other communications required or permitted to be given hereunder.",
+    "logged_at": "2026-08-20T09:56:14+00:00"
+  },
+  {
+    "segment_id": "C03-071",
+    "doc_id": "C03",
+    "rule": "section 2",
+    "reason": "Two problems, either sufficient. Sentence 1 is a bare list item under a parent stem ('(iv) Business Automobile Liability insurance if vehicles will be used...') -- not self-contained, the obligor and modality live outside the segment. Sentence 2 is passive with no agent ('AT&T... shall be included as additional insureds'); the implied obligor is Vendor, and section 3.5 forbids importing it.",
+    "segment_text": "(iv) Business Automobile Liability insurance if vehicles will be used in the performance of the Agreement with limits of at least $1,000,000 each accident for bodily injury and property damage, extending to all owned, hired, and non-owned vehicles. AT&T, its Affiliates and their directors, officers and employees shall be included as additional insureds on a primary and non-contributory basis.",
+    "logged_at": "2026-08-20T10:13:03+00:00"
+  },
+  {
+    "segment_id": "C11-079",
+    "doc_id": "C11",
+    "rule": "section 2",
+    "reason": "Cross-reference-dependent on the operative proviso: 'provided BKC's consent to the assignment or sale be first obtained AS PROVIDED BELOW' -- the consent mechanism that gates the permission is outside the segment. Same basis as C15-046 (operative content) rather than C03-01 (scope detail). A second cross-reference sits in the fronted condition ('under Subparagraph 15.4.1'). Also 'conclude the sale' has no 34-verb taxonomy match.",
+    "segment_text": "15.4.4 SALE; BKC CONSENT. If BKC does not exercise its option under Subparagraph 15.4.1, Franchisee may conclude the sale to the purchaser who made the offer provided BKC's consent to the assignment or sale be first obtained as provided below.",
+    "logged_at": "2026-08-20T10:13:03+00:00"
+  },
+  {
+    "segment_id": "C17-047",
+    "doc_id": "C17",
+    "rule": "section 2",
+    "reason": "Status statement, not a duty: 'Any intellectual property owned by a Party... shall remain the property of such Party'. The subject is the intellectual property, not a party, and 'shall remain' asserts continuing ownership rather than requiring any performance.",
+    "segment_text": "Section 8.1 Ownership of Intellectual Property. Any intellectual property owned by a Party, its Affiliates or third-party vendors and used in connection with the provision or receipt of the Services, as applicable, shall remain the property of such Party, its Affiliates, or third-party vendors.",
+    "logged_at": "2026-08-20T10:13:03+00:00"
+  },
+  {
+    "segment_id": "C03-116",
+    "doc_id": "C03",
+    "rule": "section 2",
+    "reason": "Right with no correlative duty: 'this Agreement MAY BE TERMINATED by AT&T or AT&T MAY terminate its obligations' -- a termination right, not a duty under IR v1's four modalities. Also cross-reference-dependent ('as defined in the Build Addendum', 'all other termination rights set forth herein').",
+    "segment_text": "(e) Termination Events. In addition to all other termination rights set forth herein, this Agreement may be terminated by AT&T or AT&T may terminate its obligations hereunder (including terminating only specific addendums or specific Cell Sites), upon the occurrence of (i) any Termination Event (as defined in the Build Addendum) applicable to one or more Cell Sites and upon such termination AT&T may exercise any or all of the Termination Remedies (as defined in the Build Addendum) available to it pursuant to the Build Addendum with respect to such impacted Cell Sites; or (ii) any termination (regardless of the reason therefor) of the Master License Agreement resulting in AT&T's inability to use the impacted Cell Site.",
+    "logged_at": "2026-08-20T10:21:43+00:00"
+  },
+  {
+    "segment_id": "C03-118",
+    "doc_id": "C03",
+    "rule": "section 2",
+    "reason": "Liability exclusion, not a duty: 'AT&T SHALL NOT BE LIABLE for any termination charges' states an absence of liability rather than requiring performance. The trailing proviso does contain a real PAY duty ('AT&T shall remain obligated to make Structured Payments'), but it is cross-reference-dependent on 'any Cell Sites that have reached' a condition defined outside the segment.",
+    "segment_text": "(g) Termination Charges - AT&T shall not be liable for any termination charges (or any charges for any Material or Services already ordered or performed at the time of termination) in any case when any termination results from a termination right granted to AT&T in this Agreement; provided that AT&T shall remain obligated to make Structured Payments with respect to any Cell Sites that have reached Location Acceptance prior to the effective date of such termination and pay any Maintenance Fees for Services performed under the Maintenance Addendum prior to the effective date of such termination.",
+    "logged_at": "2026-08-20T10:21:43+00:00"
+  }
+]

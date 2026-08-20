@@ -1,0 +1,50 @@
+{
+  "item_id": "E03-01",
+  "doc_id": "E03",
+  "segment_id": "E03-005",
+  "stratum": "hard",
+  "segment_text": "(a)Rolling Forecast. At least ** before the ** of each Calendar Quarter during the Term of this Supply Agreement, Kissei shall provide Rigel a rolling forecast of its monthly requirements for the quantity of Products to be used for (i) Development purposes for the following ** period commencing from such Calendar Quarter and (ii) Commercial use for the following ** period commencing from such Calendar Quarter (\u201cOrder Forecast\u201d). For clarity, each Order Forecast shall itemize the applicable quantity (i.e., the unit of Drum or naked bottle, but not limited to such unit) of the Product and its placebo (if applicable) for each of Development and Commercial use. Each Order Forecast shall be made in good faith for budget and capacity planning purposes only and shall be non-binding on Kissei and Rigel, except as provided in Section 2.2(b). The Parties shall discuss and review the Order Forecast at each regularly scheduled meeting of the JSC established by the Parties under the Collaboration and License Agreement (or by a subcommittee established by the JSC to oversee the manufacture and supply of the Product). The Order Forecast will be in substantially the form attached hereto as Exhibit B.",
+  "span_char_start": 21,
+  "span_char_end": 432,
+  "span_text": "At least ** before the ** of each Calendar Quarter during the Term of this Supply Agreement, Kissei shall provide Rigel a rolling forecast of its monthly requirements for the quantity of Products to be used for (i) Development purposes for the following ** period commencing from such Calendar Quarter and (ii) Commercial use for the following ** period commencing from such Calendar Quarter (\u201cOrder Forecast\u201d).",
+  "modality": "MUST",
+  "action": "PROVIDE",
+  "action_accept_set": [
+    "PROVIDE",
+    "DELIVER",
+    "REPORT"
+  ],
+  "obligor": "Kissei",
+  "obligee": "Rigel",
+  "object_class": "demand_forecast",
+  "object_class_accept_set": [
+    "demand_forecast",
+    "forecast",
+    "order_forecast"
+  ],
+  "temporal": null,
+  "conditions": [],
+  "underspecified": true,
+  "missing_fields": [
+    "temporal"
+  ],
+  "vague_temporal_phrase": null,
+  "redacted_phrase": "At least ** before the ** of each Calendar Quarter",
+  "known_gap": "redacted_value",
+  "annotator_confidence": "AMBIGUOUS",
+  "annotated_at": "2026-08-19T20:59:23+00:00",
+  "rules_cited": [
+    "3.1",
+    "3.2",
+    "3.4",
+    "3.5",
+    "3.7",
+    "3.7.1",
+    "3.9",
+    "8.1",
+    "14.3"
+  ],
+  "guideline_version": "v0.13",
+  "annotator_notes": "Redaction is the EMBEDDED shape (section 3.7.1): the clause survives and establishes that a lead-time deadline exists; only its values are withheld, so known_gap=redacted_value, not redacted_clause. Reviewer ruled the segment holds THREE obligation-bearing clauses (provide / itemize / discuss-and-review), with 'shall be non-binding' and 'will be in substantially the form' read as status characterisations rather than duties -- so the segment is eligible under section 2's 1-3 band and yields three items. This is the first. Note the temporal would fail even unredacted: the underlying obligation is recurring-with-lead-time, plausibly EVERY composed with RELATIVE_TO_TRIGGER, which IR v1 cannot represent (section 7 composition gap). Both parties are named and should resolve to real PartyRefs, unlike item E01-01.",
+  "reviewer_status": "APPROVED"
+}

@@ -340,6 +340,40 @@ def extract_text(raw: bytes, kind: str) -> str:
     return decoded
 
 
+_EMAIL_RE = re.compile(r"[\w.+-]+@[\w-]+\.[\w.]{2,}")
+
+
+def redact_pii(text: str) -> str:
+    """Replaces email addresses with a SAME-LENGTH placeholder.
+
+    Gold-set files are permanently committed for an unrelated purpose --
+    measuring extraction accuracy -- so republishing identifiable
+    individuals' contact details in them serves nothing the files need.
+    Every email-bearing segment measured in this corpus (6 of 1,547) is a
+    notice or address block, which guideline section 2 already excludes
+    from becoming an item, so in practice this only ever touches the
+    exclusion log.
+
+    The placeholder is length-preserving so that any offset computed
+    against the text stays valid. Exclusion-log entries carry no spans, so
+    this costs nothing there; item files are NOT redacted, because
+    `segment_text` must stay byte-identical to what `run_pipeline()` would
+    be handed from the real document -- a placeholder there would make gold
+    disagree with the source it is measuring against.
+
+    Names are deliberately left intact: they are sometimes part of the
+    clause text itself, and section 2.1 requires verbatim exclusion text so
+    a reviewer can see whether an exclusion was really a difficulty dodge.
+    """
+
+    def _same_length(match: re.Match[str]) -> str:
+        n = len(match.group(0))
+        token = "[REDACTED-EMAIL" + "-" * max(0, n - 16) + "]"
+        return token[:n] if len(token) >= n else token + "-" * (n - len(token))
+
+    return _EMAIL_RE.sub(_same_length, text)
+
+
 def load_manifest() -> dict:
     return json.loads(MANIFEST.read_text())
 
@@ -671,7 +705,7 @@ def build_pool(dest: Path, manifest: dict) -> list[dict]:
     return pool
 
 
-def cmd_draw(dest: Path, seed: int, count: int, hard: int, out: Path | None) -> int:
+def cmd_draw(dest: Path, seed: int, count: int, hard: int, out: Path | None, overdraw: int = 5) -> int:
     """Runs the seeded batch draw guideline section 2.1 assigns to the reviewer.
 
     Section 2.1 is explicit that the drafter does not choose which passages
@@ -702,16 +736,27 @@ def cmd_draw(dest: Path, seed: int, count: int, hard: int, out: Path | None) -> 
     targets = {"hard": hard, "standard": count - hard}
     for stratum, target in targets.items():
         candidates = sorted(by_stratum[stratum], key=lambda s: s["segment_id"])
-        # Overdraw 3x the target so rejections have replacements already
-        # fixed by the seed, rather than drawn ad hoc once a rejection
-        # happens -- an ad-hoc replacement is a re-pick.
-        queues[stratum] = rng.sample(candidates, min(len(candidates), target * 3))
+        # Overdraw so rejections have replacements already fixed by the
+        # seed, rather than drawn ad hoc once a rejection happens -- an
+        # ad-hoc replacement is a re-pick. Raised from 3x to 5x after
+        # batch 1's hard queue produced 2 items from 7 candidates:
+        # boilerplate density in high-cross-reference documents is high,
+        # and 3x ran too close to dry.
+        #
+        # Relied upon and VERIFIED, not assumed: `random.sample(pop, k)`
+        # returns the same prefix for k=9 and k=15 on this population, so
+        # raising the overdraw extends the queue without moving any
+        # already-walked candidate. Re-check that property before changing
+        # the multiplier again -- it is a CPython implementation detail,
+        # not a documented guarantee, and shuffle-then-slice (the obvious
+        # alternative) produces a completely different order.
+        queues[stratum] = rng.sample(candidates, min(len(candidates), target * overdraw))
 
     print(f"draw: seed={seed}  target={count} items ({hard} hard, {count - hard} standard)")
     print(f"draw: pool = {len(pool)} segments ({len(by_stratum['hard'])} hard, {len(by_stratum['standard'])} standard)")
     for stratum in ("hard", "standard"):
         print(f"\n--- {stratum} queue (take in order; target {targets[stratum]}) ---")
-        for i, seg in enumerate(queues[stratum][: targets[stratum] * 3], start=1):
+        for i, seg in enumerate(queues[stratum][: targets[stratum] * overdraw], start=1):
             print(f"  {i:>2}. {seg['segment_id']}  {seg['chars']:>5} chars")
 
     if out:
@@ -871,6 +916,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--query", default=None, help="source: EDGAR full-text query")
     parser.add_argument("--type-term", default=None, help="source: term required in the document's own title")
     parser.add_argument("--limit", type=int, default=25, help="source: candidates to check in seeded order")
+    parser.add_argument("--overdraw", type=int, default=5, help="draw: queue length as a multiple of the target")
     args = parser.parse_args(argv)
 
     if args.command == "source":
@@ -881,7 +927,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "draw":
         if args.seed is None:
             parser.error("draw requires --seed: guideline section 2.1 assigns the seed to the reviewer")
-        return cmd_draw(args.dest, args.seed, args.count, args.hard, args.write)
+        return cmd_draw(args.dest, args.seed, args.count, args.hard, args.write, args.overdraw)
 
     if args.command == "fetch":
         return cmd_fetch(args.dest)

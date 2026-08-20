@@ -1,0 +1,47 @@
+{
+  "item_id": "C03-03",
+  "doc_id": "C03",
+  "segment_id": "C03-192",
+  "stratum": "standard",
+  "segment_text": "4.23 Technical Support. Vendor will provide, at no additional cost to AT&T, full and complete technical assistance to AT&T for the Material and Services provisioned under this Agreement, including ongoing technical support and field service and assistance, and telephone assistance to assist with installation, operation, maintenance and problem resolution as set forth in the terms of the Maintenance Addendum. The availability or performance of this technical support will not be construed as altering or affecting Vendor's obligations as set forth in the \"Warranty\" Section or as provided elsewhere in this Agreement. Field Service and technical support, including emergency support (service affecting), will be available on call twenty-four (24) hours a day. Vendor will provide to AT&T, and keep current, an escalation document that includes names, titles and telephone numbers, including after-hours telephone numbers, of Vendor personnel responsible for providing technical support to AT&T. Vendor will maintain a streamlined escalation process to speed resolution of reported problems.",
+  "span_char_start": 998,
+  "span_char_end": 1093,
+  "span_text": "Vendor will maintain a streamlined escalation process to speed resolution of reported problems.",
+  "modality": "MUST",
+  "action": "MAINTAIN",
+  "action_accept_set": [
+    "MAINTAIN",
+    "ESTABLISH",
+    "ENSURE"
+  ],
+  "obligor": "Vendor",
+  "obligee": "ABSENT",
+  "object_class": "escalation_process",
+  "object_class_accept_set": [
+    "escalation_process",
+    "support_process",
+    "escalation_procedure"
+  ],
+  "temporal": null,
+  "conditions": [],
+  "underspecified": true,
+  "missing_fields": [
+    "obligee"
+  ],
+  "vague_temporal_phrase": null,
+  "redacted_phrase": null,
+  "known_gap": null,
+  "annotator_confidence": "CONFIDENT",
+  "annotated_at": "2026-08-20T08:52:19+00:00",
+  "rules_cited": [
+    "3.1",
+    "3.2",
+    "3.4",
+    "3.5",
+    "3.6",
+    "3.9"
+  ],
+  "guideline_version": "v0.14",
+  "annotator_notes": "FIRST CONFIDENT item in the batch: single verb with an exact taxonomy match, named obligor, self-contained, one complete sentence, no cross-reference, redaction, compound action or UNLESS. Nothing sits near a rule boundary. obligee=ABSENT because this sentence names no beneficiary -- AT&T is the obvious real-world beneficiary but appears nowhere in THIS sentence, and section 3.5 forbids importing a party from a neighbouring clause. C03-192 is now exhausted: three duties, three items (C03-01, C03-02, C03-03).",
+  "reviewer_status": "APPROVED"
+}

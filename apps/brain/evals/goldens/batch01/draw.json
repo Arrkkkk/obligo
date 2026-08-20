@@ -66,23 +66,51 @@
         "stratum": "hard",
         "chars": 625,
         "text": "4.10 Disclaimer. Except as provided in this Article 4 or otherwise in the Agreement, Miltenyi provides no warranty that any Master File or other regulatory dossier or submission by Miltenyi or Bellicum will be approved by any Regulatory Authority. Miltenyi shall in no way be held responsible for any refusal by any Regulatory Authority or ethics committee to grant permission to conduct a clinical trial(s) and/or for any refusal by any Regulatory Authority to grant approval under an Investigational New Drug Application (IND) or under a Biological License Application (BLA) or for compassionate use for a Bellicum Product."
+      },
+      {
+        "segment_id": "C22-048",
+        "doc_id": "C22",
+        "stratum": "hard",
+        "chars": 754,
+        "text": "Section 6.12 Notices. Each party giving any notice required or permitted under this IP Agreement will give the notice in writing, and shall be deemed to have been duly given: (i) when received if delivered personally; (ii) when transmitted if sent by facsimile (with transmission confirmed); (iii) the day after it is sent if sent by commercial overnight courier; (iv) upon receipt if sent by certified or registered mail (return receipt requested); or (v) when transmitted if sent by email (with receipt confirmed by recipient). Notice to a party is effective for purposes of this Agreement only if given as provided in this Section 6.12 at the address of which the sending party has been notified in accordance with this Section 6.12. If to the Seller:"
+      },
+      {
+        "segment_id": "C04-101",
+        "doc_id": "C04",
+        "stratum": "hard",
+        "chars": 827,
+        "text": "If a given Module involves supply of Miltenyi Products for Bellicum's Commercial Phase activities, Section 6.8(b) shall apply, provided that additional terms and conditions regarding continuity of supply for such Commercial Phase activities pursuant to such Module have been negotiated in good faith and mutually agreed upon in such Module. The Parties acknowledge that provisions in such Module relating to additional terms and conditions regarding such continuity of supply will depend on the specific Miltenyi Product(s) that are relevant to such Module, and further acknowledge that such provision(s) in such Module may be subject to the Parties' good faith negotiation and mutual agreement regarding additional terms and conditions relevant to minimum purchase requirements (if any) for Miltenyi Product(s) under a Module."
+      },
+      {
+        "segment_id": "E03-010",
+        "doc_id": "E03",
+        "stratum": "hard",
+        "chars": 425,
+        "text": "(d)Separate Contracts. Each Purchase Order will constitute a separate contract for the supply of the Product and its placebo (if applicable) on the terms of this Supply Agreement (and excluding all other terms and conditions including any set out or referred to in any Purchase Order). In the event of a conflict between a Purchase Order and the terms of this Supply Agreement, the terms of this Supply Agreement will govern."
+      },
+      {
+        "segment_id": "C04-076",
+        "doc_id": "C04",
+        "stratum": "hard",
+        "chars": 638,
+        "text": "(b) In the event that Miltenyi becomes aware that it is or will be unable to supply any desired quantity of Miltenyi Product pursuant to a Purchase Order that falls within the relevant Forecast on or before the applicable Delivery date(s) therefor, Miltenyi shall promptly inform Bellicum, and then, the Parties shall, in good faith, seek to agree on a revised date (or dates) for Delivery. If Miltenyi fails to propose a reasonably acceptable plan for the Delivery, Bellicum may, to be determined in Bellicum's reasonable discretion and notwithstanding anything to the contrary in the Agreement, at its option, cancel the Purchase Order."
+      },
+      {
+        "segment_id": "E01-043",
+        "doc_id": "E01",
+        "stratum": "hard",
+        "chars": 637,
+        "text": "SECTION 8.09. Third-Party Beneficiaries. Except for the indemnification rights under this Agreement of any TWX Indemnitee or Time Indemnitee in their respective capacities as such, (a) the provisions of this Agreement are solely for the benefit of the Parties hereto and are not intended to confer upon any Person except the Parties hereto any rights or remedies hereunder and (b) there are no third-party beneficiaries of this Agreement and this Agreement shall not provide any third Person with any remedy, claim, liability, reimbursement, cause of action or other right in excess of those existing without reference to this Agreement."
+      },
+      {
+        "segment_id": "E03-033",
+        "doc_id": "E03",
+        "stratum": "hard",
+        "chars": 568,
+        "text": "3.4Tax. Kissei shall pay any and all taxes (other than taxes based on Rigel\u2019s income), duties, assessments, and other charges and expenses imposed by any Governmental Authority in connection with the supply and transfer of Product to Kissei. If a withholding or deduction obligation occurs, then the sum payable by Kissei (in respect of which such deduction or withholding is required to be made) shall be increased to the extent necessary to ensure that Rigel receives a sum equal to the sum which it would have received had no such withholding or deduction occurred."
       }
     ],
     "standard": [
-      {
-        "segment_id": "C06-028",
-        "doc_id": "C06",
-        "stratum": "standard",
-        "chars": 373,
-        "text": "(xlii) upon receipt by the DIP Administrative Agent (as defined in the Final DIP Order) and certain other persons as directed in the Payoff Letter (as defined below) of the DIP Payoff (as defined below) pursuant to Section 3.1(a) of this Agreement, all ongoing commitments under the DIP Credit Agreement (as defined in the Final DIP Order) shall be canceled and terminated;"
-      },
-      {
-        "segment_id": "C05-011",
-        "doc_id": "C05",
-        "stratum": "standard",
-        "chars": 308,
-        "text": "1.15 \"Professional Component\" shall mean the performance of the professional component of the steps of the Assay, which is the interpretation of results (generated in the Technical Component) of an Assay by a pathologist, and is covered by CPT codes from the Professional Fee Schedule with the modifier \"26\"."
-      },
       {
         "segment_id": "C03-192",
         "doc_id": "C03",
@@ -105,11 +133,11 @@
         "text": "1.12 \"Intellectual Property Rights\" means all now or hereafter existing patents, patent applications, copyrights, trademarks (including service marks), trade secrets, know-how, mask work rights and design rights, whether registered or unregistered, and all rights or forms of protection of a similar nature having equivalent or similar effect to any of the foregoing, which may subsist anywhere in the world."
       },
       {
-        "segment_id": "E05-020",
-        "doc_id": "E05",
+        "segment_id": "E07-010",
+        "doc_id": "E07",
         "stratum": "standard",
-        "chars": 516,
-        "text": "time to time on and after the date hereof, the parties shall deliver or cause to be delivered to the Escrow Agent such further documents and instruments and shall do or cause to be done such further acts as the Escrow Agent shall reasonably request (it being understood that the Escrow Agent shall have no obligation to make such request) to carry out more effectively the provisions and purposes of this Escrow Agreement, to evidence compliance herewith or to assure itself that it is protected in acting hereunder."
+        "chars": 705,
+        "text": "As requested by Client, and upon reasonable notice and approval by TIBCO, TIBCO shall maintain personnel at any of the Covered Sites. On-site personnel will perform ongoing -------------------------------------------------------------------------------- 98-9-14 TIBCO Maintenance Agreement Page 3 CONFIDENTIAL INFORMATION system administration, monitoring, reconfiguration and tuning, problem diagnosis, and resolution, and interfacing with Client personnel on production system issues, to the extent possible during normal business hours. These personnel shall also be responsible for the installation of new TIBCO software releases on the production system and the distribution of documentation updates."
       },
       {
         "segment_id": "C15-046",
@@ -215,6 +243,118 @@
         "stratum": "standard",
         "chars": 324,
         "text": "2. with respect to any coverage maintained in a \"claims-made\" policy, for two (2) years following the term of this Agreement or completion of all Work associated with this Agreement, whichever is later. If a \"claims-made\" policy is maintained, the retroactive date must precede the commencement of Work under this Agreement;"
+      },
+      {
+        "segment_id": "E08-009",
+        "doc_id": "E08",
+        "stratum": "standard",
+        "chars": 377,
+        "text": "The SERVICES and operating procedures set forth in the appendices to this Agreement were formulated in conjunction with KIRKLAND\u2019S and accurately reflect KIRKLAND\u2019S\u2019s requirements. NFI shall have no obligation to perform any other services that are not contemplated herein or in the Quality Agreement and/or which were not agreed upon separately in writing between the PARTIES."
+      },
+      {
+        "segment_id": "C03-082",
+        "doc_id": "C03",
+        "stratum": "standard",
+        "chars": 572,
+        "text": "3.27 Offshore Work Prohibited. None of the Services under this Agreement shall be performed or provided and no Information related to this Agreement shall be collected, stored, handled or accessed by Vendor or its Subcontractors at any location outside of the United States. Additionally, Vendor shall not allow any of the Services under this Agreement to be performed or provided by any Restricted Entity and any Services performed or provided by a Subcontractor shall be subject to Vendor's compliance with the requirements of the Section entitled \"Work Done by Others\"."
+      },
+      {
+        "segment_id": "C11-018",
+        "doc_id": "C11",
+        "stratum": "standard",
+        "chars": 259,
+        "text": "5.3.2 REPAIR AND MAINTENANCE. The Franchisee shall, at its own expense, continuously throughout the Term of this Agreement, maintain the Franchised Restaurant in good condition and repair in accordance with BKC's then current repair and maintenance standards."
+      },
+      {
+        "segment_id": "C05-004",
+        "doc_id": "C05",
+        "stratum": "standard",
+        "chars": 295,
+        "text": "1.3 \"Biocept Trademarks\" shall mean Biocept, Inc., \"OncoCEE-LU \", \"OncoCEE\u2122\", \"CEE-Sure \", CEE- Enhanced\u2122\", and/or such other trademarks and trade names owned or licensed, and used, by Biocept and/or its Affiliates in the Territory to identify the Tests, in each case, whether or not registered."
+      },
+      {
+        "segment_id": "C03-048",
+        "doc_id": "C03",
+        "stratum": "standard",
+        "chars": 844,
+        "text": "(d) If a receiving Party is required to provide Information of a disclosing Party to any court or government agency pursuant to a written court order, subpoena, regulatory demand, request under the National Labor Relations Act (an \"NLRA Request\"), or process of law, the receiving Party must, unless prohibited by applicable Law, first provide the disclosing Party with prompt written notice of such requirement and reasonable cooperation to the disclosing Party should it seek protective arrangements for the production of such Information. The receiving Party will (i) take reasonable steps to limit any such provision of Information to the specific Information required by such court or agency, and (ii) continue to otherwise protect all Information disclosed in response to such order, subpoena, regulation, NLRA Request, or process of law."
+      },
+      {
+        "segment_id": "C03-029",
+        "doc_id": "C03",
+        "stratum": "standard",
+        "chars": 503,
+        "text": "3.7 Conflict of Interest. Vendor represents and warrants that, to its knowledge, no officer, director, employee or agent of AT&T has been or will be employed, retained or paid a fee, or otherwise has received or will receive, any personal compensation or consideration, by or from Vendor or any of Vendor's officers, directors, employees or agents in connection with the obtaining, arranging or negotiation of this Agreement or other documents entered into or executed in connection with this Agreement."
+      },
+      {
+        "segment_id": "C05-062",
+        "doc_id": "C05",
+        "stratum": "standard",
+        "chars": 229,
+        "text": "10.3 Authorized Disclosure. Each party may disclose Confidential Information of the other party as expressly permitted by this Agreement, or if and to the extent such disclosure is reasonably necessary in the following instances:"
+      },
+      {
+        "segment_id": "C03-131",
+        "doc_id": "C03",
+        "stratum": "standard",
+        "chars": 410,
+        "text": "(i) Material (excluding AT&T Provided Equipment) furnished hereunder will be merchantable, free from defects in design, material and workmanship, fit and sufficient for the purposes set forth in the Agreement, free from all Liens at the time of Location Acceptance, and will during the Material Warranty Period strictly conform to and perform in accordance with applicable Specifications, drawings and samples."
+      },
+      {
+        "segment_id": "C02-080",
+        "doc_id": "C02",
+        "stratum": "standard",
+        "chars": 646,
+        "text": "[***] 100 Princeton South, Suite 300 Ewing, NJ 08628 [***] with a copy to: General Counsel Antares Pharma, Inc. 100 Princeton South, Suite 300 Ewing, NJ 08628 [***] - 33 - [***] INDICATES MATERIAL THAT HAS BEEN OMITTED AND FOR WHICH CONFIDENTIAL TREATMENT HAS BEEN REQUESTED. ALL SUCH OMITTED MATERIAL HAS BEEN FILED WITH THE SECURITIES AND EXCHANGE COMMISSION PURSUANT TO RULE 24b-2 PROMULGATED UNDER THE SECURITIES EXCHANGE ACT OF 1934, AS AMENDED 12.1 Amendment. No amendment, modification or supplement of any provision of the Agreement shall be valid or effective unless made in writing and signed by a duly authorized officer of each Party."
+      },
+      {
+        "segment_id": "E05-025",
+        "doc_id": "E05",
+        "stratum": "standard",
+        "chars": 1661,
+        "text": "Escrow Agent. The fees of the Escrow Agent shall be paid by WHDX on the Closing of the Purchase Agreement out of funds of the First Installment, as set forth on Exhibit A attached hereto. However, the fees incurred by 11i in connection with the preparation of this Escrow Agreement in the amount of Seven Hundred Fifty Dollars ($750.00) shall be born by WHDX and will be payable to Brinen & Associates, LLC on behalf of 11i. In the event that the conditions of this Escrow Agreement are not promptly fulfilled, or if the Escrow Agent renders any service not provided for in this Escrow Agreement, or if the parties request a substantial modification of its terms, or if any controversy arises, or if the Escrow Agent is made a party to, or intervenes in, any litigation pertaining to this escrow or its subject matter, the Escrow Agent shall be reasonably compensated for such extraordinary services and reimbursed for all costs, attorney\u2019s fees, including costs of counsel, and expenses occasioned by such default, delay, controversy or litigation and the Escrow Agent shall have the right to retain all documents and/or other things of value at any time held by the Escrow Agent in this escrow until such compensation, fees, costs, and expenses are paid. WHDX promises to pay these sums upon demand. WHDX is responsible for payment of all of the Escrow Agent\u2019s usual charges. The Escrow Agent shall have a first lien on the Escrow Property and papers held under this Escrow Agreement for such compensation and expenses. The obligations under this Section 6 shall survive any termination of this Escrow Agreement and the resignation or removal of Escrow Agent."
+      },
+      {
+        "segment_id": "E07-024",
+        "doc_id": "E07",
+        "stratum": "standard",
+        "chars": 1227,
+        "text": "F. This Agreement shall be binding upon and inure to the benefit of the parties' respective successors and permitted assigns. Neither party may assign this Agreement and/or any of its rights and/or obligations hereunder without the prior written consent of the other party and any such attempted assignment shall be void, except that either party may assign this Agreement and/or any of its rights and/or obligations hereunder, upon written notice to the other party to another entity in the event of that party's merger or consolidation with another entity, without the consent of the other party, provided that the assignee is capable of fulfilling and intends to fulfill the obligations of the assigning party under this Agreement. Notwithstanding the foregoing, Client may assign this agreement to any Instinct company in the business of fixed income and equities brokerage without the consent of TIBCO, provided that the assignee is capable of fulfilling and intends to fulfill the obligations of Client under this Agreement. Each party may terminate this Agreement in case there is a change of control of the other party, but shall not be entitled to any refund whatsoever and all amounts owing shall be immediately paid."
+      },
+      {
+        "segment_id": "C14-127",
+        "doc_id": "C14",
+        "stratum": "standard",
+        "chars": 802,
+        "text": "15.5. Notwithstanding anything to the contrary contained herein, NICE' liability to Contractor for any indirect, special, incidental, exemplary or consequential damages as a result of any claim arising under this Agreement or in connection therewith, regardless of whether NICE has been advised of the possibility of such damages, shall not exceed five million US dollars ($5,000,000) in the aggregate for all claims, except for infringement of Intellectual Property rights for which NICE is liable under Section 12.8. This Section shall not be construed or used in the construction of this Agreement as imposing on NICE any liability for which it is not otherwise liable. Further, this Section shall not be construed as derogating from any applicable law which cannot be changed or waived by contract."
+      },
+      {
+        "segment_id": "C06-016",
+        "doc_id": "C06",
+        "stratum": "standard",
+        "chars": 262,
+        "text": "(xviii) the designee under any Lease/Contract Assumption Notice shall be required, if requested by the applicable counterparty, to provide adequate assurance of future performance with respect to such Lease or Contract if the applicable counterparty so requests;"
+      },
+      {
+        "segment_id": "C15-049",
+        "doc_id": "C15",
+        "stratum": "standard",
+        "chars": 1364,
+        "text": "It is understood and agreed that the settlement of strikes or lockouts shall be entirely within the discretion of the Party having the difficulty, and that the above requirement that any force majeure shall be remedied with all reasonable dispatch shall not require the settlement of strikes or lockouts by acceding to the demands of the opposing party when such course is inadvisable in the discretion of the Party having the difficulty. 12 Source: PENNTEX MIDSTREAM PARTNERS, LP, S-1/A, 4/16/2015 Article XI. Warranties Customer warrants to Transporter that at the time Customer Gas is delivered to a Point of Receipt hereunder, Customer will have good title or the right to deliver such Customer Gas, and that such Customer Gas shall be free and clear of all liens and adverse claims, other than statutory liens and liens, encumbrances or claims under credit facilities or other credit arrangements in respect of borrowed money. Customer agrees, with respect to the Customer Gas delivered to Transporter hereunder, to indemnify Transporter against all suits, actions, debts, accounts, damages, costs (including attorney's fees), losses and expenses arising from or out of any adverse claims of any and all persons to or against said Customer Gas other than any lien, claim or encumbrance alleged to have arisen by, through or under Transporter or its Affiliate."
+      },
+      {
+        "segment_id": "C14-102",
+        "doc_id": "C14",
+        "stratum": "standard",
+        "chars": 859,
+        "text": "12.2. CONFIDENTIALITY BY CONTRACTOR. Contractor will provide the Manufacturing Outsourcing Services in a manner that complies with the Confidentiality requirements of APPENDIX E. Contractor shall not: transfer to others, copy or duplicate, sub-license, sell, publish, display or otherwise make available in any form or disclose, the NICE Proprietary Information and/or the NICE Software and/or the NICE Intellectual Property, to any third party, except to suppliers/manufacturers of components and/or sub assemblies that require specifications for their supply, in which case they shall be required by Contractor to execute a Confidentiality Agreement in the form of APPENDIX E VIS-A-VIS NICE. Contractor shall use the same degree of care with respect to NICE Proprietary Information as it uses in protecting its own proprietary information and trade secrets."
+      },
+      {
+        "segment_id": "C06-046",
+        "doc_id": "C06",
+        "stratum": "standard",
+        "chars": 302,
+        "text": "(n) costs of transfers initiated by Agent of Merchandise and Additional Agent Merchandise between and among the Stores and Distribution Centers during the Sale Term, including delivery and freight costs, it being understood that Agent shall be responsible for coordinating such transfer of Merchandise;"
       }
     ]
   }

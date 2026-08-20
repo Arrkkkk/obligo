@@ -1,0 +1,47 @@
+{
+  "item_id": "C17-01",
+  "doc_id": "C17",
+  "segment_id": "C17-021",
+  "stratum": "standard",
+  "segment_text": "Section 4.3 Viruses. Provider and Recipient shall each use its commercially reasonable efforts consistent with its past practices to prevent the introduction or coding of viruses or similar items into the Systems of the other Party. Without limiting the rights and remedies of any party hereunder, in the event a virus or similar item is introduced into the Systems of a Party, whether or not such introduction is attributable to the other Party (including such other Party's failure to perform its obligations under this Agreement), the other Party shall, as soon as practicable, use its commercially reasonable efforts to assist such Party in reducing the effects of the virus or similar item, and if the virus or similar item causes a loss of operational efficiency or loss of data, upon such Party's request, work as soon as practicable to contain and remedy the problem and to restore lost data resulting from such introduction.",
+  "span_char_start": 21,
+  "span_char_end": 232,
+  "span_text": "Provider and Recipient shall each use its commercially reasonable efforts consistent with its past practices to prevent the introduction or coding of viruses or similar items into the Systems of the other Party.",
+  "modality": "MUST",
+  "action": "ENSURE",
+  "action_accept_set": [
+    "ENSURE",
+    "USE",
+    "COMPLY"
+  ],
+  "obligor": "Provider",
+  "obligee": "Recipient",
+  "object_class": "virus_prevention",
+  "object_class_accept_set": [
+    "virus_prevention",
+    "system_security",
+    "malware_prevention"
+  ],
+  "temporal": null,
+  "conditions": [],
+  "underspecified": false,
+  "missing_fields": [],
+  "vague_temporal_phrase": null,
+  "redacted_phrase": null,
+  "known_gap": "mutual_obligation",
+  "annotator_confidence": "AMBIGUOUS",
+  "annotated_at": "2026-08-20T10:11:52+00:00",
+  "rules_cited": [
+    "3.1",
+    "3.2",
+    "3.4",
+    "3.5",
+    "3.6",
+    "3.9",
+    "8.4",
+    "16"
+  ],
+  "guideline_version": "v0.16",
+  "annotator_notes": "MUTUAL OBLIGATION (section 8.4): 'Provider and Recipient shall EACH use...' binds both parties reciprocally. Annotated Provider->Recipient in natural reading order; the Recipient->Provider direction is structurally unrepresentable -- IR v1 holds one obligor and one obligee with a CHECK that they differ. FIRST LIVE INSTANCE OF SECTION 16: 'shall use its commercially reasonable efforts' -- the modal 'shall' governs modality (MUST); the efforts qualifier belongs to the action, not the deontic force. NO CLEAN TAXONOMY VERB: the duty is 'prevent the introduction of viruses'; PREVENT is not among the 34 verbs, so ENSURE is a defensible best fit rather than a forced match, with USE defensible since the literal verb is 'use ... efforts'. Note 'Provider'/'Recipient' are the document's OWN defined-term party labels appearing literally in this sentence -- per section 3.5 they are the correct gold answer as they appear, not something to resolve to underlying entity names.",
+  "reviewer_status": "APPROVED"
+}

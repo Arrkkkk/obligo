@@ -1,0 +1,55 @@
+{
+  "item_id": "C17-02",
+  "doc_id": "C17",
+  "segment_id": "C17-066",
+  "stratum": "standard",
+  "segment_text": "Section 10.11 Multi-party Contracts. The Company and RGHI will use all commercially reasonable efforts to obtain within 24 months following the Commencement Date, from the counterparty to each Multi-party Contract any needed consent to separate the portion of such contract that relates to the goods or services purchased from or supplied to the Business under such Multi-party Contract (including but not limited to assignment or partial assignment of such contracts to the Company or RGHI or its Affiliates). The contract constituting the separated portion of any Multi-party Contract that relates to the Business as described in the preceding sentence shall be assumed by and become the responsibility of the Company. Each Party making purchases or receiving services under any Multi-party Contract shall indemnify and hold harmless the other Party and its Affiliates for any claims, damages, etc. arising out of such purchases or receipt of services.",
+  "span_char_start": 37,
+  "span_char_end": 386,
+  "span_text": "The Company and RGHI will use all commercially reasonable efforts to obtain within 24 months following the Commencement Date, from the counterparty to each Multi-party Contract any needed consent to separate the portion of such contract that relates to the goods or services purchased from or supplied to the Business under such Multi-party Contract",
+  "modality": "MUST",
+  "action": "PROCURE",
+  "action_accept_set": [
+    "PROCURE",
+    "ENSURE",
+    "NEGOTIATE"
+  ],
+  "obligor": "The Company",
+  "obligor_accept_set": [
+    "The Company",
+    "RGHI"
+  ],
+  "obligee": "ABSENT",
+  "object_class": "contract_consent",
+  "object_class_accept_set": [
+    "contract_consent",
+    "third_party_consent",
+    "consent"
+  ],
+  "temporal": null,
+  "conditions": [],
+  "underspecified": true,
+  "missing_fields": [
+    "obligee",
+    "temporal"
+  ],
+  "vague_temporal_phrase": null,
+  "redacted_phrase": null,
+  "known_gap": "within_preposition",
+  "annotator_confidence": "AMBIGUOUS",
+  "annotated_at": "2026-08-20T10:21:03+00:00",
+  "rules_cited": [
+    "3.1",
+    "3.2",
+    "3.4",
+    "3.5",
+    "3.5.1",
+    "3.6",
+    "3.9",
+    "8.6",
+    "16"
+  ],
+  "guideline_version": "v0.17",
+  "annotator_notes": "JOINT obligors (section 3.5.1), NOT mutual (section 8.4): 'The Company and RGHI' are both bound but toward the counterparty, a third party -- one duty, no mirror image, fully representable. Handled by obligor_accept_set with NO known_gap. Contrast is visible inside this same segment: its third sentence ('Each Party... shall indemnify and hold harmless the other Party') IS a section 8.4 mutual case. NEW GAP, section 8.6: 'within 24 months following the Commencement Date' fails _WITHIN_RE despite a BARE numeral, because the regex requires the preposition 'of'. Verified against the production regex directly; pool-wide the following word is of=40, after=34, from=17, following=8, so rejected prepositions outnumber the accepted one 59:40. Section 16 efforts qualifier applies again ('will use all commercially reasonable efforts') -- modality MUST from 'will', qualifier belongs to the action.",
+  "reviewer_status": "APPROVED"
+}

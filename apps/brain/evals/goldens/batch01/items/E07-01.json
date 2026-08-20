@@ -1,0 +1,49 @@
+{
+  "item_id": "E07-01",
+  "doc_id": "E07",
+  "segment_id": "E07-010",
+  "stratum": "standard",
+  "segment_text": "As requested by Client, and upon reasonable notice and approval by TIBCO, TIBCO shall maintain personnel at any of the Covered Sites. On-site personnel will perform ongoing -------------------------------------------------------------------------------- 98-9-14 TIBCO Maintenance Agreement Page 3 CONFIDENTIAL INFORMATION system administration, monitoring, reconfiguration and tuning, problem diagnosis, and resolution, and interfacing with Client personnel on production system issues, to the extent possible during normal business hours. These personnel shall also be responsible for the installation of new TIBCO software releases on the production system and the distribution of documentation updates.",
+  "span_char_start": 0,
+  "span_char_end": 133,
+  "span_text": "As requested by Client, and upon reasonable notice and approval by TIBCO, TIBCO shall maintain personnel at any of the Covered Sites.",
+  "modality": "MUST",
+  "action": "MAINTAIN",
+  "action_accept_set": [
+    "MAINTAIN",
+    "PROVIDE",
+    "ESTABLISH"
+  ],
+  "obligor": "TIBCO",
+  "obligee": "Client",
+  "object_class": "on_site_personnel",
+  "object_class_accept_set": [
+    "on_site_personnel",
+    "personnel",
+    "staffing"
+  ],
+  "temporal": null,
+  "conditions": [
+    "As requested by Client",
+    "upon reasonable notice and approval by TIBCO"
+  ],
+  "underspecified": false,
+  "missing_fields": [],
+  "vague_temporal_phrase": null,
+  "redacted_phrase": null,
+  "known_gap": null,
+  "annotator_confidence": "CONFIDENT",
+  "annotated_at": "2026-08-20T09:14:01+00:00",
+  "rules_cited": [
+    "3.1",
+    "3.2",
+    "3.4",
+    "3.5",
+    "3.6",
+    "3.8",
+    "3.9"
+  ],
+  "guideline_version": "v0.15",
+  "annotator_notes": "First item from E07, the maintenance agreement that replaced the defective E06 -- so it also confirms the replacement yields usable segments. Clean on every field: named obligor and obligee, exact taxonomy verb, fully resolved. Two conditions annotated as SEPARATE entries per section 3.8 (implicit conjunction), not merged into one string. CORPUS FINDING, affects the segment not this item: sentence 2 carries a page-break artifact spliced MID-SENTENCE ('...will perform ongoing ---- 98-9-14 TIBCO Maintenance Agreement Page 3 CONFIDENTIAL INFORMATION ---- system administration...'). The span stops before it. Same artifact class as CUAD's 'Source: ALLIED ESPORTS...' footers; paragraph reconstruction cannot strip either, since the header is genuinely inside the sentence in the source. Segment TEXT quality is a distinct axis from segment STRUCTURE and should be measured before batch 2.",
+  "reviewer_status": "APPROVED"
+}

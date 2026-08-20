@@ -1,0 +1,46 @@
+{
+  "item_id": "C03-01",
+  "doc_id": "C03",
+  "segment_id": "C03-192",
+  "stratum": "standard",
+  "segment_text": "4.23 Technical Support. Vendor will provide, at no additional cost to AT&T, full and complete technical assistance to AT&T for the Material and Services provisioned under this Agreement, including ongoing technical support and field service and assistance, and telephone assistance to assist with installation, operation, maintenance and problem resolution as set forth in the terms of the Maintenance Addendum. The availability or performance of this technical support will not be construed as altering or affecting Vendor's obligations as set forth in the \"Warranty\" Section or as provided elsewhere in this Agreement. Field Service and technical support, including emergency support (service affecting), will be available on call twenty-four (24) hours a day. Vendor will provide to AT&T, and keep current, an escalation document that includes names, titles and telephone numbers, including after-hours telephone numbers, of Vendor personnel responsible for providing technical support to AT&T. Vendor will maintain a streamlined escalation process to speed resolution of reported problems.",
+  "span_char_start": 24,
+  "span_char_end": 411,
+  "span_text": "Vendor will provide, at no additional cost to AT&T, full and complete technical assistance to AT&T for the Material and Services provisioned under this Agreement, including ongoing technical support and field service and assistance, and telephone assistance to assist with installation, operation, maintenance and problem resolution as set forth in the terms of the Maintenance Addendum.",
+  "modality": "MUST",
+  "action": "PROVIDE",
+  "action_accept_set": [
+    "PROVIDE",
+    "ENSURE",
+    "MAINTAIN"
+  ],
+  "obligor": "Vendor",
+  "obligee": "AT&T",
+  "object_class": "technical_support",
+  "object_class_accept_set": [
+    "technical_support",
+    "technical_assistance",
+    "support_services"
+  ],
+  "temporal": null,
+  "conditions": [],
+  "underspecified": false,
+  "missing_fields": [],
+  "vague_temporal_phrase": null,
+  "redacted_phrase": null,
+  "known_gap": null,
+  "annotator_confidence": "AMBIGUOUS",
+  "annotated_at": "2026-08-20T08:45:19+00:00",
+  "rules_cited": [
+    "3.1",
+    "3.2",
+    "3.4",
+    "3.5",
+    "3.6",
+    "3.9",
+    "14.3"
+  ],
+  "guideline_version": "v0.13",
+  "annotator_notes": "FIRST item with underspecified=false and empty missing_fields -- both parties are named resolvable aliases (Vendor, AT&T), unlike the generic 'any Party'/'Each party' of E01-01 and C22-01. Should compile AND typecheck fully resolved: the first real end-to-end happy-path test in the set. Two judgment calls, drafter's judgment, reviewer did not rule on either: (1) segment counted as THREE duties (provide assistance / provide+keep-current escalation document / maintain escalation process), with the 'will not be construed as altering' clause read as interpretive and 'Field Service... will be available on call' as status, following the reviewer's E03-005 precedent. If 'provide to AT&T, and keep current' counts as two duties the segment is FOUR and fails section 2's 1-3 band. (2) The trailing cross-reference 'as set forth in the terms of the Maintenance Addendum' did NOT trigger section 2's cross-reference exclusion, because it qualifies scope detail rather than carrying the operative content -- a narrower reading than was applied to C22-029 and C04-101, where the cross-reference carried the duty itself.",
+  "reviewer_status": "APPROVED"
+}
