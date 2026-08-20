@@ -1,0 +1,361 @@
+{
+  "seed": 108325,
+  "count": 10,
+  "hard": 3,
+  "queues": {
+    "hard": [
+      {
+        "segment_id": "E01-040",
+        "doc_id": "E01",
+        "stratum": "hard",
+        "chars": 453,
+        "text": "SECTION 8.06. Counterparts; Entire Agreement. (a) This Agreement may be executed in one or more counterparts, all of which counterparts shall be considered one and the same agreement, and shall become effective when one or more counterparts have been signed by each Party hereto and delivered to the other Party. This Agreement may be executed by facsimile or PDF signature and a facsimile or PDF signature shall constitute an original for all purposes."
+      },
+      {
+        "segment_id": "C10-005",
+        "doc_id": "C10",
+        "stratum": "hard",
+        "chars": 218,
+        "text": "(i) incur any liability or assume any obligation on behalf of the Supplier; or 2.5 The Distributor shall not without the Supplier's prior written consent make any promises or guarantees about the Products beyond those:"
+      },
+      {
+        "segment_id": "C10-019",
+        "doc_id": "C10",
+        "stratum": "hard",
+        "chars": 324,
+        "text": "11.1 This agreement begins on the Commencement Date and, subject to clause 11.2, shall continue for an initial term of one (1) years (Initial Term) and indefinitely after that until terminated by either party giving at least twelve (12) months' prior written notice to expire on or after the expiry date of the initial term."
+      },
+      {
+        "segment_id": "C04-024",
+        "doc_id": "C04",
+        "stratum": "hard",
+        "chars": 505,
+        "text": "(2) Reverse engineer, disassemble or otherwise analyze, or cause any Third Party to reverse engineer, disassemble or otherwise analyze, any Miltenyi Product supplied hereunder, in whole or in part; provided, however, that the foregoing shall not limit the right or ability of Bellicum or its Licensees or Subcontractors to identify defects, troubleshoot problems, evaluate, test, use or conduct any study utilizing any Miltenyi Product(s) as reasonably necessary to achieve the purposes of this Agreement;"
+      },
+      {
+        "segment_id": "E03-056",
+        "doc_id": "E03",
+        "stratum": "hard",
+        "chars": 463,
+        "text": "The rights and obligations of the Parties under this Supply Agreement shall be binding upon and inure to the benefit of the successors and permitted assigns of the Parties specified above, and the name of a Party appearing herein will be deemed to include the name of such Party\u2019s successors and permitted assigns to the extent necessary to carry out the intent of this Section 11.4. Any assignment not in accordance with this Section 11.4 shall be null and void."
+      },
+      {
+        "segment_id": "C04-117",
+        "doc_id": "C04",
+        "stratum": "hard",
+        "chars": 1621,
+        "text": "8.3 Third Party Fees and Royalties. Bellicum will reimburse Miltenyi for Third Party royalties and/or license fees, if any, owed by Miltenyi under Third Party license agreements existing as of the Effective Date as set forth on Exhibit D solely to the extent Miltenyi's exercise of rights under such licenses is required 27 Miltenyi Biotec-Bellicum Supply Agreement (Execution Copy, March 27, 2019) to supply Miltenyi Product to Bellicum under this Agreement for the Permitted Use; and further provided that amounts owed under such Third Party license agreements have not otherwise been passed through to Bellicum and are actually paid by Miltenyi to Miltenyi's licensor(s). Bellicum acknowledges that the potential volume of such Third Party royalties and/or license fees under applicable Third Party license agreements will be as set forth on Exhibit D, as updated from time to time by Miltenyi. If, during the Term of this Agreement, the Parties mutually agree to obtain additional Third Party licenses to enable the Permitted Use of Miltenyi Products by Bellicum, its Affiliates, Subcontractors, and/or Licensees under this Agreement, and such additional licenses give rise to Third Party royalties and/or license fees with respect to Bellicum's use of Miltenyi Products under this Agreement, then the Parties will negotiate in good faith which Party(ies) is/are responsible for payment of such Third Party royalties and/or license fees. Miltenyi, acting reasonably, reserves the right to defer the inclusion of additional Miltenyi Products in Exhibit B hereto until the Parties have reached agreement on this matter."
+      },
+      {
+        "segment_id": "C04-118",
+        "doc_id": "C04",
+        "stratum": "hard",
+        "chars": 1302,
+        "text": "(b) Tiered Pricing. Bellicum shall be entitled to a reduction of the Product Prices set forth in Exhibit F (collectively, the \"Discounts\"). The Discount, as applicable to a particular Miltenyi Product in a Calendar Year, shall be based on Bellicum's and its Subcontractors' and Licensees' consolidated volume purchases of such Miltenyi Product in a Calendar Year. Within the first Calendar Year, Miltenyi shall analyze Bellicum's and its Subcontractors' and Licensees' purchases of Miltenyi Products at the end of each Calendar Quarter; if such purchases for a particular Miltenyi Product exceed the volume threshold of the then applicable Discount (based on binding and firm Purchase Orders received by Miltenyi in that Calendar Quarter), then, in the following Calendar Quarter, for all Purchase Orders regarding such Miltenyi Product, the corresponding higher Discount level in accordance with the volume thresholds as defined in Exhibit F shall apply. Subject to Bellicum reaching the Minimum Purchase requirements in accordcance with Section 5.6 in a Calendar Year, for the subsequent Calandar Year, the Discount applicable for the first Discount volume threshold shall apply, beginning from the first Miltenyi Product ordered by Bellicum under this Agreement during such subsequent Calendar Year."
+      },
+      {
+        "segment_id": "E03-018",
+        "doc_id": "E03",
+        "stratum": "hard",
+        "chars": 1269,
+        "text": "(ii)If Kissei notifies Rigel of any nonconformity of any Product in accordance with Section 2.5(a)(i), Rigel shall have the right to inspect the Product in question and Kissei shall cooperate with Rigel\u2019s inspection, including providing Rigel with samples of the Product in question for testing upon request. If Rigel agrees with such notice of nonconformity and that such nonconformity was not caused by occurrences after the delivery of the Product to Kissei, Rigel shall, at its discretion and expense, either: (A) replace such Product, ** as soon as reasonably practicable after receipt of notification of such nonconformity or (B) refund any portion of the applicable amount that has already been paid for such Product; provided, however, that if Rigel is required to make a payment to any contract manufacturer (or is not entitled to a refund from such contract manufacturer) in connection with any such non-conforming Product caused by Kissei or while under Kissei\u2019s control, Kissei shall be required to pay Rigel under this Supply Agreement with respect to such non-conforming Product unless and until Rigel is relieved of its payment obligation (or is refunded its payment) for such non-conforming Product under its agreements with such contract manufacturers."
+      },
+      {
+        "segment_id": "C04-087",
+        "doc_id": "C04",
+        "stratum": "hard",
+        "chars": 424,
+        "text": "(a) Each quantity of Miltenyi Product(s) ordered by Bellicum in a particular Purchase Order pursuant to this Agreement shall be delivered FCA (Incoterms 2010) Miltenyi's Facility by delivery 20 Miltenyi Biotec-Bellicum Supply Agreement (Execution Copy, March 27, 2019) of the shipped goods to Bellicum's designated carrier or freight forwarder, in adequate packaging and ready for loading, on the Delivery Date (\"Delivery\")."
+      },
+      {
+        "segment_id": "C04-007",
+        "doc_id": "C04",
+        "stratum": "hard",
+        "chars": 821,
+        "text": "\"Intellectual Property Rights\" means any and all past, present, and future rights which exist, or which may exist or be created in the future, under the laws of any jurisdiction in the world with respect to all: (i) rights associated with works of authorship, including exclusive exploitation rights, copyrights, moral rights, and mask works; (ii) trademarks and trade name rights and similar rights; (iii) trade secret rights; (iv) inventions, patents, patent applications, and industrial property rights; (v) other proprietary rights in intellectual property of every kind and nature; and (vi) rights in or relating to registrations, renewals, re-examinations, extensions, combinations, continuations, divisions, and reissues of, and applications for, any of the rights referred to in sub-clauses (i) through (v) above."
+      },
+      {
+        "segment_id": "E03-010",
+        "doc_id": "E03",
+        "stratum": "hard",
+        "chars": 425,
+        "text": "(d)Separate Contracts. Each Purchase Order will constitute a separate contract for the supply of the Product and its placebo (if applicable) on the terms of this Supply Agreement (and excluding all other terms and conditions including any set out or referred to in any Purchase Order). In the event of a conflict between a Purchase Order and the terms of this Supply Agreement, the terms of this Supply Agreement will govern."
+      },
+      {
+        "segment_id": "C10-033",
+        "doc_id": "C10",
+        "stratum": "hard",
+        "chars": 337,
+        "text": "21.1 A person who is not a party to this agreement shall not have any rights under or in connection with it by virtue of the Contracts 21.2 The rights of the parties to terminate, rescind or agree any variation, waiver or settlement under this agreement are not subject to the consent of any person that is not a party to this agreement."
+      },
+      {
+        "segment_id": "C20-002",
+        "doc_id": "C20",
+        "stratum": "hard",
+        "chars": 803,
+        "text": "4. Proprietary Rights. Except for the limited access right granted to Customer in this Agreement, all right, title and interest in and to the Software (including any and all modifications as a result of any implementation services rendered) and the eGain System are and shall remain the exclusive property of eGain and its licensors. eGain acknowledges and agrees that the Online Messages are the property of Customer and that eGain has only a limited right to use the Online Messages as set forth in the following sentence. Notwithstanding the foregoing, eGain may access and disclose the Online Messages solely as necessary to provide the Hosting Services, to operate and maintain its systems, to comply with applicable laws and government orders and requests, and to protect itself and its customers."
+      },
+      {
+        "segment_id": "C04-124",
+        "doc_id": "C04",
+        "stratum": "hard",
+        "chars": 764,
+        "text": "8.6 Taxes. All payments made under this Agreement shall be free and clear of any and all taxes, duties, levies, fees or other charges, except for withholding taxes. Each Party shall be entitled to deduct from its payment to the other Party under this Agreement the amount of any withholding taxes required to be withheld, to the extent paid to the appropriate governmental authority on behalf of the other Party (and not refunded or reimbursed). Each Party shall deliver to the other Party, upon request, proof of payment of all such withholding taxes. Each Party shall provide reasonable assistance to the other Party in seeking any benefits available to such Party with respect to government tax withholdings by any relevant law, regulation or double tax treaty."
+      },
+      {
+        "segment_id": "C04-042",
+        "doc_id": "C04",
+        "stratum": "hard",
+        "chars": 240,
+        "text": "(b) Agreed Standards. All Miltenyi Products shall be manufactured and quality controlled in compliance with and pursuant to: (i) the Agreed Standards, (ii) the requirements of the Quality Agreement, if applicable, and (iii) Applicable Laws."
+      }
+    ],
+    "standard": [
+      {
+        "segment_id": "C02-049",
+        "doc_id": "C02",
+        "stratum": "standard",
+        "chars": 848,
+        "text": "5.4 Disposition of Defective or Recalled Products. AMAG shall not dispose of any damaged, defective, returned or Recalled Products, sample Products or Trainers in relation to which it intends to assert a claim against Antares without Antares' prior written authorization to do so, unless otherwise required by Applicable Laws. Alternatively, Antares may instruct AMAG to return such Products, sample Products and Trainers to Antares at Antares' expense. Antares shall bear the cost of disposition with respect to any damaged, defective, returned or Recalled Products, sample Products or Trainers in relation to which it bears responsibility under Sections 5.1, 5.2 or 5.3 hereof. In all other circumstances, AMAG shall bear the cost of disposition with respect to any damaged, defective, returned or Recalled Products, sample Products and Trainers."
+      },
+      {
+        "segment_id": "C14-076",
+        "doc_id": "C14",
+        "stratum": "standard",
+        "chars": 571,
+        "text": "8.5. TAXES. Each party shall deduct such taxes from the payments due to the other party hereunder as required by law including withholding taxes (unless an exemption is provided), and shall promptly furnish such other party with appropriate tax receipts. Each party will be solely responsible for any and all taxes imposed thereon, including, without limitation, all income taxes, sales taxes, goods and services taxes. Israel value added tax shall be added, if applicable, to all amounts payable hereunder and will be paid against submission of appropriate tax invoices."
+      },
+      {
+        "segment_id": "E05-020",
+        "doc_id": "E05",
+        "stratum": "standard",
+        "chars": 516,
+        "text": "time to time on and after the date hereof, the parties shall deliver or cause to be delivered to the Escrow Agent such further documents and instruments and shall do or cause to be done such further acts as the Escrow Agent shall reasonably request (it being understood that the Escrow Agent shall have no obligation to make such request) to carry out more effectively the provisions and purposes of this Escrow Agreement, to evidence compliance herewith or to assure itself that it is protected in acting hereunder."
+      },
+      {
+        "segment_id": "C02-021",
+        "doc_id": "C02",
+        "stratum": "standard",
+        "chars": 1232,
+        "text": "2.9 Retained Samples. Antares or its Subcontractor shall retain sufficient quantities of shipped Products, sample Products, Devices and Components as retained repository samples as required under the Quality Agreement and Applicable Laws at AMAG's sole cost and expense and as set forth in Exhibit G. Such retained samples shall minimally represent [***] the number of samples necessary to re-execute chemical release testing and will be maintained in a suitable storage facility at Antares' or its Subcontractors' Manufacturing Site until [***] or such longer period as may be required by Applicable Laws. All such samples shall be available for inspection by AMAG at reasonable intervals upon reasonable - 12 - [***] INDICATES MATERIAL THAT HAS BEEN OMITTED AND FOR WHICH CONFIDENTIAL TREATMENT HAS BEEN REQUESTED. ALL SUCH OMITTED MATERIAL HAS BEEN FILED WITH THE SECURITIES AND EXCHANGE COMMISSION PURSUANT TO RULE 24b-2 PROMULGATED UNDER THE SECURITIES EXCHANGE ACT OF 1934, AS AMENDED notice. AMAG shall advise Antares of the required quantities of shipped Products, sample Products, Devices and Components that AMAG desires to be retained. Antares shall invoice AMAG for the costs associated with performing these activities."
+      },
+      {
+        "segment_id": "C11-049",
+        "doc_id": "C11",
+        "stratum": "standard",
+        "chars": 1107,
+        "text": "9.4 INTEREST AND ATTORNEY'S FEES. The Franchisee shall pay to BKC interest (in U.S. dollars in the United States) upon any sum overdue under this Agreement, calculated at three (3) percent per annum above the prime rate of merest charged by Citibank, N.A., against the overdue sum expressed in U.S. dollars. By way of exception, any overdue sum required to be paid in a currency other than U.S. dollars shall bear merest at three (3) percent per annum above the base lending rate of any nationally recognized bank within the relevant country designated by BKC. Nothing in this paragraph is meant to require the Franchisee to pay interest at a rate greater than that allowed by applicable law and, in the event that this paragraph would have such an effect, the Franchisee shall only be required to pay interest at the maximum rate allowable by law. If an excess amount is inadvertently collected, it shall be applied to reduce the amounts due under Subparagraph 9.1.1 above. The Franchisee shall pay all costs, including reasonable attorney's fees, incurred by BKC in enforcing the tern s of this Agreement."
+      },
+      {
+        "segment_id": "C02-036",
+        "doc_id": "C02",
+        "stratum": "standard",
+        "chars": 289,
+        "text": "(f) In the event any Safety Stock expires, Antares or its Subcontractor shall dispose of or destroy such Safety Stock in accordance with the Quality Agreement. AMAG shall reimburse Antares for any costs or expenses incurred (without markup) in connection with such disposal or destruction."
+      },
+      {
+        "segment_id": "C14-147",
+        "doc_id": "C14",
+        "stratum": "standard",
+        "chars": 279,
+        "text": "17.9. DISPUTE RESOLUTION. Any dispute arising out of or relating to this Agreement or the breach, termination or validity thereof shall be settled in accordance with one of the following procedures. Contractor and NICE shall use the procedures in the following order of priority."
+      },
+      {
+        "segment_id": "C14-060",
+        "doc_id": "C14",
+        "stratum": "standard",
+        "chars": 202,
+        "text": "5.3.7 NO RESPONSIBILITY FOR DUE DATE. Notwithstanding the aforementioned, Contractor shall be relived from its responsibility for the Due Date of any specific Product if all the following terms are met:"
+      },
+      {
+        "segment_id": "C06-030",
+        "doc_id": "C06",
+        "stratum": "standard",
+        "chars": 313,
+        "text": "3.1 Purchase Price. The aggregate consideration being provided to Merchant in exchange for Purchaser's rights and Merchant's obligations under this Agreement is as follows (collectively, the \"Purchase Price), which shall be allocated among the Assets in accordance with Purchaser's bid letter dated April 4, 2018:"
+      },
+      {
+        "segment_id": "C17-046",
+        "doc_id": "C17",
+        "stratum": "standard",
+        "chars": 1164,
+        "text": "(b) Upon any termination or expiration of this Agreement, at the written request of the other Party, each Party shall, and shall cause any of its Affiliates or third-party vendors used in connection with the provision or receipt of the Services to, deliver to the other Party (i) all records and data (including backup tapes, records and related information) received, computed, developed, processed and stored by it hereunder in a readable format reasonably acceptable to the other Party, and (ii) all other Confidential Information of such other Party, but excluding, in each case, (1) any information stored electronically in a back-up file pursuant to the receiving Party's customary electronic back-up practices which may be retained by such Party solely for archival purposes and subject to the continuing confidentiality obligations set forth in herein, and (2) any information obtained pursuant to Section 7.2 herein; provided that, in lieu of delivering all of the foregoing to the other Party, the relevant delivering Party may confirm in writing that it has destroyed, or has caused RGHI or Company, as the case may be, to destroy, all of the foregoing."
+      },
+      {
+        "segment_id": "C15-044",
+        "doc_id": "C15",
+        "stratum": "standard",
+        "chars": 778,
+        "text": "Audit Rights. Each Party or its designated representatives shall, upon reasonable notice to the other Party, have the right, no more frequently than two (2) times per twelve (12) consecutive calendar Months, at its own expense, at reasonable times and during normal business hours, to examine the books and records of such other Party to the extent necessary to verify the accuracy of any statement, charge, computation, or demand made under or pursuant to this Agreement. Each Party agrees to keep its records and books in accordance with generally accepted accounting practices in the oil and gas industry. Each invoice and statement shall be final as to both Parties unless questioned in writing within twenty four (24) Months following the date of such invoice or statement."
+      },
+      {
+        "segment_id": "C03-045",
+        "doc_id": "C03",
+        "stratum": "standard",
+        "chars": 627,
+        "text": "(d) In addition to AT&T's obligation to reimburse Vendor as set forth in Subsection (c) above, AT&T shall indemnify, hold harmless and defend the Vendor Indemnified Parties against any Third Party Loss arising solely from or in connection with, resulting solely from, or relating solely to (i) the AT&T Provided Equipment furnished by AT&T or (ii) the negligent or intentionally wrongful acts or omissions of any of the AT&T Indemnified Parties under this Agreement; in each case in the same manner as set forth in Subsection (b) and in the first four sentences of Subsection (c), with the appropriate changes having been made."
+      },
+      {
+        "segment_id": "C11-062",
+        "doc_id": "C11",
+        "stratum": "standard",
+        "chars": 310,
+        "text": "11.1.6 ASSIGNMENT OF RIGHTS IN MARKS. The Franchisee hereby assigns to BKC such rights (if any) as the Franchisee may hereafter acquire in any of the Burger King Marks or the Burger King System and shall execute such documents and do such acts at the cost of BKC as may be necessary to perfect such assignment."
+      },
+      {
+        "segment_id": "C15-057",
+        "doc_id": "C15",
+        "stratum": "standard",
+        "chars": 293,
+        "text": "Published Indices. Unless expressly provided otherwise herein, if any published price index referred to in this Agreement ceases to be published, the Parties shall mutually agree to an alternative published price index representative of the published price index referred to in this Agreement."
+      },
+      {
+        "segment_id": "C02-048",
+        "doc_id": "C02",
+        "stratum": "standard",
+        "chars": 497,
+        "text": "(b) Recalls. The decision to initiate a Recall or to take some other corrective action, if any, shall be made and implemented by AMAG in its sole discretion after consultation with Antares. AMAG shall be responsible for managing all Recalls and Antares shall cooperate with AMAG as AMAG may reasonably request. Subject to Antares' obligation to cover the costs set forth in Section 5.3(b), AMAG shall be responsible for all costs incurred due to the Recall of a Product, sample Product or Trainer."
+      },
+      {
+        "segment_id": "C05-040",
+        "doc_id": "C05",
+        "stratum": "standard",
+        "chars": 888,
+        "text": "(i) The parties will work together to develop a plan to implement detailed operation protocols for the Test within ninety (90) days of the Effective Date for each aspect of sample logistics, including ordering, shipping, accessioning, sample handling, testing, data generation, data evaluation and reporting. These sample logistics shall be agreed upon by the parties through the Joint Steering Committee and, once agreed upon by the parties in writing, deemed to be attached hereto as Exhibit C without any additional action required on the part of either party. Information, data and images shall be transferred between the parties as indicated for this purpose, and the parties will seek to make their respective laboratory information management systems and data transfer capabilities compatible. Life Technologies' lab director at the CLIA lab will sign off on the reports for Tests."
+      },
+      {
+        "segment_id": "C13-027",
+        "doc_id": "C13",
+        "stratum": "standard",
+        "chars": 1045,
+        "text": "9.5. MBRK shall indemnify and hold DD harmless from and against any damages, loss or expenses, including reasonable attorneys' fees, DD may sustain or incur as the result of any Legal Claims made, brought, or threatened against DD, arising out of: (1) any negligent or willful act or omission of MBRK, or any of its Representatives, to the extent that such Legal Claim does not arise from the negligent or willful act or omission of DD, or any of its Representatives; (2) any adverse events relating to the use of MBRK products; (3) assertions made in Promotional Materials, provided MBRK approved such Promotional Materials prior to implementation, including those that DD prepared for MBRK, and there are no deviations in such Promotional Material from the time MBRK provides DD with approval of such Promotional Material to the time that such Promotional Material is produced, printed and/or distributed by DD or on behalf of DD or MBRK; or (4) any breach by MBRK of any of its representations, warranties or obligations under this Agreement."
+      },
+      {
+        "segment_id": "C03-033",
+        "doc_id": "C03",
+        "stratum": "standard",
+        "chars": 794,
+        "text": "(a) Vendor acknowledges that AT&T is responsible for the deployment of the FirstNet Nationwide Public Safety Broadband Network (the \"NPSBN\") in accordance with the terms of AT&T's agreement with the FirstNet Authority and that AT&T has provided certain terms of such agreement to Vendor but has not provided Vendor with a copy of such agreement with the FirstNet Authority. Therefore, Vendor understands generally that AT&T's business requires prompt Delivery of Material and provision of Services by the specified Delivery Dates. Furthermore, the Parties agree that dates for Delivery of Material and Services are firm subject to any Excusable Delay, time is of the essence, and, subject to any Excusable Delay, Vendor will complete such Delivery in strict conformance with the Specifications."
+      },
+      {
+        "segment_id": "C05-036",
+        "doc_id": "C05",
+        "stratum": "standard",
+        "chars": 231,
+        "text": "(g) Technical Developments. Biocept shall keep Life Technologies fully informed as to all discoveries and technical developments (including, without limitations, any inventions) made by Biocept during the Term related to the Tests."
+      },
+      {
+        "segment_id": "C06-011",
+        "doc_id": "C06",
+        "stratum": "standard",
+        "chars": 695,
+        "text": "(xi) upon the payment of the Cash Purchase Price, and solely to the extent that any Assets or Proceeds are, notwithstanding the Approval Order, 5 Case 18-10248- MFW Doc 632-1 Filed 04/18/18 Page 7 of 60 subsequently determined to constitute property of Merchant's estate, but subject to Agent's obligation to pay Expenses and fund the Wind-Down Payment, Purchaser shall have a senior lien on such Assets and all Proceeds thereof, which lien is deemed automatically perfected, provided that nothing in the Approval Order shall inhibit Purchaser's ability, and the Approval Order shall expressly authorize Purchaser, to take any action Purchaser deems appropriate to perfect and enforce such lien;"
+      },
+      {
+        "segment_id": "C11-096",
+        "doc_id": "C11",
+        "stratum": "standard",
+        "chars": 287,
+        "text": "15.9 ASSIGNMENT BY BKC. BKC may assign this Agreement to any person or company which acquires its Burger King business in the territory in which the Franchised Restaurant is located or a substantial part thereof, whether by outright acquisition or by way of a master franchise agreement."
+      },
+      {
+        "segment_id": "E05-003",
+        "doc_id": "E05",
+        "stratum": "standard",
+        "chars": 900,
+        "text": "Installment\u201d) within sixty (60) days of the execution of this Escrow Agreement, or ninety (90) days of the execution of this Escrow Agreement in the event WHDX delivers to the Escrow Agent prior to the sixtieth day written notice that the Second Installment payment date has been extended (\u201cExtended\u201d) to ninety (90) days from the execution of this Escrow Agreement; and $75,000 within ninety (90) days of the execution of this Escrow Agreement (\u201cThird Installment\u201d) . WHDX\u2019s Escrow Property and 11i\u2019s Escrow Property as deposited with the Escrow Agent are sometimes hereinafter referred to as the \u201cEscrow Property\u201d. The Escrow Property shall be maintained on deposit by the Escrow Agent in accordance with the terms and conditions hereof. This Escrow Agreement and the escrow created hereunder shall not become effective unless and until the Escrow Property has been deposited with the Escrow Agent."
+      },
+      {
+        "segment_id": "C15-025",
+        "doc_id": "C15",
+        "stratum": "standard",
+        "chars": 1176,
+        "text": "Transportation Services. For each Day during the Term, (i) Transporter agrees to provide Firm Service on the Transportation System for Customer Gas delivered to the Transportation System in a quantity not to exceed Customer's Firm Service Gas for such Day, and Interruptible Service for all quantities in excess of Customer's Firm Service Gas for such Day, and deliver to Customer, or for the account of Customer, at the applicable Points of Delivery, Equivalent Quantities of Customer Gas received at the Points of Receipt, and (ii) Customer, or its designee, shall accept such Equivalent Quantities of Customer Gas at the Points of Delivery. 6 Source: PENNTEX MIDSTREAM PARTNERS, LP, S-1/A, 4/16/2015 Notwithstanding anything in this Agreement to the contrary, it is acknowledged and agreed that there is no minimum amount of Customer Gas that must be delivered to the Transportation System hereunder; accordingly, Customer shall not have any liability (financial or otherwise) for failure to deliver any particular quantity of Gas to Transporter; provided, however, the foregoing sentence shall not reduce or eliminate Customer's obligation to pay the fees provided herein."
+      },
+      {
+        "segment_id": "C17-085",
+        "doc_id": "C17",
+        "stratum": "standard",
+        "chars": 1567,
+        "text": "12 months form the Commencement Date Services billed through the Warehousing and Freight Services Agreement dated November 1, 2019 Source: REYNOLDS CONSUMER PRODUCTS INC., S-1/A, 1/21/2020 Section G6: Travel and Expense Services Service Name Description of Service Term Fee (USD) G6.1 Travel and Expense Services - Concur & Travel Booking Assistance Provision of: \u2022 Access to discounted airline, hotel, and rental car rates \u2022 Services relating to travel booking assistance and ticket issuance by World Travel \u2022 Access to the Concur system for travel booking, filing expense reports, processing and payment of expense reports, and reimbursement for cash expenses 12 months from the Commencement Date Monthly Fee: $19,000 Plus pass-through of actual third-party costs incurred in providing the service G6.2 Travel and Expense Services - Corporate Travel Card Administration of corporate travel credit card program and purchasing \"ProCard\" credit card program for cards provided by HSBC and used by RCP employees solely for business travel and business expenses. Services include: \u2022 Procurement of new cards and cancellation of existing cards \u2022 Facilitating changes to credit limits \u2022 Audits of employee expense reports for compliance with RCP's policies using current audit tools and practices \u2022 Other services consistent with current practices RCP employees may continue to use their current HSBC credit cards under existing rules and limits. At or before the end of the Term, all cards must either be transferred to accounts established by RCP with HSBC or cancelled."
+      },
+      {
+        "segment_id": "C15-012",
+        "doc_id": "C15",
+        "stratum": "standard",
+        "chars": 835,
+        "text": "\"Gross Heating Value\" shall mean the number of Btus produced by the complete combustion in air, at constant pressure of one (1) cubic foot of Gas, at a base temperature of sixty degrees Fahrenheit (60\u00b0F) and at a reference pressure base equal to 14.65 psia, with air of the temperature and pressure of the Gas, after the products of combustion are cooled to the initial temperature of the Gas, and after the air and water formed by the combustion is condensed to the liquid state. The gross heating value of the Gas shall be corrected for water vapor under testing conditions to the actual water vapor content of the Gas being delivered; provided, however, if the actual water vapor content is seven (7) pounds per 1,000,000 standard cubic feet of Gas or less, the Gas shall be deemed \"dry\" and no water vapor correction shall be made."
+      },
+      {
+        "segment_id": "C03-142",
+        "doc_id": "C03",
+        "stratum": "standard",
+        "chars": 416,
+        "text": "(a) If any part of Vendor's Work is dependent upon work performed by others or subcontracted consistent with the terms herein, Vendor shall inspect and promptly report to AT&T any defect that renders such other work unsuitable for Vendor's proper performance. Vendor's silence shall constitute approval of such other work as fit, proper and suitable for Vendor's performance of its Services or provision of Material."
+      },
+      {
+        "segment_id": "C12-015",
+        "doc_id": "C12",
+        "stratum": "standard",
+        "chars": 665,
+        "text": "12. Interpretation, Amendment and Enforcement. This letter agreement will be effective as of July 1, 2018. This letter agreement and the Company's standard Proprietary Information and Inventions Agreement supersede and replace any prior agreements, representations or understandings (whether written, oral, implied or otherwise) between you and 844.KEY.CURE | www.kiromic.com PAGE 4 the Company and constitute the complete agreement between you and the Company regarding the subject matter set forth herein. This letter agreement may not be amended or modified, except by an express written agreement signed by both you and a duly authorized officer of the Company."
+      },
+      {
+        "segment_id": "C11-034",
+        "doc_id": "C11",
+        "stratum": "standard",
+        "chars": 416,
+        "text": "Franchisee shall translate the MOD Manual into the native language of the employees at the Franchised Restaurant upon request by BKC. The delivery of a copy of the MOD Manual, including all revisions and updates thereto, by BKC to the Franchisee satisfies and fulfills any obligation BKC may be deemed to have to provide the Franchisee with use of the Burger King System or expertise regarding he Burger King System."
+      },
+      {
+        "segment_id": "C11-044",
+        "doc_id": "C11",
+        "stratum": "standard",
+        "chars": 1343,
+        "text": "9.1.2 INABILITY TO REMIT ROYALTY. In the event that the Franchisee shall at any time be prohibited from making any payment in the United States and in United States currency, the Franchisee shall immediately notify BKC of this fact and such payment shall thereupon be made at such place and in such currency as may be selected by BKC and acceptable to the appropriate governmental authorities of the country in which the Franchised Restaurant is located, all in accordance with remittance instructions furnished by BKC. If, having pursued every reasonable endeavor, the parties are thereafter unable to secure any method of payment to BKC as required in Subparagraph 9.1.1 above, then BKC may, in its sole discretion, either (a) accept subsequent payments in a manner and currency acceptable to BKC in its sole discretion, or (b) by one-hundred eighty (180) days prior written notice to the Franchisee, immediately terminate this Agreement without any claim being mad by either party against the other in respect to such termination. The acceptance by BKC of; ny payment pursuant to Subparagraph 9.1.2(a) above shall not excuse the Franchisee from its obligation to pay all subsequent payments as required under Subparagraph 9.1.1 and BKC remain free to exercise its right under Subparagraph 9.1.2(b) as each monthly royalty payment comes due."
+      },
+      {
+        "segment_id": "C11-005",
+        "doc_id": "C11",
+        "stratum": "standard",
+        "chars": 1387,
+        "text": "2.3 NO RENEWAL RIGHT; NO EXCLUSIVITY. The Franchisee acknowledges and agrees that this license is a license for the operation of a Burger King Restaurant at the Location only and that the Franchisee has no right to any exclusive territory or to object to the location of an additional Burger King Restaurant at a site which is in the immediate proximity of the Franchised Restaurant and/or in the same trading area of the Franchised Restaurant Subject to the Restaurant Development Agreement between BKC and International Fast Food Corporation dated March 14, 1997, (the \"Development Agreement\"), the development and location of additional Burger King Restaurants shall be determined by BKC in its sole business judgment and BKC may develop or franchise additional Burger King Restaurants anywhere, including sites in the immediate proximity of the Franchised Restaurant and/or in the same trading area of the Franchised Restaurant, in its sole business judgment. The Franchisee hereby waives any right it has, may have, or might in the future have, to oppose such development and location, and any claim for compensation from BKC in respect of any and all detriment or los s suffered by it as a result of the development and location of additional Burger King Restaurants in the immediate proximity of the specified Location and/or in the same trading area of the Franchised Restaurant."
+      },
+      {
+        "segment_id": "C09-008",
+        "doc_id": "C09",
+        "stratum": "standard",
+        "chars": 873,
+        "text": "6. Amendment. This Agreement may be amended at any time by mutual written agreement of the parties hereto; provided, however, that no Amendment to this Agreement shall be effective with respect to any investment advisory services to be provided to any Account which is registered investment company unless, to the extent required by Section 15(a)(2) of the 1940 Act, such amendment has been approved both by the vote of a majority of the Board of the Account, including a majority of the members of the Board who are not parties to this Agreement or interested persons of any such party (other than as members of the Board), cast in person at a meeting called for that purpose and, where required by Section 15(a)(2) of the 1940 Act, on behalf of the Account by a majority of the outstanding voting securities of such Account as defined in Section 2(a)(42) of the 1940 Act."
+      },
+      {
+        "segment_id": "C12-020",
+        "doc_id": "C12",
+        "stratum": "standard",
+        "chars": 603,
+        "text": "2. Compensation. The Company will compensate Consultant at the rate of $400 per hour (19 hours cap monthly; anything over these hrs must be preapproved by management), payable in accordance with the Company's standard payroll schedule, and subject to withholding as legally required. This compensation will be subject to adjustment pursuant to the Company's consultant compensation policies in effect from time to time. Consultants shall be given written notice of any adjustments to compensation at least fourteen (14) days prior to adjustments becoming effective. 844.KEY.CURE | www.kiromic.com PAGE 7"
+      },
+      {
+        "segment_id": "C06-026",
+        "doc_id": "C06",
+        "stratum": "standard",
+        "chars": 485,
+        "text": "(xxxviii) following the occurrence of the Closing, neither the Debtor nor any other entity acting on its behalf or as its successor (including but not limited to the Committee and any chapter 7 or 11 trustee) may recover from the Notes Trustee or any holders of Second- Lien Notes any costs or expenses of preserving, or disposing of, any of the collateral securing Merchant's obligations under the Indenture and the Second-Lien Notes pursuant to section 506(c) of the Bankruptcy Code;"
+      },
+      {
+        "segment_id": "C14-037",
+        "doc_id": "C14",
+        "stratum": "standard",
+        "chars": 1871,
+        "text": "Purchase Orders for Products (and Forecasts for Products) may be delivered to Contractor by any reasonable means, including but not limited to e-mail, computerized systems, etc., postal delivery, courier delivery, facsimile transmission, as shall be notified by NICE in writing and in advance of any relevant PO. For the removal of doubt, a PO shall not be binding upon Contractor until Contractor has confirmed in writing receipt of the PO. Contractor shall, within two Business Days of its receipt of a Purchase Order, accept or reject such Purchase Order in writing; provided, however, that Contractor shall be obligated to accept all Purchase Orders issued in accordance with the terms hereof for Products with respect to which a price per the quantity ordered has been mutually agreed by the parties. Contractor undertakes that in the event of increase in Product requirements VIS-A-VIS the Forecast (i.e. issuance of PO's exceeding 15 the relevant Forecast), Contractor's manufacturing capacity can be increased, at any time, by thirty percent (30%) beyond the then current Forecast. In addition, in as much as purchase of components and purchase of sub assemblies are concerned, NICE may order Products, which are not included in the Forecast, and Contractor will make its best reasonable commercial efforts to accommodate such order in accordance with NICE' request. It is clarified that in any event Contractor will accept all PO's exceeding the Forecast, subject to updating the Due Date based upon the Total Lead Time for obtaining the required components, which are not available in Contractor's inventory. The Due Date for such PO's will be determined according to the time of obtaining the components. For components/Products the prices for which are not previously agreed under APPENDIX C, the price will be agreed in writing prior to acceptance of the PO."
+      },
+      {
+        "segment_id": "C11-107",
+        "doc_id": "C11",
+        "stratum": "standard",
+        "chars": 375,
+        "text": "(g) If the Franchisee should at any time become insolvent or make a composition, trust mortgage or general assignment for the benefit of creditors, or if a bankruptcy proceeding, receivership or any action under any similar law affecting the rights of creditors generally shall be filed or commenced by, against or in respect of the Franchisee or any portion of its property."
+      }
+    ]
+  }
+}

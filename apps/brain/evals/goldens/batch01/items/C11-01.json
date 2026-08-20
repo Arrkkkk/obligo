@@ -32,7 +32,7 @@
   ],
   "vague_temporal_phrase": "within a reasonable time after the Principal's death or mental incapacity",
   "redacted_phrase": null,
-  "known_gap": null,
+  "known_gaps": [],
   "annotator_confidence": "AMBIGUOUS",
   "annotated_at": "2026-08-20T10:21:43+00:00",
   "rules_cited": [

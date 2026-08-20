@@ -1,0 +1,60 @@
+{
+  "item_id": "C04-02",
+  "doc_id": "C04",
+  "segment_id": "C04-117",
+  "stratum": "hard",
+  "segment_text": "8.3 Third Party Fees and Royalties. Bellicum will reimburse Miltenyi for Third Party royalties and/or license fees, if any, owed by Miltenyi under Third Party license agreements existing as of the Effective Date as set forth on Exhibit D solely to the extent Miltenyi's exercise of rights under such licenses is required 27 Miltenyi Biotec-Bellicum Supply Agreement (Execution Copy, March 27, 2019) to supply Miltenyi Product to Bellicum under this Agreement for the Permitted Use; and further provided that amounts owed under such Third Party license agreements have not otherwise been passed through to Bellicum and are actually paid by Miltenyi to Miltenyi's licensor(s). Bellicum acknowledges that the potential volume of such Third Party royalties and/or license fees under applicable Third Party license agreements will be as set forth on Exhibit D, as updated from time to time by Miltenyi. If, during the Term of this Agreement, the Parties mutually agree to obtain additional Third Party licenses to enable the Permitted Use of Miltenyi Products by Bellicum, its Affiliates, Subcontractors, and/or Licensees under this Agreement, and such additional licenses give rise to Third Party royalties and/or license fees with respect to Bellicum's use of Miltenyi Products under this Agreement, then the Parties will negotiate in good faith which Party(ies) is/are responsible for payment of such Third Party royalties and/or license fees. Miltenyi, acting reasonably, reserves the right to defer the inclusion of additional Miltenyi Products in Exhibit B hereto until the Parties have reached agreement on this matter.",
+  "span_char_start": 898,
+  "span_char_end": 1440,
+  "span_text": "If, during the Term of this Agreement, the Parties mutually agree to obtain additional Third Party licenses to enable the Permitted Use of Miltenyi Products by Bellicum, its Affiliates, Subcontractors, and/or Licensees under this Agreement, and such additional licenses give rise to Third Party royalties and/or license fees with respect to Bellicum's use of Miltenyi Products under this Agreement, then the Parties will negotiate in good faith which Party(ies) is/are responsible for payment of such Third Party royalties and/or license fees",
+  "modality": "MUST",
+  "action": "NEGOTIATE",
+  "action_accept_set": [
+    "NEGOTIATE",
+    "CONSULT"
+  ],
+  "obligor": "the Parties",
+  "obligor_accept_set": [],
+  "obligee": "ABSENT",
+  "object_class": "payment_responsibility",
+  "object_class_accept_set": [
+    "payment_responsibility",
+    "third_party_royalties",
+    "license_fee_allocation",
+    "payment_allocation"
+  ],
+  "temporal": null,
+  "conditions": [
+    "If, during the Term of this Agreement, the Parties mutually agree to obtain additional Third Party licenses to enable the Permitted Use of Miltenyi Products by Bellicum, its Affiliates, Subcontractors, and/or Licensees under this Agreement, and such additional licenses give rise to Third Party royalties and/or license fees with respect to Bellicum's use of Miltenyi Products under this Agreement"
+  ],
+  "underspecified": true,
+  "missing_fields": [
+    "obligee"
+  ],
+  "vague_temporal_phrase": null,
+  "redacted_phrase": null,
+  "known_gaps": [
+    "mutual_obligation"
+  ],
+  "annotator_confidence": "AMBIGUOUS",
+  "adjudicated_by": "reviewer",
+  "annotated_at": "2026-08-20T18:11:09+00:00",
+  "rules_cited": [
+    "3.1",
+    "3.2",
+    "3.4",
+    "3.5",
+    "3.6",
+    "3.7",
+    "3.9",
+    "8.4",
+    "8.4.1",
+    "14.3",
+    "14.4",
+    "17.1",
+    "17.2"
+  ],
+  "guideline_version": "v0.19",
+  "annotator_notes": "NEW RULE, section 8.4.1 (created by this item, escalated under section 14.4, adjudicated by the reviewer): COLLECTIVE-REFERENCE mutual obligation. Section 8.4's 'first-named party' instruction has NO REFERENT here -- the span's subject is the collective 'the Parties' and names neither Bellicum nor Miltenyi as the duty-bearer (both appear only as objects of other prepositions). Ruled: obligor holds the collective reference VERBATIM per section 3.5's as-it-appears rule; obligor_accept_set stays empty (no names in the span to accept); known_gap='mutual_obligation' retained, since the tag rather than the obligor value is what keeps the representational gap countable -- which is what section 8.4's own 'why not UNRESOLVED_PARTY' objection was asking for. Alternatives rejected because each breaks a stronger rule: 'Bellicum' violates section 3.5's no-inference rule; ABSENT is factually false since a subject IS stated. DISTINCT FROM batch 1's C17-021, which was NAMED-party mutual ('Provider and Recipient') -- there an extractor has a resolvable alias and gold has a defensible exact-match target; here the span contains nothing resolvable at all, so section 5 clause 3 would otherwise be an exact-match field with no correct answer. MEASURED before the rule was written: collective form is 7.4% of pool segments (132 sentences / 114 segments, 42 hard-stratum), more than double the 3.2% named-conjunction form section 8.4 was written for; ~7 of the 100 gold items proportionally. CONDITIONS: ONE entry per section 17.1's scoping-marker diagnostic -- a single 'If' governs both clauses, joined by a bare 'and' with NO repeated 'if', so the internal 'and' stays inside one verbatim entry (section 17.2). TEMPORAL null: the duty carries no deadline; 'during the Term of this Agreement' sits inside the if-clause and scopes WHEN THE TRIGGER may occur, not when the negotiation must happen -- so it is not this obligation's own temporal and section 8's 'during the Term' UNMAPPABLE row does not apply. obligee ABSENT (section 3.5) drives underspecified=true (section 3.9).",
+  "reviewer_status": "APPROVED"
+}

@@ -1,0 +1,83 @@
+[
+ {
+  "segment_id": "E01-040",
+  "doc_id": "E01",
+  "rule": "section 2, section 3.2",
+  "reason": "Counterparts/execution boilerplate. Subject is the Agreement, not a party ('shall be considered one and the same agreement', 'shall become effective when...'): section 3.2's future-fact rule. Same shape as batch 1's E03-051 exclusion.",
+  "segment_text": "SECTION 8.06. Counterparts; Entire Agreement. (a) This Agreement may be executed in one or more counterparts, all of which counterparts shall be considered one and the same agreement, and shall become effective when one or more counterparts have been signed by each Party hereto and delivered to the other Party. This Agreement may be executed by facsimile or PDF signature and a facsimile or PDF signature shall constitute an original for all purposes.",
+  "logged_at": "2026-08-20T17:34:47+00:00"
+ },
+ {
+  "segment_id": "C10-005",
+  "doc_id": "C10",
+  "rule": "section 2 (not self-contained)",
+  "reason": "Opens with an orphan list item '(i) incur any liability or assume any obligation on behalf of the Supplier; or' whose parent stem is outside the segment; and clause 2.5's own prohibition ends on a dangling colon ('beyond those:'), so the set that SCOPES the prohibition is not in the segment. The duty is legible, its scope is not. Flagged to the reviewer as the closest call of the batch's first five rejections; not challenged.",
+  "segment_text": "(i) incur any liability or assume any obligation on behalf of the Supplier; or 2.5 The Distributor shall not without the Supplier's prior written consent make any promises or guarantees about the Products beyond those:",
+  "logged_at": "2026-08-20T17:34:47+00:00"
+ },
+ {
+  "segment_id": "C10-019",
+  "doc_id": "C10",
+  "rule": "section 2, section 3.2",
+  "reason": "Term/termination clause. Agreement-as-subject ('this agreement begins... shall continue'); the twelve-months'-notice phrase conditions a RIGHT to terminate, not a duty (section 2's right-with-no-correlative-duty exclusion).",
+  "segment_text": "11.1 This agreement begins on the Commencement Date and, subject to clause 11.2, shall continue for an initial term of one (1) years (Initial Term) and indefinitely after that until terminated by either party giving at least twelve (12) months' prior written notice to expire on or after the expiry date of the initial term.",
+  "logged_at": "2026-08-20T17:34:47+00:00"
+ },
+ {
+  "segment_id": "C04-024",
+  "doc_id": "C04",
+  "rule": "carried from batch 1",
+  "reason": "SKIPPED, NOT A NEW EXCLUSION: this segment was already walked and excluded in batch 1 (seed 20260817). Not re-litigated and not counted in batch 2's acceptance-rate denominator.",
+  "segment_text": "(2) Reverse engineer, disassemble or otherwise analyze, or cause any Third Party to reverse engineer, disassemble or otherwise analyze, any Miltenyi Product supplied hereunder, in whole or in part; provided, however, that the foregoing shall not limit the right or ability of Bellicum or its Licensees or Subcontractors to identify defects, troubleshoot problems, evaluate, test, use or conduct any study utilizing any Miltenyi Product(s) as reasonably necessary to achieve the purposes of this Agreement;",
+  "logged_at": "2026-08-20T17:34:47+00:00",
+  "skipped_not_excluded": true
+ },
+ {
+  "segment_id": "E03-056",
+  "doc_id": "E03",
+  "rule": "section 2, section 3.2",
+  "reason": "Successors-and-assigns clause. Subject is 'the rights and obligations of the Parties', no party bears a modal duty; final sentence ('any assignment... shall be null and void') is a legal-effect statement, not an obligation.",
+  "segment_text": "The rights and obligations of the Parties under this Supply Agreement shall be binding upon and inure to the benefit of the successors and permitted assigns of the Parties specified above, and the name of a Party appearing herein will be deemed to include the name of such Party’s successors and permitted assigns to the extent necessary to carry out the intent of this Section 11.4. Any assignment not in accordance with this Section 11.4 shall be null and void.",
+  "logged_at": "2026-08-20T17:34:47+00:00"
+ },
+ {
+  "segment_id": "C04-118",
+  "doc_id": "C04",
+  "rule": "section 2 (cross-reference-dependent)",
+  "reason": "Tiered-pricing mechanics, cross-reference-dependent in three places ('the Product Prices set forth in Exhibit F', 'the volume thresholds as defined in Exhibit F', 'in accordance with Section 5.6'): the Discount values and thresholds that give every clause its content are entirely outside the segment. Direct precedent: batch 1 excluded C04-018 on the identical three-cross-reference shape. OBSERVATION, recorded because it is recoverable evidence and not the ground of this exclusion: sentence 3's duty ('Miltenyi shall analyze Bellicum's ... purchases at the end of each Calendar Quarter') is itself self-contained, and its verb 'analyze' has NO clean entry in the closed 34-verb taxonomy (PROCESS is the only defensible near-miss). A taxonomy-coverage rule may be needed; this exclusion does not decide it.",
+  "segment_text": "(b) Tiered Pricing. Bellicum shall be entitled to a reduction of the Product Prices set forth in Exhibit F (collectively, the \"Discounts\"). The Discount, as applicable to a particular Miltenyi Product in a Calendar Year, shall be based on Bellicum's and its Subcontractors' and Licensees' consolidated volume purchases of such Miltenyi Product in a Calendar Year. Within the first Calendar Year, Miltenyi shall analyze Bellicum's and its Subcontractors' and Licensees' purchases of Miltenyi Products at the end of each Calendar Quarter; if such purchases for a particular Miltenyi Product exceed the volume threshold of the then applicable Discount (based on binding and firm Purchase Orders received by Miltenyi in that Calendar Quarter), then, in the following Calendar Quarter, for all Purchase Orders regarding such Miltenyi Product, the corresponding higher Discount level in accordance with the volume thresholds as defined in Exhibit F shall apply. Subject to Bellicum reaching the Minimum Purchase requirements in accordcance with Section 5.6 in a Calendar Year, for the subsequent Calandar Year, the Discount applicable for the first Discount volume threshold shall apply, beginning from the first Miltenyi Product ordered by Bellicum under this Agreement during such subsequent Calendar Year.",
+  "logged_at": "2026-08-20T18:12:37+00:00"
+ },
+ {
+  "segment_id": "E03-018",
+  "doc_id": "E03",
+  "rule": "section 2 (1-3 obligation-bearing clauses exceeded)",
+  "reason": "FOUR obligation-bearing clauses: (1) 'Rigel shall have the right to inspect' [MAY], (2) 'Kissei shall cooperate with Rigel's inspection' [MUST], (3) 'Rigel shall ... either (A) replace ... or (B) refund' [MUST], (4) 'Kissei shall be required to pay Rigel' [MUST]. Section 2's eligibility band is 1-3. OBSERVATIONS, recorded because this segment is dense with real classes and the exclusion is mechanical, not a judgment about them: (a) clause 3 is a DISJUNCTIVE obligation ('at its discretion and expense, either (A) replace ... or (B) refund') -- IR v1 holds ONE action per Obligation, so an either/or duty is unrepresentable; no rule covers this class yet and it is not the same as section 8.3's compound action (two verbs BOTH owed) since here exactly one of the two is owed, at the obligor's election. (b) clause 3 also carries a section 8.1 redacted_value ('replace such Product, ** as soon as reasonably practicable') AND a section 15 vague qualifier in the same phrase. (c) clause 4 carries a section 8.2 'unless and until' carve-out. Flagged for whichever batch draws a disjunctive duty inside an eligible segment.",
+  "segment_text": "(ii)If Kissei notifies Rigel of any nonconformity of any Product in accordance with Section 2.5(a)(i), Rigel shall have the right to inspect the Product in question and Kissei shall cooperate with Rigel’s inspection, including providing Rigel with samples of the Product in question for testing upon request. If Rigel agrees with such notice of nonconformity and that such nonconformity was not caused by occurrences after the delivery of the Product to Kissei, Rigel shall, at its discretion and expense, either: (A) replace such Product, ** as soon as reasonably practicable after receipt of notification of such nonconformity or (B) refund any portion of the applicable amount that has already been paid for such Product; provided, however, that if Rigel is required to make a payment to any contract manufacturer (or is not entitled to a refund from such contract manufacturer) in connection with any such non-conforming Product caused by Kissei or while under Kissei’s control, Kissei shall be required to pay Rigel under this Supply Agreement with respect to such non-conforming Product unless and until Rigel is relieved of its payment obligation (or is refunded its payment) for such non-conforming Product under its agreements with such contract manufacturers.",
+  "logged_at": "2026-08-20T18:12:37+00:00"
+ },
+ {
+  "segment_id": "C11-049",
+  "doc_id": "C11",
+  "rule": "section 2 (born-digital requirement), section 2.4",
+  "reason": "OCR-DAMAGED TEXT, reviewer-ruled. Character-level corruption in the operative clauses: 'the prime rate of merest charged by Citibank' and 'shall bear merest at three (3) percent' (interest -> merest, twice), and 'incurred by BKC in enforcing the tern s of this Agreement' (terms -> tern s). Section 2 requires born-digital text and excludes scanned/OCR'd filings, so that extraction quality is not confounded with OCR quality; corrupted tokens would enter a SCORED span with no value any extractor could be right about. VERIFIED CONTAINED before this exclusion was logged: the corruption signature hits 6 of C11's 128 pool segments and ZERO segments in the other 27 documents, and batch 1's locked C11-01 item is clean in both its span and its segment -- so no retroactive re-check of locked items is required.",
+  "segment_text": "9.4 INTEREST AND ATTORNEY'S FEES. The Franchisee shall pay to BKC interest (in U.S. dollars in the United States) upon any sum overdue under this Agreement, calculated at three (3) percent per annum above the prime rate of merest charged by Citibank, N.A., against the overdue sum expressed in U.S. dollars. By way of exception, any overdue sum required to be paid in a currency other than U.S. dollars shall bear merest at three (3) percent per annum above the base lending rate of any nationally recognized bank within the relevant country designated by BKC. Nothing in this paragraph is meant to require the Franchisee to pay interest at a rate greater than that allowed by applicable law and, in the event that this paragraph would have such an effect, the Franchisee shall only be required to pay interest at the maximum rate allowable by law. If an excess amount is inadvertently collected, it shall be applied to reduce the amounts due under Subparagraph 9.1.1 above. The Franchisee shall pay all costs, including reasonable attorney's fees, incurred by BKC in enforcing the tern s of this Agreement.",
+  "logged_at": "2026-08-20T18:25:32+00:00"
+ },
+ {
+  "segment_id": "C02-049",
+  "doc_id": "C02",
+  "rule": "section 2 (1-3 obligation-bearing clauses exceeded)",
+  "reason": "FOUR obligation-bearing clauses: (1) 'AMAG shall not dispose of any damaged... Products... without Antares' prior written authorization' [MUST_NOT], (2) 'Antares may instruct AMAG to return such Products' [MAY], (3) 'Antares shall bear the cost of disposition' [MUST], (4) 'AMAG shall bear the cost of disposition' [MUST]. Section 2's band is 1-3. OBSERVATIONS: clause 1 also carries a section 8.2 'unless otherwise required by Applicable Laws' carve-out, and its verb 'dispose of' has NO entry in the closed 34-verb taxonomy -- the second taxonomy near-miss of this batch after 'analyze' in C04-118, and one of the two anecdotes that motivated the pool-wide taxonomy-coverage measurement.",
+  "segment_text": "5.4 Disposition of Defective or Recalled Products. AMAG shall not dispose of any damaged, defective, returned or Recalled Products, sample Products or Trainers in relation to which it intends to assert a claim against Antares without Antares' prior written authorization to do so, unless otherwise required by Applicable Laws. Alternatively, Antares may instruct AMAG to return such Products, sample Products and Trainers to Antares at Antares' expense. Antares shall bear the cost of disposition with respect to any damaged, defective, returned or Recalled Products, sample Products or Trainers in relation to which it bears responsibility under Sections 5.1, 5.2 or 5.3 hereof. In all other circumstances, AMAG shall bear the cost of disposition with respect to any damaged, defective, returned or Recalled Products, sample Products and Trainers.",
+  "logged_at": "2026-08-20T18:48:14+00:00"
+ },
+ {
+  "segment_id": "E05-020",
+  "doc_id": "E05",
+  "rule": "section 2 (not self-contained -- fragment)",
+  "reason": "Segment begins mid-sentence: 'time to time on and after the date hereof, the parties shall deliver...' -- the subject and its governing 'From' are outside the segment. Section 18.6's residual 4.6% fragment class, which section 2's self-containedness criterion excludes. OBSERVATIONS: also carries a collective-reference obligor ('the parties', section 8.4.1), a disjunctive duty ('shall deliver or cause to be delivered', same class flagged at E03-018), and a third-party-request cross-reference ('as the Escrow Agent shall reasonably request').",
+  "segment_text": "time to time on and after the date hereof, the parties shall deliver or cause to be delivered to the Escrow Agent such further documents and instruments and shall do or cause to be done such further acts as the Escrow Agent shall reasonably request (it being understood that the Escrow Agent shall have no obligation to make such request) to carry out more effectively the provisions and purposes of this Escrow Agreement, to evidence compliance herewith or to assure itself that it is protected in acting hereunder.",
+  "logged_at": "2026-08-20T18:48:14+00:00"
+ }
+]

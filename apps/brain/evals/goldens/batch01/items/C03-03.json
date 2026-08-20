@@ -30,7 +30,7 @@
   ],
   "vague_temporal_phrase": null,
   "redacted_phrase": null,
-  "known_gap": null,
+  "known_gaps": [],
   "annotator_confidence": "CONFIDENT",
   "annotated_at": "2026-08-20T08:52:19+00:00",
   "rules_cited": [

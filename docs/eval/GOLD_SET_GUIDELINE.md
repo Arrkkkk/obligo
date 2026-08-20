@@ -1,6 +1,6 @@
 # Obligo Tier-2 Gold Set — Annotation Guideline
 
-**Version:** v0.17 (DRAFT — not yet frozen)
+**Version:** v0.22 (DRAFT — not yet frozen)
 **Created:** 2026-08-17
 **Status:** No items have been annotated against this document yet.
 **v0.2 change:** corpus rebuilt after a selection-bias audit — see §13.
@@ -39,6 +39,30 @@ annotated under.
 **v0.17 change:** `within_preposition` gap added (§8.6, 7 confirmed bare-numeral instances);
 joint-obligor rule added (§3.5.1) as an accept-set, explicitly NOT a gap. v0.17 is the
 version batch 1 is annotated under.
+**v0.18 change:** `corpus_artifact_in_span` gap added (§8.7) — a running page header,
+docket stamp or `Source:` footer spliced **mid-sentence**, inside a span §3.1 cannot
+truncate around. Measured pool-wide before the rule was written: 76 of 1,547 segments
+(4.9%) match, ~60 (3.9%) survive inspection, concentrated in C04 (22) and C06 (15).
+Batch 2 is annotated under v0.18 from item `C04-01` onward; items annotated earlier in
+the batch stamp their own version, per §10.
+**v0.19 change:** §8.4's *"first-named party"* instruction scoped to spans that name the
+parties individually, and the **collective-reference** sub-case carved out explicitly
+(§8.4.1). Measured before the rule was written: the collective form is **7.4% of pool
+segments (132 sentences / 114 segments, 42 hard-stratum)** — more than double the
+named-conjunction form §8.4 was written for (3.2%).
+**v0.20 change:** §2.4 added — OCR-damaged segments are excluded under §2's born-digital
+requirement (reviewer-ruled). Measured: **6 segments, all in C11, zero in the other 27
+documents**; batch 1's locked `C11-01` verified clean, so nothing retroactive.
+**v0.21 change:** two obligee rules added. §3.5.2 — a **beneficiary-naming** purpose clause
+supplies the obligee when no dative already does, with `on behalf of X` carved out as an
+**obligor**-side marker. §3.5.3 — agentless passive clauses (reviewer-ruled at `C04-03`),
+with the drafter's dissent recorded.
+**v0.22 change:** `known_gap` (string | null) becomes **`known_gaps` (list)** — approved
+after a dry-run migration over all 13 locked items (13/13 clean, 0 special-cased, 0
+round-trip loss, idempotent). §9 gains the non-summable per-tag reporting sentence and
+§3.7.1 gains a precedence note. Measured at the honest granularity: same-**sentence** gap
+co-occurrence is **0.9% of sentences (38/4,289)**, not the 4.4% of *segments* first
+reported — a 1.8× overstatement, corrected here.
 
 *Why v0.8 and not an edit to v0.7:* v0.7 was committed, and every gold item stamps the
 guideline version it was annotated under. Amending a committed version in place would make
@@ -86,7 +110,7 @@ Each item records:
 | `vague_temporal_phrase` | annotated | literal phrase or `null`; **not scored** (§15) |
 | `obligor_accept_set` | annotated | co-obligors for a joint duty (§3.5.1) |
 | `redacted_phrase` | annotated | literal redacted phrase or `null`; **not scored** (§8.1) |
-| `known_gap` | annotated | `null`, or the named v1 gap this item exercises (§8, §11) |
+| `known_gaps` | annotated | **list** of the named gaps this item exercises; `[]` when none (§8, §11). Was a single string through v0.21 — see the v0.22 note |
 | `annotator_confidence` | annotated | `CONFIDENT` \| `AMBIGUOUS` \| `UNCERTAIN` (§14) |
 | `annotated_at` | stamped | ISO-8601 timestamp; feeds per-item pace measurement |
 | `rules_cited` | annotated | **required** — the § numbers invoked (§14.5) |
@@ -135,6 +159,79 @@ the largest and least visible bias risk in the whole build (§13).
    invoked**, and a random sample of rejections goes into the reviewer's batch packet —
    so an exclusion that was really a difficulty dodge is visible.
 
+### 3.5.2 Beneficiary-naming purpose clauses (v0.21 — REVIEWER-APPROVED)
+
+**The rule is narrow on purpose, and the narrowing is the substance of it.** A purpose or
+benefit clause supplies the `obligee` **only** when both hold:
+
+1. No dative / indirect object already names the party owed (*"Antares shall provide
+   **AMAG** with all information…"* already has its obligee; the trailing *"to enable AMAG
+   to respond"* adds nothing and is not the basis).
+2. The clause **names a party as the beneficiary of the duty** — `for the benefit of X`,
+   `for X's account` — rather than explaining motivation or outcome.
+
+**`on behalf of X` is explicitly NOT a beneficiary marker and does not supply an obligee.**
+It routinely identifies whose *agent* is performing, i.e. it modifies the **obligor** side:
+*"a Third Person manufacturing Drug and Pre-Filled Syringes **on behalf of AMAG**, shall
+manufacture…"* (`C02-063`). Reading it as an obligee inverts the relationship. This carve-out
+matters because `on behalf of` is the **most common** of the four constructions.
+
+**Measured before the rule was written** (§8.6's discipline):
+
+| Construction | segments | % of pool | Obligee-supplying? |
+| :--- | --: | --: | :--- |
+| `on behalf of X` | 36 | 2.3% | **No** — obligor-side marker |
+| `for the benefit of X` | 9 | 0.6% | Yes |
+| `to enable X to` | 6 | 0.4% | Only if condition 1 holds; usually redundant |
+| `for X's account/benefit` | 2 | 0.1% | Yes |
+
+**Why not the general rule ("any purpose clause naming a party is the obligee").** It would
+be wrong on the largest class (2.3% `on behalf of`), and wrong in the opposite direction —
+assigning the obligor's principal to the obligee slot. A rule that inverts the party
+relationship on its most frequent input is worse than no rule.
+
+**Not an extension of any prior precedent.** No gold item has ever been annotated on this
+basis. The `"for the benefit of Customer"` phrasing sometimes associated with this question
+comes from the **synthetic eval-harness pilot**, where the drafter rewrote a synthetic
+*stimulus* to make its obligee explicit — not an annotation rule — and §11 places synthetic
+items outside the gold set and outside every reported number.
+
+### 3.5.3 Agentless passive clauses (v0.21 — REVIEWER-RULED, drafter dissent recorded)
+
+**Motivating case** — `C04-03` / `C04-087`: *"Each quantity of Miltenyi Product(s) ordered by
+Bellicum … **shall be delivered** FCA (Incoterms 2010) Miltenyi's Facility … to **Bellicum's**
+designated carrier or freight forwarder … on the Delivery Date."*
+
+The clause is passive with **no by-agent**. Both party names appear, and neither occupies a
+core argument slot: `Miltenyi's` is a possessive on a **location**, `Bellicum` is the agent
+of a *different* verb (`ordered`) inside a relative clause and a possessive on a **non-party**
+recipient (the carrier).
+
+**Rule.**
+
+- `obligor` = **`ABSENT`**. There is no agent. A possessive on a place is not a duty-bearer;
+  reading one as the obligor is §3.5's forbidden inference.
+- `obligee` = **the party named inside the span** that the performance runs to, where exactly
+  one such party exists — here `Bellicum`. It is *in* the span, so §3.5's positional test is
+  satisfied. Where no party is named at all, or more than one candidate is equally available,
+  `obligee` = `ABSENT`.
+- `underspecified = true`, with `obligor` in `missing_fields`.
+
+**Drafter's dissent, recorded rather than dropped.** The drafter recommended `ABSENT` for
+both slots. The argument: `obligor` is `ABSENT` here precisely *because* a passive clause has
+no agent, and `obligee` is unstated for the same grammatical reason — so taking a promoted
+possessive for one slot while taking `ABSENT` for the other is asymmetric, and it lets
+`ABSENT` absorb a whole construction rather than genuinely-missing parties. The reviewer
+ruled for `Bellicum` on the ground that a party named in the span and owed the performance
+should not be discarded. **Both readings are recorded here because this rule governs every
+passive delivery and quality clause in the corpus**, and if the held-out check (§7) shows
+disagreement clustering on `obligee` in passive clauses, this section is the first place to
+look.
+
+**This is NOT §3.5.2.** `C04-087` contains no purpose or benefit clause — verified
+mechanically: zero occurrences of `for the benefit of`, `to enable`, `on behalf of`, `for the
+account of`. The two rules cover different constructions and are cited separately.
+
 ### 3.5.1 Joint obligors — accept-set, not a gap (v0.17)
 
 **Motivating case** — `C17-066`: *"**The Company and RGHI** will use all commercially
@@ -152,7 +249,7 @@ the obligee:
 | Representable in IR v1 | **No** | **Yes** |
 
 **Rule.** A joint duty is annotated as **one item** with `obligor` set to the
-first-named party and **`obligor_accept_set`** listing every co-obligor. **No `known_gap`
+first-named party and **`obligor_accept_set`** listing every co-obligor. **No `known_gaps` entry
 tag.**
 
 **Why no tag.** Mutual is an *item-count* problem — gold under-counts obligations by one
@@ -176,6 +273,42 @@ Measured: 6 of 1,547 pool segments carry an email, and **all six are notice or a
 blocks** — already §2 exclusions — so PII does not reach item files in practice. Names are
 left intact: they are sometimes part of the clause text, and §2.1 requires verbatim
 exclusion text so a reviewer can tell a genuine exclusion from a difficulty dodge.
+
+### 2.4 OCR-damaged segments (v0.20 — REVIEWER-RULED)
+
+§2 already requires born-digital text and excludes scanned/OCR'd filings, *"that would
+confound extraction quality with OCR quality."* This section states the segment-level
+consequence, which §2 left implicit: **a segment carrying character-level OCR corruption is
+excluded even when its document is otherwise born-digital.**
+
+**Motivating case** — `C11-049`: *"the prime rate of **merest** charged by Citibank"*,
+*"shall bear **merest** at three (3) percent"*, *"enforcing the **tern s** of this
+Agreement."* Corrupted tokens would enter a **scored** span with no value any extractor
+could be right about — the failure would be logged against extraction quality while
+belonging entirely to the corpus.
+
+**Measured extent, and it is contained.** Two signatures — a word split by a stray space
+(excluding real one-letter words) and the confirmed `interest`→`merest` substitution —
+hit **6 of 1,547 pool segments (0.4%), every one of them in C11**, and **zero** in the
+other 27 documents:
+
+| segment | corruption |
+| :--- | :--- |
+| `C11-005` | `los s` |
+| `C11-006` | `that t` |
+| `C11-049` | `tern s`, `merest` ×2 |
+| `C11-055` | `information o` |
+| `C11-063` | `use c` |
+| `C11-102` | `against o` |
+
+**No retroactive re-check is required.** Batch 1's locked `C11-01` was checked before this
+rule was written: clean in both its span and its full segment. C11 stays in the corpus —
+this is a per-segment exclusion, not a document retirement, and retiring a whole document
+over 0.4% of its segments would repeat §18.6's difficulty-correlated depletion for no gain.
+
+**Standing consequence:** the six segment IDs above are excluded on sight in any future
+draw, citing this section. A draw hitting one is logged as an exclusion, not silently
+re-picked (§2.1).
 
 ### 2.2 Hard-document stratum
 
@@ -300,13 +433,22 @@ real information — the same reason §14.1 keeps `AMBIGUOUS` and `UNCERTAIN` st
 
 **`redacted_value` — annotate the item.** The obligor, action and object survive, so the
 obligation is real and annotatable. Set the affected field to `null`, `underspecified =
-true` with that field in `missing_fields`, `known_gap = "redacted_value"`, and the literal
+true` with that field in `missing_fields`, `known_gaps` gains `"redacted_value"`, and the literal
 phrase in `redacted_phrase` (§8.1, unchanged).
 
 **`redacted_clause` — do not annotate an item for the redacted clause.** There is no
 obligation to annotate; asserting one would be fabrication, and asserting its absence would
 be equally unfounded. Other obligations in the same segment are annotated normally. The
 segment is tagged `redacted_clause` at segment level so the gap is visible downstream.
+
+**Precedence when combined with another tag (v0.22).** `redacted_clause` is the one tag
+whose semantics differ from every other: it removes a span from **both** criteria's
+denominators as unscoreable, rather than merely flagging it. If it ever appears in a
+`known_gaps` list alongside another tag, **unscoreable dominates** — the item leaves both
+denominators regardless of what else it carries. This cannot arise under the rule as
+written (a `redacted_clause` is tagged at *segment* level and no item is annotated for it),
+but the list format makes the combination expressible for the first time, so the precedence
+is stated rather than left to be discovered.
 
 **The scoring consequence, which is the real reason this needs its own tag.** A
 whole-clause redaction makes the ground truth for that span *unknowable*, not merely
@@ -461,6 +603,7 @@ says; if v1 cannot compile it, that is a measurement, not an annotation error.
 | Compound-action duty (two verbs, one object) | Only the primary verb is representable — `action` holds one verb (§8.3) |
 | `UNLESS` / any exception carve-out | **Fails to parse** — v1's grammar has no exception construct at all (§8.2) |
 | Redacted value (`**`, `[***]`) | Value withheld in the filing; unresolvable by any pipeline stage (§8.1) |
+| Running header/footer spliced mid-sentence | Not a v1 *compiler* gap — a corpus-text gap that lands inside a scored span (§8.7) |
 
 **Measured in this corpus: 74% of `WITHIN` deadlines (119 of 161) use the parenthetical
 form v1 rejects.** See §11 — this is the open scope question from session 1. The ratio
@@ -486,7 +629,7 @@ complex commercial agreements that got confidential treatment (C04, C02 and E03 
 the 96).
 
 **Rule.** Annotate the item. Set the affected field to `null`, `underspecified = true` with
-the field named in `missing_fields`, `known_gap = "redacted_value"`, and record the literal
+the field named in `missing_fields`, `known_gaps` gains `"redacted_value"`, and record the literal
 redacted phrase in the non-scored `redacted_phrase` field.
 
 **Why not exclude them.** Excluding redacted segments is the one answer that is clearly
@@ -507,7 +650,7 @@ govern genuinely separate objects.*
 
 | Shape | Treatment |
 | :--- | :--- |
-| Two verbs, **one shared indivisible object** — *"provide to AT&T, **and keep current**, an escalation document"* | **One item.** Primary verb in `action`, full verb phrase verbatim in `annotator_notes`, `known_gap: "compound_action"` |
+| Two verbs, **one shared indivisible object** — *"provide to AT&T, **and keep current**, an escalation document"* | **One item.** Primary verb in `action`, full verb phrase verbatim in `annotator_notes`, `known_gaps: ["compound_action"]` |
 | Two verbs, **genuinely separate objects** — *"responsible for **the installation of new software releases** … **and the distribution of documentation updates**"* | **Two items** (§4.3) |
 
 The discriminating test is **not** "one object or two" on its own: *"shall promptly notify
@@ -517,7 +660,7 @@ performances**. Splitting the former would manufacture two items that are not ac
 separable — the same over-mechanical failure this project already declined for AND/OR
 inside a single condition (§17.2).
 
-`known_gap: "compound_action"` is retained on single items even though the annotation is
+`known_gaps: ["compound_action"]` is retained on single items even though the annotation is
 *correct* under this rule: IR v1's `action` still holds one verb, so the field genuinely
 under-records the sentence, and the tag keeps that recoverable from data rather than from
 prose.
@@ -536,7 +679,7 @@ document"* is a one-time `PROVIDE` and an ongoing `MAINTAIN`. IR v1's `action` h
 single verb, so the sentence cannot be represented whole.
 
 **Rule.** Annotate **one** item on the primary (first) verb, tag
-`known_gap = "compound_action"`, and record the dropped verb(s) verbatim in
+`known_gaps` gains `"compound_action"`, and record the dropped verb(s) verbatim in
 `annotator_notes`.
 
 **Why not two items on the same span.** Two gold items with byte-identical spans collide
@@ -551,13 +694,73 @@ the loss recoverable from the data.
 **Consequence for §2's clause count:** a compound-action sentence counts as **one**
 obligation-bearing clause, not two, for the 1–3 eligibility band.
 
+### 8.7 Corpus artifacts spliced inside a span (v0.18 — REVIEWER-ADJUDICATED)
+
+**Motivating case** — `C04-117`: *"…solely to the extent Miltenyi's exercise of rights
+under such licenses is required **27 Miltenyi Biotec-Bellicum Supply Agreement (Execution
+Copy, March 27, 2019)** to supply Miltenyi Product to Bellicum…"*
+
+A running page header, bankruptcy docket stamp, `TM` marker or CUAD `Source:` footer is
+spliced **mid-sentence** in the source text. Paragraph reconstruction (§18.6) cannot strip
+it: the artifact is genuinely inside the sentence in the document, not on a line of its
+own. Batch 1 recorded the class (`E07-01`'s notes) and deferred it — that item's span
+happened to stop before the artifact. Batch 2's did not, and could not: §3.1's
+minimal-*complete*-span rule requires a scope clause that sits on **both sides** of the
+splice.
+
+**Measured before the rule was written**, the same discipline §8.6 used:
+
+| | count | note |
+| :--- | --: | :--- |
+| Pool segments matching the splice pattern | 76 / 1,547 (4.9%) | mechanical match |
+| Genuine artifacts after inspection | ~60 (3.9%) | rest are real durations (*"within 30 Days"*) and notice blocks |
+| C04 running header | 22 | 12% of that document's segments, **all 22 mid-sentence** |
+| C06 docket stamp | 15 | `Case 18-10248-MFW Doc 632-1 Filed 04/18/18 Page 7 of 60` |
+| E07 page header · CUAD `Source:` · C22 · E01 · C05 | 7 · 5 · 4 · 2 · 2 | |
+
+**It is document-concentrated, not uniform.** Which documents a batch draws decides how
+often it bites, and C04 is a **hard-stratum** document.
+
+**Rule.** Annotate the item. `span_text` and any `conditions` entry carry the artifact
+**verbatim**; tag `known_gaps` gains `"corpus_artifact_in_span"`; record the artifact's literal
+text and its segment offsets in `annotator_notes`. Criterion 2 is reported with and
+without artifact-in-span items, the same paired-reporting shape §9 already applies to
+`known_gaps`.
+
+**Why verbatim (Reading A).** `segment_text` must stay byte-identical to what
+`run_pipeline()` is handed — §2.3's own rationale, applied to the span instead of to PII.
+A gold span that silently cleans the text measures a document the pipeline never sees.
+
+**Why not truncate the span before the artifact (Reading B).** It drops half a scope
+clause and one whole `Condition` entry, violating §3.1 and weakening the obligation in
+exactly the way §8.3 refuses for dropped verbs.
+
+**Why not exclude artifact-bearing segments (Reading C).** It would remove ~3.9% of the
+pool and **12% of C04**, a hard-stratum document — §13's and §18.6's
+difficulty-correlated depletion arriving through a third mechanism. Batch 1's measurement
+that artifacts overall are *not* difficulty-correlated (hard 1.2%, standard 9.1%) does not
+cover this subclass: the mid-sentence splice is concentrated in C04 and C06.
+
+**Two second-order consequences, recorded because both are scored, not cosmetic:**
+
+1. The artifact contaminates `conditions` as well as `span_text` — `C04-01`'s first
+   condition entry carries it — so §5's clause 7 is affected, not only span alignment.
+2. The C04 artifact **contains a real date** (*March 27, 2019*) inside an item whose
+   `temporal` is `null`. That is a live false-positive hazard for date extraction.
+
+**This is not a v1 compiler gap.** Unlike §8.1–§8.6, nothing about IR v1 causes it and no
+grammar change fixes it. It is a property of the corpus text, and the tag exists so its
+effect on criterion 2 is countable rather than folded silently into extraction quality.
+
+---
+
 ### 8.2 `UNLESS`-dependent clauses (v0.10)
 
 IR v1 has **no exception construct at all** — `UNLESS` does not underspecify, it fails to
 parse, by the deliberate freeze decision recorded in `packages/ir-spec/`. A clause whose
 operative meaning sits in an `unless` therefore cannot be represented faithfully.
 
-**Rule.** Annotate the **carve-out-free reading** with `known_gap = "unless_unsupported"`,
+**Rule.** Annotate the **carve-out-free reading** with `known_gaps` gains `"unless_unsupported"`,
 and record the full carve-out verbatim in `annotator_notes`.
 
 **The cost, stated rather than hidden:** the annotated obligation is *stronger* than the
@@ -578,7 +781,7 @@ other. IR v1's `Obligation` holds exactly one `obligor` and one `obligee`, with 
 that they differ, so a reciprocal duty **cannot be represented at all**.
 
 **Rule.** Annotate **one** item in the natural reading order (first-named party as
-`obligor`), tag `known_gap = "mutual_obligation"`, and record in `annotator_notes` that
+`obligor`), tag `known_gaps` gains `"mutual_obligation"`, and record in `annotator_notes` that
 the reciprocal direction is structurally unrepresentable.
 
 **Why not two items.** The two duties genuinely *are* separable — different obligor,
@@ -591,6 +794,63 @@ same wall §8.3 hit. The tag preserves the fact at no cost to alignment.
 bucket, hiding a *representational* gap inside what looks like a *resolution* failure.
 Mutual obligations are a common real-world contract pattern; that they cannot be expressed
 in IR v1 is a diagnostic fact about the IR, and it should be countable.
+
+### 8.4.1 Collective-reference parties — "the Parties" (v0.19 — REVIEWER-ADJUDICATED)
+
+**Motivating case** — `C04-117` sentence 3: *"…then **the Parties** will negotiate in good
+faith which Party(ies) is/are responsible for payment of such Third Party royalties…"*
+
+**The defect this fixes.** §8.4 instructs the annotator to put the **first-named party** in
+`obligor`. That instruction assumes the span names the parties individually, as its own
+motivating case did (*"Provider and Recipient shall each…"*). A span whose subject is the
+collective *"the Parties"* names **no** party, so the instruction has no referent, and
+every other available value is blocked by a **stronger, more general** rule:
+
+| Option | Blocked by |
+| :--- | :--- |
+| `obligor: "Bellicum"` (the agreement's first-named party) | §3.5: *"Do not infer a party from elsewhere in the document."* |
+| `obligor: ABSENT` | Factually false — a subject **is** stated; `ABSENT` means *not stated*, and misusing it makes the item indistinguishable from a genuine absent-party item |
+| §3.5.1's `obligor_accept_set` | No individual names exist in the span to put in the set |
+
+**Rule.** Annotate `obligor` with the collective reference **verbatim as it appears**
+(`"the Parties"`, `"the parties"`, `"both Parties"`, and the **distributive** `"Each party"`
+/ `"Each Party"`), per §3.5's as-it-appears rule. The distributive form was measured
+separately at **4.7% of pool segments** and is covered by the identical rationale: it names
+no party either, so `obligor` holds it verbatim.
+`obligor_accept_set` stays empty — there are no names to accept. §8.4's `known_gaps` entry
+`"mutual_obligation"` still applies whenever the duty is reciprocal; the tag, not the
+`obligor` value, is what keeps the representational gap countable, which is exactly the
+answer §8.4's own *"why not `UNRESOLVED_PARTY`"* objection was asking for.
+
+**Scope of §8.4's original instruction, restated:** *"first-named party"* governs spans
+that name the parties individually. It does not govern collective references, which this
+section covers.
+
+**Measured frequency, taken before the rule was written** (§8.6's discipline):
+
+| Form | sentences | segments | % of pool | hard-stratum segments |
+| :--- | --: | --: | --: | --: |
+| Collective `the Parties` + modal | 132 | 114 | **7.4%** | 42 |
+| Distributive `Each Party` + modal | 97 | 73 | 4.7% | 25 |
+| Named conjunction `X and Y` + modal (§8.4 / §3.5.1's shape) | 54 | 49 | 3.2% | 8 |
+| `both Parties` + modal | 3 | 3 | 0.2% | 2 |
+
+Spread across ≥6 documents (C04 24, C05 24, C14 15, C17 11, C02 10, E03 9), so it is a
+property of contract drafting, not of one document. Precision on a seeded 12-sentence
+sample: 12/12 genuine. Proportionally this is ~7 of the 100 gold items.
+
+**OPEN SUB-QUESTION, recorded not resolved — decide before the §10 freeze.** Only **31 of
+132 (23%)** of collective-reference sentences carry any reciprocity marker (`each other`,
+`the other Party`, `between the Parties`, `mutually`, `jointly`). For the remaining 77% —
+*"The Parties shall cooperate in good faith to resolve such dispute"*, *"The Parties shall
+share equally any applicable arbitration fees"* — the span states neither the co-obligor
+names nor an obligee, so **§3.5.1's discriminating test (is the co-obligor also the
+obligee?) is undecidable at span scope**. That makes 23% a **lower bound** on the mutual
+share, not a split, and it means the `mutual_obligation` tag's own count is
+systematically under-stated for this form. Batch 3 should either supply a decision
+procedure or record that the discrimination is not makeable from the span alone.
+
+---
 
 ### 8.6 `WITHIN` preposition gap (v0.17)
 
@@ -615,7 +875,7 @@ accepted one 59 to 40. Restricted to bare numerals, where §8 cannot explain the
 there are **7 confirmed instances across 7 documents** (`C09`, `C13`, `C14`, `C17`×2,
 `E08`).
 
-**Rule.** `temporal: null`, `underspecified: true`, `known_gap: "within_preposition"`.
+**Rule.** `temporal: null`, `underspecified: true`, `known_gaps: ["within_preposition"]`.
 
 **Why its own tag rather than §8's row.** Different cause, different fix: this is a
 one-word regex widening (`of|after|from|following`), while the parenthetical case is a
@@ -636,8 +896,20 @@ being made against that number.
 while extracting less. **1b is therefore always reported paired with the `MISSED` count.**
 
 **1b is also always reported twice (v0.8, §11):** once over all items, once excluding
-items tagged `known_gap`. Both are published together; neither is quoted alone. The split
-is computed mechanically from the `known_gap` field, not reconstructed by hand.
+items carrying **any** `known_gaps` entry. Both are published together; neither is quoted
+alone. The split is computed mechanically from the `known_gaps` field, not reconstructed by
+hand.
+
+**The exclusion test is membership, never a count (v0.22).** An item is excluded from the
+without-gaps denominator when `len(known_gaps) > 0`. A two-tag item is scored **identically**
+to a one-tag item: `known_gaps` appears nowhere in §5's conjunctive predicate, so it changes
+which denominator an item is reported in, never whether it is `FULLY_CORRECT`.
+
+**Per-tag figures are non-exclusive and MUST NOT be summed (v0.22).** Each is reported as
+*"N items carry this tag."* Because one item may carry several, the per-tag counts overlap
+and their sum exceeds the number of tagged items. Summing them to obtain a tagged-item total
+is a reporting error, and it is named here because a list makes it possible for the first
+time. Same "report alongside, never fold in" discipline as §15.4.
 
 Both numbers are reported alongside: the spurious-extraction count over zero-obligation
 segments, the share of items correctly `underspecified` (so "compiled faithfully" is not
@@ -674,7 +946,7 @@ itself. The finding is real at either number.
   numbers are published together. Neither is presented alone, in either direction — the
   with-gap number is not buried, and the without-gap number is not quoted as if it were
   the headline compile rate.
-- Every such item is tagged `known_gap: "within_parenthetical"` so the two denominators
+- Every such item is tagged `known_gaps: ["within_parenthetical"]` so the two denominators
   are computed mechanically rather than reconstructed by hand afterward.
 - **Widening `_WITHIN_RE` is deferred, not rejected.** Revisit only once the paired
   numbers exist. Changing the classifier first would tune the compiler to the corpus it is

@@ -28,7 +28,7 @@
   "missing_fields": [],
   "vague_temporal_phrase": null,
   "redacted_phrase": null,
-  "known_gap": null,
+  "known_gaps": [],
   "annotator_confidence": "AMBIGUOUS",
   "annotated_at": "2026-08-20T08:45:19+00:00",
   "rules_cited": [

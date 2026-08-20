@@ -1,0 +1,60 @@
+{
+  "item_id": "C04-01",
+  "doc_id": "C04",
+  "segment_id": "C04-117",
+  "stratum": "hard",
+  "segment_text": "8.3 Third Party Fees and Royalties. Bellicum will reimburse Miltenyi for Third Party royalties and/or license fees, if any, owed by Miltenyi under Third Party license agreements existing as of the Effective Date as set forth on Exhibit D solely to the extent Miltenyi's exercise of rights under such licenses is required 27 Miltenyi Biotec-Bellicum Supply Agreement (Execution Copy, March 27, 2019) to supply Miltenyi Product to Bellicum under this Agreement for the Permitted Use; and further provided that amounts owed under such Third Party license agreements have not otherwise been passed through to Bellicum and are actually paid by Miltenyi to Miltenyi's licensor(s). Bellicum acknowledges that the potential volume of such Third Party royalties and/or license fees under applicable Third Party license agreements will be as set forth on Exhibit D, as updated from time to time by Miltenyi. If, during the Term of this Agreement, the Parties mutually agree to obtain additional Third Party licenses to enable the Permitted Use of Miltenyi Products by Bellicum, its Affiliates, Subcontractors, and/or Licensees under this Agreement, and such additional licenses give rise to Third Party royalties and/or license fees with respect to Bellicum's use of Miltenyi Products under this Agreement, then the Parties will negotiate in good faith which Party(ies) is/are responsible for payment of such Third Party royalties and/or license fees. Miltenyi, acting reasonably, reserves the right to defer the inclusion of additional Miltenyi Products in Exhibit B hereto until the Parties have reached agreement on this matter.",
+  "span_char_start": 36,
+  "span_char_end": 673,
+  "span_text": "Bellicum will reimburse Miltenyi for Third Party royalties and/or license fees, if any, owed by Miltenyi under Third Party license agreements existing as of the Effective Date as set forth on Exhibit D solely to the extent Miltenyi's exercise of rights under such licenses is required 27 Miltenyi Biotec-Bellicum Supply Agreement (Execution Copy, March 27, 2019) to supply Miltenyi Product to Bellicum under this Agreement for the Permitted Use; and further provided that amounts owed under such Third Party license agreements have not otherwise been passed through to Bellicum and are actually paid by Miltenyi to Miltenyi's licensor(s)",
+  "modality": "MUST",
+  "action": "REIMBURSE",
+  "action_accept_set": [
+    "REIMBURSE",
+    "PAY"
+  ],
+  "obligor": "Bellicum",
+  "obligor_accept_set": [],
+  "obligee": "Miltenyi",
+  "object_class": "third_party_royalties",
+  "object_class_accept_set": [
+    "third_party_royalties",
+    "third_party_fees",
+    "royalties_and_license_fees",
+    "license_fees",
+    "royalty_payment"
+  ],
+  "temporal": null,
+  "conditions": [
+    "solely to the extent Miltenyi's exercise of rights under such licenses is required 27 Miltenyi Biotec-Bellicum Supply Agreement (Execution Copy, March 27, 2019) to supply Miltenyi Product to Bellicum under this Agreement for the Permitted Use",
+    "further provided that amounts owed under such Third Party license agreements have not otherwise been passed through to Bellicum and are actually paid by Miltenyi to Miltenyi's licensor(s)"
+  ],
+  "underspecified": false,
+  "missing_fields": [],
+  "vague_temporal_phrase": null,
+  "redacted_phrase": null,
+  "known_gaps": [
+    "corpus_artifact_in_span"
+  ],
+  "annotator_confidence": "AMBIGUOUS",
+  "adjudicated_by": "reviewer",
+  "annotated_at": "2026-08-20T17:33:59+00:00",
+  "rules_cited": [
+    "3.1",
+    "3.2",
+    "3.4",
+    "3.5",
+    "3.6",
+    "3.7",
+    "3.8",
+    "3.9",
+    "8.7",
+    "14.3",
+    "14.4",
+    "17.1",
+    "17.2"
+  ],
+  "guideline_version": "v0.18",
+  "annotator_notes": "NEW GAP, section 8.7 (created by this item, escalated under section 14.4 and adjudicated by the reviewer): a running page header -- '27 Miltenyi Biotec-Bellicum Supply Agreement (Execution Copy, March 27, 2019)' -- is spliced MID-SENTENCE at segment offsets 320-398, between 'is required' and 'to supply'. Section 3.1's minimal-complete-span rule cannot dodge it: the 'solely to the extent' scope clause sits on BOTH sides of the artifact. Reading A adopted: the span carries the artifact verbatim, because segment_text is byte-identical to what run_pipeline() is handed (section 2.3's own rationale) and truncating would drop a scope clause and a whole Condition entry. Reading B (truncate at 'is required') and Reading C (exclude artifact-bearing segments) both rejected -- B violates section 3.1, C depletes 12% of C04, a HARD-stratum document, which is section 13/18.6's difficulty-correlated depletion arriving through a third mechanism. SECOND-ORDER CONSEQUENCE, recorded because it is scored: condition entry 1 also carries the artifact verbatim, so section 5 clause 7 (conditions, count-sensitive and text-bearing) is contaminated too, not only the span. THIRD: the artifact contains a real date ('March 27, 2019') inside an item whose temporal is null -- a live false-positive hazard for date extraction, not cosmetic noise. Conditions: TWO entries per section 17.1's scoping-marker diagnostic ('solely to the extent' and 'further provided that' are two markers); entry 2 keeps its internal 'and' verbatim per section 17.2. Modality MUST from 'will' as an undertaking (section 3.2). underspecified=false: none of section 3.9's three structural triggers is present -- 'existing as of the Effective Date' qualifies WHICH licence agreements, it is not the obligation's own temporal, so it is not an unresolvable DateRef.",
+  "reviewer_status": "APPROVED"
+}

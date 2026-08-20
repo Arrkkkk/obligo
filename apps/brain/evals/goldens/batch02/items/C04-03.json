@@ -1,0 +1,63 @@
+{
+  "item_id": "C04-03",
+  "doc_id": "C04",
+  "segment_id": "C04-087",
+  "stratum": "hard",
+  "segment_text": "(a) Each quantity of Miltenyi Product(s) ordered by Bellicum in a particular Purchase Order pursuant to this Agreement shall be delivered FCA (Incoterms 2010) Miltenyi's Facility by delivery 20 Miltenyi Biotec-Bellicum Supply Agreement (Execution Copy, March 27, 2019) of the shipped goods to Bellicum's designated carrier or freight forwarder, in adequate packaging and ready for loading, on the Delivery Date (\"Delivery\").",
+  "span_char_start": 4,
+  "span_char_end": 423,
+  "span_text": "Each quantity of Miltenyi Product(s) ordered by Bellicum in a particular Purchase Order pursuant to this Agreement shall be delivered FCA (Incoterms 2010) Miltenyi's Facility by delivery 20 Miltenyi Biotec-Bellicum Supply Agreement (Execution Copy, March 27, 2019) of the shipped goods to Bellicum's designated carrier or freight forwarder, in adequate packaging and ready for loading, on the Delivery Date (\"Delivery\")",
+  "modality": "MUST",
+  "action": "DELIVER",
+  "action_accept_set": [
+    "DELIVER",
+    "TRANSFER",
+    "PROVIDE"
+  ],
+  "obligor": "ABSENT",
+  "obligor_accept_set": [],
+  "obligee": "Bellicum",
+  "object_class": "product_shipment",
+  "object_class_accept_set": [
+    "product_shipment",
+    "goods",
+    "product_delivery",
+    "miltenyi_product",
+    "shipped_goods"
+  ],
+  "temporal": {
+    "form": "BY",
+    "alias": "the Delivery Date",
+    "date": null
+  },
+  "conditions": [],
+  "underspecified": true,
+  "missing_fields": [
+    "obligor",
+    "temporal"
+  ],
+  "vague_temporal_phrase": null,
+  "redacted_phrase": null,
+  "known_gaps": [
+    "corpus_artifact_in_span"
+  ],
+  "annotator_confidence": "AMBIGUOUS",
+  "adjudicated_by": "reviewer",
+  "annotated_at": "2026-08-20T18:47:23+00:00",
+  "rules_cited": [
+    "3.1",
+    "3.2",
+    "3.4",
+    "3.5",
+    "3.5.3",
+    "3.6",
+    "3.7",
+    "3.9",
+    "8.7",
+    "14.1",
+    "14.4"
+  ],
+  "guideline_version": "v0.21",
+  "annotator_notes": "SECOND APPLICATION of section 8.7 (created at C04-01): the C04 running page header is spliced mid-NOUN-PHRASE at segment offsets 190-268, between 'by delivery' and 'of the shipped goods' -- even less truncatable than C04-01's. Under Reading A the span carries it verbatim. NOTE the live hazard section 8.7 predicted: this item's temporal is a real BY, and the artifact contains the date 'March 27, 2019' -- a wrong date sitting inside a span whose correct date is an unresolved alias. OBLIGOR = ABSENT (section 3.5): 'shall be delivered' is an agentless passive with no by-agent anywhere; 'Miltenyi's Facility' is a possessive on a LOCATION (the Incoterms named place), not the duty-bearer, so reading Miltenyi as obligor would be section 3.5's forbidden inference. OBLIGEE = 'Bellicum', REVIEWER-ADJUDICATED under section 14.4, recorded with its real basis and NOT with a rule that does not apply here. THE PURPOSE-CLAUSE RULE (section 3.5.2) IS NOT THE BASIS: this sentence contains no purpose or benefit clause at all -- verified mechanically, zero occurrences of 'for the benefit of', 'to enable', 'on behalf of', 'for the account of'. The actual basis is section 3.5.3, created by this ruling: in an agentless passive clause, a party named inside the span -- here 'Bellicum', as the agent of the relative clause 'ordered by Bellicum' and as the possessive on the recipient 'Bellicum's designated carrier' -- is taken as obligee, since it is in the span (so section 3.5's no-inference rule is satisfied positionally) and is the only party the performance runs to. DRAFTER'S RECOMMENDATION WAS ABSENT, recorded because a measurement instrument should carry its dissents: the argument against is that obligor is ABSENT here for the SAME grammatical reason (no agent in a passive clause), so taking a promoted possessive for one slot and ABSENT for the other is asymmetric. The reviewer ruled Bellicum; section 3.5.3 states the rule and its asymmetry openly so the effect on every passive delivery/quality clause in the set stays visible in the data. TEMPORAL: BY with the defined-term alias 'the Delivery Date'; symbols.resolve_date() returns None in v1, so this is an unresolvable DateRef and drives underspecified=true (section 3.9) alongside the ABSENT obligor.",
+  "reviewer_status": "APPROVED"
+}

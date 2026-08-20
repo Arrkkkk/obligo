@@ -28,7 +28,9 @@
   ],
   "vague_temporal_phrase": null,
   "redacted_phrase": null,
-  "known_gap": "unless_unsupported",
+  "known_gaps": [
+    "unless_unsupported"
+  ],
   "annotator_confidence": "AMBIGUOUS",
   "annotated_at": "2026-08-19T20:48:04+00:00",
   "rules_cited": [
