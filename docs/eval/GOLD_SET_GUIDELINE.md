@@ -1,6 +1,6 @@
 # Obligo Tier-2 Gold Set — Annotation Guideline
 
-**Version:** v0.26 (DRAFT — not yet frozen)
+**Version:** v0.27 (DRAFT — not yet frozen)
 **Created:** 2026-08-17
 **Status:** **18 items locked** — batch 1 complete (10), batch 2 paused at 8 of 10
 pending the consolidation pass (§19.4). Items stamp guideline versions v0.12–v0.25; the
@@ -82,6 +82,11 @@ and its trend test, three false claims in this document corrected (§19.3), and 
 criterion-2 denominator problem stated (§9, §19.5). Batch 2 is **paused at 8 of 10** pending
 the consolidation pass (§19.4). **The 100-item target is unchanged but is now explicitly a
 working figure, not an analytically justified one (§19.5).**
+**v0.27 change:** **no annotation rule changed.** Two corrections to v0.26's own §19, both
+found while running the consolidation sweep: the conforming-debt count is **154 item × rule
+pairs, not 127** (v0.26 counted version *bumps*, but v0.16, v0.17 and v0.21 each introduced
+two rules), and the sweep's own result is recorded — **139 of the 154 clear mechanically, 15
+need a reviewer look** (§19.7).
 
 *Why v0.8 and not an edit to v0.7:* v0.7 was committed, and every gold item stamps the
 guideline version it was annotated under. Amending a committed version in place would make
@@ -1095,9 +1100,9 @@ recorded here as recommended, pending an explicit decision — it is NOT in forc
 - Every item stamps its `guideline_version`. If held-out disagreements cluster in
   pre-freeze batches, that is diagnostic — the freeze worked.
 - **Consolidation pass inserted before batch 3 (v0.26).** The conforming step above is run
-  **now, at 18 items**, rather than being deferred to the freeze. Measured debt: **127
-  outstanding item × rule re-checks** (§19.3). Deferring to the freeze would face an
-  estimated ~362 in one tangle. The freeze itself stays after batch 3, unchanged: at the
+  **now, at 18 items**, rather than being deferred to the freeze. Measured debt: **154
+  outstanding item × rule re-checks** (§19.3), of which 139 clear mechanically (§19.7).
+  Deferring to the freeze would face an estimated ~390 in one tangle. The freeze itself stays after batch 3, unchanged: at the
   measured discovery rate (§19.2) freezing earlier would put ~82 items on the post-freeze
   path, where every amendment requires a logged re-check across all prior batches.
 
@@ -1766,10 +1771,12 @@ high batch-to-batch variance and means no single batch's rate is a reliable esti
 
 ### 19.3 Conforming debt, and three false claims corrected
 
-**127 outstanding item × rule re-checks.** Fifteen of the 18 locked items were annotated
-against a ruleset that has since changed — `E01-01` has never been checked against 13 later
+**154 outstanding item × rule re-checks** *(corrected at v0.27; v0.26 said 127, having
+counted version bumps rather than rules — v0.16, v0.17 and v0.21 each introduced two)*.
+Fifteen of the 18 locked items were annotated against a ruleset that has since changed — `E01-01` has never been checked against 13 later
 rule versions, `E03-01`/`C22-01`/`C03-01` against 12, down to 0 for the `C02` trio. §10's
-conforming pass is mandatory before the freeze regardless; §10 now runs it at 18 items.
+conforming pass is mandatory before the freeze regardless; §10 now runs it at 18 items. Of
+the 154, **139 clear mechanically and 15 need reviewer judgment** — see §19.7.
 
 Three claims in this document were false and are corrected at v0.26:
 
@@ -1794,10 +1801,11 @@ interval by roughly 5%.
 The consolidation pass closes, in one sitting: the **seven open decisions** — five rules at
 `DEFAULT, PENDING CONFIRMATION` (§15 v0.4, §16 v0.5, §17 v0.6, §8.3.1 v0.23, §8.8 v0.24) and
 two items at `DRAFTER_JUDGMENT_PENDING_REVIEW` (`C03-02`, `C11-01`) — three of which have
-been open since **before batch 1 existed**, 18 items and 15 rule versions ago; the 127
-re-checks; `SUMMARY.md`'s version claim; and a §7 amendment for a held-out draw against an
-8-item batch 2. **Estimated ~6 h, of which the 3.2 h re-check figure rests on an unmeasured
-1.5 min-per-re-check assumption.**
+been open since **before batch 1 existed**, 18 items and 15 rule versions ago; the 154
+re-checks (139 already cleared, §19.7); `SUMMARY.md`'s version claim; and a §7 amendment for a held-out draw against an
+8-item batch 2. **Estimated ~6 h in v0.26; the §19.7 sweep cuts the re-check component
+from 154 reviewer judgments to 15, so the realistic figure is now ~2.5–3 h.** The remaining
+per-judgment cost still rests on the unmeasured 18.2 min-per-adjudication figure.
 
 ### 19.5 Target size: 100 is a working figure, NOT an analytically justified one
 
@@ -1849,3 +1857,37 @@ measured basis**. An unquantified `K ≥ 4 → REDESIGN` branch in §7 would res
 transcripts. If batch 3 produces **≥15 bumps over 10 items** (adj/item ≥ 1.50), the 38 h plan
 is broken and target size re-opens. Because discovery is draw-dependent and high-variance
 (§19.2), evaluate against the cumulative rate across batches 2–3, never batch 3 alone.
+
+### 19.7 Consolidation sweep — 139 of 154 re-checks cleared mechanically
+
+Run 2026-08-21 as the first step of the consolidation pass. For each of §19.3's 154 item ×
+rule pairs, a detector asks whether the later rule could apply to that item at all. A pair
+clears only when no detector fires; every fired pair goes to the reviewer.
+
+**Result: 139 cleared (90%), 15 need a reviewer look.**
+
+| item | stamped | unchecked | flagged | rules to look at |
+| :--- | :--- | ---: | ---: | :--- |
+| `E01-01` | v0.12 | 16 | 5 | §8.3 compound, §8.3 split rule, §8.4 mutual, §3.5.3 passive, §8.3.1 split-span |
+| `E03-01` | v0.13 | 15 | 1 | §8.4 mutual |
+| `C22-01` | v0.13 | 15 | 1 | §8.4 mutual |
+| `C03-01` | v0.13 | 15 | 3 | §8.3 compound, §8.3 split rule, §8.3.1 split-span |
+| `C03-02` | v0.14 | 14 | 2 | §8.3 split rule, §8.3.1 split-span |
+| `C11-01` | v0.17 | 9 | 1 | §3.5.1.1 disjunctive obligors |
+| `C04-01` | v0.18 | 8 | 1 | §8.3.1 split-span |
+| `C04-02` | v0.19 | 7 | 1 | §3.5.2 beneficiary purpose |
+| `C03-03`, `E07-01`, `C17-01`, `C17-02`, `C04-03`, `C14-01`, `C14-02`, `C02-01/02/03` | — | 71 | 0 | fully cleared |
+
+**The detectors are deliberately high-recall, low-precision, and that is the correct bias
+here** — a false positive costs reviewer minutes, a false negative silently leaves a
+conformance gap. The §8.3/§8.3.1 compound-and-split detectors in particular over-fire on noun
+conjunctions; they are a screen, not a verdict.
+
+**A detector bug found and fixed during the sweep, recorded because it is the same class of
+error §18 exists to catch.** The §2.4 OCR detector was first written `[a-hj-z]`, intending to
+exclude the real one-letter words *a* and *I* — but that class still contains `a`, so it
+matched "in a", "of a", "to a" and fired on **11 of 18 items across 8 documents, at a 100%
+false-positive rate with zero true positives**. §2.4's own measured ground truth — 6 segments,
+all in `C11`, zero elsewhere — is what exposed it. Corrected to `[b-hj-z]`, after which it
+fires on nothing, correctly: no locked item's segment carries the split-word signature, and
+`C11-01` was already verified clean when §2.4 was written.
