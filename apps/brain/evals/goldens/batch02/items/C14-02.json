@@ -1,0 +1,58 @@
+{
+  "item_id": "C14-02",
+  "span_char_start": 184,
+  "span_char_end": 253,
+  "span_text": "shall promptly furnish such other party with appropriate tax receipts",
+  "modality": "MUST",
+  "action": "PROVIDE",
+  "action_accept_set": [
+    "PROVIDE",
+    "DELIVER",
+    "REPORT"
+  ],
+  "obligor": "Each party",
+  "obligor_accept_set": [],
+  "obligee": "such other party",
+  "object_class": "tax_receipt",
+  "object_class_accept_set": [
+    "tax_receipt",
+    "tax_documentation",
+    "receipts",
+    "tax_records"
+  ],
+  "vague_temporal_phrase": "promptly",
+  "known_gaps": [
+    "mutual_obligation",
+    "shared_subject_split"
+  ],
+  "rules_cited": [
+    "3.1",
+    "3.2",
+    "3.4",
+    "3.5",
+    "3.6",
+    "3.9",
+    "4.3",
+    "8.3.1",
+    "8.4",
+    "8.4.1",
+    "15",
+    "15.2",
+    "15.3"
+  ],
+  "annotator_notes": "FIRST APPLICATION of section 8.3.1 (v0.23, DEFAULT PENDING CONFIRMATION) -- the split-span case section 8.3 deferred 'for whichever batch first hits it'. This span is the CONTIGUOUS verb phrase WITHOUT its shared subject: 'Each party' heads the sentence and governs both verbs, so the alternatives were a non-contiguous span (violates section 3.1 outright) or two byte-identical whole-sentence spans (collide under section 4.1's IoU alignment -- section 8.3's own stated wall). Consequence, tagged rather than hidden via 'shared_subject_split': obligor 'Each party' is taken from the sentence head, OUTSIDE this span, so for this item alone obligor is not verifiable from span_text. The two spans are DISJOINT (offsets 15-172 and 178-246), which is what keeps section 4.1 sound. VAGUE TEMPORAL: 'promptly' -> temporal null, vague_temporal_phrase='promptly', and underspecified stays FALSE per section 15.3 -- annotating true would fail predicate clause 8 automatically for a capability v1 explicitly declined to build. Mutual (section 8.4) for the same reason as C14-01: each party furnishes the other.",
+  "doc_id": "C14",
+  "segment_id": "C14-076",
+  "stratum": "standard",
+  "segment_text": "8.5. TAXES. Each party shall deduct such taxes from the payments due to the other party hereunder as required by law including withholding taxes (unless an exemption is provided), and shall promptly furnish such other party with appropriate tax receipts. Each party will be solely responsible for any and all taxes imposed thereon, including, without limitation, all income taxes, sales taxes, goods and services taxes. Israel value added tax shall be added, if applicable, to all amounts payable hereunder and will be paid against submission of appropriate tax invoices.",
+  "temporal": null,
+  "conditions": [],
+  "underspecified": false,
+  "missing_fields": [],
+  "redacted_phrase": null,
+  "annotator_confidence": "AMBIGUOUS",
+  "adjudicated_by": "reviewer",
+  "annotated_at": "2026-08-20T19:48:33+00:00",
+  "guideline_version": "v0.23",
+  "reviewer_status": "APPROVED"
+}

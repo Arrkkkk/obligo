@@ -1,0 +1,56 @@
+{
+  "item_id": "C02-01",
+  "span_char_start": 22,
+  "span_char_end": 299,
+  "modality": "MUST",
+  "action": "RETAIN",
+  "action_accept_set": [
+    "RETAIN",
+    "MAINTAIN",
+    "RETURN"
+  ],
+  "obligor": "Antares",
+  "obligor_accept_set": [
+    "Antares",
+    "its Subcontractor"
+  ],
+  "obligee": "ABSENT",
+  "object_class": "retained_sample",
+  "object_class_accept_set": [
+    "retained_sample",
+    "product_sample",
+    "repository_sample",
+    "retained_repository_samples"
+  ],
+  "underspecified": true,
+  "missing_fields": [
+    "obligee"
+  ],
+  "annotator_confidence": "AMBIGUOUS",
+  "rules_cited": [
+    "3.1",
+    "3.2",
+    "3.4",
+    "3.5",
+    "3.5.1",
+    "3.5.1.1",
+    "3.6",
+    "3.9",
+    "4.4"
+  ],
+  "annotator_notes": "FIRST APPLICATION of section 3.5.1.1 (v0.25, created by this item): DISJUNCTIVE obligor 'Antares or its Subcontractor'. Section 3.5.1 governs the CONJUNCTIVE form ('X and Y') and did not name this one. Ruled: one item, obligor = first-named alternative, obligor_accept_set lists every alternative verbatim, NO gap tag -- the obligation is fully representable in IR v1, so tagging would assert a limitation that does not exist. NOT section 8.4 mutual: 'Antares' and 'its Subcontractor' are on the SAME side of the duty and the obligee is ABSENT; mutual requires a party on BOTH sides. VERIFIED AGAINST THE REAL DOCUMENT before ruling: 'Antares' is explicitly defined in C02's preamble ('Antares Pharma, Inc., a Delaware corporation ... (\"Antares\")'), while 'its Subcontractor' is NOT defined anywhere -- the document PROMISES a definition ('Antares or its Subcontractor (defined below)') and never supplies one, zero '\"Subcontractor\" means' entries across 85 occurrences. It stays in the accept-set regardless, because section 3.5's test is POSITIONAL (is the alias in the span?) not resolution-based, and section 3.9 treats unresolved-ness as an honest state. OBLIGEE ABSENT: the sentence names no beneficiary -- AMAG appears only as 'at AMAG's sole cost and expense', a COST ALLOCATION, which section 3.5.2 explicitly does not treat as a beneficiary clause. SEGMENT-LEVEL FACT, recorded on all three items: this segment carries THREE gap signatures -- two [***] redactions (offsets 349, 534) and a spliced SEC confidential-treatment legend (offset 706) -- and EVERY ONE of them sits inside a clause whose subject is 'Such retained samples' / 'All such samples', i.e. NON-PARTY-SUBJECT and therefore NOT_ANNOTATABLE under section 4.4. The segment thus yields three items with ZERO gap tags between them. This is the concrete evidence that segment-level gap-signature counts overstate ITEM-level gap prevalence -- beyond the granularity correction already made at v0.22 (4.4% of segments -> 0.9% of sentences).",
+  "doc_id": "C02",
+  "segment_id": "C02-021",
+  "stratum": "standard",
+  "segment_text": "2.9 Retained Samples. Antares or its Subcontractor shall retain sufficient quantities of shipped Products, sample Products, Devices and Components as retained repository samples as required under the Quality Agreement and Applicable Laws at AMAG's sole cost and expense and as set forth in Exhibit G. Such retained samples shall minimally represent [***] the number of samples necessary to re-execute chemical release testing and will be maintained in a suitable storage facility at Antares' or its Subcontractors' Manufacturing Site until [***] or such longer period as may be required by Applicable Laws. All such samples shall be available for inspection by AMAG at reasonable intervals upon reasonable - 12 - [***] INDICATES MATERIAL THAT HAS BEEN OMITTED AND FOR WHICH CONFIDENTIAL TREATMENT HAS BEEN REQUESTED. ALL SUCH OMITTED MATERIAL HAS BEEN FILED WITH THE SECURITIES AND EXCHANGE COMMISSION PURSUANT TO RULE 24b-2 PROMULGATED UNDER THE SECURITIES EXCHANGE ACT OF 1934, AS AMENDED notice. AMAG shall advise Antares of the required quantities of shipped Products, sample Products, Devices and Components that AMAG desires to be retained. Antares shall invoice AMAG for the costs associated with performing these activities.",
+  "temporal": null,
+  "conditions": [],
+  "vague_temporal_phrase": null,
+  "redacted_phrase": null,
+  "known_gaps": [],
+  "adjudicated_by": "reviewer",
+  "annotated_at": "2026-08-21T10:20:25+00:00",
+  "guideline_version": "v0.25",
+  "reviewer_status": "APPROVED",
+  "span_text": "Antares or its Subcontractor shall retain sufficient quantities of shipped Products, sample Products, Devices and Components as retained repository samples as required under the Quality Agreement and Applicable Laws at AMAG's sole cost and expense and as set forth in Exhibit G"
+}

@@ -1,8 +1,12 @@
 # Obligo Tier-2 Gold Set — Annotation Guideline
 
-**Version:** v0.22 (DRAFT — not yet frozen)
+**Version:** v0.26 (DRAFT — not yet frozen)
 **Created:** 2026-08-17
-**Status:** No items have been annotated against this document yet.
+**Status:** **18 items locked** — batch 1 complete (10), batch 2 paused at 8 of 10
+pending the consolidation pass (§19.4). Items stamp guideline versions v0.12–v0.25; the
+§10 conforming pass has **not** run. *(This line read "No items have been annotated
+against this document yet" from v0.1 through v0.25 — false from 2026-08-19 onward,
+corrected at v0.26; see §19.3.)*
 **v0.2 change:** corpus rebuilt after a selection-bias audit — see §13.
 **v0.3 change:** annotator-uncertainty protocol added — see §14. Two fields added to §1.
 **v0.4 change:** vague-temporal-qualifier rule added — see §15. One non-scored field added to §1.
@@ -32,13 +36,14 @@ occurrences. `redacted_clause` spans are unscoreable and leave both criteria's
 denominators. **v0.14 change:** compound-action rule added (§8.3) — one item on the primary verb,
 `known_gap: "compound_action"`, dropped verb recorded.
 **v0.15 change:** §8.3 confirmed by the reviewer and given its named rule — shared
-indivisible object stays one item, separate objects split. v0.15 is the version batch 1 is
-annotated under.
+indivisible object stays one item, separate objects split. ~~v0.15 is the version batch 1 is
+annotated under.~~ **SUPERSEDED v0.26 — false; batch 1 spans six versions. See §19.3.**
 **v0.16 change:** mutual-obligation rule added (§8.4) — one item, `known_gap:
 "mutual_obligation"`. PII redaction convention recorded (§2.3).
 **v0.17 change:** `within_preposition` gap added (§8.6, 7 confirmed bare-numeral instances);
-joint-obligor rule added (§3.5.1) as an accept-set, explicitly NOT a gap. v0.17 is the
-version batch 1 is annotated under.
+joint-obligor rule added (§3.5.1) as an accept-set, explicitly NOT a gap. ~~v0.17 is the
+version batch 1 is annotated under.~~ **SUPERSEDED v0.26 — false, and it contradicted the
+identical claim made for v0.15 two entries earlier. See §19.3.**
 **v0.18 change:** `corpus_artifact_in_span` gap added (§8.7) — a running page header,
 docket stamp or `Source:` footer spliced **mid-sentence**, inside a span §3.1 cannot
 truncate around. Measured pool-wide before the rule was written: 76 of 1,547 segments
@@ -63,6 +68,20 @@ round-trip loss, idempotent). §9 gains the non-summable per-tag reporting sente
 §3.7.1 gains a precedence note. Measured at the honest granularity: same-**sentence** gap
 co-occurrence is **0.9% of sentences (38/4,289)**, not the 4.4% of *segments* first
 reported — a 1.8× overstatement, corrected here.
+**v0.23 change:** §8.3.1 added — the split-span case §8.3 deferred *"for whichever batch
+first hits it"* arrived at `C14-076`. **Status: v0.23 default, pending confirmation.**
+**v0.24 change:** §8.8 added — `action_not_in_taxonomy`, reviewer-ruled as case-by-case
+tagging rather than an `ACTIONS` change. Measured item-level rate: **23% of annotatable
+obligation clauses (6/26), 95% Wilson CI [11%, 42%]** — superseding an earlier
+token-weighted 44%.
+**v0.25 change:** §3.5.1.1 added — **disjunctive** obligors ("X *or* Y"), reviewer-confirmed
+at `C02-021`. Accept-set, no gap tag, and non-registry-resolvable alternatives are admitted.
+**v0.26 change:** **no annotation rule changed.** Recalibration only — §19 added, recording
+the measured cost of batches 1–2 from session transcripts, the measured rule-discovery rate
+and its trend test, three false claims in this document corrected (§19.3), and the
+criterion-2 denominator problem stated (§9, §19.5). Batch 2 is **paused at 8 of 10** pending
+the consolidation pass (§19.4). **The 100-item target is unchanged but is now explicitly a
+working figure, not an analytically justified one (§19.5).**
 
 *Why v0.8 and not an edit to v0.7:* v0.7 was committed, and every gold item stamps the
 guideline version it was annotated under. Amending a committed version in place would make
@@ -260,6 +279,50 @@ would assert a v1 limitation that does not exist, and would dilute
 `mutual_obligation`'s count with cases that are not losses.
 
 ---
+
+### 3.5.1.1 Disjunctive obligors — "X **or** Y" (v0.25 — REVIEWER-CONFIRMED)
+
+**Motivating case** — `C02-021`: *"**Antares or its Subcontractor** shall retain sufficient
+quantities of shipped Products … as retained repository samples."*
+
+**Rule.** One item. `obligor` holds the **first-named alternative**; `obligor_accept_set`
+lists **every alternative verbatim**. **No `known_gaps` entry.**
+
+**Why an accept-set, not a tag.** §3.5.1's own test decides it: a co-obligor is a
+**field-value** problem, not an item-count problem — *"the obligation is fully representable,
+and the only question is which co-obligor a correct extraction may name, which is exactly
+what an accept-set decides."* Disjunction is that problem in a **weaker** form: with "and"
+both parties are bound and naming one loses information about the other; with "or" the
+contract itself declines to fix which party performs, so the accept-set records the
+**contract's own** indeterminacy rather than papering over the annotator's. A tag would
+assert an IR v1 limitation that does not exist.
+
+**Distinguish from §8.4 (mutual).** Apply §8.4's test unchanged — is the co-obligor also the
+obligee? At `C02-021` it is not: `Antares` and `its Subcontractor` sit on the **same side** of
+the duty and the obligee is `ABSENT`. Disjunctive obligors are on one side; mutual
+obligations put a party on **both**.
+
+**Non-registry-resolvable alternatives are admitted (sub-choice, decided).** `"its
+Subcontractor"` can never match `symbols.resolve_party()` — and the document **promises** a
+definition it never supplies (*"Antares or its Subcontractor **(defined below)**"*, with zero
+`"Subcontractor" means` entries across 85 occurrences). It stays in the accept-set anyway,
+because §3.5's test is **positional** — is the alias in the span? — not resolution-based, and
+§3.9 already treats unresolved-ness as an honest state rather than an error. The rejected
+alternative, restricting the accept-set to registry-resolvable parties, is recorded here: it
+would score an extraction wrong for faithfully quoting an alternative the contract itself
+offers.
+
+**Document-definedness is NOT what annotation resolves against.** §3.5 is explicit — *"Do not
+infer a party from elsewhere in the document. If it isn't in the span, it's `ABSENT`."* Gold
+annotates the alias **as it appears in the span**. Whether a term is defined elsewhere affects
+only whether `resolve_party()` could match it against the tenant's `parties` registry at
+typecheck time, which is a fact about registered parties, not about the document's own
+definitions.
+
+**Corpus finding recorded in passing, relevant to the not-yet-built defined-terms registry:**
+of the **six** terms `C02` promises with *"(defined below)"* — `Agreement`, `Device`,
+`Subcontractor`, `Syringes`, `Products`, `Trainers` — only **one** (`Device`) is actually
+defined. A registry built on resolving that promise would find nothing five times out of six.
 
 ### 2.3 PII in archived segment text (v0.16)
 
@@ -754,6 +817,100 @@ effect on criterion 2 is countable rather than folded silently into extraction q
 
 ---
 
+### 8.3.1 The split-span case (v0.23 — DEFAULT, PENDING CONFIRMATION)
+
+§8.3 recorded this as an **open consequence** and deferred it explicitly: *"two items drawn
+from one coordinated verb phrase cannot both satisfy §3.1's minimal contiguous substring
+requirement… No split case has arisen in batch 1, so this is flagged for whichever batch
+first hits it rather than solved speculatively."*
+
+**It arrived at `C14-076`:** *"**Each party** shall **deduct** such taxes from the payments
+due to the other party hereunder … and shall promptly **furnish** such other party with
+appropriate tax receipts."* Two governing verbs, genuinely separate objects (*taxes* vs *tax
+receipts*), so §4.3 requires two items — and the shared subject `Each party` sits at the head
+of the sentence, governing both.
+
+**The trilemma, stated before the choice:**
+
+| Option | Fails on |
+| :--- | :--- |
+| Both spans = the whole sentence | Byte-identical spans **collide** under §4.1's IoU ≥ 0.5 alignment — §8.3's own stated wall |
+| Second span = subject + second verb phrase, skipping the first | **Non-contiguous**, violating §3.1's byte-exact-substring requirement outright |
+| Second span = the contiguous verb phrase alone | `obligor` is then taken from **outside** `span_text` |
+
+**Rule (default).** Take the third option. The second item's `span_text` is the **contiguous
+verb phrase without the shared subject** (*"shall promptly furnish such other party with
+appropriate tax receipts"*). The shared `obligor` is annotated from the sentence head, and
+the item is tagged **`shared_subject_split`** so the exception is countable rather than
+silent.
+
+**Why.** §3.1's byte-exact contiguity is a *hard* requirement the grounding gate enforces
+mechanically; §3.5's positional rule is a *methodological* one guarding against inference
+from elsewhere in the **document**. Taking a subject from the same sentence, three words
+away, is a far smaller departure than either breaking contiguity or colliding the alignment
+— and the two spans stay **disjoint**, which keeps §4.1 sound. The cost is real and is
+tagged, not hidden: for these items alone, `obligor` is not verifiable from `span_text`.
+
+**Why this is not §8.3's one-item case.** §8.3 keeps *one* item when two verbs are aspects of
+one indivisible performance. Deducting tax and furnishing a receipt are separate
+performances with separate objects, which is exactly the branch §8.3 sends to §4.3 — and
+that branch had never been exercised until now.
+
+**Pending confirmation because it sets the span rule for every future split.** If the
+reviewer prefers the whole-sentence option, §4.1 needs an accompanying tie-break amendment
+for identical spans, which is why that option is not merely a matter of taste.
+
+### 8.8 Out-of-taxonomy action verbs (v0.24 — REVIEWER-RULED)
+
+`compiler/ast.py`'s `ACTIONS` is a **closed 34-verb list**. Real contract verbs routinely fall
+outside it with no defensible member to map onto.
+
+**Measured at the granularity that matters.** A seeded random sample of 40 party-subject
+obligation clauses (seed `108325`), hand-classified:
+
+| Class | n | Share of annotatable |
+| :--- | --: | --: |
+| Not an obligation clause at all (copular *"shall not be liable/entitled"*, non-party subject, Agreement-as-subject) | 14 / 40 | — |
+| Verb **is** in the taxonomy | 10 | 38% |
+| **Defensibly mappable** — `hold harmless`→`INDEMNIFY`, `nominate`/`designate`→`APPOINT`, `arrange`→`PROCURE`, `address and correct`→`CURE`, `continue to maintain`→`MAINTAIN`, `deduct`→`WITHHOLD` | 10 | 38% |
+| **Genuine gap** — `resign`, `discontinue`, `perform` ×2, `approve`, `request` | **6** | **23%** |
+
+**23%, 95% Wilson CI [11%, 42%].** An earlier token-weighted estimate of 44% is superseded: it
+measured share of verb *tokens* over the head of the distribution, over-weighting a few
+frequent verbs, and answers a different question than *"what share of items will have an
+untaggable action."*
+
+**Rule.** Applies **only** to the genuine-gap class. A defensibly mappable verb is **not**
+tagged — `deduct`→`WITHHOLD` (`C14-01`) is the worked example of a mapping that lands.
+
+- `action` holds the **nearest** taxonomy verb.
+- `action_accept_set` holds **that verb alone**, no widening.
+- The real verb is recorded **verbatim** in `annotator_notes`.
+- `known_gaps` gains **`"action_not_in_taxonomy"`**.
+
+**Why not widen `ACTIONS`.** A v1 IR change against blueprint §21's explicit freeze, and it
+would tune the IR to the corpus it is about to be graded on — the identical objection §11
+raised against widening `_WITHIN_RE` before measuring.
+
+**Why not generous accept-sets.** A set wide enough to admit `PROCESS` for *"perform the
+capsule appearance test"* stops measuring whether extraction identified the action at all,
+which is what §3.4 exists to prevent.
+
+**SUB-CHOICE, adopted as default and flagged — v0.24 default, pending confirmation.** The
+single-verb accept-set means an extractor scores clause 2 correct only by picking the *same*
+near-miss the annotator picked; §14.4's objection to defaults partly applies. The alternative
+— an **empty** `action_accept_set`, making every such item an automatic `PARTIAL` — is more
+honest that no correct answer exists, but converts a measurement question into a guaranteed
+failure for roughly one item in four. Revisit once batch 3 supplies a second rate.
+
+**Consequence, stated rather than discovered later.** At 23% this tag attaches to about one
+gold item in four. With batch 1's ~40% structurally-uncompilable finding it is a **second,
+independent** arithmetic constraint on criterion 2's ≥80% bar. It is not an extraction-quality
+finding and must not be reported as one.
+
+**No locked item carries this tag yet** — `dispose` (`C02-049`) and `analyze` (`C04-118`) both
+sit in segments excluded under §2, so the first real instance is still ahead.
+
 ### 8.2 `UNLESS`-dependent clauses (v0.10)
 
 IR v1 has **no exception construct at all** — `UNLESS` does not underspecify, it fails to
@@ -915,6 +1072,18 @@ Both numbers are reported alongside: the spurious-extraction count over zero-obl
 segments, the share of items correctly `underspecified` (so "compiled faithfully" is not
 misread as "resolved"), and the prompt/model/grammar versions in force.
 
+**Criterion 2 needs the same dual denominator, and does not yet have it (v0.26 — RECOMMENDED,
+NOT YET APPROVED).** As written above, criterion 2 is `FULLY_CORRECT` / 100 items — a single
+denominator including items that **cannot** be fully correct by construction. At the measured
+structurally-uncompilable rate (7 of 18 locked items, 38.9%, 95% CI [20.3%, 61.4%]; 9 of 18
+if `corpus_artifact_in_span` spans are counted), criterion 2's ceiling over all items is
+roughly **39–61%**, so blueprint §21's **≥80% bar is arithmetically unreachable over this
+denominator at every point in the measured interval**. This is not a sample-size problem and
+no target size fixes it. The recommended fix is the treatment §11 already gave criterion 1b:
+report criterion 2 **twice**, over all items and over items with `len(known_gaps) == 0`, with
+the expected all-items ceiling stated in advance. **This is a blueprint §21 amendment and is
+recorded here as recommended, pending an explicit decision — it is NOT in force.** See §19.5.
+
 ---
 
 ## 10. Versioning and freeze
@@ -925,6 +1094,12 @@ misread as "resolved"), and the prompt/model/grammar versions in force.
   batches, recorded in the manifest.
 - Every item stamps its `guideline_version`. If held-out disagreements cluster in
   pre-freeze batches, that is diagnostic — the freeze worked.
+- **Consolidation pass inserted before batch 3 (v0.26).** The conforming step above is run
+  **now, at 18 items**, rather than being deferred to the freeze. Measured debt: **127
+  outstanding item × rule re-checks** (§19.3). Deferring to the freeze would face an
+  estimated ~362 in one tangle. The freeze itself stays after batch 3, unchanged: at the
+  measured discovery rate (§19.2) freezing earlier would put ~82 items on the post-freeze
+  path, where every amendment requires a logged re-check across all prior batches.
 
 ---
 
@@ -1515,3 +1690,162 @@ substitution is auditable rather than silent. It was standard-stratum (`xref_pct
 §2.2's hard floor was unaffected and the hard queue is unchanged by the swap. Pool after
 replacement: **1,514 segments** (408 hard, 1,106 standard); §15's and §16's rates still
 reproduce at 12% and 3%.
+
+---
+
+## 19. Recalibration (v0.26) — measured cost, measured discovery rate
+
+Added 2026-08-21, after batch 2 was paused at 8 of 10 items. **No annotation rule changes
+here.** This section records what the first 18 items actually cost and what that does and
+does not license, separating measured quantities from judgment. Every figure below marked
+*measured* is reproducible from the artifacts named; every figure marked *assumption* is
+not.
+
+### 19.1 The cost of batches 1 and 2 — measured
+
+Source: session transcript message timestamps (`1fb27e05` for batch 2, the corresponding
+window of `788ae2d2` for batch 1), plus `annotated_at`/`logged_at` in the item and exclusion
+files. Overnight idle is excluded; "active elapsed" is wall-clock minus gaps in which
+neither party was working.
+
+| | batch 1 | batch 2 (8 items) |
+| :--- | ---: | ---: |
+| raw wall-clock span | 836.1 min | 1,028.4 min |
+| overnight idle removed | 693.1 min | 807.4 min |
+| **active elapsed** | **143.0 min** | **221.0 min** |
+| **min/item** | **14.3** | **27.6** |
+| drafter working time | 74.1 min (52%) | 57.7 min (26%) |
+| reviewer turnaround | 68.8 min (48%) | 163.4 min (74%) |
+| blocking adjudication gaps (≥5 min) | 4 | 9 |
+| mean reviewer time per gap | 17.2 min | 18.2 min |
+| segment-level acceptance | 38% (8/21) | 29% (4/14) |
+
+**The throughput limiter is reviewer adjudication latency, not annotation.** Drafter working
+time *fell* between batches while producing the same number of rules over fewer items; the
+entire 78-minute increase is reviewer turnaround, and reviewer time per decision is
+essentially constant. What changed is the number of decisions requiring adjudication.
+
+**Two corrections to figures previously on record**, both of which quoted raw wall-clock
+including overnight idle and overstate real cost by 4–6×: batch 1 was recorded as *"814
+minutes wall-clock, ≈90 min/item"* and batch 2's in-session close-out reported *"1,028 min ·
+17.1 h → 128 min/item."* The real figures are 143.0 min / 14.3 min/item and 221.0 min /
+27.6 min/item.
+
+**Reviewer-error correction cycles cost 14.6 min of batch 2's 221.0 — 6.6%** (the `18%`
+figure exchange, 18:17:25–18:22:55; the phantom-item-7 exchange, 09:33:04–09:42:09).
+Error-adjusted rate: 25.8 min/item. Both cycles produced a real corpus measurement as a
+byproduct (§2.4's OCR class; the efforts-qualifier frequency). **Reviewer error is not a
+material cost driver and correcting for it does not change any planning number.**
+
+### 19.2 Rule-discovery rate — measured, and NOT tapering
+
+Bumps per item, in annotation order, item 1 as baseline:
+`[1,0,0,1,0,1,1,1,0, 1,1,2,2,0,2,0,0]` — 13 bumps over 17 scoreable positions.
+
+| | batch 1 | batch 2 | ratio | exact p | 95% CI on ratio |
+| :--- | ---: | ---: | ---: | ---: | :--- |
+| item-stamped bumps (v0.12→v0.17 / v0.17→v0.25) | 5/10 = 0.50 | 8/8 = 1.00 | 2.00 | 0.168 | [0.65, 6.11] |
+| incl. batch-1 draw-walk rules (v0.10, v0.11) | 7/10 = 0.70 | 8/8 = 1.00 | 1.43 | 0.330 | [0.52, 3.94] |
+
+Poisson regression of bumps on item index: slope **+0.0322/item** (multiplier 1.033×), 95%
+profile-likelihood CI on the multiplier **[0.924, 1.159]**, LR χ² = 0.321 (1 df), **p >
+0.05**. First 6 items: 3 bumps. Last 6: 6 bumps.
+
+**There is no evidence of tapering. Both point estimates increase; neither is significant;
+the interval is compatible with anything from a 7.6% decline to a 15.9% rise per item.** All
+planning below therefore assumes the **non-tapered** batch-2 rate. A taper would be a welcome
+surprise, never a premise.
+
+**A document-saturation model was proposed and falsified on this data**, recorded so it is
+not re-proposed: batch 1 drew from 7 documents and produced 5 bumps (0.71/doc); batch 2 drew
+from **3** and produced **8** (2.67/doc) — fewer documents, more rules. Within-document
+position does not rescue it (first-in-document items: 0.50 bumps in batch 1, 1.67 in batch
+2). The surviving hypothesis — consistent with the data, **not** established at n=18 — is
+that discovery tracks which drafting patterns a given draw happens to surface, which implies
+high batch-to-batch variance and means no single batch's rate is a reliable estimator.
+
+### 19.3 Conforming debt, and three false claims corrected
+
+**127 outstanding item × rule re-checks.** Fifteen of the 18 locked items were annotated
+against a ruleset that has since changed — `E01-01` has never been checked against 13 later
+rule versions, `E03-01`/`C22-01`/`C03-01` against 12, down to 0 for the `C02` trio. §10's
+conforming pass is mandatory before the freeze regardless; §10 now runs it at 18 items.
+
+Three claims in this document were false and are corrected at v0.26:
+
+1. The header read **"No items have been annotated against this document yet"** from v0.1
+   through v0.25. Eighteen have, since 2026-08-19.
+2. The **v0.15** changelog entry claimed "v0.15 is the version batch 1 is annotated under."
+3. The **v0.17** entry claimed the same thing for v0.17, contradicting (2).
+
+Batch 1's items in fact stamp **six** versions (v0.12 ×1, v0.13 ×3, v0.14 ×2, v0.15 ×1,
+v0.16 ×1, v0.17 ×2), monotonically increasing with annotation time. The per-item stamps are
+the honest artifact and §10's rule was followed correctly; the summary claims overstated.
+`apps/brain/evals/goldens/batch01/SUMMARY.md` carries the same defect ("Guideline version:
+v0.17") and is **not** corrected here — it is consolidation-pass work.
+
+### 19.4 Batch 2 is paused at 8 of 10
+
+Two items remain undrawn. They are **not** being drawn until the consolidation pass
+completes. The reason is not that the items are expensive (~55 min at the measured rate) but
+that they cannot answer anything: adding 2 items to a 17-item sequence narrows §19.2's
+interval by roughly 5%.
+
+The consolidation pass closes, in one sitting: the **seven open decisions** — five rules at
+`DEFAULT, PENDING CONFIRMATION` (§15 v0.4, §16 v0.5, §17 v0.6, §8.3.1 v0.23, §8.8 v0.24) and
+two items at `DRAFTER_JUDGMENT_PENDING_REVIEW` (`C03-02`, `C11-01`) — three of which have
+been open since **before batch 1 existed**, 18 items and 15 rule versions ago; the 127
+re-checks; `SUMMARY.md`'s version claim; and a §7 amendment for a held-out draw against an
+8-item batch 2. **Estimated ~6 h, of which the 3.2 h re-check figure rests on an unmeasured
+1.5 min-per-re-check assumption.**
+
+### 19.5 Target size: 100 is a working figure, NOT an analytically justified one
+
+**Stated plainly because the analysis does not support the confidence a bare number implies.**
+
+What *is* established, across the whole measured interval and independent of any unmeasured
+parameter: **criterion 2 at ≥80% over all items is unreachable** (§9). That conclusion is
+solid.
+
+What is **not** established is the item count. The argument that 100 is near-minimal depends
+on three things that do not bear the weight:
+
+1. **An unmeasured true fully-correct rate.** The required scoreable N is 25 at a true 95%,
+   54 at 90%, 87 at 88%, and 230 at 85%. No fully-correct rate has ever been computed for
+   this pipeline. The choice of 90% is plausible, not evidenced.
+2. **A gap-rate interval too wide to discriminate.** 7/18 = 38.9%, CI [20.3%, 61.4%] — from
+   100 annotated items that is anywhere from **39 to 80 scoreable**, straddling the 54
+   threshold entirely.
+3. **An independence assumption the data violates.** Wilson intervals assume independent
+   items; these cluster by segment (batch 2's 8 items came from 4 segments, 3 from
+   `C02-021` alone). Clustering widens the true interval, so every required-N figure above
+   is an **underestimate**.
+
+**100 therefore stands as the working target because it is the existing specification and
+nothing yet justifies changing it — not because it was derived.** The decision is deferred to
+after the scoring harness runs against the 18 already-locked items, which is the cheapest
+available way to learn which column of the required-N table this project is actually in and
+requires no further annotation.
+
+### 19.6 Planning figures — and their status
+
+**Assumption, not measurement:** `min/item = (adjudications/item × 18.2) + 7`. This is a
+**two-parameter model fitted to two data points — zero residual degrees of freedom, so it
+cannot fail to fit.** It is a structural story about where time goes, not a validated law.
+
+| | adj/item | min/item | remaining 82 items |
+| :--- | ---: | ---: | ---: |
+| batch-1 rate — taper, **not assumed** | 0.40 | 14.3 | 19.5 h |
+| **batch-2 measured rate — the plan** | **1.13** | **27.6** | **37.7 h** |
+| +50% | 1.70 | 37.9 | 51.9 h |
+| contingency ceiling | 1.82 | 40.1 | 54.8 h |
+
+**Plan on 38 h; hold contingency to 55 h.** Total to a scored criterion-2 number ≈ **62–73 h**
+(consolidation 6 · harness build and run 4–8 · 82 items 38 · freeze-time conforming 6 · §7
+held-out 8–15), of which the harness, held-out and re-check components are **guesses with no
+measured basis**. An unquantified `K ≥ 4 → REDESIGN` branch in §7 would reset most of it.
+
+**Tripwire.** Record adjudications per item per batch — currently recoverable only by mining
+transcripts. If batch 3 produces **≥15 bumps over 10 items** (adj/item ≥ 1.50), the 38 h plan
+is broken and target size re-opens. Because discovery is draw-dependent and high-variance
+(§19.2), evaluate against the cumulative rate across batches 2–3, never batch 3 alone.

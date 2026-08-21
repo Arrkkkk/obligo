@@ -1,0 +1,47 @@
+{
+  "item_id": "C02-03",
+  "span_char_start": 1147,
+  "span_char_end": 1231,
+  "modality": "MUST",
+  "action": "PROVIDE",
+  "action_accept_set": [
+    "PROVIDE",
+    "REPORT"
+  ],
+  "obligor": "Antares",
+  "obligor_accept_set": [],
+  "obligee": "AMAG",
+  "object_class": "retention_costs",
+  "object_class_accept_set": [
+    "retention_costs",
+    "invoice",
+    "costs",
+    "service_costs"
+  ],
+  "underspecified": false,
+  "missing_fields": [],
+  "annotator_confidence": "CONFIDENT",
+  "rules_cited": [
+    "3.1",
+    "3.2",
+    "3.4",
+    "3.5",
+    "3.6",
+    "3.9"
+  ],
+  "annotator_notes": "Simplest item in the segment and the same pattern as C02-02: both parties named in span, both defined in the preamble. NOT a section 8.8 taxonomy gap -- 'invoice' has no taxonomy entry, but PROVIDE ('provide an invoice') is a DEFENSIBLE mapping, which is section 8.8's own excluding test. This CORRECTS an error in C14-01's notes, which listed 'invoice' among verbs with no defensible entry; the taxonomy-coverage finding stands on perform/amend/request/conduct/manufacture/purchase/specify. 'these activities' refers within this segment, so the span stays self-contained (section 2). SEGMENT-LEVEL FACT, recorded on all three items: this segment carries THREE gap signatures -- two [***] redactions (offsets 349, 534) and a spliced SEC confidential-treatment legend (offset 706) -- and EVERY ONE of them sits inside a clause whose subject is 'Such retained samples' / 'All such samples', i.e. NON-PARTY-SUBJECT and therefore NOT_ANNOTATABLE under section 4.4. The segment thus yields three items with ZERO gap tags between them. This is the concrete evidence that segment-level gap-signature counts overstate ITEM-level gap prevalence -- beyond the granularity correction already made at v0.22 (4.4% of segments -> 0.9% of sentences).",
+  "doc_id": "C02",
+  "segment_id": "C02-021",
+  "stratum": "standard",
+  "segment_text": "2.9 Retained Samples. Antares or its Subcontractor shall retain sufficient quantities of shipped Products, sample Products, Devices and Components as retained repository samples as required under the Quality Agreement and Applicable Laws at AMAG's sole cost and expense and as set forth in Exhibit G. Such retained samples shall minimally represent [***] the number of samples necessary to re-execute chemical release testing and will be maintained in a suitable storage facility at Antares' or its Subcontractors' Manufacturing Site until [***] or such longer period as may be required by Applicable Laws. All such samples shall be available for inspection by AMAG at reasonable intervals upon reasonable - 12 - [***] INDICATES MATERIAL THAT HAS BEEN OMITTED AND FOR WHICH CONFIDENTIAL TREATMENT HAS BEEN REQUESTED. ALL SUCH OMITTED MATERIAL HAS BEEN FILED WITH THE SECURITIES AND EXCHANGE COMMISSION PURSUANT TO RULE 24b-2 PROMULGATED UNDER THE SECURITIES EXCHANGE ACT OF 1934, AS AMENDED notice. AMAG shall advise Antares of the required quantities of shipped Products, sample Products, Devices and Components that AMAG desires to be retained. Antares shall invoice AMAG for the costs associated with performing these activities.",
+  "temporal": null,
+  "conditions": [],
+  "vague_temporal_phrase": null,
+  "redacted_phrase": null,
+  "known_gaps": [],
+  "adjudicated_by": "reviewer",
+  "annotated_at": "2026-08-21T10:20:25+00:00",
+  "guideline_version": "v0.25",
+  "reviewer_status": "APPROVED",
+  "span_text": "Antares shall invoice AMAG for the costs associated with performing these activities"
+}
