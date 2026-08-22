@@ -48,11 +48,51 @@ def window(clock: FakeClock) -> TokenWindow:
 
 # --- the window ------------------------------------------------------------
 
-def test_calls_under_budget_never_sleep(window, clock):
+def test_unsmoothed_calls_under_budget_never_sleep(clock):
+    """The pure sliding-window behaviour, kept as its own case so the smoothing
+    layer's effect is visible as a difference rather than an assumption."""
+    window = TokenWindow(now=clock.now, sleep=clock.sleep, smooth=False)
     for _ in range(4):
         assert window.reserve(2_000) == 0.0
     assert clock.slept == []
     assert window.in_window() == 8_000
+
+
+def test_smoothing_spreads_calls_instead_of_bursting(window, clock):
+    """Approved 2026-08-22 (b). A pure window admits 4 calls back to back then
+    stalls 60s -- a smaller version of the burst that earned the pilot a 429.
+    Smoothed, the same calls are spaced evenly."""
+    gaps, previous = [], clock.t
+    for _ in range(4):
+        window.reserve(2_000)
+        gaps.append(round(clock.t - previous, 2))
+        previous = clock.t
+    assert gaps[0] == 0.0, "the first call is never delayed"
+    assert all(g > 0 for g in gaps[1:]), f"subsequent calls must be spaced, got {gaps}"
+    assert len(set(gaps[1:])) == 1, f"spacing must be even, got {gaps}"
+
+
+def test_smoothing_does_not_change_total_wall_clock_for_a_tpm_bound_run(clock):
+    """The cost of smoothing is zero: a TPM-bound run takes the same time either
+    way, which is why the burst was removed rather than justified."""
+    def run(smooth: bool) -> float:
+        c = FakeClock()
+        w = TokenWindow(now=c.now, sleep=c.sleep, smooth=smooth)
+        for _ in range(13):
+            w.reserve(2_000)
+            w.reconcile(2_000)
+        return c.t
+    assert run(smooth=True) == run(smooth=False)
+
+
+def test_smoothing_interval_derives_from_the_discovered_ceiling(window):
+    """A lower real ceiling means fewer calls per window and wider spacing --
+    automatically, from the same header the budget comes from."""
+    at_12k = window.min_interval(2_000)
+    window.observe_ceiling({"x-ratelimit-limit-tokens": "6000"})
+    at_6k = window.min_interval(2_000)
+    assert at_6k > at_12k, "a tighter ceiling must widen the spacing"
+    assert at_6k == pytest.approx(at_12k * 2)
 
 
 def test_a_call_that_would_exceed_budget_sleeps_until_the_window_frees(window, clock):

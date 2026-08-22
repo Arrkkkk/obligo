@@ -50,9 +50,11 @@ class TokenWindow:
     safety: float = DEFAULT_SAFETY
     now: Callable[[], float] = field(default=lambda: __import__("time").monotonic())
     sleep: Callable[[float], None] = field(default=lambda s: __import__("time").sleep(s))
+    smooth: bool = True           # spread calls evenly instead of bursting -- see reserve()
     _entries: deque = field(default_factory=deque)   # (timestamp, tokens)
     ceiling_observations: list[int] = field(default_factory=list)
     total_slept: float = 0.0
+    _last_call_at: float | None = None
 
     @property
     def budget(self) -> float:
@@ -82,13 +84,40 @@ class TokenWindow:
             self.ceiling_observations.append(observed)
             self.ceiling = observed
 
+    def min_interval(self, estimate: int) -> float:
+        """Even spacing implied by the budget: at `estimate` tokens per call,
+        budget/estimate calls fit in a 60s window, so they belong 60/(that) apart."""
+        if not self.smooth or estimate <= 0:
+            return 0.0
+        calls_per_window = max(1.0, self.budget / estimate)
+        return WINDOW_SECONDS / calls_per_window
+
     def reserve(self, estimate: int) -> float:
-        """Blocks until `estimate` fits under the budget. Returns seconds slept."""
+        """Blocks until `estimate` fits under the budget AND the smoothing
+        interval has elapsed. Returns seconds slept.
+
+        SMOOTHING (approved 2026-08-22). A pure sliding window is SAFE -- it
+        never exceeds the windowed budget -- but it is bursty: it admits calls
+        back to back until the window fills, then stalls for a full 60s. That
+        sawtooth is a smaller version of the exact pattern that earned the eval
+        pilot a real 429, and nothing has ever verified whether Groq enforces a
+        burst limit separately from the measured TPM ceiling. Spreading calls
+        evenly costs nothing -- a TPM-bound run takes the same wall clock either
+        way -- so the burst is removed rather than assumed harmless.
+        """
         slept = 0.0
+        if self._last_call_at is not None:
+            gap = self.now() - self._last_call_at
+            wait = self.min_interval(estimate) - gap
+            if wait > 0:
+                self.sleep(wait)
+                slept += wait
         while True:
             self._evict()
             if not self._entries or self.in_window() + estimate <= self.budget:
-                self._entries.append([self.now(), estimate])
+                now = self.now()
+                self._entries.append([now, estimate])
+                self._last_call_at = now
                 self.total_slept += slept
                 return slept
             # sleep exactly until the oldest entry leaves the window
