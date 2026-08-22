@@ -1,0 +1,15 @@
+{
+  "segment_id": "E03-005",
+  "doc_id": "E03",
+  "schema": "§21 R6 — NOT_ANNOTATABLE spans, segment-level. A prediction aligning to one of these counts as NEITHER a correct item NOR a false positive (§4.4).",
+  "status": "PARTIAL — this segment's spans are recorded; the other 11 gold segments are not yet done",
+  "not_annotatable": [
+    {
+      "span_char_start": 433,
+      "span_char_end": 665,
+      "span_text": "For clarity, each Order Forecast shall itemize the applicable quantity (i.e., the unit of Drum or naked bottle, but not limited to such unit) of the Product and its placebo (if applicable) for each of Development and Commercial use.",
+      "reason": "Grammatical subject is a document ('each Order Forecast'), not a party, so the clause has no obligor and §3.5 forbids importing one. Reviewer-confirmed 2026-08-22 (B3). Source: batch01/exclusions.json E03-005#itemize -- transcribed from the exclusion log, which §21 R6 records as a partial source for this data.",
+      "exclusion_log_id": "E03-005#itemize"
+    }
+  ]
+}

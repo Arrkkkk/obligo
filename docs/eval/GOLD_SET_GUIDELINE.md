@@ -954,7 +954,15 @@ deadline"* with *"a deadline exists and was withheld from the filing"*. They are
 facts about the document, and untagged they become indistinguishable in criterion 1b and
 criterion 2.
 
-### 8.3 Compound-action duties (v0.15 — REVIEWER-CONFIRMED)
+### 8.3 Compound-action duties (v0.15 — REVIEWER-CONFIRMED; application ratified 2026-08-22)
+
+**Label discrepancy, recorded rather than quietly reconciled.** This section has carried
+*REVIEWER-CONFIRMED* since v0.15, but `C03-02`'s own annotator notes recorded that the ruling
+*"was requested three times and not given"* and treated both the tag and the rule as reversible.
+The two artifacts disagreed. The reviewer ruled on 2026-08-22 (B1) — one item, confirmed — and
+acknowledged the earlier requests had gone unanswered. The rule and its application are now
+genuinely confirmed; the discrepancy is left visible because a label that overstated its own
+authority for thirteen versions is worth being able to find again.
 
 **The rule, as ruled:** *compound action verbs governing one shared, indivisible object
 stay a single item with the full action recorded verbatim; only split when the verbs
