@@ -2891,6 +2891,19 @@ precision (suppress `UNEXPECTED` and report nothing) or to defer scoring entirel
 count with a stated direction of error preserves the signal and names its bias. **It is a
 measured over-count, not an unknown one: the error is one-directional and can only shrink.**
 
+**The exclusion logs are a PARTIAL SOURCE for this data, which reduces the work and makes the
+over-count triageable rather than merely acknowledged (v0.28, G1).** `E03-005` yields one gold
+item, and the batch-1 exclusion log already names two further obligation-bearing clauses in that
+same segment, with reasons: **`E03-005#itemize`** (*"For clarity, each Order Forecast shall
+itemize…"* — logged `NOT AN ITEM (drafter's judgment, reviewer did not rule -- reversible at
+batch review)`) and **`E03-005#discuss`** (cross-reference-dependent). A correct extraction of
+either scores `UNEXPECTED` today. So populating §4.4 data is **partly transcription from the
+exclusion logs**, not wholly fresh judgment — and every `UNEXPECTED` the harness emits carries
+its **span text and offsets** so it can be triaged against the log rather than counted blind.
+
+**`E03-005#itemize` is additionally tracked as a `DRAFTER_JUDGMENT_PENDING_REVIEW` item** — the
+log records that the reviewer never ruled on it and that it is reversible.
+
 **Scheduling, stated so this does not quietly become permanent.** Populating it is annotation
 work over **12 segments**, requiring the same per-item adjudication every gold item received.
 Until it is done, R6's caveat travels with every published `UNEXPECTED` figure, and no precision
