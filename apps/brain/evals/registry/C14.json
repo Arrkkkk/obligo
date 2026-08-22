@@ -1,0 +1,24 @@
+{
+  "doc_id": "C14",
+  "authored": "2026-08-22",
+  "rule": "guideline §21 R3 — every party the source document's own preamble defines, proper names and defined roles alike; never collectives, distributives, relational references, or unnamed third parties",
+  "casing_warning": "§21 R2 — resolve_party() matches `aliases` CASE-SENSITIVELY (`:alias = ANY(aliases)`) and `canonical_name` case-insensitively. Alias entries MUST carry the exact casing as it appears in a span.",
+  "status": "DRAFT — pending reviewer adjudication",
+  "parties": [
+    {
+      "canonical_name": "Nice Systems Ltd.",
+      "aliases": [
+        "NICE",
+        "Nice"
+      ]
+    },
+    {
+      "canonical_name": "Flextronics Israel Ltd.",
+      "aliases": [
+        "CONTRACTOR",
+        "Contractor"
+      ]
+    }
+  ],
+  "annotator_notes": "Both casings of CONTRACTOR/Contractor are registered: the definition uses upper case, the body uses title case, and §21 R2 matches the aliases array CASE-SENSITIVELY. Neither is used by a locked item; registered for correctness."
+}

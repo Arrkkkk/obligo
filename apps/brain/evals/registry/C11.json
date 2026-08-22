@@ -1,0 +1,23 @@
+{
+  "doc_id": "C11",
+  "authored": "2026-08-22",
+  "rule": "guideline §21 R3 — every party the source document's own preamble defines, proper names and defined roles alike; never collectives, distributives, relational references, or unnamed third parties",
+  "casing_warning": "§21 R2 — resolve_party() matches `aliases` CASE-SENSITIVELY (`:alias = ANY(aliases)`) and `canonical_name` case-insensitively. Alias entries MUST carry the exact casing as it appears in a span.",
+  "status": "DRAFT — pending reviewer adjudication",
+  "parties": [
+    {
+      "canonical_name": "Burger King Corporation",
+      "aliases": [
+        "BKC"
+      ]
+    },
+    {
+      "canonical_name": "International Fast Food Polska Sp z o.o.",
+      "aliases": [
+        "Franchisee",
+        "the Franchisee"
+      ]
+    }
+  ],
+  "annotator_notes": "The preamble also defines 'the Principals' ('The party or parties specified as the Principals on SCHEDULE 1'). NOT registered: it is a class of persons, not a named entity, and §21 R3 excludes collectives. This does not affect C11-01, whose obligor ('the executor, administrator, or personal representative of such Principal') would not resolve under either choice. REVIEWER JUDGMENT CALL."
+}

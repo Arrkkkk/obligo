@@ -1,0 +1,36 @@
+{
+  "doc_id": "C17",
+  "authored": "2026-08-22",
+  "rule": "guideline §21 R3 — every party the source document's own preamble defines, proper names and defined roles alike; never collectives, distributives, relational references, or unnamed third parties",
+  "casing_warning": "§21 R2 — resolve_party() matches `aliases` CASE-SENSITIVELY (`:alias = ANY(aliases)`) and `canonical_name` case-insensitively. Alias entries MUST carry the exact casing as it appears in a span.",
+  "status": "DRAFT — pending reviewer adjudication",
+  "parties": [
+    {
+      "canonical_name": "Reynolds Group Holdings Inc.",
+      "aliases": [
+        "RGHI"
+      ]
+    },
+    {
+      "canonical_name": "Reynolds Consumer Products Inc.",
+      "aliases": [
+        "RCP",
+        "the Company",
+        "The Company"
+      ]
+    },
+    {
+      "canonical_name": "Provider",
+      "aliases": [
+        "Provider"
+      ]
+    },
+    {
+      "canonical_name": "Recipient",
+      "aliases": [
+        "Recipient"
+      ]
+    }
+  ],
+  "annotator_notes": "Provider and Recipient are registered as parties IN THEIR OWN RIGHT, not as aliases of RGHI/RCP. The preamble defines them as role designations either party may occupy: 'Each Party or any of its Affiliates providing services hereunder shall be a \"Provider,\" and each Party or any of its Affiliates receiving services hereunder shall be a \"Recipient.\"' Aliasing them to a specific entity would be factually wrong. §21 R3 covers this: the registry holds proper names AND defined roles. REVIEWER JUDGMENT CALL."
+}

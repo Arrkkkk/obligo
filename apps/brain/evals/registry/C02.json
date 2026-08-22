@@ -1,0 +1,22 @@
+{
+  "doc_id": "C02",
+  "authored": "2026-08-22",
+  "rule": "guideline §21 R3 — every party the source document's own preamble defines, proper names and defined roles alike; never collectives, distributives, relational references, or unnamed third parties",
+  "casing_warning": "§21 R2 — resolve_party() matches `aliases` CASE-SENSITIVELY (`:alias = ANY(aliases)`) and `canonical_name` case-insensitively. Alias entries MUST carry the exact casing as it appears in a span.",
+  "status": "DRAFT — pending reviewer adjudication",
+  "parties": [
+    {
+      "canonical_name": "Antares Pharma, Inc.",
+      "aliases": [
+        "Antares"
+      ]
+    },
+    {
+      "canonical_name": "AMAG Pharmaceuticals, Inc.",
+      "aliases": [
+        "AMAG"
+      ]
+    }
+  ],
+  "annotator_notes": "The preamble also mentions 'AMAG USA'. NOT registered: it is an affiliate reference, not a contracting party in the by-and-between clause."
+}
