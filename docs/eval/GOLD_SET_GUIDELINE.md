@@ -1,9 +1,9 @@
 # Obligo Tier-2 Gold Set — Annotation Guideline
 
-**Version:** v0.27 (DRAFT — not yet frozen)
+**Version:** v0.28 (DRAFT — not yet frozen; **no v0.28 rule is adopted** — see §20)
 **Created:** 2026-08-17
 **Status:** **18 items locked** — batch 1 complete (10), batch 2 paused at 8 of 10
-pending the consolidation pass (§19.4). Items stamp guideline versions v0.12–v0.25; the
+pending the consolidation pass (§19.4), which is **in progress, not complete** (§20). Items stamp guideline versions v0.12–v0.25; the
 §10 conforming pass has **not** run. *(This line read "No items have been annotated
 against this document yet" from v0.1 through v0.25 — false from 2026-08-19 onward,
 corrected at v0.26; see §19.3.)*
@@ -87,6 +87,11 @@ found while running the consolidation sweep: the conforming-debt count is **154 
 pairs, not 127** (v0.26 counted version *bumps*, but v0.16, v0.17 and v0.21 each introduced
 two rules), and the sweep's own result is recorded — **139 of the 154 clear mechanically, 15
 need a reviewer look** (§19.7).
+**v0.28 change:** **no annotation rule changed.** Consolidation pass in progress; three merges
+identified (M1/M2/M3); one probe run, which surfaced one new gap class and five defects in the
+proposed amendments; no rule adopted yet. Every proposal is held unadopted in §20 and none has
+been written into a rule section. The probe is `apps/brain/evals/probes/E05-019.json`
+(status `PROBE`, excluded from the 100 and from every reported number under §2.1).
 
 *Why v0.8 and not an edit to v0.7:* v0.7 was committed, and every gold item stamps the
 guideline version it was annotated under. Amending a committed version in place would make
@@ -164,7 +169,7 @@ compiler, not the segmenter.
 | :--- | :--- |
 | Definitions, recitals, signature blocks, pure tables | No obligation-bearing sentences |
 | 4+ chained obligations in one sentence | IoU alignment degrades; one failure contaminates the segment |
-| Cross-reference-dependent ("in the manner set forth in Section 12.3") | Genuinely unannotatable at segment scope |
+| Cross-reference-dependent — **the test is scored-field dependence, not presence (v0.28)** | Excluded when **a scored field's value (§5's eight clauses) cannot be determined without resolving the reference** — *"shall be given in writing in the manner set forth in Section 12.3"* leaves the action's manner unknowable. **Mere presence does not exclude**: a cross-reference inside text quoted *verbatim* — in `span_text`, in a `conditions` entry, or in a carve-out dropped under §3.8.1 branch 3 — requires no resolution and is annotatable. *Checked against all six existing cross-reference exclusions (`C04-018`, `C04-118`, `E03-005`, `C05-043`, `C11-079`, `C15-046`): every one is a genuine dependence case and survives this test unchanged, so this writes down existing practice rather than altering it.* |
 | Contains only a party's *right* with no correlative duty | Not an obligation under IR v1's four modalities |
 
 Excluded segments are recorded with their exclusion reason. They are **not** silently
@@ -256,78 +261,92 @@ look.
 mechanically: zero occurrences of `for the benefit of`, `to enable`, `on behalf of`, `for the
 account of`. The two rules cover different constructions and are cited separately.
 
-### 3.5.1 Joint obligors — accept-set, not a gap (v0.17)
+**Precedence with §3.5.2 where a span contains both (v0.28).** Where the span contains an
+`on behalf of` phrase, **§3.5.2's carve-out governs**: that party is **obligor-side** and is
+never promoted to `obligee` by this section. If no other party occupies the recipient role,
+`obligee` = `ABSENT`. *Measured: exactly **one** same-clause instance in the 1,547-segment pool
+— `C14-148`, "the Dispute will be submitted to the project manager **on behalf of each party**
+to be escalated" (0.06%). Eleven further co-occurrences were checked and rejected: three
+definitions, three copular `shall be entitled/deemed` constructions, two with an explicit
+by-agent (so this section never fires), and three where the two constructions sit 99–691
+characters apart in different clauses.* Recorded so the two sections' overlap is settled rather
+than re-derived, and so the class is never mistaken for a common one. The paragraph above
+verifies only that **this section's own motivating case** has no benefit marker; it does not
+ask what happens when a sentence has both, which is what this precedence line answers.
 
-**Motivating case** — `C17-066`: *"**The Company and RGHI** will use all commercially
-reasonable efforts to obtain … **from the counterparty** …"* Both parties are bound, but
-toward a **third party**.
+### 3.5.1 The party slot (v0.28 — merged; supersedes the v0.17 joint-obligor rule)
 
-**Distinguish from §8.4's mutual obligation.** The test is whether the co-obligor is also
-the obligee:
+**This test applies to whichever slot is being filled — `obligor` or `obligee`.**
+
+Formed at v0.28 by merging the v0.17 joint-obligor rule, §3.5.1.1's v0.25 disjunctive rule,
+and §8.4.1's value half. All three answered one question — *what string goes in the party
+slot?* — selected by one binary test, and stating them apart produced four different
+`rules_cited` patterns across four locked items of the same shape (`C17-01` §8.4 only,
+`C17-02` §3.5.1 only, `C02-01` both §3.5.1 and §3.5.1.1, `C14-01` three sections).
+
+**Step 1 — does the span name the individual parties filling this slot?**
+
+- **Yes** → the slot holds the **first-named** party. For the **`obligor`** slot,
+  `obligor_accept_set` holds every co-obligor or alternative, verbatim, whether or not it is
+  registry-resolvable. For the **`obligee`** slot there is no accept-set field — measured at
+  joint 0 / disjunctive 3 of 1,547 pool segments and 0 of the 18 locked items (§20.4, F4) — so
+  record the alternatives verbatim in `annotator_notes` instead. Conjunctive (`and`) and
+  disjunctive (`or`) are annotated identically; record which in `annotator_notes`.
+- **No, but a subject is stated** — collective (`the Parties`), distributive (`Each Party`),
+  `both Parties`, or relational (`the other party`, `such parties`) → the slot holds the
+  reference **verbatim**; `obligor_accept_set` is `[]`. `ABSENT` is factually false here: a
+  subject *is* stated, and misusing `ABSENT` makes the item indistinguishable from a genuine
+  absent-party item (§8.4.1's own reasoning, retained).
+- **No party is named at all** → the slot is `ABSENT` (§3.5).
+
+**No `known_gaps` entry in any branch.** The party slot is a field-value question, never an
+item-count one: the obligation is fully representable and the only question is which co-party
+a correct extraction may name, which is exactly what an accept-set decides. Whether a
+*second, reciprocal* duty is lost is a separate question, answered by §8.4's tag, and
+independent of this test — §8.4.1 measured the independence: only **31 of 132 (23%)**
+collective-reference sentences carry any reciprocity marker.
+
+**Non-registry-resolvable values are admitted** (`its Subcontractor`, `the other party`,
+`the executor, administrator, or personal representative`). §3.5's test is **positional** —
+is the alias in the span? — not resolution-based. Whether the value resolves is §3.9's
+question, not this one. The rejected alternative, restricting accept-sets to
+registry-resolvable parties, would score an extraction wrong for faithfully quoting an
+alternative the contract itself offers.
+
+**Distinguish from §8.4's mutual obligation.** The test is whether the co-obligor is also the
+obligee:
 
 | | Mutual (`C17-021`) | Joint (`C17-066`) |
 | :--- | :--- | :--- |
 | Obligee | the co-party | a third party |
 | Duties that exist | **two**, mirror images | **one** |
-| Lost by annotating one | **an entire second obligation** | only *which* co-obligor is named |
+| Lost by annotating one | **an entire second obligation** | only *which* co-party is named |
 | Representable in IR v1 | **No** | **Yes** |
 
-**Rule.** A joint duty is annotated as **one item** with `obligor` set to the
-first-named party and **`obligor_accept_set`** listing every co-obligor. **No `known_gaps` entry
-tag.**
+**Motivating cases, retained from the merged sections:** `C17-066` (*"**The Company and RGHI**
+will use all commercially reasonable efforts to obtain … **from the counterparty**"*) — joint,
+toward a third party. `C02-021` (*"**Antares or its Subcontractor** shall retain sufficient
+quantities …"*) — disjunctive; the document promises a definition of `Subcontractor` it never
+supplies, and the alternative stays in the accept-set anyway. `C04-117` sentence 3 (*"…then
+**the Parties** will negotiate in good faith…"*) — collective, branch 2.
 
-**Why no tag.** Mutual is an *item-count* problem — gold under-counts obligations by one
-per instance, and no accept-set can supply a missing item. Joint is a *field-value*
-problem — the obligation is fully representable, and the only question is which co-obligor
-a correct extraction may name, which is exactly what an accept-set decides. Tagging it
-would assert a v1 limitation that does not exist, and would dilute
-`mutual_obligation`'s count with cases that are not losses.
+### 3.5.1.1 Disjunctive obligors — folded into §3.5.1 at v0.28
 
----
+**Retained as a pointer, not deleted.** `C02-01` cites `3.5.1.1` in its `rules_cited`, and a
+citation must resolve. Its rule — one item, `obligor` holds the first-named alternative,
+`obligor_accept_set` lists every alternative verbatim, no `known_gaps` entry, and
+non-registry-resolvable alternatives are admitted — is now §3.5.1 step 1 branch 1, which
+annotates `and` and `or` identically. The v0.25 reasoning is preserved there: with `and` both
+parties are bound and naming one loses information about the other; with `or` the contract
+itself declines to fix which party performs, so the accept-set records the **contract's own**
+indeterminacy rather than the annotator's.
 
-### 3.5.1.1 Disjunctive obligors — "X **or** Y" (v0.25 — REVIEWER-CONFIRMED)
-
-**Motivating case** — `C02-021`: *"**Antares or its Subcontractor** shall retain sufficient
-quantities of shipped Products … as retained repository samples."*
-
-**Rule.** One item. `obligor` holds the **first-named alternative**; `obligor_accept_set`
-lists **every alternative verbatim**. **No `known_gaps` entry.**
-
-**Why an accept-set, not a tag.** §3.5.1's own test decides it: a co-obligor is a
-**field-value** problem, not an item-count problem — *"the obligation is fully representable,
-and the only question is which co-obligor a correct extraction may name, which is exactly
-what an accept-set decides."* Disjunction is that problem in a **weaker** form: with "and"
-both parties are bound and naming one loses information about the other; with "or" the
-contract itself declines to fix which party performs, so the accept-set records the
-**contract's own** indeterminacy rather than papering over the annotator's. A tag would
-assert an IR v1 limitation that does not exist.
-
-**Distinguish from §8.4 (mutual).** Apply §8.4's test unchanged — is the co-obligor also the
-obligee? At `C02-021` it is not: `Antares` and `its Subcontractor` sit on the **same side** of
-the duty and the obligee is `ABSENT`. Disjunctive obligors are on one side; mutual
-obligations put a party on **both**.
-
-**Non-registry-resolvable alternatives are admitted (sub-choice, decided).** `"its
-Subcontractor"` can never match `symbols.resolve_party()` — and the document **promises** a
-definition it never supplies (*"Antares or its Subcontractor **(defined below)**"*, with zero
-`"Subcontractor" means` entries across 85 occurrences). It stays in the accept-set anyway,
-because §3.5's test is **positional** — is the alias in the span? — not resolution-based, and
-§3.9 already treats unresolved-ness as an honest state rather than an error. The rejected
-alternative, restricting the accept-set to registry-resolvable parties, is recorded here: it
-would score an extraction wrong for faithfully quoting an alternative the contract itself
-offers.
-
-**Document-definedness is NOT what annotation resolves against.** §3.5 is explicit — *"Do not
-infer a party from elsewhere in the document. If it isn't in the span, it's `ABSENT`."* Gold
-annotates the alias **as it appears in the span**. Whether a term is defined elsewhere affects
-only whether `resolve_party()` could match it against the tenant's `parties` registry at
-typecheck time, which is a fact about registered parties, not about the document's own
-definitions.
-
-**Corpus finding recorded in passing, relevant to the not-yet-built defined-terms registry:**
+**Corpus finding retained from v0.25**, relevant to the not-yet-built defined-terms registry:
 of the **six** terms `C02` promises with *"(defined below)"* — `Agreement`, `Device`,
 `Subcontractor`, `Syringes`, `Products`, `Trainers` — only **one** (`Device`) is actually
 defined. A registry built on resolving that promise would find nothing five times out of six.
+
+---
 
 ### 2.3 PII in archived segment text (v0.16)
 
@@ -500,9 +519,10 @@ real information — the same reason §14.1 keeps `AMBIGUOUS` and `UNCERTAIN` st
 | `redacted_clause` | **Whether an obligation exists here at all is unknown.** | An entire clause or sentence is replaced, leaving nothing to read — *"…unless otherwise mutually agreed. \[\*\*\] ."* |
 
 **`redacted_value` — annotate the item.** The obligor, action and object survive, so the
-obligation is real and annotatable. Set the affected field to `null`, `underspecified =
-true` with that field in `missing_fields`, `known_gaps` gains `"redacted_value"`, and the literal
-phrase in `redacted_phrase` (§8.1, unchanged).
+obligation is real and annotatable. Set the affected field to `null`, name that field in
+`missing_fields`, `known_gaps` gains `"redacted_value"`, and record the literal phrase in
+`redacted_phrase` (§8.1). **Do not set `underspecified` on account of the redaction (v0.28)** —
+§3.9's trigger list is closed and a missing temporal is not in it (§15.3).
 
 **`redacted_clause` — do not annotate an item for the redacted clause.** There is no
 obligation to annotate; asserting one would be fabrication, and asserting its absence would
@@ -538,10 +558,121 @@ Do **not** split a single condition string on internal `AND`/`OR` — `ir_compil
 deliberately does not do this, and gold must test what the extractor produces, not ask
 the compiler for behavior it doesn't have.
 
+**What makes a phrase a condition (v0.28 — F8).** A `conditions` entry states a **circumstance
+under which the duty applies**. A phrase that restricts **which instances of the object** are
+covered belongs to the object, not to `conditions`.
+
+**Removal test.** Delete the phrase. If the **duty** now applies in circumstances it previously
+did not → **condition**. If the duty is unchanged and only the **set of things it covers** is
+broader → **object scope**, and it is not a `conditions` entry.
+
+| phrase | verdict |
+| :--- | :--- |
+| *"in connection with any action, suit or other proceeding"* (probe `E05-P1`) | **object scope** — the duty to indemnify is unchanged; only the covered Damages broaden |
+| *"giving any notice required or permitted under this IP Agreement"* (`C22-01`) | **condition** — without it the duty applies to every party at all times |
+| *"upon reasonable notice and approval by TIBCO"* (`E07-01`) | **condition** |
+| *"solely to the extent Miltenyi's exercise of rights … is required"* (`C04-01`) | **condition** |
+
+**This matches the extraction prompt's own field definitions**, which is what gold must predict:
+`prompts/extraction/v2.yaml` asks for `object_raw_text` as *"the literal phrase from span_text
+**naming** that object"* and `condition_raws` as *"a list of literal 'if'-type conditional
+phrases … that this obligation depends on."* A scope modifier on the object is neither, so a
+correct extraction emits it in neither field — and gold annotating it as a condition would score
+a correct extraction wrong on §5's count-sensitive clause 7.
+
+**Verified against every existing entry: all 8 `conditions` entries across the 18 locked items
+pass the removal test as conditions, and none is an object-scope phrase.** The test overturns
+nothing. Measured exposure for the class it settles: obligations carrying an
+`in connection with` / `arising out of` / `relating to` post-modifier occur in **93 pool
+segments (6.0%)**.
+
+### 3.8.1 Routing a trailing qualifier (v0.28)
+
+A qualifier attached to an obligation has **three** possible destinations, and through v0.27
+no rule chose between them: an ordinary `conditions` entry (§3.8); a carve-out dropped from
+`conditions` and tagged (§8.2); or a **second gold item** (§4.3). §8.2 covered exactly one
+marker word. The locked set had already made this choice twice by intuition — `C14-01` routed
+*"(unless an exemption is provided)"* to destination 2, `C04-01` routed *"further provided that
+amounts owed … are actually paid"* to destination 1 — both defensible, neither citable.
+
+**Marker words do not decide the destination.** Apply in order.
+
+**Branch 1 — would this qualifier, standing alone, be an obligation-bearing clause under §2
+and §3.2?** A real deontic undertaking borne by a party — or by an unstated agent under
+§3.5.3 — is a **separate obligation**: split under §4.3 and annotate it as its own item, or log
+it as a §2 exclusion if it fails eligibility alone. It does **not** go in `conditions`.
+
+*Not branch 1:* a future fact about the agreement (§3.2 — *"the Gas shall be deemed 'dry'"*);
+an interpretive or savings provision with a non-party subject (§8.8's class — *"nothing in this
+Section shall limit…"*, *"no such severability shall be effective…"*); a conditional clause
+using the archaic conditional `shall` (*"if a claim shall be made against the other parties"*).
+
+**Branch 2 — does it state a circumstance under which the duty applies?** (affirmative) →
+**one verbatim `conditions` entry** (§3.8). Internal `and`/`or` stays unparsed (§17.2).
+— `C04-01`.
+
+**Branch 3 — does it state a circumstance that removes or narrows the duty?** (negative
+carve-out) → `conditions` does **not** receive it; `known_gaps` gains
+**`exception_unsupported`**; the full carve-out is recorded verbatim in `annotator_notes`; the
+span still contains it per §3.1. — `C14-01`.
+
+**Branch 1 is tested first.** A qualifier carrying its own obligation is an obligation whatever
+marker introduced it, and misfiling one as a condition loses an entire item — the loss §8.4
+already refuses to accept for mutual obligations.
+
+**Why branch 1 delegates rather than applying its own test (F3, §20.4).** Two earlier drafts
+failed. *"Has its own subject and modal"* has a measured **63.3% false-positive rate**
+(hand-classified seeded sample, n=30: 11 genuine against 19 interpretive/definitional).
+*"Predicates a deontic modal of a party subject"* wrongly rejects agentless passives that
+§3.5.3 explicitly admits as obligations. Delegating to §2, §3.2, §3.5.3 and §8.8 — which
+already decide what counts as an obligation-bearing clause — survives both cases and adds no
+fourth independent judgment.
+
+**Why branch 3 drops rather than absorbs.** `packages/ir-spec/SPEC.md` §6: an `UNLESS`
+*"must never be silently dropped, and never silently absorbed into `condition` as if it had
+been an `IF` clause. Silently discarding a legal carve-out is a correctness bug with real
+stakes for a compliance tool."* Gold honours that — the carve-out is neither absorbed nor lost,
+it is tagged and recorded. **The compiler currently does not**; see §8.2.
+
+**Measured, with the limits of the measurement stated.**
+
+| marker | segments | % of pool | occurrences | modal in tail | genuine branch 1 |
+| :--- | --: | --: | --: | --: | :--- |
+| `provided (that / , / , however)` | 159 | **10.3%** | 171 | 128 (74.3%) | **~47 (~27%)**, 95% CI [21.9%, 54.5%] |
+| `unless` | 103 | 6.7% | 109 | 36 (33.0%) | **unmeasured** |
+| `except that / as / for / to the extent` | 119 | **7.7%** | 137 | 62 (45.3%) | **unmeasured** |
+| `subject to` | 175 | 11.3% | 198 | 90 (45.5%) | **unmeasured** |
+
+**Only `provided that` was hand-classified.** The 63.3% false-positive correction is measured
+for that row alone; the other three rows' modal-in-tail figures are **upper bounds, not
+branch-1 estimates**, and must not be quoted as shares. What holds regardless: non-`unless`
+carve-out markers outnumber `unless` roughly **1.85 : 1** by segment across 19–21 of the 28
+documents, and §8.2 covered none of them.
+
 ### 3.9 `underspecified`
 
-`true` when any of: an `ABSENT` party (§3.5); a `DateRef` that cannot resolve; a
-`TriggerRef` that cannot resolve; a business-day (`bd`) duration.
+`true` when **any** of:
+
+1. **a party reference `symbols.resolve_party()` cannot match.** This includes `ABSENT`
+   (§3.5); any collective or distributive reference (§3.5.1 step 1 branch 2); any relational
+   reference (`the other party`, `such parties`); any role description (*"the executor,
+   administrator, or personal representative"*); and any alias absent from the scoring
+   registry (§21).
+2. a `DateRef` that cannot resolve;
+3. a `TriggerRef` that cannot resolve;
+4. a business-day (`bd`) duration.
+
+**`temporal: null` is never a trigger** (§15.3) — `typecheck.py` returns `None` for an absent
+temporal without appending to `missing_fields`, deliberately and by documented design.
+
+**Trigger 1 restates the code; it does not add a rule (v0.28).** `typecheck.py` computes
+`underspecified = bool(missing_fields)`, and `_resolve_party` appends whenever
+`resolve_party()` returns `None` — not when a party is `ABSENT`. `ABSENT` is one input that
+yields `None` among many: **437 of 1,547 pool segments (28.2%) carry a party reference that can
+never resolve.** Because §3.9 is scored (§5 clause 8), gold must predict what a correct
+extraction actually produces; where this section and `typecheck.py` disagree, **the code is
+authoritative and this section is the defect.** The pre-v0.28 wording made `C14-01` and
+`C14-02` guaranteed clause-8 failures and left 11 further items undecidable.
 
 **In v1 this will be true for a large share of real items**, because
 `symbols.resolve_date()` and `resolve_trigger()` unconditionally return `None`. That is a
@@ -561,20 +692,96 @@ A predicted obligation aligns to a gold item when their span offsets overlap wit
 **One predicted span aligns to at most one gold item.** Pairing is greedy by descending
 IoU, and the chosen pairing is recorded with the score.
 
-### 4.3 Multi-obligation sentences
+### 4.3 Multi-obligation sentences (v0.28 — merged with §8.3's test)
+
 *"Vendor shall notify Customer and shall deliver a report within 5 days."*
 
-**Rule:** split into separate items when the sentence has **two distinct governing
-verbs with separately identifiable objects**. Do not split on a compound object of one
-verb ("shall deliver the report and the invoice") — that is one item.
+**Rule: the test is whether the verbs are aspects of one indivisible performance, or
+separate performances.** Object identity is *evidence*, never the criterion.
+
+- **Separate performances** → **two items.** §3.1's span rule applies to each; where the
+  second span cannot carry the shared subject, §8.3.1 governs.
+- **One indivisible performance** → **one item**, primary verb in `action`, the full verb
+  phrase verbatim in `annotator_notes`, and §8.3's `compound_action` tag.
+
+**Worked boundary cases:**
+
+| sentence | verdict | why |
+| :--- | :--- | :--- |
+| *"shall deliver the report and the invoice"* | **one item** | one verb, compound object; both tests agree |
+| *"shall promptly notify and remedy any breach"* | **two items** | shared object but **independent** performances — the case v0.1's object test decided wrongly |
+| *"provide to AT&T, and keep current, an escalation document"* (`C03-02`) | **one item** | two verbs, one indivisible performance |
+| *"shall deduct such taxes … and shall promptly furnish … tax receipts"* (`C14-01`/`C14-02`) | **two items** | separate objects **and** separate performances |
+
+**Why this replaced the v0.1 object test (v0.28).** v0.1 said *"split when the sentence has
+two distinct governing verbs with separately identifiable objects"*; §8.3 (v0.15,
+reviewer-confirmed) said the discriminating test is *"not 'one object or two' on its own"* and
+gave `notify and remedy any breach` as the counter-example. Both were in force and gave
+opposite answers on that sentence. The conflict was latent, not academic: **29 pool segments
+(1.9%), 12 documents** carry one modal governing two coordinated bare verbs over a shared
+object — `manufacture and test all Devices`, `obtain and maintain all necessary licenses`,
+`label and package the Products` — where the two tests diverge. Splitting an indivisible
+performance manufactures two items that are not separable, the same over-mechanical failure
+§17.2 declined for `AND`/`OR` inside one condition.
 
 A gold item that ends up unaligned because the model emitted one merged span is scored
 `MISSED`. That is a real recall finding, not an annotation error.
+
+### 4.3.1 Restated obligations within one segment (v0.28 — F9)
+
+A segment may state the same duty twice, typically flagged `For the avoidance of doubt`,
+`For clarity`, `it being understood`, or `without limiting the foregoing`.
+
+**Step 1 — is it actually a restatement?** It is one **only if every scored field (§5 clauses
+1–8) would be identical**. If **any** differs — a different trigger, a different object
+restriction, a different modality — the two clauses are **distinct obligations** and are
+annotated as two items under §4.3's ordinary treatment. **The marker word is not the test.**
+
+*Demonstrated on the segment that surfaced this rule.* Probe `C06-113` carries two
+`Agent may abandon` clauses, the second flagged *"For the avoidance of doubt"* — and they are
+**not** restatements: the triggers differ (`the conclusion of the Sale or the Designation Rights
+Period` against `the Sale Termination Date or termination of the Designation Rights Period`) and
+so do the objects (`any FF&E **not sold in the Sale**` against `any FF&E **located at a Store
+or, Distribution Center**…`). Neither contains the other, so an instruction to "annotate the
+more complete one" would have had **no referent** — the same defect §8.4.1 found in §8.4's
+*"first-named party"* when the subject was collective. `C06-113` resolves to three distinct
+items and never reaches step 2.
+
+**Step 2 — if it is a genuine restatement:**
+
+- Annotate **one** item, on the span stating the obligation most completely.
+- Mark the redundant span **`NOT_ANNOTATABLE` (§4.4)**, so a prediction aligning to it counts as
+  **neither a correct item nor a false positive**.
+- Record it verbatim, with offsets, in `annotator_notes`.
+
+**No new tag** — §4.4 already carries exactly this semantics, and extending its scope is cheaper
+than a parallel mechanism.
+
+**Why not the alternatives.** *Annotate both* → a model sensibly emitting one candidate per duty
+scores a `MISSED`, a recall loss caused by the contract's redundancy and attributed to
+extraction. *Annotate one and drop the other* → a model emitting the other scores `UNEXPECTED`,
+a false positive for correctly reading the document. Only §4.4's treatment is neutral in both
+directions.
+
+**Measured:** `for the avoidance of doubt` 23 segments (1.5%), `for clarity`/`to be clear` 16
+(1.0%), `it being understood/agreed` 8 (0.5%), `without limiting the foregoing` 15 (1.0%) —
+**62 segments (4.0%) across 16 of 28 documents.** That is the **marker** population and is an
+**upper bound** on step 2's class, not its size: step 1 reclassifies an unknown share as distinct
+obligations, as it does for `C06-113`. The surviving share has **not** been measured.
+
+**STATUS OF STEP 2: UNTESTED — no instance has arisen in any material seen so far**, the same
+footing §8.3's split branch carried until `C14-076` arrived. Step 1 is demonstrated; step 2 is
+logically sound and unexercised, and must not borrow confidence from step 1.
 
 ### 4.4 `NOT_ANNOTATABLE`
 A clause inside an otherwise-good segment that the exclusion rules of §2 would reject on
 its own is labelled `NOT_ANNOTATABLE`. A prediction aligning to it counts as **neither**
 a correct item **nor** a false positive.
+
+**Scope widened at v0.28 (F9).** This label also covers a clause excluded **not** because §2
+would reject it standalone, but because **another span in the same segment already carries the
+same obligation** (§4.3.1 step 2). A restatement is a well-formed obligation and §2 would not
+reject it on its own, so the original wording did not reach it.
 
 ---
 
@@ -585,12 +792,37 @@ An aligned item is `FULLY_CORRECT` iff **all** of the following hold — this is
 
 1. `modality` exact
 2. `action` ∈ `action_accept_set`
-3. `obligor` matches (including `ABSENT` matching `ABSENT`)
-4. `obligee` matches (including `ABSENT` matching `ABSENT`)
+3. `obligor` matches (see the party-comparison rule below)
+4. `obligee` matches (see the party-comparison rule below)
 5. `object_class` ∈ `object_class_accept_set`
 6. `temporal` form matches, **and** amount/unit/date constituents match exactly
 7. `conditions` match as an order-insensitive, count-sensitive set
 8. `underspecified` matches
+
+**The party-comparison rule for clauses 3 and 4 (v0.28).**
+
+- Pipeline emits a **`ResolvedParty`** → the clause passes iff gold's verbatim alias resolves,
+  through the registry's own `canonical_name`/`aliases` matching, to the **same `party_id`**.
+- Pipeline emits an **`UnresolvedParty`** → whitespace-normalized string equality against
+  gold's alias.
+- `ABSENT` matches `ABSENT`.
+
+**Why not compare against the alias the model itself quoted.** It is not available:
+`ast.ResolvedParty` carries only `(party_id, canonical_name)` and discards the span alias, and
+`PipelineResult` retains the `LLMCandidate` **only for rejected and quarantined candidates** —
+a successfully typechecked obligation, the only kind that can score `FULLY_CORRECT`, carries
+neither. Three further reasons, each independently sufficient: clause 3 measures *party
+identity*, not surface form, and the registry's `aliases` array is that accept-set already
+authored (the same principle §3.4/§3.6 apply to `action`/`object_class`); which of two in-span
+mentions a model quotes varies run to run, so path-matching would put §6's sampling
+non-determinism inside a scored clause; and registry matching is **monotone** — adding an alias
+can only turn a fail into a pass — while path-matching moves with model behaviour.
+
+**Named, accepted asymmetry:** a *resolved* party is scored leniently (any registered alias
+passes) and an *unresolved* one strictly (exact string). This tracks a real epistemic
+difference rather than an arbitrary one — a resolved party **is known** to be one entity, while
+two unresolved strings are **not known** to corefer, and asserting they do is the inference
+§3.5 forbids. Same UNRESOLVED-is-honestly-not-yet-known posture the IR itself takes.
 
 `missing_fields` is **reported but excluded** from the predicate.
 
@@ -667,9 +899,10 @@ says; if v1 cannot compile it, that is a measurement, not an annotation error.
 | any trigger-bearing temporal | always `underspecified` (`resolve_trigger()` returns `None`) |
 | `EVERY` + `DURING` composed | `EVERY` only, with a composition warning |
 | `within N <unit> after/from/following` | `UNMAPPABLE_TEMPORAL` — `_WITHIN_RE` requires the preposition `of` (§8.6) |
+| `upon` / `following` / `prior to` / `on` / `at` / `as of` + trigger | `UNMAPPABLE_TEMPORAL` — `_RELATIVE_RE` accepts only `before`/`after`; **133 of 164 trigger-bearing segments rejected** (§8.9) |
 | Mutual/reciprocal duty (both parties bound) | Unrepresentable — one `obligor`, one `obligee`, CHECK they differ (§8.4) |
 | Compound-action duty (two verbs, one object) | Only the primary verb is representable — `action` holds one verb (§8.3) |
-| `UNLESS` / any exception carve-out | **Fails to parse** — v1's grammar has no exception construct at all (§8.2) |
+| `UNLESS` / any exception carve-out | **Does NOT fail to parse on the extraction path (v0.28 correction).** The grammar rejects a literal DSL `UNLESS`, but `ir_compile._build_dsl()` quotes every `condition_raws` entry, so a carve-out arriving as extracted text compiles into an `AtomPredicate` verbatim. The failure is **silent** — a clause-7 `PARTIAL`, or a spuriously `FULLY_CORRECT` item whose carve-out was dropped — not a visible compile failure (§8.2, §3.8.1) |
 | Redacted value (`**`, `[***]`) | Value withheld in the filing; unresolvable by any pipeline stage (§8.1) |
 | Running header/footer spliced mid-sentence | Not a v1 *compiler* gap — a corpus-text gap that lands inside a scored span (§8.7) |
 
@@ -696,9 +929,20 @@ one, but 14.5% of the hard stratum does** — the high-cross-reference documents
 complex commercial agreements that got confidential treatment (C04, C02 and E03 hold 91 of
 the 96).
 
-**Rule.** Annotate the item. Set the affected field to `null`, `underspecified = true` with
-the field named in `missing_fields`, `known_gaps` gains `"redacted_value"`, and record the literal
-redacted phrase in the non-scored `redacted_phrase` field.
+**Rule.** Annotate the item. Set the affected field to `null`, name the field in
+`missing_fields`, `known_gaps` gains `"redacted_value"`, and record the literal redacted phrase
+in the non-scored `redacted_phrase` field.
+
+**`underspecified` is NOT set by this rule (v0.28 — struck).** Through v0.27 this rule said
+*"`underspecified = true` with the field named in `missing_fields`"*, which contradicted
+**three** other rules at once: §3.9's closed trigger list (a missing temporal is not a trigger),
+§14.2's prohibition on using the field for anything outside that list, and §15.3's explicit
+argument that *"annotating `underspecified = true` would make **every** such item fail clause 8
+of the conjunctive predicate automatically — not because extraction was wrong, but because gold
+asserted a capability v1 explicitly declined to build."* `underspecified` follows §3.9 alone,
+from the item's parties, dates, triggers and `bd` durations. `missing_fields` is unaffected: §5
+excludes it from the predicate, and it is the channel that keeps the withheld-versus-absent
+distinction recoverable, which is this rule's actual purpose.
 
 **Why not exclude them.** Excluding redacted segments is the one answer that is clearly
 wrong: at 2.5× concentration in the hard stratum it would deplete exactly the documents
@@ -724,14 +968,41 @@ govern genuinely separate objects.*
 The discriminating test is **not** "one object or two" on its own: *"shall promptly notify
 and remedy any breach"* shares an object yet the performances are independent. The test is
 whether the verbs are **aspects of one indivisible performance** or **separate
-performances**. Splitting the former would manufacture two items that are not actually
-separable — the same over-mechanical failure this project already declined for AND/OR
-inside a single condition (§17.2).
+performances**.
+
+**That test moved to §4.3 at v0.28 and is stated there, once, for both sections.** It was
+duplicated here and in §4.3 in contradictory forms — §4.3 tested object identity, this section
+tested performance identity — and the two gave opposite answers on this section's own
+`notify and remedy` example. §8.3 now governs only the **tag**: when the split decision made
+under §4.3 yields one item, what is recorded about the verb that `action` cannot hold.
 
 `known_gaps: ["compound_action"]` is retained on single items even though the annotation is
 *correct* under this rule: IR v1's `action` still holds one verb, so the field genuinely
 under-records the sentence, and the tag keeps that recoverable from data rather than from
 prose.
+
+**The tag records a loss, and fires only where there is one (v0.28 — F2).**
+
+- Dropped verb maps to a **different** taxonomy verb than `action` → **tag**. *"provide … and
+  keep current"* → `PROVIDE` + `MAINTAIN` (`C03-02`).
+- Both verbs map to the **same** taxonomy verb → **do not tag.** A legal doublet such as
+  *"indemnify and hold harmless"* loses nothing — §8.8 names `hold harmless`→`INDEMNIFY` as
+  defensibly mappable — and tagging it would assert a v1 limitation that does not exist while
+  removing a fully-scoreable item from §9's `len(known_gaps) == 0` denominator. Same objection
+  §3.5.1 raises against tagging joint obligors.
+- Dropped verb is **outside the taxonomy entirely** (*"label and package"*) → it is genuinely
+  lost: tag **`compound_action` and `action_not_in_taxonomy`** (§8.8). Both apply; §9's per-tag
+  counts are non-summable and already say so. Settled here rather than left to be discovered.
+
+**The full verb phrase goes verbatim in `annotator_notes` in every branch, tagged or not** —
+the record of what the sentence said does not depend on whether the tag fires.
+
+**Instances on record:** probe `E05-019` (*"shall be indemnified and held harmless by WHDX and
+11i"*) and `C17-066` (*"shall indemnify and hold harmless the other Party and its Affiliates"*),
+the latter in a locked item's own source segment and found independently of the probe by M2's
+verification sweep. **No corpus-wide rate was measured** — the class's frequency is recoverable
+later from `known_gaps` data once the harness runs, and the refinement's correctness does not
+depend on it: where nothing is lost, a tag recording a loss is simply wrong.
 
 **Open consequence, recorded not resolved:** for the split case, two items drawn from one
 coordinated verb phrase cannot both satisfy §3.1's *minimal contiguous substring*
@@ -918,9 +1189,22 @@ sit in segments excluded under §2, so the first real instance is still ahead.
 
 ### 8.2 `UNLESS`-dependent clauses (v0.10)
 
-IR v1 has **no exception construct at all** — `UNLESS` does not underspecify, it fails to
-parse, by the deliberate freeze decision recorded in `packages/ir-spec/`. A clause whose
-operative meaning sits in an `unless` therefore cannot be represented faithfully.
+IR v1 has **no exception construct at all**, by the deliberate freeze decision recorded in
+`packages/ir-spec/SPEC.md` §6. A clause whose operative meaning sits in an `unless` therefore
+cannot be represented faithfully.
+
+**Correction (v0.28) — the stated v1 behaviour was wrong, and it was tested rather than
+assumed.** Through v0.27 this section said an `UNLESS` *"does not underspecify, it fails to
+parse."* That is true only of the **DSL path**, which extraction never takes. Run against the
+real pipeline, `condition_raws = ["unless an exemption is provided"]` produces a clean
+`Obligation` carrying
+`Condition(predicate=AtomPredicate(raw='unless an exemption is provided'))` — because
+`ir_compile._build_dsl()` quotes every `condition_raws` entry, so the grammar's `UNLESS`
+rejection is never reached. This is exactly what `SPEC.md` §6 forbids — a legal carve-out
+silently absorbed into a condition — and it is an **unfixed production defect**, recorded in
+CLAUDE.md's debt list and tied there to the Normalizer checkpoint. Its consequence for gold:
+`exception_unsupported` items fail **silently**, not loudly, so §15.3's loud-versus-silent
+taxonomy files this class on the wrong side of the line.
 
 **Rule.** Annotate the **carve-out-free reading** with `known_gaps` gains `"unless_unsupported"`,
 and record the full carve-out verbatim in `annotator_notes`.
@@ -942,9 +1226,14 @@ overstatement is always recoverable from the data rather than baked silently int
 other. IR v1's `Obligation` holds exactly one `obligor` and one `obligee`, with a CHECK
 that they differ, so a reciprocal duty **cannot be represented at all**.
 
-**Rule.** Annotate **one** item in the natural reading order (first-named party as
-`obligor`), tag `known_gaps` gains `"mutual_obligation"`, and record in `annotator_notes` that
-the reciprocal direction is structurally unrepresentable.
+**Rule.** Annotate **one** item, tag `known_gaps` gains `"mutual_obligation"`, and record in
+`annotator_notes` that the reciprocal direction is structurally unrepresentable.
+
+**The party *value* is not decided here — §3.5.1 decides it (v0.28).** This section's v0.16
+text said *"first-named party as `obligor`"*, a value instruction inside a tag rule. That
+instruction had no referent when the subject was a collective reference, which is the defect
+§8.4.1 was written to repair; at v0.28 the value logic moved to §3.5.1 and only the tag
+remains here. §8.4 answers one question: **is a second, reciprocal duty lost?**
 
 **Why not two items.** The two duties genuinely *are* separable — different obligor,
 different obligee — so §8.3's "split when genuinely separate" principle points that way.
@@ -974,7 +1263,11 @@ every other available value is blocked by a **stronger, more general** rule:
 | `obligor: ABSENT` | Factually false — a subject **is** stated; `ABSENT` means *not stated*, and misusing it makes the item indistinguishable from a genuine absent-party item |
 | §3.5.1's `obligor_accept_set` | No individual names exist in the span to put in the set |
 
-**Rule.** Annotate `obligor` with the collective reference **verbatim as it appears**
+**Rule — moved to §3.5.1 step 1 branch 2 at v0.28.** This section is retained for its
+measurement table below and its `ABSENT`-is-false reasoning, both of which §3.5.1 cites;
+`C04-02`, `C14-01` and `C14-02` cite `8.4.1` and those citations must resolve. The rule as
+originally written, now living in §3.5.1: annotate the slot with the collective reference
+**verbatim as it appears**
 (`"the Parties"`, `"the parties"`, `"both Parties"`, and the **distributive** `"Each party"`
 / `"Each Party"`), per §3.5's as-it-appears rule. The distributive form was measured
 separately at **4.7% of pool segments** and is covered by the identical rationale: it names
@@ -1037,7 +1330,8 @@ accepted one 59 to 40. Restricted to bare numerals, where §8 cannot explain the
 there are **7 confirmed instances across 7 documents** (`C09`, `C13`, `C14`, `C17`×2,
 `E08`).
 
-**Rule.** `temporal: null`, `underspecified: true`, `known_gaps: ["within_preposition"]`.
+**Rule.** `temporal: null`, `known_gaps: ["within_preposition"]`. **`underspecified` per §3.9 —
+not set by this rule (v0.28 — struck).** Same defect and same reasoning as §8.1's struck clause.
 
 **Why its own tag rather than §8's row.** Different cause, different fix: this is a
 one-word regex widening (`of|after|from|following`), while the parenthetical case is a
@@ -1046,6 +1340,82 @@ gap's measured size with cases that are trivially fixable — and §11's scope d
 being made against that number.
 
 ---
+
+### 8.9 `RELATIVE_TO_TRIGGER` preposition gap (v0.28)
+
+**Motivating case** — probe `E05-019` (`apps/brain/evals/probes/E05-019.json`):
+*"Escrow Agent shall be indemnified and held harmless by WHDX and 11i **upon demand by the
+Escrow Agent**…"*
+
+`ir_compile._RELATIVE_RE` is `^(before|after)\s+(.+)$` — **two prepositions.** Anything else
+falls through all five temporal forms and returns `None` → `UNMAPPABLE_TEMPORAL`, which
+**rejects the whole candidate**, not merely its temporal. Verified against the production
+classifier by execution, not inferred:
+
+| `temporal_raw` | `_classify_temporal` |
+| :--- | :--- |
+| `after the receipt by the Escrow Agent of notice` | `AFTER "the receipt … of notice"` |
+| `after demand` | `AFTER "demand"` |
+| `upon demand by the Escrow Agent` | **`None`** |
+| `immediately upon the termination` | **`None`** |
+
+**Measured across the pool before the rule was written** (§8.6's discipline), trigger-noun
+alternation `receipt|demand|request|termination|expiration|occurrence|delivery|notice|
+execution|completion`:
+
+| preposition | `_RELATIVE_RE` accepts | segments | % of pool |
+| :--- | :--- | --: | --: |
+| **`upon <trigger>`** | **NO** | **92** | **5.9%** |
+| `after <trigger>` | YES | 29 | 1.9% |
+| `prior to <trigger>` | **NO** | 11 | 0.7% |
+| `following <trigger>` | **NO** | 11 | 0.7% |
+| `before <trigger>` | YES | 2 | 0.1% |
+| `on <trigger>` | **NO** | 0 | 0.0% |
+| `at <trigger>` | **NO** | 19 | 1.2% |
+| `as of <trigger>` | **NO** | 3 | 0.2% |
+
+**Accepted 31 segments, rejected 133 — a ratio of 4.29 : 1.**
+
+*Data correction (probe pass 3, `C06-113`): the last two rows were missing from the original
+table, which reported **111 rejected, 3.58 : 1**. `at the conclusion of the Sale` and
+`as of the Sale Termination Date` both return `None` from `_classify_temporal`, confirmed by
+execution. **This is a correction to the evidence, not to the rule** — the rule already reads
+"the direction the **preposition expresses**", with `upon`/`following`/`on`/`prior to` given as
+examples rather than an exhaustive list, so `at` (→ `after`) and `as of` (→ `after`) were always
+covered. The undercount was in the measurement, and it understated the gap by 20%.* For scale, §8.6's
+`within_preposition` gap, which has its own tag and section, was sized at **7** confirmed
+instances. This is the same defect class in the sibling temporal form, an order of magnitude
+larger.
+
+**Rule.** Annotate `RELATIVE_TO_TRIGGER` with the direction the preposition expresses
+(`upon` / `following` / `on` → `after`; `prior to` → `before`) and the trigger verbatim.
+`known_gaps` gains **`relative_trigger_preposition`**. `underspecified` per §3.9 — trigger 3
+fires regardless, since `symbols.resolve_trigger()` returns `None` throughout v1.
+
+**Expected v1 outcome: `UNMAPPABLE_TEMPORAL`, a loud failure** visible in criterion 1b. This
+class sits on §15.3's **loud** side — unlike `exception_unsupported`, which §8.2 records as
+failing silently.
+
+**Why its own tag rather than §8.6's.** Different regex, different cause, different fix:
+§8.6 is `_WITHIN_RE` requiring the preposition `of` *after a duration*; this is `_RELATIVE_RE`
+requiring the phrase to *begin* with `before` or `after`. Filing them together would inflate
+§8.6's measured size with a differently-caused class — the identical objection §8.6 itself
+raised against folding into §8's parenthetical row.
+
+**It also breaks a rule already in force.** §15.5's `"Immediately upon X"` bullet (v0.4,
+still `PENDING CONFIRMATION`, in force since before batch 1) instructs `RELATIVE_TO_TRIGGER`,
+a form the compiler cannot produce for `upon`. Every item annotated under that bullet is a
+guaranteed `MISSED`, and v0.28's decision 6 extends the bullet's reach across the 92-segment
+`upon` class. That is not an argument against decision 6 — it is the reason this gap needs a
+tag, so the loss is countable rather than dissolving into an unattributed `MISSED` count.
+
+**Widening `_RELATIVE_RE` is deferred, not rejected** — the same treatment §11 gave
+`_WITHIN_RE`, and the third time in this consolidation pass that this reasoning has been
+applied (§11's original `_WITHIN_RE` decision; decision 6's rejection of restricting §15.5 to
+compiler-friendly prepositions; here). Revisit only once paired criterion-1b numbers exist.
+Changing the classifier first would tune the compiler to the corpus it is about to be graded
+on and destroy the baseline that makes the widening's value measurable.
+
 
 ## 9. The two criteria have different denominators
 
@@ -1432,11 +1802,60 @@ decision, which buried `PARTIAL`s would not be.
   in `vague_temporal_phrase` as well. Real drafting pairs them often.
 - **Vague qualifier on a non-obligation** ("this Agreement shall terminate immediately upon…")
   → not an item at all; excluded under §3.2's future-fact rule.
-- **"Immediately upon X"** → this is a `RELATIVE_TO_TRIGGER` with direction `after` and
-  trigger `X`, **not** a vague qualifier. The word "immediately" modifies a real trigger, so
-  the timing *is* specified relative to an event. Annotate the temporal form; do not set
-  `vague_temporal_phrase`.
-- **"within a reasonable time"** → vague. `temporal = null`, this rule applies.
+- **Vague quantity + an explicit trigger → the trigger decides the form (v0.28).** Where a
+  vague qualifier is immediately followed by a named triggering event, annotate
+  `RELATIVE_TO_TRIGGER` with that direction and trigger, **and** record the vague word in
+  `vague_temporal_phrase`. The timing *is* specified relative to an event; only its offset is
+  vague.
+  - *"within a reasonable time after the Principal's death or mental incapacity"* (`C11-01`)
+    → `RELATIVE_TO_TRIGGER(after, "the Principal's death or mental incapacity")`,
+    `vague_temporal_phrase: "within a reasonable time"`.
+  - *"Promptly after the receipt … of notice"* → `RELATIVE_TO_TRIGGER(after, "the receipt …
+    of notice")`, `vague_temporal_phrase: "Promptly"`.
+  - *"Immediately upon X"* → `RELATIVE_TO_TRIGGER(after, "X")`,
+    `vague_temporal_phrase: "Immediately"`.
+- **"within a reasonable time"**, with **no** trigger → vague. `temporal = null`, §15.2
+  applies, unchanged.
+
+**This generalizes the v0.4 `"Immediately upon X"` bullet rather than competing with it.**
+Through v0.27 that bullet and the `"within a reasonable time"` bullet decided the *same*
+sentence differently, and `C11-01`'s own temporal is both — a vague quantity **and** an explicit
+trigger — so the item was resolved by whichever bullet the annotator read first. Measured:
+vague-qualifier-plus-trigger occurs in **22 pool segments (1.4%) across 12 documents**,
+excluding `immediately upon`.
+
+**One consequence of generalizing, stated rather than slipped in:** the v0.4 bullet said *"do
+not set `vague_temporal_phrase`"* for `"Immediately upon X"`. That is now reversed — the
+qualifier is recorded in every branch. `vague_temporal_phrase` is **excluded from the scoring
+predicate** (§15.4), so this changes no score; it makes §15.4's headline count complete rather
+than silently omitting the trigger-bearing cases.
+
+**ACCEPTED RISK (F7, §20.4): the gold answer here is model-quoting-dependent.**
+`ir_compile._WITHIN_RE`/`_RELATIVE_RE` are anchored — `_RELATIVE_RE` is
+`^(before|after)\s+(.+)$` — so what the extractor chooses to quote into `temporal_raw` decides
+whether the correct form is reachable at all. Verified against the production classifier:
+
+| `temporal_raw` the model emits | `_classify_temporal` |
+| :--- | :--- |
+| `after the receipt by the Escrow Agent of notice` | `AFTER "the receipt … of notice"` |
+| `Promptly after the receipt of notice` | **`None`** — `UNMAPPABLE_TEMPORAL` |
+| `within a reasonable time after the death` | **`None`** — `UNMAPPABLE_TEMPORAL` |
+
+Both `"Promptly after…"` and `"after…"` are literal substrings of the span, so the grounding
+gate permits either and the gold answer is reachable **only** if the quote starts at the
+preposition. This is **not** a reason to annotate `null` — §8's standing posture and §11's
+`_WITHIN_RE` decision both hold that a known gap is annotated honestly and measured, never
+avoided — but it must be reported, not discovered in a scoring run.
+
+**This is the second independent instance of a real risk class, not a one-off:** *does the
+extractor's quote start early enough — or late enough — to satisfy a downstream regex or
+grammar anchor?* The first was the leading-subordinate-clause grounding bug (CLAUDE.md's own
+checkpoint: the model drew `span_text` at the main clause while quoting a fronted clause's
+content into `temporal_raw`, and `ground_candidates()` correctly rejected it). Both are
+quote-boundary decisions made by the model that determine whether deterministic downstream code
+can accept the result at all, and neither is detectable by any property test over pure code —
+only by sampling real model output. Standing Principle 6's own limit, arrived at from a second
+direction.
 
 ---
 
@@ -1891,3 +2310,567 @@ false-positive rate with zero true positives**. §2.4's own measured ground trut
 all in `C11`, zero elsewhere — is what exposed it. Corrected to `[b-hj-z]`, after which it
 fires on nothing, correctly: no locked item's segment carries the split-word signature, and
 `C11-01` was already verified clean when §2.4 was written.
+
+
+---
+
+## 20. Pending adjudication (v0.28) — PROPOSED, NOT ADOPTED
+
+**STATUS AT CLOSE (2026-08-22): all 16 items in this section are ruled — 7 consolidation
+decisions and 9 probe findings. Every approved rule has been written into its own rule section
+above; §20.1/§20.2's rows are struck with their rulings, and §20.4 carries the full adjudication
+log with rejected alternatives.** Items may now be stamped `v0.28` once the conforming pass
+(§10) has run against the six affected locked items.
+
+*(Original framing, retained: nothing in this section was in force while it was being
+adjudicated; no rule section was modified until its proposal was individually approved.)* Each entry is adjudicated
+individually and, only if approved, written into its own rule section — at which point it is
+struck from here with the ruling recorded. This mirrors §10's discipline: a version string must
+denote exactly one ruleset, so proposals are quarantined rather than mixed into live text.
+
+Two sources feed this list: the consolidation sweep (§19.7) and the `E05-019` probe, which was
+run against the proposals *before* any were adopted, precisely to find out whether they compose.
+
+### 20.1 Seven proposed amendments (from the consolidation pass)
+
+| # | proposal | touches | status |
+| :-- | :--- | :--- | :--- |
+| M1 | ~~Merge §3.5.1 + §3.5.1.1 + §8.4.1's value half into one slot-neutral party-slot rule~~ **ADOPTED — now §3.5.1** | §3.5.1, §3.5.1.1, §8.4, §8.4.1 | **RULED — approved as written** |
+| M2 | ~~Merge §4.3's and §8.3's splitting tests into one performance-identity test~~ **ADOPTED — now §4.3** | §4.3, §8.3 | **RULED — approved as written** |
+| M3 | ~~Restate §3.9's first trigger …~~ **ADOPTED — §3.9, §5, §21** | §3.9, §3.5, §5, §21 | **RULED — approved, both halves** |
+| 4 | ~~Strike the `underspecified: true` instruction from §8.1 and §8.6~~ **ADOPTED — also §3.7.1, a third instance found on write-in** | §3.7.1, §8.1, §8.6 | **RULED — approved** |
+| 5 | ~~New §3.8.1 — route a trailing qualifier by structure, not by marker word~~ **ADOPTED — §3.8.1, plus §8 table and §8.2 corrected** | §3.8.1, §8, §8.2, §4.3 | **RULED — approved, with (i) and (ii)** |
+| 6 | ~~§15.5 — vague quantity + explicit trigger resolves to `RELATIVE_TO_TRIGGER`~~ **ADOPTED — option (a)** | §15.5 | **RULED — approved (a), F7 recorded** |
+| 7 | ~~Pair A precedence — `on behalf of` governs over §3.5.3's obligee promotion~~ **ADOPTED — one sentence in §3.5.3** | §3.5.2, §3.5.3 | **RULED — approved** |
+
+### 20.2 Seven probe findings (from `E05-019`)
+
+| # | finding | kind | status |
+| :-- | :--- | :--- | :--- |
+| F1 | ~~`RELATIVE_TO_TRIGGER` preposition gap~~ **ADOPTED as §8.9, tag `relative_trigger_preposition`** | new corpus class | **RULED — approved** |
+| F2 | ~~§8.3's `compound_action` tag over-fires on a same-taxonomy-verb doublet~~ **ADOPTED — §8.3 refined, three branches** | defect in an adopted rule | **RULED — (a)** |
+| F3 | ~~Proposed §3.8.1 branch 1 false-positives on `if a claim shall be made`~~ **CONFIRMED — 63.3% FP rate measured; fix (c) delegates to §2/§3.2/§3.5.3/§8.8** | defect in proposal 5 | **RULED — (c)** |
+| F4 | ~~M1 as first drafted is slot-asymmetric — no rule for a collective **obligee** (`such parties`)~~ **Claim partly falsified on test — see §20.4** | defect in proposal M1 | **RULED — (c)** |
+| F5 | ~~M3 leaves `underspecified` undecidable at annotation time~~ **CONFIRMED — registry defined in §21** | defect in proposal M3 | **RULED — (b)** |
+| F6 | ~~§2's cross-reference exclusion does not address a cross-reference inside a dropped carve-out~~ **ADOPTED — §2's row restated as scored-field dependence** | unstated boundary | **RULED — (a)** |
+| F7 | ~~Proposal 6's correctness is model-quoting-dependent~~ **RECORDED as accepted risk in §15.5; second instance of the quote-boundary risk class** | accepted risk in proposal 6 | **RULED — recorded** |
+| F8 | ~~Object-scope post-modifier vs `conditions` entry — no rule decided it~~ **ADOPTED — removal test added to §3.8** | unstated boundary | **RULED — approved** |
+| F9 | **Surfaced by probe pass 3 (`C06-113`, fresh draw).** ~~No rule for an obligation restated within one segment~~ **ADOPTED — §4.3.1; §4.4's scope widened** | new corpus class | **RULED — approved** |
+
+### 20.4 Adjudication log
+
+Each entry is written when the reviewer rules, before the corresponding rule text is drafted.
+
+**F4 — RULED (c), 2026-08-22.** *Slot-neutral prose, no new scored field; alternatives for a
+joint or disjunctive `obligee` are recorded in `annotator_notes`.*
+
+**The finding's original statement was falsified while being tested, and the correction is the
+substantive part of this entry.** F4 first claimed that no rule in adopted v0.27 covered a
+collective **obligee**. That is wrong: §3.5's rule is already slot-neutral — *"Annotate the
+party alias exactly as it appears inside `span_text`"* — and its `ABSENT` branch is scoped to
+*"a party genuinely not stated in the span."* `"such parties"` **is** stated and **is** in the
+span, so §3.5 alone yields `obligee: "such parties"` with no amendment. §8.4.1 exists for the
+obligor slot **only because §8.4 issued a competing instruction** (*"first-named party"*) that
+had no referent for a collective subject; no rule issues a competing instruction for the obligee
+slot, so there was nothing to disambiguate.
+
+**The residual asymmetry is real but small:** the accept-set machinery is obligor-only
+(`obligor_accept_set` is a §1 field; there is no `obligee_accept_set`, and §3.5.1/§3.5.1.1 write
+only the obligor's). Measured over the 1,547-segment pool, obligee position after a dative verb:
+**joint obligee 0 segments; disjunctive obligee 3 (0.2%); collective/relational 9 by the narrow
+dative match.** **Zero of the 18 locked items has a multi-party obligee**, checked mechanically.
+
+**Rejected alternatives, recorded so they are not relitigated.** *(b) full symmetry* — adding
+`obligee_accept_set` to §1 and §5 clause 4 — was rejected as disproportionate at 0.2% and
+because it would deepen an existing schema gap (9 of 10 batch-1 items already lack the
+`obligor_accept_set` key entirely). *(a) reject outright* was rejected because the slot-neutrality
+of the **test** was genuinely arbitrary even though the field asymmetry is now justified.
+The reviewer's stated ground: this is the symmetric application of the principle §3.5.1 already
+established for joint obligors — *"Tagging it would assert a v1 limitation that does not exist"* —
+here, declining to assert a scoring need the corpus does not show.
+
+**Consequence for M1:** step 1 is written slot-neutrally, with the accept-set branch scoped to
+the `obligor` slot and `annotator_notes` carrying the rare obligee case. `E05-P2`'s annotation is
+unchanged under any of the three options.
+
+**M1 — APPROVED as written, 2026-08-22.** *Merged into a new §3.5.1, "The party slot."*
+
+Three sections answered one question — *what string goes in the party slot?* — selected by one
+binary test: **does the span name the individual parties filling this slot?** §3.5.1.1 derived
+itself from §3.5.1 in its own text (*"§3.5.1's own test decides it"*) and gave an identical
+instruction; §8.4.1 was the other branch of the same test, and existed only because §8.4 carried
+a value instruction (*"first-named party"*) with no referent for a collective subject.
+
+**Evidence the split misdirected annotation:** four locked items of the same family cite four
+different rule sets — `C17-01` §8.4 only, `C17-02` §3.5.1 only, `C02-01` §3.5.1 + §3.5.1.1,
+`C14-01` §8.4 + §8.4.1 + §8.3.1. `C17-01` and `C17-02` are the same named-conjunction shape
+citing disjoint rules.
+
+**Cost verified, not assumed: zero field values change.** All 18 locked items were checked
+mechanically; every existing party value is already what the merged rule produces. Four items'
+`rules_cited` normalize to `3.5.1`.
+
+**§3.5.1.1 and §8.4.1 are retained as pointers, not deleted** — `C02-01` cites `3.5.1.1`, and
+`C04-02`/`C14-01`/`C14-02` cite `8.4.1`; a citation must resolve. §8.4.1 keeps its measurement
+table (collective 7.4%, distributive 4.7%, named conjunction 3.2%, `both Parties` 0.2%) and its
+`ABSENT`-is-false reasoning, both cited by the merged §3.5.1. §8.4 keeps only its tag semantics.
+
+**Rejected alternatives.** *Merge §8.4 in too* — rejected as orthogonal, and §8.4.1's own
+measurement establishes the independence: only **31 of 132 (23%)** collective-reference sentences
+carry a reciprocity marker, where a shared predicate would sit near 0% or 100%. *Keep §3.5.1.1
+separate for the `and`/`or` semantics* — the distinction is real but produces no different
+annotator action; retained as a note inside branch 1.
+
+**M2 — APPROVED as written, 2026-08-22.** *§4.3 and §8.3's splitting tests merged into one
+performance-identity test, stated once in §4.3.*
+
+**The two rules genuinely conflicted.** §4.3 (v0.1) tested object identity; §8.3 (v0.15,
+reviewer-confirmed) explicitly repudiated that test — *"not 'one object or two' on its own"* —
+and gave *"shall promptly notify and remedy any breach"* as its counter-example. Run that
+sentence through §4.3 and it is one item; through §8.3, two. Both were in force.
+
+**Measured exposure: 29 pool segments (1.9%), 12 documents** carry the divergent shape
+(`manufacture and test all Devices`, `obtain and maintain all necessary licenses`,
+`label and package the Products`), concentrated in `C02` and `C03` — two documents that
+between them already supplied 6 of the 18 locked items.
+
+**Verification method, stated precisely because the reviewer required it and because the
+condition as originally stated could not be met.** A fully automated comparison of the two
+tests is **impossible**: §8.3's performance-identity test is irreducibly semantic — no detector
+decides whether `label and package` is one performance. What was done instead:
+
+1. *Mechanical, reproducible:* four high-recall coordination detectors run over the **full
+   text of all 12 distinct source segments** behind the 18 locked items. **8 occurrences
+   flagged across 6 segments; 6 segments clear.**
+2. *Manual, shown in full:* each of the 8 classified as inside-an-annotated-clause or not,
+   then both tests applied by hand to those that are.
+
+**Result: exactly 2 of 8 occurrences sit inside an annotated clause — `C03-192`→`C03-02`
+(both tests: one item) and `C14-076`→`C14-01`/`C14-02` (both tests: two items). Both agree.
+Zero locked items require re-annotation.** The other 6 are in clauses no item was drawn from:
+four with non-party or copular subjects, two in undrawn sentences.
+
+**A detector recall gap, disclosed rather than quietly corrected.** The real `C14-076`
+splitting sentence — *"Each party shall deduct such taxes … **and shall** promptly furnish …"* —
+was **missed** by the two-modal detector: the text between the two modals is ~148 characters
+against a `{0,140}` window. `C14-076` appears in the flagged list only because a *different*
+coordination in the same segment was caught. Found by checking flagged context against the known
+sentence, then covered manually. Same class as §19.7's `[a-hj-z]` bug: a pattern that passes
+inspection while missing the real case. **An earlier presentation of M2 asserted `C14-01`/
+`C14-02` were verified-agreeing; that conclusion was correct but had been reached by reading,
+and the detector meant to back it had missed that very sentence.**
+
+**F2 corroborated independently of the probe.** Occurrence 5 of the sweep is
+*"shall indemnify and hold harmless the other Party"* in `C17-066` — the **same doublet** as the
+probe's `E05-P1`, in a locked item's own source segment. F2's class (a coordinated pair whose
+verbs collapse to a single taxonomy verb) therefore recurs in the corpus and is not an artifact
+of the one probe segment. Carried forward to F2's adjudication.
+
+**F5 — RULED (b), 2026-08-22.** *The scoring registry contains every party the source
+document's preamble defines — proper names and defined roles alike — and never collectives,
+distributives, relational references, or unnamed third parties. Written into §21 R3.*
+
+**Unlike F4, the claim survived testing.** A grep of the whole guideline for any annotation-time
+rule about what resolves returns only four passing uses of the adjective *"registry-resolvable"*
+inside §3.5.1 — all assuming the concept, none defining membership. `underspecified` is scored
+(§5 clause 8) and must be written at annotation time, so the gap was real.
+
+**The rule was derived from the locked set, not invented.** Nine items assert
+`underspecified: false`, and each is a constraint that *every* alias in it resolves. That set is
+`AT&T, TIBCO, AMAG, Antares, Bellicum, Miltenyi` (proper names) **and**
+`Vendor, Client, Provider, Recipient` (defined roles) — so the locked annotations already
+presuppose that defined roles resolve. Option (c) proper-names-only would flip four further
+items (`C03-01`, `C03-02`, `C17-01`, `E07-01`); option (a) an empty registry would contradict
+all nine and make §9's "share correctly underspecified" 100% by construction.
+
+**Testing F5 surfaced a larger, separate problem, now also resolved.** `ast.ResolvedParty`
+carries `(party_id, canonical_name)` and **discards the span alias**, and `PipelineResult`
+retains the `LLMCandidate` only for rejected/quarantined candidates. So the registry decision
+does not only determine clause 8 — it determines whether **clauses 3 and 4 are evaluable at
+all**, in the opposite direction: every party registered removes an item's alias from the
+comparison. §5 had no rule for this. The party-comparison rule now in §5 closes it; the reasons
+it matches against the registry rather than the model's own resolution path are recorded there.
+
+**M3 — APPROVED, both halves, 2026-08-22.** *§3.9 trigger 1 restated to match
+`typecheck.py`; registry definition and harness requirements in §21; §5 party-comparison rule.*
+
+`typecheck.py` computes `underspecified = bool(missing_fields)` and `_resolve_party` appends on
+`resolve_party() is None`, not on `ABSENT`. **437 of 1,547 pool segments (28.2%)** carry a party
+reference that can never resolve. Consequences on locked items, checked individually:
+`C14-01` and `C14-02` were **guaranteed clause-8 failures** (`false` where the pipeline emits
+`true`); `E03-01` is guaranteed-wrong in the intended configuration (see decision 4);
+`C11-01`/`C22-01`/`E01-01`/`C04-02` have the right value but understate the reason in
+non-scored `missing_fields`; and **11 further items were undecidable** without a registry rule.
+
+**Rejected alternatives.** *Change the code to match §3.9* — would require `resolve_party` to
+treat an unresolvable-but-stated alias as resolved, inventing a party identity; forbidden by
+Standing Principle 2 and §3.5's positional discipline. *Leave §3.9 and accept the mismatches* —
+three guaranteed failures and eleven undecidable items out of 18. *Drop `underspecified` from
+§5's predicate* — it is the field distinguishing "compiled faithfully" from "resolved", which
+§9 requires precisely because the headline number is misread without it.
+
+**Decision 4 — APPROVED, 2026-08-22.** *The `underspecified: true` instruction struck from
+§8.1, §8.6 **and §3.7.1**.*
+
+**A third instance was found while writing the approved change in.** The decision was put to the
+reviewer as §8.1 and §8.6; a grep for every instruction setting the field showed §3.7.1 carries a
+verbatim copy of §8.1's clause. Same defect, same fix, struck at the same time and recorded here
+rather than left for a later grep to rediscover. The three *correct* uses of the field — §3.5's
+`ABSENT`-party rule, §3.5.3's passive-obligor rule, §3.9's own explanatory paragraph — were
+checked and left untouched.
+
+**The contradiction was three-way, and §15.3 had already argued it in advance:** *"annotating
+`underspecified = true` would therefore make **every** such item fail clause 8 … not because
+extraction was wrong, but because gold asserted a capability v1 explicitly declined to build."*
+§3.9's trigger list is closed; §14.2 forbids use outside it; `typecheck.py:153` returns `None`
+for an absent temporal without appending to `missing_fields`.
+
+**Live instance: `E03-01`.** Both parties (`Kissei`, `Rigel`) are preamble-defined proper names
+that resolve under §21 R3, and `temporal: null` is never flagged — so the pipeline emits
+`underspecified: false` for a perfect extraction while gold asserted `true`. A guaranteed
+clause-8 failure manufactured entirely by the rule. **`C17-02` carried the same §8.6 instruction
+but was masked**: it is `underspecified: true` anyway via its `ABSENT` obligee, so the defect was
+live on two items and visible on one.
+
+**Rejected alternative: widen §3.9 to flag `temporal: null`.** It contradicts `typecheck.py`'s
+deliberate design, §15.3 rejected it in writing, and it would additionally fail clause 8 on every
+vague-temporal item — §15's measured **12% of segments** — converting a scope decision into a
+silent defect across a far larger class than the two gap rules. The fix stays the size of the
+defect.
+
+**Cost: one scored field changes.** `E03-01` `underspecified` `true` → `false`; it keeps
+`missing_fields: ["temporal"]`, `redacted_phrase`, and its `redacted_value` tag. `C17-02` stays
+`true`, now correctly derived from §3.9 trigger 1 rather than from §8.6.
+
+**Together with M3 this closes all three of M3's flagged clause-8 failures** — `C14-01` and
+`C14-02` by M3's trigger restatement, `E03-01` here.
+
+**F3 — RULED (c), 2026-08-22.** *Branch 1 asks whether the qualifier would stand alone as an
+obligation-bearing clause under §2 and §3.2, delegating to existing rules rather than applying a
+fourth independent test.*
+
+**Confirmed, and not a one-off.** The probe's case — *"if a claim in respect thereof **shall be
+made** against the other parties hereto"* — has a subject and a modal but is a condition:
+non-party subject, archaic conditional `shall`. Conditional subordinator + non-party subject +
+`<modal> be` occurs in **13 pool segments (0.8%)**.
+
+**The figure that originally sized branch 1 was measuring the wrong thing, and is corrected
+here.** *"74.3% of `provided that` occurrences have a modal in the tail"* counts modals, not
+obligations. Hand-classified seeded sample (seed `20260822`, n=30, §8.8's methodology), asking
+of each *"would this clause, standing alone, be an obligation-bearing clause?"*: **11 genuine
+branch-1 against 19 false positives — 36.7%, 95% Wilson CI [21.9%, 54.5%]**. Applied to the
+128-occurrence modal-in-tail population: **~47 genuine, not 128**; as a share of all 171
+`provided that` occurrences, **~27%, not 74.3%.** The v1 test's false-positive rate is **63.3%**.
+The dominant false-positive class is the interpretive provision — *"nothing in this Section shall
+inhibit…"*, *"no such severability shall be effective…"*, *"the foregoing shall not limit…"*.
+
+**A second-order defect in the drafter's own first replacement, found while classifying the
+sample and recorded rather than quietly dropped.** The proposed fix *"predicates a deontic modal
+of a party subject"* fails on *"provided that such display, hanging signs, and interior banners
+**shall be professionally produced and hung**"* — an agentless passive with a non-party subject,
+which **§3.5.3 explicitly admits** as a real obligation with `obligor: ABSENT`. That fix would
+route a genuine obligation into `conditions`, the same error F3 identifies, pointing the other
+way. Option (c) survives both cases because it introduces no new test: it delegates to §2, §3.2,
+§3.5.3 and §8.8, which already decide what counts as an obligation-bearing clause.
+
+**No locked item is affected** — §3.8.1 did not exist when this was ruled; the ruling determines
+the text decision 5 is presented with.
+
+**Decision 5 — APPROVED, 2026-08-22, together with (i) and (ii).** *§3.8.1 added; §8's gap
+table and §8.2's opening corrected to state measured compile behaviour; the underlying
+production defect recorded in CLAUDE.md.*
+
+**The routing gap was real and the locked set had already papered over it twice.** `C14-01`
+sent a negative carve-out to destination 2 citing §8.2; `C04-01` sent an affirmative proviso to
+destination 1 citing §3.8/§17. Both correct, neither citable to a rule that names the test.
+§8.2 covered one marker word; non-`unless` carve-out markers outnumber `unless` **1.85 : 1** by
+segment across 19–21 of the 28 documents.
+
+**Branch 1 delegates to §2/§3.2/§3.5.3/§8.8 rather than applying its own test** — see F3's
+entry for the two drafts that failed and why.
+
+**Tag renamed `unless_unsupported` → `exception_unsupported`**: the class is semantic, not
+lexical. `E01-01` and `C14-01` are re-stamped; no field value changes on either. §8.2 is
+retained as a pointer — both items cite it.
+
+**(i) §8's table row and §8.2's opening corrected.** Both asserted *"fails to parse."* Tested
+against the real pipeline: a carve-out arriving as a `condition_raws` entry compiles cleanly
+into an `AtomPredicate`. The claim was true of the DSL path only, which extraction never takes.
+
+**(ii) The production defect is recorded in CLAUDE.md's debt list**, tied to the Normalizer
+checkpoint, as an unfixed contradiction of `SPEC.md` §6's frozen never-silently-absorb
+principle and the third instance of that pattern. Not gold-set work; recorded so it does not
+live only in a conversation.
+
+**Cost: zero scored fields change.** `E01-01` and `C14-01` re-stamped for the tag rename;
+`C04-01`'s existing condition entry is confirmed and now citable to branch 2.
+
+**Decision 6 — APPROVED, option (a), 2026-08-22.** *Vague quantity + explicit trigger resolves
+to `RELATIVE_TO_TRIGGER`; F7 recorded in §15.5 as an accepted risk.*
+
+**The collision was live in a locked item.** §15.5's `"Immediately upon X"` bullet and its
+`"within a reasonable time"` bullet decided the same sentence differently, and `C11-01`'s
+temporal — *"within a reasonable time after the Principal's death or mental incapacity"* — is
+both. Measured at **22 pool segments (1.4%), 12 documents**, excluding `immediately upon`.
+
+**Option (b) — restrict the rule to prepositions `_RELATIVE_RE` can actually accept — was
+rejected on a principle this guideline has now applied twice.** §11 rejected widening
+`_WITHIN_RE` before measuring, on the ground that it would tune the compiler to the corpus it is
+about to be graded on; §8's standing posture is that a known gap is *"annotated honestly and
+measured, never avoided."* Annotating `temporal: null` because the compiler cannot swallow
+`upon` would hide F1's gap inside a field that looks correct. The principle was applied
+consistently rather than relitigated.
+
+**A consequence recorded rather than slipped in:** generalizing reverses the v0.4 bullet's
+*"do not set `vague_temporal_phrase`"* instruction for `"Immediately upon X"`. The field is
+excluded from §5's predicate (§15.4), so no score changes; §15.4's headline count becomes
+complete instead of silently omitting trigger-bearing cases.
+
+**F7 — RECORDED as an accepted risk, 2026-08-22.** The gold answer is reachable only if the
+extractor quotes `temporal_raw` from the preposition: `after the receipt …` classifies,
+`Promptly after the receipt …` returns `None`. Both are substrings of the span, so the grounding
+gate permits either.
+
+**F7 establishes a risk class, which is why it is recorded rather than merely noted.** It is the
+**second independent instance** of *"does the extractor's quote start early enough to satisfy a
+downstream anchor?"* — the first being the leading-subordinate-clause grounding bug already on
+record in CLAUDE.md. Both are model quote-boundary decisions that determine whether
+deterministic downstream code can accept the output at all; neither is reachable by any property
+test over pure code, only by sampling real model output. That is Standing Principle 6's own
+stated limit, arrived at from a second direction.
+
+**Cost: one locked item changes a scored field.** `C11-01` gains
+`temporal: RELATIVE_TO_TRIGGER(after, "the Principal's death or mental incapacity")` in place of
+`null`, keeping its `vague_temporal_phrase`.
+
+**F1 — APPROVED as §8.9, 2026-08-22.** *New gap class and tag `relative_trigger_preposition`;
+`_RELATIVE_RE` widening deferred, not rejected.*
+
+**The largest single finding of the consolidation pass.** `_RELATIVE_RE` accepts two
+prepositions; `upon`, `following`, `prior to` and `on` fall through to `UNMAPPABLE_TEMPORAL`,
+rejecting the whole candidate. Measured against the real classifier: **111 of 142 trigger-bearing
+segments rejected, 3.58 : 1** — against §8.6's 7 confirmed instances for the sibling defect in
+`_WITHIN_RE`.
+
+**Kept separate from §8.6 rather than folded in**: different regex, different cause, different
+fix. Folding would inflate §8.6's measured size with a differently-caused class — §8.6's own
+objection to being folded into §8's parenthetical row.
+
+**Third consistent application of §11's measure-before-changing principle.** §11 deferred
+widening `_WITHIN_RE`; decision 6 rejected restricting §15.5 to prepositions the compiler can
+already swallow; §8.9 defers widening `_RELATIVE_RE`. The reviewer's note on the record: three
+consistent applications is evidence of a real, stable design principle rather than an ad hoc
+call made once and reused loosely. The one-line widening
+(`before|after|upon|following|prior to|on`) is queued as a named candidate for after criterion
+1b has produced a baseline, not rejected.
+
+**Cost: zero locked items.** No locked item carries an `upon`/`following`/`prior to` trigger
+temporal; probe `E05-P1` already carries the tag provisionally.
+
+**Decision 7 — APPROVED, 2026-08-22.** *One-sentence precedence clarification in §3.5.3:
+`on behalf of` governs, and that party is never promoted to `obligee`.*
+
+**The drafter's earlier estimate of this class was too high and is corrected here.** The party-
+family walkthrough reported *"12 co-occurrences → 6 survive inspection → single-digit, ≤5."*
+That excluded definitions and copular constructions but never checked whether the two
+constructions sit in the **same clause**. Measuring the character gap between them leaves
+**exactly one genuine instance in 1,547 pool segments (0.06%)** — `C14-148`. The other eleven:
+three definitions, three copular, two with an explicit by-agent (so §3.5.3 never fires), three
+99–691 characters apart in different clauses.
+
+**Approved at n=1 on cost asymmetry, not frequency, and the distinction is the reviewer's
+stated ground:** this is not new machinery — no field, no tag, no schema change — it closes an
+ambiguity between **two rules that already exist**, which would otherwise force a full
+re-derivation of the §3.5.2/§3.5.3 boundary the next time anyone hits it. That is a different
+cost category from F4's rejected option (b) (a new scored field plus a migration across 18
+items at 0.2%), and from the low-frequency cases rejected elsewhere in this pass.
+
+**The measurement is stated inline in §3.5.3** so the class is never later cited as common.
+
+**Cost: zero locked items; the probe is unaffected** (`E05-P1` has an explicit by-agent, so
+§3.5.3 never fires on it).
+
+---
+
+**All seven original consolidation decisions are now ruled: M1, M2, M3, the §8.1/§8.6/§3.7.1
+strike, §3.8.1, §15.5, and this.** Probe findings F1, F3, F4, F5 and F7 are ruled. **F2 and F6
+remain open**, followed by the re-run of probe `E05-019` against adopted v0.28.
+
+**F2 — APPROVED (a), 2026-08-22.** *§8.3's `compound_action` tag fires only where a verb is
+actually lost; class-3 co-occurrence with `action_not_in_taxonomy` settled at the same time.*
+
+**Approved without first sizing the class, deliberately.** The reviewer's stated ground: this is
+a correctness fix to an existing tag's false-positive rate, not new scoring infrastructure, so
+the argument — *same taxonomy verb → nothing lost → the tag firing is simply wrong* — does not
+depend on frequency, unlike the earlier low-frequency cases where the rate genuinely decided
+whether new machinery was worth building. The rate is recoverable later from `known_gaps` data.
+
+**A corpus-wide rate was attempted and discarded** — the classifier was defective; see the
+standing note in CLAUDE.md (Standing Principle 7). Two real instances stand on their own: the
+probe's, and `C17-066` in a locked item's own source segment, found independently by M2's sweep.
+
+**Cost: zero locked items.** `C03-02` is `provide`+`keep current` → `PROVIDE`+`MAINTAIN`, two
+different taxonomy verbs, so its tag stays.
+
+**F6 — APPROVED (a), 2026-08-22.** *§2's cross-reference exclusion restated: the test is whether
+a **scored field** depends on resolving the reference, not whether a reference is present.*
+
+**This writes down existing practice; it was verified against the logs, not assumed.** All six
+exclusions citing cross-reference dependence are genuine dependence cases — `C04-018` (scope,
+three places), `E03-005` (temporal), `C04-118` (object/amount), `C05-043` (the primary duty
+qualified), `C15-046` (the action's manner), `C11-079` (the operative proviso). Every one
+survives the narrower test unchanged, so no exclusion is overturned.
+
+**The gap it closes:** **424 of 1,547 pool segments (27.4%)** contain a cross-reference token
+while only 6 of 27 exclusions cite one — so a presence-based reading was never actually being
+applied, but nothing said so, and it left `E05-P1`'s case (a reference inside a §3.8.1 branch-3
+carve-out that reaches no scored field) undecided.
+
+**A self-raised depletion concern, tested and not reproduced.** Because §2.2's hard stratum is
+*defined* by cross-reference density (`xref_pct ≥ 20`), cross-reference exclusions could
+preferentially deplete the documents the 25-item floor protects — §13's and §18.6's failure mode
+through a third mechanism. Measured: cross-reference exclusions split **3 hard / 3 standard**
+against an all-exclusions split of 14/13, and the locked set stands at **6 of 18 hard (33%)**,
+above §2.2's 25% floor. **No depletion at n=18.** Recorded rather than dropped, and flagged for
+**re-check at batch 3** — the floor is a per-100 figure and 18 items is a small sample. If
+anything the amendment cuts against depletion, since it admits segments the ambiguous reading
+might have excluded.
+
+**F8 — APPROVED, 2026-08-22.** *Removal test added to §3.8: a condition states a circumstance
+under which the duty applies; a phrase restricting which instances of the object are covered is
+object scope.*
+
+**Surfaced by the v0.28 re-run, not by the first probe pass** — the first pass produced one new
+class and five defects in the proposed amendments; the second produced this, and no defects.
+
+**Smaller than it first appeared, because the extraction prompt already implies the answer.**
+`prompts/extraction/v2.yaml` defines `object_raw_text` as *"the phrase naming that object"* and
+`condition_raws` as *"'if'-type conditional phrases that this obligation depends on."* A scope
+modifier on the object is neither, so a correct extraction emits it nowhere, and gold annotating
+it as a condition would score a correct extraction wrong on §5's count-sensitive clause 7. The
+rule was never written down because the prompt made it unnecessary — until a segment appeared
+where the phrase was long enough to look like a condition.
+
+**Verified: all 8 `conditions` entries across the 18 locked items pass the removal test as
+conditions; none is an object-scope phrase.** Nothing is overturned. Class size: **93 pool
+segments (6.0%)**, larger than several classes that earned their own rules in this pass.
+
+**Why it needed a rule at all rather than being left to judgment:** `conditions` count is an
+exact-match field, so §14.3 routes any ambiguity to **escalation**, not to an accept-set. At 6.0%
+of segments that is roughly 1–2 items per batch of 10 against §14.4's budget of ≤2 per batch —
+the ambiguity alone would have consumed the escalation budget.
+
+**A residual is tracked in CLAUDE.md's debt list rather than resolved here:** gold's existing
+conditions use several non-`if` markers (`upon`, `As requested by`, `solely to the extent`,
+`provided that`) while the prompt says *"if"-type*. Whether the model actually emits
+`condition_raws` for those markers is unverified against real output and is only checkable by a
+live run.
+
+**F9 — APPROVED, 2026-08-22.** *§4.3.1 added; §4.4's scope widened to cover a span excluded as a
+restatement rather than by §2.*
+
+**Surfaced by probe pass 3** — a seeded random draw (`20260822`) from the 309 eligible segments
+in the 11 never-touched documents, screened against §2 with five rejections logged. Selection
+method was deliberately changed from pass 1's open-rule-coverage scoring, which biases toward
+finding issues adjacent to rules already known.
+
+**The reviewer's proposed treatment was tested against the motivating case and half of it did
+not survive.** *"Annotate the more complete restatement"* presupposes one clause contains the
+other; `C06-113`'s two `may abandon` clauses differ on **two scored fields** (trigger text and
+object restriction) and neither contains the other. Step 1 — the actual-identity test — was added
+in front of the treatment and does the real work: it reclassifies `C06-113` as **three distinct
+obligations**, so the segment that produced this rule never reaches its step 2.
+
+**§4.4 reused rather than a new tag invented.** Annotating both restatements costs a `MISSED`;
+dropping one costs an `UNEXPECTED`; §4.4's "neither correct nor a false positive" is the only
+neutral treatment, and it already existed.
+
+**Step 2 is recorded as UNTESTED.** No instance has arisen in any material seen — the same
+footing §8.3's split branch held until `C14-076`. Its logical soundness must not borrow
+confidence from step 1's demonstration.
+
+**Cost: zero locked items** — no locked segment carries a restatement marker.
+
+### 20.3 What this section does NOT claim
+
+- **Not** that no merges were found. Three were identified (M1, M2, M3); the party-resolution
+  comparison in the consolidation pass is the reasoning for M1 and against merging §3.5.2/§3.5.3
+  and §8.4/§8.4.1.
+- **Not** that discovery is finished. **Three independent probe passes produced three new
+  classes** — F1 (pass 1, `E05-019` against the proposals), F8 (pass 2, `E05-019` against adopted
+  v0.28), F9 (pass 3, `C06-113`, a fresh seeded draw from a never-touched document). The new-class
+  rate did not fall across the three.
+- **What the passes do establish**, and it is the narrower claim: the **defect** rate against the
+  adopted ruleset went **5 → 0 → 0**. Pass 1 broke five of the six proposals it exercised
+  (F2–F5, F7); passes 2 and 3 found none. The fixes hold, including on unseen material from a
+  document type neither earlier pass touched. **"Composes correctly under test" is therefore
+  supported; "complete" is not.**
+- **Not** that the consolidation pass is complete. Seven pre-existing decisions remain open —
+  five rules at `DEFAULT, PENDING CONFIRMATION` (§15 v0.4, §16 v0.5, §17 v0.6, §8.3.1 v0.23,
+  §8.8 v0.24) and two items at `DRAFTER_JUDGMENT_PENDING_REVIEW` (`C03-02`, `C11-01`) — alongside
+  15 of §19.3's 154 re-checks and `SUMMARY.md`'s uncorrected version claim.
+- **Not** that discovery is slowing. §19.2's measurement is unchanged: no evidence of tapering.
+
+---
+
+## 21. Scoring-harness build requirements (v0.28)
+
+**These are build requirements, not notes.** Each was derived from real corpus or real code
+during the consolidation pass, and each has a failure mode that would be attributed to
+extraction quality if it were missed. R5 exists so that R1–R3 cannot be silently violated.
+
+### R1 — one `parties` registry per source document, torn down between documents
+
+`symbols.resolve_party()` returns `None` when its query matches more than one row
+(`len(rows) != 1` — a deliberate *"an ambiguous match is still UNRESOLVED, not a guess"*
+decision). Measured across the 28-document corpus: **`Client` is a defined party role in both
+E02 and E07; `Provider` and `Recipient` in both C17 and E01.** A single shared org registry
+would therefore resolve those three aliases to nothing, flipping locked items **`E07-01`** and
+**`C17-01`** from `underspecified: false` to `true` and failing §5 clause 8 on both — a scoring
+failure caused entirely by harness setup. Mirrors what the eval-harness pilot already did for
+its 2 synthetic parties.
+
+### R2 — alias entries MUST be registered with exact span casing
+
+The production query is:
+
+```sql
+SELECT id, canonical_name FROM parties
+ WHERE lower(canonical_name) = lower(:alias) OR :alias = ANY(aliases)
+```
+
+`canonical_name` is matched **case-insensitively**; the `aliases` array is matched
+**case-sensitively**. Gold stores party aliases verbatim from the span (§3.5), capitalization
+included, so an alias registered in the wrong case silently fails to resolve.
+
+**Concrete failing case:** gold `obligor: "Vendor"`; registry row
+`canonical_name = 'Vendor Inc.'`, `aliases = ['vendor']`. Neither branch matches —
+`lower('Vendor Inc.') ≠ lower('Vendor')`, and `'Vendor' = ANY(['vendor'])` is false — so
+`resolve_party` returns `None`, the item flips to `underspecified: true`, and §5 clause 8 fails
+on an item whose extraction was perfect. Registering `aliases = ['Vendor']` fixes it.
+
+**This affects the `aliases` array only.** An alias that happens to equal `canonical_name` is
+matched case-insensitively and is not exposed to this.
+
+### R3 — registry contents are committed with the harness and published with every number
+
+Per §3.9 trigger 1 and §20.4 (F5, option (b)): the registry holds every party the source
+document's own preamble defines — proper names **and** defined roles — and never collectives,
+distributives, relational references, or unnamed third parties. Whether an item is
+`underspecified` is a function of this fixture, so a published criterion-2 number without its
+registry is not reproducible.
+
+### R4 — clause 3/4 comparison is by `party_id`, not by string, for resolved parties
+
+Implement §5's party-comparison rule exactly. The model's own alias is **not** recoverable from
+`PipelineResult` for a successfully typechecked obligation; do not build a scorer that assumes
+it is.
+
+### R5 — startup self-check, so R1–R3 cannot fail silently
+
+Before scoring any item, the harness MUST assert, for every locked gold item in scope, that
+**each of its `obligor`/`obligee` values resolves iff the item's annotated `underspecified`
+value requires it to.** A mismatch is a **hard startup failure naming the item and the alias**,
+never a scored result. Without R5 every fixture defect in R1–R3 surfaces as a clause-8 failure
+indistinguishable from an extraction error — which is precisely how a harness measures its own
+setup and reports it as model quality.

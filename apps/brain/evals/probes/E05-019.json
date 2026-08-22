@@ -1,0 +1,319 @@
+{
+  "status": "PROBE",
+  "probe_id": "E05-019",
+  "created_at": "2026-08-21T20:36:55+00:00",
+  "not_a_gold_item": {
+    "excluded_from": [
+      "the 100-item gold set",
+      "every reported number",
+      "criterion 1b",
+      "criterion 2"
+    ],
+    "reason": "Selected by the drafter by scoring all 1,547 pool segments for open-rule coverage. Guideline section 2.1 forbids drafter selection of gold items: 'The drafter does not pick which passages become gold items. Discretion at this step is the largest and least visible bias risk in the whole build.' Naming this segment disqualified it from the 100. It is kept on the footing section 11 gives synthetic items: recorded, never scored.",
+    "purpose": "Stress test of the consolidated ruleset proposed after the 2026-08-21 consolidation sweep, run to find out whether the proposed amendments compose under combination."
+  },
+  "annotated_under": {
+    "adopted_guideline_version": "v0.27",
+    "plus_proposed_amendments_NOT_ADOPTED": [
+      "M1 - merge of 3.5.1 + 3.5.1.1 + 8.4.1's value half into one subject-naming rule",
+      "M2 - merge of 4.3 and 8.3's splitting tests into one performance-identity test",
+      "M3 - 3.9's first trigger restated as 'resolve_party() returns None'",
+      "3.8.1 - proposed trailing-qualifier routing rule (three branches)",
+      "15.5 fix - vague quantity plus explicit trigger resolves to RELATIVE_TO_TRIGGER",
+      "Pair A precedence - 'on behalf of' governs over 3.5.3's obligee promotion"
+    ],
+    "warning": "NONE of the amendments above is adopted. The field values below were drafted under them and must not be read as annotated under any adopted ruleset. Divergences from adopted v0.27 are marked per item in 'diverges_from_v0_27'."
+  },
+  "source": {
+    "doc_id": "E05",
+    "segment_id": "E05-019",
+    "stratum": "standard",
+    "segment_len_chars": 1387,
+    "segment_text_sha256": "4670ca9349b694b7d038bdf6d7df24458ee548f3f9f2de8493ca71881ea215cc",
+    "corpus_manifest_version": "v0.5",
+    "pool_size_at_draw": 1547
+  },
+  "segment_text": "Escrow Agent shall be indemnified and held harmless by WHDX and 11i upon demand by the Escrow Agent, from and against any claims, demands, losses, damages, liabilities, costs and expenses, including counsel fees and disbursements, (collectively, “Damages”) suffered by the Escrow Agent in connection with any action, suit or other proceeding involving any claim, or in connection with any claim or demand, which in any way directly or indirectly arises out of or relates to this Escrow Agreement, the services of the Escrow Agent hereunder, the monies or other property held by it hereunder or any such Damages, unless such claim arises from an improper disbursement pursuant to Section 3 (c) of this Escrow Agreement. Promptly after the receipt by the Escrow Agent of notice of any demand or claim or the commencement of any action, suit or proceeding, the Escrow Agent shall, if a claim in respect thereof shall be made against the other parties hereto, notify such parties thereof in writing; but the failure by the Escrow Agent to give such notice shall not relieve any party from any liability which such party may have to the Escrow Agent hereunder, except to the extent of actual prejudice demonstrated by such party. The obligations of WHDX and 11i under this Section 5(f) shall survive any termination of this Escrow Agreement and the resignation or removal of the Escrow Agent.",
+  "eligibility_section_2": {
+    "length_200_2000": true,
+    "obligation_bearing_clauses": 2,
+    "born_digital_and_not_section_2_4_ocr_damaged": true,
+    "self_contained": "JUDGMENT_CALL",
+    "self_contained_note": "The segment's only cross-reference ('pursuant to Section 3 (c)') sits inside the carve-out that proposed 3.8.1 branch 3 removes from every scored field, so it cannot affect any scored value. Section 2 does not address a cross-reference located inside a dropped carve-out. Ruled eligible on that basis; see finding 6."
+  },
+  "items": [
+    {
+      "item_id": "E05-P1",
+      "span_char_start": 0,
+      "span_char_end": 717,
+      "span_text": "Escrow Agent shall be indemnified and held harmless by WHDX and 11i upon demand by the Escrow Agent, from and against any claims, demands, losses, damages, liabilities, costs and expenses, including counsel fees and disbursements, (collectively, “Damages”) suffered by the Escrow Agent in connection with any action, suit or other proceeding involving any claim, or in connection with any claim or demand, which in any way directly or indirectly arises out of or relates to this Escrow Agreement, the services of the Escrow Agent hereunder, the monies or other property held by it hereunder or any such Damages, unless such claim arises from an improper disbursement pursuant to Section 3 (c) of this Escrow Agreement",
+      "modality": "MUST",
+      "action": "INDEMNIFY",
+      "action_accept_set": [
+        "INDEMNIFY",
+        "REIMBURSE"
+      ],
+      "obligor": "WHDX",
+      "obligor_accept_set": [
+        "WHDX",
+        "11i"
+      ],
+      "obligee": "Escrow Agent",
+      "object_class": "indemnified_damages",
+      "object_class_accept_set": [
+        "indemnified_damages",
+        "damages",
+        "losses",
+        "claims_and_damages",
+        "indemnification"
+      ],
+      "temporal": {
+        "form": "RELATIVE_TO_TRIGGER",
+        "direction": "after",
+        "trigger": "demand by the Escrow Agent"
+      },
+      "conditions": [],
+      "underspecified": true,
+      "missing_fields": [
+        "temporal.trigger"
+      ],
+      "vague_temporal_phrase": null,
+      "redacted_phrase": null,
+      "known_gaps": [
+        "exception_unsupported",
+        "relative_trigger_preposition"
+      ],
+      "annotator_confidence": "AMBIGUOUS",
+      "rules_cited": [
+        "3.1",
+        "3.2",
+        "3.4",
+        "3.5",
+        "3.5.1",
+        "3.7",
+        "3.9",
+        "8.3",
+        "8.8",
+        "3.8.1"
+      ],
+      "annotator_notes": "Passive WITH a by-agent ('by WHDX and 11i'), so 3.5.3 does not fire and the obligee comes from the ordinary subject position via 3.5's positional rule -- this is the Pair A boundary resolving correctly. Dropped verb: 'held harmless', which section 8.8 names as defensibly mappable to INDEMNIFY. Carve-out recorded verbatim and excluded from conditions per proposed 3.8.1 branch 3: 'unless such claim arises from an improper disbursement pursuant to Section 3 (c) of this Escrow Agreement'. 'relative_trigger_preposition' is a NEW tag proposed by this probe, not an existing one.",
+      "diverges_from_v0_27": [
+        "known_gaps would be ['unless_unsupported'] under v0.27; 'exception_unsupported' is the proposed rename",
+        "'relative_trigger_preposition' does not exist in v0.27",
+        "under v0.27 section 8.3, this item would also carry 'compound_action'; see finding 2"
+      ]
+    },
+    {
+      "item_id": "E05-P2",
+      "span_char_start": 719,
+      "span_char_end": 994,
+      "span_text": "Promptly after the receipt by the Escrow Agent of notice of any demand or claim or the commencement of any action, suit or proceeding, the Escrow Agent shall, if a claim in respect thereof shall be made against the other parties hereto, notify such parties thereof in writing",
+      "modality": "MUST",
+      "action": "NOTIFY",
+      "action_accept_set": [
+        "NOTIFY",
+        "REPORT"
+      ],
+      "obligor": "the Escrow Agent",
+      "obligor_accept_set": [],
+      "obligee": "such parties",
+      "object_class": "claim_notice",
+      "object_class_accept_set": [
+        "claim_notice",
+        "notice",
+        "written_notice",
+        "indemnification_notice"
+      ],
+      "temporal": {
+        "form": "RELATIVE_TO_TRIGGER",
+        "direction": "after",
+        "trigger": "the receipt by the Escrow Agent of notice of any demand or claim or the commencement of any action, suit or proceeding"
+      },
+      "conditions": [
+        "if a claim in respect thereof shall be made against the other parties hereto"
+      ],
+      "underspecified": true,
+      "missing_fields": [
+        "obligee",
+        "temporal.trigger"
+      ],
+      "vague_temporal_phrase": "Promptly",
+      "redacted_phrase": null,
+      "known_gaps": [],
+      "annotator_confidence": "AMBIGUOUS",
+      "rules_cited": [
+        "3.1",
+        "3.2",
+        "3.4",
+        "3.5",
+        "3.6",
+        "3.8",
+        "3.9",
+        "15.2",
+        "15.5",
+        "17.1",
+        "17.2",
+        "3.8.1"
+      ],
+      "annotator_notes": "Obligee 'such parties' is a collective reference and is never registry-resolvable; 8.4.1 covers collective OBLIGORS only, so no adopted rule covers this slot -- see finding 4. The temporal is reachable by the pipeline only if the extractor quotes from 'after the receipt...' rather than from 'Promptly after...'; both are substrings of the span, so the grounding gate permits either -- see finding 7.",
+      "diverges_from_v0_27": [
+        "temporal would be null under adopted section 15.2; RELATIVE_TO_TRIGGER is the proposed 15.5 fix",
+        "underspecified would be false under v0.27 (15.3); true here because the trigger is unresolvable and the obligee is not registry-resolvable"
+      ]
+    }
+  ],
+  "not_annotatable_section_4_4": [
+    {
+      "span_char_start": 996,
+      "span_char_end": 1223,
+      "span_text": "but the failure by the Escrow Agent to give such notice shall not relieve any party from any liability which such party may have to the Escrow Agent hereunder, except to the extent of actual prejudice demonstrated by such party",
+      "reason": "Non-party subject ('the failure'); section 8.8's own classification treats these as not obligation clauses."
+    },
+    {
+      "span_char_start": 1225,
+      "span_char_end": 1386,
+      "span_text": "The obligations of WHDX and 11i under this Section 5(f) shall survive any termination of this Escrow Agreement and the resignation or removal of the Escrow Agent",
+      "reason": "Section 3.2 future-fact rule; subject is 'The obligations', a non-party."
+    }
+  ],
+  "findings": [
+    {
+      "id": 1,
+      "status": "UNADJUDICATED",
+      "kind": "new_corpus_class",
+      "summary": "RELATIVE_TO_TRIGGER preposition gap: _RELATIVE_RE is ^(before|after), so 'upon X', 'prior to X', 'following X' all fail to classify and reject the whole candidate as UNMAPPABLE_TEMPORAL.",
+      "evidence": "Verified against the production classifier ir_compile._classify_temporal: 'upon demand by the Escrow Agent' -> None; 'immediately upon the termination' -> None; 'after the receipt by the Escrow Agent of notice' -> AFTER. Same shape as section 8.6's within_preposition gap.",
+      "also_affects": "Section 15.5 already rules that 'immediately upon X' is a RELATIVE_TO_TRIGGER, a form the compiler cannot produce. Every item annotated under that ruling is a guaranteed MISSED. Section 15 is v0.4, PENDING CONFIRMATION."
+    },
+    {
+      "id": 2,
+      "status": "UNADJUDICATED",
+      "kind": "defect_in_adopted_rule",
+      "summary": "Section 8.3's compound_action tag over-fires on a legal doublet whose verbs map to the SAME taxonomy verb.",
+      "evidence": "'indemnified and held harmless' -> both map to INDEMNIFY (section 8.8's own worked example). Nothing is lost, so there is no gap, yet the tag would fire and via section 9 remove a fully-scoreable item from the without-gaps denominator.",
+      "proposed_refinement": "Tag compound_action only when the dropped verb maps to a DIFFERENT taxonomy verb than the one recorded."
+    },
+    {
+      "id": 3,
+      "status": "UNADJUDICATED",
+      "kind": "defect_in_proposed_rule",
+      "summary": "Proposed 3.8.1 branch 1 ('has its own subject and modal') false-positives on conditional clauses using the archaic conditional 'shall'.",
+      "evidence": "'if a claim in respect thereof shall be made against the other parties hereto' fires branch 1 but is a condition, not an obligation: non-party subject ('a claim'), non-deontic modal. The 74.3% modal-in-tail measurement that sized branch 1 therefore overestimates its share.",
+      "proposed_refinement": "Branch 1 requires the qualifier to predicate a DEONTIC modal of a PARTY subject, not merely to contain a modal."
+    },
+    {
+      "id": 4,
+      "status": "UNADJUDICATED",
+      "kind": "defect_in_proposed_rule",
+      "summary": "M1 is slot-asymmetric: it supplies a collective branch for obligor (inherited from 8.4.1) but none for obligee.",
+      "evidence": "E05-P2's obligee is 'such parties', a collective reference with no rule in adopted v0.27 or in M1 as proposed.",
+      "proposed_refinement": "State M1's subject-naming test slot-neutrally."
+    },
+    {
+      "id": 5,
+      "status": "UNADJUDICATED",
+      "kind": "defect_in_proposed_rule",
+      "summary": "M3 does not let the annotator decide underspecified at annotation time; publishing the registry is a reporting fix, not an annotation rule.",
+      "evidence": "'Escrow Agent' is a defined-term role. Whether resolve_party() matches it is undetermined by any written rule, yet underspecified is a scored field (section 5 clause 8).",
+      "proposed_refinement": "The scoring registry contains every party the source document's own preamble defines -- proper names and defined roles alike -- and never collectives, distributives, relational references, or unnamed third parties. Checked against all 18 locked items."
+    },
+    {
+      "id": 6,
+      "status": "UNADJUDICATED",
+      "kind": "unstated_boundary",
+      "summary": "Section 2's cross-reference exclusion does not address a cross-reference located inside a carve-out that is dropped from every scored field.",
+      "evidence": "E05-P1's 'pursuant to Section 3 (c)' sits inside the carve-out that proposed 3.8.1 branch 3 removes. Ruled eligible here; the rule is unwritten either way."
+    },
+    {
+      "id": 7,
+      "status": "UNADJUDICATED",
+      "kind": "accepted_risk_in_proposed_rule",
+      "summary": "The proposed 15.5 fix is model-quoting-dependent.",
+      "evidence": "E05-P2's gold temporal is reachable only if the extractor quotes temporal_raw from 'after the receipt...'; quoting from 'Promptly after...' yields None and rejects the candidate. Both are substrings of the span, so the grounding gate permits either. Same shape as the leading-subordinate-clause finding already on record in CLAUDE.md."
+    }
+  ],
+  "measurements": {
+    "note": "Taken before any rule was written, per section 8.6's discipline. Counts are pool segments containing a modal sentence matching the pattern; pool = 1,547 segments from corpus_manifest v0.5. Patterns are recorded so the numbers are reproducible.",
+    "relative_to_trigger_prepositions": {
+      "trigger_noun_alternation": "receipt|demand|request|termination|expiration|occurrence|delivery|notice|execution|completion",
+      "rows": [
+        {
+          "preposition": "upon",
+          "relative_re_accepts": false,
+          "segments": 92,
+          "pct_of_pool": 5.9
+        },
+        {
+          "preposition": "after",
+          "relative_re_accepts": true,
+          "segments": 29,
+          "pct_of_pool": 1.9
+        },
+        {
+          "preposition": "prior to",
+          "relative_re_accepts": false,
+          "segments": 11,
+          "pct_of_pool": 0.7
+        },
+        {
+          "preposition": "following",
+          "relative_re_accepts": false,
+          "segments": 11,
+          "pct_of_pool": 0.7
+        },
+        {
+          "preposition": "before",
+          "relative_re_accepts": true,
+          "segments": 2,
+          "pct_of_pool": 0.1
+        },
+        {
+          "preposition": "on",
+          "relative_re_accepts": false,
+          "segments": 0,
+          "pct_of_pool": 0.0
+        }
+      ],
+      "accepted_union_segments": 31,
+      "rejected_union_segments": 111,
+      "rejected_to_accepted_ratio": 3.58,
+      "comparison": "Section 8.6's within_preposition gap was sized at 7 confirmed instances."
+    }
+  },
+  "v0_28_rerun": {
+    "run_at": "2026-08-22T11:16:11+00:00",
+    "against": "guideline v0.28 with all seven consolidation decisions and six probe findings adopted",
+    "method": "every adopted rule re-applied to the segment from scratch; each field re-derived rather than compared to the provisional draft",
+    "result": "14 of 14 adopted items resolve cleanly; every field value identical to the provisional draft; ONE new unaddressed class surfaced (F8)",
+    "resolved_cleanly": [
+      "§2 eligibility (F6) — cross-ref inside a branch-3 carve-out reaches no scored field -> ELIGIBLE; was JUDGMENT_CALL in the provisional draft",
+      "§4.3 (M2) — 'indemnified and held harmless' is one indivisible performance -> one item",
+      "§8.3 (F2) — both verbs map to INDEMNIFY -> no compound_action tag",
+      "§3.5.1 (M1) — passive WITH by-agent, §3.5.3 does not fire; branch 1 -> obligor 'WHDX', accept_set ['WHDX','11i']",
+      "§3.5.1 (M1, slot-neutral per F4) — obligee 'such parties' on E05-P2 -> branch 2, verbatim, accept_set []",
+      "§3.5.3 (decision 7) — no 'on behalf of' in span; Pair A precedence not engaged",
+      "§8.9 (F1) — 'upon demand by the Escrow Agent' -> _classify_temporal None -> tag relative_trigger_preposition",
+      "§8.9 non-applicability — E05-P2's 'after' IS accepted by _RELATIVE_RE -> correctly no tag",
+      "§15.5 (decision 6) — 'Promptly after the receipt...' -> RELATIVE_TO_TRIGGER + vague_temporal_phrase 'Promptly'",
+      "F7 accepted risk — confirmed live: 'Promptly after...' classifies None, 'after...' classifies AFTER",
+      "§3.8.1 branch 3 (decision 5) — 'unless such claim arises...' dropped, tag exception_unsupported",
+      "§3.8.1 branch 1 (F3) — 'if a claim ... shall be made' correctly NOT branch 1 (non-party subject, archaic conditional) -> branch 2",
+      "§3.9 + §21 R3 (M3, F5) — WHDX/11i/Escrow Agent preamble-defined -> resolve; TriggerRef unresolvable -> underspecified true",
+      "decision 4 — no rule sets underspecified from a missing temporal; it derives from §3.9 alone"
+    ],
+    "new_finding_F8": {
+      "status": "UNADJUDICATED",
+      "summary": "No rule decides whether a post-modifier on the OBJECT noun phrase ('from and against any Damages ... in connection with any action, suit or other proceeding ... which arises out of this Escrow Agreement') is object scope or a `conditions` entry.",
+      "why_no_existing_rule_reaches_it": "§3.8 lists 'verbatim condition phrases' without defining what makes a phrase a condition. §3.8.1 routes TRAILING qualifiers; this is embedded mid-sentence and modifies a noun. §17 presupposes a condition has already been identified.",
+      "scored_impact": "§5 clause 7 is count-sensitive: object-scope reading gives conditions=[], condition reading gives 1-2 entries. Same item, different score.",
+      "measured": {
+        "obligation + 'in connection with'": "63 segments (4.1%)",
+        "obligation + 'arising out of / relating to'": "38 segments (2.5%)",
+        "union": "93 segments (6.0% of the 1,547-segment pool)",
+        "indemnity 'from and against' + scope modifier": "8 segments (0.5%)",
+        "locked items that have faced the standalone choice": "0 of 18 (C04-02 contains such a phrase but inside a clause already annotated as a condition on other grounds)"
+      },
+      "escalation_consequence": "conditions count is an exact-match field, so §14.3 requires ESCALATION rather than an accept-set. At 6.0% of segments roughly 1-2 items per batch of 10 would escalate, against §14.4's budget of <=2 per batch."
+    }
+  }
+}
