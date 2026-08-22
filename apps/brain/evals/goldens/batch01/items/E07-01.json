@@ -43,7 +43,8 @@
     "3.8",
     "3.9"
   ],
-  "guideline_version": "v0.15",
+  "guideline_version": "v0.28",
   "annotator_notes": "First item from E07, the maintenance agreement that replaced the defective E06 -- so it also confirms the replacement yields usable segments. Clean on every field: named obligor and obligee, exact taxonomy verb, fully resolved. Two conditions annotated as SEPARATE entries per section 3.8 (implicit conjunction), not merged into one string. CORPUS FINDING, affects the segment not this item: sentence 2 carries a page-break artifact spliced MID-SENTENCE ('...will perform ongoing ---- 98-9-14 TIBCO Maintenance Agreement Page 3 CONFIDENTIAL INFORMATION ---- system administration...'). The span stops before it. Same artifact class as CUAD's 'Source: ALLIED ESPORTS...' footers; paragraph reconstruction cannot strip either, since the header is genuinely inside the sentence in the source. Segment TEXT quality is a distinct axis from segment STRUCTURE and should be measured before batch 2.",
-  "reviewer_status": "APPROVED"
+  "reviewer_status": "APPROVED",
+  "obligor_accept_set": []
 }

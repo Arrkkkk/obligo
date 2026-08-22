@@ -41,7 +41,8 @@
     "3.6",
     "3.9"
   ],
-  "guideline_version": "v0.14",
+  "guideline_version": "v0.28",
   "annotator_notes": "FIRST CONFIDENT item in the batch: single verb with an exact taxonomy match, named obligor, self-contained, one complete sentence, no cross-reference, redaction, compound action or UNLESS. Nothing sits near a rule boundary. obligee=ABSENT because this sentence names no beneficiary -- AT&T is the obvious real-world beneficiary but appears nowhere in THIS sentence, and section 3.5 forbids importing a party from a neighbouring clause. C03-192 is now exhausted: three duties, three items (C03-01, C03-02, C03-03).",
-  "reviewer_status": "APPROVED"
+  "reviewer_status": "APPROVED",
+  "obligor_accept_set": []
 }

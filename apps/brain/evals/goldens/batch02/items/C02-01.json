@@ -33,7 +33,6 @@
     "3.4",
     "3.5",
     "3.5.1",
-    "3.5.1.1",
     "3.6",
     "3.9",
     "4.4"
@@ -50,7 +49,7 @@
   "known_gaps": [],
   "adjudicated_by": "reviewer",
   "annotated_at": "2026-08-21T10:20:25+00:00",
-  "guideline_version": "v0.25",
+  "guideline_version": "v0.28",
   "reviewer_status": "APPROVED",
   "span_text": "Antares or its Subcontractor shall retain sufficient quantities of shipped Products, sample Products, Devices and Components as retained repository samples as required under the Quality Agreement and Applicable Laws at AMAG's sole cost and expense and as set forth in Exhibit G"
 }

@@ -23,14 +23,16 @@
   "vague_temporal_phrase": null,
   "known_gaps": [
     "mutual_obligation",
-    "unless_unsupported"
+    "exception_unsupported"
   ],
   "rules_cited": [
     "3.1",
     "3.2",
     "3.4",
     "3.5",
+    "3.5.1",
     "3.6",
+    "3.8.1",
     "3.9",
     "4.3",
     "8.2",
@@ -45,12 +47,15 @@
   "segment_text": "8.5. TAXES. Each party shall deduct such taxes from the payments due to the other party hereunder as required by law including withholding taxes (unless an exemption is provided), and shall promptly furnish such other party with appropriate tax receipts. Each party will be solely responsible for any and all taxes imposed thereon, including, without limitation, all income taxes, sales taxes, goods and services taxes. Israel value added tax shall be added, if applicable, to all amounts payable hereunder and will be paid against submission of appropriate tax invoices.",
   "temporal": null,
   "conditions": [],
-  "underspecified": false,
-  "missing_fields": [],
+  "underspecified": true,
+  "missing_fields": [
+    "obligor",
+    "obligee"
+  ],
   "redacted_phrase": null,
   "annotator_confidence": "AMBIGUOUS",
   "adjudicated_by": "reviewer",
   "annotated_at": "2026-08-20T19:48:33+00:00",
-  "guideline_version": "v0.23",
+  "guideline_version": "v0.28",
   "reviewer_status": "APPROVED"
 }

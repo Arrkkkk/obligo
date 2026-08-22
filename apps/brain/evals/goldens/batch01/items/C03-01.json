@@ -40,7 +40,8 @@
     "3.9",
     "14.3"
   ],
-  "guideline_version": "v0.13",
+  "guideline_version": "v0.28",
   "annotator_notes": "FIRST item with underspecified=false and empty missing_fields -- both parties are named resolvable aliases (Vendor, AT&T), unlike the generic 'any Party'/'Each party' of E01-01 and C22-01. Should compile AND typecheck fully resolved: the first real end-to-end happy-path test in the set. Two judgment calls, drafter's judgment, reviewer did not rule on either: (1) segment counted as THREE duties (provide assistance / provide+keep-current escalation document / maintain escalation process), with the 'will not be construed as altering' clause read as interpretive and 'Field Service... will be available on call' as status, following the reviewer's E03-005 precedent. If 'provide to AT&T, and keep current' counts as two duties the segment is FOUR and fails section 2's 1-3 band. (2) The trailing cross-reference 'as set forth in the terms of the Maintenance Addendum' did NOT trigger section 2's cross-reference exclusion, because it qualifies scope detail rather than carrying the operative content -- a narrower reading than was applied to C22-029 and C04-101, where the cross-reference carried the duty itself.",
-  "reviewer_status": "APPROVED"
+  "reviewer_status": "APPROVED",
+  "obligor_accept_set": []
 }

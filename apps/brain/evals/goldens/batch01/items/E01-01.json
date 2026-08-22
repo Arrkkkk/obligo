@@ -24,12 +24,13 @@
   "conditions": [],
   "underspecified": true,
   "missing_fields": [
+    "obligor",
     "obligee"
   ],
   "vague_temporal_phrase": null,
   "redacted_phrase": null,
   "known_gaps": [
-    "unless_unsupported"
+    "exception_unsupported"
   ],
   "annotator_confidence": "AMBIGUOUS",
   "annotated_at": "2026-08-19T20:48:04+00:00",
@@ -38,11 +39,14 @@
     "3.2",
     "3.4",
     "3.5",
+    "3.5.1",
     "3.9",
+    "3.8.1",
     "8.2",
     "14.3"
   ],
-  "guideline_version": "v0.12",
+  "guideline_version": "v0.28",
   "annotator_notes": "Carve-out recorded verbatim per section 8.2: 'unless such waiver, amendment, supplement or modification is in writing and signed by the authorized representative of each Party.' As annotated the obligation is deliberately STRONGER than the contract's -- a flat prohibition where the document permits waiver in signed writing. Three judgment calls, reviewer-approved: (1) 'waived, amended, supplemented or modified' read as ONE obligation with a compound near-synonymous action, not 4 chained obligations, so section 2's 4+ exclusion does not fire; only WAIVE exists in the 34-verb taxonomy. (2) span_text includes the unless clause though the fields encode the carve-out-free reading. (3) obligor 'any Party' is generic and will also return UNRESOLVED_PARTY from typecheck(), so this item exercises two gaps at once.",
-  "reviewer_status": "APPROVED"
+  "reviewer_status": "APPROVED",
+  "obligor_accept_set": []
 }

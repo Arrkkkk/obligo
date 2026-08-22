@@ -29,6 +29,7 @@
   ],
   "underspecified": true,
   "missing_fields": [
+    "obligor",
     "obligee"
   ],
   "vague_temporal_phrase": null,
@@ -44,6 +45,7 @@
     "3.2",
     "3.4",
     "3.5",
+    "3.5.1",
     "3.6",
     "3.7",
     "3.9",
@@ -54,7 +56,7 @@
     "17.1",
     "17.2"
   ],
-  "guideline_version": "v0.19",
+  "guideline_version": "v0.28",
   "annotator_notes": "NEW RULE, section 8.4.1 (created by this item, escalated under section 14.4, adjudicated by the reviewer): COLLECTIVE-REFERENCE mutual obligation. Section 8.4's 'first-named party' instruction has NO REFERENT here -- the span's subject is the collective 'the Parties' and names neither Bellicum nor Miltenyi as the duty-bearer (both appear only as objects of other prepositions). Ruled: obligor holds the collective reference VERBATIM per section 3.5's as-it-appears rule; obligor_accept_set stays empty (no names in the span to accept); known_gap='mutual_obligation' retained, since the tag rather than the obligor value is what keeps the representational gap countable -- which is what section 8.4's own 'why not UNRESOLVED_PARTY' objection was asking for. Alternatives rejected because each breaks a stronger rule: 'Bellicum' violates section 3.5's no-inference rule; ABSENT is factually false since a subject IS stated. DISTINCT FROM batch 1's C17-021, which was NAMED-party mutual ('Provider and Recipient') -- there an extractor has a resolvable alias and gold has a defensible exact-match target; here the span contains nothing resolvable at all, so section 5 clause 3 would otherwise be an exact-match field with no correct answer. MEASURED before the rule was written: collective form is 7.4% of pool segments (132 sentences / 114 segments, 42 hard-stratum), more than double the 3.2% named-conjunction form section 8.4 was written for; ~7 of the 100 gold items proportionally. CONDITIONS: ONE entry per section 17.1's scoping-marker diagnostic -- a single 'If' governs both clauses, joined by a bare 'and' with NO repeated 'if', so the internal 'and' stays inside one verbatim entry (section 17.2). TEMPORAL null: the duty carries no deadline; 'during the Term of this Agreement' sits inside the if-clause and scopes WHEN THE TRIGGER may occur, not when the negotiation must happen -- so it is not this obligation's own temporal and section 8's 'during the Term' UNMAPPABLE row does not apply. obligee ABSENT (section 3.5) drives underspecified=true (section 3.9).",
   "reviewer_status": "APPROVED"
 }

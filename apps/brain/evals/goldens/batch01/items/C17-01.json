@@ -38,12 +38,14 @@
     "3.2",
     "3.4",
     "3.5",
+    "3.5.1",
     "3.6",
     "3.9",
     "8.4",
     "16"
   ],
-  "guideline_version": "v0.16",
+  "guideline_version": "v0.28",
   "annotator_notes": "MUTUAL OBLIGATION (section 8.4): 'Provider and Recipient shall EACH use...' binds both parties reciprocally. Annotated Provider->Recipient in natural reading order; the Recipient->Provider direction is structurally unrepresentable -- IR v1 holds one obligor and one obligee with a CHECK that they differ. FIRST LIVE INSTANCE OF SECTION 16: 'shall use its commercially reasonable efforts' -- the modal 'shall' governs modality (MUST); the efforts qualifier belongs to the action, not the deontic force. NO CLEAN TAXONOMY VERB: the duty is 'prevent the introduction of viruses'; PREVENT is not among the 34 verbs, so ENSURE is a defensible best fit rather than a forced match, with USE defensible since the literal verb is 'use ... efforts'. Note 'Provider'/'Recipient' are the document's OWN defined-term party labels appearing literally in this sentence -- per section 3.5 they are the correct gold answer as they appear, not something to resolve to underlying entity names.",
-  "reviewer_status": "APPROVED"
+  "reviewer_status": "APPROVED",
+  "obligor_accept_set": []
 }

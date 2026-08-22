@@ -51,7 +51,7 @@
     "8.6",
     "16"
   ],
-  "guideline_version": "v0.17",
+  "guideline_version": "v0.28",
   "annotator_notes": "JOINT obligors (section 3.5.1), NOT mutual (section 8.4): 'The Company and RGHI' are both bound but toward the counterparty, a third party -- one duty, no mirror image, fully representable. Handled by obligor_accept_set with NO known_gap. Contrast is visible inside this same segment: its third sentence ('Each Party... shall indemnify and hold harmless the other Party') IS a section 8.4 mutual case. NEW GAP, section 8.6: 'within 24 months following the Commencement Date' fails _WITHIN_RE despite a BARE numeral, because the regex requires the preposition 'of'. Verified against the production regex directly; pool-wide the following word is of=40, after=34, from=17, following=8, so rejected prepositions outnumber the accepted one 59:40. Section 16 efforts qualifier applies again ('will use all commercially reasonable efforts') -- modality MUST from 'will', qualifier belongs to the action.",
   "reviewer_status": "APPROVED"
 }

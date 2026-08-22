@@ -24,7 +24,7 @@
   ],
   "temporal": null,
   "conditions": [],
-  "underspecified": true,
+  "underspecified": false,
   "missing_fields": [
     "temporal"
   ],
@@ -40,13 +40,15 @@
     "3.2",
     "3.4",
     "3.5",
+    "3.6",
     "3.7",
     "3.7.1",
     "3.9",
     "8.1",
     "14.3"
   ],
-  "guideline_version": "v0.13",
+  "guideline_version": "v0.28",
   "annotator_notes": "Redaction is the EMBEDDED shape (section 3.7.1): the clause survives and establishes that a lead-time deadline exists; only its values are withheld, so known_gap=redacted_value, not redacted_clause. Reviewer ruled the segment holds THREE obligation-bearing clauses (provide / itemize / discuss-and-review), with 'shall be non-binding' and 'will be in substantially the form' read as status characterisations rather than duties -- so the segment is eligible under section 2's 1-3 band and yields three items. This is the first. Note the temporal would fail even unredacted: the underlying obligation is recurring-with-lead-time, plausibly EVERY composed with RELATIVE_TO_TRIGGER, which IR v1 cannot represent (section 7 composition gap). Both parties are named and should resolve to real PartyRefs, unlike item E01-01.",
-  "reviewer_status": "APPROVED"
+  "reviewer_status": "APPROVED",
+  "obligor_accept_set": []
 }

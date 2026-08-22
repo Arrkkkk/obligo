@@ -28,6 +28,7 @@
   ],
   "underspecified": true,
   "missing_fields": [
+    "obligor",
     "obligee"
   ],
   "vague_temporal_phrase": null,
@@ -40,11 +41,13 @@
     "3.2",
     "3.4",
     "3.5",
+    "3.5.1",
     "3.8",
     "3.9",
     "14.3"
   ],
-  "guideline_version": "v0.13",
+  "guideline_version": "v0.28",
   "annotator_notes": "First item carrying NO known_gap tag -- should compile end to end without exercising a documented v1 limitation. Two judgment calls, presented to the reviewer and approved by the instruction to continue rather than by explicit item-level sign-off: (1) 'giving any notice required or permitted under this IP Agreement' annotated as a CONDITION rather than folded into the obligor string, on the reading that the duty arises only when a party gives notice; read the other way, obligor is the full phrase and conditions is empty. (2) span ends at 'in writing', excluding ', and shall be deemed to have been duly given:' -- the deeming provision is a separate rule about effectiveness, not part of the duty (section 3.1 minimality). obligor 'Each party' is generic and will return UNRESOLVED_PARTY from typecheck(), same shape as E01-01.",
-  "reviewer_status": "APPROVED"
+  "reviewer_status": "APPROVED",
+  "obligor_accept_set": []
 }
