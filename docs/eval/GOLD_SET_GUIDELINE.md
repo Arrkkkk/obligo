@@ -2866,6 +2866,36 @@ Implement §5's party-comparison rule exactly. The model's own alias is **not** 
 `PipelineResult` for a successfully typechecked obligation; do not build a scorer that assumes
 it is.
 
+### R6 — `UNEXPECTED` is a KNOWN OVER-COUNT until §4.4 spans are annotated (v0.28)
+
+**Every report MUST carry this caveat verbatim until the underlying data exists:**
+
+> *`UNEXPECTED` counts in gold-set scoring reports are a known over-count until
+> `NOT_ANNOTATABLE` spans are annotated for all 12 gold segments (real judgment work, same
+> review discipline as gold items, not yet scheduled).*
+
+**The gap.** §4.4 says a prediction aligning to a `NOT_ANNOTATABLE` span *"counts as **neither**
+a correct item **nor** a false positive"*, and §4.3.1 step 2 relies on that mechanism for
+restatements. But **the item schema has no field for it.** `NOT_ANNOTATABLE` is a *segment*-level
+fact and gold items are stored *item*-level, so there is nowhere to record the excluded clauses.
+Consequently a prediction on any un-annotated clause inside a gold segment scores `UNEXPECTED` —
+a false positive charged to extraction for correctly reading a clause §2 excludes.
+
+**The eventual data shape, decided now so adding it later is additive rather than a rewrite:** a
+per-segment file `goldens/batchNN/segments/<segment_id>.json` carrying
+`[{span_char_start, span_char_end, reason}]`. Segment-level, because the fact is. The scorer
+accepts this input from the outset and simply receives an empty list until it is populated.
+
+**Why the interim state is honest rather than convenient.** The alternatives were to fabricate
+precision (suppress `UNEXPECTED` and report nothing) or to defer scoring entirely. Reporting the
+count with a stated direction of error preserves the signal and names its bias. **It is a
+measured over-count, not an unknown one: the error is one-directional and can only shrink.**
+
+**Scheduling, stated so this does not quietly become permanent.** Populating it is annotation
+work over **12 segments**, requiring the same per-item adjudication every gold item received.
+Until it is done, R6's caveat travels with every published `UNEXPECTED` figure, and no precision
+or false-positive claim may be made from gold-set scoring.
+
 ### R5 — startup self-check, so R1–R3 cannot fail silently
 
 Before scoring any item, the harness MUST assert, for every locked gold item in scope, that
