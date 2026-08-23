@@ -1480,6 +1480,26 @@ recorded here as recommended, pending an explicit decision — it is NOT in forc
 
 ## 10. Versioning and freeze
 
+**PROCESS NOTE — close-out consistency check (added 2026-08-23).** Any session that edits
+this document runs a **header/changelog consistency check before it ends**: re-read the
+`**Version:**` line, the `**Status:**` line, and the newest changelog entry, and confirm each
+still describes the document as it now stands. Mid-pass wording ("in progress", "no rule
+adopted yet", "no items have been annotated") is accurate when written and becomes false the
+moment the pass completes — and nothing in the normal editing flow revisits it.
+
+**This document has carried a false header claim three times.** §19.3 records the first two;
+the third was `v0.28`'s own header and changelog still reading *"no v0.28 rule is adopted"*
+and *"none has been written into a rule section"* after all 16 proposals had been ruled and
+written into live sections — contradicted by §20's own status line and by §3.5.1, §3.8.1 and
+§8.9 sitting in the file. It was caught by the *next* session's verification step, which is
+one session too late.
+
+The check costs a minute. **Live status statements are corrected in place; dated records are
+struck with a superseded marker and kept** — §19.3's distinction, which is what makes this a
+mechanical check rather than a judgment call.
+
+
+
 - v0.1 → amended freely during batches 1–3.
 - **Freeze after batch 3 (30 items).** Batches 1–3 are conformed to the frozen version.
 - Post-freeze amendments require a logged re-check of the amended rule across all prior
