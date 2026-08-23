@@ -155,3 +155,86 @@ and conflating those two questions would let a prompt artefact veto a model.
 - **The `condition_raws` prompt-alignment question** (CLAUDE.md debt). Answerable only
   against gold, during the harness's first real run — deliberately not here, to keep
   selection off the gold set.
+
+---
+
+# RESULTS — run 2026-08-23, 18 calls + 2 diagnostic
+
+**Selection: `openai/gpt-oss-120b`.** It passed all three gating dimensions outright, on
+the exact request shape the production pipeline actually makes.
+
+| model | dim 1 schema | dim 2 grounding survival | dim 3 segments with >=1 | verdict |
+| :--- | :--- | :--- | :--- | :--- |
+| **`openai/gpt-oss-120b`** | **6/6, zero SCHEMA_INVALID** | **9/9 = 100%** | **6/6** | **PASS** |
+| `openai/gpt-oss-20b` | 2/6 | 2/2 on the two that ran | 2/6 | **FAIL** dims 1, 3 |
+| `qwen/qwen3.6-27b` | 2/6 | 2/2 on the two that ran | 2/6 | **FAIL** dims 1, 3 |
+
+`gpt-oss-120b` grounded **every candidate it emitted** — four real contract segments and
+both pilot segments, zero rejections of any reason.
+
+## A GAP IN THESE CRITERIA, recorded rather than reinterpreted
+
+**The pre-committed thresholds did not anticipate a reasoning-model completion-budget
+failure mode distinct from schema invalidity.** The four failures per losing model were
+**HTTP 400, not `SCHEMA_INVALID`** — no response was produced at all:
+
+```
+finish_reason:     length
+completion_tokens: 2048   of which reasoning_tokens: 2046
+content length:    0
+```
+
+All three candidates are reasoning models. They spend completion budget on
+chain-of-thought before emitting content, and the smaller two exhausted an implicit
+**2,048-token completion cap** on the harder real segments before writing anything. They
+succeeded on both pilot segments precisely because those needed less reasoning. The
+request sets no `max_completion_tokens`, and these models have 65,536 available — so the
+failure is arguably a **configuration artefact rather than a capability limit**.
+
+**Scored as FAIL per the literal criteria as written, and the decision is correct
+regardless, because the margin was decisive rather than marginal.** The frozen decision
+rule breaks ties toward the smaller model only *within 5 percentage points*; 100% against
+"could not complete a response" is not a tie that rule was ever meant to arbitrate. A
+re-test under a raised completion cap was considered and rejected: it would have cost
+~8 further calls to rehabilitate a runner-up whose selection was never in question.
+
+**What this gap would change in a future bake-off**: dimension 1 should distinguish
+*"responded with invalid schema"* from *"did not respond"*, and the test harness should
+set an explicit `max_completion_tokens` so reasoning models are not silently
+disadvantaged by an implicit default.
+
+## Dimension 4 — the leading-subordinate-clause fix (diagnostic, non-gating)
+
+`gpt-oss-120b` grounded **both** fronted-clause segments cleanly under v2, with no
+`NESTED_FIELD_NOT_IN_SPAN`. Two readings remain open and this run cannot separate them:
+either v2's wording carries over to this model, or the bug does not occur on it at all
+and v2's instruction is inert. Distinguishing them needs a v1 comparison — a prompt
+question, deliberately not a selection one.
+
+## THREE FINDINGS INDEPENDENT OF WHICH MODEL WON
+
+**1. The real TPM ceiling is 8,000** — not the pilot's measured 12,000, and not blueprint
+§13.3's stated ~6,000. All three figures differ. The limiter **discovered it from the
+first response's headers and re-paced automatically** (`ceiling_observations: [8000,
+8000, ...]`, 428.6s slept across 18 calls). Had it held the pilot's inherited 12,000 it
+would have paced at 1.5x the real ceiling and earned 429s — the adaptive design was not
+theoretical caution, it was load-bearing on its first real use.
+
+**2. `x-ratelimit-limit-requests: 1000` is per MINUTE, not per day** —
+`x-ratelimit-reset-requests: 1m26.4s`. The pilot recorded it as ~14,400/day. At the
+harness's ~3 requests/min this is nowhere near binding, so **no separate RPM pacing is
+needed**; that is now evidenced rather than assumed.
+
+**3. Reasoning tokens dominate cost, by 3-4x.** Measured on the winner: 1,091-1,836
+reasoning tokens against 93-463 tokens of actual content per call.
+
+```
+gpt-oss-120b  C06-106  prompt=1559  reasoning=1836  content= 392
+gpt-oss-120b  C09-008  prompt=1594  reasoning=1362  content=  93
+```
+
+Every token estimate inherited from the retired model understates real cost accordingly,
+including the recorder's own `DEFAULT_TOKEN_ESTIMATE = 2_200` — a full extraction call now
+runs 3,000-3,800 total tokens. The reserve-then-reconcile design absorbs this correctly
+(the reservation is a floor, the window is corrected from real counts), but the estimate
+should be raised so the first call of a run is not under-reserved.
