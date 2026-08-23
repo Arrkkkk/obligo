@@ -43,7 +43,13 @@ from evals.harness import cassette as cassette_mod
 from evals.harness.ratelimit import CapturingTransport, TokenWindow, backoff_delay
 
 MAX_ATTEMPTS_PER_RUN = 3
-DEFAULT_TOKEN_ESTIMATE = 2_200
+# Raised from 2,200 after the 2026-08-23 bake-off measured real calls on
+# openai/gpt-oss-120b at 3,000-3,800 total tokens: reasoning tokens dominate
+# (1,091-1,836 per call against 93-463 of content), so every estimate inherited
+# from the retired model understated cost by 3-4x. Reserve-then-reconcile
+# absorbs an under-estimate after the fact, but the FIRST call of a run is paced
+# on the estimate alone, so an optimistic floor is a real burst risk.
+DEFAULT_TOKEN_ESTIMATE = 3_800
 
 
 class BudgetExhausted(RuntimeError):

@@ -235,7 +235,7 @@ def test_the_limiter_learns_the_ceiling_from_recorded_headers(tmp_path):
 def test_reconciliation_uses_the_real_returned_token_count(tmp_path):
     s, _ = session(tmp_path, scripted((200, ok_body())))
     s.record_run(*SEG, run=1)
-    assert s.window.in_window() == 1900, "1500 prompt + 400 completion, not the 2,200 estimate"
+    assert s.window.in_window() == 1900, "1500 prompt + 400 completion, not the estimate"
 
 
 def test_summary_reports_budget_and_pacing(tmp_path):

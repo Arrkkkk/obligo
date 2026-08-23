@@ -72,6 +72,16 @@ def repair_prompt():
     return prompt_registry.load("repair")
 
 
+def _active_repair_version() -> str:
+    """The repair version registry.yaml currently points at."""
+    import yaml
+    from pathlib import Path as _P
+    from obligo_brain.prompts import registry as _r
+    return yaml.safe_load(
+        (_P(_r.__file__).parent / "registry.yaml").read_text()
+    )["repair"]["environments"]["default"]
+
+
 def _candidate(
     *,
     span_text: str = _SPAN,
@@ -557,7 +567,12 @@ def test_one_call_record_per_llm_call_carrying_the_prompt_identity(repair_prompt
     assert [c.attempt for c in result.calls] == [1, 2]
     for call in result.calls:
         assert call.prompt.id == "repair"
-        assert call.prompt.version == "v1"
+        # Active version read from registry.yaml, not hardcoded: this test cares
+        # that prompt IDENTITY is recorded per call, never which version happens
+        # to be active. Corrected 2026-08-23 -- a literal "v1" here broke on the
+        # model-migration bump (repair v1 -> v2) exactly as a hardcode does, the
+        # same defect test_registry.py carried.
+        assert call.prompt.version == _active_repair_version()
         assert call.provider == "groq"
         assert len(call.input_hash) == 64
 

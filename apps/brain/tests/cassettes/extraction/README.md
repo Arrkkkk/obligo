@@ -1,3 +1,23 @@
+> **⚠ ALL NINE CASSETTES IN THIS DIRECTORY WERE CAPTURED AGAINST
+> `llama-3.3-70b-versatile`, WHICH BECAME UNAVAILABLE ON 2026-08-22.**
+>
+> The model returned HTTP 404 (`model_not_found`) and is absent from the account's
+> catalogue; see CLAUDE.md's blocking entry. The extraction pipeline now runs
+> `openai/gpt-oss-120b` (prompt `extraction/v3`).
+>
+> **What these cassettes still are:** real, unedited model output, and valid evidence of
+> **our code's** behaviour — prompt rendering, response parsing, the grounding gate. The
+> tests that consume them keep passing and should.
+>
+> **What they are no longer:** evidence about the **current** model. They cannot be
+> re-recorded, extended, or used to validate a prompt change, because no live call can
+> reproduce them. Anything below describing what "the model" does is a statement about a
+> model that is gone — read it as history, dated, not as current behaviour.
+>
+> The harness's own staleness rule (a `model_id` mismatch is a hard refusal) is correct
+> and now bites: any cassette recorded under the new model is deliberately incompatible
+> with these.
+
 # Extraction cassettes
 
 Recorded 2026-08-10 against the real `llama-3.3-70b-versatile` extraction

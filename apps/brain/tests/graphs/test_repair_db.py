@@ -42,6 +42,16 @@ _SPAN = "Vendor shall register the Deliverables with the Customer."
 _SEGMENT_TEXT = f"1.1 {_SPAN}"
 
 
+def _active_repair_version() -> str:
+    """The repair version registry.yaml currently points at."""
+    import yaml
+    from pathlib import Path as _P
+    from obligo_brain.prompts import registry as _r
+    return yaml.safe_load(
+        (_P(_r.__file__).parent / "registry.yaml").read_text()
+    )["repair"]["environments"]["default"]
+
+
 def _owner_url() -> str:
     return os.environ["DATABASE_URL"].replace("postgresql://", "postgresql+psycopg://", 1)
 
@@ -198,7 +208,12 @@ def test_each_repair_call_writes_its_own_agent_runs_row(segment_fixture):
         assert row.node == "repair"
         assert row.provider == "groq"
         assert row.prompt_id == "repair"
-        assert row.prompt_version == "v1"
+        # Active version read from registry.yaml, not hardcoded: this test cares
+        # that prompt IDENTITY is recorded per call, never which version happens
+        # to be active. Corrected 2026-08-23 -- a literal "v1" here broke on the
+        # model-migration bump (repair v1 -> v2) exactly as a hardcode does, the
+        # same defect test_registry.py carried.
+        assert row.prompt_version == _active_repair_version()
         assert row.status == "ok"
         assert len(row.prompt_hash) == 64
     # The real hazard extraction.py's segment_id-based formula would create:

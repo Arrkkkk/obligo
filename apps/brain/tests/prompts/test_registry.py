@@ -8,22 +8,34 @@ implementation.
 from __future__ import annotations
 
 import pytest
+from pathlib import Path
+
+import yaml
 
 from obligo_brain.prompts import registry
 
 
 def test_load_extraction_round_trips_expected_fields():
     """Asserts against registry.yaml's currently active extraction version
-    (v2 as of the clause-boundary-fix checkpoint, CLAUDE.md's Phase 4
-    section) rather than a hardcoded "v1" -- a version bump via
-    registry.yaml is meant to need no code change, and that includes this
-    test, which cares about the loading mechanics, not which specific
-    version happens to be active.
+    rather than a hardcoded one -- a version bump via registry.yaml is meant
+    to need no code change, and that includes this test, which cares about
+    the loading mechanics, not which version happens to be active.
+
+    Corrected 2026-08-23: this docstring already claimed to be
+    version-agnostic while the body still hardcoded a literal. The
+    clause-boundary-fix checkpoint moved that literal from "v1" to "v2"
+    instead of removing it, so the next bump (v3, the model migration) broke
+    the test exactly as a hardcode does. The version is now read from
+    registry.yaml itself, so the assertion cannot drift from the claim again.
     """
+    active = yaml.safe_load(
+        (Path(registry.__file__).parent / "registry.yaml").read_text()
+    )["extraction"]["environments"]["default"]
+
     prompt = registry.load("extraction")
 
     assert prompt.id == "extraction"
-    assert prompt.version == "v2"
+    assert prompt.version == active
     assert prompt.model_constraints["provider"] == "groq"
     assert prompt.model_constraints["temperature"] == 0.0
     assert len(prompt.prompt_hash) == 64  # sha256 hex digest
