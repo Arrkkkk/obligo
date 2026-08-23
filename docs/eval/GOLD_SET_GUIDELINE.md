@@ -1,6 +1,6 @@
 # Obligo Tier-2 Gold Set — Annotation Guideline
 
-**Version:** v0.28 (DRAFT — not yet frozen; **no v0.28 rule is adopted** — see §20)
+**Version:** v0.28 (DRAFT — not yet frozen; **all 16 v0.28 proposals are ruled and adopted into live rule sections** — see §20's status line and §20.4's adjudication log)
 **Created:** 2026-08-17
 **Status:** **18 items locked** — batch 1 complete (10), batch 2 paused at 8 of 10
 pending the consolidation pass (§19.4), which is **in progress, not complete** (§20). Items stamp guideline versions v0.12–v0.25; the
@@ -87,10 +87,19 @@ found while running the consolidation sweep: the conforming-debt count is **154 
 pairs, not 127** (v0.26 counted version *bumps*, but v0.16, v0.17 and v0.21 each introduced
 two rules), and the sweep's own result is recorded — **139 of the 154 clear mechanically, 15
 need a reviewer look** (§19.7).
-**v0.28 change:** **no annotation rule changed.** Consolidation pass in progress; three merges
+**v0.28 change:** ~~**no annotation rule changed.** Consolidation pass in progress; three merges
 identified (M1/M2/M3); one probe run, which surfaced one new gap class and five defects in the
 proposed amendments; no rule adopted yet. Every proposal is held unadopted in §20 and none has
-been written into a rule section. The probe is `apps/brain/evals/probes/E05-019.json`
+been written into a rule section.~~ **SUPERSEDED — accurate only while the pass was in progress.**
+The consolidation pass then COMPLETED: **all 16 items were ruled and every approved rule written
+into its own live rule section** (§3.5.1 the merged party slot, §3.8.1 trailing-qualifier routing,
+§8.9 the `RELATIVE_TO_TRIGGER` preposition gap, §4.3.1 restatements, §3.9's restated trigger,
+§21's harness requirements, and the rest). Three probe passes were run, not one — `E05-019` twice
+and `C06-113` once — producing three new gap classes and a defect rate of 5 → 0 → 0. All 18 locked
+items were conformed. *(Struck rather than deleted, and the header corrected in place rather than
+marked, per §19.3's own distinction: a changelog is a dated record, but a status line that
+knowingly states the wrong status is a defect. This is the THIRD false header claim this document
+has carried — see §19.3 for the first two.)* The probe is `apps/brain/evals/probes/E05-019.json`
 (status `PROBE`, excluded from the 100 and from every reported number under §2.1).
 
 *Why v0.8 and not an edit to v0.7:* v0.7 was committed, and every gold item stamps the
