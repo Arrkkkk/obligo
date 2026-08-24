@@ -1,6 +1,6 @@
 # Obligo Tier-2 Gold Set — Annotation Guideline
 
-**Version:** v0.29 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 adds §6.1**, the two-run exception, from a real provider refusal)
+**Version:** v0.30 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception, from a real provider refusal; **v0.30 reconciles §6.1's tie rule with `report.py`'s G2**)
 **Created:** 2026-08-17
 **Status:** **18 items locked** — batch 1 complete (10), batch 2 at 8 of 10 with two
 items still undrawn. The consolidation pass (§19.4) is **complete** (§20): all 16 proposals
@@ -120,6 +120,13 @@ caught a FOURTH false header claim** — the Status line's "consolidation pass i
 "items stamp v0.12–v0.25" and "§10 conforming pass has not run", all three contradicted by
 v0.28's own changelog and by the items' actual stamps (all 18 read `v0.28`). Corrected in
 place per §19.3; recorded in §19.3 as the fourth instance.
+**v0.30 change:** **no existing annotation rule changed.** §6.1's n=2 tie clause reconciled
+with `report.py`'s G2 rule: a two-run disagreement resolves to the **worst observed outcome**
+and is counted unstable, rather than yielding "no modal outcome". §6.1 as written at v0.29
+contradicted a rule already implemented in the reporter — caught while scoping the
+scorer-wiring session, before any code depended on either reading. A defined conservative
+status keeps the item inside criterion 2's denominator; an undefined one would have been
+improvised downstream.
 
 *Why v0.8 and not an edit to v0.7:* v0.7 was committed, and every gold item stamps the
 guideline version it was annotated under. Amending a committed version in place would make
@@ -868,7 +875,7 @@ extractions for 2 of 10 items across two identical runs.
 count of items unstable across runs.** Three, not two: with two you cannot break a tie.
 No single-run number is ever published without this caveat attached.
 
-### 6.1 When a third run cannot be recorded (added v0.29)
+### 6.1 When a third run cannot be recorded (added v0.29; tie rule amended v0.30)
 
 A third run is occasionally **unobtainable**, not merely unrecorded: the provider can
 reject the request itself, reproducibly, for one segment. When that happens the rule is
@@ -879,8 +886,17 @@ over two, and never alter the request to force a third.
   and **every place that figure appears must state the run count and the reason on the
   spot**, not in a footnote or a methods section the reader may not reach. "Modal outcome
   over 2 runs (third refused by the provider, see §6.1)" is the shape.
-- **Tie-breaking is unavailable at n=2 by construction.** If the two runs disagree, the
-  segment is reported as unstable with no modal outcome, not resolved by picking one.
+- **Tie-breaking is unavailable at n=2 by construction, and the tie resolves to the WORST
+  observed outcome** — `report.py`'s G2 rule, which already governs the no-unique-mode case
+  at n=3. The item is always counted unstable. *(Amended at v0.30. As first written at v0.29
+  this clause said "reported as unstable with no modal outcome, not resolved by picking one",
+  which contradicted G2 — an inconsistency introduced by writing §6.1 without reconciling it
+  against the already-built reporter. G2 wins on two grounds: it embodies the same principle
+  §6.1 was reaching for — never round in the pipeline's favour, take the conservative reading
+  — and "worst observed" is a **defined** status, whereas "no modal outcome" leaves the item's
+  standing in criterion 2's numerator undefined and invites some later piece of code to
+  improvise a treatment for it. Deferring keeps the item honestly scored and inside criterion
+  2's denominator.)*
 - **Do not change the completion cap, temperature, prompt, or any other request parameter
   to obtain the missing run.** A cassette recorded under different parameters is not
   comparable with the rest of the set, so forcing one trades a single clean data point for
