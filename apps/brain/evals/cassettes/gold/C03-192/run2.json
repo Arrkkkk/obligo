@@ -1,0 +1,51 @@
+{
+  "segment_id": "C03-192",
+  "run": 2,
+  "recorded_at": "2026-08-23T17:57:06+00:00",
+  "model_id": "openai/gpt-oss-120b",
+  "prompt_version": "v3",
+  "segment_sha256": "d115354809ef0f04f33f13e84100c6cabf9495e3eeca8ce3744bc527712562be",
+  "guideline_version": "v0.28",
+  "responses": [
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-ef8a9190-7ba8-421d-a2d9-c0f80e0aef2b",
+        "object": "chat.completion",
+        "created": 1787507825,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"obligations\":[{\"span_text\":\"Vendor will provide, at no additional cost to AT&T, full and complete technical assistance to AT&T for the Material and Services provisioned under this Agreement, including ongoing technical support and field service and assistance, and telephone assistance to assist with installation, operation, maintenance and problem resolution as set forth in the terms of the Maintenance Addendum.\",\"modality\":\"MUST\",\"obligor_alias\":\"Vendor\",\"obligee_alias\":\"AT&T\",\"action\":\"PROVIDE\",\"object_class\":\"technical_assistance\",\"object_raw_text\":\"full and complete technical assistance\",\"temporal_raw\":null,\"condition_raws\":[],\"confidence\":0.9},{\"span_text\":\"Vendor will provide to AT&T, and keep current, an escalation document that includes names, titles and telephone numbers, including after-hours telephone numbers, of Vendor personnel responsible for providing technical support to AT&T.\",\"modality\":\"MUST\",\"obligor_alias\":\"Vendor\",\"obligee_alias\":\"AT&T\",\"action\":\"PROVIDE\",\"object_class\":\"escalation_document\",\"object_raw_text\":\"an escalation document that includes names, titles and telephone numbers, including after-hours telephone numbers, of Vendor personnel responsible for providing technical support to AT&T\",\"temporal_raw\":null,\"condition_raws\":[],\"confidence\":0.9},{\"span_text\":\"Vendor will maintain a streamlined escalation process to speed resolution of reported problems.\",\"modality\":\"MUST\",\"obligor_alias\":\"Vendor\",\"obligee_alias\":\"\",\"action\":\"MAINTAIN\",\"object_class\":\"escalation_process\",\"object_raw_text\":\"a streamlined escalation process\",\"temporal_raw\":null,\"condition_raws\":[],\"confidence\":0.9}]}",
+              "reasoning": "We need to extract obligations. Let's read segment.\n\n\"4.23 Technical Support. Vendor will provide, at no additional cost to AT&T, full and complete technical assistance to AT&T for the Material and Services provisioned under this Agreement, including ongoing technical support and field service and assistance, and telephone assistance to assist with installation, operation, maintenance and problem resolution as set forth in the terms of the Maintenance Addendum. The availability or performance of this technical support will not be construed as altering or affecting Vendor's obligations as set forth in the \"Warranty\" Section or as provided elsewhere in this Agreement. Field Service and technical support, including emergency support (service affecting), will be available on call twenty-four (24) hours a day. Vendor will provide to AT&T, and keep current, an escalation document that includes names, titles and telephone numbers, including after-hours telephone numbers, of Vendor personnel responsible for providing technical support to AT&T. Vendor will maintain a streamlined escalation process to speed resolution of reported problems.\"\n\nIdentify obligations:\n\n1. \"Vendor will provide, at no additional cost to AT&T, full and complete technical assistance to AT&T for the Material and Services provisioned under this Agreement, including ongoing technical support and field service and assistance, and telephone assistance to assist with installation, operation, maintenance and problem resolution as set forth in the terms of the Maintenance Addendum.\"\n\nObligation: Vendor must provide technical assistance. Modality: WILL = should be interpreted as MUST? In legal, \"will provide\" is a promise, so modality MUST. Use \"MUST\". Obligor: Vendor. Obligee: AT&T. Action: PROVIDE. Object: \"full and complete technical assistance to AT&T for the Material and Services provisioned under this Agreement, including ongoing technical support and field service and assistance, and telephone assistance to assist with installation, operation, maintenance and problem resolution as set forth in the terms of the Maintenance Addendum\". That's long. object_class maybe \"technical_assistance\". object_raw_text must be literal substring. Could choose a shorter phrase but must be substring. Let's pick \"full and complete technical assistance\". That's substring. object_class \"technical_assistance\". temporal_raw: none. condition_raws: none.\n\nBut need to ensure object_raw_text is substring of span_text. Yes.\n\n2. \"Field Service and technical support, including emergency support (service affecting), will be available on call twenty-four (24) hours a day.\"\n\nObligation? This is stating availability, not necessarily an obligation of Vendor? It says \"will be available\". Could be considered an obligation that Vendor makes support available. Obligor maybe Vendor (implied). But the clause subject is \"Field Service and technical support\". Not a party. Might be ambiguous. Probably not a clear party. So maybe skip.\n\n3. \"Vendor will provide to AT&T, and keep current, an escalation document that includes names, titles and telephone numbers, including after-hours telephone numbers, of Vendor personnel responsible for providing technical support to AT&T.\"\n\nObligation: Vendor must provide and keep current an escalation document. Modality MUST. Obligor Vendor. Obligee AT&T. Action: PROVIDE (or KEEP?). Provide. object: \"an escalation document that includes names, titles and telephone numbers, including after-hours telephone numbers, of Vendor personnel responsible for providing technical support to AT&T\". object_class \"escalation_document\". temporal_raw none.\n\n4. \"Vendor will maintain a streamlined escalation process to speed resolution of reported problems.\"\n\nObligation: Vendor must maintain escalation process. Modality MUST. Obligor Vendor. Obligee maybe none? Not directed to a party. Could be implied to AT&T. But no explicit obligee. The instruction expects obligee_alias field must be exactly as appears in span_text. There's no party after \"to\". So maybe empty string. But examples show empty string allowed. So we can set obligee_alias \"\".\n\nAction: MAINTAIN. object: \"a streamlined escalation process\". object_class \"escalation_process\". temporal none.\n\nCheck each span_text includes leading clause if any. No leading conditional.\n\nNow produce JSON with obligations list.\n\nNeed confidence field? The spec includes confidence in example but not required? The shape includes confidence. The instruction didn't explicitly require confidence but examples include it. The required fields: span_text, modality, obligor_alias, obligee_alias, action, object_class, object_raw_text, temporal_raw, condition_raws. Confidence not listed in required list but example includes. Probably optional. Safer to include confidence with a value like 0.9. But not required; if we include extra field maybe okay? The spec says \"respond with a single JSON object of exactly this shape (illustrative values shown, always return real data or an empty list)\". The shape includes confidence in example but not in description. Might be expected. Let's include confidence.\n\nNow craft each candidate.\n\nFirst candidate span_text: exactly the sentence up to period. Need to include full sentence. Let's copy:\n\n\"Vendor will provide, at no additional cost to AT&T, full and complete technical assistance to AT&T for the Material and Services provisioned under this Agreement, including ongoing technical support and field service and assistance, and telephone assistance to assist with installation, operation, maintenance and problem resolution as set forth in the terms of the Maintenance Addendum.\"\n\nMake sure includes period.\n\nSecond candidate span_text: \"Vendor will provide to AT&T, and keep current, an escalation document that includes names, titles and telephone numbers, including after-hours telephone numbers, of Vendor personnel responsible for providing technical support to AT&T.\"\n\nThird candidate: \"Vendor will maintain a streamlined escalation process to speed resolution of reported problems.\"\n\nNow fill fields.\n\nFirst:\nmodality \"MUST\"\nobligor_alias \"Vendor\"\nobligee_alias \"AT&T\"\naction \"PROVIDE\"\nobject_class \"technical_assistance\"\nobject_raw_text \"full and complete technical assistance\"\ntemporal_raw null\ncondition_raws [].\n\nSecond:\nmodality \"MUST\"\nobligor_alias \"Vendor\"\nobligee_alias \"AT&T\"\naction \"PROVIDE\"\nobject_class \"escalation_document\"\nobject_raw_text \"an escalation document that includes names, titles and telephone numbers, including after-hours telephone numbers, of Vendor personnel responsible for providing technical support to AT&T\"\ntemporal_raw null\ncondition_raws [].\n\nThird:\nmodality \"MUST\"\nobligor_alias \"Vendor\"\nobligee_alias \"\" (empty string)\naction \"MAINTAIN\"\nobject_class \"escalation_process\"\nobject_raw_text \"a streamlined escalation process\"\ntemporal_raw null\ncondition_raws [].\n\nAdd confidence maybe 0.9 each.\n\nNow produce JSON compact."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.369941009,
+          "prompt_tokens": 1604,
+          "prompt_time": 0.087852666,
+          "completion_tokens": 1720,
+          "completion_time": 3.564668342,
+          "total_tokens": 3324,
+          "total_time": 3.652521008,
+          "completion_tokens_details": {
+            "reasoning_tokens": 1368
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_19b184c447",
+        "x_groq": {
+          "id": "req_01m0qw9k3pe88vgq000ptmvqaa",
+          "seed": 907838135
+        },
+        "service_tier": "on_demand"
+      }
+    }
+  ]
+}

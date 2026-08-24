@@ -1,0 +1,51 @@
+{
+  "segment_id": "C03-192",
+  "run": 1,
+  "recorded_at": "2026-08-23T17:38:45+00:00",
+  "model_id": "openai/gpt-oss-120b",
+  "prompt_version": "v3",
+  "segment_sha256": "d115354809ef0f04f33f13e84100c6cabf9495e3eeca8ce3744bc527712562be",
+  "guideline_version": "v0.28",
+  "responses": [
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-83c76d1a-5393-4964-99c2-0ec0250658f9",
+        "object": "chat.completion",
+        "created": 1787506724,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"obligations\":[{\"span_text\":\"Vendor will provide, at no additional cost to AT&T, full and complete technical assistance to AT&T for the Material and Services provisioned under this Agreement, including ongoing technical support and field service and assistance, and telephone assistance to assist with installation, operation, maintenance and problem resolution as set forth in the terms of the Maintenance Addendum.\",\"modality\":\"MUST\",\"obligor_alias\":\"Vendor\",\"obligee_alias\":\"AT&T\",\"action\":\"PROVIDE\",\"object_class\":\"technical_assistance\",\"object_raw_text\":\"full and complete technical assistance to AT&T\",\"temporal_raw\":null,\"condition_raws\":[],\"confidence\":0.9},{\"span_text\":\"Vendor will provide to AT&T, and keep current, an escalation document that includes names, titles and telephone numbers, including after-hours telephone numbers, of Vendor personnel responsible for providing technical support to AT&T.\",\"modality\":\"MUST\",\"obligor_alias\":\"Vendor\",\"obligee_alias\":\"AT&T\",\"action\":\"PROVIDE\",\"object_class\":\"escalation_document\",\"object_raw_text\":\"an escalation document that includes names, titles and telephone numbers, including after-hours telephone numbers, of Vendor personnel responsible for providing technical support to AT&T\",\"temporal_raw\":null,\"condition_raws\":[],\"confidence\":0.9},{\"span_text\":\"Vendor will maintain a streamlined escalation process to speed resolution of reported problems.\",\"modality\":\"MUST\",\"obligor_alias\":\"Vendor\",\"obligee_alias\":\"\",\"action\":\"MAINTAIN\",\"object_class\":\"escalation_process\",\"object_raw_text\":\"a streamlined escalation process\",\"temporal_raw\":null,\"condition_raws\":[],\"confidence\":0.9}]}",
+              "reasoning": "We need to extract obligations. Read segment.\n\nText:\n\n\"4.23 Technical Support. Vendor will provide, at no additional cost to AT&T, full and complete technical assistance to AT&T for the Material and Services provisioned under this Agreement, including ongoing technical support and field service and assistance, and telephone assistance to assist with installation, operation, maintenance and problem resolution as set forth in the terms of the Maintenance Addendum. The availability or performance of this technical support will not be construed as altering or affecting Vendor's obligations as set forth in the \"Warranty\" Section or as provided elsewhere in this Agreement. Field Service and technical support, including emergency support (service affecting), will be available on call twenty-four (24) hours a day. Vendor will provide to AT&T, and keep current, an escalation document that includes names, titles and telephone numbers, including after-hours telephone numbers, of Vendor personnel responsible for providing technical support to AT&T. Vendor will maintain a streamlined escalation process to speed resolution of reported problems.\"\n\nIdentify obligations:\n\n1. \"Vendor will provide, at no additional cost to AT&T, full and complete technical assistance to AT&T for the Material and Services provisioned under this Agreement, including ongoing technical support and field service and assistance, and telephone assistance to assist with installation, operation, maintenance and problem resolution as set forth in the terms of the Maintenance Addendum.\"\n\nModality: WILL = should be MUST? In legal language \"will provide\" is a promise, considered MUST. According to mapping: \"will\" indicates obligation, treat as MUST. So modality MUST.\n\nObligor: Vendor. Obligee: AT&T.\n\nAction: PROVIDE (or ASSIST?). Governing verb \"provide\". Upper case PROVIDE.\n\nObject_class: technical_assistance maybe \"technical_assistance\". object_raw_text: \"full and complete technical assistance to AT&T\". But need literal phrase naming object. Could be \"full and complete technical assistance\". We'll include that.\n\nTemporal_raw: none.\n\nCondition_raws: none.\n\nCheck span_text includes entire clause. Must include leading clause? No leading clause.\n\nSpan_text exactly as in segment up to period. Let's capture full sentence.\n\nSentence ends with period after \"Maintenance Addendum.\" So span_text = \"Vendor will provide, at no additional cost to AT&T, full and complete technical assistance to AT&T for the Material and Services provisioned under this Agreement, including ongoing technical support and field service and assistance, and telephone assistance to assist with installation, operation, maintenance and problem resolution as set forth in the terms of the Maintenance Addendum.\"\n\nMake sure includes everything.\n\n2. \"Field Service and technical support, including emergency support (service affecting), will be available on call twenty-four (24) hours a day.\"\n\nObligation? It states availability, not necessarily an obligation of Vendor? It says will be available. Could be a promise by Vendor? Not explicit \"Vendor will\". The subject is \"Field Service and technical support\". Not a party. Might be considered an obligation of Vendor implicitly, but ambiguous. Probably not a clear obligor alias. So skip.\n\n3. \"Vendor will provide to AT&T, and keep current, an escalation document that includes names, titles and telephone numbers, including after-hours telephone numbers, of Vendor personnel responsible for providing technical support to AT&T.\"\n\nObligation. Span_text includes entire sentence.\n\nModality MUST.\n\nObligor Vendor, obligee AT&T.\n\nAction: PROVIDE (or KEEP?). Primary verb \"provide\". Could also include \"keep\". We'll choose PROVIDE.\n\nObject_class: escalation_document.\n\nobject_raw_text: \"an escalation document that includes names, titles and telephone numbers, including after-hours telephone numbers, of Vendor personnel responsible for providing technical support to AT&T\"\n\nTemporal_raw: none.\n\nCondition_raws: none.\n\n4. \"Vendor will maintain a streamlined escalation process to speed resolution of reported problems.\"\n\nObligation. Span_text entire sentence.\n\nModality MUST.\n\nObligor Vendor, obligee? Not explicit; maybe to AT&T implicitly. The sentence doesn't mention AT&T. Obligee maybe blank? The spec expects obligee_alias exactly as appears. If not present, maybe empty string. In example they left obligee empty. So we can set obligee_alias \"\".\n\nAction: MAINTAIN.\n\nObject_class: escalation_process.\n\nobject_raw_text: \"a streamlined escalation process\"\n\nTemporal_raw: none.\n\nCondition_raws: none.\n\nCheck each field literal substrings.\n\nNow produce JSON with obligations list.\n\nInclude confidence maybe 0.9 each.\n\nMake sure JSON compact.\n\n"
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.311608832,
+          "prompt_tokens": 1598,
+          "prompt_time": 0.110553517,
+          "completion_tokens": 1279,
+          "completion_time": 2.680356663,
+          "total_tokens": 2877,
+          "total_time": 2.79091018,
+          "completion_tokens_details": {
+            "reasoning_tokens": 924
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_77b12279f9",
+        "x_groq": {
+          "id": "req_01m0qv808eemkstqh6569w6r7h",
+          "seed": 1571498614
+        },
+        "service_tier": "on_demand"
+      }
+    }
+  ]
+}

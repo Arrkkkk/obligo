@@ -1,0 +1,91 @@
+{
+  "segment_id": "E01-047",
+  "run": 3,
+  "recorded_at": "2026-08-24T16:27:10+00:00",
+  "model_id": "openai/gpt-oss-120b",
+  "prompt_version": "v3",
+  "segment_sha256": "53283300aa0db4726734b798c23c381519c77cac9090641bd4a6df8faebf30ff",
+  "guideline_version": "v0.28",
+  "responses": [
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-1fb0634a-5a42-4bb1-a376-cf3593384201",
+        "object": "chat.completion",
+        "created": 1787588795,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"obligations\":[{\"span_text\":\"No provisions of this Agreement shall be deemed waived, amended, supplemented or modified by any Party hereto, unless such waiver, amendment, supplement or modification is in writing and signed by the authorized representative of each Party.\",\"modality\":\"MUST_NOT\",\"obligor_alias\":\"any Party\",\"obligee_alias\":\"\",\"action\":\"DEEM\",\"object_class\":\"agreement_provisions\",\"object_raw_text\":\"provisions of this Agreement\",\"temporal_raw\":null,\"condition_raws\":[\"unless such waiver, amendment, supplement or modification is in writing and signed by the authorized representative of each Party\"],\"confidence\":0.9}]}",
+              "reasoning": "We need to extract obligations. The segment: \"SECTION 8.14. Amendments. No provisions of this Agreement shall be deemed waived, amended, supplemented or modified by any Party hereto, unless such waiver, amendment, supplement or modification is in writing and signed by the authorized representative of each Party.\"\n\nWe need to find obligations: This is a prohibition? \"No provisions ... shall be deemed waived, amended, supplemented or modified by any Party hereto, unless such waiver, amendment, supplement or modification is in writing and signed by the authorized representative of each Party.\"\n\nInterpretation: It imposes a condition that any waiver/amendment must be in writing and signed. That's a requirement on any Party. So the obligation: \"any Party ... shall not deem provisions waived, amended, supplemented or modified ... unless ... is in writing and signed by the authorized representative of each Party.\" The modality is MUST_NOT? Actually \"shall be deemed waived ... unless ...\" Means they cannot deem waived unless condition satisfied. So it's a prohibition: Party must not deem provisions waived unless condition. So modality could be MUST_NOT (i.e., must not deem). The action maybe \"DEEM\". object_class maybe \"provision_amendment\". object_raw_text \"provisions of this Agreement\". temporal_raw none. condition_raws: \"unless such waiver, amendment, supplement or modification is in writing and signed by the authorized representative of each Party\". That's a conditional phrase starting with \"unless\". The rule says condition_raws are list of literal \"if\"-type conditional phrases. \"unless\" is also conditional. Should we include? Probably yes, as it's a conditional phrase. It must be literal substring of span_text. So we need to include the whole phrase.\n\nNow we need span_text: Must include leading clause if any. The whole sentence: \"No provisions of this Agreement shall be deemed waived, amended, supplemented or modified by any Party hereto, unless such waiver, amendment, supplement or modification is in writing and signed by the authorized representative of each Party.\"\n\nWe need to ensure obligor_alias: the party who owes the obligation. Here it's \"any Party\". In the sentence, \"any Party hereto\". So obligor_alias = \"any Party\". Must be exactly as appears. It appears as \"any Party\". Actually phrase \"any Party hereto\". The party is \"any Party\". The phrase \"any Party hereto\" includes \"any Party\". The alias should be exactly as appears within span_text. Could be \"any Party\". We'll use that.\n\nObligee_alias: who receives? The condition is about \"authorized representative of each Party\". But the obligation is on Party to not deem provisions waived unless condition. The obligee maybe none? Could be the other Party? Not explicit. The clause doesn't specify a recipient. In such cases we can leave empty string? The spec expects obligee_alias field; examples show empty string allowed. So we can set \"\".\n\nAction: \"DEEM\". Upper case.\n\nobject_class: maybe \"agreement_provisions\". Use lower snake case.\n\nobject_raw_text: \"provisions of this Agreement\". Must be literal substring. Yes.\n\ntemporal_raw: none => null.\n\ncondition_raws: list with the phrase \"unless such waiver, amendment, supplement or modification is in writing and signed by the authorized representative of each Party\". Must be literal substring. Yes.\n\nModality: Since it's a prohibition, \"MUST_NOT\". The phrase \"shall be deemed waived ... unless ...\" Actually it's \"shall be deemed waived ... unless ...\". That is a requirement that they shall not be deemed waived unless condition. So it's a MUST_NOT? The phrase \"shall be deemed waived\" is a future state; but the clause says they shall not be deemed waived unless condition. So it's a prohibition: they must not deem waived unless condition. So modality = \"MUST_NOT\".\n\nConfidence: we need to include confidence field? The example includes confidence. The spec didn't mention confidence explicitly but examples have it. The shape includes confidence. We should include confidence numeric. Provide maybe 0.9.\n\nNow produce JSON.\n\nCheck that all fields are literal substrings of span_text.\n\n- obligor_alias \"any Party\": appears as \"any Party\". Yes.\n- object_raw_text \"provisions of this Agreement\": appears exactly. Yes.\n- condition_raws phrase: must be exact. Let's copy exactly: \"unless such waiver, amendment, supplement or modification is in writing and signed by the authorized representative of each Party\". Ensure matches text: In segment: \"... unless such waiver, amendment, supplement or modification is in writing and signed by the authorized representative of each Party.\" Yes.\n\nNow produce JSON.\n\n"
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.318560626,
+          "prompt_tokens": 1463,
+          "prompt_time": 0.07418762,
+          "completion_tokens": 1095,
+          "completion_time": 2.303862098,
+          "total_tokens": 2558,
+          "total_time": 2.3780497179999998,
+          "completion_tokens_details": {
+            "reasoning_tokens": 952
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_4200b3f836",
+        "x_groq": {
+          "id": "req_01m0t9gm02eeq9m1d1ckaypyct",
+          "seed": 1588879717
+        },
+        "service_tier": "on_demand"
+      }
+    },
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-f22d4afd-5f0e-4ab5-a8bb-f92985e2d461",
+        "object": "chat.completion",
+        "created": 1787588829,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"repairs\":[{\"index\":0,\"action\":\"WAIVE\"}]}",
+              "reasoning": "We have one candidate with index 0. Failure: action not in taxonomy. Need to replace action with appropriate verb from list that matches clause meaning.\n\nClause: \"No provisions of this Agreement shall be deemed waived, amended, supplemented or modified by any Party hereto, unless such waiver, amendment, supplement or modification is in writing and signed by the authorized representative of each Party.\"\n\nThe action is \"deemed\". The clause is about not deeming provisions waived etc unless written. The modality is \"MUST_NOT\". Actually they used \"shall be deemed\". The modality is \"MUST_NOT\"? The candidate set modality \"MUST_NOT\". That seems okay: \"shall be deemed\" is a requirement that they shall not be deemed waived etc. So modality is correct.\n\nWe need to choose an action from list that best matches \"deemed\". The list includes \"WAIVE\", \"AMEND\", etc not. The closest maybe \"WAIVE\"? But the clause is about not deeming provisions waived, amended, etc. The action is about \"deemed\". Could map to \"WAIVE\"? Not exactly. Could map to \"DIS...\". The list includes \"DIS...\". \"DEEM\" is like \"consider\". Maybe \"REPORT\"? Not. \"PROVIDE\"? No. \"COMPLY\"? Not. \"WAIVE\" is about waiving. The clause says \"shall be deemed waived ... unless ...\". So the action is about waiving. So maybe choose \"WAIVE\". The modality is MUST_NOT, meaning they must not waive. So action WAIVE fits.\n\nThus we set action: \"WAIVE\". Keep other fields unchanged.\n\nWe need to output JSON with repairs array containing index 0 and corrected field action.\n\nOnly include fields we are correcting: action. So JSON: {\"repairs\":[{\"index\":0,\"action\":\"WAIVE\"}]}\n\nCheck format: no extra spaces? Compact JSON okay.\n\nReturn exactly that."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.331101754,
+          "prompt_tokens": 1786,
+          "prompt_time": 0.104382475,
+          "completion_tokens": 419,
+          "completion_time": 0.870280832,
+          "total_tokens": 2205,
+          "total_time": 0.974663307,
+          "completion_tokens_details": {
+            "reasoning_tokens": 395
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_64b2f1c926",
+        "x_groq": {
+          "id": "req_01m0t9hpsceh0bn9pjq16s6r2j",
+          "seed": 1352892801
+        },
+        "service_tier": "on_demand"
+      }
+    }
+  ]
+}

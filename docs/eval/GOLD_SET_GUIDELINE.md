@@ -1,12 +1,19 @@
 # Obligo Tier-2 Gold Set — Annotation Guideline
 
-**Version:** v0.28 (DRAFT — not yet frozen; **all 16 v0.28 proposals are ruled and adopted into live rule sections** — see §20's status line and §20.4's adjudication log)
+**Version:** v0.29 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 adds §6.1**, the two-run exception, from a real provider refusal)
 **Created:** 2026-08-17
-**Status:** **18 items locked** — batch 1 complete (10), batch 2 paused at 8 of 10
-pending the consolidation pass (§19.4), which is **in progress, not complete** (§20). Items stamp guideline versions v0.12–v0.25; the
-§10 conforming pass has **not** run. *(This line read "No items have been annotated
-against this document yet" from v0.1 through v0.25 — false from 2026-08-19 onward,
-corrected at v0.26; see §19.3.)*
+**Status:** **18 items locked** — batch 1 complete (10), batch 2 at 8 of 10 with two
+items still undrawn. The consolidation pass (§19.4) is **complete** (§20): all 16 proposals
+ruled, every approved rule written into a live rule section, and **all 18 locked items
+conformed — every one now stamps `v0.28`**, verified by reading the items themselves.
+*(This line read "No items have been annotated against this document yet" from v0.1 through
+v0.25 — false from 2026-08-19 onward, corrected at v0.26; see §19.3. It then read
+"consolidation pass … in progress, not complete", "Items stamp guideline versions
+v0.12–v0.25" and "the §10 conforming pass has not run" from v0.26 through v0.28 — all three
+false once the pass completed, contradicted by v0.28's own changelog entry and by the items'
+actual stamps. **This is the FOURTH false header claim this document has carried, and the
+first one caught by §10's own close-out consistency check rather than by a later session** —
+the check found it on its first application, which is the case for keeping it.)*
 **v0.2 change:** corpus rebuilt after a selection-bias audit — see §13.
 **v0.3 change:** annotator-uncertainty protocol added — see §14. Two fields added to §1.
 **v0.4 change:** vague-temporal-qualifier rule added — see §15. One non-scored field added to §1.
@@ -101,6 +108,18 @@ marked, per §19.3's own distinction: a changelog is a dated record, but a statu
 knowingly states the wrong status is a defect. This is the THIRD false header claim this document
 has carried — see §19.3 for the first two.)* The probe is `apps/brain/evals/probes/E05-019.json`
 (status `PROBE`, excluded from the 100 and from every reported number under §2.1).
+**v0.29 change:** **no existing annotation rule changed.** §6.1 added: how to report a segment
+whose third run is unobtainable because the provider reproducibly refuses the request. Created by
+`C17-021` run 3 — three consecutive HTTP 400 `json_validate_failed` responses with an empty
+`failed_generation` from `openai/gpt-oss-120b`, against a request byte-identical to runs 1 and 2,
+which had both recorded cleanly. The rule forbids obtaining the missing run by changing any request
+parameter, on comparability grounds. The stage-4 recording run that found it completed at **35 of 36
+cassettes** (12 segments × 3 runs, less `C17-021`/run3), 41 of 80 approved calls.
+**§10's close-out consistency check, added at the end of v0.28, fired for the first time and
+caught a FOURTH false header claim** — the Status line's "consolidation pass in progress",
+"items stamp v0.12–v0.25" and "§10 conforming pass has not run", all three contradicted by
+v0.28's own changelog and by the items' actual stamps (all 18 read `v0.28`). Corrected in
+place per §19.3; recorded in §19.3 as the fourth instance.
 
 *Why v0.8 and not an edit to v0.7:* v0.7 was committed, and every gold item stamps the
 guideline version it was annotated under. Amending a committed version in place would make
@@ -848,6 +867,32 @@ extractions for 2 of 10 items across two identical runs.
 **The harness runs the full gold set 3× and reports the per-item modal outcome plus a
 count of items unstable across runs.** Three, not two: with two you cannot break a tie.
 No single-run number is ever published without this caveat attached.
+
+### 6.1 When a third run cannot be recorded (added v0.29)
+
+A third run is occasionally **unobtainable**, not merely unrecorded: the provider can
+reject the request itself, reproducibly, for one segment. When that happens the rule is
+**report the segment on the runs that exist and say so inline** — never silently average
+over two, and never alter the request to force a third.
+
+- The stability figure for such a segment is computed over the runs actually recorded,
+  and **every place that figure appears must state the run count and the reason on the
+  spot**, not in a footnote or a methods section the reader may not reach. "Modal outcome
+  over 2 runs (third refused by the provider, see §6.1)" is the shape.
+- **Tie-breaking is unavailable at n=2 by construction.** If the two runs disagree, the
+  segment is reported as unstable with no modal outcome, not resolved by picking one.
+- **Do not change the completion cap, temperature, prompt, or any other request parameter
+  to obtain the missing run.** A cassette recorded under different parameters is not
+  comparable with the rest of the set, so forcing one trades a single clean data point for
+  a confound spanning every number the set produces. This is a real finding about the
+  model, not a gap to be closed by re-rolling.
+
+**The instance that created this rule: `C17-021` run 3, 2026-08-24.** `openai/gpt-oss-120b`
+returned HTTP 400 `json_validate_failed` with an **empty** `failed_generation` on three
+consecutive attempts, the last as the first call of a cold process, while runs 1 and 2 of the
+byte-identical request had recorded cleanly. `C17-021` is the reciprocal-duty segment behind
+§8.4's `mutual_obligation` gap. See CLAUDE.md's debt list for the full failure-mode entry.
+`C17-021` is therefore scored over **2 runs**, and its 35 sibling cassettes over 3.
 
 ---
 
@@ -2225,7 +2270,7 @@ position does not rescue it (first-in-document items: 0.50 bumps in batch 1, 1.6
 that discovery tracks which drafting patterns a given draw happens to surface, which implies
 high batch-to-batch variance and means no single batch's rate is a reliable estimator.
 
-### 19.3 Conforming debt, and three false claims corrected
+### 19.3 Conforming debt, and four false claims corrected
 
 **154 outstanding item × rule re-checks** *(corrected at v0.27; v0.26 said 127, having
 counted version bumps rather than rules — v0.16, v0.17 and v0.21 each introduced two)*.
@@ -2246,6 +2291,20 @@ v0.16 ×1, v0.17 ×2), monotonically increasing with annotation time. The per-it
 the honest artifact and §10's rule was followed correctly; the summary claims overstated.
 `apps/brain/evals/goldens/batch01/SUMMARY.md` carries the same defect ("Guideline version:
 v0.17") and is **not** corrected here — it is consolidation-pass work.
+
+**A fourth false claim, corrected at v0.29 — and the first caught by §10's own close-out
+consistency check rather than by a later session.** The Status line read, from v0.26 through
+v0.28, that the consolidation pass was *"in progress, not complete"*, that *"Items stamp
+guideline versions v0.12–v0.25"*, and that *"the §10 conforming pass has **not** run."* All
+three were false the moment the pass completed: v0.28's own changelog entry says every
+proposal was ruled and all 18 items conformed, and reading the items directly shows **all 18
+now stamp `v0.28`** — a single version, which is what conforming means. The mechanism is the
+one §10 predicts exactly: mid-pass wording is accurate when written and becomes false on
+completion, and nothing in the normal editing flow revisits it. What is new is that the
+check caught it **in the session that made it stale**, which is the whole point of adding it.
+*(Also, and separately: the count in §10's own prose — "This document has carried a false
+header claim three times" — is now four. It is left as written, being a dated record of what
+was true when §10 was added; this entry is the correction.)*
 
 ### 19.4 Batch 2 is paused at 8 of 10
 

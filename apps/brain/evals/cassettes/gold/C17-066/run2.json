@@ -1,0 +1,94 @@
+{
+  "segment_id": "C17-066",
+  "run": 2,
+  "recorded_at": "2026-08-23T18:18:20+00:00",
+  "model_id": "openai/gpt-oss-120b",
+  "prompt_version": "v3",
+  "segment_sha256": "a5973f4aed1c40628bd4f0d5ba32efbd71784916402f13d355376ad004159ea0",
+  "guideline_version": "v0.28",
+  "responses": [
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-9f87ec93-65e6-4eaa-baba-ab127cd96691",
+        "object": "chat.completion",
+        "created": 1787509043,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"obligations\":[{\"span_text\":\"The Company and RGHI will use all commercially reasonable efforts to obtain within 24 months following the Commencement Date, from the counterparty to each Multi-party Contract any needed consent to separate the portion of such contract that relates to the goods or services purchased from or supplied to the Business under such Multi-party Contract (including but not limited to assignment or partial assignment of such contracts to the Company or RGHI or its Affiliates).\",\"modality\":\"MUST\",\"obligor_alias\":\"The Company and RGHI\",\"obligee_alias\":\"the counterparty\",\"action\":\"OBTAIN\",\"object_class\":\"consent\",\"object_raw_text\":\"any needed consent\",\"temporal_raw\":\"within 24 months following the Commencement Date\",\"condition_raws\":[],\"confidence\":0.9},{\"span_text\":\"Each Party making purchases or receiving services under any Multi-party Contract shall indemnify and hold harmless the other Party and its Affiliates for any claims, damages, etc. arising out of such purchases or receipt of services.\",\"modality\":\"MUST\",\"obligor_alias\":\"Each Party\",\"obligee_alias\":\"the other Party and its Affiliates\",\"action\":\"INDEMNIFY\",\"object_class\":\"claims_damages\",\"object_raw_text\":\"any claims, damages, etc.\",\"temporal_raw\":null,\"condition_raws\":[],\"confidence\":0.9}]}",
+              "reasoning": "We need to extract obligations.\n\nRead segment:\n\n\"Section 10.11 Multi-party Contracts. The Company and RGHI will use all commercially reasonable efforts to obtain within 24 months following the Commencement Date, from the counterparty to each Multi-party Contract any needed consent to separate the portion of such contract that relates to the goods or services purchased from or supplied to the Business under such Multi-party Contract (including but not limited to assignment or partial assignment of such contracts to the Company or RGHI or its Affiliates). The contract constituting the separated portion of any Multi-party Contract that relates to the Business as described in the preceding sentence shall be assumed by and become the responsibility of the Company. Each Party making purchases or receiving services under any Multi-party Contract shall indemnify and hold harmless the other Party and its Affiliates for any claims, damages, etc. arising out of such purchases or receipt of services.\"\n\nWe need to find obligations: sentences that impose duty, prohibition, permission, expectation.\n\nFirst sentence: \"The Company and RGHI will use all commercially reasonable efforts to obtain within 24 months following the Commencement Date, from the counterparty to each Multi-party Contract any needed consent to separate the portion of such contract that relates to the goods or services purchased from or supplied to the Business under such Multi-party Contract (including but not limited to assignment or partial assignment of such contracts to the Company or RGHI or its Affiliates).\"\n\nObligation: \"The Company and RGHI will use all commercially reasonable efforts to obtain ... any needed consent ...\" This is a duty, modality \"MUST\"? The phrase \"will use ... efforts to obtain\" is a commitment, but not \"shall\". Usually \"will\" indicates an obligation but modality maybe \"MUST\". The guidelines: modality must be one of MUST, MUST_NOT, SHOULD, MAY. \"Will use ... efforts to obtain\" is a strong obligation, could be \"MUST\". We'll choose \"MUST\". Obligor_alias: \"The Company and RGHI\". But need exact literal substring as appears. In span_text, we need to include leading clause if any. The clause includes \"within 24 months following the Commencement Date\". That's temporal. So temporal_raw: \"within 24 months following the Commencement Date\". Must be literal substring of span_text. So include that.\n\nCondition_raws: none.\n\nAction: \"USE\" maybe? The governing verb is \"use\". Could be \"USE\". Object: \"all commercially reasonable efforts to obtain ... any needed consent\". Object_class maybe \"consent\". object_raw_text: \"any needed consent\". We'll capture that.\n\nSecond sentence: \"The contract constituting the separated portion of any Multi-party Contract that relates to the Business as described in the preceding sentence shall be assumed by and become the responsibility of the Company.\"\n\nObligation: \"shall be assumed by and become the responsibility of the Company.\" Obligor? The subject is \"The contract\". So the contract (the contract) is assumed by the Company. The obligation is on the contract? Actually it's a statement that the contract shall be assumed by the Company. The obligor is the contract? That seems odd. Usually the party that must assume responsibility is the Company. The clause says the contract shall be assumed by and become the responsibility of the Company. So the obligation is on the contract? It's a future state. Might be considered an obligation of the parties to ensure that the contract is assumed. But we can treat obligor as \"The contract\". But the party is \"Company\". The clause says \"shall be assumed by and become the responsibility of the Company\". The party that must do something is the contract? Not typical. Might skip this as not a clear duty on a party.\n\nThird sentence: \"Each Party making purchases or receiving services under any Multi-party Contract shall indemnify and hold harmless the other Party and its Affiliates for any claims, damages, etc. arising out of such purchases or receipt of services.\"\n\nObligation: \"Each Party ... shall indemnify and hold harmless the other Party and its Affiliates for any claims, damages, etc. arising out of such purchases or receipt of services.\"\n\nModality: MUST (shall). Obligor_alias: \"Each Party\". Obligee_alias: \"the other Party and its Affiliates\". Action: \"INDEMNIFY\" (or \"HOLD_HARMLESS\"? Choose primary verb \"INDEMNIFY\"). object_class: \"claims_damages\". object_raw_text: \"any claims, damages, etc.\" Temporal: none. Condition: none.\n\nNow need to construct JSON with obligations list.\n\nFirst obligation: need span_text exactly as in segment. Must include leading clause \"within 24 months following the Commencement Date\". The sentence is long. Let's copy verbatim:\n\n\"The Company and RGHI will use all commercially reasonable efforts to obtain within 24 months following the Commencement Date, from the counterparty to each Multi-party Contract any needed consent to separate the portion of such contract that relates to the goods or services purchased from or supplied to the Business under such Multi-party Contract (including but not limited to assignment or partial assignment of such contracts to the Company or RGHI or its Affiliates).\"\n\nMake sure punctuation matches. The segment includes that exact text. Yes.\n\nNow fields:\n\nspan_text: that whole sentence.\n\nmodality: \"MUST\". (Even though \"will\", but we interpret as must.)\n\nobligor_alias: \"The Company and RGHI\". Must be literal substring. In span_text, it's \"The Company and RGHI\". Good.\n\nobligee_alias: Not explicitly mentioned; it's about obtaining consent from the counterparty. The obligation is to obtain consent from the counterparty. So obligee is \"the counterparty\". The phrase \"from the counterparty to each Multi-party Contract\". So obligee_alias: \"the counterparty\". Must be literal substring. Yes.\n\naction: \"USE\". Could also be \"OBTAIN\". The governing verb maybe \"obtain\". The phrase \"will use ... to obtain\". The main duty is to obtain consent. So action \"OBTAIN\". We'll choose \"OBTAIN\". It's uppercase.\n\nobject_class: maybe \"consent\". object_raw_text: \"any needed consent\". Must be substring. Yes.\n\ntemporal_raw: \"within 24 months following the Commencement Date\". Must be substring. Yes.\n\ncondition_raws: [].\n\nSecond obligation: maybe we skip due to ambiguous obligor. But we could include: \"The contract ... shall be assumed by and become the responsibility of the Company.\" Obligor_alias: \"The contract\". Obligee_alias: \"the Company\". Action: \"ASSUME\". object_class: \"contract_responsibility\". object_raw_text: \"the contract constituting the separated portion of any Multi-party Contract that relates to the Business\". Temporal: none. Condition: none. But is this an obligation? It's a statement of future state; could be considered an obligation on the contract (which is not a party). Might be better to exclude because obligor must be a party. The instruction doesn't forbid non-party, but obligor_alias must be literal substring. It's okay. However, the phrase \"shall be assumed by and become the responsibility of the Company\" indicates the contract will be assumed by the Company, i.e., the Company has the duty to assume. So obligor could be \"the Company\". But the sentence subject is \"The contract\". The obligation is on the Company to assume. The phrase \"shall be assumed by ... the Company\". So the party that must act is the Company. So we could set obligor_alias: \"the Company\". But \"the Company\" appears later in the sentence. The phrase \"shall be assumed by and become the responsibility of the Company\". So we can treat obligor as \"the Company\". Obligee maybe none. But it's ambiguous. Might skip to avoid errors.\n\nThird obligation: span_text: \"Each Party making purchases or receiving services under any Multi-party Contract shall indemnify and hold harmless the other Party and its Affiliates for any claims, damages, etc. arising out of such purchases or receipt of services.\"\n\nMake sure includes period.\n\nmodality: \"MUST\". (shall)\n\nobligor_alias: \"Each Party\". (literal)\n\nobligee_alias: \"the other Party and its Affiliates\". (literal)\n\naction: \"INDEMNIFY\". (primary verb)\n\nobject_class: \"claims_damages\". object_raw_text: \"any claims, damages, etc.\"\n\ntemporal_raw: null.\n\ncondition_raws: [].\n\nNow produce JSON.\n\nNeed confidence field? The example includes confidence. Not required? The spec didn't mention confidence field in required fields, but examples include it. The shape described earlier: {\"obligations\": [{\"span_text\": ..., \"modality\": ..., \"obligor_alias\": ..., \"obligee_alias\": ..., \"action\": ..., \"object_class\": ..., \"object_raw_text\": ..., \"temporal_raw\": ..., \"condition_raws\": [], \"confidence\": 0.9}]}. So we should include confidence. Provide a numeric value.\n\nWe'll include confidence 0.9 for each.\n\nNow produce JSON compact.\n\n"
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.36929789,
+          "prompt_tokens": 1583,
+          "prompt_time": 0.088888678,
+          "completion_tokens": 2166,
+          "completion_time": 4.630808291,
+          "total_tokens": 3749,
+          "total_time": 4.719696969,
+          "prompt_tokens_details": {
+            "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 1875
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_93703442d9",
+        "x_groq": {
+          "id": "req_01m0qxeqsqe1cbs14mzp5t3chz",
+          "seed": 924841532
+        },
+        "service_tier": "on_demand"
+      }
+    },
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-06d75d73-5c2f-43b7-aab0-819c4b005708",
+        "object": "chat.completion",
+        "created": 1787509100,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"repairs\": []}",
+              "reasoning": "We need to correct the temporal_raw field for candidate index 0. The failure says UNMAPPABLE_TEMPORAL: the provided temporal_raw \"within 24 months following the Commencement Date\" does not match supported shapes. We need to provide a shorter contiguous substring of span_text that is the timing phrase on its own. The span_text includes that phrase: \"within 24 months following the Commencement Date\". That's the phrase. But they say it's not matching shapes. However we need to return a shorter substring that is the timing phrase itself. Could we return \"within 24 months\"? That is a contiguous substring of span_text. Is that a timing phrase? Possibly \"within 24 months\" matches shape 'within <N> <unit> of <trigger>'? It lacks \"of <trigger>\", but shape requires 'within <N> <unit> of <trigger>'. So \"within 24 months\" still doesn't match shape. Another shape: 'by <YYYY-MM-DD>' etc. Not. Could we return \"within 24 months following the Commencement Date\" is the original. Not allowed because shape unsupported. The rule: we must return a shorter contiguous substring that is the timing phrase on its own. If no shorter verbatim substring is a clean timing phrase on its own, omit the candidate entirely. So we need to see if any substring qualifies as a clean timing phrase per the five shapes. The shapes are:\n\n1. 'within <N> <unit> of <trigger>'\n2. 'by <YYYY-MM-DD>'\n3. 'every <N> <unit>'\n4. 'during <YYYY-MM-DD>..<YYYY-MM-DD>'\n5. 'before <trigger>' / 'after <trigger>'\n\nOur phrase \"within 24 months following the Commencement Date\" does not match shape 1 because shape expects \"of\". Could we extract \"within 24 months of the Commencement Date\"? Not present. The phrase uses \"following\". So no shape matches. Could we extract \"by the Commencement Date\"? Not present. So there is no shorter substring that matches shape. Therefore we must omit the candidate entirely (i.e., not include in repairs). The instruction: \"If no shorter verbatim substring of span_text is a clean timing phrase on its own, omit that candidate from your response entirely.\" So we should output {\"repairs\": []}.\n\nCheck if any other fields need correction? Only temporal_raw is flagged. But we cannot provide a corrected temporal_raw, so we omit the candidate.\n\nThus final JSON: {\"repairs\": []}."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.286319867,
+          "prompt_tokens": 1868,
+          "prompt_time": 0.09124059,
+          "completion_tokens": 540,
+          "completion_time": 1.113317295,
+          "total_tokens": 2408,
+          "total_time": 1.204557885,
+          "completion_tokens_details": {
+            "reasoning_tokens": 525
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_87b3c396db",
+        "x_groq": {
+          "id": "req_01m0qxgje3erkb57tnhvfr7h4b",
+          "seed": 985253585
+        },
+        "service_tier": "on_demand"
+      }
+    }
+  ]
+}

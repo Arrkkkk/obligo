@@ -1,0 +1,51 @@
+{
+  "segment_id": "C03-192",
+  "run": 3,
+  "recorded_at": "2026-08-23T18:25:32+00:00",
+  "model_id": "openai/gpt-oss-120b",
+  "prompt_version": "v3",
+  "segment_sha256": "d115354809ef0f04f33f13e84100c6cabf9495e3eeca8ce3744bc527712562be",
+  "guideline_version": "v0.28",
+  "responses": [
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-cd30c404-f112-4cf9-a7ab-6a4140cca347",
+        "object": "chat.completion",
+        "created": 1787509531,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"obligations\":[{\"span_text\":\"Vendor will provide, at no additional cost to AT&T, full and complete technical assistance to AT&T for the Material and Services provisioned under this Agreement, including ongoing technical support and field service and assistance, and telephone assistance to assist with installation, operation, maintenance and problem resolution as set forth in the terms of the Maintenance Addendum.\",\"modality\":\"MUST\",\"obligor_alias\":\"Vendor\",\"obligee_alias\":\"AT&T\",\"action\":\"PROVIDE\",\"object_class\":\"technical_assistance\",\"object_raw_text\":\"full and complete technical assistance to AT&T for the Material and Services provisioned under this Agreement, including ongoing technical support and field service and assistance, and telephone assistance to assist with installation, operation, maintenance and problem resolution as set forth in the terms of the Maintenance Addendum\",\"temporal_raw\":null,\"condition_raws\":[],\"confidence\":0.95},{\"span_text\":\"Vendor will provide to AT&T, and keep current, an escalation document that includes names, titles and telephone numbers, including after-hours telephone numbers, of Vendor personnel responsible for providing technical support to AT&T.\",\"modality\":\"MUST\",\"obligor_alias\":\"Vendor\",\"obligee_alias\":\"AT&T\",\"action\":\"PROVIDE\",\"object_class\":\"escalation_document\",\"object_raw_text\":\"an escalation document that includes names, titles and telephone numbers, including after-hours telephone numbers, of Vendor personnel responsible for providing technical support to AT&T\",\"temporal_raw\":null,\"condition_raws\":[],\"confidence\":0.95},{\"span_text\":\"Vendor will maintain a streamlined escalation process to speed resolution of reported problems.\",\"modality\":\"MUST\",\"obligor_alias\":\"Vendor\",\"obligee_alias\":\"\",\"action\":\"MAINTAIN\",\"object_class\":\"escalation_process\",\"object_raw_text\":\"a streamlined escalation process\",\"temporal_raw\":null,\"condition_raws\":[],\"confidence\":0.95}]}",
+              "reasoning": "We need to extract obligations. Identify sentences with duty, prohibition, permission, expectation.\n\nSegment:\n\n\"4.23 Technical Support. Vendor will provide, at no additional cost to AT&T, full and complete technical assistance to AT&T for the Material and Services provisioned under this Agreement, including ongoing technical support and field service and assistance, and telephone assistance to assist with installation, operation, maintenance and problem resolution as set forth in the terms of the Maintenance Addendum. The availability or performance of this technical support will not be construed as altering or affecting Vendor's obligations as set forth in the \"Warranty\" Section or as provided elsewhere in this Agreement. Field Service and technical support, including emergency support (service affecting), will be available on call twenty-four (24) hours a day. Vendor will provide to AT&T, and keep current, an escalation document that includes names, titles and telephone numbers, including after-hours telephone numbers, of Vendor personnel responsible for providing technical support to AT&T. Vendor will maintain a streamlined escalation process to speed resolution of reported problems.\"\n\nWe need to extract each obligation.\n\nPotential obligations:\n\n1. \"Vendor will provide, at no additional cost to AT&T, full and complete technical assistance to AT&T for the Material and Services provisioned under this Agreement, including ongoing technical support and field service and assistance, and telephone assistance to assist with installation, operation, maintenance and problem resolution as set forth in the terms of the Maintenance Addendum.\"\n\nModality: WILL = should be MUST? The language \"will provide\" is a promise, considered MUST. According to mapping: \"shall\" is MUST, \"will\" also indicates obligation. We'll treat as MUST.\n\nObligor: Vendor\n\nObligee: AT&T\n\nAction: PROVIDE (verb)\n\nObject: \"full and complete technical assistance to AT&T for the Material and Services provisioned under this Agreement, including ongoing technical support and field service and assistance, and telephone assistance to assist with installation, operation, maintenance and problem resolution as set forth in the terms of the Maintenance Addendum\"\n\nObject_class: maybe \"technical_assistance\"\n\nTemporal_raw: none (no deadline)\n\nCondition_raws: none\n\nNeed to ensure object_raw_text is literal substring. Could be long; we can include the phrase after \"provide,\" maybe \"full and complete technical assistance to AT&T for the Material and Services provisioned under this Agreement, including ongoing technical support and field service and assistance, and telephone assistance to assist with installation, operation, maintenance and problem resolution as set forth in the terms of the Maintenance Addendum\". That's a substring of span_text.\n\nSpan_text must include the whole sentence. It ends with period. So span_text = that sentence.\n\n2. \"Field Service and technical support, including emergency support (service affecting), will be available on call twenty-four (24) hours a day.\"\n\nObligation? This is a statement of availability, not a duty of Vendor? It says \"will be available\". That's a promise that Vendor will make it available. So it's an obligation: Vendor will make field service and technical support available. The subject is \"Field Service and technical support\". Not explicitly Vendor, but implied. However the clause doesn't mention Vendor as obligor. The obligor alias must be literal substring of span_text. The subject is \"Field Service and technical support\". That's not a party. Might be ambiguous. Could treat obligor as \"Vendor\" but not present. So we cannot assign obligor alias not in span_text. So maybe we skip this because obligor not explicit. The instruction: obligor_alias must be exactly as appears within span_text. If not present, we cannot fill. So we should not include this clause.\n\n3. \"Vendor will provide to AT&T, and keep current, an escalation document that includes names, titles and telephone numbers, including after-hours telephone numbers, of Vendor personnel responsible for providing technical support to AT&T.\"\n\nObligation. Span_text includes that sentence.\n\nModality: MUST (will provide)\n\nObligor: Vendor\n\nObligee: AT&T\n\nAction: PROVIDE (or maybe \"PROVIDE\" for the document, also \"KEEP\" but we choose primary verb \"PROVIDE\").\n\nObject_raw_text: \"an escalation document that includes names, titles and telephone numbers, including after-hours telephone numbers, of Vendor personnel responsible for providing technical support to AT&T\"\n\nObject_class: \"escalation_document\"\n\nTemporal_raw: none\n\nCondition_raws: none\n\n4. \"Vendor will maintain a streamlined escalation process to speed resolution of reported problems.\"\n\nObligation. Span_text.\n\nModality: MUST\n\nObligor: Vendor\n\nObligee: not explicit; maybe none. The obligee alias may be empty string? In example they left empty string when none. So we can set \"\".\n\nAction: MAINTAIN\n\nObject_raw_text: \"a streamlined escalation process\"\n\nObject_class: \"escalation_process\"\n\nTemporal_raw: none\n\nCondition_raws: none\n\nCheck each span_text includes any temporal or condition if we include none.\n\nNow produce JSON with obligations list.\n\nNeed confidence field? The example includes confidence. The spec didn't mention confidence but examples have it. The required shape includes confidence? The instruction says \"For each candidate obligation you find, extract: ...\" It didn't list confidence, but examples include confidence. Probably we should include confidence. Safer to include confidence numeric. Provide maybe 0.95 each.\n\nMake sure JSON compact.\n\nLet's craft.\n\n"
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.15939762,
+          "prompt_tokens": 1600,
+          "prompt_time": 0.069391089,
+          "completion_tokens": 1509,
+          "completion_time": 3.164726684,
+          "total_tokens": 3109,
+          "total_time": 3.234117773,
+          "completion_tokens_details": {
+            "reasoning_tokens": 1108
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_84bf0227ec",
+        "x_groq": {
+          "id": "req_01m0qxxnrme4a90bnzzppbsyc2",
+          "seed": 238529536
+        },
+        "service_tier": "on_demand"
+      }
+    }
+  ]
+}

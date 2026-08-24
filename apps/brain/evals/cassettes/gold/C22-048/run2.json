@@ -1,0 +1,97 @@
+{
+  "segment_id": "C22-048",
+  "run": 2,
+  "recorded_at": "2026-08-23T18:19:31+00:00",
+  "model_id": "openai/gpt-oss-120b",
+  "prompt_version": "v3",
+  "segment_sha256": "fbe41eb8479ec2c5f2749ecda3eea5b1ac836df5a49ff8a4524f1dc9217d365f",
+  "guideline_version": "v0.28",
+  "responses": [
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-a9a83f44-184c-4d42-846c-95b024de4a85",
+        "object": "chat.completion",
+        "created": 1787509136,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"obligations\":[{\"span_text\":\"Each party giving any notice required or permitted under this IP Agreement will give the notice in writing, and shall be deemed to have been duly given: (i) when received if delivered personally; (ii) when transmitted if sent by facsimile (with transmission confirmed); (iii) the day after it is sent if sent by commercial overnight courier; (iv) upon receipt if sent by certified or registered mail (return receipt requested); or (v) when transmitted if sent by email (with receipt confirmed by recipient).\",\"modality\":\"MUST\",\"obligor_alias\":\"Each party\",\"obligee_alias\":\"\",\"action\":\"GIVE\",\"object_class\":\"notice\",\"object_raw_text\":\"the notice\",\"temporal_raw\":null,\"condition_raws\":[],\"confidence\":0.9}]}",
+              "reasoning": "We need to extract obligations. The segment: \"Section 6.12 Notices. Each party giving any notice required or permitted under this IP Agreement will give the notice in writing, and shall be deemed to have been duly given: (i) when received if delivered personally; (ii) when transmitted if sent by facsimile (with transmission confirmed); (iii) the day after it is sent if sent by commercial overnight courier; (iv) upon receipt if sent by certified or registered mail (return receipt requested); or (v) when transmitted if sent by email (with receipt confirmed by recipient). Notice ...\"\n\nWe need to find sentences that impose duty, prohibition, permission, expectation. The clause: \"Each party giving any notice required or permitted under this IP Agreement will give the notice in writing, and shall be deemed to have been duly given: ...\" This imposes duty: each party must give notice in writing. So obligation: \"Each party giving any notice required or permitted under this IP Agreement will give the notice in writing\". Modality: MUST? The language \"will give\" indicates future obligation, could be interpreted as MUST. Usually \"shall\" is mandatory. Here \"will give\" maybe less strong, but we can treat as MUST? The instruction: choose among MUST, MUST_NOT, SHOULD, MAY. \"will give\" is a duty, so MUST.\n\nObligor_alias: \"Each party\". That's literal phrase. Obligee_alias? Not specified; it's a notice to another party, but not explicit. Could be \"the other party\". Not in text. So obligee_alias maybe empty string? The example shows empty string allowed. So we can set \"\".\n\nAction: \"GIVE\". Upper case.\n\nObject_class: maybe \"notice\". object_raw_text: \"the notice\". Actually phrase \"the notice\" appears. The clause: \"will give the notice in writing\". So object_raw_text: \"the notice\". Good.\n\nTemporal_raw: none.\n\nCondition_raws: none.\n\nNow also there are subclauses describing when notice is deemed given: (i) when received if delivered personally; etc. Those are conditions for deeming notice given, not obligations. They are not duties. Could be considered obligations about timing of deeming? Not obligations.\n\nThus only one obligation.\n\nNeed to ensure span_text includes entire clause. Must include leading clause if any. The clause is: \"Each party giving any notice required or permitted under this IP Agreement will give the notice in writing, and shall be deemed to have been duly given: (i) when received if delivered personally; (ii) when transmitted if sent by facsimile (with transmission confirmed); (iii) the day after it is sent if sent by commercial overnight courier; (iv) upon receipt if sent by certified or registered mail (return receipt requested); or (v) when transmitted if sent by email (with receipt confirmed by recipient).\"\n\nWe need to include the whole sentence up to period. That includes the list. That is the span_text.\n\nCheck that object_raw_text \"the notice\" is substring. Yes.\n\nTemporal_raw null.\n\nCondition_raws empty.\n\nNow produce JSON.\n\nConfidence maybe 0.9.\n\nReturn {\"obligations\": [ ... ]}. Ensure compact JSON, no spaces? They said compact but example had spaces. We'll produce minimal but valid.\n\n"
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.369909493,
+          "prompt_tokens": 1565,
+          "prompt_time": 0.206413494,
+          "completion_tokens": 858,
+          "completion_time": 1.791891777,
+          "total_tokens": 2423,
+          "total_time": 1.998305271,
+          "prompt_tokens_details": {
+            "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 681
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_b1dd3e7a63",
+        "x_groq": {
+          "id": "req_01m0qxhn6eer792phgc0p9xmj9",
+          "seed": 418951116
+        },
+        "service_tier": "on_demand"
+      }
+    },
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-b2a3cfca-13dd-453a-ab5c-2379380cc99f",
+        "object": "chat.completion",
+        "created": 1787509171,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"repairs\":[{\"index\":0,\"action\":\"PROVIDE\"}]}",
+              "reasoning": "We need to output JSON with repairs array. Only one candidate index 0, field to correct is action. Need to map the verb \"give\" to one of allowed actions. The clause: \"Each party ... will give the notice in writing, and shall be deemed to have been duly given...\" The action is \"give\" notice. Closest verb in list? Possibly \"PROVIDE\" (to give). Also \"DELIVER\" could be but \"give notice in writing\" is providing notice. Choose PROVIDE. So action = \"PROVIDE\". No other fields to correct. Must include index, action. Should we also include modality? No, only fields to correct. So output:\n\n{\n \"repairs\": [\n   {\"index\":0, \"action\":\"PROVIDE\"}\n ]\n}\n\nCheck JSON compact. Ensure no extra spaces? It's okay."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.369818024,
+          "prompt_tokens": 1932,
+          "prompt_time": 0.043678444,
+          "completion_tokens": 201,
+          "completion_time": 0.414896281,
+          "total_tokens": 2133,
+          "total_time": 0.458574725,
+          "prompt_tokens_details": {
+            "cached_tokens": 1024
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 176
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_8655ddce88",
+        "x_groq": {
+          "id": "req_01m0qxjqzxe9h8apmq5cdptm3n",
+          "seed": 113185793
+        },
+        "service_tier": "on_demand"
+      }
+    }
+  ]
+}

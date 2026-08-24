@@ -1,0 +1,91 @@
+{
+  "segment_id": "C14-076",
+  "run": 1,
+  "recorded_at": "2026-08-23T17:46:18+00:00",
+  "model_id": "openai/gpt-oss-120b",
+  "prompt_version": "v3",
+  "segment_sha256": "b8f749157104358c4f282a361904c1d9d0f009b1975983fd3d0c500ad67dbbd5",
+  "guideline_version": "v0.28",
+  "responses": [
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-0af29a90-fd69-4dac-b769-381941a91766",
+        "object": "chat.completion",
+        "created": 1787507120,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"obligations\":[{\"span_text\":\"Each party shall deduct such taxes from the payments due to the other party hereunder as required by law including withholding taxes (unless an exemption is provided),\",\"modality\":\"MUST\",\"obligor_alias\":\"Each party\",\"obligee_alias\":\"the other party\",\"action\":\"DEDUCT\",\"object_class\":\"taxes\",\"object_raw_text\":\"such taxes\",\"temporal_raw\":null,\"condition_raws\":[],\"confidence\":0.9},{\"span_text\":\"Each party shall promptly furnish such other party with appropriate tax receipts.\",\"modality\":\"MUST\",\"obligor_alias\":\"Each party\",\"obligee_alias\":\"such other party\",\"action\":\"FURNISH\",\"object_class\":\"tax_receipts\",\"object_raw_text\":\"appropriate tax receipts\",\"temporal_raw\":null,\"condition_raws\":[],\"confidence\":0.9},{\"span_text\":\"Each party will be solely responsible for any and all taxes imposed thereon, including, without limitation, all income taxes, sales taxes, goods and services taxes.\",\"modality\":\"MUST\",\"obligor_alias\":\"Each party\",\"obligee_alias\":\"\",\"action\":\"RESPONSIBLE\",\"object_class\":\"taxes\",\"object_raw_text\":\"any and all taxes imposed thereon, including, without limitation, all income taxes, sales taxes, goods and services taxes\",\"temporal_raw\":null,\"condition_raws\":[],\"confidence\":0.8}]}",
+              "reasoning": "We need to extract obligations. Let's read segment:\n\n\"8.5. TAXES. Each party shall deduct such taxes from the payments due to the other party hereunder as required by law including withholding taxes (unless an exemption is provided), and shall promptly furnish such other party with appropriate tax receipts. Each party will be solely responsible for any and all taxes imposed thereon, including, without limitation, all income taxes, sales taxes, goods and services taxes. Israel value added tax shall be added, if applicable, to all amounts payable hereunder and will be paid against submission of appropriate tax invoices.\"\n\nWe need to identify obligations: sentences with duty, prohibition, permission, expectation.\n\nFirst sentence: \"Each party shall deduct such taxes from the payments due to the other party hereunder as required by law including withholding taxes (unless an exemption is provided), and shall promptly furnish such other party with appropriate tax receipts.\"\n\nObligation: \"Each party shall deduct such taxes from the payments due to the other party hereunder as required by law including withholding taxes (unless an exemption is provided), and shall promptly furnish such other party with appropriate tax receipts.\"\n\nModality: MUST? \"shall\" => MUST.\n\nObligor_alias: \"Each party\". Obligee_alias: \"the other party\". Actually phrase \"the other party\". In text: \"the other party\". So obligee_alias: \"the other party\". Action: two verbs: \"deduct\" and \"furnish\". Might need separate obligations? Could split into two obligations. The sentence contains two obligations: deduct taxes, furnish receipts. Could treat as one with two actions? Usually each candidate is one obligation. Might split.\n\nFirst obligation: \"Each party shall deduct such taxes from the payments due to the other party hereunder as required by law including withholding taxes (unless an exemption is provided)\". Span includes up to before \", and\". So we need include leading clause? Already includes \"Each party shall deduct...\". No temporal. Condition: \"as required by law including withholding taxes (unless an exemption is provided)\". That's a condition phrase but not starting with \"if\". It's \"as required by law\". Condition_raws expects \"if\"-type conditional phrases. Not needed.\n\nSecond obligation: \"Each party shall promptly furnish such other party with appropriate tax receipts.\" Span: \"Each party shall promptly furnish such other party with appropriate tax receipts.\" Obligor: \"Each party\". Obligee: \"such other party\". Action: \"FURNISH\". Object: \"appropriate tax receipts\". Temporal: none.\n\nThird sentence: \"Each party will be solely responsible for any and all taxes imposed thereon, including, without limitation, all income taxes, sales taxes, goods and services taxes.\"\n\nObligation? \"will be solely responsible\" is a duty. Modality: MUST? \"will be\" maybe indicates obligation but not \"shall\". Could be \"MUST\"? Usually \"shall\" indicates mandatory. \"will be\" maybe statement of responsibility, not an actionable duty. Might still be considered an obligation: each party is responsible. Could treat as MUST? Might be \"MUST\". But ambiguous. Might include as obligation: \"Each party will be solely responsible for any and all taxes imposed thereon, including, without limitation, all income taxes, sales taxes, goods and services taxes.\" Obligor: \"Each party\". Obligee: none? It's a responsibility to themselves, not to other party. Could set obligee_alias empty string. Action: \"BE RESPONSIBLE\" maybe \"RESPONSIBLE\". Object_class: \"taxes\". Object_raw_text: \"any and all taxes imposed thereon, including, without limitation, all income taxes, sales taxes, goods and services taxes\". Temporal none. Condition none.\n\nFourth sentence: \"Israel value added tax shall be added, if applicable, to all amounts payable hereunder and will be paid against submission of appropriate tax invoices.\"\n\nObligation: \"Israel value added tax shall be added, if applicable, to all amounts payable hereunder\". Obligor? Not clear who adds. Could be the payer? Not specified. Might be the party paying amounts. Could be ambiguous. Might skip due to unclear obligor. Also second part: \"and will be paid against submission of appropriate tax invoices.\" Who will pay? Likely the party receiving invoice. Obligor ambiguous. Might not include.\n\nThus we have at least two obligations (deduct taxes, furnish receipts). Possibly third (responsibility). Let's include three.\n\nNow need fields:\n\nFirst obligation (deduct taxes):\nspan_text: need exact substring. Let's capture full clause up to comma before \"and\". The original text: \"Each party shall deduct such taxes from the payments due to the other party hereunder as required by law including withholding taxes (unless an exemption is provided),\". Include trailing comma? The clause ends with comma. Should we include comma? Yes verbatim. So span_text = \"Each party shall deduct such taxes from the payments due to the other party hereunder as required by law including withholding taxes (unless an exemption is provided),\". Modality: MUST. obligor_alias: \"Each party\". obligee_alias: \"the other party\". Action: \"DEDUCT\". object_class: maybe \"taxes\". object_raw_text: \"such taxes\". temporal_raw: null. condition_raws: [] (no if). The phrase \"as required by law including withholding taxes (unless an exemption is provided)\" is not an if condition. So empty.\n\nSecond obligation (furnish receipts):\nspan_text: \"Each party shall promptly furnish such other party with appropriate tax receipts.\" Modality: MUST. obligor_alias: \"Each party\". obligee_alias: \"such other party\". Action: \"FURNISH\". object_class: \"tax_receipts\". object_raw_text: \"appropriate tax receipts\". temporal_raw: null. condition_raws: [].\n\nThird obligation (responsibility):\nspan_text: \"Each party will be solely responsible for any and all taxes imposed thereon, including, without limitation, all income taxes, sales taxes, goods and services taxes.\" Modality: MUST? Might be \"MUST\". But \"will be\" maybe not a modal. Could treat as \"MUST\". Or maybe \"SHOULD\"? I'd choose \"MUST\". obligor_alias: \"Each party\". obligee_alias: \"\" (none). Action: \"BE RESPONSIBLE\". But action must be verb upper case, maybe \"RESPONSIBLE\". Could use \"BE\". But better \"RESPONSIBLE\". object_class: \"taxes\". object_raw_text: \"any and all taxes imposed thereon, including, without limitation, all income taxes, sales taxes, goods and services taxes\". temporal_raw: null. condition_raws: [].\n\nCheck that object_raw_text is substring of span_text. Yes.\n\nNow produce JSON with confidence maybe 0.9 each.\n\nNeed confidence field per obligation. Not required but example includes. The spec didn't mention confidence but example includes. Should we include? The shape includes confidence in example but not mandated. The instruction says respond with JSON object of exactly this shape (illustrative values shown). It includes confidence. Probably we should include confidence field. Safer to include.\n\nThus output.\n\n"
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.160445454,
+          "prompt_tokens": 1520,
+          "prompt_time": 0.061913614,
+          "completion_tokens": 1772,
+          "completion_time": 3.711360494,
+          "total_tokens": 3292,
+          "total_time": 3.773274108,
+          "completion_tokens_details": {
+            "reasoning_tokens": 1475
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_c15aa9c1b7",
+        "x_groq": {
+          "id": "req_01m0qvm2jve7er7tn0pc06ky0p",
+          "seed": 470245233
+        },
+        "service_tier": "on_demand"
+      }
+    },
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-443f707c-991a-4b9e-8116-af7d9744ece6",
+        "object": "chat.completion",
+        "created": 1787507177,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"repairs\":[{\"index\":0,\"action\":\"WITHHOLD\"},{\"index\":1,\"action\":\"PAY\"}]}",
+              "reasoning": "We need to correct only the named fields for each candidate.\n\nCandidate 0: field action needs to be from allowed list. The clause: \"Each party shall deduct such taxes from the payments due to the other party hereunder as required by law including withholding taxes (unless an exemption is provided),\". The verb \"deduct\" is about withholding taxes. Closest allowed verb? Options include WITHHOLD (makes sense). So action = WITHHOLD.\n\nOther fields remain same; we only output corrected fields: action.\n\nCandidate 1: action \"RESPONSIBLE\" not allowed. Clause: \"Each party will be solely responsible for any and all taxes imposed thereon...\" This is a responsibility, not an action. Closest allowed verb maybe \"PAY\" (they are responsible for taxes). Or \"WITHHOLD\"? Not exactly. They are responsible for taxes, meaning they must pay them. So action = PAY.\n\nCheck modality: both are \"MUST\". That's fine.\n\nWe need to output JSON with repairs array containing objects with index and corrected fields. For each, include only fields we are correcting. So for index 0: {\"index\":0,\"action\":\"WITHHOLD\"}.\n\nFor index1: {\"index\":1,\"action\":\"PAY\"}.\n\nNo other fields.\n\nMake sure JSON compact, no extra spaces? It's okay.\n\nReturn {\"repairs\":[...]}.\n\n"
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.369989522,
+          "prompt_tokens": 2196,
+          "prompt_time": 0.106503016,
+          "completion_tokens": 314,
+          "completion_time": 0.656061268,
+          "total_tokens": 2510,
+          "total_time": 0.762564284,
+          "completion_tokens_details": {
+            "reasoning_tokens": 281
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_90620edd96",
+        "x_groq": {
+          "id": "req_01m0qvnx5wesy8gpqwqsf1mhvz",
+          "seed": 526972297
+        },
+        "service_tier": "on_demand"
+      }
+    }
+  ]
+}

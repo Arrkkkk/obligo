@@ -1,0 +1,91 @@
+{
+  "segment_id": "E01-047",
+  "run": 2,
+  "recorded_at": "2026-08-23T18:20:42+00:00",
+  "model_id": "openai/gpt-oss-120b",
+  "prompt_version": "v3",
+  "segment_sha256": "53283300aa0db4726734b798c23c381519c77cac9090641bd4a6df8faebf30ff",
+  "guideline_version": "v0.28",
+  "responses": [
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-e86cd1f7-1a07-4991-ae38-ad78753faab8",
+        "object": "chat.completion",
+        "created": 1787509207,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"obligations\":[{\"span_text\":\"No provisions of this Agreement shall be deemed waived, amended, supplemented or modified by any Party hereto, unless such waiver, amendment, supplement or modification is in writing and signed by the authorized representative of each Party.\",\"modality\":\"MUST_NOT\",\"obligor_alias\":\"any Party\",\"obligee_alias\":\"\",\"action\":\"DEEM\",\"object_class\":\"provisions\",\"object_raw_text\":\"provisions of this Agreement\",\"temporal_raw\":null,\"condition_raws\":[\"unless such waiver, amendment, supplement or modification is in writing and signed by the authorized representative of each Party\"],\"confidence\":0.9}]}",
+              "reasoning": "We need to extract obligations. The segment: \"SECTION 8.14. Amendments. No provisions of this Agreement shall be deemed waived, amended, supplemented or modified by any Party hereto, unless such waiver, amendment, supplement or modification is in writing and signed by the authorized representative of each Party.\"\n\nWe need to identify obligations: This is a prohibition? \"No provisions ... shall be deemed waived, amended, supplemented or modified by any Party hereto, unless ...\" This is stating that parties cannot deem provisions waived/amended/etc unless written and signed. That's a prohibition: parties must not deem provisions waived/amended/etc unless condition satisfied. So modality: MUST_NOT? The clause says \"shall be deemed ... unless ...\". Actually \"No provisions ... shall be deemed waived... by any Party hereto, unless ...\" Means parties cannot deem provisions waived unless condition. So it's a prohibition: parties must not deem provisions waived unless condition. So modality could be MUST_NOT (i.e., must not deem). Or could be \"MUST\" with condition: \"shall be deemed ... unless ...\" That's a conditional permission: they may deem only if condition satisfied. But typical extraction: \"any Party ... shall not deem ... unless ...\" So we can phrase as \"any Party ... shall not deem ... unless ...\" The clause as written: \"No provisions ... shall be deemed ... by any Party hereto, unless ...\" So the obligation is on any Party: they must not deem provisions waived/amended/etc unless written and signed. So modality: MUST_NOT.\n\nWe need to capture span_text exactly. Must include leading clause if any. The whole sentence: \"No provisions of this Agreement shall be deemed waived, amended, supplemented or modified by any Party hereto, unless such waiver, amendment, supplement or modification is in writing and signed by the authorized representative of each Party.\"\n\nWe need obligor_alias: \"any Party\". Actually the phrase \"any Party hereto\". So obligor_alias: \"any Party\". Must be exactly as appears. The phrase includes \"any Party hereto\". Should we include \"any Party hereto\"? The party appears as \"any Party hereto\". So obligor_alias: \"any Party\". The phrase \"any Party hereto\" includes \"any Party\". The alias must be exactly as appears within span_text. Could be \"any Party\". That's fine.\n\nObligee_alias: The clause does not specify a recipient; it's about parties themselves. Could be empty string? The spec expects obligee_alias: the party the obligation is owed to, exactly as appears. If none, maybe empty string. In example they left obligee_alias empty when none. So we can set \"\".\n\nAction: The governing verb: \"DEEM\". Upper case: DEEM.\n\nObject_class: what is object? The provisions being deemed waived/amended/etc. Could be \"provisions\". So object_class: \"provisions\". object_raw_text: \"provisions of this Agreement\". Must be literal substring. In span_text, phrase \"provisions of this Agreement\". Yes.\n\nTemporal_raw: none.\n\nCondition_raws: list of condition phrases: \"unless such waiver, amendment, supplement or modification is in writing and signed by the authorized representative of each Party\". Must be literal substring. Include the leading \"unless\". So condition_raws: [\"unless such waiver, amendment, supplement or modification is in writing and signed by the authorized representative of each Party\"].\n\nCheck that condition phrase is substring of span_text. Yes.\n\nNow ensure span_text includes the condition phrase. It does.\n\nNow produce JSON with confidence maybe 0.9.\n\nReturn {\"obligations\": [ ... ]}. Ensure compact JSON.\n\n"
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.158633999,
+          "prompt_tokens": 1459,
+          "prompt_time": 0.06497467,
+          "completion_tokens": 887,
+          "completion_time": 1.845829986,
+          "total_tokens": 2346,
+          "total_time": 1.910804656,
+          "completion_tokens_details": {
+            "reasoning_tokens": 745
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_4727af4560",
+        "x_groq": {
+          "id": "req_01m0qxkttter7bdm5w001b5n64",
+          "seed": 580966519
+        },
+        "service_tier": "on_demand"
+      }
+    },
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-33af68f5-e5e5-4fdd-92b4-6ad5cb9b9264",
+        "object": "chat.completion",
+        "created": 1787509242,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"repairs\": []}",
+              "reasoning": "We have one candidate with failure: action field is DEEM, not allowed. Need to replace with appropriate verb from list that matches clause meaning.\n\nClause: \"No provisions of this Agreement shall be deemed waived, amended, supplemented or modified by any Party hereto, unless such waiver, amendment, supplement or modification is in writing and signed by the authorized representative of each Party.\"\n\nInterpretation: It's stating that provisions shall not be deemed waived/amended/etc unless written. So the action is \"DEEM\" (to consider). Need to map to allowed verb. Which verb best matches \"DEEM\"? Possibly \"WAIVE\"? No, that's about waiver. \"DEEM\" is about treating as something. Could map to \"REPORT\"? Not really. \"PROVIDE\"? No. \"COMPLY\"? No. \"ACKNOWLEDGE\"? Not in list. \"DECLARE\"? Not in list. The list includes \"WAIVE\", \"DIS...\". The best might be \"WAIVE\"? But the clause is about not deeming provisions waived unless written. The action is about deeming, which is akin to \"DECLARE\" or \"CONSIDER\". Not in list. Could we omit candidate? The instruction: If none of the listed verbs fits, omit that candidate entirely rather than guessing a verb that changes meaning. So we should omit this candidate.\n\nThus output repairs: [].\n\nCheck: We must output {\"repairs\": []}."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.159881313,
+          "prompt_tokens": 1793,
+          "prompt_time": 0.093513254,
+          "completion_tokens": 305,
+          "completion_time": 0.638216061,
+          "total_tokens": 2098,
+          "total_time": 0.731729315,
+          "completion_tokens_details": {
+            "reasoning_tokens": 290
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_6dedd2be22",
+        "x_groq": {
+          "id": "req_01m0qxmxm3e0dtvst95px6c2r7",
+          "seed": 633195374
+        },
+        "service_tier": "on_demand"
+      }
+    }
+  ]
+}

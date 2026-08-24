@@ -1,0 +1,94 @@
+{
+  "segment_id": "C22-048",
+  "run": 1,
+  "recorded_at": "2026-08-23T17:50:40+00:00",
+  "model_id": "openai/gpt-oss-120b",
+  "prompt_version": "v3",
+  "segment_sha256": "fbe41eb8479ec2c5f2749ecda3eea5b1ac836df5a49ff8a4524f1dc9217d365f",
+  "guideline_version": "v0.28",
+  "responses": [
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-1702ed2e-91a9-41ff-ba36-d4694c2bb889",
+        "object": "chat.completion",
+        "created": 1787507406,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"obligations\":[{\"span_text\":\"Each party giving any notice required or permitted under this IP Agreement will give the notice in writing, and shall be deemed to have been duly given\",\"modality\":\"MUST\",\"obligor_alias\":\"Each party\",\"obligee_alias\":\"\",\"action\":\"GIVE\",\"object_class\":\"notice\",\"object_raw_text\":\"the notice\",\"temporal_raw\":null,\"condition_raws\":[],\"confidence\":0.9}]}",
+              "reasoning": "We need to extract obligations. The segment: \"Section 6.12 Notices. Each party giving any notice required or permitted under this IP Agreement will give the notice in writing, and shall be deemed to have been duly given: (i) when received if delivered personally; (ii) when transmitted if sent by facsimile (with transmission confirmed); (iii) the day after it is sent if sent by commercial overnight courier; (iv) upon receipt if sent by certified or registered mail (return receipt requested); or (v) when transmitted if sent by email (with receipt confirmed by recipient). Notice to a party is effective for purposes ... If to the Seller:\"\n\nWe need to find obligations: The clause says \"Each party giving any notice ... will give the notice in writing, and shall be deemed to have been duly given: ...\" That's an obligation: \"Each party ... will give the notice in writing\". Modality: MUST? The language \"will give\" indicates a future obligation, but not \"shall\". Could be \"MUST\". Usually \"will\" is a promise, but we need to map to modality categories: MUST, MUST_NOT, SHOULD, MAY. \"will give\" is a requirement, so treat as MUST. Obligor_alias: \"Each party\". Obligee_alias? Not specified; it's about giving notice to other party. Could be \"to a party\". But we need exact substring. The clause: \"Each party giving any notice required or permitted under this IP Agreement will give the notice in writing\". There's no explicit obligee. Might be omitted; we can set empty string? In example they left obligee_alias empty when not present. So we can set \"\".\n\nAction: \"GIVE\". Object_class: maybe \"notice\". object_raw_text: \"the notice\". Temporal_raw: none. Condition_raws: none.\n\nBut also there are conditions for when notice is deemed given: \"(i) when received if delivered personally; ...\" Those are conditions for deeming notice given, not obligations. Could be obligations about delivering notice? The clause \"when received if delivered personally\" is a condition for deeming given, not an obligation. So we may not extract separate obligations.\n\nAlso \"Notice to a party is effective ... only if given as provided in this Section 6.12 at the address of which the sending party has been notified\". That's a condition, not an obligation.\n\nThus we have one obligation.\n\nNeed to ensure span_text includes the whole clause. Should we include leading \"Section 6.12 Notices.\"? Not necessary but could be part of clause. The obligation phrase is \"Each party giving any notice required or permitted under this IP Agreement will give the notice in writing\". Should we include the preceding \"Section 6.12 Notices.\"? Not needed. The span_text must be exact substring. Let's capture: \"Each party giving any notice required or permitted under this IP Agreement will give the notice in writing\". That ends before comma? The original: \"Each party giving any notice required or permitted under this IP Agreement will give the notice in writing, and shall be deemed to have been duly given: ...\" The obligation is the first part before comma. Should we include the rest? The clause includes \"and shall be deemed to have been duly given\". That's a separate statement about deeming. The obligation is the giving. Could include whole sentence up to colon? Might be better to include up to colon: \"Each party giving any notice required or permitted under this IP Agreement will give the notice in writing, and shall be deemed to have been duly given\". That includes both obligations: giving notice and deeming. The second part is not an obligation but a definition. But it's okay.\n\nWe need object_raw_text: \"the notice\". That's present.\n\nTemporal_raw: none.\n\nCondition_raws: none.\n\nNow produce JSON.\n\nConfidence maybe 0.9.\n\nCheck that all fields are substrings of span_text. \"Each party\" appears, \"the notice\" appears, \"will give\" appears. Action \"GIVE\". Good.\n\nReturn JSON.\n\n"
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.370419944,
+          "prompt_tokens": 1569,
+          "prompt_time": 0.026669057,
+          "completion_tokens": 929,
+          "completion_time": 2.754784605,
+          "total_tokens": 2498,
+          "total_time": 2.781453662,
+          "prompt_tokens_details": {
+            "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 828
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_b1dd3e7a63",
+        "x_groq": {
+          "id": "req_01m0qvwtr4e5wa5b612b05exm4",
+          "seed": 687216971
+        },
+        "service_tier": "on_demand"
+      }
+    },
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-106d51c6-1ce6-41f3-afe0-683035442f27",
+        "object": "chat.completion",
+        "created": 1787507439,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"repairs\":[{\"index\":0,\"action\":\"PROVIDE\"}]}",
+              "reasoning": "We need to output JSON with repairs array. Only one candidate index 0, field to correct is action. Need to map \"give\" to one of allowed verbs. The clause: \"will give the notice in writing\". The closest verb in list: \"DELIVER\" maybe, or \"PROVIDE\". \"Give notice\" is akin to \"provide notice\". The allowed list includes PROVIDE. So action should be \"PROVIDE\". Modality already correct. No other fields to correct. So output:\n\n{\n \"repairs\": [\n   {\"index\":0, \"action\":\"PROVIDE\"}\n ]\n}\n\nMake sure JSON compact, no extra spaces? It's okay. Ensure fields only those corrected. No temporal_raw."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.317716557,
+          "prompt_tokens": 1852,
+          "prompt_time": 0.084152729,
+          "completion_tokens": 173,
+          "completion_time": 0.362713433,
+          "total_tokens": 2025,
+          "total_time": 0.446866162,
+          "completion_tokens_details": {
+            "reasoning_tokens": 148
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_4200b3f836",
+        "x_groq": {
+          "id": "req_01m0qvxxj1em6a632zqtgrjh7c",
+          "seed": 1314015905
+        },
+        "service_tier": "on_demand"
+      }
+    }
+  ]
+}

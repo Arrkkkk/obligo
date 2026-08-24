@@ -1,0 +1,91 @@
+{
+  "segment_id": "E07-010",
+  "run": 2,
+  "recorded_at": "2026-08-23T18:24:54+00:00",
+  "model_id": "openai/gpt-oss-120b",
+  "prompt_version": "v3",
+  "segment_sha256": "96fceeae0df7b7ce7fad0b2540c6869bebe3bb3517e660989b8f14d2784c6526",
+  "guideline_version": "v0.28",
+  "responses": [
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-0eefa677-5f84-4104-ab4a-cfa21fbbc4d4",
+        "object": "chat.completion",
+        "created": 1787509436,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"obligations\":[{\"span_text\":\"As requested by Client, and upon reasonable notice and approval by TIBCO, TIBCO shall maintain personnel at any of the Covered Sites.\",\"modality\":\"MUST\",\"obligor_alias\":\"TIBCO\",\"obligee_alias\":\"Client\",\"action\":\"MAINTAIN\",\"object_class\":\"personnel\",\"object_raw_text\":\"personnel\",\"temporal_raw\":null,\"condition_raws\":[],\"confidence\":0.9},{\"span_text\":\"On-site personnel will perform ongoing system administration, monitoring, reconfiguration and tuning, problem diagnosis, and resolution, and interfacing with Client personnel on production system issues, to the extent possible during normal business hours.\",\"modality\":\"SHOULD\",\"obligor_alias\":\"On-site personnel\",\"obligee_alias\":\"\",\"action\":\"PERFORM\",\"object_class\":\"system_operations\",\"object_raw_text\":\"system administration, monitoring, reconfiguration and tuning, problem diagnosis, and resolution, and interfacing with Client personnel on production system issues\",\"temporal_raw\":\"during normal business hours\",\"condition_raws\":[],\"confidence\":0.9},{\"span_text\":\"These personnel shall also be responsible for the installation of new TIBCO software releases on the production system and the distribution of documentation updates.\",\"modality\":\"MUST\",\"obligor_alias\":\"These personnel\",\"obligee_alias\":\"\",\"action\":\"INSTALL\",\"object_class\":\"software_release_installation\",\"object_raw_text\":\"the installation of new TIBCO software releases on the production system\",\"temporal_raw\":null,\"condition_raws\":[],\"confidence\":0.9}]}",
+              "reasoning": "We need to extract obligations. Let's read segment:\n\n\"As requested by Client, and upon reasonable notice and approval by TIBCO, TIBCO shall maintain personnel at any of the Covered Sites. On-site personnel will perform ongoing -------------------------------------------------------------------------------- 98-9-14 TIBCO Maintenance Agreement Page 3 CONFIDENTIAL INFORMATION system administration, monitoring, reconfiguration and tuning, problem diagnosis, and resolution, and interfacing with Client personnel on production system issues, to the extent possible during normal business hours. These personnel shall also be responsible for the installation of new TIBCO software releases on the production system and the distribution of documentation updates.\"\n\nWe need to identify obligations.\n\nFirst sentence: \"As requested by Client, and upon reasonable notice and approval by TIBCO, TIBCO shall maintain personnel at any of the Covered Sites.\"\n\nObligation: TIBCO shall maintain personnel at any of the Covered Sites. Modality MUST? \"shall\" indicates MUST. Obligor: TIBCO. Obligee: Client? The clause says \"As requested by Client\". The obligation is to maintain personnel, presumably for Client. The obligee is not explicitly mentioned in the clause; but \"as requested by Client\" indicates the request is from Client, but the obligation is to maintain personnel at any of the Covered Sites (maybe for Client). The obligee alias must be exactly as appears in span_text. The phrase \"Client\" appears. So we can set obligee_alias: \"Client\". The object: \"personnel\". object_class maybe \"personnel\". object_raw_text: \"personnel\". Temporal: none. Condition: maybe \"upon reasonable notice and approval by TIBCO\". That's a condition phrase starting with \"upon\". The rule says condition_raws are \"if\"-type conditional phrases. \"upon reasonable notice and approval by TIBCO\" is not an \"if\" but could be considered condition. The spec says list of literal \"if\"-type conditional phrases. It may not count. There's also leading clause \"As requested by Client, and upon reasonable notice and approval by TIBCO,\" which is a condition. But it's not \"if\". Might still be considered condition. The spec says \"if\"-type conditional phrases. So maybe we leave condition_raws empty.\n\nSecond sentence: \"On-site personnel will perform ongoing ... system administration, monitoring, reconfiguration and tuning, problem diagnosis, and resolution, and interfacing with Client personnel on production system issues, to the extent possible during normal business hours.\"\n\nObligation: On-site personnel will perform ongoing system administration, monitoring, reconfiguration and tuning, problem diagnosis, and resolution, and interfacing with Client personnel on production system issues, to the extent possible during normal business hours.\n\nModality: \"will\" indicates SHOULD? Usually \"will\" is future but not necessarily mandatory. In legal contracts, \"shall\" is mandatory, \"will\" can be considered SHALL? Might treat as MUST? But guidelines: modality categories: MUST, MUST_NOT, SHOULD, MAY. \"will\" is ambiguous; but we can interpret as MUST? Might be considered SHOULD. Safer to use SHOULD? The phrase \"will perform\" is a statement of intent, likely a duty. I'd map to MUST. But guidelines: \"shall\" is MUST, \"should\" is SHOULD, \"may\" is MAY, \"must not\" is MUST_NOT. \"will\" not listed; we need to guess. I'd choose SHOULD? Hmm. The spec says \"your best guess\". I'd choose SHOULD.\n\nObligor: \"On-site personnel\". Obligee: maybe \"Client\"? The clause mentions \"interfacing with Client personnel\". The obligation is to perform tasks, not necessarily to a party. Could leave obligee empty string. But must be literal substring if present. If none, we can set empty string.\n\nObject: the tasks: \"system administration, monitoring, reconfiguration and tuning, problem diagnosis, and resolution, and interfacing with Client personnel on production system issues\". That's long. object_class maybe \"system_operations\". object_raw_text: that phrase.\n\nTemporal: \"to the extent possible during normal business hours\". That's a timing phrase. Include as temporal_raw: \"during normal business hours\". Must be literal substring. The phrase includes \"during normal business hours\". So we can set that.\n\nCondition: none.\n\nThird sentence: \"These personnel shall also be responsible for the installation of new TIBCO software releases on the production system and the distribution of documentation updates.\"\n\nObligation: These personnel shall also be responsible for the installation of new TIBCO software releases on the production system and the distribution of documentation updates.\n\nModality: \"shall\" => MUST.\n\nObligor: \"These personnel\". Obligee: maybe none. Could be for Client. Not explicit. We'll leave empty.\n\nAction: \"INSTALL\" maybe \"INSTALL\" and \"DISTRIBUTE\". But we need one action verb. Could choose \"INSTALL\". object_class: \"software_release_installation\". object_raw_text: \"the installation of new TIBCO software releases on the production system\". Temporal none. Condition none.\n\nBut we need to ensure span_text includes the entire clause. For first obligation, include leading clause \"As requested by Client, and upon reasonable notice and approval by TIBCO, TIBCO shall maintain personnel at any of the Covered Sites.\" That's the span_text.\n\nSecond obligation span_text: \"On-site personnel will perform ongoing system administration, monitoring, reconfiguration and tuning, problem diagnosis, and resolution, and interfacing with Client personnel on production system issues, to the extent possible during normal business hours.\" Need to ensure we include the phrase \"to the extent possible during normal business hours\". That's included.\n\nThird obligation span_text: \"These personnel shall also be responsible for the installation of new TIBCO software releases on the production system and the distribution of documentation updates.\"\n\nNow ensure each field is literal substring.\n\nFirst: object_raw_text \"personnel\". Yes appears.\n\nTemporal_raw null.\n\nCondition_raws empty.\n\nSecond: object_raw_text phrase. Must be exact substring. Let's capture \"system administration, monitoring, reconfiguration and tuning, problem diagnosis, and resolution, and interfacing with Client personnel on production system issues\". That's exactly in text. Ensure we include same punctuation. The text: \"system administration, monitoring, reconfiguration and tuning, problem diagnosis, and resolution, and interfacing with Client personnel on production system issues\". Yes.\n\nTemporal_raw: \"during normal business hours\". In text: \"during normal business hours\". Good.\n\nThird: object_raw_text \"the installation of new TIBCO software releases on the production system\". That's substring. Also \"the distribution of documentation updates\". Could be separate objects but we choose first.\n\nNow produce JSON with confidence maybe 0.9 each.\n\nMake sure JSON compact, no extra spaces? It's okay.\n\nLet's craft.\n\n"
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.376784644,
+          "prompt_tokens": 1530,
+          "prompt_time": 0.08285896,
+          "completion_tokens": 1726,
+          "completion_time": 3.57979327,
+          "total_tokens": 3256,
+          "total_time": 3.66265223,
+          "completion_tokens_details": {
+            "reasoning_tokens": 1396
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_ca5edfaab2",
+        "x_groq": {
+          "id": "req_01m0qxtrccec894segj1484h2n",
+          "seed": 926855509
+        },
+        "service_tier": "on_demand"
+      }
+    },
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-cb2a139d-1b01-4392-9f09-eec5c92effac",
+        "object": "chat.completion",
+        "created": 1787509493,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"repairs\":[{\"index\":0,\"action\":\"EXECUTE\"}]}",
+              "reasoning": "We need to produce JSON repairs for candidate index 0, correcting action field. Must choose an action from list that best matches \"installation of new TIBCO software releases on the production system and the distribution of documentation updates.\"\n\nPossible actions: INSTALL not allowed. Closest maybe \"PROVIDE\" (providing software releases) or \"DELIVER\" (deliver software) or \"MAINTAIN\" (maintain software) or \"PROCURE\". The clause: \"shall also be responsible for the installation ... and the distribution of documentation updates.\" The governing verb is \"shall be responsible for the installation ... and the distribution\". The action could be \"PROVIDE\" (distribution) but installation is more like \"EXECUTE\" maybe? \"EXECUTE\" could be close to performing installation. Or \"MAINTAIN\" is about maintenance. \"PROVIDE\" is about providing documentation updates. Which is closer? The list includes \"EXECUTE\" which is about carrying out tasks. Installation is execution of installation. So choose EXECUTE.\n\nThus action: EXECUTE.\n\nOther fields unchanged; we only include corrected fields: action.\n\nWe need JSON: {\"repairs\": [{\"index\":0,\"action\":\"EXECUTE\"}]}\n\nCheck format: include only fields we correct. Yes.\n\nReturn compact JSON, no extra whitespace? It's okay.\n\n"
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.292103328,
+          "prompt_tokens": 1819,
+          "prompt_time": 0.078845398,
+          "completion_tokens": 295,
+          "completion_time": 0.611091801,
+          "total_tokens": 2114,
+          "total_time": 0.689937199,
+          "completion_tokens_details": {
+            "reasoning_tokens": 271
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_c800245357",
+        "x_groq": {
+          "id": "req_01m0qxwjzee25axtqwxa4w7jfb",
+          "seed": 1525599038
+        },
+        "service_tier": "on_demand"
+      }
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "segment_id": "C04-087",
+  "run": 1,
+  "recorded_at": "2026-08-23T17:40:43+00:00",
+  "model_id": "openai/gpt-oss-120b",
+  "prompt_version": "v3",
+  "segment_sha256": "50bec0117521c311a1d9b9aa30020c251326c5bf622f31cb2536e5655c5c9bf3",
+  "guideline_version": "v0.28",
+  "responses": [
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-62c44997-2a51-4277-938f-bf395bf9a03f",
+        "object": "chat.completion",
+        "created": 1787506783,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"obligations\":[{\"span_text\":\"(a) Each quantity of Miltenyi Product(s) ordered by Bellicum in a particular Purchase Order pursuant to this Agreement shall be delivered FCA (Incoterms 2010) Miltenyi's Facility by delivery 20 Miltenyi Biotec-Bellicum Supply Agreement (Execution Copy, March 27, 2019) of the shipped goods to Bellicum's designated carrier or freight forwarder, in adequate packaging and ready for loading, on the Delivery Date (\\\"Delivery\\\").\",\"modality\":\"MUST\",\"obligor_alias\":\"Miltenyi\",\"obligee_alias\":\"Bellicum\",\"action\":\"DELIVER\",\"object_class\":\"product\",\"object_raw_text\":\"Miltenyi Product(s)\",\"temporal_raw\":\"on the Delivery Date (\\\"Delivery\\\")\",\"condition_raws\":[],\"confidence\":0.9}]}",
+              "reasoning": "We need to parse the segment. The text:\n\n\"(a) Each quantity of Miltenyi Product(s) ordered by Bellicum in a particular Purchase Order pursuant to this Agreement shall be delivered FCA (Incoterms 2010) Miltenyi's Facility by delivery 20 Miltenyi Biotec-Bellicum Supply Agreement (Execution Copy, March 27, 2019) of the shipped goods to Bellicum's designated carrier or freight forwarder, in adequate packaging and ready for loading, on the Delivery Date (\"Delivery\").\"\n\nWe need to extract obligations. There's a clause: \"Each quantity of Miltenyi Product(s) ordered by Bellicum ... shall be delivered ... on the Delivery Date (\"Delivery\").\"\n\nObligation: deliver goods. Obligor: Miltenyi? Actually the clause says \"Each quantity ... ordered by Bellicum ... shall be delivered ... to Bellicum's designated carrier\". Who delivers? The subject is \"Each quantity ... shall be delivered\". Implicitly the seller (Miltenyi) must deliver. The clause doesn't explicitly name Miltenyi as obligor, but the phrase \"Miltenyi Product(s)\" suggests Miltenyi is the supplier. The clause: \"Each quantity ... shall be delivered ... by delivery ... of the shipped goods to Bellicum's designated carrier\". The obligor is likely Miltenyi (the seller). But the text does not contain the word \"Miltenyi shall deliver\". However the phrase \"shall be delivered\" is a passive construction; the obligor is the party responsible for delivering, which is Miltenyi. However we need obligor_alias exactly as appears in span_text. The span_text includes \"Each quantity of Miltenyi Product(s) ordered by Bellicum ... shall be delivered ...\". There's no explicit party name as subject. In such case, we might set obligor_alias as empty? The spec says obligor_alias: the party who owes the obligation, exactly as it literally appears within span_text (for example \"Vendor\", \"the Company\", \"Acme Corp\"). If not explicitly present, maybe we cannot fill. But we could use \"Miltenyi\" appears in \"Miltenyi Product(s)\" and \"Miltenyi's Facility\". However the obligor is not explicitly named. Might be ambiguous. The guidelines likely expect we still extract with obligor_alias as empty string if not explicit. But they didn't give example of empty obligor. In example they had obligee_alias empty. So we can set obligor_alias empty if not explicit.\n\nObligee: Bellicum (the buyer). It appears as \"ordered by Bellicum\". So \"Bellicum\" appears.\n\nAction: DELIVER.\n\nObject_class: maybe \"miltenyi_products\" or \"product\". Use \"product\". object_raw_text: \"Miltenyi Product(s)\"? The phrase \"Miltenyi Product(s)\" appears.\n\nTemporal_raw: \"on the Delivery Date (\"Delivery\")\". That's literal substring.\n\nCondition_raws: none.\n\nModality: MUST (shall).\n\nSpan_text must include the whole clause. Should we include leading \"(a)\"? The clause starts with \"(a)\". The leading clause is \"(a)\". It's not a temporal or condition. We can include it. The span_text should be the exact clause up to period.\n\nLet's capture:\n\nSpan_text: \"(a) Each quantity of Miltenyi Product(s) ordered by Bellicum in a particular Purchase Order pursuant to this Agreement shall be delivered FCA (Incoterms 2010) Miltenyi's Facility by delivery 20 Miltenyi Biotec-Bellicum Supply Agreement (Execution Copy, March 27, 2019) of the shipped goods to Bellicum's designated carrier or freight forwarder, in adequate packaging and ready for loading, on the Delivery Date (\"Delivery\").\"\n\nCheck that temporal_raw \"on the Delivery Date (\"Delivery\")\" is substring. Yes.\n\nCondition_raws: none.\n\nObligor_alias: maybe \"Miltenyi\". But \"Miltenyi\" appears as part of \"Miltenyi Product(s)\" and \"Miltenyi's Facility\". The literal \"Miltenyi\" appears. Could we set obligor_alias as \"Miltenyi\"? It's a substring. That seems okay.\n\nObligee_alias: \"Bellicum\". Appear.\n\nAction: DELIVER.\n\nObject_class: \"product\". object_raw_text: \"Miltenyi Product(s)\". That's literal.\n\nNow produce JSON with confidence maybe 0.9.\n\nCheck all fields are literal substrings of span_text.\n\n- obligor_alias \"Miltenyi\": appears in \"Miltenyi Product(s)\" and \"Miltenyi's Facility\". Good.\n- obligee_alias \"Bellicum\": appears.\n- object_raw_text \"Miltenyi Product(s)\" appears exactly.\n- temporal_raw \"on the Delivery Date (\"Delivery\")\" appears exactly.\n\nAll good.\n\nNow produce JSON."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.370791796,
+          "prompt_tokens": 1507,
+          "prompt_time": 0.064432842,
+          "completion_tokens": 1208,
+          "completion_time": 2.5118424150000003,
+          "total_tokens": 2715,
+          "total_time": 2.576275257,
+          "completion_tokens_details": {
+            "reasoning_tokens": 1016
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_b1dd3e7a63",
+        "x_groq": {
+          "id": "req_01m0qv9tvdeg4v7b6c1w6gysr2",
+          "seed": 1770909019
+        },
+        "service_tier": "on_demand"
+      }
+    },
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-54dbe7d1-4bbf-4813-94ff-67f57a85c629",
+        "object": "chat.completion",
+        "created": 1787506842,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"repairs\": []}",
+              "reasoning": "We need to produce JSON with repairs array. Only one candidate index 0, need to correct temporal_raw field.\n\nWe must find a shorter contiguous substring of span_text that is the timing phrase on its own. The span_text includes \"... on the Delivery Date (\\\"Delivery\\\").\"\n\nWe need a substring that is just the timing phrase. The phrase \"Delivery Date\" maybe? The phrase \"on the Delivery Date\" includes \"on\". The timing phrase could be \"Delivery Date\". The requirement: a contiguous substring of span_text containing just the timing phrase itself and nothing else. So we could return \"Delivery Date\". That appears in span_text: \"... on the Delivery Date (\"Delivery\")\". The substring \"Delivery Date\" is present. That is a timing phrase? It's a reference to a defined term. It's a phrase, not a shape but it's a phrase. The rule says must be one of the five supported shapes, but we cannot rewrite. However we can return a shorter substring that is the timing phrase on its own. \"Delivery Date\" is a phrase but not matching shapes. But the rule says if no shorter verbatim substring of span_text is a clean timing phrase on its own, omit candidate. But we have \"Delivery Date\" which is a term defined earlier. Is that considered a timing phrase? Possibly yes. The shape \"on the Delivery Date\" is not supported, but \"Delivery Date\" alone might be considered a timing phrase? The shapes include \"by <YYYY-MM-DD>\", \"within <N> <unit> of <trigger>\", etc. \"Delivery Date\" is not one of those shapes. However the instruction says: \"If a SHORTER contiguous substring of span_text is the timing phrase on its own, return exactly that substring\". It doesn't require it to match the shapes? The failure reason says UNMAPPABLE_TEMPORAL because the timing phrase does not match any of the five supported shapes. So we need to provide a substring that matches one of those shapes? Actually the rule: we must return a contiguous substring of span_text that is the timing phrase on its own. It still must be one of the supported shapes? The validation likely checks that the temporal_raw matches one of the shapes. So we need to produce a substring that matches a shape. The span_text does not contain any such shape like \"by 2023-05-01\". So maybe we cannot fix it, and must omit candidate. But maybe we can extract \"Delivery Date\" and that might be considered a trigger phrase, not a shape. The shapes include 'before <trigger>' or 'after <trigger>'. Could we use \"before Delivery Date\"? Not present. So likely cannot produce a valid temporal_raw.\n\nThus we should output empty repairs list.\n\nBut maybe we can use \"Delivery Date\" as a trigger phrase, but shape \"by Delivery Date\"? Not present. The substring \"Delivery Date\" alone is not a shape. The validator may still reject because not matching shapes. The instruction says \"If no shorter verbatim substring of span_text is a clean timing phrase on its own, omit that candidate\". So we should omit.\n\nThus output {\"repairs\": []}."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.37631738,
+          "prompt_tokens": 1806,
+          "prompt_time": 0.088273394,
+          "completion_tokens": 659,
+          "completion_time": 1.377487117,
+          "total_tokens": 2465,
+          "total_time": 1.465760511,
+          "completion_tokens_details": {
+            "reasoning_tokens": 644
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_c868cf1eaa",
+        "x_groq": {
+          "id": "req_01m0qvbnd5ej7a6x0kvp9farry",
+          "seed": 292810584
+        },
+        "service_tier": "on_demand"
+      }
+    }
+  ]
+}

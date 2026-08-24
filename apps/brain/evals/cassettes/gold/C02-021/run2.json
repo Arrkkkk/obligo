@@ -1,0 +1,91 @@
+{
+  "segment_id": "C02-021",
+  "run": 2,
+  "recorded_at": "2026-08-23T17:17:27+00:00",
+  "model_id": "openai/gpt-oss-120b",
+  "prompt_version": "v3",
+  "segment_sha256": "e1388b926ce623d2fd510a2c2c3b36f09a486e26917bbc686bc10f38e6c7a52e",
+  "guideline_version": "v0.28",
+  "responses": [
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-2ae1f4b0-988b-4853-9a21-a0f9916229f2",
+        "object": "chat.completion",
+        "created": 1787505389,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"obligations\":[{\"span_text\":\"Antares or its Subcontractor shall retain sufficient quantities of shipped Products, sample Products, Devices and Components as retained repository samples as required under the Quality Agreement and Applicable Laws at AMAG's sole cost and expense and as set forth in Exhibit G.\",\"modality\":\"MUST\",\"obligor_alias\":\"Antares or its Subcontractor\",\"obligee_alias\":\"\",\"action\":\"RETAIN\",\"object_class\":\"retained_samples\",\"object_raw_text\":\"sufficient quantities of shipped Products, sample Products, Devices and Components as retained repository samples\",\"temporal_raw\":null,\"condition_raws\":[],\"confidence\":0.95},{\"span_text\":\"AMAG shall advise Antares of the required quantities of shipped Products, sample Products, Devices and Components that AMAG desires to be retained.\",\"modality\":\"MUST\",\"obligor_alias\":\"AMAG\",\"obligee_alias\":\"Antares\",\"action\":\"ADVISE\",\"object_class\":\"required_quantities\",\"object_raw_text\":\"the required quantities of shipped Products, sample Products, Devices and Components that AMAG desires to be retained\",\"temporal_raw\":null,\"condition_raws\":[],\"confidence\":0.95},{\"span_text\":\"Antares shall invoice AMAG for the costs associated with performing these activities.\",\"modality\":\"MUST\",\"obligor_alias\":\"Antares\",\"obligee_alias\":\"AMAG\",\"action\":\"INVOICE\",\"object_class\":\"invoice_costs\",\"object_raw_text\":\"the costs associated with performing these activities\",\"temporal_raw\":null,\"condition_raws\":[],\"confidence\":0.95}]}",
+              "reasoning": "We need to parse the segment and extract obligations.\n\nSegment text:\n\n\"2.9 Retained Samples. Antares or its Subcontractor shall retain sufficient quantities of shipped Products, sample Products, Devices and Components as retained repository samples as required under the Quality Agreement and Applicable Laws at AMAG's sole cost and expense and as set forth in Exhibit G. Such retained samples shall minimally represent [***] the number of samples necessary to re-execute chemical release testing and will be maintained ... until [***] or such longer period as may be required by Applicable Laws. All such samples shall be available for inspection by AMAG at reasonable intervals upon reasonable - 12 - [***] INDICATES MATERIAL THAT HAS BEEN OMITTED ... AMAG shall advise Antares of the required quantities of shipped Products, sample Products, Devices and Components that AMAG desires to be retained. Antares shall invoice AMAG for the costs associated with performing these activities.\"\n\nWe need to identify obligations: sentences with duty, prohibition, permission, expectation.\n\nPotential obligations:\n\n1. \"Antares or its Subcontractor shall retain sufficient quantities of shipped Products, sample Products, Devices and Components as retained repository samples as required under the Quality Agreement and Applicable Laws at AMAG's sole cost and expense and as set forth in Exhibit G.\"\n\nObligation: retain sufficient quantities. Obligor: Antares or its Subcontractor. Obligee: maybe AMAG? The clause doesn't explicitly state to whom, but it's about retaining for AMAG. Usually the obligee is AMAG. But we need to extract exactly as appears in span_text. The phrase \"Antares or its Subcontractor shall retain ...\" includes no explicit obligee. The object: \"sufficient quantities of shipped Products, sample Products, Devices and Components as retained repository samples\". Action: RETAIN. Object_class maybe \"retained_samples\". Temporal: none. Condition: none.\n\nWe need to include any leading clause? Not needed.\n\n2. \"Such retained samples shall minimally represent [***] the number of samples necessary to re-execute chemical release testing and will be maintained in a suitable storage facility at Antares' or its Subcontractors' Manufacturing Site until [***] or such longer period as may be required by Applicable Laws.\"\n\nObligation: \"shall minimally represent ... and will be maintained ...\" This is a duty on \"Such retained samples\" (the subject is the samples, not a party). Usually obligations are on parties. But the clause is about the samples themselves, not a party. Might not count as an obligation. However \"will be maintained\" is a duty of the party that holds them, presumably Antares. But the subject is \"Such retained samples\". Not a party. Might skip.\n\n3. \"All such samples shall be available for inspection by AMAG at reasonable intervals upon reasonable ...\" This is an obligation that the samples (or the party holding them) shall be available for inspection by AMAG. The subject is \"All such samples\". Not a party. Might still be considered an obligation on Antares (implied). But the clause doesn't specify obligor. Might skip.\n\n4. \"AMAG shall advise Antares of the required quantities of shipped Products, sample Products, Devices and Components that AMAG desires to be retained.\"\n\nObligation: advise. Obligor: AMAG. Obligee: Antares. Action: ADVISE. Object: \"of the required quantities of shipped Products, sample Products, Devices and Components that AMAG desires to be retained\". Object_class maybe \"required_quantities\". Temporal: none. Condition: none.\n\n5. \"Antares shall invoice AMAG for the costs associated with performing these activities.\"\n\nObligation: invoice. Obligor: Antares. Obligee: AMAG. Action: INVOICE. Object: \"for the costs associated with performing these activities\". Object_class maybe \"invoice_costs\". Temporal: none.\n\nPotential also \"Antares or its Subcontractor shall retain ... at AMAG's sole cost and expense\". That includes cost but not an obligation.\n\nNow we need to produce JSON with obligations list.\n\nWe must include fields: span_text (exact verbatim substring). Must include leading clause if any. For each, we need modality: \"shall\" indicates MUST. So modality \"MUST\". For \"shall advise\" also MUST. For \"shall invoice\" also MUST.\n\nNow we need to ensure span_text includes the exact text as in segment, including punctuation.\n\nLet's capture each clause exactly as appears.\n\nFirst clause: \"Antares or its Subcontractor shall retain sufficient quantities of shipped Products, sample Products, Devices and Components as retained repository samples as required under the Quality Agreement and Applicable Laws at AMAG's sole cost and expense and as set forth in Exhibit G.\"\n\nCheck punctuation: The segment: \"Antares or its Subcontractor shall retain sufficient quantities of shipped Products, sample Products, Devices and Components as retained repository samples as required under the Quality Agreement and Applicable Laws at AMAG's sole cost and expense and as set forth in Exhibit G.\"\n\nYes.\n\nSecond clause: \"AMAG shall advise Antares of the required quantities of shipped Products, sample Products, Devices and Components that AMAG desires to be retained.\"\n\nThird clause: \"Antares shall invoice AMAG for the costs associated with performing these activities.\"\n\nNow we need to fill object_raw_text: must be literal substring from span_text naming that object.\n\nFor first: object_raw_text could be \"sufficient quantities of shipped Products, sample Products, Devices and Components as retained repository samples\". That's a substring. Let's verify it's exactly present. In span_text: \"... retain sufficient quantities of shipped Products, sample Products, Devices and Components as retained repository samples as required ...\" So the phrase up to \"as retained repository samples\" is present. We'll use that.\n\nobject_class: maybe \"retained_samples\". Provide lower snake case.\n\ntemporal_raw: none => null.\n\ncondition_raws: none => [].\n\nSecond: object_raw_text: \"the required quantities of shipped Products, sample Products, Devices and Components that AMAG desires to be retained\". That's present.\n\nThird: object_raw_text: \"the costs associated with performing these activities\". In span_text: \"Antares shall invoice AMAG for the costs associated with performing these activities.\" So object phrase is \"the costs associated with performing these activities\". We'll use that.\n\nNow we need confidence values. Not required but example includes confidence. The spec didn't mention confidence field? Actually the example includes \"confidence\". The instruction didn't mention to include confidence, but the example includes it. The shape described earlier: {\"obligations\": [{\"span_text\": ..., \"modality\": ..., \"obligor_alias\": ..., \"obligee_alias\": ..., \"action\": ..., \"object_class\": ..., \"object_raw_text\": ..., \"temporal_raw\": ..., \"condition_raws\": [], \"confidence\": 0.9}]}. So we should include confidence field. Provide a numeric confidence, maybe 0.95.\n\nNow ensure each field is literal substring.\n\nObligor_alias: exactly as appears in span_text. For first: \"Antares or its Subcontractor\". Must match exactly. Yes.\n\nObligee_alias: In first clause, not explicit. The spec expects obligee_alias field; if not present, maybe empty string. In example, they left obligee_alias empty when not present. So we can set \"\".\n\nSecond: obligor_alias \"AMAG\". obligee_alias \"Antares\". Must match exactly.\n\nThird: obligor_alias \"Antares\". obligee_alias \"AMAG\".\n\nNow action: uppercase verb: RETAIN, ADVISE, INVOICE.\n\nobject_class: choose appropriate.\n\nNow produce JSON compact.\n\nCheck that temporal_raw is null (use null). condition_raws empty list [].\n\nNow produce final JSON.\n\n"
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.316815543,
+          "prompt_tokens": 1662,
+          "prompt_time": 0.101600416,
+          "completion_tokens": 1924,
+          "completion_time": 3.987172132,
+          "total_tokens": 3586,
+          "total_time": 4.088772548,
+          "completion_tokens_details": {
+            "reasoning_tokens": 1591
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_8ea50c0161",
+        "x_groq": {
+          "id": "req_01m0qsz79eeajbzksrwmabdvns",
+          "seed": 1727894119
+        },
+        "service_tier": "on_demand"
+      }
+    },
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-c97761bb-f076-4673-8eb8-553bccadc19c",
+        "object": "chat.completion",
+        "created": 1787505445,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"repairs\":[{\"index\":0,\"action\":\"NOTIFY\"},{\"index\":1,\"action\":\"PROVIDE\"}]}",
+              "reasoning": "We need to produce JSON with repairs for each candidate where we can correct the specified field(s). Both failures are about action field not in taxonomy. We must replace with an allowed action that best matches the clause.\n\nFirst candidate: \"AMAG shall advise Antares of the required quantities ...\". The verb \"advise\" is not in list. Closest? Could be \"NOTIFY\" (to inform). So action = NOTIFY.\n\nWe must keep other fields unchanged; we only output corrected fields: action. Also modality is correct (MUST). No temporal_raw needed.\n\nSecond candidate: \"Antares shall invoice AMAG for the costs associated with performing these activities.\" Verb \"invoice\" not in list. Closest maybe \"PAY\" (but invoicing is requesting payment). Could be \"PROVIDE\" (provide invoice) or \"REPORT\". Probably \"PAY\" is about paying money, not invoicing. \"PROVIDE\" could be providing invoice. \"NOTIFY\" could be notifying of costs. I'd choose \"PROVIDE\" as providing invoice. Or \"REPORT\". I'd go with \"PROVIDE\". Let's think: The obligation is for Antares to invoice AMAG (i.e., send an invoice). That's providing an invoice. So action = PROVIDE.\n\nThus produce JSON:\n\n{\n \"repairs\": [\n   {\"index\":0, \"action\":\"NOTIFY\"},\n   {\"index\":1, \"action\":\"PROVIDE\"}\n ]\n}\n\nMake sure fields only those corrected. No extra fields. Ensure JSON compact.\n\n"
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.160625218,
+          "prompt_tokens": 2323,
+          "prompt_time": 0.126628121,
+          "completion_tokens": 347,
+          "completion_time": 0.736717307,
+          "total_tokens": 2670,
+          "total_time": 0.863345428,
+          "completion_tokens_details": {
+            "reasoning_tokens": 313
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_c15aa9c1b7",
+        "x_groq": {
+          "id": "req_01m0qt11xte9p916m2ke3ph0ez",
+          "seed": 1219066960
+        },
+        "service_tier": "on_demand"
+      }
+    }
+  ]
+}

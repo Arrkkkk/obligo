@@ -1,0 +1,134 @@
+{
+  "segment_id": "E03-005",
+  "run": 2,
+  "recorded_at": "2026-08-23T18:23:19+00:00",
+  "model_id": "openai/gpt-oss-120b",
+  "prompt_version": "v3",
+  "segment_sha256": "69928f265ca715c8f8ff451e663938224b988651e17da651dd222230bb0e6b43",
+  "guideline_version": "v0.28",
+  "responses": [
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-3f47e9ac-50ce-4374-89fd-2df6f1acdc65",
+        "object": "chat.completion",
+        "created": 1787509283,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"obligations\":[{\"span_text\":\"At least ** before the ** of each Calendar Quarter during the Term of this Supply Agreement, Kissei shall provide Rigel a rolling forecast of its monthly requirements for the quantity of Products to be used for (i) Development purposes for the following ** period commencing from such Calendar Quarter and (ii) Commercial use for the following ** period commencing from such Calendar Quarter (\u201cOrder Forecast\u201d).\",\"modality\":\"MUST\",\"obligor_alias\":\"Kissei\",\"obligee_alias\":\"Rigel\",\"action\":\"PROVIDE\",\"object_class\":\"order_forecast\",\"object_raw_text\":\"a rolling forecast of its monthly requirements for the quantity of Products to be used for (i) Development purposes for the following ** period commencing from such Calendar Quarter and (ii) Commercial use for the following ** period commencing from such Calendar Quarter (\u201cOrder Forecast\u201d)\",\"temporal_raw\":\"At least ** before the ** of each Calendar Quarter during the Term of this Supply Agreement\",\"condition_raws\":[],\"confidence\":0.95},{\"span_text\":\"Each Order Forecast shall itemize the applicable quantity (i.e., the unit of Drum or naked bottle, but not limited to such unit) of the Product and its placebo (if applicable) for each of Development and Commercial use.\",\"modality\":\"MUST\",\"obligor_alias\":\"Each Order Forecast\",\"obligee_alias\":\"\",\"action\":\"ITEMIZE\",\"object_class\":\"order_forecast\",\"object_raw_text\":\"the applicable quantity (i.e., the unit of Drum or naked bottle, but not limited to such unit) of the Product and its placebo (if applicable) for each of Development and Commercial use\",\"temporal_raw\":null,\"condition_raws\":[],\"confidence\":0.94},{\"span_text\":\"Each Order Forecast shall be made in good faith for budget and capacity planning purposes only and shall be non\u2011binding on Kissei and Rigel, except as provided in Section 2.2(b).\",\"modality\":\"MUST\",\"obligor_alias\":\"Each Order Forecast\",\"obligee_alias\":\"\",\"action\":\"MAKE\",\"object_class\":\"order_forecast\",\"object_raw_text\":\"in good faith for budget and capacity planning purposes only\",\"temporal_raw\":null,\"condition_raws\":[],\"confidence\":0.94},{\"span_text\":\"The Parties shall discuss and review the Order Forecast at each regularly scheduled meeting of the JSC established by the Parties under the Collaboration and License Agreement (or by a subcommittee established by the JSC to oversee the manufacture and supply of the Product).\",\"modality\":\"MUST\",\"obligor_alias\":\"The Parties\",\"obligee_alias\":\"\",\"action\":\"DISCUSS\",\"object_class\":\"order_forecast\",\"object_raw_text\":\"the Order Forecast\",\"temporal_raw\":\"at each regularly scheduled meeting of the JSC established by the Parties under the Collaboration and License Agreement (or by a subcommittee established by the JSC to oversee the manufacture and supply of the Product)\",\"condition_raws\":[],\"confidence\":0.93}]}",
+              "reasoning": "We need to extract obligations. Read segment.\n\nText:\n\n\"(a)Rolling Forecast. At least ** before the ** of each Calendar Quarter during the Term of this Supply Agreement, Kissei shall provide Rigel a rolling forecast of its monthly requirements for the quantity of Products to be used for (i) Development purposes for the following ** period commencing from such Calendar Quarter and (ii) Commercial use for the following ** period commencing from such Calendar Quarter (\u201cOrder Forecast\u201d). For clarity, each Order Forecast shall itemize the applicable quantity (i.e., the unit of Drum or naked bottle, but not limited to such unit) of the Product and its placebo (if applicable) for each of Development and Commercial use. Each Order Forecast shall be made in good faith for budget and capacity planning purposes only and shall be non\u2011binding on Kissei and Rigel, except as provided in Section 2.2(b). The Parties shall discuss and review the Order Forecast at each regularly scheduled meeting of the JSC established by the Parties under the Collaboration and License Agreement (or by a subcommittee established by the JSC to oversee the manufacture and supply of the Product). The Order Forecast will be in substantially the form attached hereto as Exhibit B.\"\n\nWe need to find obligations: sentences with shall, must, may, etc.\n\nPotential obligations:\n\n1. \"Kissei shall provide Rigel a rolling forecast of its monthly requirements for the quantity of Products to be used for (i) Development purposes ... and (ii) Commercial use ... (\u201cOrder Forecast\u201d).\"\n\nWe need include leading clause \"At least ** before the ** of each Calendar Quarter during the Term of this Supply Agreement,\" which sets timing condition. So span_text should include that leading clause.\n\nThus span_text: \"At least ** before the ** of each Calendar Quarter during the Term of this Supply Agreement, Kissei shall provide Rigel a rolling forecast of its monthly requirements for the quantity of Products to be used for (i) Development purposes for the following ** period commencing from such Calendar Quarter and (ii) Commercial use for the following ** period commencing from such Calendar Quarter (\u201cOrder Forecast\u201d).\"\n\nWe need modality: MUST? The clause uses \"shall provide\". That's a duty, so modality \"MUST\". (The guidelines: MUST for \"shall\".)\n\nobligor_alias: \"Kissei\"\n\nobligee_alias: \"Rigel\"\n\naction: \"PROVIDE\"\n\nobject_class: maybe \"order_forecast\" or \"rolling_forecast\". Use \"order_forecast\". object_raw_text: \"a rolling forecast of its monthly requirements for the quantity of Products to be used for (i) Development purposes for the following ** period commencing from such Calendar Quarter and (ii) Commercial use for the following ** period commencing from such Calendar Quarter (\u201cOrder Forecast\u201d)\". Must be literal substring of span_text. That phrase appears after \"provide\". Let's capture exactly: \"a rolling forecast of its monthly requirements for the quantity of Products to be used for (i) Development purposes for the following ** period commencing from such Calendar Quarter and (ii) Commercial use for the following ** period commencing from such Calendar Quarter (\u201cOrder Forecast\u201d)\". Ensure parentheses and quotes match. In span_text we have that phrase ending with \u201cOrder Forecast\u201d). The closing parentheses and quote. So object_raw_text should be that phrase without trailing period? The span_text includes period after. We'll include up to the closing quote and parenthesis before period. So object_raw_text as above.\n\ntemporal_raw: \"At least ** before the ** of each Calendar Quarter during the Term of this Supply Agreement\". That's a timing phrase. Must be literal substring of span_text. Yes.\n\ncondition_raws: none? No \"if\". So empty list.\n\n2. Next: \"Each Order Forecast shall itemize the applicable quantity (i.e., the unit of Drum or naked bottle, but not limited to such unit) of the Product and its placebo (if applicable) for each of Development and Commercial use.\"\n\nObligation: \"Each Order Forecast shall itemize the applicable quantity ...\". No leading clause. So span_text: \"Each Order Forecast shall itemize the applicable quantity (i.e., the unit of Drum or naked bottle, but not limited to such unit) of the Product and its placebo (if applicable) for each of Development and Commercial use.\"\n\nmodality: MUST.\n\nobligor_alias: \"Each Order Forecast\"? Actually obligor is the subject: \"Each Order Forecast\". That's not a party but object. Usually obligations are on party. But the clause says each Order Forecast shall itemize... That's a requirement on the forecast itself, not a party. Might be considered an obligation of the party that creates the forecast (Kissei). But the text says \"Each Order Forecast shall itemize\". The obligor alias must be exactly as appears: \"Each Order Forecast\". That's okay.\n\nobligee_alias: none? Not mentioned. Could be blank. The spec expects obligee_alias string; can be empty string if not present. Use \"\".\n\naction: \"ITEMIZE\"\n\nobject_class: \"order_forecast_content\" maybe \"quantity\". Use \"order_forecast\". object_raw_text: \"the applicable quantity (i.e., the unit of Drum or naked bottle, but not limited to such unit) of the Product and its placebo (if applicable) for each of Development and Commercial use\". Must be literal substring.\n\ntemporal_raw: null (none)\n\ncondition_raws: empty.\n\n3. Next: \"Each Order Forecast shall be made in good faith for budget and capacity planning purposes only and shall be non\u2011binding on Kissei and Rigel, except as provided in Section 2.2(b).\"\n\nObligation: \"Each Order Forecast shall be made in good faith for budget and capacity planning purposes only and shall be non\u2011binding on Kissei and Rigel, except as provided in Section 2.2(b).\"\n\nmodality: MUST.\n\nobligor_alias: \"Each Order Forecast\"\n\nobligee_alias: maybe none. Not directed to party. Use \"\".\n\naction: \"BE MADE\" maybe \"MAKE\". Use \"MAKE\". object_class: \"order_forecast\". object_raw_text: \"in good faith for budget and capacity planning purposes only\". But need literal phrase. Could be \"in good faith for budget and capacity planning purposes only\". That's part of object? Actually the object is the forecast being made. So object_raw_text: \"in good faith for budget and capacity planning purposes only\". We'll include that.\n\ntemporal_raw: null.\n\ncondition_raws: includes \"except as provided in Section 2.2(b)\"? That's a condition phrase but not \"if\". The rule says condition_raws are list of literal \"if\"-type conditional phrases. So not include.\n\n4. Next: \"The Parties shall discuss and review the Order Forecast at each regularly scheduled meeting of the JSC established by the Parties under the Collaboration and License Agreement (or by a subcommittee established by the JSC to oversee the manufacture and supply of the Product).\"\n\nObligation: \"The Parties shall discuss and review the Order Forecast at each regularly scheduled meeting of the JSC established by the Parties under the Collaboration and License Agreement (or by a subcommittee established by the JSC to oversee the manufacture and supply of the Product).\"\n\nmodality: MUST.\n\nobligor_alias: \"The Parties\"\n\nobligee_alias: \"\" (none)\n\naction: \"DISCUSS\" maybe \"DISCUSS_AND_REVIEW\". Choose first verb \"DISCUSS\". Could also be \"REVIEW\". We'll pick \"DISCUSS\". object_class: \"order_forecast\". object_raw_text: \"the Order Forecast\". temporal_raw: \"at each regularly scheduled meeting of the JSC established by the Parties under the Collaboration and License Agreement (or by a subcommittee established by the JSC to oversee the manufacture and supply of the Product)\". That's a timing phrase. Must be literal substring. Yes.\n\ncondition_raws: none.\n\n5. Next: \"The Order Forecast will be in substantially the form attached hereto as Exhibit B.\"\n\nObligation? \"will be\" is future, not necessarily duty. Could be statement of fact. Not an obligation. So maybe ignore.\n\nThus we have 4 obligations.\n\nNeed confidence field for each. Provide maybe 0.95.\n\nNow ensure each field literal substrings.\n\nCheck each span_text includes all needed substrings.\n\nFirst span_text includes temporal phrase at start. Good.\n\nSecond span_text: \"Each Order Forecast shall itemize the applicable quantity (i.e., the unit of Drum or naked bottle, but not limited to such unit) of the Product and its placebo (if applicable) for each of Development and Commercial use.\"\n\nobject_raw_text: \"the applicable quantity (i.e., the unit of Drum or naked bottle, but not limited to such unit) of the Product and its placebo (if applicable) for each of Development and Commercial use\". That's substring.\n\nThird span_text: \"Each Order Forecast shall be made in good faith for budget and capacity planning purposes only and shall be non\u2011binding on Kissei and Rigel, except as provided in Section 2.2(b).\"\n\nobject_raw_text: \"in good faith for budget and capacity planning purposes only\". That's substring.\n\nFourth span_text: \"The Parties shall discuss and review the Order Forecast at each regularly scheduled meeting of the JSC established by the Parties under the Collaboration and License Agreement (or by a subcommittee established by the JSC to oversee the manufacture and supply of the Product).\"\n\nobject_raw_text: \"the Order Forecast\". substring.\n\ntemporal_raw: \"at each regularly scheduled meeting of the JSC established by the Parties under the Collaboration and License Agreement (or by a subcommittee established by the JSC to oversee the manufacture and supply of the Product)\". That's substring.\n\nAll good.\n\nNow produce JSON compact.\n\n"
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.37612628,
+          "prompt_tokens": 1648,
+          "prompt_time": 0.019829871,
+          "completion_tokens": 2631,
+          "completion_time": 6.099782295,
+          "total_tokens": 4279,
+          "total_time": 6.119612166,
+          "prompt_tokens_details": {
+            "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 2012
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_19b184c447",
+        "x_groq": {
+          "id": "req_01m0qxp0c0ey4syxw34erzygkd",
+          "seed": 1588501319
+        },
+        "service_tier": "on_demand"
+      }
+    },
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-e414b9b8-dbb6-41b8-84ba-fe6259f383c9",
+        "object": "chat.completion",
+        "created": 1787509339,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"repairs\":[{\"index\":0,\"temporal_raw\":\"before the ** of each Calendar Quarter\"}]}",
+              "reasoning": "We need to produce JSON repairs for each candidate where we can correct the temporal_raw field.\n\nWe must find a shorter contiguous substring of span_text that is a timing phrase on its own, matching supported shapes: 'within <N> <unit> of <trigger>', 'by <YYYY-MM-DD>', 'every <N> <unit>', 'during <YYYY-MM-DD>..<YYYY-MM-DD>', or 'before <trigger>' / 'after <trigger>'.\n\nWe need to extract from span_text a substring that is a timing phrase. For candidate 0: span_text includes \"At least ** before the ** of each Calendar Quarter during the Term of this Supply Agreement\". That's the temporal_raw currently. We need a shorter substring that is a timing phrase matching shapes. Let's examine the text: \"each Calendar Quarter\" maybe \"each Calendar Quarter\". That could be a timing phrase? Not matching shapes. \"during the Term of this Supply Agreement\" maybe \"during the Term\". Not matching shapes. \"At least ** before the ** of each Calendar Quarter\" maybe \"before the ** of each Calendar Quarter\"? Not matching shapes. The shapes require \"within N unit of trigger\", \"by date\", \"every N unit\", \"during date..date\", \"before trigger\" or \"after trigger\". Could we extract \"before the ** of each Calendar Quarter\"? That is \"before the ** of each Calendar Quarter\". That matches \"before <trigger>\" where trigger is \"the ** of each Calendar Quarter\". That seems okay: \"before the ** of each Calendar Quarter\". It's a contiguous substring? The original phrase: \"At least ** before the ** of each Calendar Quarter during the Term of this Supply Agreement\". The substring \"before the ** of each Calendar Quarter\" appears contiguous after \"At least ** \". Yes, \"before the ** of each Calendar Quarter\". That matches \"before <trigger>\" shape. So we can set temporal_raw to \"before the ** of each Calendar Quarter\". That is a shorter substring.\n\nCheck candidate 1: span_text: \"The Parties shall discuss and review the Order Forecast at each regularly scheduled meeting ...\". Need a timing phrase substring. Could be \"at each regularly scheduled meeting\". That matches \"at each regularly scheduled meeting\". Does that fit any shape? Not exactly. \"at each\" not supported. Could be \"each regularly scheduled meeting\". Not supported. Could be \"regularly scheduled meeting\". Not supported. The shapes: \"every <N> <unit>\" maybe \"each regularly scheduled meeting\" could be considered \"every regularly scheduled meeting\". But we need exact substring from span_text. The phrase \"each regularly scheduled meeting\" appears. That could be interpreted as \"every regularly scheduled meeting\". But shape expects \"every <N> <unit>\" where N is a number. Not matching. \"at each regularly scheduled meeting\" maybe we can extract \"at each regularly scheduled meeting\". Not matching shapes. Could we extract \"each regularly scheduled meeting of the JSC\"? Not matching.\n\nMaybe we can extract \"at each regularly scheduled meeting of the JSC\". Not matching shapes.\n\nThe supported shapes include \"before <trigger>\" or \"after <trigger>\" which could be \"before the meeting\"? Not present.\n\nThus maybe we cannot find a suitable timing phrase. If we cannot, we must omit that candidate from response.\n\nThus we will only repair candidate 0 with temporal_raw corrected to \"before the ** of each Calendar Quarter\". Ensure JSON field temporal_raw is that string. Also need to include index 0, and only field corrected is temporal_raw. No need to include other fields.\n\nCheck if we need to include modality, action, object_class? Only fields to correct are listed. So we only include temporal_raw.\n\nThus output:\n\n{\n \"repairs\": [\n   {\"index\":0,\"temporal_raw\":\"before the ** of each Calendar Quarter\"}\n ]\n}\n\nMake sure JSON compact, no spaces? It's okay to have spaces. Provide exactly that.\n\n"
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.375698411,
+          "prompt_tokens": 2355,
+          "prompt_time": 0.100765764,
+          "completion_tokens": 832,
+          "completion_time": 1.7344505369999998,
+          "total_tokens": 3187,
+          "total_time": 1.835216301,
+          "completion_tokens_details": {
+            "reasoning_tokens": 801
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_017482bd7f",
+        "x_groq": {
+          "id": "req_01m0qxqtznejwvf30ezhcfxbfk",
+          "seed": 90179718
+        },
+        "service_tier": "on_demand"
+      }
+    },
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-7c15b35f-a0f7-4173-866a-39e14ebad201",
+        "object": "chat.completion",
+        "created": 1787509398,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"repairs\": []}",
+              "reasoning": "We need to produce JSON with repairs array. Only one candidate index 1, field temporal_raw needs correction. We must find a shorter contiguous substring of span_text that is the timing phrase on its own. The span_text: \"The Parties shall discuss and review the Order Forecast at each regularly scheduled meeting of the JSC established by the Parties under the Collaboration and License Agreement (or by a subcommittee established by the JSC to oversee the manufacture and supply of the Product).\"\n\nWe need a timing phrase that matches supported shapes: within <N> <unit> of <trigger>, by <date>, every <N> <unit>, during <date range>, before <trigger>, after <trigger>. The phrase \"at each regularly scheduled meeting of the JSC ...\" is not matching. Could we extract \"each regularly scheduled meeting of the JSC\"? That's still not matching shapes. Maybe we can extract \"each regularly scheduled meeting\". Not matching shapes either. The allowed shapes include \"every <N> <unit>\" maybe \"each regularly scheduled meeting\" could be considered \"every regularly scheduled meeting\"? But we cannot rewrite; must be exact substring. The phrase \"at each regularly scheduled meeting of the JSC\" is the timing phrase. Does it match any shape? Not exactly. The shapes are limited; \"at each regularly scheduled meeting of the JSC\" does not match. So we cannot produce a valid temporal_raw. The instruction: If no shorter verbatim substring of span_text is a clean timing phrase on its own, omit that candidate from your response entirely. So we should omit this candidate entirely (i.e., no repair). Since only one candidate and we cannot fix, output {\"repairs\": []}.\n\nCheck: Could we extract \"each regularly scheduled meeting of the JSC\"? Still not matching shapes. So omit.\n\nThus final JSON."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.375565936,
+          "prompt_tokens": 1949,
+          "prompt_time": 0.088472848,
+          "completion_tokens": 389,
+          "completion_time": 0.808384755,
+          "total_tokens": 2338,
+          "total_time": 0.896857603,
+          "completion_tokens_details": {
+            "reasoning_tokens": 374
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_e5b4e54fbb",
+        "x_groq": {
+          "id": "req_01m0qxsnkkea7afe14b253at51",
+          "seed": 506312898
+        },
+        "service_tier": "on_demand"
+      }
+    }
+  ]
+}
