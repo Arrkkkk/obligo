@@ -1,14 +1,16 @@
 # Obligo Tier-2 Gold Set — Annotation Guideline
 
-**Version:** v0.31 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker)
+**Version:** v0.32 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**)
 **Created:** 2026-08-17
 **Status:** **18 items locked** — batch 1 complete (10), batch 2 at 8 of 10 with two
 items still undrawn. The consolidation pass (§19.4) is **complete** (§20): all 16 proposals
 ruled, every approved rule written into a live rule section, and **all 18 locked items
 conformed — every one now stamps `v0.28`**, verified by reading the items themselves.
 **As of v0.31 that stamp is no longer current for one item:** §8.3.1's amendment changes
-`C14-02`'s span, and it is deliberately **not** conformed pending the §22 decision. The set
-is therefore conformed to `v0.28` and carries **one known outstanding conformance**, not zero.
+`C14-02`'s span, and it is deliberately **not** conformed. **That is now a settled decision,
+not an open question** — §22.1 (v0.32) rejects both proposed fixes and defers the general
+problem until a second, independent instance exists. The set is therefore conformed to
+`v0.28` and carries **one known, deliberately-retained outstanding conformance**, not zero.
 *(This line read "No items have been annotated against this document yet" from v0.1 through
 v0.25 — false from 2026-08-19 onward, corrected at v0.26; see §19.3. It then read
 "consolidation pass … in progress, not complete", "Items stamp guideline versions
@@ -138,6 +140,14 @@ fourth option — contiguous from the shared subject through the end of the seco
 is adopted. Found by the first real scoring run, which put `C14-02` at `MISSED` on all three
 runs for a duty the model had in fact extracted correctly. §22 records why the one affected
 item is **not** yet conformed.
+**v0.32 change:** **no annotation rule changed.** §22.1 added: the conforming blocker is
+**decided**, not left open. Neither proposed fix is adopted — `guideline_version` stays a
+cassette-staleness dimension and the scorer keeps refusing mixed stamps. `C14-02` remains
+`MISSED` under the superseded v0.23 rule as a tracked conforming gap, on the ground that a
+known wrong number with an honest label beats a harness in which fixing a broken rule costs
+more than leaving it broken. Deferred until a **second, independent** instance exists — a
+v0.32-or-later correction that also requires conforming — so the general question is designed
+against more than one case rather than fitted to this one.
 
 *Why v0.8 and not an edit to v0.7:* v0.7 was committed, and every gold item stamps the
 guideline version it was annotated under. Amending a committed version in place would make
@@ -3122,9 +3132,29 @@ calls, which inverts the purpose of recording cassettes and creates a standing i
 to correct a rule once found wrong — the exact failure this session has spent its time
 undoing elsewhere.
 
-**Recommended, NOT adopted:** drop `guideline_version` from `Cassette.verify()`'s staleness
-test while **keeping it recorded as provenance**, and relax invariant A to permit mixed
-stamps pre-freeze while reporting them. Both are changes to guarantees that were explicitly
-approved as strict, so neither is made here. Until one is decided, **`C14-02` stays annotated
-under the superseded v0.23 rule and continues to score `MISSED`** — a known, stated wrong
-number, which is preferable to an unexplained one.
+### 22.1 Decision (v0.32): neither fix is adopted, and this is deferred on purpose
+
+Two fixes were put forward — drop `guideline_version` from `Cassette.verify()`'s staleness
+test while keeping it as provenance, and relax invariant A to permit mixed stamps pre-freeze.
+**Both are REJECTED for now, and this is a decision, not an open recommendation.** A later
+reader must not treat §22 as a to-do list.
+
+**`C14-02` stays annotated under the superseded §8.3.1 v0.23 rule and continues to score
+`MISSED`.** That is a known wrong number carrying an honest label — a tracked conforming gap
+— and it is strictly better than the alternative on offer: a system in which correcting a
+genuinely broken rule costs more than leaving it broken. Weakening either invariant so one
+item becomes conformable would buy a marginally better score by making the harness
+permanently less strict, which is the wrong trade in the wrong direction.
+
+**Why defer rather than solve it now.** The real question — how to handle a mid-flight
+guideline correction against already-recorded cassettes — is a general one, and solving it in
+the abstract against a sample of exactly one item invites a design fitted to that item rather
+than to the problem. **The forcing function to wait for is a `v0.32`-or-later correction that
+ALSO requires conforming**, i.e. a second, independent instance. At that point the question
+has real shape, more than one case to generalise from, and a genuine cost to leaving it
+unsolved. Until then this stays exactly as written: visible, tracked, and not quietly fixed.
+
+**What must NOT happen in the meantime:** conforming `C14-02` alone (it yields mixed stamps
+and the scorer will refuse to run), restamping all 18 items (it invalidates all 35 cassettes
+and `C17-021` run 3 cannot be re-recorded at all), or relaxing a staleness dimension to route
+around either.
