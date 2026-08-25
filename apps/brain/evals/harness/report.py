@@ -1,7 +1,7 @@
 """Aggregates scored runs into the figures section 9 requires, with the
 caveats that make them honest.
 
-Five decisions are implemented literally here rather than left to the caller,
+Six decisions are implemented literally here rather than left to the caller,
 because each is a way a report could quietly overstate:
 
 G2 -- MODAL OUTCOME TIE-BREAK. Section 6 asks for "the per-item modal outcome
@@ -11,12 +11,34 @@ mode the WORST outcome is reported, and such an item is always counted
 unstable. Never round a measurement in the pipeline's favour; the instability
 count carries the real signal either way.
 
-G3 -- CRITERION 2's DUAL DENOMINATOR IS NOT IN FORCE. Section 9 records the
-dual-reporting amendment as "RECOMMENDED, NOT YET APPROVED... it is NOT in
-force", pending a blueprint section 21 decision. Both figures are emitted and
-LABELLED: all-items is the in-force criterion 2; the len(known_gaps)==0 figure
-carries "recommended, not in force". Emitting the second as though it were the
-criterion would implement an unapproved amendment.
+G3 -- CRITERION 2's DUAL DENOMINATOR IS IN FORCE (section 9.1, v0.33). Approved
+after being carried as "RECOMMENDED, NOT YET APPROVED" since v0.26. The PRIMARY
+figure is now len(known_gaps)==0 -- items IR v1 can represent faithfully -- and
+all-items is reported ALONGSIDE it, never as the criterion. Both are still
+always emitted and always labelled; what changed is which one is the criterion.
+
+Two independent grounds, recorded because they fail differently: (1)
+reachability -- the all-items ceiling is ~39-61% at the measured gap rate, so
+section 21's >=80% is unreachable there; contingent on that rate holding.
+(2) validity -- the all-items denominator can count an IR that is knowingly NOT
+a faithful representation as FULLY_CORRECT, which does NOT depend on the rate.
+Ground 2 is why G6 exists.
+
+G6 -- INLINE GAP DISCLOSURE AT THE NUMERATOR (section 9.1, v0.33). Any item in
+either numerator carrying a non-empty known_gaps is named ON THE SPOT, beside
+the figure, split into OVERSTATING gaps (exception_unsupported: the IR claims
+MORE than the contract -- a monitor flags a breach the contract exempts) and
+INCOMPLETENESS gaps (compound_action, mutual_obligation: the IR claims LESS --
+a monitor misses a real breach). Not a footnote: the same on-the-spot rule
+section 6.1 already imposes on a short run, for the same reason.
+
+Not hypothetical. The first scoring run's all-items numerator already held two
+incompleteness items (C03-02, C04-02), and C14-01 -- an OVERSTATING item,
+section 8.2's "stronger than the one the contract imposes" -- enters it as soon
+as clause 5's number rule lands. section 8.2 defends the annotation convention
+on the promise that such overstatement stays "recoverable from the data rather
+than baked silently into a score"; a denominator that never reads the tag is
+exactly that baking, and G6 is the reporting half of the fix.
 
 G4 -- NO PREDICTED CEILING. Section 9 asks for "the expected all-items ceiling
 stated in advance", but the consolidation pass established that the
@@ -47,6 +69,17 @@ from dataclasses import dataclass, field
 from typing import Iterable, Sequence
 
 from evals.harness.score import Outcome
+
+# G6's gap taxonomy (section 9.1). Direction of the IR's departure from the
+# contract, NOT severity: OVERSTATING claims more than the document does,
+# INCOMPLETENESS claims less. A tag absent from this map is reported as
+# UNCLASSIFIED rather than defaulted -- adding a tag must force a decision.
+GAP_DIRECTION = {
+    "exception_unsupported": "OVERSTATING",
+    "unless_unsupported": "OVERSTATING",
+    "compound_action": "INCOMPLETENESS",
+    "mutual_obligation": "INCOMPLETENESS",
+}
 
 # Worst-first severity. Used only for the no-unique-mode tie-break (G2).
 SEVERITY = {Outcome.UNEXPECTED: 3, Outcome.MISSED: 2, Outcome.PARTIAL: 1, Outcome.FULLY_CORRECT: 0}
@@ -118,6 +151,35 @@ class Report:
         return sum(1 for i in scope if i.modal is Outcome.FULLY_CORRECT), len(scope)
 
     @property
+    def numerator_gap_disclosure(self) -> list[str]:
+        """G6: name every numerator item carrying a gap, split by DIRECTION.
+
+        The direction is the whole point. An OVERSTATING gap yields an IR that
+        claims more than the contract does (a monitor flags a breach the
+        contract exempts); an INCOMPLETENESS gap yields one that claims less (a
+        monitor misses a real breach). Collapsing them into "carries a tag"
+        loses the distinction that makes overstatement the worse thing to
+        certify as FULLY_CORRECT.
+
+        An UNCLASSIFIED bucket is deliberate rather than defensive: a tag added
+        later must show up here unclassified and force a decision, never fall
+        silently into whichever bucket a default picked.
+        """
+        buckets: dict[str, list[str]] = {"OVERSTATING": [], "INCOMPLETENESS": [],
+                                         "UNCLASSIFIED": []}
+        for i in self.items:
+            if i.modal is not Outcome.FULLY_CORRECT or not i.known_gaps:
+                continue
+            for tag in sorted(set(i.known_gaps)):
+                kind = GAP_DIRECTION.get(tag, "UNCLASSIFIED")
+                buckets[kind].append(f"{i.item_id} ({tag})")
+        lines = []
+        for kind in ("OVERSTATING", "INCOMPLETENESS", "UNCLASSIFIED"):
+            if buckets[kind]:
+                lines.append(f"    {kind}: {', '.join(buckets[kind])}")
+        return lines
+
+    @property
     def per_tag_counts(self) -> dict[str, int]:
         c: collections.Counter[str] = collections.Counter()
         for i in self.items:
@@ -149,9 +211,27 @@ class Report:
         lines = [
             "GOLD-SET TIER-2 SCORING REPORT",
             "",
-            f"Criterion 2 (IN FORCE, all items):        {pct(fc_all, n_all)}",
-            f"Criterion 2 over len(known_gaps)==0:      {pct(fc_ng, n_ng)}",
-            "    ^ RECOMMENDED, NOT IN FORCE (§9). Reported alongside, never as the criterion.",
+            f"CRITERION 2 (IN FORCE, §9.1 — len(known_gaps)==0): {pct(fc_ng, n_ng)}",
+            "    ^ THE criterion as of guideline v0.33. Items IR v1 can represent faithfully.",
+            f"Reported alongside, over ALL items:                {pct(fc_all, n_all)}",
+            "    ^ NOT the criterion (§9.1). Its numerator can contain IRs that are knowingly",
+            "      not faithful representations -- see the disclosure directly below.",
+            "",]
+        disclosure = self.numerator_gap_disclosure
+        lines += [
+            "NUMERATOR ITEMS CARRYING A KNOWN GAP (§9.1 G6 — stated here, not in a footnote):",
+        ]
+        if disclosure:
+            lines += disclosure
+            lines += [
+                "    OVERSTATING = the IR claims MORE than the contract (a monitor flags a",
+                "      breach the contract exempts). INCOMPLETENESS = it claims LESS (a monitor",
+                "      misses a real breach). Both are counted FULLY_CORRECT in the all-items",
+                "      figure above and excluded from the in-force criterion.",
+            ]
+        else:
+            lines.append("    None -- every item in either numerator has known_gaps == [].")
+        lines += [
             "",
             "NO PREDICTED CEILING IS STATED (§9's 'ceiling in advance').",
             "    The tag-derived 39-61% ceiling was shown wrong item by item during the",

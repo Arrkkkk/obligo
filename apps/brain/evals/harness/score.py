@@ -6,7 +6,8 @@ compiler.ast. Every clause is independently checkable, which is what makes a
 PARTIAL diagnosable rather than merely a failure.
 
 Three comparison rules were decided at v0.28 and are implemented here
-literally rather than softened:
+literally rather than softened, plus two added at v0.33 (clause 5's number
+rule; clause 3 finally reading section 3.5.1's obligor_accept_set):
 
   Clauses 3 and 4 (parties) compare by IDENTITY, not by string, whenever the
   pipeline resolved the party -- gold's alias must resolve, through the
@@ -35,7 +36,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 from enum import Enum
-from typing import Any
+from typing import Any, Sequence
 
 from obligo_brain.compiler import ast
 
@@ -60,6 +61,35 @@ def norm(s: str) -> str:
     return re.sub(r"\s+", " ", s).strip()
 
 
+def _singular_token(t: str) -> str:
+    """Grammatical number only. DELIBERATELY NOT A STEMMER (section 5, v0.33).
+
+    A Porter-class stemmer would conflate retention/retain and provisions/
+    provide, which would make clause 5 nearly vacuous -- the opposite failure
+    and a worse one, since clause 5 is the only check on an open vocabulary.
+    So: -es after a sibilant, -ies -> -y, a bare trailing -s, and stop.
+
+    The -es branch is load-bearing and is exactly what a naive rule gets wrong:
+    stripping only a trailing "s" turns `taxes` into `taxe`, which matches
+    nothing. That is the error the first draft of this analysis actually made,
+    caught by running the classifier against cases whose answer was already
+    known (Standing Principle 7) -- which is why test_score_number.py leads
+    with a known-answer table rather than with the failing gold items.
+    """
+    if re.search(r"(s|x|z|ch|sh)es$", t):
+        return t[:-2]
+    if re.search(r"[^aeiou]ies$", t):
+        return t[:-3] + "y"
+    if t.endswith("s") and not t.endswith("ss"):
+        return t[:-1]
+    return t
+
+
+def singularize(label: str) -> str:
+    """Per-token number normalization of a snake_case object_class label."""
+    return "_".join(_singular_token(t) for t in norm(label).split("_"))
+
+
 @dataclass
 class ItemScore:
     item_id: str
@@ -72,7 +102,24 @@ class ItemScore:
         return [c for c in CLAUSES if c in self.clauses and not self.clauses[c]]
 
 
-def _party_matches(gold_alias: str, pred: ast.PartyRef, reg: DocumentRegistry) -> tuple[bool, str]:
+def _party_matches(gold_alias: str, pred: ast.PartyRef, reg: DocumentRegistry,
+                   accept_set: Sequence[str] = ()) -> tuple[bool, str]:
+    """Clauses 3 and 4. `accept_set` is section 3.5.1's obligor_accept_set.
+
+    THE ACCEPT-SET APPLIES TO THE UNRESOLVED BRANCH ONLY, and that is a real
+    distinction rather than an omission. For a RESOLVED party the registry's own
+    canonical_name/aliases matching already IS the accept-set -- co-obligors that
+    resolve land on the same party_id -- so consulting a second one there would
+    add nothing and could only loosen an identity check.
+
+    Read by nothing until v0.33: section 3.5.1 has required annotators to author
+    obligor_accept_set since v0.28, and this function took only gold["obligor"],
+    so every co-obligor and disjunctive alternative the guideline asked for was
+    written down and then ignored. There is deliberately NO obligee accept-set --
+    section 3.5.1 measured that field as unnecessary (joint 0 / disjunctive 3 of
+    1,547 pool segments) and routes obligee alternatives to annotator_notes;
+    inventing one here would implement a rule the guideline declined to make.
+    """
     if gold_alias == "ABSENT":
         # ABSENT matches ABSENT. The pipeline expresses "absent" as an
         # UnresolvedParty carrying an empty-ish alias; anything that resolved
@@ -93,10 +140,10 @@ def _party_matches(gold_alias: str, pred: ast.PartyRef, reg: DocumentRegistry) -
             f"gold {gold_alias!r} -> {gold_party.canonical_name!r}; "
             f"predicted -> {pred.canonical_name!r}"
         )
-    return (
-        norm(pred.alias) == norm(gold_alias),
-        f"both UNRESOLVED: gold {gold_alias!r} vs predicted {pred.alias!r}",
-    )
+    candidates = [gold_alias, *accept_set]
+    ok = norm(pred.alias) in {norm(c) for c in candidates}
+    extra = f" (accept-set {list(accept_set)})" if accept_set else ""
+    return (ok, f"both UNRESOLVED: gold {gold_alias!r} vs predicted {pred.alias!r}{extra}")
 
 
 def _date_text(ref: ast.DateRef) -> str:
@@ -166,12 +213,26 @@ def score_item(gold: dict, pred: ast.Obligation, reg: DocumentRegistry) -> ItemS
     clauses["action"] = pred.action in gold["action_accept_set"]
     detail["action"] = f"predicted {pred.action!r} vs accept-set {gold['action_accept_set']}"
 
-    clauses["obligor"], detail["obligor"] = _party_matches(gold["obligor"], pred.obligor, reg)
+    clauses["obligor"], detail["obligor"] = _party_matches(
+        gold["obligor"], pred.obligor, reg, gold.get("obligor_accept_set") or ())
     clauses["obligee"], detail["obligee"] = _party_matches(gold["obligee"], pred.obligee, reg)
 
-    clauses["object_class"] = pred.object.class_ in gold["object_class_accept_set"]
+    # Clause 5, section 5's number rule (v0.33): grammatical number is normalized
+    # on BOTH sides. This widens no accept-set and is fitted to no prediction --
+    # it deletes a distinction neither the prompt nor section 3.6 ever asked for
+    # (v3.yaml's own worked example `deliverables` is plural), and applies
+    # uniformly to every item. Exact membership is tried first so the detail
+    # line can say WHICH kind of match carried it.
+    accept = gold["object_class_accept_set"]
+    predicted = pred.object.class_
+    exact = predicted in accept
+    by_number = (not exact) and singularize(predicted) in {singularize(a) for a in accept}
+    clauses["object_class"] = exact or by_number
     detail["object_class"] = (
-        f"predicted {pred.object.class_!r} vs accept-set {gold['object_class_accept_set']}"
+        f"predicted {predicted!r} vs accept-set {accept}"
+        + ("" if exact else
+           (f" -- matched on number alone (\u00a75 v0.33): {singularize(predicted)!r}"
+            if by_number else ""))
     )
 
     g_t = _canonical_gold_temporal(gold.get("temporal"))

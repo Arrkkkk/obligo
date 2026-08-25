@@ -204,12 +204,17 @@ def test_n2_disagreement_resolves_to_the_worst_outcome_per_g2():
 
 # --- W4: the dual denominator passes through untouched ----------------------
 
-def test_both_denominators_are_rendered_and_the_second_is_labelled_not_in_force():
+def test_both_denominators_are_rendered_and_the_in_force_one_is_no_known_gaps():
+    """W4 still holds -- this module computes NEITHER figure and must never pick
+    one -- but which figure is THE criterion changed at guideline v0.33 (section
+    9.1). Both are still always emitted and always labelled; report.py's G3 owns
+    the labelling, and this asserts run_scoring passes it through untouched."""
     runs = {"A-01": [Outcome.FULLY_CORRECT], "B-01": [Outcome.PARTIAL]}
     gold = {"A-01": {"known_gaps": []}, "B-01": {"known_gaps": ["mutual_obligation"]}}
     rendered = report_mod.build(runs, gold).render()
-    assert "Criterion 2 (IN FORCE, all items):" in rendered
-    assert "RECOMMENDED, NOT IN FORCE" in rendered
+    assert "CRITERION 2 (IN FORCE, \u00a79.1 \u2014 len(known_gaps)==0)" in rendered
+    assert "Reported alongside, over ALL items" in rendered
+    assert "RECOMMENDED, NOT IN FORCE" not in rendered
 
 
 # --- stale cassettes must not be silently skipped ---------------------------

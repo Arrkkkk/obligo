@@ -86,11 +86,20 @@ def test_per_tag_counts_are_non_summable_and_deduplicated_per_item():
     )
 
 
-def test_the_not_in_force_figure_is_labelled_as_such_in_the_render():
+def test_the_in_force_criterion_is_the_no_known_gaps_figure_in_the_render():
+    """AMENDED AT v0.33: section 9.1 put the dual denominator IN FORCE and made
+    len(known_gaps)==0 the criterion. Through v0.32 this test pinned the
+    opposite -- all-items as the criterion, the other labelled "RECOMMENDED,
+    NOT IN FORCE" -- and it FAILED when the flip landed, which is the test
+    doing its job. Rewritten to pin the new rule rather than deleted, so a
+    silent flip back would still be caught."""
     r = build({"A": [FC]}, {"A": _gold("A")})
     text = r.render()
-    assert "Criterion 2 (IN FORCE, all items)" in text
-    assert "RECOMMENDED, NOT IN FORCE" in text
+    assert "CRITERION 2 (IN FORCE, \u00a79.1 \u2014 len(known_gaps)==0)" in text
+    assert "Reported alongside, over ALL items" in text
+    assert "NOT the criterion" in text
+    # The superseded labelling must be gone, not merely joined by the new one.
+    assert "RECOMMENDED, NOT IN FORCE" not in text
 
 
 # --- G4: no predicted ceiling ------------------------------------------------

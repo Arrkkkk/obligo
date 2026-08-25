@@ -1,6 +1,6 @@
 # Obligo Tier-2 Gold Set — Annotation Guideline
 
-**Version:** v0.32 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**)
+**Version:** v0.33 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**. **v0.33 puts §9's dual denominator IN FORCE** on two independent grounds, adds §5 clause 5's number rule, §3.4's bounded freeze-pass exception, and the forward authoring rules §3.6 / §3.8.2 / §3.5.1 — **no annotation rule changed, no item restamped, no cassette stale**)
 **Created:** 2026-08-17
 **Status:** **18 items locked** — batch 1 complete (10), batch 2 at 8 of 10 with two
 items still undrawn. The consolidation pass (§19.4) is **complete** (§20): all 16 proposals
@@ -148,6 +148,30 @@ known wrong number with an honest label beats a harness in which fixing a broken
 more than leaving it broken. Deferred until a **second, independent** instance exists — a
 v0.32-or-later correction that also requires conforming — so the general question is designed
 against more than one case rather than fitted to this one.
+
+**v0.33 change:** **NO ANNOTATION RULE CHANGED — no item is restamped and no cassette goes
+stale.** Five changes, all either reporting rules, comparison rules, or *forward* authoring
+rules that explicitly do not reach locked items. (1) **§9's dual denominator is IN FORCE**,
+superseding its v0.26 `RECOMMENDED, NOT YET APPROVED` status: `len(known_gaps) == 0` is now
+**criterion 2**, all-items is reported alongside. Approved on **two independent grounds** —
+the original *reachability* argument (contingent on the 38.9% gap rate) and a new *validity*
+argument that is not: the all-items numerator already counts two knowingly-**incomplete** IRs
+(`C03-02`, `C04-02`) and would count a knowingly-**overstated** one (`C14-01`) the moment
+clause 5's number rule lands, which is precisely the outcome §8.2 promised would stay
+"recoverable from the data rather than baked silently into a score." §9 also now requires
+**inline gap disclosure at the numerator** (`report.py` G6). (2) **§5 clause 5 normalizes
+grammatical number on both sides** — 7 of 37 aligned comparisons in the first scoring run were
+number-only mismatches, and zero of the 18 accept-sets hedged on number, so the field was a
+coin flip. Deliberately a narrow normaliser, never a stemmer. (3) **§3.4 gains one bounded,
+named exception** permitting accept-set widening during §10's pre-scheduled freeze pass only —
+recorded as an **amendment**, explicitly not as a reading of the existing categorical sentence,
+so the softening is legible in the diff rather than absorbed into it. (4) **§3.6 and §3.5.1
+gain required enumerations** (both nominal anchors; compounds of existing members; the whole
+coordinated party phrase), forward from batch 3. (5) **§3.8.2 fixes the two conditions
+conventions §3.8 never had** — where a qualifier quote starts, and when adjacent phrases are
+separate entries — with `C04-01` recorded as a **symmetric** ambiguity in which gold's choice
+was arbitrary rather than correct. `C02-03`, `C11-01` and `C02-01` are queued for the freeze
+pass under (3) and **keep scoring as failures until then**.
 
 *Why v0.8 and not an edit to v0.7:* v0.7 was committed, and every gold item stamps the
 guideline version it was annotated under. Amending a committed version in place would make
@@ -362,6 +386,15 @@ a correct extraction may name, which is exactly what an accept-set decides. Whet
 independent of this test — §8.4.1 measured the independence: only **31 of 132 (23%)**
 collective-reference sentences carry any reciprocity marker.
 
+**The accept-set must also carry the whole coordinated phrase (v0.33 — forward rule).** Where
+the span names alternatives, `obligor_accept_set` holds each alternative verbatim **and** the
+full coordinated string as it appears — for `C02-01`, `["Antares", "its Subcontractor",
+"Antares or its Subcontractor"]`. **Measured reason:** the model stably emitted the whole
+disjunction, *"Antares or its Subcontractor"*, on every aligned run — a form the rule as written
+never enumerated, so clause 3 fails even once the accept-set is actually consulted (§5, v0.33).
+Quoting the coordination whole is a faithful reading of a span that offers alternatives, not an
+error. **Forward-only**; `C02-01` itself is queued for §3.4's freeze-pass exception.
+
 **Non-registry-resolvable values are admitted** (`its Subcontractor`, `the other party`,
 `the executor, administrator, or personal representative`). §3.5's test is **positional** —
 is the alias in the span? — not resolution-based. Whether the value resolves is §3.9's
@@ -512,6 +545,41 @@ predicted action is in the accept-set.
 The accept-set is authored **at annotation time and frozen with the item**. It is never
 widened after seeing a prediction — that would be fitting the gold to the model.
 
+**AMENDMENT (v0.33) — one defined exception, and it is an amendment, not a reading of the
+sentence above.** The rule as written is categorical, and it stays categorical everywhere
+except here. An accept-set found to be **genuinely under-scoped** — it omits a label a
+competent annotator would have defended *at authoring time*, independently of any prediction —
+may be widened **only during §10's pre-scheduled freeze conforming pass**, never in between.
+
+**Why the exception is bounded to that pass rather than granted generally.** Three properties
+of the freeze pass are what make it safe, and none holds for an ad-hoc widening:
+
+1. **It is pre-scheduled.** Its timing is fixed by §10 before any prediction is seen, so it
+   cannot be reached for in response to a disappointing number.
+2. **It restamps and re-records anyway.** Widening is free there; between passes it forces a
+   conforming pass, mixed stamps, and **all cassettes stale at once** (§22).
+3. **It is reviewed as one batch.** Every widening is adjudicated together against the whole
+   set, where a pattern of self-serving widenings is visible; one at a time, it is not.
+
+**The justification test, which is the real safeguard.** A widening qualifies only if the
+omitted label is defensible **from the sentence alone**, stated without reference to what any
+model emitted. If the argument for a label cannot be made without pointing at a prediction,
+that is fitting gold to the model and the rule above forbids it, freeze pass or not.
+
+**Explicitly NOT adopted: the reading that §3.4 only ever barred fitting to *this* prediction.**
+That reading is defensible and was proposed, but it is a *softening* of a categorical rule, and
+adopting it silently would mean the rule had been quietly relaxed by the first case that
+pressed on it. It is recorded here as a **defined, bounded exception with its own name and its
+own test**, so that what changed is legible in the diff and countable later.
+
+**Applies identically to §3.6's `object_class_accept_set`** and to §3.5.1's
+`obligor_accept_set`. **Two locked items are queued under this exception** — `C02-03`
+(`invoice_costs`, a compound of two of its own accept-set members) and `C11-01`
+(`principal_interest`, the possessor-anchored reading of *"the Principal's interest in
+Franchisee"*, where all three existing entries anchor on the thing owned). Both are
+**deliberately NOT widened now** and both **keep scoring as failures until the freeze pass**;
+see §9's inline disclosure requirement for how the resulting understatement is reported.
+
 ### 3.5 `obligor` / `obligee` — and the `ABSENT` rule
 
 Annotate the party alias **exactly as it appears inside `span_text`**.
@@ -540,7 +608,29 @@ Do **not** infer a party from elsewhere in the document. If it isn't in the span
 predicted, gold accept-set too narrow).
 
 Author the accept-set generously at annotation time — 3–6 plausible labels is normal.
-Same freeze rule as §3.4.
+Same freeze rule as §3.4, including its v0.33 freeze-pass exception.
+
+**Two enumerations are REQUIRED, not optional (v0.33 — forward rule, batch 3 onward).**
+Both were derived from real failures in the first scoring run, and both are cheap to satisfy
+at authoring time and expensive to fix afterwards:
+
+1. **Both nominal anchors, where the object phrase has two.** *"the Principal's interest in
+   Franchisee"* can be labelled from the **possessor** (`principal_interest`) or from the
+   **thing owned** (`franchise_interest`). Both are faithful readings of the same phrase; the
+   accept-set must carry both. `C11-01`'s three entries all anchored on the thing owned, and
+   the model stably chose the possessor on all three runs.
+2. **Compound forms built from members already in the set.** Where the set holds `invoice` and
+   `costs`, it must also hold `invoice_costs`. `C02-03` failed on exactly that compound while
+   a sibling run emitting the bare `costs` passed — the same clause scored two ways across two
+   runs of the same segment.
+
+**Number is NOT one of these enumerations.** Do not pad a set with plurals: §5 clause 5
+normalizes grammatical number on both sides as of v0.33, so a set carrying both is redundant,
+not safer.
+
+**This rule is forward-only and restamps nothing.** It governs items annotated from batch 3
+onward. Locked items are not re-authored against it — that is the freeze pass's job (§3.4's
+exception, §10).
 
 ### 3.7 `temporal` — one of five forms, or `null`
 
@@ -613,6 +703,51 @@ the output.
 Do **not** split a single condition string on internal `AND`/`OR` — `ir_compile.py`
 deliberately does not do this, and gold must test what the extractor produces, not ask
 the compiler for behavior it doesn't have.
+
+### 3.8.2 Where a condition quote starts, and when two phrases are two entries (v0.33)
+
+Two conventions §3.8 never fixed, each of which cost a real clause-7 failure in the first
+scoring run. **Both are forward authoring rules: they govern items annotated from batch 3
+onward, restamp no locked item, and no cassette goes stale.**
+
+**Rule A — the quote begins at the qualifier's own introducing marker, exclusive of any
+coordinating adverb or conjunction that merely attaches it to the previous clause.** Quote
+from `provided that`, not from `further provided that`; from `if`, not from `and if`. The
+excluded words (`further`, `and`, `also`, `moreover`) join the qualifier to its neighbour and
+say nothing about the circumstance itself.
+
+*The failure that produced it.* `C04-01`'s gold entry reads *"**further** provided that amounts
+owed…"*; the model emitted *"provided that amounts owed…"* — identical but for that one leading
+word, **97.8% string similarity, and a clause-7 failure on all aligned runs**, because clause 7
+is exact equality after whitespace normalization.
+
+**This is recorded as a SYMMETRIC ambiguity, and the rule does not pretend otherwise.** Both
+strings are verbatim substrings of the segment and §3.8 gave no rule for where a qualifier
+quote begins, so gold's inclusion of `further` was **arbitrary, not correct**. Rule A picks a
+convention for future items; it does **not** establish that the model was wrong, and it must
+not be cited as evidence of an extraction defect. The alternative — changing the prompt to
+match gold's arbitrary choice — was considered and rejected as fitting the model to an
+accident.
+
+**Rule B — adjacent conditional phrases are separate entries, one per syntactically distinct
+phrase, even when juxtaposed with only a comma and no conjunction.**
+
+*The failure that produced it.* `C11-094` opens *"If the Principal is a natural person, upon the
+death or mental incapacity of a Principal, …"* — two distinct circumstances, annotated as two
+entries. The model emitted them as **one** comma-joined string in runs 1 and 3 and as **two** in
+run 2: unstable 2:1 against gold on byte-identical input at temperature 0.
+
+**Rule B is NOT §17.2's boundary, and the two must not be conflated.** §17.2 declines to split
+`and`/`or` **inside** one condition, because `ir_compile.py` deliberately does not do that and
+gold must test what the extractor produces. Rule B concerns two **separate** phrases that were
+never one condition — no internal boolean is involved, and nothing is being asked of the
+compiler.
+
+**Neither rule is validated against model behaviour, and neither may be assumed to fix
+anything.** Whether the extraction prompt can be worded to produce either convention is a fact
+about the model, settleable only by a live probe — see the Tier-B probe tracked in CLAUDE.md
+against segments `E07-010`, `C11-094` and `C04-117`. Until that probe runs, these rules make
+**gold's** side of the convention explicit and nothing more.
 
 **What makes a phrase a condition (v0.28 — F8).** A `conditions` entry states a **circumstance
 under which the duty applies**. A phrase that restricts **which instances of the object** are
@@ -850,7 +985,8 @@ An aligned item is `FULLY_CORRECT` iff **all** of the following hold — this is
 2. `action` ∈ `action_accept_set`
 3. `obligor` matches (see the party-comparison rule below)
 4. `obligee` matches (see the party-comparison rule below)
-5. `object_class` ∈ `object_class_accept_set`
+5. `object_class` ∈ `object_class_accept_set`, **compared with grammatical number
+   normalized on both sides** (v0.33 — see the number rule below)
 6. `temporal` form matches, **and** amount/unit/date constituents match exactly
 7. `conditions` match as an order-insensitive, count-sensitive set
 8. `underspecified` matches
@@ -873,6 +1009,37 @@ authored (the same principle §3.4/§3.6 apply to `action`/`object_class`); whic
 mentions a model quotes varies run to run, so path-matching would put §6's sampling
 non-determinism inside a scored clause; and registry matching is **monotone** — adding an alias
 can only turn a fail into a pass — while path-matching moves with model behaviour.
+
+**The number rule for clause 5 (v0.33).** Grammatical number is normalized on **both** sides
+before the membership test: `taxes` matches an accept-set holding `tax`, `retained_samples`
+matches `retained_sample`, `agreement_provisions` matches `agreement_provision`.
+
+**Why this is a comparison rule and not an accept-set widening.** It widens no set and is
+fitted to no prediction — it applies uniformly to every item, past and future, and **deletes a
+distinction neither side was ever asked to make.** `prompts/extraction/v3.yaml` asks only for
+*"a short lowercase snake_case label"* and one of its own three worked examples
+(`deliverables`) is plural; §3.6 fixes no convention either. So which number an item's
+accept-set happens to spell was arbitrary, and clause 5 was enforcing it. §3.4's freeze rule is
+untouched: nothing is widened after seeing a prediction.
+
+**Measured before the rule was written** (§8.6's discipline). Across the 37 aligned
+`object_class` comparisons in the first scoring run: **25 exact, 7 number-only mismatches, 5
+genuinely different labels.** Number-only mismatches hit 3 of the 18 locked items — `C02-01`,
+`C14-01`, `E01-01` — and in all three the model follows the **document's own** number (*"such
+taxes"*, *"retained repository samples"*, *"No provisions of this Agreement"*) while gold
+singularized. **Zero of the 18 accept-sets hedge by carrying both numbers**, so the items that
+pass do so only because gold happened to author the same number — `required_quantities` and
+`third_party_royalties` both pass as plurals. It was a coin flip, not a measurement.
+
+**Deliberately a narrow number-normaliser, NOT a stemmer.** `-s`, `-es` after a sibilant,
+`-ies`→`-y`, and stop. A Porter-class stemmer would conflate `retention`/`retain` and
+`provisions`/`provide`, which would make clause 5 nearly vacuous — the opposite failure, and a
+worse one, since clause 5 is the only check on an open vocabulary. The normaliser is pinned by
+a known-answer test table (Standing Principle 7), including `taxes`→`tax`, which the first
+draft of this very analysis got **wrong** by stripping only a trailing `s`.
+
+**Scope: clause 5 only.** Clause 7 (`conditions`) is NOT number-normalized — §3.8 requires
+verbatim quotes and normalizing a quotation is a different act from normalizing a label.
 
 **Named, accepted asymmetry:** a *resolved* party is scored leniently (any registered alias
 passes) and an *unresolved* one strictly (exact string). This tracks a real epistemic
@@ -1595,17 +1762,81 @@ Both numbers are reported alongside: the spurious-extraction count over zero-obl
 segments, the share of items correctly `underspecified` (so "compiled faithfully" is not
 misread as "resolved"), and the prompt/model/grammar versions in force.
 
-**Criterion 2 needs the same dual denominator, and does not yet have it (v0.26 — RECOMMENDED,
-NOT YET APPROVED).** As written above, criterion 2 is `FULLY_CORRECT` / 100 items — a single
-denominator including items that **cannot** be fully correct by construction. At the measured
+### 9.1 Criterion 2's dual denominator — **IN FORCE as of v0.33 (was RECOMMENDED at v0.26)**
+
+~~**Criterion 2 needs the same dual denominator, and does not yet have it (v0.26 — RECOMMENDED,
+NOT YET APPROVED).**~~ **SUPERSEDED AT v0.33 — approved and in force. The v0.26 text is struck
+in place rather than deleted, per this document's own corrections-are-new-text discipline; the
+reasoning below is what is operative.**
+
+**The rule.** Criterion 2 is reported **twice**, always together, neither quoted alone:
+
+| denominator | scope | standing |
+| :--- | :--- | :--- |
+| `len(known_gaps) == 0` | items IR v1 can represent faithfully | **PRIMARY** — this is criterion 2 |
+| all items | every locked item, tagged or not | **reported alongside**, never as the criterion |
+
+This is the treatment §11 already gave criterion 1b, applied to criterion 2. The split is
+computed mechanically from `known_gaps`, by membership never by count (see the v0.22 rule
+above). `known_gaps` still appears nowhere in §5's conjunctive predicate: it changes which
+denominator an item is reported in, never whether it is `FULLY_CORRECT`.
+
+**Two independent grounds. Either alone is sufficient; they are recorded separately because
+they fail differently and a future reader should not think the decision rests on one number.**
+
+**Ground 1 — reachability (v0.26, the original argument).** At the measured
 structurally-uncompilable rate (7 of 18 locked items, 38.9%, 95% CI [20.3%, 61.4%]; 9 of 18
 if `corpus_artifact_in_span` spans are counted), criterion 2's ceiling over all items is
-roughly **39–61%**, so blueprint §21's **≥80% bar is arithmetically unreachable over this
-denominator at every point in the measured interval**. This is not a sample-size problem and
-no target size fixes it. The recommended fix is the treatment §11 already gave criterion 1b:
-report criterion 2 **twice**, over all items and over items with `len(known_gaps) == 0`, with
-the expected all-items ceiling stated in advance. **This is a blueprint §21 amendment and is
-recorded here as recommended, pending an explicit decision — it is NOT in force.** See §19.5.
+roughly **39–61%**, so blueprint §21's **≥80% bar is arithmetically unreachable over that
+denominator at every point in the measured interval**. Not a sample-size problem; no target
+size fixes it. *This ground is contingent: it holds only while the measured gap rate holds,
+and its interval is wide.*
+
+**Ground 2 — validity (v0.33, new, and it does NOT depend on the 38.9% rate).** The all-items
+denominator can count an IR that is **knowingly not a faithful representation of the
+obligation** as `FULLY_CORRECT`. This is not hypothetical and not marginal:
+
+- **It is already happening.** Two of the five items in the first scoring run's numerator carry
+  a tag — `C03-02` (`compound_action`, the second verb unrepresented) and `C04-02`
+  (`mutual_obligation`, the reciprocal direction lost). Both IRs are **incomplete**: they
+  under-report a duty. A monitor built on them misses a real breach.
+- **The worse direction is one comparison rule away.** `C14-01` fails today on `object_class`
+  alone (`taxes` against an accept-set holding `tax`). Under §5 clause 5's number rule (v0.33)
+  it becomes `FULLY_CORRECT` and enters the all-items numerator — measured, 27.8% → 33.3%,
+  the entire `+1` being that item. Its IR is **overstated**, not merely incomplete: §8.2's own
+  words, *"the annotated obligation is stronger than the one the contract imposes."* A monitor
+  built on it flags a breach the contract expressly exempts.
+
+**Why that is a validity failure and not a caveat.** §8.2 defends the carve-out-free annotation
+convention on exactly this promise — *"Every such item is tagged, so the overstatement is
+always recoverable from the data rather than baked silently into a score."* A denominator that
+does not read the tag **is** baking it into the score. The convention was sound; the reporting
+layer was not keeping its half of the bargain. Ground 2 closes that, and it would still hold
+if the gap rate were 5%.
+
+**What this does NOT do.** It does not change any annotation rule, restamp any item, or alter
+§5's predicate. Items keep their `v0.28` stamp, `run_scoring.guideline_version_from_items()`
+keeps returning `v0.28`, and **no cassette goes stale** — the same footing as v0.29/v0.30.
+
+**Ceiling.** §9 asks for "the expected all-items ceiling stated in advance." None is stated:
+the tag-derived 39–61% figure was shown wrong item by item during the consolidation pass (most
+tagged items compile fine), so publishing it would quote a number already known unsound. The
+report states tag counts and the observed rate and says explicitly that no per-item
+reachability ceiling has been computed (`report.py` G4).
+
+**Inline disclosure is mandatory (v0.33).** Wherever the criterion-2 figures appear, any
+numerator item carrying a non-empty `known_gaps` is named **on the spot**, split into
+*overstating* gaps (`exception_unsupported` — the IR claims more than the contract) and
+*incompleteness* gaps (`compound_action`, `mutual_obligation` — the IR claims less). Not a
+footnote: the same on-the-spot discipline §6.1 already requires for a short run, for the same
+reason — a reader who does not reach the methods section still gets the caveat. Implemented as
+`report.py` G6.
+
+See §19.5 for why the 100-item target is a working figure rather than a derived one, and
+CLAUDE.md's debt list for the compile-stage loud-path fix (`ir_compile` routing a carve-out to
+`compile_quarantine` instead of `IF`) that would make the spec-compliant behaviour reachable at
+all — tracked against the **Normalizer checkpoint**, deliberately not built as part of this
+amendment.
 
 ---
 
@@ -3158,3 +3389,22 @@ unsolved. Until then this stays exactly as written: visible, tracked, and not qu
 and the scorer will refuse to run), restamping all 18 items (it invalidates all 35 cassettes
 and `C17-021` run 3 cannot be re-recorded at all), or relaxing a staleness dimension to route
 around either.
+
+### 22.2 Is v0.33 the second instance? **NOT DECIDED — deliberately held (v0.33)**
+
+v0.33 queues three locked items for accept-set widening at the §10 freeze pass (`C02-03`,
+`C11-01`, `C02-01` — §3.4's bounded exception). Those widenings **would** require conforming,
+so the question arises immediately: does this satisfy §22.1's forcing function?
+
+**The decision is to NOT decide yet, and the reason is the same one §22.1 itself gives.**
+§22.1 declined to design against a sample of one. Ruling *now* that three queued
+accept-set widenings constitute the second instance would repeat that error from the other
+side — settling the general question against a scope estimated **in advance** of the pass that
+determines it. The freeze pass conforms everything at once: `C14-02`'s §8.3.1 amendment, these
+three widenings, and whatever batch 3 adds. **Its real, combined scope is knowable then and
+only guessable now.**
+
+**So the trigger is re-armed, not fired.** Re-evaluate at the freeze pass, against what is
+actually on the table. Nothing in v0.33 is blocked by leaving this open: every v0.33 change is
+forward-only or comparison-only, restamps nothing, and the three queued items keep scoring as
+failures in the meantime — a stated understatement, which §9's inline disclosure reports.
