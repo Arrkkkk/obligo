@@ -1,11 +1,14 @@
 # Obligo Tier-2 Gold Set — Annotation Guideline
 
-**Version:** v0.30 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception, from a real provider refusal; **v0.30 reconciles §6.1's tie rule with `report.py`'s G2**)
+**Version:** v0.31 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker)
 **Created:** 2026-08-17
 **Status:** **18 items locked** — batch 1 complete (10), batch 2 at 8 of 10 with two
 items still undrawn. The consolidation pass (§19.4) is **complete** (§20): all 16 proposals
 ruled, every approved rule written into a live rule section, and **all 18 locked items
 conformed — every one now stamps `v0.28`**, verified by reading the items themselves.
+**As of v0.31 that stamp is no longer current for one item:** §8.3.1's amendment changes
+`C14-02`'s span, and it is deliberately **not** conformed pending the §22 decision. The set
+is therefore conformed to `v0.28` and carries **one known outstanding conformance**, not zero.
 *(This line read "No items have been annotated against this document yet" from v0.1 through
 v0.25 — false from 2026-08-19 onward, corrected at v0.26; see §19.3. It then read
 "consolidation pass … in progress, not complete", "Items stamp guideline versions
@@ -127,6 +130,14 @@ contradicted a rule already implemented in the reporter — caught while scoping
 scorer-wiring session, before any code depended on either reading. A defined conservative
 status keeps the item inside criterion 2's denominator; an undefined one would have been
 improvised downstream.
+**v0.31 change:** **AN ANNOTATION RULE CHANGED** — the first such change since v0.25. §8.3.1's
+v0.23 `DEFAULT, PENDING CONFIRMATION` rule is superseded: it chose the one branch of its own
+trilemma that `ground_candidates()` forbids, having mis-classified "obligor outside span_text"
+as a methodological cost when it is mechanically enforced as `NESTED_FIELD_NOT_IN_SPAN`. A
+fourth option — contiguous from the shared subject through the end of the second verb phrase —
+is adopted. Found by the first real scoring run, which put `C14-02` at `MISSED` on all three
+runs for a duty the model had in fact extracted correctly. §22 records why the one affected
+item is **not** yet conformed.
 
 *Why v0.8 and not an edit to v0.7:* v0.7 was committed, and every gold item stamps the
 guideline version it was annotated under. Amending a committed version in place would make
@@ -1192,11 +1203,11 @@ of the sentence, governing both.
 | Second span = subject + second verb phrase, skipping the first | **Non-contiguous**, violating §3.1's byte-exact-substring requirement outright |
 | Second span = the contiguous verb phrase alone | `obligor` is then taken from **outside** `span_text` |
 
-**Rule (default).** Take the third option. The second item's `span_text` is the **contiguous
-verb phrase without the shared subject** (*"shall promptly furnish such other party with
-appropriate tax receipts"*). The shared `obligor` is annotated from the sentence head, and
-the item is tagged **`shared_subject_split`** so the exception is countable rather than
-silent.
+**~~Rule (default).~~ SUPERSEDED AT v0.31 — see "Amendment (v0.31)" below.** ~~Take the third
+option. The second item's `span_text` is the **contiguous verb phrase without the shared
+subject** (*"shall promptly furnish such other party with appropriate tax receipts"*). The
+shared `obligor` is annotated from the sentence head, and the item is tagged
+**`shared_subject_split`** so the exception is countable rather than silent.~~
 
 **Why.** §3.1's byte-exact contiguity is a *hard* requirement the grounding gate enforces
 mechanically; §3.5's positional rule is a *methodological* one guarding against inference
@@ -1204,6 +1215,55 @@ from elsewhere in the **document**. Taking a subject from the same sentence, thr
 away, is a far smaller departure than either breaking contiguity or colliding the alignment
 — and the two spans stay **disjoint**, which keeps §4.1 sound. The cost is real and is
 tagged, not hidden: for these items alone, `obligor` is not verifiable from `span_text`.
+
+### Amendment (v0.31) — the third option is mechanically unreachable, and there is a fourth
+
+**The v0.23 default was wrong, and the first real scoring run proved it.** Its reasoning
+turned on a distinction between hard and soft constraints: *"§3.1's byte-exact contiguity is
+a **hard** requirement the grounding gate enforces mechanically; §3.5's positional rule is a
+**methodological** one."* That is the error. The grounding gate enforces **more than
+contiguity**: `ground_candidates()` rejects any candidate whose nested fields — `obligor_alias`
+included — are not literal substrings of `span_text`, as `NESTED_FIELD_NOT_IN_SPAN`. So
+"obligor taken from outside `span_text`" is **not** a methodological cost. It is a second
+mechanical rule of the *same gate* that rules out option 2, and it makes **option 3
+unreachable by the pipeline by construction**.
+
+**Measured, not argued.** Scoring the 35 recorded cassettes put `C14-02` at `MISSED` on all
+three runs. The model had in fact extracted the duty correctly — run 3 emitted an obligation
+with `action = PROVIDE`, matching *furnish* — but with `span_text` spanning `[12:253]`
+against gold's `[184:253]`, IoU 0.286. It could not have done otherwise: emitting gold's span
+while naming `Each party` as obligor is precisely what the grounding gate refuses.
+
+**The fourth option, absent from the original trilemma.**
+
+| Option | Fails on |
+| :--- | :--- |
+| 1 · Both spans = the whole sentence | Byte-identical spans collide under §4.1 |
+| 2 · Subject + second verb phrase, skipping the first | Non-contiguous; violates §3.1 |
+| 3 · Contiguous verb phrase alone *(the v0.23 default)* | **`NESTED_FIELD_NOT_IN_SPAN` — unreachable by the pipeline** |
+| **4 · Contiguous, from the shared subject through the END of the second verb phrase** | **Nothing mechanical. Adopted.** |
+
+**Rule (v0.31).** The second item's `span_text` runs **contiguously from the shared subject
+through the end of its own verb phrase**, and therefore properly **contains** the first
+item's span. For `C14-076` that is `[12:253]` — *"Each party shall deduct … and shall
+promptly furnish such other party with appropriate tax receipts"* — against `C14-01`'s
+`[12:178]`. Contiguous (§3.1 ✓), `obligor` and `obligee` both inside `span_text` (grounding
+gate ✓), and **not** byte-identical to the first span, so §4.1 does not collide. The item
+stays tagged **`shared_subject_split`**: the exception is still countable, and what is tagged
+has changed from "obligor unverifiable" to "spans are nested".
+
+**The cost, stated rather than buried.** The two spans are **nested**, with IoU 0.689 between
+them — above §4.1's 0.5 threshold. Greedy-by-descending-IoU resolves this correctly *when the
+model emits both spans*: an exact match to `[12:178]` pairs with `C14-01` at IoU 1.0 before
+`[12:253]` is considered, which then pairs with `C14-02`. Run 3 of the recorded set emitted
+exactly that pair, so this is observed behaviour, not a hoped-for one. **When the model emits
+only ONE span the pairing is genuinely ambiguous** and one of the two items will be `MISSED`.
+That is a real, accepted limitation of option 4 — and it is strictly better than option 3,
+under which the item could never be scored correctly at all.
+
+**Conforming.** `C14-02` is the only locked item carrying `shared_subject_split` and is the
+only item this amendment changes. **It is NOT yet conformed** — doing so restamps it and
+collides with two invariants that need their own decision; see §22.
 
 **Why this is not §8.3's one-item case.** §8.3 keeps *one* item when two verbs are aspects of
 one indivisible performance. Deducting tax and furnishing a receipt are separate
@@ -3029,3 +3089,42 @@ value requires it to.** A mismatch is a **hard startup failure naming the item a
 never a scored result. Without R5 every fixture defect in R1–R3 surfaces as a clause-8 failure
 indistinguishable from an extraction error — which is precisely how a harness measures its own
 setup and reports it as model quality.
+
+---
+
+## 22. The conforming blocker (v0.31) — OPEN DECISION, nothing changed
+
+§8.3.1's v0.31 amendment changes exactly one locked item, `C14-02` (span `[184:253]` →
+`[12:253]`, the only item tagged `shared_subject_split`). Conforming it is a two-line edit.
+**It has not been made**, because restamping that item collides with two invariants that
+each deserve an explicit decision rather than a convenient reading.
+
+**Invariant A — one guideline stamp per scored set.** `run_scoring.guideline_version_from_items()`
+raises when the 18 items stamp more than one version, on the ground that scoring items
+annotated under different rulesets silently mixes two questions. Conforming `C14-02` alone
+yields `{v0.28 ×17, v0.31 ×1}` and the scorer refuses to run. §10 permits mixed stamps
+pre-freeze — batch 1 legitimately spanned six versions — so this invariant is **stricter than
+§10 requires**, and may simply be wrong.
+
+**Invariant B — `guideline_version` is a cassette-staleness dimension.** `Cassette.verify()`
+treats a `guideline_version` mismatch as `StaleCassette`. Restamping all 18 items to `v0.31`
+(the genuine conforming pass: the other 17 carry no `shared_subject_split` and conform
+already) therefore invalidates **all 35 recorded cassettes** and demands a full re-record —
+live model calls, and `C17-021` run 3 is known to be unobtainable at all.
+
+**Why B looks like a real design defect rather than an inconvenience.** The guideline never
+enters the model request. `prompts/` supplies the prompt; the corpus supplies the segment
+text; the guideline governs only how the *answer is scored*, downstream and offline.
+`cassette.py`'s own docstring justifies staleness in terms of *"the segment text, the prompt
+version, or the model id"* — it does **not** argue for `guideline_version`, which was checked
+anyway. Under the current rule the gold set can never be amended without re-spending model
+calls, which inverts the purpose of recording cassettes and creates a standing incentive not
+to correct a rule once found wrong — the exact failure this session has spent its time
+undoing elsewhere.
+
+**Recommended, NOT adopted:** drop `guideline_version` from `Cassette.verify()`'s staleness
+test while **keeping it recorded as provenance**, and relax invariant A to permit mixed
+stamps pre-freeze while reporting them. Both are changes to guarantees that were explicitly
+approved as strict, so neither is made here. Until one is decided, **`C14-02` stays annotated
+under the superseded v0.23 rule and continues to score `MISSED`** — a known, stated wrong
+number, which is preferable to an unexplained one.

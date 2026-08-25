@@ -105,11 +105,13 @@ def test_the_real_gold_set_has_consistent_segments_and_one_guideline_stamp():
 # --- W6: a MISSED says which kind of missed it is ---------------------------
 
 def test_missed_with_no_overlapping_prediction_is_diagnosed_as_such(c03_gold, c03_reg):
+    """n_quarantined is non-zero but NO quarantined span is supplied, so there is
+    no evidence the clause was extracted -- NOT_EXTRACTED is correct here."""
     sr = rs.SegmentRun("C03-192", 1, typechecked=[], n_quarantined=1, n_rejected=0)
     scores, unexpected = rs.score_segment_run(sr, [c03_gold], c03_reg, "x" * 2000)
     sc = scores[c03_gold["item_id"]]
     assert sc.outcome is Outcome.MISSED
-    assert sc.detail["miss_kind"] == "NO_PREDICTION_OVERLAPS"
+    assert sc.detail["miss_kind"] == "NOT_EXTRACTED"
     assert unexpected == []
 
 
@@ -236,3 +238,54 @@ def test_available_runs_reports_only_runs_that_exist(tmp_path):
     ), root=tmp_path)
     assert rs.available_runs("S-001", text, model_id="m", prompt_version="v3",
                              guideline_version="v0.28", root=tmp_path) == [2]
+
+
+# --- W6 refined: a compile-stage failure is not an extraction failure --------
+
+class _FakeQuarantined:
+    def __init__(self, start: int, end: int):
+        self.candidate = type("C", (), {"source": ast.SourceRef(
+            segment_id="seg", char_start=start, char_end=end)})()
+
+
+def test_a_quarantined_candidate_on_the_gold_span_is_not_reported_as_not_extracted(
+        c03_gold, c03_reg):
+    """PLANTED, from a REAL observation: E01-01 and E03-01 each had a candidate
+    quarantined at IoU 1.000 -- a PERFECT span -- and C04-03 at 0.988. Labelling
+    those 'no prediction' reads a compiler rejection as an extraction miss and
+    points the next investigation at entirely the wrong stage."""
+    gs, ge = c03_gold["span_char_start"], c03_gold["span_char_end"]
+    sr = rs.SegmentRun("C03-192", 1, typechecked=[], n_quarantined=1, n_rejected=0,
+                       quarantined_spans=[(gs, ge)])
+    scores, _ = rs.score_segment_run(sr, [c03_gold], c03_reg, "x" * 5000)
+    sc = scores[c03_gold["item_id"]]
+    assert sc.outcome is Outcome.MISSED
+    assert sc.detail["miss_kind"] == "EXTRACTED_THEN_QUARANTINED"
+    assert sc.detail["best_iou"] == "1.000"
+    assert "compile-stage failure" in sc.detail["alignment"]
+
+
+def test_nothing_extracted_anywhere_is_reported_as_not_extracted(c03_gold, c03_reg):
+    sr = rs.SegmentRun("C03-192", 1, typechecked=[], n_quarantined=0, n_rejected=0)
+    scores, _ = rs.score_segment_run(sr, [c03_gold], c03_reg, "x" * 5000)
+    assert scores[c03_gold["item_id"]].detail["miss_kind"] == "NOT_EXTRACTED"
+
+
+def test_a_quarantined_candidate_elsewhere_in_the_segment_does_not_claim_the_gold_span(
+        c03_gold, c03_reg):
+    """A quarantined candidate that does not overlap the gold span at all is NOT
+    evidence the clause was extracted -- it is a different clause."""
+    sr = rs.SegmentRun("C03-192", 1, typechecked=[], n_quarantined=1, n_rejected=0,
+                       quarantined_spans=[(4000, 4200)])
+    scores, _ = rs.score_segment_run(sr, [c03_gold], c03_reg, "x" * 5000)
+    assert scores[c03_gold["item_id"]].detail["miss_kind"] == "NOT_EXTRACTED"
+
+
+def test_a_typechecked_alignment_still_wins_over_a_quarantined_candidate(c03_gold, c03_reg):
+    """The quarantine branch must only fire when NO typechecked obligation aligned."""
+    gs, ge = c03_gold["span_char_start"], c03_gold["span_char_end"]
+    good = _obl(gs, ge, c03_reg)
+    sr = rs.SegmentRun("C03-192", 1, typechecked=[good], n_quarantined=1, n_rejected=0,
+                       quarantined_spans=[(gs, ge)])
+    scores, _ = rs.score_segment_run(sr, [c03_gold], c03_reg, "x" * 5000)
+    assert scores[c03_gold["item_id"]].outcome is Outcome.FULLY_CORRECT

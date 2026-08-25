@@ -82,6 +82,15 @@ class SegmentRun:
     typechecked: list = field(default_factory=list)
     n_rejected: int = 0
     n_quarantined: int = 0
+    # Spans of candidates that were extracted and grounded but never compiled.
+    # Carried so a MISSED can distinguish "nothing was extracted here" from
+    # "the right clause WAS extracted here and the compiler rejected it" -- see W6.
+    quarantined_spans: list = field(default_factory=list)
+    # NOTE: there is deliberately no `rejected_spans`. A candidate rejected AT
+    # grounding has no char offsets at all -- grounding is the stage that assigns
+    # them -- so there is no span to compare. RejectedCandidate carries
+    # `llm_candidate`, not a grounded `candidate`, which is the same fact in the
+    # type system.
 
 
 def load_gold_items(goldens_dir: Path = GOLDENS_DIR) -> list[dict]:
@@ -152,6 +161,8 @@ def replay_segment(segment_id: str, segment_text: str, run: int, *,
     return SegmentRun(
         segment_id=segment_id, run=run, typechecked=list(result.typechecked),
         n_rejected=len(result.rejected), n_quarantined=len(result.quarantined),
+        quarantined_spans=[(q.candidate.source.char_start, q.candidate.source.char_end)
+                           for q in result.quarantined],
     )
 
 
@@ -195,8 +206,33 @@ def score_segment_run(
             if v > best_iou:
                 best_iou, best_span = v, span
         if best_span is None:
-            why = (f"NO_PREDICTION_OVERLAPS -- {len(preds)} typechecked obligation(s) on this "
-                   f"segment, none overlapping this gold span at all")
+            # W6, refined: "nothing was extracted here" and "the clause WAS extracted
+            # here, correctly, and the COMPILER rejected it" are different failures
+            # pointing at different stages -- extraction quality versus a compile-stage
+            # gap such as _WITHIN_RE's preposition requirement. Collapsing them reads
+            # every compile failure as an extraction miss. Measured: C17-02's gold span
+            # is [37:386] and the quarantined candidate's was [37:510] -- the SAME start
+            # offset -- so calling that "not extracted" was actively misleading.
+            q_iou, q_span = 0.0, None
+            for span in sr.quarantined_spans:
+                v = align_mod.iou(
+                    (int(gold["span_char_start"]), int(gold["span_char_end"])), span)
+                if v > q_iou:
+                    q_iou, q_span = v, span
+            if q_span is not None:
+                kind = "EXTRACTED_THEN_QUARANTINED"
+                why = (f"{kind} -- no TYPECHECKED obligation overlaps, but a grounded "
+                       f"candidate at [{q_span[0]}:{q_span[1]}] (IoU {q_iou:.2f} with gold) "
+                       "was quarantined. The clause was found and grounded; the COMPILER "
+                       "rejected it, so this is a compile-stage failure, not an extraction miss")
+                scores[gold["item_id"]] = score_mod.ItemScore(
+                    item_id=gold["item_id"], outcome=Outcome.MISSED, clauses={},
+                    detail={"alignment": why, "miss_kind": kind, "best_iou": f"{q_iou:.3f}"},
+                )
+                continue
+            why = (f"NOT_EXTRACTED -- {len(preds)} typechecked obligation(s) on this segment "
+                   f"and none of its {len(sr.quarantined_spans)} quarantined candidate(s) "
+                   "overlaps this gold span either; nothing was extracted here at all")
         else:
             why = (f"BELOW_IOU_THRESHOLD -- best overlapping prediction "
                    f"[{best_span[0]}:{best_span[1]}] at IoU {best_iou:.2f} < 0.50 "
@@ -207,7 +243,7 @@ def score_segment_run(
             detail={"alignment": (
                 f"{why}. This run: {len(preds)} typechecked, {sr.n_quarantined} quarantined, "
                 f"{sr.n_rejected} rejected at grounding"
-            ), "miss_kind": "NO_PREDICTION_OVERLAPS" if best_span is None
+            ), "miss_kind": "NOT_EXTRACTED" if best_span is None
                else "BELOW_IOU_THRESHOLD",
                "best_iou": f"{best_iou:.3f}"},
         )
