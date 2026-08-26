@@ -1,9 +1,33 @@
 # Obligo Tier-2 Gold Set — Annotation Guideline
 
-**Version:** v0.34 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**. **v0.33 puts §9's dual denominator IN FORCE** on two independent grounds, adds §5 clause 5's number rule, §3.4's bounded freeze-pass exception, and the forward authoring rules §3.6 / §3.8.2 / §3.5.1 — **no annotation rule changed, no item restamped, no cassette stale**. **v0.34 records two MEASUREMENT corrections and changes no rule either** — §8.9's `on`/`until` rows and §15.3's loud-versus-silent class placement, both falsified by real model output from the compile-stage bottleneck investigation)
+**Version:** v0.40 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**. **v0.33 puts §9's dual denominator IN FORCE** on two independent grounds, adds §5 clause 5's number rule, §3.4's bounded freeze-pass exception, and the forward authoring rules §3.6 / §3.8.2 / §3.5.1 — **no annotation rule changed, no item restamped, no cassette stale**. **v0.34 records two MEASUREMENT corrections and changes no rule either** — §8.9's `on`/`until` rows and §15.3's loud-versus-silent class placement, both falsified by real model output from the compile-stage bottleneck investigation. **v0.35 adds §4.3.2** — a third splitting shape distinct from both existing §4.3 worked examples, reviewer-ruled at batch 3's `C04-139`: self-performance vs. a duty to bind/control a third party's conduct splits into two items even when the two verbs share an object phrase and a sentence subject, because the two performances do not share an actor. **v0.36 amends §4.2** — the resulting byte-identical spans (`C04-139`'s shared trailing object leaves neither item's minimal span shorter than the other's) break IoU's ability to discriminate between the two gold items, so a content-based tie-break on `action_accept_set` membership is added, falling through to ascending `item_id` when the tie-break itself is inconclusive. **v0.37 adds a
+recommended `object_class` naming convention to §4.3.2** — `self_` / `third_party_` prefixes over
+a shared root, so future flow-down splits land on visibly parallel labels rather than an
+unrelated pair invented fresh each time. **v0.38 adds §3.2.1** — present-tense self-executing
+performatives (`hereby grants`/`assigns`/`appoints`/`releases`/`waives`) are excluded as not
+obligation-bearing under IR v1, on the identical non-obligation principle §3.2's own
+"will"-future-fact rule already states one tense later: nothing is left to monitor once a
+performative act takes effect at execution, whether that happens in the present or the future.
+Reviewer-ruled at batch 3's `C22-022`, where a hereby-clause sits coordinated with a genuine
+future undertaking. **v0.39 adds §2.5** — clarifying, not replacing, §2's own "party's right, no
+correlative duty" exclusion row: a `MAY`-shaped clause excludes only when it lacks monitorable
+stakes (no correlative party, no deadline, no gating condition), the identical underlying
+principle §3.2.1 already applies to present-tense performatives, reached from a different
+surface pattern. Reviewer-ruled at batch 3's `C04-026`, a broad "reserves the right to
+manufacture/sell/export/... in any manner and for any purpose whatsoever" boilerplate clause.
+**v0.40 adds a marker-equivalence ruling to §3.8.1's branch 3** — confirms, for the first time
+in practice rather than in the abstract, that a non-`unless` carve-out marker (`except to the
+extent`, reviewer-ruled at batch 3's `C10-016`) routes through branch 3 exactly like `unless`
+does, tagged `exception_unsupported`; names a small citable set of equivalent markers (`unless`,
+`except to the extent`, `save where`, `other than in cases where`); and notes, without editing
+it, that §8.2's own "Rule" paragraph still names the pre-rename tag `unless_unsupported` —
+superseded at the original consolidation pass (§20.4 decision 5, 2026-08-22) but never
+corrected in §8.2's own prose.)
 **Created:** 2026-08-17
-**Status:** **18 items locked** — batch 1 complete (10), batch 2 at 8 of 10 with two
-items still undrawn. The consolidation pass (§19.4) is **complete** (§20): all 16 proposals
+**Status:** **23 items locked** — batch 1 complete (10), batch 2 at 8 of 10 with two
+items still undrawn, batch 3 at 5 of 10 (`C04-04`, `C04-05`, `C22-02`, `C10-01`, `C10-02` —
+all five drawn from the hard stratum; the hard queue is now fully walked, standard queue not
+yet started). The consolidation pass (§19.4) is **complete** (§20): all 16 proposals
 ruled, every approved rule written into a live rule section, and **all 18 locked items
 conformed — every one now stamps `v0.28`**, verified by reading the items themselves.
 **As of v0.31 that stamp is no longer current for one item:** §8.3.1's amendment changes
@@ -190,6 +214,92 @@ rejecting the whole candidate, scoring `MISSED` rather than `PARTIAL` — measur
 terms. §15.4 is deliberately **not** amended: what to do about a headline count that no longer
 matches the class's real cost is a decision, not a correction. Neither change touches §5's
 predicate, and `run_scoring.guideline_version_from_items()` keeps returning `v0.28`.
+
+**v0.35 change:** **AN ANNOTATION RULE ADDED — forward-only; no locked item restamped, no
+cassette stale.** §4.3.2 added: a third obligation-splitting shape, distinct from both existing
+§4.3 worked examples (*"provide... and keep current"*, one continuing duty; *"notify and
+remedy"*, two acts by the same actor). Batch 3's `C04-139` — *"Bellicum shall use, and will cause
+its Subcontractors and Licensees to use, Miltenyi Products in accordance with all Applicable
+Laws..."* — coordinates one verb governing the obligor's own conduct with a second governing the
+obligor's duty to bind or control a **third party's** conduct. Reviewer-ruled: split into two
+items. The test is locus of accountability, not object identity — the two performances do not
+share an actor, which is a *stronger* form of independence than §4.3 already requires, not a
+weaker one. Flagged as a pattern expected to recur (flow-down compliance clauses — "X shall do Y,
+and shall cause its Subcontractors/Affiliates/Licensees to do Y" — are common commercial
+drafting), so future instances are decided by citation. No corpus-wide frequency measured.
+**Span mechanics for the motivating case are adjudicated separately, per-instance, not settled by
+this rule** — see the batch 3 session record for `C04-139`'s own resolution.
+
+**v0.36 change:** **AN ANNOTATION-ADJACENT SCORING RULE ADDED — forward-only; no locked item
+restamped, no cassette stale.** §4.2 gains a tie-break for byte-identical gold spans, the
+mechanical consequence of §4.3.2's split at `C04-139`: the object clause trails and is shared by
+both coordinated verbs, so neither item's minimal contiguous span (§3.1) can be made shorter than
+the other's without either breaking contiguity or dropping a field from its own span — unlike
+`C14-076`'s shared-subject-split (§8.3.1), whose spans nest rather than collide. Reviewer-ruled:
+accept the byte-identical spans rather than narrow either item's object to force non-colliding
+ones (narrowing item 1's object to avoid the collision would understate Bellicum's own
+compliant-use duty purely to solve a mechanics problem — an incomplete IR is a worse outcome than
+a span-alignment complication). Tie-break is by content: match the candidate's `action` against
+each tied item's `action_accept_set`, falling through to ascending `item_id` when that is
+inconclusive. Scoped strictly to byte-identical spans; does not touch the ordinary
+descending-IoU path, including `C14-076`'s nested (non-identical) spans, which already resolve
+correctly under it.
+
+**v0.37 change:** **A RECOMMENDATION ADDED, not a binding rule — no locked item restamped, no
+cassette stale.** §4.3.2 gains a suggested `object_class` naming convention (`self_` /
+`third_party_` prefixes over a shared root), added while drafting `C04-139`'s own pair of items:
+the first-drafted labels (`compliant_product_use` / `subcontractor_licensee_compliant_use`)
+shared no visible root, which would let a future annotator hitting another flow-down clause drift
+toward an unrelated pair of labels each time rather than a recognizable pattern. Recorded now
+because `C04-139` is §4.3.2's precedent-setting instance. Not mandatory, since `object_class`
+accept-sets are always author-time judgment (§3.6) — a recommendation, not an exact-match rule.
+
+**v0.38 change:** **AN ANNOTATION RULE ADDED — forward-only; no locked item restamped, no
+cassette stale.** §3.2.1 added: present-tense self-executing performatives (`hereby grants`,
+`hereby assigns`, `hereby appoints`, `hereby releases`, `hereby waives`) are excluded as not
+obligation-bearing under IR v1's four modalities. Found at batch 3's `C22-022` — *"the Seller
+hereby grants (and will cause each other Seller Party to grant, following each applicable
+Closing Date...) a... license..."* — where §3.2's modality table matches none of its rows to
+`hereby grants`. **The connecting principle is stated explicitly, not left as an unrelated new
+category**: this is the identical non-obligation class §3.2's own "will"-future-fact exclusion
+already carves out ("this Agreement will terminate on..."), one tense earlier — a performative
+that takes full legal effect at execution has no future state left to monitor, whether the tense
+is present or future; only the tense differs, not the reason. Does not exclude a coordinated
+clause stating a genuine future undertaking (as in `C22-022` itself, whose "will cause each other
+Seller Party to grant..." half is annotated normally). Flagged as expected to recur in
+license/IP/assignment/release-heavy segments, parallel to §4.3.2's own "expected to recur" note.
+
+**v0.39 change:** **AN ANNOTATION RULE ADDED (clarifying an existing one, not replacing it) —
+forward-only; no locked item restamped, no cassette stale.** §2.5 added: a broad, unrestricted,
+no-correlative-party rights-reservation clause (`C04-026` — *"Miltenyi reserves the right...to
+manufacture,...sell,...export,...or otherwise commercialize or dispose of Miltenyi Products in
+any manner and for any purpose whatsoever"*) is excluded under §2's existing "party's right, no
+correlative duty" row — but that row cannot mean "any right is excluded," since `MAY` is one of
+IR v1's four modalities and is by definition a right with no correlative duty. **The connecting
+principle, stated explicitly rather than left as an unrelated new exclusion**: the real test is
+whether the clause has a **future state worth monitoring**, not whether it is grammatically a
+right — the identical underlying principle §3.2.1 already applies to present-tense
+performatives, reached here from the opposite surface pattern (an ongoing entitlement rather
+than a completed act). A `MAY`-shaped clause with monitorable stakes (a correlative party, a
+deadline, a gating condition) is still annotated normally; grammar alone (`"reserves the right
+to"`) does not decide it. Flagged as expected to recur, the same posture §4.3.2 and §3.2.1 both
+took.
+
+**v0.40 change:** **A REVIEWER-RULED CONFIRMATION AND A CITATION LIST ADDED to an existing rule
+— forward-only; no locked item restamped, no cassette stale.** §3.8.1's branch 3 gains a
+marker-equivalence ruling: branch 3's own test (*"does it state a circumstance that removes or
+narrows the duty?"*) was already written marker-agnostic, but until now only `unless` (`C14-01`)
+had a reviewer-ruled instance confirming it actually routes there. `C10-016`'s *"except to the
+extent the liability arises as a result of the wilful misconduct of the Distributor"* is that
+confirmation for a second marker family — the identical shape as `C14-01`, tagged the identical
+`exception_unsupported`. A small, non-exhaustive, citable set of equivalent markers is named
+(`unless`, `except to the extent`, `save where`, `other than in cases where`) so a future
+annotator recognizes the semantic class rather than pattern-matching the literal word "unless."
+**Also notes, without silently correcting it:** §8.2's own "Rule" paragraph still names the
+pre-rename tag `unless_unsupported`, superseded by the tag rename already approved at the
+original consolidation pass (§20.4 decision 5, 2026-08-22) but never updated in §8.2's own
+prose — `exception_unsupported` is, and remains, the tag actually in use by both locked items
+and by `evals/harness/report.py`'s `GAP_DIRECTION` map.
 
 *Why v0.8 and not an edit to v0.7:* v0.7 was committed, and every gold item stamps the
 guideline version it was annotated under. Amending a committed version in place would make
@@ -511,6 +621,55 @@ re-picked (§2.1).
 hold 22% of the corpus's obligation sentences, so proportional sampling would land near
 this figure anyway — the stratum makes it a floor rather than a hope.
 
+### 2.5 Unrestricted rights-reservations lack monitorable stakes (v0.39 — REVIEWER-RULED)
+
+**Motivating case** — `C04-026`: *"Miltenyi reserves the right, at its sole discretion and
+without any restriction or limitation whatsoever, to manufacture, have manufactured, use, have
+used, sell, have sold, offer for sale, export, import or otherwise commercialize or dispose of
+Miltenyi Products in any manner and for any purpose whatsoever."*
+
+**This clarifies what §2's own exclusion row already means; it does not add a new, unrelated
+exclusion.** §2's table excludes a segment that *"contains only a party's right with no
+correlative duty."* Read literally that row would swallow the entire `MAY` modality, since
+`MAY` — one of IR v1's four modalities (§1, §3.2: `is entitled to`/`is permitted to` → `MAY`) —
+is by definition a right with no correlative duty on anyone else. That cannot be the intent, or
+no `MAY` item could ever be annotated at all.
+
+**The real test, stated explicitly: does the clause have a future state worth monitoring — not
+whether it is grammatically phrased as a right.** This is the **identical underlying principle
+§3.2.1 already applies to present-tense performatives**, reached from a different surface
+pattern. §3.2.1 excludes a `hereby`-clause because it takes full effect at execution, leaving
+nothing left to track. This section excludes a clause for the mirror reason: it is phrased as an
+ongoing entitlement, but an **unrestricted, non-exclusive, no-correlative-party** rights
+reservation — "we may do whatever we want with our own product, for any purpose" — has no
+compliance stake either. There is no deadline, no correlative party relationship, no condition
+whose satisfaction or breach anyone could ever observe. Structurally it can never be exercised
+"wrongly" or left unexercised in a way that matters, which is the same absence of a monitorable
+future state §3.2.1 already names, just reached via a right rather than a performative.
+
+**Rule.** A `MAY`-shaped clause is annotated normally when its permission has **monitorable
+stakes** — a correlative party relationship, a deadline or window, a condition gating when it
+may be exercised, or any other fact whose presence or absence a monitor could meaningfully
+observe (e.g. *"Customer may terminate for cause within 30 days"*). It is **excluded** under §2's
+existing "party's right, no correlative duty" row when it is a **broad, unrestricted,
+no-correlative-party rights reservation** with nothing to monitor either way — `C04-026`'s shape.
+This is a clarification of what that row was always for, not a new criterion layered on top of
+it.
+
+**Not decided by grammar alone.** `"reserves the right to X"` is not per se excluded — a narrower,
+conditioned, or correlative-party version of the identical phrasing could still be a genuine
+`MAY` item. What excludes `C04-026` is the **combination** of unrestricted scope ("in any manner
+and for any purpose whatsoever," "at its sole discretion and without any restriction or
+limitation whatsoever"), the absence of any correlative party stake, and a ten-verb catch-all
+enumeration whose evident purpose is legal completeness rather than describing ten distinct
+actions — not the word "reserves" itself.
+
+**Expected to recur.** *"Company reserves the right to..."* / *"Party retains all rights to..."*
+boilerplate is extremely common contract drafting, independent of this document. No corpus-wide
+frequency has been measured; recorded as a rule now so the next instance is decided by citation
+rather than re-litigated, the same posture §4.3.2 and §3.2.1 both took at their own
+precedent-setting instances.
+
 ---
 
 ## 3. Field rules
@@ -544,6 +703,43 @@ Map the governing modal verb:
 `will` is `MUST` when it states a party's undertaking; it is *not* an obligation at all
 when it states a future fact about the agreement ("this Agreement will terminate on...")
 — the latter is an excluded segment, not a `MUST` item.
+
+### 3.2.1 Present-tense self-executing performatives ("hereby-clauses") (v0.38 — REVIEWER-RULED)
+
+**Motivating case** — `C22-022`: *"the Seller **hereby grants** (and will cause each other Seller
+Party to grant, following each applicable Closing Date, to the Purchaser Licensees) a
+perpetual... license to use any and all Licensed Trademarks..."*
+
+**The connecting principle, stated explicitly rather than left as an unrelated new category:
+this is the same non-obligation class the "will"-ambiguity rule above already carves out, one
+tense earlier.** This IR's entire purpose is monitoring a **future state** until fulfilled or
+breached. The "will"-future-fact exclusion above excludes a clause that states a future fact
+about the agreement rather than a party's undertaking, because there is no undertaking left to
+monitor. A present-tense self-executing performative — `hereby grants`, `hereby assigns`,
+`hereby appoints`, `hereby releases`, `hereby waives` — fails for the identical reason, just in
+the present tense: it takes full legal effect **at execution**, so by the time any obligation
+could be monitored, the act is already done. There is no future state for either construction to
+monitor; only the tense differs.
+
+**Rule.** A clause whose only verb is a present-tense self-executing performative of this kind is
+**not obligation-bearing** under IR v1's four modalities and is **excluded**, the same disposition
+as the "will"-future-fact case above — not annotated as `MUST` (or any other modality) on the
+theory that a grant/assignment/appointment/release/waiver is implicitly an obligation to have
+performed it. `§3.2`'s modality table is exhaustive of what maps to each of the four values;
+`hereby grants` and its siblings match none of its rows.
+
+**Does not exclude a coordinated clause that is genuinely future-looking.** Where a hereby-clause
+is coordinated with a second verb stating a real future undertaking — as in the motivating case,
+*"and will cause each other Seller Party to grant... following each applicable Closing Date"* —
+the future-looking half is annotated normally under whatever rule it independently qualifies for
+(here, §4.3.2's self-performance/third-party-compliance shape, reduced to **one** item because
+the self-performance half is excluded under this rule rather than annotated — see `C22-02`'s own
+`annotator_notes` for how this interacts with §4.3.2 in practice).
+
+**Expected to recur.** Present-tense performatives are standard drafting in license, IP,
+assignment, and release clauses specifically — exactly the segment classes where a hereby-clause
+is likely to sit alongside a genuine future obligation, as it does here. No corpus-wide frequency
+has been measured; recorded as a rule now so the next instance is decided by citation.
 
 ### 3.3 Modality is exact-match, not accept-set
 
@@ -858,6 +1054,44 @@ branch-1 estimates**, and must not be quoted as shares. What holds regardless: n
 carve-out markers outnumber `unless` roughly **1.85 : 1** by segment across 19–21 of the 28
 documents, and §8.2 covered none of them.
 
+**Marker equivalence for branch 3 (v0.40 — REVIEWER-RULED).** Branch 3's own test — *"does it
+state a circumstance that removes or narrows the duty?"* — was already written marker-agnostic;
+nothing in it names the word `unless`. What was missing was a **reviewer-ruled confirmation**
+that a non-`unless` marker actually routes there in practice, not just in the abstract, plus a
+citable list so future annotators recognize the semantic class rather than pattern-matching on
+one literal word.
+
+**Motivating case** — `C10-016`: *"...except to the extent the liability arises as a result of
+the wilful misconduct of the Distributor."* This narrows the Supplier's indemnification duty
+under a stated circumstance — the identical shape as `C14-01`'s *"unless an exemption is
+provided"* — headed by `except to the extent` instead of `unless`. Reviewer-ruled: routes
+through branch 3 exactly like `unless` does. `known_gaps` gains `exception_unsupported`; the
+carve-out is not absorbed into `conditions`; the full text is recorded verbatim in
+`annotator_notes`, matching `C14-01`'s and `E01-01`'s treatment exactly.
+
+**The underlying principle, stated so the next instance is decided by citation rather than
+re-litigated: this was never about the word "unless."** It is about a **semantic category** — a
+carve-out that narrows or removes an otherwise-stated duty under a stated circumstance — which
+`packages/ir-spec/SPEC.md` §6's frozen no-exception-construct decision makes unrepresentable in
+IR v1 regardless of which English marker introduces it. A small, non-exhaustive set of markers
+known to carry this class, named here so a future annotator reaches for the pattern rather than
+the literal word: **`unless`, `except to the extent`, `save where`, `other than in cases
+where`.** The `except that / as / for / to the extent` row in the table above is already a
+measured pool pattern at 7.7% (119 segments) — this ruling is what confirms its branch-3
+disposition; `save where` and `other than in cases where` are not yet measured in this corpus
+and are recorded by citation only, the same posture §4.3.2 and §3.2.1 took at their own
+precedent-setting instances.
+
+**Note on the tag name, since §8.2's own "Rule" paragraph is stale and this is not the place to
+silently edit it.** §8.2 still literally reads `known_gaps gains "unless_unsupported"`. That was
+superseded by the tag rename already approved at the original consolidation pass (2026-08-22,
+§20.4 decision 5 — *"the class is semantic, not lexical"* — `E01-01` and `C14-01` re-stamped to
+`exception_unsupported` at the time). §8.2's prose was never updated to match its own approved
+rename. `exception_unsupported` is the tag in actual use — by both locked items and by
+`evals/harness/report.py`'s `GAP_DIRECTION` map — and is the one this section uses throughout.
+Left as a note here rather than an edit to §8.2's original text, per this document's own
+corrections-are-new-text discipline.
+
 ### 3.9 `underspecified`
 
 `true` when **any** of:
@@ -900,6 +1134,40 @@ A predicted obligation aligns to a gold item when their span offsets overlap wit
 ### 4.2 Tie-break
 **One predicted span aligns to at most one gold item.** Pairing is greedy by descending
 IoU, and the chosen pairing is recorded with the score.
+
+**Byte-identical gold spans (v0.36 — REVIEWER-RULED).** Two or more gold items in the same
+segment occasionally carry **byte-identical span offsets** — the case §4.3.2's flow-down split
+produces when the object clause trails and is shared by both coordinated verbs, so neither
+item's minimal contiguous span can be made shorter than the other's without either breaking
+§3.1 contiguity or dropping a field from its own span. Where this happens, **IoU cannot
+discriminate between the tied items for any candidate prediction that reaches the shared span**
+— every candidate scores the identical IoU against both, so plain descending-IoU pairing is
+silently implementation-order-dependent rather than a real decision.
+
+**Rule: break the tie by content, not geometry.** Match the candidate's `action` against each
+tied item's `action_accept_set`:
+
+- Falls in exactly **one** tied item's accept-set → pair there.
+- Falls in **more than one**, or in **none** → fall through to a final deterministic tie-break
+  by **ascending `item_id`** (lowest first), so the outcome never depends on iteration order.
+
+**Scope: byte-identical spans only.** This does **not** touch the ordinary greedy-descending-IoU
+path for different-offset spans, including nested ones — `C14-076`'s shared-subject-split spans
+(§8.3.1) already resolve correctly under plain IoU, because an exact match to the shorter span
+always scores strictly higher than a match to the longer, containing one. The new rule fires only
+where geometry is genuinely uninformative, which by construction is only the identical-span case.
+
+**Why action, not some other field.** `action` is already the field §5's predicate checks by
+accept-set membership rather than exact match (§3.4), which is exactly the discrimination this
+tie-break needs — the two tied items are designed to differ in which verb's accept-set covers
+them (self-performance vs. third-party-compliance, §4.3.2), so the field that already carries
+that distinction for scoring is the natural tie-break key, not a new one invented for this case.
+
+**Deterministic in every case, including the realistic single-candidate one.** If the model
+emits one merged candidate for the whole sentence (plausible, since this is a hard case for
+extraction too), it pairs to whichever tied item's accept-set contains its action; the sibling
+item correctly scores `MISSED` — the honest signal that only one of the two independently-
+breachable duties was captured, not a scoring artifact.
 
 ### 4.3 Multi-obligation sentences (v0.28 — merged with §8.3's test)
 
@@ -981,6 +1249,68 @@ obligations, as it does for `C06-113`. The surviving share has **not** been meas
 **STATUS OF STEP 2: UNTESTED — no instance has arisen in any material seen so far**, the same
 footing §8.3's split branch carried until `C14-076` arrived. Step 1 is demonstrated; step 2 is
 logically sound and unexercised, and must not borrow confidence from step 1.
+
+### 4.3.2 Self-performance vs. third-party-compliance flow-down splits (v0.35 — REVIEWER-RULED)
+
+**Motivating case** — `C04-139`: *"Bellicum shall use, and will cause its Subcontractors and
+Licensees to use, Miltenyi Products in accordance with all Applicable Laws and all requirements
+of Regulatory Authorities applicable to such use."*
+
+**A third shape, distinct from both existing §4.3 worked examples.** *"Provide... and keep
+current"* is one continuing duty over one deliverable; *"notify and remedy any breach"* is two
+acts by the same party on its own initiative. This sentence is neither: one verb governs the
+obligor's **own conduct**, the other governs the obligor's duty to **bind or control a third
+party's conduct** — a flow-down clause of the common commercial shape *"X shall do Y, and shall
+cause its Subcontractors/Affiliates/Licensees to do Y."*
+
+**Rule: split into two items.** The discriminating test is **locus of accountability, not object
+identity**: a duty to perform an act oneself and a duty to ensure a third party performs
+(materially) the same act are **independently breachable** — the obligor can satisfy one while
+failing the other (Bellicum can itself comply with law while failing to bind or police its
+Subcontractors and Licensees, or vice versa) — and a breach of each is attributed differently:
+the first is the obligor's own non-performance, the second is a failure of oversight over a party
+who is not bound by this obligation at all. That is a stronger form of the independence §4.3
+already requires for a split, not a weaker one — the two performances do not even share an actor.
+
+**Item 1 — self-performance.** `action` holds the verb governing the obligor's own conduct
+(`USE`, in the motivating case). `obligor` is the named party; `obligee` follows §3.5 normally
+(here `ABSENT` — no dative names a beneficiary in the span).
+
+**Item 2 — third-party-compliance.** `action` holds the taxonomy verb nearest to "cause/bind a
+third party to perform" — apply §3.4's accept-set discipline rather than hard-coding one verb,
+since "cause X to do Y" has no single exact taxonomy match. `obligor` remains the **named party
+with the flow-down duty** (Bellicum), never the third party — the third party is not bound by
+this obligation at all, only referenced as the target of the obligor's own oversight duty.
+
+**Why this is not §8.3's compound-action case.** §8.3 keeps one item when two verbs are aspects
+of one indivisible performance by the **same actor**. Here the two verbs' underlying performers
+differ (the obligor itself, versus the obligor's discharge of an oversight duty over a distinct
+third party) even though both are grammatically governed by the obligor as sentence subject —
+the same distinction that makes a mutual obligation (§8.4) two duties rather than one, applied to
+a different pair of roles.
+
+**This pattern is expected to recur.** Flow-down compliance clauses (a party's own performance
+plus a parallel duty to bind subcontractors, affiliates, or licensees to the same standard) are
+common commercial drafting and are not particular to this document. No corpus-wide frequency has
+been measured; recorded as a rule now so the next instance is decided by citation rather than
+re-litigated.
+
+**Span mechanics are a separate question, not settled by this rule.** Whether the two items'
+spans can be made non-colliding under §3.1/§4.1 when the object clause trails and is shared by
+both coordinated verbs (as in the motivating case) is addressed on its own, per-instance basis —
+see the adjudication for `C04-139` itself for the shape this took there.
+
+**`object_class` naming convention (v0.37 — RECOMMENDED, not mandatory).** Anchor the
+self-performance item's label with a `self_` prefix and the third-party-compliance item's label
+with a `third_party_` prefix, over the same compliance/action root — `self_compliant_use` /
+`third_party_compliant_use` for the motivating case, rather than two labels with no visible
+shared root. This makes the split's own self/third-party structure legible in the accept-set
+vocabulary itself, not only in `annotator_notes`, and gives a future annotator hitting another
+flow-down clause an obvious pattern to reach for rather than inventing an unrelated pair of
+labels each time. Not mandatory because `object_class` accept-sets are always author-time
+judgment calls (§3.6); recorded as a recommendation precisely because `C04-139` is this rule's
+precedent-setting instance and the naming choice made here is the one future batches will see
+first.
 
 ### 4.4 `NOT_ANNOTATABLE`
 A clause inside an otherwise-good segment that the exclusion rules of §2 would reject on
