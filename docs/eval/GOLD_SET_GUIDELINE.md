@@ -1,6 +1,6 @@
 # Obligo Tier-2 Gold Set — Annotation Guideline
 
-**Version:** v0.33 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**. **v0.33 puts §9's dual denominator IN FORCE** on two independent grounds, adds §5 clause 5's number rule, §3.4's bounded freeze-pass exception, and the forward authoring rules §3.6 / §3.8.2 / §3.5.1 — **no annotation rule changed, no item restamped, no cassette stale**)
+**Version:** v0.34 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**. **v0.33 puts §9's dual denominator IN FORCE** on two independent grounds, adds §5 clause 5's number rule, §3.4's bounded freeze-pass exception, and the forward authoring rules §3.6 / §3.8.2 / §3.5.1 — **no annotation rule changed, no item restamped, no cassette stale**. **v0.34 records two MEASUREMENT corrections and changes no rule either** — §8.9's `on`/`until` rows and §15.3's loud-versus-silent class placement, both falsified by real model output from the compile-stage bottleneck investigation)
 **Created:** 2026-08-17
 **Status:** **18 items locked** — batch 1 complete (10), batch 2 at 8 of 10 with two
 items still undrawn. The consolidation pass (§19.4) is **complete** (§20): all 16 proposals
@@ -172,6 +172,24 @@ conventions §3.8 never had** — where a qualifier quote starts, and when adjac
 separate entries — with `C04-01` recorded as a **symmetric** ambiguity in which gold's choice
 was arbitrary rather than correct. `C02-03`, `C11-01` and `C02-01` are queued for the freeze
 pass under (3) and **keep scoring as failures until then**.
+
+**v0.34 change:** **NO ANNOTATION RULE CHANGED — no item is restamped and no cassette goes
+stale.** Two corrections to *evidence*, both from the compile-stage bottleneck investigation
+(CLAUDE.md), and both exposed by real recorded model output rather than by re-reading a pattern.
+(1) **§8.9's preposition table has two wrong rows**: `on <trigger>` is recorded at **0 segments**
+and measured at **5** — with the shape that actually occurs, `on the <Defined> Date`, at **12
+(0.8%)** and invisible to the table's trigger-noun alternation — and `until` is **absent from the
+table entirely** though the rule as written covers it, measured at **72 segments (4.7%)**. The
+re-measurement is corroborated against the table's own `upon` (90 vs 92) and `after` (29 vs 29)
+rows before its divergent ones are trusted. This is the **second** data correction to that one
+table, on the identical ground as the first. (2) **§15.3's last paragraph is FALSIFIED** and
+struck in place: it files the vague-temporal class on the *silent* side of its own
+loud-versus-silent taxonomy, and the class in fact fails **loudly** — `UNMAPPABLE_TEMPORAL`
+rejecting the whole candidate, scoring `MISSED` rather than `PARTIAL` — measured 5 times.
+**§15.2's rule is unaffected**; only the class placement was wrong, and the new §15.3.1 says so in
+terms. §15.4 is deliberately **not** amended: what to do about a headline count that no longer
+matches the class's real cost is a decision, not a correction. Neither change touches §5's
+predicate, and `run_scoring.guideline_version_from_items()` keeps returning `v0.28`.
 
 *Why v0.8 and not an edit to v0.7:* v0.7 was committed, and every gold item stamps the
 guideline version it was annotated under. Amending a committed version in place would make
@@ -1702,6 +1720,37 @@ covered. The undercount was in the measurement, and it understated the gap by 20
 instances. This is the same defect class in the sibling temporal form, an order of magnitude
 larger.
 
+*Second data correction (v0.34, from the compile-stage bottleneck investigation — again a
+correction to the **evidence**, not to the rule, on the identical ground the probe-pass-3 note
+above states). Two rows of the table above are wrong, and both were exposed by real model output
+rather than by re-reading the pattern:*
+
+| row | table says | measured v0.34 | note |
+| :--- | :--- | :--- | :--- |
+| `on <trigger>` | **0 segments, 0.0%** | **5 segments (0.3%)** | not a genuine zero — an undercount |
+| `until <trigger>` | **absent entirely** | **7 by the narrow alternation; 72 (4.7%) for `until <anything>`, every one carrying a modal** | never measured |
+
+*The measurement is corroborated against known answers before its two divergent rows are trusted
+(Standing Principle 7): re-run over the same 1,547-segment pool it reproduces this table's `upon`
+row at **90** against 92 and its `after` row at **29** against 29 exactly. `until` is covered by the
+rule as written — it expresses a `before` direction — so no rule text changes; it simply was never
+counted. The `on` row's undercount has a identifiable cause: the trigger-noun alternation
+(`receipt|demand|request|termination|…`) cannot see the shape that actually occurs, which is
+`on the <Defined> Date` — measured separately at **12 segments (0.8%)**, and the exact construction
+in locked item `C04-03` (`"on the Delivery Date"`). Together `on the <X> Date` and `until` are
+**77 segments (5.0%)**, comparable to `upon`'s 5.8%, so neither is a corner case.*
+
+*Observed in the cassettes, which is how this surfaced: `on <trigger>` 3 times (`C04-087`, all
+three runs) and `until <trigger>` 3 times (`C04-117` ×2, `C02-021` ×1). **A consequence worth
+stating because it is not obvious from the rule: `C04-03`'s gold answer is unreachable under EITHER
+reading.** Gold annotates it `BY` with the alias `the Delivery Date`; under this section's rule the
+form is arguably `RELATIVE_TO_TRIGGER(after, …)`. Neither is producible — `BY` requires a literal
+`by` and `RELATIVE_TO_TRIGGER` a literal `before`/`after`, and the span says `on`. That is the same
+structural class as §8.3.1's v0.31 finding and §15.5's F7, and it means §8.9's "Cost: zero locked
+items" line below is true as a statement about **tags** while being misleading as a statement about
+**exposure**. No item is restamped and no rule changes; recorded so the next reader of that line
+knows what it does and does not claim.*
+
 **Rule.** Annotate `RELATIVE_TO_TRIGGER` with the direction the preposition expresses
 (`upon` / `following` / `on` → `after`; `prior to` → `before`) and the trigger verbatim.
 `known_gaps` gains **`relative_trigger_preposition`**. `underspecified` per §3.9 — trigger 3
@@ -2181,6 +2230,49 @@ errors.
 This is **not** the §8 pattern. §8's known gaps fail *loudly* — `UNMAPPABLE_TEMPORAL`
 surfaces in criterion 1b as a visible compile failure. A vague-temporal mismatch would fail
 *silently* as a `PARTIAL` in criterion 2 with no attribution.
+
+#### 15.3.1 The last paragraph above is FALSIFIED by measurement (v0.34)
+
+~~This is **not** the §8 pattern… A vague-temporal mismatch would fail *silently* as a
+`PARTIAL` in criterion 2 with no attribution.~~ **SUPERSEDED — struck in place per §19.3's
+corrections-are-new-text discipline. The class fails LOUDLY, exactly like §8's.**
+
+**What was measured.** Across the 35 recorded gold cassettes, whenever the model quotes the
+vague qualifier into `temporal_raw` — which it does — `ir_compile._classify_temporal` returns
+`None` and `UNMAPPABLE_TEMPORAL` **rejects the whole candidate**, so the item scores `MISSED`,
+not `PARTIAL`. Five instances reached the classifier and **all five failed**:
+
+| `temporal_raw` the model emitted | segment | outcome |
+| :--- | :--- | :--- |
+| `promptly` | `C14-076` run 2 | quarantined |
+| `as soon as practicable` | `C17-021` run 1 | quarantined |
+| `within a reasonable time after the Principal's death or mental incapacity` | `C11-094`, all 3 runs | failed first-pass; **rescued by the repair loop** |
+
+*A sixth, `at reasonable intervals` (`C02-021` run 1), never reached the classifier — it was lost
+at schema validation, so it is excluded from the five rather than counted.*
+
+**SCOPED PRECISELY: §15.2's RULE IS UNAFFECTED. Only this section's CLASS PLACEMENT is wrong.**
+The load-bearing argument for `underspecified = false` — §3.9's trigger list is closed,
+`typecheck.py` returns `None` for an absent temporal without appending to `missing_fields`, and
+annotating `true` would fail clause 8 on every such item — is untouched and still correct. The
+two paragraphs above it stand. What is falsified is the separate claim about **which side of the
+loud-versus-silent line this class sits on**, and therefore **what kind of loss it causes**: the
+class costs **recall, loudly** (a `MISSED`, visible in criterion 1b) rather than **precision,
+silently** (a `PARTIAL` with no attribution).
+
+**Why that distinction is worth correcting rather than noting in passing.** §15.4 reports this
+class as a headline count *alongside* criterion 2, on the premise that its cost is an
+unattributed `PARTIAL`. If the real cost is a quarantined candidate, then §15.4's count does not
+capture it, and the class is already visible in criterion 1b where §15.3 said it would not be.
+§15.1 sizes the class at **12% of pool segments — roughly 8 of the 100 gold items** — so this is
+not a corner case. §15.4 is **not amended here**: what to do about it is a decision, and this
+section records the fact.
+
+**No rule changed, no item restamped, no cassette stale.** Same footing as §8.9's two data
+corrections: the evidence was wrong, not the instruction. Full investigation record in CLAUDE.md's
+compile-stage bottleneck entry, including the finding this sits inside — that the temporal
+classifier accepted **0 of 25** timing phrases that reached it on first pass, and that every
+temporal in a typechecked obligation came from the repair loop.
 
 ### 15.4 The gap is reported, not buried
 
