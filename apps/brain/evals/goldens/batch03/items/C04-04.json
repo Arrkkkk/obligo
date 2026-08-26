@@ -1,0 +1,53 @@
+{
+  "item_id": "C04-04",
+  "span_char_start": 4,
+  "span_char_end": 207,
+  "span_text": "Bellicum shall use, and will cause its Subcontractors and Licensees to use, Miltenyi Products in accordance with all Applicable Laws and all requirements of Regulatory Authorities applicable to such use.",
+  "modality": "MUST",
+  "action": "USE",
+  "action_accept_set": [
+    "USE",
+    "COMPLY"
+  ],
+  "obligor": "Bellicum",
+  "obligor_accept_set": [],
+  "obligee": "ABSENT",
+  "object_class": "self_compliant_use",
+  "object_class_accept_set": [
+    "self_compliant_use",
+    "compliant_product_use",
+    "regulatory_compliant_use",
+    "applicable_law_compliance",
+    "miltenyi_products",
+    "regulatory_compliance"
+  ],
+  "vague_temporal_phrase": null,
+  "known_gaps": [],
+  "rules_cited": [
+    "3.1",
+    "3.2",
+    "3.4",
+    "3.5",
+    "3.6",
+    "3.9",
+    "4.2",
+    "4.3.2"
+  ],
+  "annotator_notes": "ITEM 1 OF 2 (self-performance half of the C04-139 flow-down split) -- Bellicum's own duty to use Miltenyi Products in accordance with Applicable Laws and Regulatory Authority requirements. Sibling item is C04-05 (the third-party-compliance half). ACTION accept-set includes COMPLY as a defensible alternate reading of 'use...in accordance with law' framed as a compliance duty rather than a use duty. OBJECT_CLASS carries both nominal anchors per section 3.6's v0.33 forward rule: the thing used (miltenyi_products) and the compliance state that qualifies the use (regulatory_compliant_use / applicable_law_compliance). SPLIT UNDER NEW SECTION 4.3.2 (v0.35, reviewer-ruled at this item): the sentence coordinates one verb governing Bellicum's own conduct ('use') with a second governing Bellicum's duty to bind/control a THIRD PARTY's conduct ('cause its Subcontractors and Licensees to use') -- a flow-down compliance clause, a third splitting shape distinct from both existing section 4.3 worked examples. Independently breachable: Bellicum can itself comply with law while failing to bind or police its Subcontractors and Licensees, or vice versa. SPAN MECHANICS (section 4.2, v0.36, reviewer-ruled): the object clause ('Miltenyi Products in accordance with all Applicable Laws...') trails BOTH verbs and is shared, so unlike C14-076's shared-subject-split (section 8.3.1, spans nest) neither item's minimal contiguous span (section 3.1) can be shorter than the other's without either breaking contiguity or dropping its own object from its own span. Both items therefore carry the IDENTICAL span [4:207] (segment sans the '(5) ' list marker, excluded per the same convention as C14-01's '8.5. TAXES. ' prefix). Reviewer explicitly rejected narrowing either item's object to force non-colliding spans, since that would understate the narrowed item's actual duty purely to solve a mechanics problem -- an incomplete IR is worse than a span-alignment complication. Section 4.2 gained a content-based tie-break for this case (match candidate action against action_accept_set; fall through to ascending item_id). OBLIGEE ABSENT on both: no dative or beneficiary clause anywhere in the span (section 3.5.2 does not fire -- no 'for the benefit of' phrase). OBLIGOR 'Bellicum' resolves under section 21 R3 (preamble-defined proper name in the Miltenyi Biotec-Bellicum Supply Agreement); underspecified is true on both items solely from the ABSENT obligee (section 3.9 trigger 1), not from the obligor. No known_gaps tag on either item: section 8.3's compound_action tag applies only when a dropped verb is kept inside ONE item; here the second verb is not dropped, it is its own item. UNDERSPECIFIED SYMMETRY, STATED EXPLICITLY (both items true, not asymmetric): both C04-04 and C04-05 share obligor 'Bellicum' (resolves, section 21 R3 preamble-defined proper name), obligee ABSENT (fires section 3.9 trigger 1 identically on both -- no dative/beneficiary clause anywhere in the span, regardless of which verb the item is built around), and temporal: null (never a section 3.9 trigger by design, section 15.3). No bd duration on either. IR v1 has no party-resolution slot for 'its Subcontractors and Licensees' -- that phrase lives entirely inside C04-05's object_class/object_raw_text, which typecheck.py never resolves as a party reference, so it introduces no additional trigger. There is therefore no principled basis under section 3.9's four triggers for the two items to differ on underspecified, and neither should be read as encoding anything about which item is 'more complete' -- both are true for the identical structural reason (the ABSENT obligee), which is why both are annotated true rather than one true and one false.",
+  "doc_id": "C04",
+  "segment_id": "C04-139",
+  "stratum": "hard",
+  "segment_text": "(5) Bellicum shall use, and will cause its Subcontractors and Licensees to use, Miltenyi Products in accordance with all Applicable Laws and all requirements of Regulatory Authorities applicable to such use.",
+  "temporal": null,
+  "conditions": [],
+  "underspecified": true,
+  "missing_fields": [
+    "obligee"
+  ],
+  "redacted_phrase": null,
+  "annotator_confidence": "AMBIGUOUS",
+  "adjudicated_by": "reviewer",
+  "annotated_at": "2026-08-26T15:44:28+00:00",
+  "guideline_version": "v0.37",
+  "reviewer_status": "APPROVED"
+}

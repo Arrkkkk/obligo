@@ -1,0 +1,361 @@
+{
+  "seed": 80720,
+  "count": 10,
+  "hard": 3,
+  "queues": {
+    "hard": [
+      {
+        "segment_id": "C04-150",
+        "doc_id": "C04",
+        "stratum": "hard",
+        "chars": 1516,
+        "text": "Miltenyi Biotec-Bellicum Supply Agreement (Execution Copy, March 27, 2019) ARTICLE 14 CONFIDENTIALITY 14.1 Definition. As used in this Agreement, the term \"Confidential Information\" means any information disclosed by one Party (the \"Disclosing Party\") to the other Party (the \"Receiving Party\") pursuant to this Agreement which is (a) in written, graphic, machine readable or other tangible form and is marked \"Confidential\", \"Proprietary\" or in some other manner to indicate its confidential nature, or (b) oral information disclosed pursuant to this Agreement, provided that such information is designated as confidential at the time of disclosure and reduced to a written summary by the Disclosing Party, within thirty (30) calendar days after its oral disclosure, which is marked in a manner to indicate its confidential nature and delivered to the Receiving Party. Notwithstanding the foregoing, the Disclosing Party's failure to so mark any of its Confidential Information, whether disclosed in written, graphic, machine readable or other tangible form, or its failure to designate as confidential and reduce to writing any Confidential Information disclosed orally, shall not relieve the Receiving Party of its obligations hereunder with respect to such Confidential Information if its confidential nature would be apparent to a reasonable person in the biotechnology or biopharmaceutical industry, based on the subject matter of such Confidential Information or the circumstances under which it is disclosed."
+      },
+      {
+        "segment_id": "E03-013",
+        "doc_id": "E03",
+        "stratum": "hard",
+        "chars": 682,
+        "text": "(c)Form of Supply. Rigel shall supply Kissei with the Product and its placebo (if applicable) as outlined in the Specifications. . Kissei shall perform the Finish Manufacture of the Product and its placebo (if applicable), including final packaging and labeling, for Development uses. Kissei may perform the capsule appearance test with the appearance testing machine at its sole discretion and the Finish Manufacture of the Product, including final packaging and labeling, for Commercial uses. Kissei shall be responsible for ensuring that the Finished Product conforms with all Applicable Laws and Regulatory Approvals for each applicable jurisdiction within the Kissei Territory."
+      },
+      {
+        "segment_id": "E03-003",
+        "doc_id": "E03",
+        "stratum": "hard",
+        "chars": 232,
+        "text": "1.20\u201cSpecification\u201d means the written specifications for the Product. Specifications may be required to be different for a Product for use in different countries due to individual Regulatory Authority requirements in such countries."
+      },
+      {
+        "segment_id": "C04-163",
+        "doc_id": "C04",
+        "stratum": "hard",
+        "chars": 1399,
+        "text": "15.5 The termination of this Agreement or a particular Module shall not operate to relieve Bellicum from its obligation to pay undisputed and properly due amounts of (a) the Product Price of all 38 Miltenyi Biotec-Bellicum Supply Agreement (Execution Copy, March 27, 2019) quantities of Miltenyi Products (i) delivered in accordance with this Agreement, such Module(s) and the applicable Quality Agreement up to the effective date of termination and (ii) to be delivered under outstanding Purchase Orders accepted by Miltenyi prior to the date of notice of termination (including the Ordered Quantities) or (iii) forecasted for any Firm Zone in the most recent applicable Monthly Forecast; (b) any Upfront Fee payable under Section 8.1 and any earned Milestone Fee payable under Section 8.2 hereof; and (c) all other undisputed and properly due fees and/or expenses owed to Miltenyi in accordance with this Agreement, such Module(s) and the applicable Quality Agreement prior to the date of notice of termination; provided, however, that in the event of termination of this Agreement or such Module(s) by Bellicum pursuant to Section 15.2 (Termination for Cause), Bellicum shall not be responsible for payments relating to any portion of the Forecast applicable to any period after the effective date of termination. All amounts paid under Sections 8.1 through 8.3 shall be non-refundable once paid."
+      },
+      {
+        "segment_id": "C04-024",
+        "doc_id": "C04",
+        "stratum": "hard",
+        "chars": 505,
+        "text": "(2) Reverse engineer, disassemble or otherwise analyze, or cause any Third Party to reverse engineer, disassemble or otherwise analyze, any Miltenyi Product supplied hereunder, in whole or in part; provided, however, that the foregoing shall not limit the right or ability of Bellicum or its Licensees or Subcontractors to identify defects, troubleshoot problems, evaluate, test, use or conduct any study utilizing any Miltenyi Product(s) as reasonably necessary to achieve the purposes of this Agreement;"
+      },
+      {
+        "segment_id": "C04-139",
+        "doc_id": "C04",
+        "stratum": "hard",
+        "chars": 207,
+        "text": "(5) Bellicum shall use, and will cause its Subcontractors and Licensees to use, Miltenyi Products in accordance with all Applicable Laws and all requirements of Regulatory Authorities applicable to such use."
+      },
+      {
+        "segment_id": "C22-022",
+        "doc_id": "C22",
+        "stratum": "hard",
+        "chars": 737,
+        "text": "(i) License Grant. Effective as of the Initial Closing Date, the Seller hereby grants (and will cause each other Seller Party to grant, following each applicable Closing Date, to the Purchaser Licensees) a perpetual (unless terminated in accordance with Section 4.2(ii)(c)), fully paid-up, royalty-free, worldwide, non-transferable (except as set forth herein), non-exclusive license to use any and all Licensed Trademarks in the Business (including with respect to the Purchaser Licensed Activities), including with respect to all Derivative Works and natural evolutions of such Business, in a manner that is the same or substantially similar to the manner in which the Seller Entities have used the Licensed Trademarks in the Business."
+      },
+      {
+        "segment_id": "C04-119",
+        "doc_id": "C04",
+        "stratum": "hard",
+        "chars": 1547,
+        "text": "(c) Purchase Price Adjustments. Miltenyi shall be entitled to modify the Purchase Price for any Miltenyi Product as set forth in Section 8.3(a) above and Exhibit E on or after the commencement of each Calendar Year during the Term after Contract Year 1 in accordance with this Section 8.4(c), provided that there shall not be more than one (1) Purchase Price increase with respect to the same Miltenyi Product in any given Contract Year during the Term. In case, after application of the applicable Discount, any Purchase Price increases [...***...] percent ([...***...]%) annually, then the Parties shall consult each other, negotiate in good faith and agree in writing upon an adaptation of the applicable Discount to stay within the capping of a [...***...] percent ([...***...]%) increase, except for cases when such Purchase Price increase is the result of a documented increase of more than [...***...] ([...***...]%) in the cost of any raw materials, packaging and/or other components used in the manufacture of Miltenyi Product and Miltenyi, at Bellicum's request, has provided reasonable documentation evidencing such changes in production costs. It is however expressly agreed between the Parties that the adjusted Purchase Price charged to Bellicum for Miltenyi Product supplied hereunder shall in no event exceed Miltenyi's then-current list prices for such Miltenyi Product as in effect in the country of destination or use of the applicable Miltenyi Product, as published from time to time in Miltenyi's applicable product catalogue."
+      },
+      {
+        "segment_id": "C04-026",
+        "doc_id": "C04",
+        "stratum": "hard",
+        "chars": 582,
+        "text": "2.4 Reserved Rights. Notwithstanding anything to the contrary in this Agreement, nothing herein is intended nor shall be construed as creating any exclusive arrangement between Miltenyi and Bellicum with respect to the supply, purchase and/or use of the Miltenyi Products. Miltenyi reserves the right, at its sole discretion and without any restriction or limitation whatsoever, to manufacture, have manufactured, use, have used, sell, have sold, offer for sale, export, import or otherwise commercialize or dispose of Miltenyi Products in any manner and for any purpose whatsoever."
+      },
+      {
+        "segment_id": "C04-087",
+        "doc_id": "C04",
+        "stratum": "hard",
+        "chars": 424,
+        "text": "(a) Each quantity of Miltenyi Product(s) ordered by Bellicum in a particular Purchase Order pursuant to this Agreement shall be delivered FCA (Incoterms 2010) Miltenyi's Facility by delivery 20 Miltenyi Biotec-Bellicum Supply Agreement (Execution Copy, March 27, 2019) of the shipped goods to Bellicum's designated carrier or freight forwarder, in adequate packaging and ready for loading, on the Delivery Date (\"Delivery\")."
+      },
+      {
+        "segment_id": "C22-025",
+        "doc_id": "C22",
+        "stratum": "hard",
+        "chars": 1920,
+        "text": "(A) for a period of one hundred eighty (180) days after the applicable Closing Date (the \"Mobility Transition Period\"), a fully paid-up, royalty-free, worldwide, non-transferable, non-exclusive sublicense to use any and all Mobility Trademarks, in accordance with the terms and conditions of the Mobility Trademark License; and (B) for a period of seven hundred thirty (730) days after the applicable Closing Date (the \"Non-Mobility Transition Period\"), a fully paid-up, royalty-free, irrevocable (except as expressly set forth herein), worldwide, non-transferable, non- exclusive license to use any and all Retained Seller Trademarks (other than the Mobility Trademarks and Licensed Trademarks) that are or have been, on or prior to the Initial Closing Date, used in connection with the Business or any product, service, or system in the Business (the \"Non-Mobility Trademarks\"), in each case of clauses (A) and (B), solely in connection with the operation of the Business or with the exercise of the licenses granted pursuant to Section 2.2(a) and Section 2.2(b), in a manner that is the same or substantially similar to the manner in which the Seller Entities used the Mobility Trademarks or Non-Mobility Trademarks, as applicable, in connection with the Business as of the Initial Closing Date, including with respect to existing signs and stocks of advertisements and promotional materials and items, inventory and packaging included in the Acquired Assets (\"Existing Stock\") containing any Mobility Trademark or Non- Mobility Trademark. Seller Excluded Products manufactured during the Mobility Transition Period or Non-Mobility Transition Period that bear the Mobility Trademarks or the Non-Mobility Trademarks will be treated as 23 Existing Stock under this Section 2.2(d), except to the extent a Purchaser Licensee is separately sublicensed with respect to any such Mobility Trademark or Non-Mobility Trademark."
+      },
+      {
+        "segment_id": "E03-051",
+        "doc_id": "E03",
+        "stratum": "hard",
+        "chars": 855,
+        "text": "11.2Entire Agreement; Amendment. This Supply Agreement, including the Exhibits, together with the Collaboration and License Agreement, is both a final expression of the Parties\u2019 agreement and a complete and exclusive statement with respect to all of its terms. This Supply Agreement supersedes all prior and contemporaneous agreements and communications, whether oral, written, or otherwise, concerning any and all matters contained herein. This Supply Agreement may only be modified or supplemented in a writing expressly stated for such purpose and signed by the Parties to this Supply Agreement. No modification to this Supply Agreement will be effected by the acknowledgment or acceptance of any Purchase Order or shipping instruction forms or similar documents containing terms or conditions at variance with or in addition to those set forth herein."
+      },
+      {
+        "segment_id": "C22-045",
+        "doc_id": "C22",
+        "stratum": "hard",
+        "chars": 941,
+        "text": "Section 6.8 Entire Agreement; Conflicting Provisions. This IP Agreement, together with the other Transaction Agreements and any side letters executed by the parties in connection therewith, and all of the exhibits and schedules appended hereto and thereto, constitute the final, complete and exclusive statement of the parties' agreement on the matters contained herein and therein. All prior and contemporaneous negotiations and agreements between the parties on the matters contained in this IP Agreement and the other Transaction Agreements are superseded by this IP Agreement and the other Transaction Agreements, including, but subject to Section 5.5(b) of the Acquisition Agreement, the NDA. In the event of any conflict between any specific provision of this IP Agreement (including Article V) and the provisions of the Acquisition Agreement with respect to the subject matter hereof, the provisions of this IP Agreement will control."
+      },
+      {
+        "segment_id": "C10-029",
+        "doc_id": "C10",
+        "stratum": "hard",
+        "chars": 385,
+        "text": "19.1 If any provision of this agreement (or part of any provision) is found by any court or other authority of competent jurisdiction to be invalid, illegal or unenforceable, that provision or part-provision shall, to the extent required, be deemed not to form part of this agreement, and the validity and enforceability of the other provisions of this agreement shall not be affected."
+      },
+      {
+        "segment_id": "C10-016",
+        "doc_id": "C10",
+        "stratum": "hard",
+        "chars": 665,
+        "text": "10.1 Subject to the Distributor fulfilling all the conditions in this clause 10, the Supplier shall indemnify the Distributor, defend and hold harmless against any liability incurred by the Distributor in respect of damage to property, death or personal injury arising from any fault or defect in the design of the Products and any reasonable costs, claims, demands and expenses, including reasonable attorneys' fees, arising out of or in connection with that liability (Relevant Claim), except to the extent the liability arises as a result of the wilful misconduct of the Distributor. The Supplier shall add the distributor to their current insurance certificate."
+      }
+    ],
+    "standard": [
+      {
+        "segment_id": "C11-046",
+        "doc_id": "C11",
+        "stratum": "standard",
+        "chars": 1843,
+        "text": "9.2.3 ADMINISTRATION. Any amounts received by BKC pursuant to Subparagraph 9.2.2 above, less administrative expenses and any applicable taxes, will be combined with payments from other Burger King Restaurants to form an ad fund which will be used for (a) market research expenditures directly related to the development and evaluation of the effectiveness of advertising and sales promotions, (b) creative, production and other costs incurred in connection with the development of advertising sales promotions and public relations, both in the market area of the Franchised Restaurant as reasonably defined from time to time by BKC, and on a national basis and (c) various methods of delivering the advertising or promotional message, including without limitation, television, radio, outdoor and print. The allocation of the Advertising Contribution between international, national, regional, and local expenditures shall be made by BKC in its sole business judgment. All general and administrative expenses and overhead associated with the ad fund, including salaries of relevant BKC employees, shall be paid out of the assets of the ad fund. The Franchisee is encouraged to participate in the planning of advertising, sales promotions and public relations for the Franchised Restaurant, but all expenditures for such matters shall be the sole discretion of BKC. In addition to the percentage of Gross Sales, the Franchisee agrees to transfer to BKC or its designee for inclusion in the market fund all advertising or promotional allowances given by suppliers of products which are sold in the Franchised Restaurant uncle a brand name. Such payment to be made to BKC or its designee by the fifteenth (15th) day of the month following receipt of the said allowance. The market fund will be run by BKC directly or by delegation to its designee."
+      },
+      {
+        "segment_id": "C11-101",
+        "doc_id": "C11",
+        "stratum": "standard",
+        "chars": 264,
+        "text": "(c) No Principal shall have any right of subrogation, repayment, reimbursement or indemnity whatsoever, unless and until the Obligations are paid or performed in full and all debts owed by the Franchisee to any Principal are hereby subordinated to the Obligations;"
+      },
+      {
+        "segment_id": "C06-016",
+        "doc_id": "C06",
+        "stratum": "standard",
+        "chars": 262,
+        "text": "(xviii) the designee under any Lease/Contract Assumption Notice shall be required, if requested by the applicable counterparty, to provide adequate assurance of future performance with respect to such Lease or Contract if the applicable counterparty so requests;"
+      },
+      {
+        "segment_id": "C17-077",
+        "doc_id": "C17",
+        "stratum": "standard",
+        "chars": 1728,
+        "text": "Source: REYNOLDS CONSUMER PRODUCTS INC., S-1/A, 1/21/2020 Section G2: HR Services Service Name Description of Service Term Fee (USD) G2.1 General HR - Ancillary Services RGHI will be available to provide transition of support and agreements and provide support for meetings to share information and answer any questions with current vendors regarding current practices, including but not limited to support for separation of 401(K), H&W, and pension plans. The parties shall cooperate in good faith regarding preparation of 5500s and ACA reporting for plan year 2019, with responsibility for filings as follows: \u2022 401(K) 5500s \u2022 RGHI shall file for existing Employee Savings Plan (non-bargaining) and Employee Savings Plan for Pactiv Bargaining \u2022 RCP shall file for Employee Savings Plan for Reynolds Bargaining and any new Company savings plans established as of the Commencement Date \u2022 Pension and H&W 5500s \u2022 RGHI shall file for Reynolds Services Inc. Group Benefit Plan, Pactiv Retirement Plan, Reynolds Services Inc. Group Benefit Plan for Bargaining Unit Employees, Pactiv Retiree Health & Welfare Plan, Reynolds Group Pension Plan, Evergreen Packaging Pension Plan \u2022 RCP shall file for new Company plans established as of the Commencement Date \u2022 ACA Reporting \u2022 RCP shall coordinate filing 12 months from the Commencement Date No fee G2.2 General HR - Administrative Services Administrative Assistant, HR Benefits will be available (50%) to provide services to RCP under a Secondment Agreement. Services will includes all as currently provided, including: preparation of informational bulletins related to benefits, vendor billing administration, tracking vendor performance guarantees, and general administrative duties."
+      },
+      {
+        "segment_id": "E08-046",
+        "doc_id": "E08",
+        "stratum": "standard",
+        "chars": 442,
+        "text": "Any notice to be given pursuant to the AGREEMENT, which is given in writing pursuant to the below addresses, shall be deemed to have been so delivered within 5 business days from the date of submission of the letter for dispatch by registered mail. A notice delivered by hand or by reputable overnight courier (FedEx, DHL or UPS) shall be deemed to have been delivered at the time of its delivery against the addressee\u2019s written confirmation."
+      },
+      {
+        "segment_id": "C14-003",
+        "doc_id": "C14",
+        "stratum": "standard",
+        "chars": 266,
+        "text": "(ix) \"AFFILIATE\" - A corporation, partnership or other business entity which controls, is controlled by, or is under common control of a Party. For the purposes hereof, \"CONTROL\" shall mean the holding of more than 50% of the voting rights in the entity in question."
+      },
+      {
+        "segment_id": "C17-038",
+        "doc_id": "C17",
+        "stratum": "standard",
+        "chars": 262,
+        "text": "Section 6.5 Survival. The following Articles and Sections shall survive the termination or expiration of this Agreement, including the rights and obligations of each Party thereunder: Article I; Article V; this Article VI; Article VII; Article IX; and Article X."
+      },
+      {
+        "segment_id": "C14-139",
+        "doc_id": "C14",
+        "stratum": "standard",
+        "chars": 1148,
+        "text": "It is further clarified that NICE may choose, by written notice to Contractor, to enable any NICE Affiliate to act on NICE' behalf and in its name under this Agreement directly VIS-A-VIS Contractor, without relieving NICE as the sole contractual party from responsibility for performance of the Agreement. Notwithstanding the foregoing, Upon NICE' prior written approval and upon the terms and limitations of such approval, Contractor may sub-contract some of its obligations (\"PERMITTED SUBCONTRACTORS\"), provided, however, that Contractor shall remain obligated under this Agreement. Contractor shall provide to NICE material qualifications and identification details of such Permitted Subcontractors. Contractor shall at all times remain fully responsible for the performance of all obligations of Contractor hereunder, jointly and severally with the Permitted Subcontractors. In selecting subcontractors to assist Contractor in the performance of this Agreement, Contractor shall comply with all reasonable NICE vendor screening requirements which are provided to it, and Contractor shall also comply with its own vendor screening requirements."
+      },
+      {
+        "segment_id": "C05-027",
+        "doc_id": "C05",
+        "stratum": "standard",
+        "chars": 250,
+        "text": "(f) Technical Developments. Life Technologies shall keep Biocept fully informed as to all discoveries and technical developments (including, without limitations, any inventions) made by Life Technologies during the Term related to the Assay or Tests."
+      },
+      {
+        "segment_id": "C06-022",
+        "doc_id": "C06",
+        "stratum": "standard",
+        "chars": 223,
+        "text": "(xxv) so long as the GOB Sale is conducted in accordance with the Sale Guidelines and the Approval Order and in a safe and professional manner, Purchaser shall be deemed to be in compliance with any Applicable General Laws;"
+      },
+      {
+        "segment_id": "C13-017",
+        "doc_id": "C13",
+        "stratum": "standard",
+        "chars": 1666,
+        "text": "(a) manufacturing, storage, and distribution of MOXATAG trade and sample product; (b) the scope and strategies with respect to the marketing and promotion of MOXATAG, including, without limitation, any labeling or claims in connection therewith; (c) booking sales and distribution of MOXATAG hereunder and performance of related services; (d) handling all aspects of order processing, invoicing and collection, inventory and receivables; (e) providing customer support, including handling medical queries, and performing other functions consistent with consumer practice for prescription pharmaceuticals; (f) responding to product and medical complaints relating to MOXATAG; (g) handling all returns of MOXATAG trade and sample product; (h) handling all voluntary recalls and market withdrawals of MOXATAG. In such a situation, DD will make available to MBRK, upon request, all of DD's pertinent records on MOXATAG. Any and all reasonable and documented costs and expenses incurred by DD in the conduct of any such recall or market withdrawal of MOXATAG shall be reimbursed by MBRK, except to the extent such recall or market withdrawal was the direct result of the negligence or failure of DD to comply with its obligations under this Agreement; (i) communicating with any governmental agencies and satisfying their requirements regarding all regulatory approvals of MOXATAG; including the filing of marketing and promotion materials approved by MBRK under this Agreement with the FDA in compliance with all FDA pharmaceutical marketing regulations; (j) reporting adverse reaction reports to US regulatory authorities as required by applicable US law or regulation;"
+      },
+      {
+        "segment_id": "C14-044",
+        "doc_id": "C14",
+        "stratum": "standard",
+        "chars": 607,
+        "text": "3.6. RESCHEDULING OF RELEASED ORDERS. NICE may, at its discretion, reschedule delivery of units of Products for which a PO has already been issued, by shortening the Due Date, without any implication. In this respect, Contractor is aware that by the last three weeks of every calendar Quarter, a high level of flexibility is required to meet NICE' end of Quarter requirements. Contractor will perform its best reasonable commercial efforts to complete such rescheduled Products at the new requested Due Date. All such rescheduling shall be performed by sending Contractor a written request for rescheduling."
+      },
+      {
+        "segment_id": "C14-028",
+        "doc_id": "C14",
+        "stratum": "standard",
+        "chars": 1217,
+        "text": "2.5. NICE SUPPLIED COMPONENTS. NICE may, at its election, supply to Contractor software licenses and software or the like for which NICE has an existing royalty agreement with a third party (except electrical and mechanical components unless agreed otherwise), in lieu of Contractor purchasing same (\"NICE COMPONENTS\"). All 12 such components will be delivered to Contractor in a mutually agreed package type, and in an agreed upon time and in agreed upon quantities. The parties will agree on the inventory level required by Contractor for each NICE Component and NICE' sole responsibility shall be to renew the inventory upon request. Contractor shall be responsible for ordering additional NICE Components if required above the inventory level and for ensuring that appropriate physical controls of such components are in place and properly administered. Contractor will not charge NICE any charges or overhead for such NICE Components. In the event Contractor has difficulty in purchasing any components which NICE can obtain and NICE has granted its consent to supply such component to Contractor in lieu of Contractor purchasing same, Contractor will not charge NICE any charges or overhead for such Components."
+      },
+      {
+        "segment_id": "C02-062",
+        "doc_id": "C02",
+        "stratum": "standard",
+        "chars": 500,
+        "text": "(g) Termination, relinquishment or expiration of the Agreement for any reason shall be without prejudice to any rights which shall have accrued to the benefit of either Party prior to (or as a result of, including, without limitation, rights available under law and equity) such termination, relinquishment or expiration. Such termination, relinquishment or expiration shall not relieve either Party from obligations that are expressly indicated to survive termination or expiration of the Agreement."
+      },
+      {
+        "segment_id": "C13-041",
+        "doc_id": "C13",
+        "stratum": "standard",
+        "chars": 362,
+        "text": "(b) Either party shall have the right to terminate this Agreement effective upon written notice to the other party in the event the non-notifying party becomes insolvent or makes an assignment for the benefit of creditors, or in the event bankruptcy or insolvency proceedings are instituted against the non-notifying party or on the non-notifying party's behalf."
+      },
+      {
+        "segment_id": "C02-045",
+        "doc_id": "C02",
+        "stratum": "standard",
+        "chars": 242,
+        "text": "(b) Except where AMAG is required by Applicable Law to account for any VAT to the applicable Governmental Authority, Antares shall be solely responsible for the timely payment of all such VAT and taxes to the applicable Governmental Authority"
+      },
+      {
+        "segment_id": "E08-005",
+        "doc_id": "E08",
+        "stratum": "standard",
+        "chars": 212,
+        "text": "It shall ensure that the DC is clean and maintains certification from all applicable regulators. NFI shall ensure that the DC and its operation are in compliance with all applicable Federal, State, or Local laws."
+      },
+      {
+        "segment_id": "C13-011",
+        "doc_id": "C13",
+        "stratum": "standard",
+        "chars": 208,
+        "text": "Section 4 \u2014 Costs to Deliver DD Promotion All costs incurred by DD to deploy its services to promote MOXATAG to DD Target Segment Prescribers will be the responsibility of DD, except as provided in Section 6."
+      },
+      {
+        "segment_id": "C03-072",
+        "doc_id": "C03",
+        "stratum": "standard",
+        "chars": 417,
+        "text": "(v) Umbrella/Excess Liability insurance with limits of at least $10,000,000 each occurrence, claim or wrongful act with terms and conditions at least as broad as the underlying Commercial General Liability, Business Automobile Liability, and Employers Liability policies. Umbrella/Excess Liability limits will be primary and non-contributory with respect to any insurance or self-insurance that is maintained by AT&T."
+      },
+      {
+        "segment_id": "C02-079",
+        "doc_id": "C02",
+        "stratum": "standard",
+        "chars": 538,
+        "text": "12.5 Notices. All notices and other communications hereunder shall be in writing and shall be deemed given if delivered personally or by electronic mail or facsimile transmission (receipt verified), telexed, mailed by registered or certified mail (return receipt requested), postage prepaid, or sent by express courier service, to the Parties at the following addresses (or at such other address for a Party as shall be specified by like notice; provided, that notices of a change of address shall be effective only upon receipt thereof):"
+      },
+      {
+        "segment_id": "C14-015",
+        "doc_id": "C14",
+        "stratum": "standard",
+        "chars": 692,
+        "text": "1.2.2. INFRASTRUCTURE. For the execution of this Agreement and the Manufacturing Outsourcing Services, Contractor will set up and establish specific infrastructure including an exclusive area in its production facility as detailed herein. Contractor shall assemble its own workstations using its generic equipment and the Non Generic Equipment to be provided by NICE in good working order. The maintenance of the Non Generic Equipment and keeping it in good working order, except normal wear and tear, shall be Contractor's responsibility, at Contractor's expense. NICE shall have the right to object on reasonable grounds to any material change of the manufacturing facility for any Product."
+      },
+      {
+        "segment_id": "C14-069",
+        "doc_id": "C14",
+        "stratum": "standard",
+        "chars": 773,
+        "text": "8.2.5. In the event there is an increase in the cost of a Permitted Component purchased/to be purchased by Contractor for the purposes hereof, which affects the purchase price of such Product, Contractor shall provide NICE with copies of letters as elaborated below, together with a request for a \"price increase\" within one (1) Business Days of Contractor becoming aware of such increase. Contractor shall not purchase any such component until NICE approves it in writing. NICE shall approve/disapprove on the same Business Day it was notified by Contractor provided notice was received by 12:00. However, NICE may only reject a price increase if it can show that the Permitted Component is available at the a lower price. There are two permitted types of price increases:"
+      },
+      {
+        "segment_id": "C14-098",
+        "doc_id": "C14",
+        "stratum": "standard",
+        "chars": 312,
+        "text": "(2) Be safely stored, adequately maintained and insured against loss or damage under Contractor's existing policies detailed in APPENDIX D. In the event such Non Generic Equipment is damaged, lost or destroyed, Contractor shall be liable towards NICE to repair or replace such equipment (at Contractor's choice)."
+      },
+      {
+        "segment_id": "C15-033",
+        "doc_id": "C15",
+        "stratum": "standard",
+        "chars": 1643,
+        "text": "Imbalances. The term \"Imbalance\" means the cumulative difference in a Month between: (i) the quantity of Gas in MMBtu received for the account of Customer at the Point(s) of Receipt, less Customer's System Fuel & LUAF quantity, as applicable, and (ii) the quantity of Gas in MMBtu delivered for the account of Customer at the Point(s) of Delivery. After any adjustment for System Fuel & LUAF, if the Imbalance is the result of receipts at the Point(s) of Receipt exceeding the delivered (or scheduled, as applicable) quantity of Gas for Customer's account at the Point(s) of Delivery, it is a \"Positive Imbalance\". If the Imbalance is a result of receipts at the Point(s) of Receipt being lower than the delivered quantity of Gas for Customer's account at the Point(s) of Delivery, it is a \"Negative Imbalance\". Imbalances will be cashed out on a Monthly basis. 8 Source: PENNTEX MIDSTREAM PARTNERS, LP, S-1/A, 4/16/2015 Cash Out. The cash-out settlement price will be the monthly arithmetical average of the prices (\"Cash-out Price\") as posted in Gas Daily's Daily Price Survey during the Month under the heading \"Texas Gas Transmission Corp.,\" under the column labeled \"Index\" corresponding to the row labeled \"Zone 1.\" Transporter will pay Customer an amount that is the product of the Positive Imbalance each Month, if any, and the Cash-out Price. Customer will pay Transporter an amount that is the product of the Negative Imbalance each Month, if any, and the Cash-out Price. If the actual monthly volume varies by more than five percent (5%) from the delivered volumes for the Month, then the Cash-out Price will be adjusted as follows:"
+      },
+      {
+        "segment_id": "C06-110",
+        "doc_id": "C06",
+        "stratum": "standard",
+        "chars": 916,
+        "text": "Chapter 11 Case No. 18-10248 (MFW) Jointly Administered NOTICE OF DESIGNATION OF ASSET PURCHASER PLEASE TAKE NOTICE that pursuant to the Order Approving Debtors' Entry Into Agency Agreement and Consummation of the Transactions Contemplated Thereby (the \"Approval Order\") [D.I. ____],2 Purchaser hereby designates the entity identified on Schedule A (\"Designee\") annexed hereto as the assignee of the Assets identified on Schedule A (the \"Designated Assets\") pursuant to the agreement between Purchaser, as agent for the Debtors, and Designee, an abstract of which is annexed hereto as Exhibit A (the \"Purchase Agreement\"). PLEASE TAKE FURTHER NOTICE that pursuant to the Approval Order, upon the closing of the transaction pursuant to the Purchase Agreement, the Designated Assets shall be deemed conveyed to Designee by the Debtors free and clear of all liens, claims, encumbrances, and other interests of any kind."
+      },
+      {
+        "segment_id": "C05-035",
+        "doc_id": "C05",
+        "stratum": "standard",
+        "chars": 841,
+        "text": "(f) Regulatory Approval. Biocept has licenses enabling it to perform and obtain reimbursement for the Assay in all states in the Territory except New York, where it is currently seeking such license. Biocept will maintain all such licenses which are reasonably required to perform the Assay during the Term. For any Collaboration Assay, Biocept will use commercially reasonable efforts to obtain or maintain licenses enabling it to perform such Collaboration Assay and obtain reimbursement therefore, in accordance with each amendment to this Agreement entered in accordance with Section 3.5(f). Life Technologies will cooperate with Biocept so that Life Technologies' marketing and sales efforts are conducted only in those states or regions of the Territory in which Biocept has obtained any necessary regulatory licenses to provide Tests."
+      },
+      {
+        "segment_id": "C11-005",
+        "doc_id": "C11",
+        "stratum": "standard",
+        "chars": 1387,
+        "text": "2.3 NO RENEWAL RIGHT; NO EXCLUSIVITY. The Franchisee acknowledges and agrees that this license is a license for the operation of a Burger King Restaurant at the Location only and that the Franchisee has no right to any exclusive territory or to object to the location of an additional Burger King Restaurant at a site which is in the immediate proximity of the Franchised Restaurant and/or in the same trading area of the Franchised Restaurant Subject to the Restaurant Development Agreement between BKC and International Fast Food Corporation dated March 14, 1997, (the \"Development Agreement\"), the development and location of additional Burger King Restaurants shall be determined by BKC in its sole business judgment and BKC may develop or franchise additional Burger King Restaurants anywhere, including sites in the immediate proximity of the Franchised Restaurant and/or in the same trading area of the Franchised Restaurant, in its sole business judgment. The Franchisee hereby waives any right it has, may have, or might in the future have, to oppose such development and location, and any claim for compensation from BKC in respect of any and all detriment or los s suffered by it as a result of the development and location of additional Burger King Restaurants in the immediate proximity of the specified Location and/or in the same trading area of the Franchised Restaurant."
+      },
+      {
+        "segment_id": "C06-102",
+        "doc_id": "C06",
+        "stratum": "standard",
+        "chars": 597,
+        "text": "15.5 No Waiver. No consent or waiver by any Party, express or implied, to or of any breach or default by the other in the performance of its obligations hereunder shall be deemed or construed to be a consent or waiver to or of any other breach or default in the performance by such other Party of the same or any other obligation of such Party. Failure on the part of any Party to complain of any act or failure to act by the other Party or to declare the other Party in default, irrespective of how long such failure continues, shall not constitute a waiver by such Party of its rights hereunder."
+      },
+      {
+        "segment_id": "E08-024",
+        "doc_id": "E08",
+        "stratum": "standard",
+        "chars": 944,
+        "text": "(a) At all times during the term of this AGREEMENT, NFI shall maintain in full force and effect the following types and minimum coverage limits of insurance for the liability of NFI and all other persons performing on NFI\u2019s behalf: (i) commercial general liability insurance for death, bodily injury, property damage and for personal injury in limits of not less than USD 1,000,000 per occurrence; (ii) workers' compensation in compliance with the applicable statutory limits, including employers liability in limits of not less than USD 1,000,000 per incident; and (iii) warehouse liability insurance covering the provision by NFI of warehouse operator services, freight forwarding services, and logistics services (including but not limited to inventory management and pick and pack services) in limits of liability of not less than USD 5,000,000 in the aggregate. NFI agrees to name KIRKLAND\u2019s as an additional insured on the above policies."
+      },
+      {
+        "segment_id": "C17-013",
+        "doc_id": "C17",
+        "stratum": "standard",
+        "chars": 452,
+        "text": "(d) A Provider need not provide any Service if it is not permitted to do so by applicable Law. To the extent that any Service is not permitted pursuant to applicable Law, the Parties will cooperate in good faith to enter into arrangements reasonably acceptable to each of the Parties under which the Recipient would obtain the benefit of such Service to the same extent (or as nearly as practicable) as if such Service were permitted by applicable Law."
+      },
+      {
+        "segment_id": "C02-066",
+        "doc_id": "C02",
+        "stratum": "standard",
+        "chars": 685,
+        "text": "(d) That all Products and sample Products, when released by AMAG for distribution, sale or use pursuant to Section 2.6(b)(v)(D): (i) will comply with applicable Product Specifications, Batch Record, Certificate of Analysis Certificate of Analysis (PFS Manufacture), the Certificate of Analysis (PFS ID Testing), Certificate of Analysis (Product) and the Certificate of Conformance (Product); (ii) will not be adulterated or misbranded within the meaning of any Applicable Laws effective at the time of delivery and will not be an article which may not be introduced into interstate commerce under any Applicable Laws; and (iii) will be in compliance with cGMPs and all Applicable Laws;"
+      },
+      {
+        "segment_id": "C11-028",
+        "doc_id": "C11",
+        "stratum": "standard",
+        "chars": 1161,
+        "text": "5.15 RIGHT OF ENTRY, INSPECTION AND CLOSURE. BKC shall have the unrestricted right to enter the Franchised Restaurant to conduct such reasonable activities as it deems necessary to ascertain compliance with this Agreement. The inspections may be conducted without prior notice at any time when the Franchisee or any one of its responsible employees or representatives is at the Franchised Restaurant. The inspections shall be performed in a manner which minimizes interference with the operation of the Franchised Restaurant. BKC may require the removal of any items which do not comply with this Agreement at the Franchisee's cost. In the event that BKC identifies, or reasonably suspects the existence of, any significant risk to health or safety in any aspect of the operation at the Location, BKC may require the Franchisee immediately to close the Franchised Restaurant until the hazard as been eliminated. BKC shall specify the grounds for taking such action and such steps if any a it believes are necessary to eliminate the hazard and shall cooperate with the Franchisee to enable the Franchisee to re-open the Franchised Restaurant as soon as possible."
+      },
+      {
+        "segment_id": "C03-171",
+        "doc_id": "C03",
+        "stratum": "standard",
+        "chars": 823,
+        "text": "(ii) Vendor shall comply with all applicable Laws, including any notice requirements, regarding any Material ordered hereunder which contains or consists of a Regulated Substance or any Service ordered hereunder which involves the handling, use, storage, recycling, disposal or transportation of Regulated Substances. Vendor shall notify AT&T and provide AT&T with all necessary information (including but not limited OSHA Material Safety Data Sheets (MSDS)) at least thirty (30) days before shipping Material containing or consisting of Regulated Substances to AT&T or commencing the performance of Services for AT&T involving the handling or use of Regulated Substances. Each MSDS must include information indicating the specific worker protection equipment requirement for use of the Regulated Substance covered thereby."
+      },
+      {
+        "segment_id": "C17-079",
+        "doc_id": "C17",
+        "stratum": "standard",
+        "chars": 298,
+        "text": "18 months from the Commencement Date $3,365 per month Plus pass-through of actual third-party costs incurred in providing the service 4 Process RE quarterly true-ups will change during the Term from reconciling claims by headcount to where incurred and will reconcile back to the Commencement Date."
+      },
+      {
+        "segment_id": "C11-065",
+        "doc_id": "C11",
+        "stratum": "standard",
+        "chars": 239,
+        "text": "11.1.9 FRANCHISEE NAME. In the adoption of a trade, corporate or partnership name, the Franchisee shall not use any of the Burger King Marks, any variations or abbreviations or any words confusingly similar to any of the Burger King Marks."
+      }
+    ]
+  }
+}

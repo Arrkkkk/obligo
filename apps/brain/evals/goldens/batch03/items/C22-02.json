@@ -1,0 +1,60 @@
+{
+  "item_id": "C22-02",
+  "span_char_start": 61,
+  "span_char_end": 737,
+  "span_text": "the Seller hereby grants (and will cause each other Seller Party to grant, following each applicable Closing Date, to the Purchaser Licensees) a perpetual (unless terminated in accordance with Section 4.2(ii)(c)), fully paid-up, royalty-free, worldwide, non-transferable (except as set forth herein), non-exclusive license to use any and all Licensed Trademarks in the Business (including with respect to the Purchaser Licensed Activities), including with respect to all Derivative Works and natural evolutions of such Business, in a manner that is the same or substantially similar to the manner in which the Seller Entities have used the Licensed Trademarks in the Business.",
+  "modality": "MUST",
+  "action": "ENSURE",
+  "action_accept_set": [
+    "ENSURE",
+    "PROCURE"
+  ],
+  "obligor": "the Seller",
+  "obligor_accept_set": [],
+  "obligee": "the Purchaser Licensees",
+  "object_class": "trademark_license_grant",
+  "object_class_accept_set": [
+    "trademark_license_grant",
+    "trademark_license",
+    "licensed_trademarks_use",
+    "license_grant",
+    "licensed_trademarks"
+  ],
+  "vague_temporal_phrase": null,
+  "known_gaps": [
+    "relative_trigger_preposition"
+  ],
+  "rules_cited": [
+    "3.1",
+    "3.2",
+    "3.2.1",
+    "3.4",
+    "3.5",
+    "3.6",
+    "3.9",
+    "4.3.2",
+    "8.9"
+  ],
+  "annotator_notes": "SECTION 3.2.1 (v0.38, reviewer-ruled AT THIS ITEM) excludes the segment's own leading clause -- 'the Seller hereby grants...a...license...' -- as a present-tense self-executing performative, not obligation-bearing under IR v1's four modalities: it takes full legal effect at execution, so there is no future state left to monitor, the identical non-obligation principle section 3.2's 'will'-future-fact rule already states one tense earlier. Only the coordinated future clause is annotated: 'and will cause each other Seller Party to grant, following each applicable Closing Date, to the Purchaser Licensees' -- a genuine MUST duty ('will' obligatory sense, section 3.2). SECOND LIVE INSTANCE OF SECTION 4.3.2's self-performance/third-party-compliance shape (first instance: C04-04/C04-05, this same batch) -- BUT IT REDUCES TO ONE ITEM RATHER THAN A PAIR specifically because the self-performance half (Seller's own 'hereby grants') is excluded under section 3.2.1 rather than annotated, not because the underlying structure differs from C04-139's. Recording this connection explicitly per instruction, rather than leaving it to be re-derived: had 'hereby grants' been a genuine future obligation, this would have been a section 4.3.2 pair with the identical shared-trailing-object span-collision shape section 4.2/v0.36 handles (the license description trails and is grammatically shared by both 'hereby grants' and 'will cause...to grant'). ACTION: 'cause X to grant' has no exact taxonomy match; ENSURE picked as nearest, PROCURE as the accept-set alternate -- identical mapping choice to C04-05's 'cause X to use', kept consistent rather than re-derived per item. OBLIGEE 'the Purchaser Licensees': UNLIKE C04-04/C04-05, this item HAS an explicit dative ('to the Purchaser Licensees'), so obligee is not ABSENT. Annotated as-it-appears per section 3.5's positional rule. Treated as NOT resolving under section 3.9 trigger 1's 'collective... reference' / 'role description' language: 'Licensees' is plural, naming a class of entities affiliated with the Purchaser rather than one registered party, and resolve_party() returns None on any match of more than one row even if the term is itself preamble-defined -- flagged for confirmation once the real R1/R3 registry for this document is built, since this reading is inferred from the term's form (plural, class-denoting) rather than verified against the document's actual preamble/defined-terms list. TEMPORAL: 'following each applicable Closing Date' -> RELATIVE_TO_TRIGGER(after, 'each applicable Closing Date') per section 8.9 ('following' -> after direction); known_gaps gains relative_trigger_preposition since _RELATIVE_RE does not accept 'following' literally. TriggerRef 'each applicable Closing Date' additionally never resolves (resolve_trigger() unconditionally None in v1, section 3.9 trigger 3) -- underspecified is true for two independent reasons (obligee non-resolution AND trigger non-resolution), either alone sufficient. CONDITIONS: none -- '(unless terminated in accordance with Section 4.2(ii)(c))' and '(except as set forth herein)' both describe attributes of the license once granted (its duration and transferability), not circumstances under which Seller's own duty to cause the grant applies; removal test (section 3.8.2) leaves the duty unchanged either way, so both are object-scope, not conditions entries. Neither cross-reference (Section 4.2(ii)(c)) is resolved by any scored field (section 2/F6's test), so no exclusion is triggered by their presence.",
+  "doc_id": "C22",
+  "segment_id": "C22-022",
+  "stratum": "hard",
+  "segment_text": "(i) License Grant. Effective as of the Initial Closing Date, the Seller hereby grants (and will cause each other Seller Party to grant, following each applicable Closing Date, to the Purchaser Licensees) a perpetual (unless terminated in accordance with Section 4.2(ii)(c)), fully paid-up, royalty-free, worldwide, non-transferable (except as set forth herein), non-exclusive license to use any and all Licensed Trademarks in the Business (including with respect to the Purchaser Licensed Activities), including with respect to all Derivative Works and natural evolutions of such Business, in a manner that is the same or substantially similar to the manner in which the Seller Entities have used the Licensed Trademarks in the Business.",
+  "temporal": {
+    "form": "RELATIVE_TO_TRIGGER",
+    "direction": "after",
+    "trigger": "each applicable Closing Date"
+  },
+  "conditions": [],
+  "underspecified": true,
+  "missing_fields": [
+    "obligee",
+    "temporal.trigger"
+  ],
+  "redacted_phrase": null,
+  "annotator_confidence": "AMBIGUOUS",
+  "adjudicated_by": "reviewer",
+  "annotated_at": "2026-08-26T16:10:30+00:00",
+  "guideline_version": "v0.38",
+  "reviewer_status": "APPROVED"
+}

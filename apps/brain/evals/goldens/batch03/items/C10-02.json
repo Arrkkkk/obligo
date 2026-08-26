@@ -1,0 +1,48 @@
+{
+  "item_id": "C10-02",
+  "span_char_start": 587,
+  "span_char_end": 665,
+  "span_text": "The Supplier shall add the distributor to their current insurance certificate.",
+  "modality": "MUST",
+  "action": "ESTABLISH",
+  "action_accept_set": [
+    "ESTABLISH"
+  ],
+  "obligor": "the Supplier",
+  "obligor_accept_set": [],
+  "obligee": "the Distributor",
+  "object_class": "distributor_insurance_certificate_listing",
+  "object_class_accept_set": [
+    "distributor_insurance_certificate_listing",
+    "insurance_certificate_addition",
+    "additional_insured_designation"
+  ],
+  "vague_temporal_phrase": null,
+  "known_gaps": [
+    "action_not_in_taxonomy"
+  ],
+  "rules_cited": [
+    "3.1",
+    "3.2",
+    "3.4",
+    "3.5",
+    "3.6",
+    "3.9",
+    "8.8"
+  ],
+  "annotator_notes": "ITEM 2 OF 2 (insurance-certificate half of C10-016's two-duty segment). Sibling item is C10-01 (the indemnification duty in the segment's first sentence). FIRST REAL LOCKED INSTANCE OF SECTION 8.8's action_not_in_taxonomy TAG -- section 8.8's own text records 'no locked item carries this tag yet... the first real instance is still ahead'; this item is that instance. ACTION: the real verb is 'add' ('the Supplier shall ADD the distributor to their current insurance certificate') -- REVIEWER-CONFIRMED (not exclusion) that this is a real, monitorable duty the taxonomy simply was not built to name, per section 8.8's own genuine-gap disposition. A full second pass over all 34 taxonomy verbs (not just the first plausible candidate) was done before settling: MAINTAIN was considered and rejected (fits an ONGOING insurance-upkeep duty, but the sentence describes a discrete act, 'add', not continuous maintenance); PROVIDE was considered and rejected (implies furnishing an item TO a recipient, but the object of 'add' is the Distributor's own inclusion on an existing document, not something handed to them); GRANT was considered and rejected as the strongest competitor (adding a party to an insurance certificate does confer additional-insured status, and GRANT fits that LEGAL EFFECT well) but ultimately not chosen, because it requires inferring the downstream legal consequence of the act rather than reading the literal verb -- ESTABLISH ('to set up on a firm basis') stays closer to the literal act ('add'/'set up an entry') without committing to what kind of thing results, the lower-inference reading consistent with this project's general bias toward the reading requiring the least interpretive leap (the same bias behind never letting a model invent the reason, applied here to the annotator's own choice). APPOINT and ENSURE were also considered and rejected (APPOINT implies designating someone to a ROLE, not adding a name to a coverage document; ENSURE was reserved by this project's own established convention, section 4.3.2, for THIRD-PARTY oversight duties, and this is a directly self-performed act, not an oversight-of-another's-conduct duty). action_accept_set holds ESTABLISH ALONE, per section 8.8's still-standing v0.24 default (single-verb accept-set, no widening) -- NOT widened to include GRANT as a second member, even though it was the closest runner-up, because section 8.8's rule is explicit that widening 'stops measuring whether extraction identified the action at all'. The real verb 'add' is recorded here verbatim per section 8.8's own requirement. OBLIGEE 'the Distributor' is the direct object of 'add' and the beneficiary of being named on the certificate -- annotated consistent with C10-01's obligee for the same document, section 3.5 positional rule. CONDITIONS: none. The leading 'Subject to the Distributor fulfilling all the conditions in this clause 10' at the segment's start grammatically attaches only to sentence 1's main clause ('the Supplier shall indemnify...'); this is a separate, independent second sentence with no subordinate clause of its own. Flagged explicitly as a scope-reading judgment call, not a certainty -- REVIEWER-CONFIRMED alongside the action choice. TEMPORAL: none -- no BY/DURING/WITHIN/RELATIVE_TO_TRIGGER phrase in this sentence. UNDERSPECIFIED: false, same reasoning as C10-01 -- obligor and obligee both textually present as this document's own defined-term role labels (treated per section 3.5 the same way C17-01's 'Provider'/'Recipient' and C22-02's labels were), no DateRef/TriggerRef/bd-duration anywhere. Presumed by analogy to established precedent, not verified against a real party registry for document C10, which does not yet exist at annotation time.",
+  "doc_id": "C10",
+  "segment_id": "C10-016",
+  "stratum": "hard",
+  "segment_text": "10.1 Subject to the Distributor fulfilling all the conditions in this clause 10, the Supplier shall indemnify the Distributor, defend and hold harmless against any liability incurred by the Distributor in respect of damage to property, death or personal injury arising from any fault or defect in the design of the Products and any reasonable costs, claims, demands and expenses, including reasonable attorneys' fees, arising out of or in connection with that liability (Relevant Claim), except to the extent the liability arises as a result of the wilful misconduct of the Distributor. The Supplier shall add the distributor to their current insurance certificate.",
+  "temporal": null,
+  "conditions": [],
+  "underspecified": false,
+  "missing_fields": [],
+  "redacted_phrase": null,
+  "annotator_confidence": "AMBIGUOUS",
+  "adjudicated_by": "reviewer",
+  "annotated_at": "2026-08-26T17:32:00+00:00",
+  "guideline_version": "v0.40",
+  "reviewer_status": "APPROVED"
+}
