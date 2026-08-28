@@ -1,0 +1,49 @@
+{
+  "item_id": "E08-01",
+  "doc_id": "E08",
+  "segment_id": "E08-005",
+  "stratum": "standard",
+  "segment_text": "It shall ensure that the DC is clean and maintains certification from all applicable regulators. NFI shall ensure that the DC and its operation are in compliance with all applicable Federal, State, or Local laws.",
+  "span_char_start": 97,
+  "span_char_end": 212,
+  "span_text": "NFI shall ensure that the DC and its operation are in compliance with all applicable Federal, State, or Local laws.",
+  "modality": "MUST",
+  "action": "ENSURE",
+  "action_accept_set": [
+    "ENSURE"
+  ],
+  "obligor": "NFI",
+  "obligee": "ABSENT",
+  "object_class": "regulatory_compliance",
+  "object_class_accept_set": [
+    "regulatory_compliance",
+    "legal_compliance",
+    "dc_compliance"
+  ],
+  "temporal": null,
+  "conditions": [],
+  "underspecified": true,
+  "missing_fields": [
+    "obligee"
+  ],
+  "vague_temporal_phrase": null,
+  "redacted_phrase": null,
+  "known_gaps": [],
+  "annotator_confidence": "CONFIDENT",
+  "annotated_at": "2026-08-28T00:45:00+00:00",
+  "rules_cited": [
+    "2",
+    "2.6",
+    "3.1",
+    "3.2",
+    "3.4",
+    "3.5",
+    "3.6",
+    "3.9"
+  ],
+  "guideline_version": "v0.41",
+  "annotator_notes": "SECTION 2.6 APPLICATION, REVIEWER-CONFIRMED (citation, not a new precedent-setting instance -- a new specific shape of an already-established rule): the segment's first sentence, 'It shall ensure that the DC is clean and maintains certification from all applicable regulators,' is NOT annotated. 'It' has no antecedent anywhere in this segment (it is the segment's first word) and cannot forward-reference 'NFI' in the second sentence -- a genuine external-dependency failure under section 2's cross-reference/self-containment test, reached through unresolvable pronoun subject rather than missing sentence structure (the shape section 2.6 was originally written for, C13-017's orphan list fragments). Per section 2.6's own test ('does the sentence need something from outside the segment') this sentence clearly does, so it is treated as non-eligible content within an otherwise-good segment -- not separately logged in exclusions.json since the SEGMENT itself is not excluded, only this one sentence is not annotated, matching how C13-01/C13-02 documented their own segment's orphan fragments in annotator_notes rather than as a separate exclusion entry.\n\nS2 (this item): clean MUST, ENSURE is an exact taxonomy match, NFI is the named obligor, no party named as beneficiary of the compliance duty so obligee=ABSENT (underspecified=true, missing_fields=['obligee']). No temporal, no conditions -- straightforward compliance clause, consistent with prior items' treatment of similar 'shall ensure compliance with applicable laws' constructions.",
+  "reviewer_status": "APPROVED",
+  "obligor_accept_set": [],
+  "adjudicated_by": "reviewer"
+}

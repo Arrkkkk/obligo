@@ -1,0 +1,53 @@
+{
+  "item_id": "C02-04",
+  "doc_id": "C02",
+  "segment_id": "C02-045",
+  "stratum": "standard",
+  "segment_text": "(b) Except where AMAG is required by Applicable Law to account for any VAT to the applicable Governmental Authority, Antares shall be solely responsible for the timely payment of all such VAT and taxes to the applicable Governmental Authority",
+  "span_char_start": 4,
+  "span_char_end": 242,
+  "span_text": "Except where AMAG is required by Applicable Law to account for any VAT to the applicable Governmental Authority, Antares shall be solely responsible for the timely payment of all such VAT and taxes to the applicable Governmental Authority",
+  "modality": "MUST",
+  "action": "PAY",
+  "action_accept_set": [
+    "PAY"
+  ],
+  "obligor": "Antares",
+  "obligee": "the applicable Governmental Authority",
+  "object_class": "vat_and_taxes",
+  "object_class_accept_set": [
+    "vat_and_taxes",
+    "taxes",
+    "vat"
+  ],
+  "temporal": null,
+  "conditions": [],
+  "underspecified": true,
+  "missing_fields": [
+    "obligee"
+  ],
+  "vague_temporal_phrase": "timely",
+  "redacted_phrase": null,
+  "known_gaps": [
+    "exception_unsupported"
+  ],
+  "annotator_confidence": "CONFIDENT",
+  "annotated_at": "2026-08-28T00:40:00+00:00",
+  "rules_cited": [
+    "2",
+    "3.1",
+    "3.2",
+    "3.4",
+    "3.5",
+    "3.6",
+    "3.7",
+    "3.8.1",
+    "3.9",
+    "15"
+  ],
+  "guideline_version": "v0.41",
+  "annotator_notes": "MODALITY/ACTION: 'Antares shall be solely responsible for the timely payment of all such VAT and taxes' names a concrete, checkable payment duty -- the same 'responsible for X' = genuine MUST reading ruled at C14-139's Q1 (section 8.8.1 does not extend to this shape; distinguished from vague liability-retention/copular status language). PAY is an exact taxonomy match.\n\nOBLIGEE: 'the applicable Governmental Authority' is named in-span as the payment recipient; section 3.5's positional test does not require the obligee to be one of the two contracting parties. Does not resolve against the scoring registry (a governmental authority is not a registered contract party), so underspecified=true, missing_fields=['obligee'].\n\nCARVE-OUT: 'Except where AMAG is required by Applicable Law to account for any VAT to the applicable Governmental Authority' is a section 3.8.1 branch 3 carve-out -- REVIEWER-CONFIRMED as the FIFTH marker-family instance ('except where'), and the guideline's own list was clarified at this instance (v0.41) to state explicitly that the test (does the phrase narrow/remove the duty under a stated circumstance?) is the actual rule, and the enumerated markers are citation convenience, not an exhaustive whitelist requiring a fresh reviewer ruling per new preposition. known_gaps gains exception_unsupported; not absorbed into conditions; full carve-out text is included in span_text per section 3.1/section 8.2's verbatim discipline (already quoted above, not separately conditions-scored).\n\nTEMPORAL: 'timely' is an unquantified timing signal, section 15's vague-temporal-qualifier rule -- temporal=null, vague_temporal_phrase='timely' (not scored).\n\nOBJECT: 'VAT and taxes' -- VAT is a species of tax, both nominal anchors included in the accept-set per section 3.6.",
+  "reviewer_status": "APPROVED",
+  "obligor_accept_set": [],
+  "adjudicated_by": "reviewer"
+}

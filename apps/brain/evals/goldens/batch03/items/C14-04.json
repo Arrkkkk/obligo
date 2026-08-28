@@ -1,0 +1,57 @@
+{
+  "item_id": "C14-04",
+  "doc_id": "C14",
+  "segment_id": "C14-044",
+  "stratum": "standard",
+  "segment_text": "3.6. RESCHEDULING OF RELEASED ORDERS. NICE may, at its discretion, reschedule delivery of units of Products for which a PO has already been issued, by shortening the Due Date, without any implication. In this respect, Contractor is aware that by the last three weeks of every calendar Quarter, a high level of flexibility is required to meet NICE' end of Quarter requirements. Contractor will perform its best reasonable commercial efforts to complete such rescheduled Products at the new requested Due Date. All such rescheduling shall be performed by sending Contractor a written request for rescheduling.",
+  "span_char_start": 377,
+  "span_char_end": 508,
+  "span_text": "Contractor will perform its best reasonable commercial efforts to complete such rescheduled Products at the new requested Due Date.",
+  "modality": "MUST",
+  "action": "PROCESS",
+  "action_accept_set": [
+    "PROCESS"
+  ],
+  "obligor": "Contractor",
+  "obligee": "ABSENT",
+  "object_class": "rescheduled_products",
+  "object_class_accept_set": [
+    "rescheduled_products",
+    "product_completion",
+    "product_delivery"
+  ],
+  "temporal": {
+    "form": "BY",
+    "alias": "the new requested Due Date",
+    "date": null
+  },
+  "conditions": [],
+  "underspecified": true,
+  "missing_fields": [
+    "obligee",
+    "temporal.alias"
+  ],
+  "vague_temporal_phrase": null,
+  "redacted_phrase": null,
+  "known_gaps": [
+    "action_not_in_taxonomy"
+  ],
+  "annotator_confidence": "AMBIGUOUS",
+  "annotated_at": "2026-08-28T00:31:00+00:00",
+  "rules_cited": [
+    "2",
+    "3.1",
+    "3.2",
+    "3.5",
+    "3.6",
+    "3.7",
+    "3.9",
+    "8.8",
+    "16"
+  ],
+  "guideline_version": "v0.41",
+  "annotator_notes": "MODALITY: 'will perform its best reasonable commercial efforts' -- section 16's efforts-qualifier rule keeps this MUST, not SHOULD.\n\nACTION -- SELF-CORRECTED before locking: initially drafted as DELIVER when first presented, but re-examined against the full 34-verb list under the same confirm-before-tagging discipline applied to S1's RESCHEDULE verb (see below -- S1 was briefly drafted and locked as its own item, C14-03, before being retracted at batch verification; the RESCHEDULE action-taxonomy analysis itself is unaffected by that retraction). 'complete such rescheduled Products' most naturally reads as finishing manufacture/production, not the act of conveyance DELIVER specifically names -- this sentence never says 'deliver'. Neither DELIVER nor any other taxonomy verb is a confident, defensible match, so this is a genuine gap rather than a defensible mapping: PROCESS (generic, honest) is the nearest verb, known_gaps gains action_not_in_taxonomy, single-member accept-set per section 8.8's genuine-gap branch (widening to include DELIVER was considered and rejected -- section 8.8's sub-choice rule does not permit both tagging AND widening).\n\nOBLIGEE: no party named as the recipient of the completed Products within this sentence's own span -- ABSENT, section 3.5's ordinary positional test, no exception (same boundary tested and held at S4 in this segment, section 3.5's new clarifying note).\n\nTEMPORAL: 'at the new requested Due Date' annotated BY, alias 'the new requested Due Date' (date: null, matching C04-03's established BY-alias field shape) -- an alias reference (symbols.resolve_date() unconditionally returns None in v1), not a literal date, so underspecified is independently over-determined by temporal.alias alongside obligee.\n\nS1 ('NICE may, at its discretion, reschedule delivery...by shortening the Due Date, without any implication') is NOT a sibling item. It was briefly locked as C14-03 and then RETRACTED at batch verification: re-checked against section 2.5.1's own test (monitorable stakes -- can the exercise be checked against a standard -- not scope restriction, which is what the original drafting mistakenly leaned on), 'without any implication' is at least as direct a no-monitorable-stakes signal as C04-026's 'sole business judgment', and no correlative party is named in S1's own span either (same as the already-excluded C04-026/C11-046). S1 is now excluded under section 2.5.1, the identical disposition as C04-026/C11-046, as non-obligation-bearing content within this otherwise-good segment (same shape as C13-017's orphan list fragments and E08-005's unresolvable-pronoun sentence, section 2.6's principle). This segment now yields two items: this one (S3) and C14-05 (S4) -- both self-contained and unaffected by S1's retraction, since neither item's own field values were ever derived from C14-03 remaining a locked item (S4's obligor=ABSENT reasoning depends on S1's TEXT still being present in segment_text, which it is, not on S1 being a separate annotated item). Segment clause count after retraction: 2, comfortably within section 2's 1-3 band.\n\nSee C14-05 (S4) for this same segment's other item.",
+  "reviewer_status": "APPROVED",
+  "obligor_accept_set": [],
+  "adjudicated_by": "reviewer"
+}

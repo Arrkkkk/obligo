@@ -1,0 +1,52 @@
+{
+  "item_id": "C05-01",
+  "doc_id": "C05",
+  "segment_id": "C05-027",
+  "stratum": "standard",
+  "segment_text": "(f) Technical Developments. Life Technologies shall keep Biocept fully informed as to all discoveries and technical developments (including, without limitations, any inventions) made by Life Technologies during the Term related to the Assay or Tests.",
+  "span_char_start": 28,
+  "span_char_end": 250,
+  "span_text": "Life Technologies shall keep Biocept fully informed as to all discoveries and technical developments (including, without limitations, any inventions) made by Life Technologies during the Term related to the Assay or Tests.",
+  "modality": "MUST",
+  "action": "DISCLOSE",
+  "action_accept_set": [
+    "DISCLOSE",
+    "NOTIFY",
+    "REPORT"
+  ],
+  "obligor": "Life Technologies",
+  "obligee": "Biocept",
+  "object_class": "technical_developments",
+  "object_class_accept_set": [
+    "technical_developments",
+    "discoveries_and_technical_developments",
+    "discoveries",
+    "inventions"
+  ],
+  "temporal": null,
+  "conditions": [],
+  "underspecified": false,
+  "missing_fields": [],
+  "vague_temporal_phrase": null,
+  "redacted_phrase": null,
+  "known_gaps": [],
+  "annotator_confidence": "CONFIDENT",
+  "annotated_at": "2026-08-27T00:22:00+00:00",
+  "rules_cited": [
+    "2",
+    "3.1",
+    "3.2",
+    "3.4",
+    "3.5",
+    "3.6",
+    "3.7",
+    "3.8",
+    "3.9",
+    "8.8"
+  ],
+  "guideline_version": "v0.41",
+  "annotator_notes": "List/caption heading '(f) Technical Developments.' excluded from span_text per established precedent (C04-03/C04-04/C04-05/C22-02/C06-01 all exclude their own leading list marker or caption from span_text).\n\nBoth Life Technologies and Biocept are the document's own named contracting parties (not role descriptions), so underspecified=false is assumed on the premise that both resolve against the per-document scoring registry (section 21 R1) -- flagged as an assumption here since this session has no direct visibility into that registry file, consistent with how prior items treat named primary contracting parties as registry-resolvable by default.\n\nACTION: 'keep Biocept fully informed as to X' has no exact taxonomy match (there is no KEEP_INFORMED or INFORM verb), but is defensibly mappable to DISCLOSE (primary) with NOTIFY and REPORT as further defensible alternatives -- section 8.8's 'defensibly mappable, do not tag' branch, not the genuine-gap branch, on the same footing as 'arrange'->PROCURE and 'nominate'->APPOINT.\n\nTEMPORAL: 'during the Term' modifies 'made' (i.e. it scopes WHICH discoveries/developments are covered -- only those made during the Term), not the timing of the ongoing 'shall keep informed' duty itself. Removing it narrows the object's scope, not the duty's timing -- the identical object-scope-vs-condition/temporal distinction section 3.8.2's removal test draws for conditions, applied here to temporal. temporal=null, no vague_temporal_phrase (no qualifier on the duty itself, just an object-scope modifier).\n\nOBJECT_CLASS: 'all discoveries and technical developments (including...any inventions)...related to the Assay or Tests' -- 'related to the Assay or Tests' is a cross-referenced defined-term qualifier but does not gate a scored field (object_class captures the general category, not the precise definition of 'the Assay'), so section 2's cross-reference exclusion test is not triggered. Accept-set carries the compound anchor and its near-synonymous components per section 3.6.\n\nNo conditions, no known_gaps -- straightforward single MUST clause, one obligation-bearing clause well within section 2's 1-3 band.",
+  "reviewer_status": "APPROVED",
+  "obligor_accept_set": [],
+  "adjudicated_by": "reviewer"
+}

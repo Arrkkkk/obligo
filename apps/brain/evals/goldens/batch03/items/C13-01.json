@@ -1,0 +1,58 @@
+{
+  "item_id": "C13-01",
+  "doc_id": "C13",
+  "segment_id": "C13-017",
+  "stratum": "standard",
+  "segment_text": "(a) manufacturing, storage, and distribution of MOXATAG trade and sample product; (b) the scope and strategies with respect to the marketing and promotion of MOXATAG, including, without limitation, any labeling or claims in connection therewith; (c) booking sales and distribution of MOXATAG hereunder and performance of related services; (d) handling all aspects of order processing, invoicing and collection, inventory and receivables; (e) providing customer support, including handling medical queries, and performing other functions consistent with consumer practice for prescription pharmaceuticals; (f) responding to product and medical complaints relating to MOXATAG; (g) handling all returns of MOXATAG trade and sample product; (h) handling all voluntary recalls and market withdrawals of MOXATAG. In such a situation, DD will make available to MBRK, upon request, all of DD's pertinent records on MOXATAG. Any and all reasonable and documented costs and expenses incurred by DD in the conduct of any such recall or market withdrawal of MOXATAG shall be reimbursed by MBRK, except to the extent such recall or market withdrawal was the direct result of the negligence or failure of DD to comply with its obligations under this Agreement; (i) communicating with any governmental agencies and satisfying their requirements regarding all regulatory approvals of MOXATAG; including the filing of marketing and promotion materials approved by MBRK under this Agreement with the FDA in compliance with all FDA pharmaceutical marketing regulations; (j) reporting adverse reaction reports to US regulatory authorities as required by applicable US law or regulation;",
+  "span_char_start": 807,
+  "span_char_end": 915,
+  "span_text": "In such a situation, DD will make available to MBRK, upon request, all of DD's pertinent records on MOXATAG.",
+  "modality": "MUST",
+  "action": "PROVIDE",
+  "action_accept_set": [
+    "PROVIDE",
+    "DISCLOSE"
+  ],
+  "obligor": "DD",
+  "obligee": "MBRK",
+  "object_class": "pertinent_records",
+  "object_class_accept_set": [
+    "pertinent_records",
+    "moxatag_records",
+    "records"
+  ],
+  "temporal": null,
+  "conditions": [
+    "upon request"
+  ],
+  "conditions_accept_set": [
+    []
+  ],
+  "underspecified": false,
+  "missing_fields": [],
+  "vague_temporal_phrase": null,
+  "redacted_phrase": null,
+  "known_gaps": [],
+  "annotator_confidence": "AMBIGUOUS",
+  "annotated_at": "2026-08-27T00:40:00+00:00",
+  "rules_cited": [
+    "2",
+    "2.6",
+    "3.1",
+    "3.2",
+    "3.4",
+    "3.5",
+    "3.6",
+    "3.7",
+    "3.8",
+    "3.8.2",
+    "3.8.4",
+    "3.9",
+    "8.8"
+  ],
+  "guideline_version": "v0.41",
+  "annotator_notes": "ESCALATED, REVIEWER-RULED (section 2.6, new this session): this sentence is embedded inside an orphan enumeration (a)-(j) with no governing stem of its own -- the surrounding list items are bare noun phrases (e.g. '(a) manufacturing, storage, and distribution of MOXATAG...'), the identical shape as C04-024/C22-025's excluded orphan-list fragments. RULED: self-containment is checked per sentence, not per segment (new section 2.6) -- this sentence and C13-02's are both fully self-contained despite the surrounding orphan fragments, so the segment is annotated (both embedded sentences) rather than excluded whole. The orphan list items (a)-(g), (i), (j) are non-obligation content within an otherwise-good segment, not separately annotated and not counted toward section 2's 1-3 clause band (they carry no subject/modal of their own, so they are not obligation-bearing clauses at all).\n\nSELF-CONTAINMENT UNDER SECTION 2.6, MADE EXPLICIT PER REVIEWER REQUEST: 'such a situation' referencing item (h)'s recall/withdrawal context does NOT violate section 2.6's own boundary. Section 2.6 asks whether the SENTENCE needs anything from OUTSIDE the SEGMENT to be understood -- it does not require a sentence to be free of every textual antecedent, only free of antecedents that reach beyond the segment's own text. The antecedent here (item (h)'s label, further confirmed by C13-02's own 'such recall or market withdrawal' restatement) is textually present within this same segment, so this is an ordinary in-segment anaphoric reference, not a cross-reference out of the segment. This is the same distinction section 2's own cross-reference-dependence test already draws (v0.28: excluded only when a SCORED FIELD cannot be determined without resolving something OUTSIDE the segment) -- nothing here requires reading anything outside segment_text.\n\nCONDITIONS -- REVISED after reviewer challenge (originally drafted as two entries, corrected to one): 'In such a situation' is NOT an independent gating condition -- new section 3.8.4 (two-anchor removal test). Item (h)'s own heading ('handling all voluntary recalls and market withdrawals of MOXATAG') already, independently fixes the recall/withdrawal scope for this whole block BEFORE this sentence restates it; deleting 'In such a situation' while leaving the sentence positioned right after that heading would not actually broaden the duty's real-world scope, because the heading already did that work. This is scene-setting anaphora referencing a non-condition-shaped anchor (a list-item label, not itself a conditions-eligible phrase), which is why section 3.8.3's belt-and-suspenders test (built for two CONDITION-shaped phrases) does not apply either -- this needed its own, new test. 'upon request' has no such anchor anywhere else in the segment -- it is the sole place anything makes the record-sharing conditional on MBRK actually asking -- so it alone is the genuine condition, matching section 3.8.2's own table precedent ('upon reasonable notice and approval by TIBCO' (E07-01) -> condition).\n\nACTION: 'make available' has no exact taxonomy verb; mapped to PROVIDE (defensible, section 8.8 non-tagged branch) with DISCLOSE as a further defensible alternate, same reasoning as C05-01's 'keep informed'->DISCLOSE mapping this batch.\n\nOBLIGOR/OBLIGEE: DD and MBRK are this document's own named contracting-party abbreviations, assumed registry-resolvable on the same footing as C05-01's Life Technologies/Biocept assumption -- flagged as an assumption, not directly verified against the scoring registry.",
+  "reviewer_status": "APPROVED",
+  "obligor_accept_set": [],
+  "adjudicated_by": "reviewer"
+}

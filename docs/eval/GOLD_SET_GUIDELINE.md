@@ -1,6 +1,6 @@
 # Obligo Tier-2 Gold Set — Annotation Guideline
 
-**Version:** v0.40 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**. **v0.33 puts §9's dual denominator IN FORCE** on two independent grounds, adds §5 clause 5's number rule, §3.4's bounded freeze-pass exception, and the forward authoring rules §3.6 / §3.8.2 / §3.5.1 — **no annotation rule changed, no item restamped, no cassette stale**. **v0.34 records two MEASUREMENT corrections and changes no rule either** — §8.9's `on`/`until` rows and §15.3's loud-versus-silent class placement, both falsified by real model output from the compile-stage bottleneck investigation. **v0.35 adds §4.3.2** — a third splitting shape distinct from both existing §4.3 worked examples, reviewer-ruled at batch 3's `C04-139`: self-performance vs. a duty to bind/control a third party's conduct splits into two items even when the two verbs share an object phrase and a sentence subject, because the two performances do not share an actor. **v0.36 amends §4.2** — the resulting byte-identical spans (`C04-139`'s shared trailing object leaves neither item's minimal span shorter than the other's) break IoU's ability to discriminate between the two gold items, so a content-based tie-break on `action_accept_set` membership is added, falling through to ascending `item_id` when the tie-break itself is inconclusive. **v0.37 adds a
+**Version:** v0.41 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**. **v0.33 puts §9's dual denominator IN FORCE** on two independent grounds, adds §5 clause 5's number rule, §3.4's bounded freeze-pass exception, and the forward authoring rules §3.6 / §3.8.2 / §3.5.1 — **no annotation rule changed, no item restamped, no cassette stale**. **v0.34 records two MEASUREMENT corrections and changes no rule either** — §8.9's `on`/`until` rows and §15.3's loud-versus-silent class placement, both falsified by real model output from the compile-stage bottleneck investigation. **v0.35 adds §4.3.2** — a third splitting shape distinct from both existing §4.3 worked examples, reviewer-ruled at batch 3's `C04-139`: self-performance vs. a duty to bind/control a third party's conduct splits into two items even when the two verbs share an object phrase and a sentence subject, because the two performances do not share an actor. **v0.36 amends §4.2** — the resulting byte-identical spans (`C04-139`'s shared trailing object leaves neither item's minimal span shorter than the other's) break IoU's ability to discriminate between the two gold items, so a content-based tie-break on `action_accept_set` membership is added, falling through to ascending `item_id` when the tie-break itself is inconclusive. **v0.37 adds a
 recommended `object_class` naming convention to §4.3.2** — `self_` / `third_party_` prefixes over
 a shared root, so future flow-down splits land on visibly parallel labels rather than an
 unrelated pair invented fresh each time. **v0.38 adds §3.2.1** — present-tense self-executing
@@ -23,11 +23,160 @@ does, tagged `exception_unsupported`; names a small citable set of equivalent ma
 it, that §8.2's own "Rule" paragraph still names the pre-rename tag `unless_unsupported` —
 superseded at the original consolidation pass (§20.4 decision 5, 2026-08-22) but never
 corrected in §8.2's own prose.)
+**v0.41 change:** Four additions from batch 3's first three standard-queue candidates,
+`C11-046`, `C11-101`, and `C06-016` — three forward rule extensions, one MEASUREMENT
+CORRECTION. Neither
+restamps a locked item nor stales a cassette. **(1) §2.5 gains a generalizing note (§2.5.1)**:
+its "no monitorable stakes" test is confirmed to reach beyond `MAY`-shaped rights-reservations
+to `shall`-shaped clauses carrying the identical unreviewable-discretion character. `C11-046`'s
+*"The allocation of the Advertising Contribution between international, national, regional, and
+local expenditures shall be made by BKC in its sole business judgment"* is excluded not on
+grammar (`shall`, not `may`) but because *"in its sole business judgment"* leaves no standard
+BKC could be held to and no way the clause could ever be breached — the identical absence of
+monitorable stakes §2.5 already named for `C04-026`'s rights-reservation. Reviewer-ruled; cited
+as the confirming instance. **(2) §2.4's "6 segments, contained" claim is CORRECTED, not merely
+supplemented.** `C11-046`'s own corruption (`uncle` for `under`) matched neither of §2.4's two
+catalogued signatures, which is what motivated a dedicated re-sweep of document C11 — same
+rigor as the original detection pass, and validated against the six known instances before
+trusting any new output (Standing Principle 7's own discipline) — rather than logging a
+seventh isolated instance and moving on. **Corrected finding: the corruption class reaches 14
+of C11's 128 pool segments (10.9%), not 6**, and two of the original six (`C11-006`,
+`C11-063`) each carry a **second**, previously unrecorded corruption instance the original
+pass never logged. Full corrected table and methodology in §2.4. **(3) §8.8 gains a
+clarifying note (§8.8.1)**: its own copular "not an obligation clause at all" class
+(*"shall not be liable/entitled"*) is confirmed to cover the **negated-entitlement** form
+too — *"shall have no right of X"* / *"shall have any right of X...unless"* states a legal
+status, not commanded conduct, exactly like its affirmative counterpart; negation does not
+change which test applies. `C11-101`'s *"No Principal shall have any right of subrogation,
+repayment, reimbursement or indemnity whatsoever, unless and until the Obligations are paid or
+performed in full"* is the confirming instance; its trailing *"...and all debts owed by the
+Franchisee to any Principal are hereby subordinated to the Obligations"* independently
+excludes under the existing §3.2.1 hereby-performative class, no extension needed there.
+**(4) §3.8 gains a new subsection, §3.8.3**: a "belt-and-suspenders redundant condition
+restatement" — the same real-world circumstance stated twice, non-adjacently, sandwiching an
+obligation's verb and object — collapses to **one** `conditions` entry, chosen by a **hard
+positional tiebreak** (the occurrence structurally closest to the governing modal verb, never
+by "completeness" — the applicability gate that admits this section in the first place already
+requires every candidate occurrence to be informationally identical, so there is nothing left
+to compare on but position), with every non-winning occurrence recorded in `annotator_notes`
+rather than dropped. Introduces a new, optional field, `conditions_accept_set` (parallel
+list-of-lists indexed to `conditions`), so clause 7 accepts any non-winning occurrence's
+verbatim phrasing too — the first accept-set-shaped mechanism `conditions` has ever needed.
+Confirming instance: `C06-016`'s *"...shall be required, **if requested by the applicable
+counterparty**, to provide adequate assurance of future performance with respect to such Lease
+or Contract **if the applicable counterparty so requests**"*. §1's field table is updated to
+list the new field. `C06-016` is locked as `C06-01`, batch 3's sixth item. **(5) §2 gains an
+observational note, recorded not resolved**: a second batch-3 instance (`C14-139`, after
+`C17-077`) of a segment exceeding the 1-3 clause band without being a chained-single-sentence
+case — flagged so a third instance is recognized as a pattern rather than rediscovered, not
+acted on from two data points. `C14-139` is excluded rather than annotated, mechanically, on
+the identical band ground as `C17-077`; its two live judgment calls (§8.8.1 does not extend to
+genuine liability-retention/"remain responsible" language, which stays a real `MUST`; and a
+"comply with A, and also comply with B" sentence over two independently-breachable requirement
+sets splits into two items under §4.3, the `"notify and remedy"` shape not the
+`"deliver...and keep current"` one) are preserved as forward guidance in the exclusion's own
+log entry rather than cashed in on this segment, since eligibility is decided before content is
+adjudicated and the reviewer explicitly declined to let prior analysis on an item bias its own
+eligibility call. **(6) §2 gains §2.6**: self-containment is checked at sentence granularity,
+not segment granularity — a segment containing an orphan list fragment (`C04-024`/`C22-025`'s
+shape) is not disqualified wholesale merely because part of it lacks a subject/modal or depends
+on external content; it is annotated where a self-contained sentence is embedded inside the
+fragment-heavy enumeration, excluded only where the specific sentence itself fails the test.
+Confirming instance: `C13-017`, an orphan `(a)`–`(j)` enumeration wrapping two fully
+self-contained sentences inside item (h)'s text. Does not reopen `C04-024`/`C22-025` — a
+segment that is *only* orphan fragments is still excluded whole. **(7) §3.8 gains §3.8.4**: a
+third condition-counting shape, distinct from both §3.8.2 Rule B (independent conditions) and
+§3.8.3 (the identical fact restated as two condition-shaped phrases) — a phrase that passes the
+bare removal test in isolation but only restates scope a **non-condition-shaped** anchor
+elsewhere in the segment (a heading, a list-item label) already fixes is anaphoric scene-setting,
+not an independent gate, and is not entered as a second `conditions` entry. Confirming
+instance: `C13-01`'s span, where `"In such a situation"` restates item (h)'s own heading and
+`"upon request"` alone is the genuine, unanchored condition — caught on reviewer challenge
+after an initial draft entered both as separate conditions. **(8) §2.6 gains §2.6.1**: the
+1-3 clause-band over-count question, deferred at two prior instances, is answered with
+corpus-wide measurement rather than deferred a third time after `C14-028` became the third
+batch-3 instance. A proxy count (modal-bearing sentences per pool segment, the identical
+`_MODAL_RE` `enumerate_pool()` already uses) over all 1,547 pool segments finds a **12.6%
+corpus-wide baseline**, document-concentrated (0% to 25%+, `C14` at 18.3%/`n=153`, `C04` at
+16.0%/`n=181`, both meaningfully above the mean on real sample sizes). Batch 3's standard queue
+drew `C14` three times out of twelve candidates (25.0%) — disproportionate to its actual 9.9%
+corpus share by segment count (153/1,547 pool segments; 3.6% by document count) — which is
+sufficient on its own to explain two of the three over-band exclusions as document
+composition, not a segmenter or band defect. **Conclusion, evidence-backed rather than a
+guess: the 1-3 band is intentionally conservative and this rate is the accepted, expected cost
+of it** — not a case for segmenter tuning (no cutting defect found) or band narrowing (would
+trade this failure mode for more truncated segments, not an obvious improvement). `C04`/`C14`
+are named as documents expected to run a higher over-band rate than average going forward, so
+a future batch hitting the same pattern cites this section rather than re-investigating.
+**(9) §3.5 gains §3.5.4**: `obligee` assignment is modality-independent — §3.5's ordinary
+positional test governs `obligee` the same way for `MAY`/`SHOULD` as for `MUST`; `ABSENT` is
+reserved for a genuine absence of any named counterparty, not applied by default whenever
+modality isn't `MUST`. Confirming instance: `C13-041` (`C13-03`), the gold set's first
+`MAY`-modality item — *"Either party shall have the right to terminate this Agreement...upon
+written notice **to the other party**..."* — where `"the other party"` is named in-span and
+annotated as `obligee` on the identical positional ground §3.5.3 already uses to promote an
+in-span party for agentless passives. **(10) §3.5 gains a clarifying note (no new numbered
+subsection)**: an in-segment anaphoric antecedent from a non-adjacent sentence does **not**
+satisfy §3.5's in-span requirement for `obligor`/`obligee`, even where the real-world agent is
+contextually unambiguous — tested and held at `C14-044`'s S4 (`C14-05`), where *"such
+rescheduling"* unambiguously refers back to `NICE`'s discretion two sentences earlier, and
+`obligor` is annotated `ABSENT` rather than `NICE`. Deliberately a narrower boundary than
+§2.6/§3.8.4's segment-scoped extensions, since this feeds §5 clause 3's scored predicate
+directly; the strong contextual reading is recorded in `annotator_notes`, not acted on. Also
+records the first instance of a `MAY` clause's exercise-mechanism sitting in a **non-adjacent**
+sentence (`C14-044`'s S1/S4) rather than the same sentence (`C13-041`'s shape) — §3.1's
+contiguity rule means the mechanism cannot be folded into the `MAY` clause's own span, so it
+stands as its own item (`C14-05`) regardless of the `MAY` clause's own disposition, distinguished
+by citation from `C13-041`'s single-item case. *(Note, added at change (12) below: S1 itself was
+retracted under §2.5.1 — no monitorable stakes — after being briefly locked as `C14-03`, so this
+segment ends up with only the mechanism half, `C14-05`, standing as a locked item. The
+non-adjacency/contiguity principle stated here is unaffected by that retraction — it governs
+what happens when a `MAY`-plus-mechanism pair is split across sentences at all, independent of
+whether the `MAY` half itself clears §2.5.1.)* **(11) §3.8.1's
+marker-equivalence note is clarified**: the enumerated marker list is citation convenience for
+recognizing branch 3's test quickly, not an exhaustive whitelist requiring its own fresh
+reviewer ruling per new preposition — made explicit after `except where` became a **fifth**
+confirmed marker at `C02-045` (*"Except where AMAG is required by Applicable Law to account for
+any VAT..., Antares shall be solely responsible for..."*) without needing separate
+re-litigation; membership is decided by branch 3's own test (does the phrase narrow/remove the
+duty under a stated circumstance?), not by matching an entry already on the list. **(12)
+`C14-03` RETRACTED at batch verification, and §2.5.1 gains a negative worked example
+documenting it.** `C14-044`'s S1 was briefly locked as `C14-03` on the reasoning that its
+restricted scope ("already-issued POs only") supplied §2.5.1's required monitorable stakes —
+re-checked and found wrong: scope restriction is not monitorable stakes, and *"without any
+implication"* is at least as direct a no-stakes signal as `C11-046`'s "sole business judgment."
+`C14-03` is excluded under §2.5.1, the identical disposition as `C04-026`/`C11-046`; `C14-04`
+and `C14-05` (S3/S4 of the same segment) are confirmed independent of the retraction — neither
+item's own field values were ever derived from `C14-03` remaining locked — and the segment's
+clause count settles at 2, still comfortably within §2's 1-3 band. Two numeric errors in
+change (8)/§2.6.1 above are also corrected here, found during the same verification pass:
+`C14`'s corpus share was asserted as "~1.4%" without being checked and is actually **9.9%** by
+segment count (153/1,547), and `C14-028` was drawn as the **twelfth** standard-queue candidate,
+not the eleventh as originally written — both fixed in place per this document's own
+corrections-are-new-text discipline, not silently edited.
 **Created:** 2026-08-17
-**Status:** **23 items locked** — batch 1 complete (10), batch 2 at 8 of 10 with two
-items still undrawn, batch 3 at 5 of 10 (`C04-04`, `C04-05`, `C22-02`, `C10-01`, `C10-02` —
-all five drawn from the hard stratum; the hard queue is now fully walked, standard queue not
-yet started). The consolidation pass (§19.4) is **complete** (§20): all 16 proposals
+**Status:** **32 items locked** — batch 1 complete (10), batch 2 at 8 of 10 with two
+items still undrawn, **batch 3's draw target is FULLY MET: 10 of 10 segments locked**
+(3 hard + 7 standard, per `draw.json`'s own `"count": 10, "hard": 3` — 14 items total, since
+`C13-017` is this batch's only two-item segment; `C14-044` originally yielded three drafted
+items but now stands at two after `C14-03`'s retraction, change (12) above) — `C04-04`/`C04-05`
+(`C04-139`), `C22-02` (`C22-022`), `C10-01`/`C10-02` (`C10-016`), five items from three
+hard-stratum segments; plus `C06-01` (`C06-016`), `C05-01` (`C05-027`), `C13-01`/`C13-02`
+(`C13-017`), `C13-03` (`C13-041`, the gold set's **first `MAY`-modality item**), `C14-04`/
+`C14-05` (`C14-044`, `C14-03` retracted — see change (12)), `C02-04` (`C02-045`), and
+`E08-01` (`E08-005`), seven standard-queue segments, nine items. **Batch 3's own annotation
+work is complete; §7's held-out blinding/second-annotator process has not yet run.** The
+standard queue's first seventeen candidates run
+`C11-046`/`C11-101`/`C06-016`/`C17-077`/`E08-046`/`C14-003`/`C17-038`/`C14-139`/`C05-027`/
+`C06-022`/`C13-017`/`C14-028`/`C02-062`/`C13-041`/`C14-044`/`C02-045`/`E08-005` — seven
+segments locked (`C06-016`→`C06-01`, `C05-027`→`C05-01`, `C13-017`→`C13-01`+`C13-02`,
+`C13-041`→`C13-03`, `C14-044`→`C14-04`+`C14-05` (`C14-03` drafted, locked, then retracted —
+change (12)), `C02-045`→`C02-04`, `E08-005`→`E08-01`, all genuinely reviewer-approved —
+`C05-01` was briefly self-marked `APPROVED` without actual review, caught, reverted, then
+properly reviewed and approved before being restored here), the other ten logged as §2
+exclusions — see §2.6.1 for why three of those ten (`C17-077`, `C14-139`, `C14-028`) sharing
+the 1-3-band exclusion is expected, measured, document-composition-driven, not a segmentation
+concern). The consolidation pass (§19.4) is **complete** (§20): all 16 proposals
 ruled, every approved rule written into a live rule section, and **all 18 locked items
 conformed — every one now stamps `v0.28`**, verified by reading the items themselves.
 **As of v0.31 that stamp is no longer current for one item:** §8.3.1's amendment changes
@@ -342,6 +491,7 @@ Each item records:
 | `object_class` | annotated | + `object_class_accept_set` (§3.6) |
 | `temporal` | annotated | one of five forms, or `null` (§3.7) |
 | `conditions` | annotated | ordered list of verbatim strings (§3.8) |
+| `conditions_accept_set` | annotated | **optional**, parallel list-of-lists indexed to `conditions`; equivalent verbatim phrasings for a belt-and-suspenders redundant restatement (§3.8.3). Empty/absent for almost every item |
 | `underspecified` | annotated | bool (§3.9) |
 | `missing_fields` | annotated | reported, **excluded from the scoring predicate** |
 | `vague_temporal_phrase` | annotated | literal phrase or `null`; **not scored** (§15) |
@@ -371,6 +521,52 @@ compiler, not the segmenter.
 - Comes from born-digital text. No scanned/OCR'd filings — that would confound
   extraction quality with OCR quality.
 
+### 2.6 Self-containment is checked at sentence granularity, not segment granularity (v0.41 — REVIEWER-RULED)
+
+**An orphan list fragment with no self-sufficient content of its own is excluded** — that
+precedent (`C04-024`, `C22-025`: a list item opening mid-enumeration, e.g. *"(2) Reverse
+engineer..."*, with no subject or modal of its own and a governing stem outside the segment)
+was never written into this document as a rule, only established by exclusion-log citation,
+and stays exactly that narrow.
+
+**Confirming case, and the boundary this section actually draws** — `C13-017`: an
+orphan enumeration `(a)`–`(j)` (bare noun phrases — *"manufacturing, storage, and distribution
+of MOXATAG..."* — with no subject/modal of their own, the identical shape as `C04-024`) that
+nonetheless **wraps two fully self-contained sentences** embedded inside item (h)'s text
+(*"In such a situation, DD will make available to MBRK, upon request, all of DD's pertinent
+records on MOXATAG."*; *"Any and all reasonable and documented costs...shall be reimbursed by
+MBRK, except to the extent..."*). Neither embedded sentence needs anything from `(a)`–`(g)` or
+`(i)`/`(j)` to be understood — *"such a situation"* resolves entirely from item (h)'s own label
+and the second sentence's self-referential *"such recall or market withdrawal"*, both present
+in the same segment.
+
+**Rule.** §2's *"is self-contained"* eligibility test (and, by the same logic, whether a clause
+is obligation-bearing at all) is checked **per sentence, not per segment**. A segment
+containing an orphan list fragment is not disqualified wholesale merely because *some* of its
+content has no subject/modal of its own or depends on something outside itself — it is
+disqualified (whole, or in part) only where the **specific sentence being evaluated** fails the
+test. Where a segment contains both orphan fragments and self-contained sentences, annotate the
+self-contained ones normally and treat the orphan fragments as non-obligation content within an
+otherwise-good segment — do not exclude the whole segment, and do not force the orphan
+fragments into items they cannot support. This is the identical principle `C06-016`'s own
+eligibility check already applied (a segment is not disqualified by an incidental list marker
+that carries its own subject and modal) — reached here from the opposite direction: instead of
+one self-contained sentence happening to carry a marker, several non-self-contained fragments
+happen to surround self-contained sentences.
+
+**Distinguish from `C04-024`/`C22-025` precisely.** Those exclusions hold because the *entire*
+segment was one dependent fragment with nothing self-sufficient anywhere in it. This section
+does not reopen or soften that precedent — a segment that is *only* orphan fragments is still
+excluded whole, exactly as before. What changes is that "the segment contains an orphan
+fragment" is no longer read as sufficient by itself to exclude the whole segment when
+self-contained content also exists alongside it.
+
+**Expected to recur.** Enumerated lists wrapping a genuine sentence mid-item (typically to
+carve out an exception, a notice mechanism, or a payment term specific to that one list entry)
+are common commercial drafting, the same "expected to recur, decided by citation" posture
+`§2.5`, `§3.2.1`, `§4.3.2`, and `§3.8.1`'s marker-equivalence note all took at their own
+precedent-setting instances. No corpus-wide frequency has been measured.
+
 **A segment is excluded if any of the following hold:**
 
 | Exclusion | Reason |
@@ -382,6 +578,83 @@ compiler, not the segmenter.
 
 Excluded segments are recorded with their exclusion reason. They are **not** silently
 skipped — the exclusion log is part of the deliverable.
+
+### 2.6.1 The 1-3 band's over-count rate — MEASURED (v0.41), a third instance answered with corpus-wide evidence rather than deferred again
+
+**A second failure mode for the 1-3 band, distinct from the "4+ chained obligations in one
+sentence" row above.** Three batch 3 standard-queue segments have now exceeded the band
+without being chained-in-one-sentence at all: `C17-077` (a services-schedule table flattened
+into prose, 7+ clauses across separate bullets), `C14-139` (one coherent, well-formed
+multi-sentence subcontracting provision resolving to 6 clauses), and `C14-028` (a components-
+supply provision resolving to 5-7 clauses). `enumerate_pool()` only filters on length and modal
+presence (§2.1), so nothing upstream catches this; all three were caught at the annotation
+stage, mechanically. The first two instances were deliberately left unresolved, on the ground
+that two data points don't justify a design decision. **A third instance arrived, and this
+time the right response is to measure rather than defer a third time.**
+
+**Measured, not guessed: how common is this across the whole pool, and is it document-
+concentrated?** A proxy count — sentences per pool segment matching `_MODAL_RE` (the identical
+regex `enumerate_pool()` already uses to decide modal presence), computed via
+`corpus.split_sentences()` + `corpus.build_pool()` directly, no reimplementation — run
+against all 1,547 pool segments:
+
+| modal-bearing sentences per segment | count | % of pool |
+| --: | --: | --: |
+| 1 | 782 | 50.5% |
+| 2 | 376 | 24.3% |
+| 3 | 194 | 12.5% |
+| **4+** | **195** | **12.6%** |
+
+**The corpus-wide baseline is 12.6%, not a rare edge case** — roughly one pool segment in eight
+carries this shape, hard and standard strata alike (hard 51/408 = 12.5%, standard 144/1139 =
+12.6% — stratum is not a driver). This is a **proxy**, not an exact clause count: a
+modal-bearing sentence can still fail to be a genuine obligation-bearing clause (a copular
+`"shall be deemed"` sentence carries a modal but isn't obligation-bearing, e.g. `E08-046`
+today), so the true over-band rate by §2's own clause definition is not identical to 12.6% —
+but the proxy is applied identically pool-wide, so its *relative* signal (which documents run
+hot) is trustworthy even where its *absolute* number is approximate.
+
+**It is real, and it is document-concentrated, which is the more load-bearing finding.**
+Per-document rate ranges from 0% (`C07`, `C10`, `C18`, `C21`) to 25%+ on small-`n` documents,
+with `C14` — the document behind two of this batch's three real instances — at **28/153 =
+18.3%**, meaningfully above the corpus mean on a substantial sample, not a small-`n` fluke.
+`C04` (16.0%, `n=181`) is the other clearly-elevated large document. Batch 3's standard queue
+drew `C14` **three times** (`C14-003`, `C14-139`, `C14-028`) out of **twelve** candidates so
+far (25.0%) — disproportionate to `C14`'s **actual 9.9%** share of the pool by segment count
+(153/1,547; corrected here — an earlier draft of this section asserted "~1.4%" without
+verifying it, itself a small instance of the exact failure mode Standing Principle 7 exists to
+catch), and two of those three draws are exactly the two `C14` over-band exclusions. **This is sufficient
+to explain the batch's elevated exclusion run as sampling from a genuinely denser-than-average
+document, not as a segmentation defect or a mis-set band**: `corpus.split_sentences()` and
+`reconstruct_paragraphs()` are cutting real sentence boundaries correctly here (`C14-139` and
+`C14-028` are both coherent, well-formed prose, not fragments), so there is no evidence the
+segmenter itself is doing anything wrong.
+
+**Answering the three options §19.5-style, with the evidence rather than by default:**
+
+1. **Segmenter tuning** — not supported. Nothing in `C14-139`/`C14-028` shows a cutting defect;
+   both are single, well-formed provisions that are simply dense on their own terms.
+2. **Narrowing the 200-2,000 char band** — not supported by this evidence either, and would
+   cut against §2's own char-band rationale (`MAX_SEGMENT_CHARS` is 20,000; 200-2,000 is
+   already "far tighter on purpose"). A narrower band trades this failure mode for more
+   truncated/non-self-contained segments, not obviously a better trade.
+3. **The 1-3 band is intentionally conservative and a ~12-18% mechanical exclusion rate on
+   this specific failure mode is the expected, accepted cost of it** — **supported by this
+   measurement** and the one this document adopts. §2's own stated reason for the 1-3 band —
+   "IoU alignment degrades; one failure contaminates the segment" — is a real scoring-mechanism
+   concern, not an arbitrary number, and 12.6% pool-wide (higher in `C04`/`C14` specifically) is
+   the band correctly doing its job on real, measured density variation across the corpus, not
+   a defect to fix.
+
+**Consequence for future batches, stated so it doesn't need re-deriving:** documents `C04` and
+`C14` should be expected to produce a meaningfully higher over-band exclusion rate than the
+corpus average when drawn into a batch — this is a property of those documents' drafting
+density, confirmed by measurement, not noise. A batch drawing heavily from either should not
+trigger a fresh investigation into segmentation on that basis alone; this section is the
+citation. **Not resolved here: whether the exclusion log's high rate for *this specific batch*
+should itself be reported as a caveat on batch 3's own representativeness** — that is a
+reporting-layer question (§9/§19-shaped), not a segmentation or band question, and is left for
+whoever writes the harness's summary report.
 
 ### 2.1 Segment selection is drawn, not chosen
 
@@ -591,10 +864,10 @@ Agreement."* Corrupted tokens would enter a **scored** span with no value any ex
 could be right about — the failure would be logged against extraction quality while
 belonging entirely to the corpus.
 
-**Measured extent, and it is contained.** Two signatures — a word split by a stray space
-(excluding real one-letter words) and the confirmed `interest`→`merest` substitution —
-hit **6 of 1,547 pool segments (0.4%), every one of them in C11**, and **zero** in the
-other 27 documents:
+**~~Measured extent, and it is contained.~~ SUPERSEDED AT v0.41 — see the re-sweep below.**
+~~Two signatures — a word split by a stray space (excluding real one-letter words) and the
+confirmed `interest`→`merest` substitution — hit 6 of 1,547 pool segments (0.4%), every one
+of them in C11, and zero in the other 27 documents:~~
 
 | segment | corruption |
 | :--- | :--- |
@@ -605,14 +878,98 @@ other 27 documents:
 | `C11-063` | `use c` |
 | `C11-102` | `against o` |
 
-**No retroactive re-check is required.** Batch 1's locked `C11-01` was checked before this
+~~**No retroactive re-check is required.** Batch 1's locked `C11-01` was checked before this
 rule was written: clean in both its span and its full segment. C11 stays in the corpus —
 this is a per-segment exclusion, not a document retirement, and retiring a whole document
-over 0.4% of its segments would repeat §18.6's difficulty-correlated depletion for no gain.
+over 0.4% of its segments would repeat §18.6's difficulty-correlated depletion for no gain.~~
 
-**Standing consequence:** the six segment IDs above are excluded on sight in any future
+~~**Standing consequence:** the six segment IDs above are excluded on sight in any future
 draw, citing this section. A draw hitting one is logged as an exclusion, not silently
-re-picked (§2.1).
+re-picked (§2.1).~~ *(Struck rather than deleted, per this document's own
+corrections-are-new-text discipline. Both claims — the count and "contained" — are what the
+re-sweep below falsifies. C11-01's clean-check finding is not struck: it is re-verified below
+against the corrected list, independently, and still holds.)*
+
+#### 2.4.1 Re-sweep of C11, v0.41 — the "6, contained" claim was wrong
+
+**What triggered it.** Adjudicating batch 3's `C11-046` (standard queue) turned up
+*"sold in the Franchised Restaurant **uncle** a brand name"* — plainly a corruption of
+`under`, sitting inside the clause `C11-046`'s obligation-bearing span would otherwise cover.
+It matches **neither** of §2.4's two catalogued signatures (no stray-space word-split; no
+`interest`→`merest`-style substitution). Per this document's own Standing Principle 7 — a
+detector's "measured and contained" claim is not evidence until re-checked against a case
+that falsifies it — a seventh isolated instance was not simply logged and left; document C11
+was re-swept in full.
+
+**Method, and the known-answer check performed before trusting any new output (Standing
+Principle 7's own discipline).** Two independent detectors run against the full raw text of
+`C11.txt` (116,873 bytes) rather than against the enumerated pool alone, so nothing hides in
+prose the pool filter drops:
+
+1. A dictionary-hapax sweep — every alphabetic token checked against `/usr/share/dict/words`
+   (with a narrow inflection-suffix stripper: `-s/-es/-ed/-d/-ing/-ies/-ly`), unknown tokens
+   occurring exactly once inspected by hand against their surrounding context.
+2. A stray-single-letter-token sweep — every whitespace-delimited token that is exactly one
+   letter (excluding `a`/`I` and parenthesized list markers `(a)`, `(b)`, …) inspected the
+   same way.
+
+**Before trusting either detector's new output, both were run against the six already-known
+instances and confirmed to still find every one of them** — `los s`, `that t (he)`, `tern s`,
+`merest` ×2, `information o`, `use c (f)`, `against o (r)` were all independently recoverable
+by these two detectors, not merely re-confirmed by re-reading the original list. This is the
+check the original OCR-detector bug (`[a-hj-z]`, CLAUDE.md's Standing Principle 7 entry)
+skipped, and skipping it is exactly what let that bug ship.
+
+**Corrected finding: 14 of C11's 128 pool segments (10.9%), not 6 (0.4%) — nearly 2.5× the
+document's own hard-vs-standard stratum share, and the true rate is likely still a floor**,
+since both detectors miss corruption that happens to land on a real dictionary word by
+accident, and a third category — corruption in paragraphs the pool filter drops entirely
+(too long, too short, or no modal verb) — was also found (`availability o[f] labor`,
+`BKC a[s] required`, `Franchisee Parties shall l[?] appoint`) but does not affect the gold-set
+pool and is not tabulated here for that reason:
+
+| segment | corruption | status |
+| :--- | :--- | :--- |
+| `C11-005` | `los s` (→ loss) | original 6 |
+| `C11-006` | `that t he` (→ the) | original 6 |
+| `C11-006` | `alI` (→ all) | **NEW — second instance in an already-excluded segment** |
+| `C11-010` | `Franchise d Restaurant` (→ Franchised) | **NEW** |
+| `C11-029` | `suppler` (→ supplier) | **NEW** |
+| `C11-041` | `t e Franchisee's` (→ the) | **NEW** |
+| `C11-044` | `; ny payment` (→ any) | **NEW** |
+| `C11-046` | `uncle a brand` (→ under) | **NEW — the triggering instance** |
+| `C11-049` | `tern s` (→ terms), `merest` ×2 (→ interest) | original 6 |
+| `C11-055` | `information o` (→ information or) | original 6 |
+| `C11-059` | `an d not to permit` (→ and) | **NEW** |
+| `C11-063` | `use c f` (→ use of) | original 6 |
+| `C11-063` | `illegal se` (→ use) | **NEW — second instance in an already-excluded segment** |
+| `C11-073` | `lt is understood` (→ It), `ln the event` (→ In) | **NEW** |
+| `C11-075` | `LNTEREST` (→ INTEREST, in a section heading) | **NEW** |
+| `C11-102` | `against o r` (→ against or) | original 6 |
+
+**14 distinct segment IDs** carry at least one instance (`C11-006` and `C11-063` each carry
+two, one already known and one newly found, so the row count above is 16 against 14 unique
+segments). Every instance is in document C11; the corpus-wide "zero in the other 27
+documents" claim is not re-tested here — this re-sweep is scoped to C11 per the instruction
+that produced it — and stays unverified rather than reasserted.
+
+**Re-verified, not merely carried forward: batch 1's locked `C11-01` (segment `C11-094`) is
+not among the 14** and remains clean under the corrected list, the same conclusion the
+original (now-superseded) claim reached by a narrower check. No locked item requires
+conforming.
+
+**Why this is a correction to evidence, not a rule change** — the identical framing v0.34
+used for §8.9's `on`/`until` rows. §2.4's *rule* (a segment carrying character-level OCR
+corruption is excluded) is untouched and was never in question; only its own measurement of
+how far the class reaches was wrong, in the same "detector under-reports because it was
+never checked against a case it doesn't handle" shape as the `[a-hj-z]` bug this document
+already carries as a named cautionary instance.
+
+**Standing consequence, corrected.** All **14** segment IDs in the table above — not 6 — are
+excluded on sight in any future draw, citing this section. A draw hitting one is logged as an
+exclusion, not silently re-picked (§2.1). `C11-044` is already sitting, undrawn, in batch 2's
+paused standard queue (`apps/brain/evals/goldens/batch02/draw.json`) — if batch 2 resumes and
+reaches it, it excludes under this section rather than being annotated.
 
 ### 2.2 Hard-document stratum
 
@@ -669,6 +1026,61 @@ boilerplate is extremely common contract drafting, independent of this document.
 frequency has been measured; recorded as a rule now so the next instance is decided by citation
 rather than re-litigated, the same posture §4.3.2 and §3.2.1 both took at their own
 precedent-setting instances.
+
+#### 2.5.1 The test reaches `shall`-shaped discretion clauses too, not only `MAY`-shaped ones (v0.41 — REVIEWER-RULED)
+
+**This section's own real test was already stated as principle, not grammar** — "does the
+clause have a future state worth monitoring," not "is it phrased with `may`." §2.5's worked
+example happened to be `MAY`-shaped (`C04-026`'s "reserves the right to"), which left it
+untested whether the principle actually reaches a differently-phrased clause with the same
+character. It does.
+
+**Confirming case** — `C11-046`: *"The allocation of the Advertising Contribution between
+international, national, regional, and local expenditures **shall be made by BKC in its sole
+business judgment**."* Grammatically this is `shall`, not `may` — §3.2's table maps `shall` to
+`MUST` — and unlike §3.5.3's agentless-passive class, the sentence names an explicit by-agent
+(`by BKC`), so it is not excluded on that ground either. What excludes it is the **same
+absence of monitorable stakes** §2.5 already named: *"in its sole business judgment"* is
+explicit, unreviewable-discretion language. There is no standard BKC's allocation could be
+measured against, and therefore no way the clause could ever be breached — the identical
+structural absence (no deadline, no correlative party, no condition whose satisfaction a
+monitor could observe) `C04-026`'s reservation had, reached here through a `shall`-phrased
+duty-to-decide rather than a `may`-phrased right-to-act.
+
+**Rule, stated so the next instance is decided by citation.** §2.5's exclusion is not scoped
+to `MAY`-shaped clauses. Any clause — whatever its modal verb — that vests a party with
+**unreviewable discretion and no correlative party, deadline, or gating condition capable of
+being observed as satisfied or breached** is excluded under §2's "party's right, no
+correlative duty" row on the identical monitorable-stakes ground, regardless of whether the
+clause is phrased as a right (`may`) or as a duty-to-decide (`shall`/`must`). The modal verb
+decides `modality` (§3.2) when a clause is annotated at all; it does not decide whether the
+clause clears this exclusion in the first place.
+
+**Not decided by "sole discretion" alone**, the identical caveat §2.5 already applies to
+"reserves the right to." A `shall`-clause paired with a *reviewable* standard (*"BKC shall
+allocate the Contribution in proportion to Gross Sales"*) or a correlative party stake (*"BKC
+shall notify Franchisee of the allocation within 30 days"*) is annotated normally — what
+excludes `C11-046` is the combination of an explicit unreviewable-discretion marker and the
+absence of anything else a monitor could observe, not the word "discretion" by itself.
+
+**A worked negative example, found by misapplying this section rather than by reading it
+correctly the first time (v0.41).** `C14-044`'s S1 — *"NICE may, at its discretion, reschedule
+delivery of units of Products for which a PO has already been issued, by shortening the Due
+Date, **without any implication**"* — was briefly drafted and locked as its own item (`C14-03`)
+on the reasoning that a **restricted scope** ("only already-issued POs") supplied the
+monitorable stakes this section requires. That reasoning does not survive re-reading this
+section's own test: **scope restriction (which instances a permission covers) is not the same
+thing as monitorable stakes (whether an exercise can be checked against a standard).** No
+correlative party is named in S1's own span (same as `C04-026`/`C11-046`), no deadline exists,
+and *"without any implication"* is at least as direct a no-monitorable-stakes signal as
+`C11-046`'s *"sole business judgment"* — arguably more direct, since it states in terms that
+exercising the discretion carries no consequence at all. Caught at batch verification, not at
+original drafting; `C14-03` is retracted and S1 is excluded under this section, the identical
+disposition as `C04-026`/`C11-046`. Recorded here, deliberately, as a **negative** worked
+example — restricted scope is *evidence worth noticing* but is not itself sufficient to clear
+this section's test, and the next annotator tempted to treat "not unrestricted" as "therefore
+monitorable" should check for an actual correlative party, deadline, or observable gating
+condition before relying on scope alone.
 
 ---
 
@@ -814,6 +1226,48 @@ faithfully representing what the document actually says.
 
 Do **not** infer a party from elsewhere in the document. If it isn't in the span, it's
 `ABSENT`.
+
+**Tested and held (v0.41):** an in-segment anaphoric antecedent from a non-adjacent sentence
+does **not** satisfy this rule's in-span requirement, even where the real-world agent is
+obvious from context — `"such rescheduling"` unambiguously pointing back to an earlier
+sentence's named actor is not the same as that actor appearing in `span_text`. This rule's
+span-scoped strictness is deliberate and stays deliberate: it is a different, more
+consequential boundary than §2.6/§3.8.4's segment-scoped eligibility and condition-counting
+extensions, because it feeds §5 clause 3's scored predicate directly rather than an eligibility
+or count decision, and "the anaphora seems unambiguous here" does not stay clean at the next
+instance once admitted once. See `C14-044`'s S4 for the confirming instance — considered and
+declined, `obligor: ABSENT`, the strong contextual reading recorded in `annotator_notes`
+instead of acted on.
+
+### 3.5.4 `obligee` assignment is modality-independent (v0.41 — REVIEWER-RULED)
+
+**The first `MAY`-modality item in the gold set**, and the first time this question could even
+arise: does a permission (`MAY`) get an `obligee` the same way a duty (`MUST`) does, or is
+`ABSENT` the default whenever modality isn't `MUST`, on the reasoning that a right isn't "owed"
+to anyone the way a duty's performance is?
+
+**Motivating case** — `C13-041`: *"Either party shall have the right to terminate this
+Agreement effective upon written notice **to the other party** in the event the non-notifying
+party becomes insolvent..."* `"the other party"` is named in-span, both as the recipient of
+the termination notice and as the party actually affected by the termination being exercised.
+
+**Rule, stated so it needs no re-deriving at the next `MAY`/`SHOULD` item.** §3.5's test —
+*"annotate the party alias exactly as it appears inside `span_text`"*, positional, not
+modality-conditioned — governs `obligee` **identically regardless of `modality`**. `obligee`
+names the party toward whom the clause's right or duty runs, not specifically "who is owed a
+`MUST`." A `MAY`-modality right exercised against a specific named counterparty gets that
+counterparty as `obligee`, on the same positional ground §3.5.3 already promotes an in-span
+party to `obligee` for an agentless passive. `ABSENT` is reserved for a **genuine absence of
+any named counterparty** — `C04-026`'s unrestricted rights-reservation is `ABSENT` (excluded
+entirely under §2.5, in fact) precisely because it names no correlative party at all, not
+because it is `MAY`-shaped. Modality decides which of the four values goes in the `modality`
+field; it does not decide which field-assignment rule applies to `obligor`/`obligee` — those
+stay §3.5's ordinary positional test throughout.
+
+**Not a license to invent a counterparty for every `MAY`.** Where a permission genuinely names
+no one it runs against (a broad self-directed right, `C04-026`'s own shape), `obligee` stays
+`ABSENT` — this section changes nothing about that outcome, only about *why* it's `ABSENT`:
+absence of a named party, never absence of a `MUST`.
 
 ### 3.6 `object_class` — open vocabulary, accept-set required
 
@@ -1073,10 +1527,25 @@ carve-out is not absorbed into `conditions`; the full text is recorded verbatim 
 re-litigated: this was never about the word "unless."** It is about a **semantic category** — a
 carve-out that narrows or removes an otherwise-stated duty under a stated circumstance — which
 `packages/ir-spec/SPEC.md` §6's frozen no-exception-construct decision makes unrepresentable in
-IR v1 regardless of which English marker introduces it. A small, non-exhaustive set of markers
-known to carry this class, named here so a future annotator reaches for the pattern rather than
-the literal word: **`unless`, `except to the extent`, `save where`, `other than in cases
-where`.** The `except that / as / for / to the extent` row in the table above is already a
+IR v1 regardless of which English marker introduces it.
+
+**The test IS the rule; the list below is citation convenience, not a whitelist (made
+explicit v0.41, after `except where` became a fifth confirmed marker at `C02-045` without
+needing its own fresh re-litigation).** Membership in branch 3 is decided by branch 3's own
+test — *does this phrase state a circumstance that removes or narrows the duty?* — applied to
+whatever English marker introduces it. A marker matching the *shape* of an entry already on the
+list below is not required for branch 3 to apply, and a marker's mere absence from the list is
+not grounds to re-derive the test from scratch or to demand a fresh reviewer-ruled instance
+before applying it — that demand was reasonable exactly once, to confirm the test actually
+holds in practice beyond `unless` (§20.4/`C10-016`), and the confirmation generalizes. The list
+exists so a future annotator recognizes the pattern quickly by example, not so every new
+preposition needs to join it by ceremony. A small, non-exhaustive set of markers known to carry
+this class, named here for quick recognition rather than as an exhaustive test: **`unless`,
+`except to the extent`, `save where`, `other than in cases where`, `except where`** (the fifth,
+confirmed at `C02-045`: *"Except where AMAG is required by Applicable Law to account for any
+VAT..., Antares shall be solely responsible for..."* — narrows Antares's payment duty under the
+stated AMAG-accounts-for-it-instead circumstance, the identical shape as the other four). The
+`except that / as / for / to the extent` row in the table above is already a
 measured pool pattern at 7.7% (119 segments) — this ruling is what confirms its branch-3
 disposition; `save where` and `other than in cases where` are not yet measured in this corpus
 and are recorded by citation only, the same posture §4.3.2 and §3.2.1 took at their own
@@ -1091,6 +1560,150 @@ rename. `exception_unsupported` is the tag in actual use — by both locked item
 `evals/harness/report.py`'s `GAP_DIRECTION` map — and is the one this section uses throughout.
 Left as a note here rather than an edit to §8.2's original text, per this document's own
 corrections-are-new-text discipline.
+
+### 3.8.3 Belt-and-suspenders redundant condition restatements (v0.41 — REVIEWER-RULED)
+
+**A different shape from both §3.8.2 rules, and from §4.3.1's restatement rule.** §3.8.2 Rule B
+splits **adjacent, distinct** circumstances into separate entries; §4.3.1 handles a whole
+**obligation** stated twice in one segment. Neither covers a single condition — one real-world
+circumstance — stated **twice, non-adjacently**, sandwiching the obligation's verb and object,
+common in drafting that tracks a statutory formula and then adds a belt-and-suspenders echo.
+
+**Motivating case** — `C06-016`: *"the designee...shall be required, **if requested by the
+applicable counterparty**, to provide adequate assurance of future performance with respect to
+such Lease or Contract **if the applicable counterparty so requests**;"* Both bracketed phrases
+state the identical triggering fact (the counterparty's request); the second is an anaphoric
+echo of the first ("so requests" refers back to the same request already named), not an
+independent circumstance the removal test (§3.8.2) would find non-redundant if deleted only
+once — deleting *either* phrase still leaves the condition stated once, whereas deleting a
+genuine §3.8.2 Rule B pair (`C11-094`'s two distinct circumstances) removes information both
+times.
+
+**Applicability gate, checked before any tiebreak is needed.** This section fires **only** when
+every candidate occurrence states the identical real-world circumstance with **no
+informational difference** between them — the removal test (§3.8.2) applied to *each*
+occurrence independently must find the *other(s)* redundant, not merely similar. If one
+occurrence carries any detail the other lacks (a sub-condition, a qualifier, a deadline, a
+narrower scope), they are **not** a belt-and-suspenders pair: this section does not apply, and
+the two are either two genuine §3.8.2 Rule B entries (if both independently gate the duty) or
+the single more-detailed phrasing is simply the one true `conditions` entry, with the vaguer
+phrasing noted in `annotator_notes` as imprecise but not entered as a second condition. This
+gate is what makes the tiebreak below purely mechanical: **because §3.8.3 only ever compares
+occurrences that are informationally identical by its own admission criterion, "which one is
+more complete" can never be a live question inside this section** — there is nothing left to
+compare on except position.
+
+**Rule — collapses to one `conditions` entry, chosen by a hard positional tiebreak.** Quote the
+occurrence **structurally closest to the clause's own governing modal verb** (the verb recorded
+in `modality`, §3.2) — measured as the shorter character distance from the end of the modal
+phrase to the start of each candidate occurrence in `span_text`. This is not a default or a
+usual case: it is the rule, unconditionally, for every occurrence count. With three or more
+redundant occurrences, the same measurement picks one winner (the modal-nearest) and every
+other occurrence — not just the runner-up — goes into `conditions_accept_set[i]` together. In
+the vanishingly unlikely case of an exact tie in modal-distance, the occurrence with the
+earlier character offset in `span_text` wins, so the outcome is always deterministic and never
+depends on annotator taste. Apply §3.8.2 Rule A's quote-extent convention to whichever
+occurrence wins. Record every non-winning occurrence verbatim in `annotator_notes`, exactly as
+§4.3.1 records a restated obligation's redundant span — **not scored, not silently dropped.**
+Do not record more than one occurrence as a `conditions` entry: they are one real-world
+circumstance, and recording more than one would assert an implicit-AND over a single fact
+rather than count multiple circumstances, which is what count-sensitive clause 7 exists to
+measure.
+
+**Why modal-distance and not, say, clause order or length.** Clause order was considered and
+rejected: in `C06-016` the modal-nearest occurrence also happens to be the earlier one, but
+nothing guarantees that in general (a differently-ordered sentence could easily place the
+modal-nearest phrase second). Length/"completeness" was considered and rejected for the reason
+the applicability gate above states directly: within this section's own scope, every candidate
+is informationally identical, so length differences (if any) reflect phrasing verbosity, not
+information content, and are not a principled basis for a choice that must be reproducible by a
+different annotator reading the same sentence cold. Modal-distance is chosen because it is the
+one property that is always computable directly from the text, never requires a semantic
+judgment, and tracks the linguistically natural reading — the occurrence syntactically bound to
+the operative clause is the "real" one; a trailing echo is definitionally the more detachable of
+the two.
+
+**The scoring risk this creates, and the mechanism that closes it.** A real extraction may
+reasonably quote *either* phrasing — nothing about the sentence privileges one occurrence over
+the other from a model's perspective, only gold's own quote-extent convention (§3.8.2 Rule A)
+does. Scoring gold's chosen phrasing by exact string match alone would fail a correct
+extraction that happened to quote the other occurrence, a clause-7 miscount caused by the
+document's own redundant drafting rather than by extraction quality — the identical shape of
+risk §3.4/§3.6/§3.5.1's accept-sets exist to close for `action`/`object_class`/`obligor`, not
+previously needed for `conditions` because no locked item before this one carried a redundant
+restatement.
+
+**Mechanism — a new, optional `conditions_accept_set` field, not a rewrite of `conditions`
+itself.** `conditions` stays exactly what §3.8 already defines: an ordered list of canonical
+verbatim strings, order-insensitive/count-sensitive at scoring. `conditions_accept_set` is a
+parallel list of the same length and order; `conditions_accept_set[i]` holds zero or more
+**additional** verbatim substrings of `span_text` that are accepted as equivalent phrasings of
+`conditions[i]`'s same real-world circumstance — here, `conditions_accept_set[0] = ["the
+applicable counterparty so requests"]`. Absent or empty for every existing locked item and for
+the overwhelming majority of future ones; this is not a general paraphrase-tolerance mechanism
+and must not be used to admit a phrasing that states a genuinely different circumstance —
+that stays a straightforward mismatch. **Scoring (clause 7):** a predicted condition string
+matches gold entry `i` if it equals (whitespace-normalized) either `conditions[i]` or any
+member of `conditions_accept_set[i]`; the **count** that clause 7 checks is still `len(conditions)`,
+unaffected by how many accepted phrasings any entry carries.
+
+**Why not treat this as already covered by §3.8.2 Rule A's quote-extent flexibility.** Rule A
+governs where a *single* quote's boundary starts (trimming a leading `further`/`and`); it says
+nothing about choosing between two textually distinct substrings elsewhere in the sentence that
+express the same fact. The two phrases here differ in more than boundary — different words
+entirely (`"if requested by..."` vs `"...so requests"`) — so Rule A's mechanism does not reach
+this case, and a purpose-built accept-set is the narrower, more honest fix.
+
+**Forward-only.** Governs items annotated from batch 3 onward; restamps no locked item
+(none of the 18 carries this shape); no cassette goes stale (an annotation-schema addition,
+not a prompt or model change). `§1`'s field table gains `conditions_accept_set` as an
+optional field pointing here.
+
+### 3.8.4 Context-setting anaphora is not an independent condition (v0.41 — REVIEWER-RULED)
+
+**A third shape, distinct from both §3.8.2 Rule B (two genuinely independent conditions) and
+§3.8.3 (the identical fact stated twice as two condition-shaped phrases).** Here, a phrase
+that *looks* like a condition and passes §3.8.2's bare removal test in isolation is actually
+parasitic on scope **already fixed elsewhere in the segment by non-condition-shaped text** — a
+list-item heading, a topic label, or the sentence's own position inside a labeled block —
+rather than adding a genuinely new, independently variable restriction.
+
+**Motivating case** — `C13-01`'s span (`C13-017`): *"**In such a situation**, DD will make
+available to MBRK, **upon request**, all of DD's pertinent records on MOXATAG."* — embedded
+directly after item `(h) handling all voluntary recalls and market withdrawals of MOXATAG` in
+an enumerated list (§2.6). The bare removal test says both bracketed phrases are conditions:
+deleting either changes when the duty applies. But `"In such a situation"` restates a scope
+item (h)'s own heading **already fixes** for this whole block — delete the phrase and leave the
+sentence positioned right after that heading, and a reader still understands the duty as
+scoped to recall-handling, because the heading did that work already. `"upon request"` has no
+such anchor anywhere else in the segment; it is the only place anything makes DD's
+record-sharing conditional on MBRK actually asking.
+
+**Rule — the two-anchor removal test.** Before entering a candidate phrase as its own
+`conditions` entry, check whether **some other part of the same segment — not itself a
+condition-shaped phrase — already, independently states the identical restriction**
+(a heading, a preceding topic sentence, an enumeration label the clause sits under). If yes,
+the candidate is anaphoric scene-setting: it is **not** entered as a separate `conditions`
+entry, and is recorded in `annotator_notes` instead, same "not scored, not silently dropped"
+treatment §3.8.3 and §4.3.1 already give their own non-scored redundant text. If no such
+independent anchor exists anywhere in the segment, the candidate is a genuine condition under
+the ordinary §3.8.2 test.
+
+**Why this is not §3.8.3.** §3.8.3 fires when **two condition-shaped phrases** state the
+identical fact — both readable as candidate `conditions` entries on their own. Here the anchor
+(item (h)'s heading) is not condition-shaped at all — it is a list-item label, never itself a
+candidate for `conditions` — so §3.8.3's applicability gate (informationally identical
+*condition* occurrences) does not fire, and this needed its own test.
+
+**Why this matters for scoring, not just tidiness.** Double-counting a restated-by-position
+phrase as an independent condition would make count-sensitive clause 7 fail a correct
+extraction that reasonably reads the duty as having one real gate (`"upon request"`), the
+identical shape of extraction-quality-unrelated miscount §3.8.3 exists to prevent — reached
+here through redundant *structure* rather than redundant *phrasing*.
+
+**Expected to recur wherever §2.6 applies** — an obligation embedded inside a labeled
+enumeration item is exactly the shape where a sentence echoes its own heading's scope in
+passing. No corpus-wide frequency measured; decided by citation going forward.
 
 ### 3.9 `underspecified`
 
@@ -1849,6 +2462,40 @@ finding and must not be reported as one.
 
 **No locked item carries this tag yet** — `dispose` (`C02-049`) and `analyze` (`C04-118`) both
 sit in segments excluded under §2, so the first real instance is still ahead.
+
+#### 8.8.1 Negated entitlement is the same copular class as affirmative entitlement (v0.41 — REVIEWER-RULED)
+
+**The class this section names — *"not an obligation clause at all (copular 'shall not be
+liable/entitled', non-party subject, Agreement-as-subject)"* — was stated and measured only in
+its affirmative-modal form.** Every worked instance on record (`C04-163`'s *"shall not be
+responsible for payments"*, this section's own table row) negates the **verb** (`shall NOT be
+liable`) while asserting a status. Left untested was the mirror construction: a clause that
+negates the **object of possession** instead (*"shall have **no** right of X"* /
+*"shall have any right of X...unless"*) while keeping the verb affirmative. Grammatically these
+look different — one has "not" before the copula, the other doesn't — but the test this class
+applies was never about where the negation sits.
+
+**Confirming case** — `C11-101`: *"(c) No Principal shall have any right of subrogation,
+repayment, reimbursement or indemnity whatsoever, unless and until the Obligations are paid or
+performed in full..."* This states a legal status (a Principal does not currently hold
+subrogation rights) rather than commanding or forbidding any party's conduct — nobody is being
+told to do, or to refrain from doing, an act. That is the identical question `C04-163`'s
+already-excluded clause answers the same way, just phrased as "shall have no right" rather than
+"shall not be entitled."
+
+**Rule, stated so the next instance is decided by citation.** §8.8's copular "not an obligation
+clause at all" class covers a clause asserting a party's legal status, right, or liability
+**regardless of which word carries the negation** — `"shall not be liable/entitled to X"` and
+`"shall have no right of X"` / `"shall have any right of X...unless"` are the same shape.
+Negation placement does not decide the class; what decides it is the removal test this class
+has always applied: does the clause command or forbid **conduct**, or does it describe a
+**status**? A negated-entitlement clause commanding no conduct fails the same way its
+affirmative counterpart does.
+
+**Does not exclude a genuine `MUST_NOT`-on-conduct clause that happens to use "have."**
+*"Franchisee shall not have any employee operate machinery without training"* commands
+conduct (who may operate what) and is not excluded by this note — the test is what the clause
+asserts, not the presence of the verb "have."
 
 ### 8.2 `UNLESS`-dependent clauses (v0.10)
 

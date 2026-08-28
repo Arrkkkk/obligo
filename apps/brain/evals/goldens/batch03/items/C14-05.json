@@ -1,0 +1,47 @@
+{
+  "item_id": "C14-05",
+  "doc_id": "C14",
+  "segment_id": "C14-044",
+  "stratum": "standard",
+  "segment_text": "3.6. RESCHEDULING OF RELEASED ORDERS. NICE may, at its discretion, reschedule delivery of units of Products for which a PO has already been issued, by shortening the Due Date, without any implication. In this respect, Contractor is aware that by the last three weeks of every calendar Quarter, a high level of flexibility is required to meet NICE' end of Quarter requirements. Contractor will perform its best reasonable commercial efforts to complete such rescheduled Products at the new requested Due Date. All such rescheduling shall be performed by sending Contractor a written request for rescheduling.",
+  "span_char_start": 509,
+  "span_char_end": 607,
+  "span_text": "All such rescheduling shall be performed by sending Contractor a written request for rescheduling.",
+  "modality": "MUST",
+  "action": "NOTIFY",
+  "action_accept_set": [
+    "NOTIFY"
+  ],
+  "obligor": "ABSENT",
+  "obligee": "Contractor",
+  "object_class": "rescheduling_request",
+  "object_class_accept_set": [
+    "rescheduling_request",
+    "written_rescheduling_request"
+  ],
+  "temporal": null,
+  "conditions": [],
+  "underspecified": true,
+  "missing_fields": [
+    "obligor"
+  ],
+  "vague_temporal_phrase": null,
+  "redacted_phrase": null,
+  "known_gaps": [],
+  "annotator_confidence": "AMBIGUOUS",
+  "annotated_at": "2026-08-28T00:32:00+00:00",
+  "rules_cited": [
+    "2",
+    "3.1",
+    "3.2",
+    "3.5",
+    "3.5.3",
+    "3.6",
+    "3.9"
+  ],
+  "guideline_version": "v0.41",
+  "annotator_notes": "STRUCTURAL PRECEDENT, NEW THIS SESSION: this segment's S1 ('NICE may, at its discretion, reschedule delivery...') has its exercise-mechanism stated in a NON-ADJACENT sentence (S2 and S3 -- the acknowledgment sentence and the efforts-duty sentence -- sit between S1 and this one), unlike C13-041 where the mechanism ('effective upon written notice') sat in the SAME sentence as the MAY right and could be folded into one item's span. Section 3.1's contiguity requirement means S1's span cannot be widened to reach this sentence, so the mechanism is its own SEPARATE item on the procedural duty rather than being merged into S1's or discarded. Distinguish from C13-041's same-sentence case: there, one item; here, structurally forced into two (independent of S1's own eligibility as an item -- see below).\n\nOBLIGOR -- ESCALATED, REVIEWER-RULED, TESTED AND HELD (section 3.5's new clarifying note, this session): 'NICE' does not appear anywhere in this sentence's own span. The real-world agent is almost certainly NICE (the only party exercising the S1 rescheduling right that 'such rescheduling' anaphorically refers back to), and this was explicitly considered and DECLINED as a basis for naming NICE as obligor -- section 3.5's span-scoped in-span requirement holds even for an unambiguous-seeming in-segment anaphoric antecedent from a non-adjacent sentence, a different and more consequential boundary than section 2.6/3.8.4's eligibility/condition-counting extensions since this feeds section 5 clause 3's scored predicate directly. obligor: ABSENT, underspecified: true, missing_fields: ['obligor'] -- the same honest-gap treatment as any other unresolvable party, with the strong contextual reading (NICE) recorded here rather than acted on. This reasoning depends only on S1's TEXT being present in segment_text (which it is), not on S1 being separately annotated as its own item -- unaffected by S1's retraction below.\n\nOBLIGEE: 'Contractor' is named in-span ('by sending Contractor a written request'), positionally satisfying section 3.5's test directly -- no ABSENT here, this party value is uncontroversial.\n\nACTION: 'sending...a written request for rescheduling' maps cleanly to NOTIFY, exact taxonomy match, no gap tag.\n\nS1 IS NOT A SIBLING ITEM: it was briefly locked as C14-03 and RETRACTED at batch verification -- excluded under section 2.5.1 (no monitorable stakes; 'without any implication' is a direct no-stakes signal, the same disposition as C04-026/C11-046). Full retraction reasoning in C14-04's annotator_notes. See C14-04 (S3) for this same segment's other item.",
+  "reviewer_status": "APPROVED",
+  "obligor_accept_set": [],
+  "adjudicated_by": "reviewer"
+}

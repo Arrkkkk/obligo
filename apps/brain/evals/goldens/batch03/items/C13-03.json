@@ -1,0 +1,62 @@
+{
+  "item_id": "C13-03",
+  "doc_id": "C13",
+  "segment_id": "C13-041",
+  "stratum": "standard",
+  "segment_text": "(b) Either party shall have the right to terminate this Agreement effective upon written notice to the other party in the event the non-notifying party becomes insolvent or makes an assignment for the benefit of creditors, or in the event bankruptcy or insolvency proceedings are instituted against the non-notifying party or on the non-notifying party's behalf.",
+  "span_char_start": 4,
+  "span_char_end": 362,
+  "span_text": "Either party shall have the right to terminate this Agreement effective upon written notice to the other party in the event the non-notifying party becomes insolvent or makes an assignment for the benefit of creditors, or in the event bankruptcy or insolvency proceedings are instituted against the non-notifying party or on the non-notifying party's behalf.",
+  "modality": "MAY",
+  "action": "TERMINATE",
+  "action_accept_set": [
+    "TERMINATE"
+  ],
+  "obligor": "Either party",
+  "obligee": "the other party",
+  "object_class": "agreement",
+  "object_class_accept_set": [
+    "agreement",
+    "contract"
+  ],
+  "temporal": {
+    "form": "RELATIVE_TO_TRIGGER",
+    "direction": "after",
+    "trigger": "written notice to the other party"
+  },
+  "conditions": [
+    "in the event the non-notifying party becomes insolvent or makes an assignment for the benefit of creditors, or in the event bankruptcy or insolvency proceedings are instituted against the non-notifying party or on the non-notifying party's behalf"
+  ],
+  "underspecified": true,
+  "missing_fields": [
+    "temporal.trigger"
+  ],
+  "vague_temporal_phrase": null,
+  "redacted_phrase": null,
+  "known_gaps": [
+    "relative_trigger_preposition"
+  ],
+  "annotator_confidence": "AMBIGUOUS",
+  "annotated_at": "2026-08-28T00:15:00+00:00",
+  "rules_cited": [
+    "2",
+    "2.5",
+    "3.1",
+    "3.2",
+    "3.4",
+    "3.5",
+    "3.5.1",
+    "3.5.4",
+    "3.6",
+    "3.7",
+    "3.8",
+    "3.9",
+    "8.9",
+    "17.2"
+  ],
+  "guideline_version": "v0.41",
+  "annotator_notes": "FIRST MAY-MODALITY ITEM IN THE GOLD SET -- checked directly, no prior locked item across any batch carries this modality. Genuine termination-for-cause right with real monitorable stakes (correlative party, triggering insolvency event, written-notice mechanism), so section 2.5.1's 'no monitorable stakes' exclusion does not reach it -- this is precisely the shape section 2.5's own worked example ('Customer may terminate for cause within 30 days') describes as annotatable, unlike C04-026's unrestricted, no-correlative-party rights-reservation.\n\nOBLIGEE -- ESCALATED, REVIEWER-RULED (new section 3.5.4, this session): 'the other party' is named in-span as both the notice recipient and the party affected by the termination, and is annotated as obligee under section 3.5's ordinary positional test -- modality does not change which field-assignment rule applies to obligor/obligee, only which value goes in modality itself. ABSENT is reserved for genuine absence of a named counterparty (C04-026's shape), not applied by default because this item is MAY rather than MUST.\n\nOBLIGOR: 'Either party' is a distributive reference (section 3.5.1 step 1 branch 2), annotated verbatim, no accept-set -- same treatment as 'Each Party'/'the Parties' regardless of this being a MAY clause. The underlying right is symmetric (either party may terminate if the OTHER becomes insolvent), but unlike section 8.4's mutual_obligation gap (which protects against silently losing an entire SECOND duty when naming only one obligor of a MUST), naming 'Either party' verbatim already fully communicates the symmetry within the value itself -- no known_gaps tag needed for this reason.\n\nTEMPORAL: 'effective upon written notice to the other party' is RELATIVE_TO_TRIGGER, direction 'after' per section 8.9's rule (upon/following/on -> after), trigger 'written notice to the other party' verbatim. known_gaps gains relative_trigger_preposition, direct citation to section 8.9's measured table (upon <trigger>: NOT accepted by _RELATIVE_RE, 92/1547 pool segments, section 8.9's own table). underspecified=true is over-determined by trigger 3 (section 3.9) since symbols.resolve_trigger() always returns None in v1 -- both parties (Either party / the other party) are distributive/relational references that would also independently trigger underspecified per section 3.9 trigger 1, but missing_fields lists only temporal.trigger since that's the field typecheck.py actually appends for an unresolved TriggerRef; the party references are annotated verbatim per section 3.5.1 branch 2 without a resolve_party() failure being the operative mechanism here (no individual name is being looked up at all).\n\nCONDITIONS: one entry, the whole 'in the event...on the non-notifying party's behalf' clause verbatim, internal 'or's unparsed per section 17.2/section 3.8 (do not split a single condition string on internal AND/OR).\n\nACTION/OBJECT: TERMINATE is an exact taxonomy match. object_class 'agreement' is a single-anchor object (no dual-anchor consideration needed, unlike C11-01's possessor/thing-owned case).",
+  "reviewer_status": "APPROVED",
+  "obligor_accept_set": [],
+  "adjudicated_by": "reviewer"
+}

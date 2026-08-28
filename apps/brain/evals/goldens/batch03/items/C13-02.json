@@ -1,0 +1,53 @@
+{
+  "item_id": "C13-02",
+  "doc_id": "C13",
+  "segment_id": "C13-017",
+  "stratum": "standard",
+  "segment_text": "(a) manufacturing, storage, and distribution of MOXATAG trade and sample product; (b) the scope and strategies with respect to the marketing and promotion of MOXATAG, including, without limitation, any labeling or claims in connection therewith; (c) booking sales and distribution of MOXATAG hereunder and performance of related services; (d) handling all aspects of order processing, invoicing and collection, inventory and receivables; (e) providing customer support, including handling medical queries, and performing other functions consistent with consumer practice for prescription pharmaceuticals; (f) responding to product and medical complaints relating to MOXATAG; (g) handling all returns of MOXATAG trade and sample product; (h) handling all voluntary recalls and market withdrawals of MOXATAG. In such a situation, DD will make available to MBRK, upon request, all of DD's pertinent records on MOXATAG. Any and all reasonable and documented costs and expenses incurred by DD in the conduct of any such recall or market withdrawal of MOXATAG shall be reimbursed by MBRK, except to the extent such recall or market withdrawal was the direct result of the negligence or failure of DD to comply with its obligations under this Agreement; (i) communicating with any governmental agencies and satisfying their requirements regarding all regulatory approvals of MOXATAG; including the filing of marketing and promotion materials approved by MBRK under this Agreement with the FDA in compliance with all FDA pharmaceutical marketing regulations; (j) reporting adverse reaction reports to US regulatory authorities as required by applicable US law or regulation;",
+  "span_char_start": 916,
+  "span_char_end": 1246,
+  "span_text": "Any and all reasonable and documented costs and expenses incurred by DD in the conduct of any such recall or market withdrawal of MOXATAG shall be reimbursed by MBRK, except to the extent such recall or market withdrawal was the direct result of the negligence or failure of DD to comply with its obligations under this Agreement;",
+  "modality": "MUST",
+  "action": "REIMBURSE",
+  "action_accept_set": [
+    "REIMBURSE"
+  ],
+  "obligor": "MBRK",
+  "obligee": "DD",
+  "object_class": "recall_costs",
+  "object_class_accept_set": [
+    "recall_costs",
+    "market_withdrawal_costs",
+    "recall_and_withdrawal_costs",
+    "costs_and_expenses"
+  ],
+  "temporal": null,
+  "conditions": [],
+  "underspecified": false,
+  "missing_fields": [],
+  "vague_temporal_phrase": null,
+  "redacted_phrase": null,
+  "known_gaps": [
+    "exception_unsupported"
+  ],
+  "annotator_confidence": "CONFIDENT",
+  "annotated_at": "2026-08-27T00:41:00+00:00",
+  "rules_cited": [
+    "2",
+    "2.6",
+    "3.1",
+    "3.2",
+    "3.4",
+    "3.5",
+    "3.5.3",
+    "3.6",
+    "3.8.1",
+    "3.9",
+    "8.2"
+  ],
+  "guideline_version": "v0.41",
+  "annotator_notes": "Same section 2.6 eligibility basis as C13-01 -- embedded self-contained sentence inside C13-017's orphan enumeration (a)-(j); see C13-01's notes for the full eligibility reasoning, not repeated here.\n\nOBLIGOR/OBLIGEE: explicit by-agent passive ('reimbursed by MBRK'), so section 3.5.3's agentless-passive class does not apply -- obligor is read directly off the named agent, MBRK. Obligee DD is named in-span as the party who 'incurred' the costs being reimbursed; the natural reading of 'costs incurred by DD...shall be reimbursed by MBRK' is that MBRK reimburses DD, satisfying section 3.5's positional (in-span) test even though the word 'to' before DD is not present.\n\nACTION: REIMBURSE is an exact taxonomy match, no gap tag needed for the action itself.\n\nCARVE-OUT: 'except to the extent such recall or market withdrawal was the direct result of the negligence or failure of DD to comply with its obligations under this Agreement' is a direct application of section 3.8.1 branch 3's marker-equivalence ruling (v0.40, confirmed last session at C10-016 using the identical marker 'except to the extent') -- not absorbed into conditions, known_gaps gains exception_unsupported, full carve-out recorded here verbatim (already quoted above) and retained inside span_text per section 3.1/section 8.2's verbatim discipline.\n\nSpan includes the trailing semicolon (list-item punctuation carried over from the source enumeration) since it is part of the contiguous substring up to the sentence's own end; trimming it would not change any scored field.",
+  "reviewer_status": "APPROVED",
+  "obligor_accept_set": [],
+  "adjudicated_by": "reviewer"
+}

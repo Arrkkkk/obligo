@@ -1,0 +1,63 @@
+{
+  "item_id": "C06-01",
+  "doc_id": "C06",
+  "segment_id": "C06-016",
+  "stratum": "standard",
+  "segment_text": "(xviii) the designee under any Lease/Contract Assumption Notice shall be required, if requested by the applicable counterparty, to provide adequate assurance of future performance with respect to such Lease or Contract if the applicable counterparty so requests;",
+  "span_char_start": 8,
+  "span_char_end": 262,
+  "span_text": "the designee under any Lease/Contract Assumption Notice shall be required, if requested by the applicable counterparty, to provide adequate assurance of future performance with respect to such Lease or Contract if the applicable counterparty so requests;",
+  "modality": "MUST",
+  "action": "PROVIDE",
+  "action_accept_set": [
+    "PROVIDE"
+  ],
+  "obligor": "the designee under any Lease/Contract Assumption Notice",
+  "obligee": "the applicable counterparty",
+  "object_class": "adequate_assurance_of_future_performance",
+  "object_class_accept_set": [
+    "adequate_assurance_of_future_performance",
+    "assurance_of_future_performance",
+    "adequate_assurance",
+    "performance_assurance"
+  ],
+  "temporal": null,
+  "conditions": [
+    "if requested by the applicable counterparty"
+  ],
+  "conditions_accept_set": [
+    [
+      "the applicable counterparty so requests"
+    ]
+  ],
+  "underspecified": true,
+  "missing_fields": [
+    "obligor",
+    "obligee"
+  ],
+  "vague_temporal_phrase": null,
+  "redacted_phrase": null,
+  "known_gaps": [],
+  "annotator_confidence": "AMBIGUOUS",
+  "annotated_at": "2026-08-27T00:10:00+00:00",
+  "rules_cited": [
+    "2",
+    "3.1",
+    "3.2",
+    "3.4",
+    "3.5",
+    "3.6",
+    "3.8",
+    "3.8.2",
+    "3.8.3",
+    "3.9",
+    "14",
+    "14.3",
+    "14.4"
+  ],
+  "guideline_version": "v0.41",
+  "annotator_notes": "List item (xviii) from a bankruptcy-style lease/contract assumption clause (doc C06). Self-contained despite the list marker: unlike C04-024/C22-025's excluded orphan list items, this one carries its own subject ('the designee under any Lease/Contract Assumption Notice') and modal ('shall be required...to provide') -- section 2's eligibility test is satisfied. span_text excludes the '(xviii) ' marker per the established precedent in C04-03/C04-04/C04-05/C22-02 (their own span_text all start after the marker, not at it).\n\nOBLIGOR/OBLIGEE: both 'the designee under any Lease/Contract Assumption Notice' and 'the applicable counterparty' are role/relational descriptions of unnamed parties, not enumerated named parties and not a collective/distributive reference -- section 3.5.1's branches (step 1) exist to decide among several NAMED parties or a stated collective subject, and this is neither; same reasoning C11-01 recorded for its own non-party role-description obligor. Annotated verbatim per section 3.5's positional rule directly. Neither resolves against the scoring registry, so underspecified=true is over-determined by obligor alone and independently by obligee (section 3.9 trigger 1), with temporal=null contributing nothing since section 15.3/3.9 are explicit that an absent temporal is never a trigger.\n\nACTION: 'provide adequate assurance of future performance' maps cleanly to PROVIDE, no out-of-taxonomy tag needed. No second taxonomy verb was defensible enough to widen the accept-set (DELIVER doesn't fit 'assurance' naturally), so action_accept_set is deliberately single-member.\n\nCONDITIONS -- ESCALATED, REVIEWER-RULED (section 14.3/14.4, exact-match field: conditions count). The span states the identical triggering circumstance (the counterparty's request) TWICE, non-adjacently, sandwiching the verb and object: 'if requested by the applicable counterparty' (offset 83-126) immediately after the modal, and the anaphoric echo 'if the applicable counterparty so requests' (offset 219-261) at the very end. This is not section 3.8.2 Rule B's shape (that covers two ADJACENT, DISTINCT circumstances, e.g. C11-094) -- deleting either phrase here still leaves the same condition stated once, which is what marks it as one real-world circumstance restated rather than two.\n\nRULED 2026-08-27 (session, tightened same day to a hard positional tiebreak per section 3.8.3): collapses to ONE conditions entry, quoting the occurrence structurally closest to the governing modal ('shall be required') by character distance: 'if requested by the applicable counterparty' (offset 83, immediately after the modal) beats the trailing echo (offset 219) on that measure alone -- not on any notion of 'completeness', which section 3.8.3's applicability gate rules out as a live question once two occurrences are confirmed informationally identical. The redundant trailing echo is recorded here verbatim (not scored, not silently dropped) rather than discarded, matching section 4.3.1's treatment of a redundant restated obligation. NEW RULE WRITTEN AT v0.41 (section 3.8.3, 'belt-and-suspenders redundant condition restatements'), naming this pattern so a future annotator decides it by citation. Because a real extraction might reasonably quote either occurrence of the same fact, and gold's choice of which phrasing to record is a quote-extent convention rather than a substantive difference, section 3.8.3 also introduces conditions_accept_set (new, optional field, parallel to conditions) so clause 7 accepts either verbatim phrasing for this entry -- populated above with the trailing echo. This is the first locked item to carry the field; every prior item's conditions_accept_set is implicitly empty/absent.\n\nOBJECT_CLASS: dual-anchor consideration per section 3.6's v0.33 required enumeration -- the object phrase names both 'adequate assurance' (the thing given) and 'future performance' (what is being assured), so both anchors and their natural compound are in the accept-set.",
+  "reviewer_status": "APPROVED",
+  "obligor_accept_set": [],
+  "adjudicated_by": "reviewer"
+}
