@@ -95,11 +95,23 @@ def test_disagreeing_segment_text_is_fatal():
         rs.segments_from_items(items)
 
 
-def test_the_real_gold_set_has_consistent_segments_and_one_guideline_stamp():
+def test_the_real_gold_set_has_consistent_segments_and_a_refused_mixed_stamp():
+    """UPDATED: through three batches the real gold set grew from 18 items /
+    12 segments / one guideline stamp (v0.28) to 32 items / 22 segments
+    spanning FIVE stamps (v0.28, v0.37, v0.38, v0.40, v0.41) -- batch02/03
+    were drafted against a moving DRAFT guideline that has not yet gone
+    through section 10's conforming pass. That is not a regression to guard
+    against: section 10 and section 22.1 both already record that mixed
+    stamps are expected and permitted pre-freeze. So the correct assertion
+    on the real set is that guideline_version_from_items REFUSES it with the
+    same "conforming pass" error test_mixed_guideline_stamps_are_refused
+    plants above, not that it returns a single version -- returning one
+    would mean the real set is smaller/more conformed than it actually is."""
     items = rs.load_gold_items()
-    assert len(items) == 18
-    assert len(rs.segments_from_items(items)) == 12
-    assert rs.guideline_version_from_items(items) == "v0.28"
+    assert len(items) == 32
+    assert len(rs.segments_from_items(items)) == 22
+    with pytest.raises(ValueError, match="conforming pass"):
+        rs.guideline_version_from_items(items)
 
 
 # --- W6: a MISSED says which kind of missed it is ---------------------------
