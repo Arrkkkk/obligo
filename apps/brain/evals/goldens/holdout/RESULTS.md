@@ -233,6 +233,43 @@ not as grounds to reinterpret this one.
 **REDESIGN here does NOT mean "start the gold set over."** It means: **resolve the specific,
 attributed findings before drawing any new items.**
 
+**0. THE INSTRUMENT ITSELF, AND IT COMES BEFORE EVERYTHING BELOW.** *(Promoted to the head of
+this list on the reviewer's second ruling the same day, after Finding 1 was measured. The
+ordering below it is unchanged; nothing was removed.)* §5's predicate cannot see a
+`known_gaps` disagreement, the annotators disagree on 19.4% of matched items, and that
+disagreement moves §9's in-force criterion-2 denominator by ~13%. **The REDESIGN verdict was
+therefore computed by an instrument blind to a disagreement class that swings the project's
+headline acceptance figure.** This is not one more finding to queue behind the others: until
+it is resolved, **no future K is trustworthy**, including any K computed to check whether the
+REDESIGN response worked. Fix first, measure after.
+
+**The next real decision, scoped here and deliberately NOT implemented.** Two options, and
+they are genuinely different instruments, not two spellings of one fix:
+
+- **(a) Extend §5 to a ninth clause: `known_gaps` sets must match.** Simple, uniform,
+  folds into every existing K computation and into `report.py` with no new machinery.
+  **But it changes what `FULLY_CORRECT` means**, retroactively: §5 is the scoring predicate
+  for the *pipeline*, not only for annotator comparison, and the pipeline does not emit
+  `known_gaps` at all — that field is an annotator's judgment about what IR v1 cannot
+  represent, not a prediction. A ninth clause would either be vacuous on the pipeline side
+  or force the pipeline to predict a field it has no way to produce. **This asymmetry is the
+  crux and must be settled before either option is chosen.**
+- **(b) A separate, explicitly-tracked `known_gaps` agreement rate, reported alongside K and
+  never folded into it.** Keeps §5 as the pipeline-scoring predicate it was designed to be,
+  and keeps the annotator-agreement question where it belongs. **But** it leaves
+  `known_gaps` outside the pass/fail bar, which is what allowed this to go unnoticed — so it
+  only works if the separate rate carries its own pre-registered threshold, and §9's dual
+  denominator is reported with an explicit sensitivity band for the annotator swing (here:
+  15 vs 17 scoreable items).
+
+**Recommendation, for the reviewer to rule on, not to be acted on unprompted:** (b), with a
+pre-registered threshold and a mandatory denominator-sensitivity line in every criterion-2
+report. §5's clauses are the *pipeline's* bar; `known_gaps` is an annotation-quality
+question, and conflating the two is how a scoring predicate acquires a clause nothing can
+predict. But (a)'s simplicity is real, and the choice turns on whether §5 is understood as
+one predicate serving two purposes or as two predicates that happen to share eight clauses.
+That question has never been asked in this project and should be asked before either fix.
+
 1. **§3.8.2's two conventions need real rulings** — quote extent (`C04-01`) and entry count
    (`C13-03`). Not deferred to the Tier-B probe: this run's evidence has made that probe
    *partially redundant*, since a second annotator disagreeing is stronger evidence of

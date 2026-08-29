@@ -1,6 +1,6 @@
 # Obligo Tier-2 Gold Set — Annotation Guideline
 
-**Version:** v0.41 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**. **v0.33 puts §9's dual denominator IN FORCE** on two independent grounds, adds §5 clause 5's number rule, §3.4's bounded freeze-pass exception, and the forward authoring rules §3.6 / §3.8.2 / §3.5.1 — **no annotation rule changed, no item restamped, no cassette stale**. **v0.34 records two MEASUREMENT corrections and changes no rule either** — §8.9's `on`/`until` rows and §15.3's loud-versus-silent class placement, both falsified by real model output from the compile-stage bottleneck investigation. **v0.35 adds §4.3.2** — a third splitting shape distinct from both existing §4.3 worked examples, reviewer-ruled at batch 3's `C04-139`: self-performance vs. a duty to bind/control a third party's conduct splits into two items even when the two verbs share an object phrase and a sentence subject, because the two performances do not share an actor. **v0.36 amends §4.2** — the resulting byte-identical spans (`C04-139`'s shared trailing object leaves neither item's minimal span shorter than the other's) break IoU's ability to discriminate between the two gold items, so a content-based tie-break on `action_accept_set` membership is added, falling through to ascending `item_id` when the tie-break itself is inconclusive. **v0.37 adds a
+**Version:** v0.42 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**. **v0.33 puts §9's dual denominator IN FORCE** on two independent grounds, adds §5 clause 5's number rule, §3.4's bounded freeze-pass exception, and the forward authoring rules §3.6 / §3.8.2 / §3.5.1 — **no annotation rule changed, no item restamped, no cassette stale**. **v0.34 records two MEASUREMENT corrections and changes no rule either** — §8.9's `on`/`until` rows and §15.3's loud-versus-silent class placement, both falsified by real model output from the compile-stage bottleneck investigation. **v0.35 adds §4.3.2** — a third splitting shape distinct from both existing §4.3 worked examples, reviewer-ruled at batch 3's `C04-139`: self-performance vs. a duty to bind/control a third party's conduct splits into two items even when the two verbs share an object phrase and a sentence subject, because the two performances do not share an actor. **v0.36 amends §4.2** — the resulting byte-identical spans (`C04-139`'s shared trailing object leaves neither item's minimal span shorter than the other's) break IoU's ability to discriminate between the two gold items, so a content-based tie-break on `action_accept_set` membership is added, falling through to ascending `item_id` when the tie-break itself is inconclusive. **v0.37 adds a
 recommended `object_class` naming convention to §4.3.2** — `self_` / `third_party_` prefixes over
 a shared root, so future flow-down splits land on visibly parallel labels rather than an
 unrelated pair invented fresh each time. **v0.38 adds §3.2.1** — present-tense self-executing
@@ -165,7 +165,14 @@ hard-stratum segments; plus `C06-01` (`C06-016`), `C05-01` (`C05-027`), `C13-01`
 (`C13-017`), `C13-03` (`C13-041`, the gold set's **first `MAY`-modality item**), `C14-04`/
 `C14-05` (`C14-044`, `C14-03` retracted — see change (12)), `C02-04` (`C02-045`), and
 `E08-01` (`E08-005`), seven standard-queue segments, nine items. **Batch 3's own annotation
-work is complete; §7's held-out blinding/second-annotator process has not yet run.** The
+work is complete. §7 HAS NOW RUN, on 2026-08-29, in the amended one-sided form recorded at
+§7.1 — the prospective 2-of-10 withhold it originally specified was never performed and is
+established as unperformable under this project's reviewer-coupled cadence. Result:
+`K = 14/32 = 43.8%` (Wilson₉₅ [28.2%, 60.7%]) against pre-registered bands, landing in
+REDESIGN (≥6). Read §7.1 before quoting that number — it is a cold second-annotator check,
+not a held-out one, and carries four disclosures.**
+*(This line read "§7's held-out blinding/second-annotator process has not yet run" from
+v0.41 until 2026-08-29, true when written.)* The
 standard queue's first seventeen candidates run
 `C11-046`/`C11-101`/`C06-016`/`C17-077`/`E08-046`/`C14-003`/`C17-038`/`C14-139`/`C05-027`/
 `C06-022`/`C13-017`/`C14-028`/`C02-062`/`C13-041`/`C14-044`/`C02-045`/`E08-005` — seven
@@ -192,6 +199,25 @@ false once the pass completed, contradicted by v0.28's own changelog entry and b
 actual stamps. **This is the FOURTH false header claim this document has carried, and the
 first one caught by §10's own close-out consistency check rather than by a later session** —
 the check found it on its first application, which is the case for keeping it.)*
+**v0.42 change:** **§7 ran for the first time and is AMENDED as a process, not corrected as
+a typo — see the new §7.1.** Its prospective 2-of-10 withhold was never performed for any
+batch and cannot be performed under this project's cadence: every locked item is
+reviewer-signed-off item-by-item as it is drafted, so no unreviewed item exists to withhold,
+and §14.4's own rule empties the holdout pool at 100% review coverage. The original §7 text
+is **retained unedited** beneath a status banner as a dated record of the superseded design;
+§7.1 is operative. What ran instead is **one-sided blinding** — a fresh cold annotator blind
+to the drafts, a reviewer blind to nothing — over a **census** of all 32 items / 22 segments,
+with bands re-derived for N=32 by preserving §7's evidential strength (PROCEED ≤2 / DIAGNOSE
+3–5 / REDESIGN ≥6) and fixed before the comparison. **Result `K = 14/32` → REDESIGN.** Three
+findings the K predicate could not see are recorded in §7.1 and in
+`apps/brain/evals/goldens/holdout/RESULTS.md`, of which one is structural and outranks
+everything else in the response: **`known_gaps` is not among §5's eight clauses, the two
+annotators disagree on it for 19.4% of matched items, and that disagreement swings §9's
+in-force criterion-2 denominator from 15 scoreable items to 17.** No K is trustworthy until
+that is fixed, and whether the fix is a ninth §5 clause or a separately-thresholded agreement
+rate is an open decision deliberately left untaken. **No annotation rule changed, no item
+restamped, no cassette stale.**
+
 **v0.2 change:** corpus rebuilt after a selection-bias audit — see §13.
 **v0.3 change:** annotator-uncertainty protocol added — see §14. Two fields added to §1.
 **v0.4 change:** vague-temporal-qualifier rule added — see §15. One non-scored field added to §1.
@@ -2063,6 +2089,14 @@ byte-identical request had recorded cleanly. `C17-021` is the reciprocal-duty se
 
 ## 7. Held-out blinding
 
+> **STATUS (v0.42): the prospective mechanism described in this section was NEVER PERFORMED
+> and is now established as unperformable for this project's drafting cadence. It ran once,
+> on 2026-08-29, in the amended one-sided form described in §7.1 below, and returned
+> `K = 14/32` → REDESIGN.** The original text is retained unedited beneath this line, per
+> this document's corrections-are-new-text discipline; **§7.1 is the operative process**,
+> and the text below is a dated record of the design that was superseded, not instructions
+> to follow.
+
 - Per batch, a seeded draw selects **2 of 10** items to withhold.
 - **The reviewer holds the seed and runs the draw.** The drafter never sees which items
   are held out until session 11.
@@ -2101,6 +2135,75 @@ items cannot certify anything, but they can catch a gross shared error.
 
 N=20 catches a ≥15% error rate ~82% of the time, is a coin flip at 10%, and cannot
 certify 5%. It is a tripwire, not an estimator, and must be reported as one.
+
+### 7.1 Amendment (v0.42) — what was actually run, and why the design above could not be
+
+**This is a process amendment, not a correction of a typo.** The mechanism above assumes a
+*prospective* withhold: items set aside at draw time and never seen by the reviewer until
+the check. **That assumption was never satisfied for any batch, and by the time §7 was
+attempted it could not be satisfied retroactively.** All 32 locked items had been
+individually reviewer-signed-off — 24 carry `adjudicated_by: reviewer`, 2 carry
+`reviewer_status: RULED_BY_REVIEWER`, all 32 are `APPROVED` — so there was no item in the
+set the reviewer had not already adjudicated, and `gold/holdout/drafts/` had never existed.
+
+**The root cause is a cadence mismatch, and it is worth naming so the next design does not
+repeat it.** §7 presumes batches are drawn, annotated, and closed with a subset quarantined
+throughout. This project's actual cadence is *iterative and reviewer-coupled*: every item is
+escalated, adjudicated, or at minimum signed off item-by-item as it is drafted, and the
+guideline is amended from the items as they are annotated. Under that cadence a prospective
+withhold is not merely skipped, it is **incompatible** — an unreviewed item cannot be locked,
+and §14.4's own rule removes reviewed items from the holdout pool, which at 100% review
+coverage empties the pool.
+
+**What was run instead — one-sided blinding.** A fresh cold annotator (never the drafter's
+session, and deliberately not a context-inheriting fork) annotates from a field-allowlisted
+packet of raw segments plus this guideline. **The cold annotator is blind to the drafts; the
+reviewer is blind to nothing.** The result is therefore a **cold second-annotator check**,
+not a held-out one, and must be published under that name.
+
+**Consequential differences from the design above, each of which must travel with any
+published K:**
+
+1. **Census, not a 2-of-10 sample.** With nothing withheld there is no sample to draw, and
+   the leak measurement below caps the uncontaminated subgroup regardless of N. The whole
+   locked set is annotated cold. **A census has no sampling error** — K/N is exact for the
+   locked set, and the Wilson interval speaks only to extrapolating to future items.
+2. **§14.4's holdout-pool filter is suspended**, being inoperative once every item is
+   reviewed. One consequence is favourable and is claimed: the sample is **not**
+   systematically easier than the gold set, which §14.4's own accepted limitation concedes
+   the original design could not avoid.
+3. **Verdict bands must be re-derived for the actual N**, by preserving §7's *evidential
+   strength* (the Wilson₉₅ lower bound at each trigger) rather than its raw counts. At
+   N=32 that gives PROCEED ≤2 / DIAGNOSE 3–5 / REDESIGN ≥6. Bands are fixed **before** the
+   comparison and never revised after K is known.
+4. **The guideline leaks the answers, and this is now measured rather than suspected.**
+   20 of 32 items have their `span_text` quoted verbatim in this document; grading the
+   remaining 12 by citation leaves **3** items uncontaminated. K is therefore reported as an
+   L0/L1/L2 leak gradient with every N inline — *and* the gradient is confounded with
+   difficulty, because this document works through exactly the segments that were hard.
+   **A leak-controlled comparison is not available from a corpus the guideline was authored
+   from.** The channel that survives is the one this document never states for any segment:
+   **item count and exclusion decisions**.
+5. **The spot-check's stated purpose does not survive.** §7 justifies it as the reviewer's
+   *fresh* eyes on agreements; those eyes are not fresh. It is still run, and on this
+   occasion it earned its place — see the `known_gaps` finding below.
+
+**The finding that most matters, and it is about this document, not about an annotator.**
+`known_gaps` is **not one of §5's eight clauses**, so no disagreement on it can affect K.
+Measured: the two annotators disagree on `known_gaps` for **19.4% of matched items**, and
+that disagreement moves §9's in-force criterion-2 denominator (`len(known_gaps) == 0`) from
+**15 items to 17** — a ~13% swing in the denominator of this project's headline acceptance
+figure, entirely invisible to the instrument meant to be measuring annotation quality.
+**Until this is resolved, no K should be trusted, including any K computed to check whether
+a REDESIGN response worked.** Whether the fix is a ninth §5 clause or a separately-tracked
+and separately-thresholded agreement rate is an **open decision, deliberately not taken
+here** — it turns on whether §5 is one predicate serving both pipeline scoring and annotator
+comparison, or two predicates sharing eight clauses. Full statement of both options in
+`apps/brain/evals/goldens/holdout/RESULTS.md`.
+
+**Full record** — pre-registration, seeds, leak classification, sealed cold annotations,
+comparison, and the run log including a failed first attempt — is in
+`apps/brain/evals/goldens/holdout/`.
 
 ---
 
