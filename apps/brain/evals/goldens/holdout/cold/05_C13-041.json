@@ -1,0 +1,75 @@
+{
+  "segment_id": "C13-041",
+  "doc_id": "C13",
+  "stratum": "standard",
+  "items": [
+    {
+      "span_text": "Either party shall have the right to terminate this Agreement effective upon written notice to the other party in the event the non-notifying party becomes insolvent or makes an assignment for the benefit of creditors, or in the event bankruptcy or insolvency proceedings are instituted against the non-notifying party or on the non-notifying party's behalf",
+      "modality": "MAY",
+      "action": "TERMINATE",
+      "action_accept_set": [
+        "TERMINATE",
+        "CANCEL"
+      ],
+      "obligor": "Either party",
+      "obligor_accept_set": [],
+      "obligee": "the other party",
+      "object_class": "agreement",
+      "object_class_accept_set": [
+        "agreement",
+        "this_agreement",
+        "contract",
+        "agreement_termination",
+        "termination_right"
+      ],
+      "temporal": {
+        "form": "RELATIVE_TO_TRIGGER",
+        "direction": "after",
+        "trigger": "written notice to the other party"
+      },
+      "conditions": [
+        "in the event the non-notifying party becomes insolvent or makes an assignment for the benefit of creditors",
+        "in the event bankruptcy or insolvency proceedings are instituted against the non-notifying party or on the non-notifying party's behalf"
+      ],
+      "conditions_accept_set": [
+        [],
+        []
+      ],
+      "underspecified": true,
+      "missing_fields": [
+        "obligor",
+        "obligee",
+        "temporal"
+      ],
+      "vague_temporal_phrase": null,
+      "redacted_phrase": null,
+      "known_gaps": [
+        "relative_trigger_preposition"
+      ],
+      "annotator_confidence": "AMBIGUOUS",
+      "rules_cited": [
+        "2.5",
+        "2.5.1",
+        "3.1",
+        "3.2",
+        "3.5",
+        "3.5.1",
+        "3.5.4",
+        "3.7",
+        "3.8",
+        "3.8.2",
+        "3.9",
+        "8.8.1",
+        "8.9",
+        "14.3",
+        "14.4",
+        "17.1",
+        "17.2"
+      ],
+      "annotator_notes": "ELIGIBILITY FIRST, because two exclusions have to be cleared before this is an item at all. (i) 2's 'contains only a party's right with no correlative duty' row, as clarified by 2.5/2.5.1: the real test is monitorable stakes, not grammatical shape, and this clause has them in abundance -- a named correlative party (written notice must go to the other party), and two observable gating circumstances (insolvency / bankruptcy proceedings). It is nothing like C04-026's unrestricted, no-correlative-party reservation or C11-046's unreviewable 'sole business judgment'. (ii) 8.8/8.8.1's copular 'not an obligation clause at all' class: 'shall have the right to' is affirmative entitlement to ACT, and 8.8.1's own test is whether the clause commands/permits conduct or merely describes a status -- terminating is conduct, so this is not the 'shall have no right of subrogation' shape. 3.5.4 settles it directly, treating this sentence as the gold set's first MAY item. MODALITY MAY per 3.2 ('is entitled to' / 'is permitted to' row); 'shall have the right to' is an entitlement, not a duty, and 3.3 forbids an accept-set here. PARTIES: 'Either party' names no individual party, so 3.5.1 step 1 branch 2 puts it in the obligor slot verbatim with an empty accept-set -- ABSENT would be factually false since a subject IS stated. obligee = 'the other party' per 3.5.4, which rules the obligee test modality-independent: 'the other party' is named in-span both as the notice recipient and as the party the termination runs against. Both are unresolvable references, so 3.9 trigger 1 fires twice. CONDITIONS: two entries, not one. 17.1's diagnostic counts scoping markers rather than connectives, and 'in the event' is repeated, each governing an independently satisfiable circumstance; 3.8.2 Rule B says the same for adjacent distinct phrases. Rule A trims the leading 'or' from the second quote. Each entry's INTERNAL 'or' stays verbatim and unparsed per 17.2 -- one entry with an internal boolean is the correct answer, not a clause-7 failure. AMBIGUOUS, and the ambiguity is in temporal, an exact-match field, so 14.3 routes it to 14.4 escalation; no reviewer exists on this pass, so both readings are set out and I commit to one. READING 1 (ADOPTED): 'effective upon written notice to the other party' is a temporal. 'effective upon' states when the termination takes effect, which is a time-of-effect, and 8.9's rule maps 'upon <trigger>' to RELATIVE_TO_TRIGGER(after, ...) with 'notice' a member of its own measured trigger-noun alternation. known_gaps gains relative_trigger_preposition; the expected v1 outcome is UNMAPPABLE_TEMPORAL (a LOUD failure visible in criterion 1b), since _RELATIVE_RE accepts only literal before/after. 3.9 trigger 3 fires -- resolve_trigger() returns None throughout v1 -- so temporal is also named in missing_fields. READING 2 (rejected, defensible): the phrase is a third conditions entry (giving written notice is a precondition of terminating), on the precedent of 3.8.2's table, which files E07-01's 'upon reasonable notice and approval by TIBCO' as a condition, and of 3.8.4's 'upon request'; temporal would then be null. FIELDS THAT DIFFER: temporal form/trigger (clause 6), conditions count 2 vs 3 (clause 7), known_gaps. I split from my own treatment of 'upon request' in C17-021/C13-017 on the ground that 'effective upon' is explicitly a statement of when the act takes effect rather than a gate on whether the duty applies -- that is the distinction I apply throughout this pass, and it is a distinction the guideline never draws itself, which is why this is marked AMBIGUOUS rather than CONFIDENT.",
+      "span_char_start": 4,
+      "span_char_end": 361
+    }
+  ],
+  "segment_notes": "1 item. Single sentence, one obligation-bearing (here permission-bearing) clause, inside 2's 1-3 band. The leading '(b)' is an enumeration marker on a sentence carrying its own subject and modal, so 2.6's orphan-fragment exclusion does not reach it. Eligibility against 2's 'only a party's right with no correlative duty' row was checked explicitly rather than assumed, per 2.5/2.5.1's monitorable-stakes test, and the clause clears it: named correlative party plus two observable gating circumstances. No cross-reference dependence (2, v0.28): the clause resolves entirely within itself. The one escalation-shaped uncertainty in the segment is where 'effective upon written notice' belongs (temporal vs conditions); it is recorded on the item as AMBIGUOUS with both readings and the differing scored fields named."
+}

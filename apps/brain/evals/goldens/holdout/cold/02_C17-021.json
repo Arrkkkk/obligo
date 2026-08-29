@@ -1,0 +1,183 @@
+{
+  "segment_id": "C17-021",
+  "doc_id": "C17",
+  "stratum": "standard",
+  "items": [
+    {
+      "span_text": "Provider and Recipient shall each use its commercially reasonable efforts consistent with its past practices to prevent the introduction or coding of viruses or similar items into the Systems of the other Party",
+      "modality": "MUST",
+      "action": "PREVENT",
+      "action_accept_set": [
+        "PREVENT",
+        "PROTECT",
+        "MAINTAIN"
+      ],
+      "obligor": "Provider",
+      "obligor_accept_set": [
+        "Provider",
+        "Recipient",
+        "Provider and Recipient"
+      ],
+      "obligee": "the other Party",
+      "object_class": "virus_introduction",
+      "object_class_accept_set": [
+        "virus_introduction",
+        "virus",
+        "viruses",
+        "malicious_code",
+        "system_protection",
+        "virus_prevention"
+      ],
+      "temporal": null,
+      "conditions": [],
+      "conditions_accept_set": [],
+      "underspecified": true,
+      "missing_fields": [
+        "obligee"
+      ],
+      "vague_temporal_phrase": null,
+      "redacted_phrase": null,
+      "known_gaps": [
+        "mutual_obligation"
+      ],
+      "annotator_confidence": "CONFIDENT",
+      "rules_cited": [
+        "3.1",
+        "3.2",
+        "3.5",
+        "3.5.1",
+        "3.5.4",
+        "3.6",
+        "3.8.2",
+        "3.9",
+        "8.4",
+        "16.2",
+        "16.3"
+      ],
+      "annotator_notes": "8.4's own motivating sentence. 'Provider and Recipient shall EACH use ... into the Systems of the other Party' binds both parties symmetrically, so a second, mirror-image duty exists and is structurally unrepresentable in IR v1 (one obligor, one obligee, CHECK they differ): known_gaps gains mutual_obligation and the reciprocal direction is recorded here as lost. Party value is 3.5.1's question, not 8.4's: the span names the parties individually, so obligor holds the first-named 'Provider' and obligor_accept_set carries each alternative plus the whole coordinated string per 3.5.1's v0.33 forward rule. obligee = 'the other Party', a relational reference named in-span (3.5.1 step 1 branch 2, 3.5.4's positional test), which is unresolvable and therefore drives underspecified=true via 3.9 trigger 1. Modality is MUST, not SHOULD: 16.2 puts the efforts qualifier on the action, never on the deontic force. Per 16.3 action takes the verb governing the qualified act ('prevent'), not 'use'. 'consistent with its past practices' is a performance standard, not a circumstance -- 3.8.2's removal test leaves the duty applying in exactly the same circumstances, so it is not a conditions entry. ACTIONS (compiler/ast.py) is outside this pass's permitted working directory so taxonomy membership for PREVENT could not be verified; if PREVENT is absent this becomes an 8.8 item with a single-member accept-set.",
+      "span_char_start": 21,
+      "span_char_end": 231
+    },
+    {
+      "span_text": "in the event a virus or similar item is introduced into the Systems of a Party, whether or not such introduction is attributable to the other Party (including such other Party's failure to perform its obligations under this Agreement), the other Party shall, as soon as practicable, use its commercially reasonable efforts to assist such Party in reducing the effects of the virus or similar item",
+      "modality": "MUST",
+      "action": "PROVIDE",
+      "action_accept_set": [
+        "PROVIDE",
+        "CURE",
+        "SUPPORT"
+      ],
+      "obligor": "the other Party",
+      "obligor_accept_set": [],
+      "obligee": "such Party",
+      "object_class": "virus_effect_mitigation",
+      "object_class_accept_set": [
+        "virus_effect_mitigation",
+        "virus_effects",
+        "assistance",
+        "technical_assistance",
+        "virus_remediation"
+      ],
+      "temporal": null,
+      "conditions": [
+        "in the event a virus or similar item is introduced into the Systems of a Party"
+      ],
+      "conditions_accept_set": [
+        []
+      ],
+      "underspecified": true,
+      "missing_fields": [
+        "obligor",
+        "obligee"
+      ],
+      "vague_temporal_phrase": "as soon as practicable",
+      "redacted_phrase": null,
+      "known_gaps": [],
+      "annotator_confidence": "CONFIDENT",
+      "rules_cited": [
+        "3.1",
+        "3.2",
+        "3.5",
+        "3.5.1",
+        "3.8",
+        "3.8.1",
+        "3.8.2",
+        "3.9",
+        "4.3",
+        "15.2",
+        "15.5",
+        "16.2",
+        "16.3"
+      ],
+      "annotator_notes": "Split from the second sentence's other duty under 4.3: assisting a Party to reduce a virus's effects and working to contain/remedy/restore are separate performances, gated by different circumstances (the second needs an actual loss AND a request), so each is independently breachable. Span starts at 'in the event', not at 'Without limiting the rights and remedies of any party hereunder' -- that opening is an interpretive savings provision, 3.8.1's explicit not-branch-1 class, and it establishes no timing, condition or scope for this duty, so 3.1's MINIMAL complete span excludes it. conditions holds one entry. The concessive 'whether or not such introduction is attributable to the other Party (...)' is deliberately NOT a second entry: 3.8.2's removal test finds the duty applying in identical circumstances with or without it -- it disclaims an exception rather than stating a circumstance -- so entering it would inflate count-sensitive clause 7. It stays inside span_text per 3.1 and is recorded here verbatim: 'whether or not such introduction is attributable to the other Party (including such other Party's failure to perform its obligations under this Agreement)'. 'as soon as practicable' has no trigger attached to it, so 15.2 applies unchanged: temporal null, phrase recorded in the non-scored vague_temporal_phrase, and per 15.3/14.2 it does NOT set underspecified. underspecified is true anyway, on 3.9 trigger 1: both 'the other Party' and 'such Party' are relational references that resolve_party() cannot match. Action: the literal verb is 'assist'; 8.8's defensibly-mappable class covers it (assist-with -> PROVIDE assistance, the same shape as 'arrange'->PROCURE), so NO action_not_in_taxonomy tag is set and the accept-set stays open per 3.4.",
+      "span_char_start": 298,
+      "span_char_end": 694
+    },
+    {
+      "span_text": "in the event a virus or similar item is introduced into the Systems of a Party, whether or not such introduction is attributable to the other Party (including such other Party's failure to perform its obligations under this Agreement), the other Party shall, as soon as practicable, use its commercially reasonable efforts to assist such Party in reducing the effects of the virus or similar item, and if the virus or similar item causes a loss of operational efficiency or loss of data, upon such Party's request, work as soon as practicable to contain and remedy the problem and to restore lost data resulting from such introduction",
+      "modality": "MUST",
+      "action": "CURE",
+      "action_accept_set": [
+        "CURE",
+        "RESTORE",
+        "REPAIR"
+      ],
+      "obligor": "the other Party",
+      "obligor_accept_set": [],
+      "obligee": "such Party",
+      "object_class": "virus_remediation",
+      "object_class_accept_set": [
+        "virus_remediation",
+        "problem_remediation",
+        "lost_data",
+        "data_restoration",
+        "virus_problem"
+      ],
+      "temporal": null,
+      "conditions": [
+        "in the event a virus or similar item is introduced into the Systems of a Party",
+        "if the virus or similar item causes a loss of operational efficiency or loss of data",
+        "upon such Party's request"
+      ],
+      "conditions_accept_set": [
+        [],
+        [],
+        []
+      ],
+      "underspecified": true,
+      "missing_fields": [
+        "obligor",
+        "obligee"
+      ],
+      "vague_temporal_phrase": "as soon as practicable",
+      "redacted_phrase": null,
+      "known_gaps": [
+        "shared_subject_split",
+        "compound_action"
+      ],
+      "annotator_confidence": "AMBIGUOUS",
+      "rules_cited": [
+        "3.1",
+        "3.5.1",
+        "3.7",
+        "3.8",
+        "3.8.2",
+        "3.8.4",
+        "3.9",
+        "4.3",
+        "8.3",
+        "8.3.1",
+        "8.9",
+        "14.3",
+        "14.4",
+        "15.2",
+        "15.5",
+        "16.2"
+      ],
+      "annotator_notes": "SPAN MECHANICS (8.3.1 v0.31 option 4): this duty's own verb phrase ('work as soon as practicable to contain and remedy...') cannot carry the shared subject 'the other Party shall', and a span starting at 'and if the virus' would put obligor outside span_text -- exactly the NESTED_FIELD_NOT_IN_SPAN failure v0.31 proved unreachable. So the span runs contiguously from the shared leading condition through the end of this verb phrase and properly CONTAINS the sibling item's span. Nested, not byte-identical, IoU between the two is ~0.63, above 4.1's 0.5 threshold: greedy-by-descending-IoU pairs correctly when the model emits both spans, and one of the two is MISSED when it emits only one. Tagged shared_subject_split so the exception stays countable. AMBIGUOUS, and the ambiguity is in an exact-match field, so under 14.3 this would have been escalated under 14.4; there is no reviewer on this pass, so both readings are set out here and I commit to one. READING 1 (ADOPTED): 'upon such Party's request' is a third conditions entry and temporal is null. Two worked precedents in the guideline itself put a bare request-phrase in conditions: 3.8.4's own motivating case files 'upon request' as the genuine conditions entry for C13-01, and 3.8.2's table files E07-01's 'upon reasonable notice and approval by TIBCO' the same way. 'as soon as practicable' is then the only timing signal, it carries no trigger of its own, and 15.2 routes it to temporal null plus the non-scored vague_temporal_phrase. READING 2 (rejected, but genuinely defensible): 8.9's rule maps 'upon <trigger>' to RELATIVE_TO_TRIGGER(after, trigger) and 'request' is a member of 8.9's own measured trigger-noun alternation, so temporal would be RELATIVE_TO_TRIGGER(after, \"such Party's request\") with known_gaps gaining relative_trigger_preposition and conditions holding only 2 entries; 15.5's vague-quantity-plus-trigger bullet would then route 'as soon as practicable' to vague_temporal_phrase while the trigger decided the form. FIELDS THAT DIFFER between the readings: temporal (form + trigger) and conditions count (3 vs 2) -- both scored, clauses 6 and 7. This is a genuine, unreconciled conflict between 8.9 and 3.8.4/3.8.2 in the guideline as written, not a difficulty dodge; I resolve it toward the worked examples because they are concrete and 3.8.4 is the more recent (v0.41) rule, and I apply the SAME resolution to segment C13-017 so the two are consistent. COMPOUND ACTION (8.3/4.3): 'work ... to contain and remedy the problem and to restore lost data resulting from such introduction' is read as one indivisible remediation performance under one governing modal-borne verb ('work'), so it stays ONE item; 'restore' maps to a different taxonomy verb than the primary, so compound_action fires and the full verb phrase is recorded verbatim here. The competing reading -- 'restore lost data' has its own object and is a separate performance, hence a fourth item -- was considered and rejected: the infinitival purposes are complements of a single act of working, and splitting would also push the segment past 2's 1-3 obligation-bearing-clause band, which is a signal the split is over-mechanical (17.2's own caution).",
+      "span_char_start": 298,
+      "span_char_end": 932
+    }
+  ],
+  "segment_notes": "3 items, exactly at the top of 2's 1-3 obligation-bearing-clause band. Sentence 1 is 8.4's mutual-obligation motivating case (1 clause). Sentence 2 carries two modal-governed performances -- 'use ... efforts to assist' and '[shall] ... work ... to contain and remedy ... and to restore' -- split into two items under 4.3, with 8.3.1's v0.31 option-4 span mechanics for the second. Counted as 2 clauses, not 3, because 8.3's own rule states a compound-action sentence counts as one clause. Nothing in the segment is excluded under 2: no definitions, recitals, tables, no 4+ chained obligations in a single sentence, and the only cross-references ('under this Agreement') sit inside verbatim-quoted text, which 2's v0.28 scored-field-dependence test expressly permits. Segment-level note on 8.4's OPEN SUB-QUESTION: sentence 1 is one of the 23% of reciprocity-marked cases where the discrimination IS makeable from the span alone ('each ... of the other Party'), so mutual_obligation is asserted on evidence, not assumed."
+}

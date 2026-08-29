@@ -1,0 +1,57 @@
+{
+  "segment_id": "C22-048",
+  "doc_id": "C22",
+  "stratum": "hard",
+  "items": [
+    {
+      "span_text": "Each party giving any notice required or permitted under this IP Agreement will give the notice in writing",
+      "modality": "MUST",
+      "action": "NOTIFY",
+      "action_accept_set": [
+        "NOTIFY",
+        "PROVIDE",
+        "DELIVER"
+      ],
+      "obligor": "Each party",
+      "obligor_accept_set": [],
+      "obligee": "ABSENT",
+      "object_class": "notice",
+      "object_class_accept_set": [
+        "notice",
+        "written_notice",
+        "notice_in_writing",
+        "contract_notice"
+      ],
+      "temporal": null,
+      "conditions": [
+        "giving any notice required or permitted under this IP Agreement"
+      ],
+      "conditions_accept_set": [
+        []
+      ],
+      "underspecified": true,
+      "missing_fields": [
+        "obligor",
+        "obligee"
+      ],
+      "vague_temporal_phrase": null,
+      "redacted_phrase": null,
+      "known_gaps": [],
+      "annotator_confidence": "CONFIDENT",
+      "rules_cited": [
+        "3.1",
+        "3.2",
+        "3.5",
+        "3.5.1",
+        "3.8",
+        "3.8.2",
+        "3.9",
+        "4.3"
+      ],
+      "annotator_notes": "Modality from 'will give' read as a party undertaking, so MUST per 3.2's will-rule (not the excluded future-fact sense). Obligor 'Each party' is a distributive collective reference: 3.5.1 step 1 branch 2 puts it in the slot verbatim with an empty obligor_accept_set, and 3.9 trigger 1 makes underspecified true. Obligee ABSENT -- the sentence never names who the notice is owed to (the trailing 'If to the Seller:' address stub is outside the span and 3.5 forbids inferring a party from elsewhere). The participial 'giving any notice required or permitted under this IP Agreement' passes 3.8.2's removal test as a condition: delete it and every party owes the writing duty at all times, so the duty's circumstances change. Quote begins at the qualifier's own marker per 3.8.2 Rule A. Span stops at 'in writing': the coordinated 'and shall be deemed to have been duly given: (i)...(v)' is a deemed/future-fact clause, not obligation-bearing (3.2's will/future-fact carve-out, and 3.8.1's explicit 'not branch 1' example 'the Gas shall be deemed dry'), so it is not a second item and is not part of the minimal complete obligation. Cross-reference 'under this IP Agreement' is quoted verbatim inside a conditions entry, which 2's v0.28 scored-field-dependence test expressly permits. Action: the literal verb 'give (notice)' has no exact taxonomy member I am confident of; NOTIFY is the nearest and PROVIDE/DELIVER are defensible, so this is handled by 3.4's accept-set rather than 8.8's out-of-taxonomy tag -- if NOTIFY is in fact absent from ACTIONS this would become an 8.8 item.",
+      "span_char_start": 22,
+      "span_char_end": 128
+    }
+  ],
+  "segment_notes": "One item. Sentence 2 ('and shall be deemed to have been duly given: (i)...(v)') is a deeming/future-fact provision, excluded as non-obligation-bearing under 3.2 and 3.8.1's not-branch-1 list; it is treated as NOT_ANNOTATABLE content inside an otherwise-good segment (4.4). Sentence 3 ('Notice to a party is effective ... only if given as provided in this Section 6.12 at the address of which the sending party has been notified') is a copular effectiveness statement with no deontic modal -- not obligation-bearing (2, 8.8's copular-status class), and it is additionally cross-reference-dependent in the 2 v0.28 sense if anyone tried to annotate it (the manner of giving is unknowable without Section 12-style resolution). The trailing 'If to the Seller:' is the opening of a notice/address block (2's signature-block/address exclusion) and an orphan fragment with no modal of its own; per 2.6 that does not disqualify the self-contained first sentence. Segment therefore yields exactly 1 obligation-bearing clause, inside 2's 1-3 band."
+}

@@ -1,0 +1,110 @@
+{
+  "segment_id": "C10-016",
+  "doc_id": "C10",
+  "stratum": "hard",
+  "items": [
+    {
+      "span_text": "Subject to the Distributor fulfilling all the conditions in this clause 10, the Supplier shall indemnify the Distributor, defend and hold harmless against any liability incurred by the Distributor in respect of damage to property, death or personal injury arising from any fault or defect in the design of the Products and any reasonable costs, claims, demands and expenses, including reasonable attorneys' fees, arising out of or in connection with that liability (Relevant Claim), except to the extent the liability arises as a result of the wilful misconduct of the Distributor",
+      "modality": "MUST",
+      "action": "INDEMNIFY",
+      "action_accept_set": [
+        "INDEMNIFY",
+        "DEFEND",
+        "COMPENSATE",
+        "REIMBURSE"
+      ],
+      "obligor": "the Supplier",
+      "obligor_accept_set": [],
+      "obligee": "the Distributor",
+      "object_class": "liability",
+      "object_class_accept_set": [
+        "liability",
+        "liabilities",
+        "claims",
+        "indemnified_liability",
+        "relevant_claim",
+        "damages",
+        "costs_and_claims"
+      ],
+      "temporal": null,
+      "conditions": [
+        "Subject to the Distributor fulfilling all the conditions in this clause 10"
+      ],
+      "conditions_accept_set": [
+        []
+      ],
+      "underspecified": false,
+      "missing_fields": [],
+      "vague_temporal_phrase": null,
+      "redacted_phrase": null,
+      "known_gaps": [
+        "exception_unsupported",
+        "compound_action"
+      ],
+      "annotator_confidence": "CONFIDENT",
+      "rules_cited": [
+        "2",
+        "3.1",
+        "3.2",
+        "3.5",
+        "3.6",
+        "3.8",
+        "3.8.1",
+        "3.8.2",
+        "3.9",
+        "4.3",
+        "8.2",
+        "8.3",
+        "8.8"
+      ],
+      "annotator_notes": "3.8.1's MARKER-EQUIVALENCE motivating case (v0.40, reviewer-ruled). 'except to the extent the liability arises as a result of the wilful misconduct of the Distributor' narrows the Supplier's indemnification duty under a stated circumstance -- the identical shape as C14-01's 'unless an exemption is provided', headed by a different English marker. Reviewer-ruled: it routes through branch 3 exactly like 'unless' does. So it is NOT absorbed into conditions, known_gaps gains exception_unsupported, the carve-out is recorded verbatim right here, and the span still contains it per 3.1. 3.8.1's underlying principle is that this was never about the word 'unless' -- it is a semantic category that SPEC.md 6's frozen no-exception-construct decision makes unrepresentable in IR v1 whatever marker introduces it -- and v0.41 makes explicit that the marker list is citation convenience, not a whitelist. Branch 1 was tested first as 3.8.1 requires: the carve-out has no deontic modal borne by a party, so it is not a separate item. 8.2's stated cost applies -- the annotated obligation is STRONGER than the contract's -- and 8.2's v0.28 correction means this fails SILENTLY on the extraction path, not loudly. ONE conditions entry: 'Subject to the Distributor fulfilling all the conditions in this clause 10' is an affirmative circumstance gating the duty (branch 2), and 3.8.2's removal test confirms it -- delete it and the indemnity applies unconditionally, so the circumstances change rather than merely the covered set. Its embedded cross-reference ('all the conditions in this clause 10') needs no resolution because it is quoted VERBATIM inside a conditions entry, which 2's v0.28 row expressly permits; 3.8.1's own measured table puts 'subject to' at 11.3% of pool segments, so this is a common shape. Rule A begins the quote at 'Subject to'. COMPOUND ACTION, and the tag decision is close enough to state. The verb string is 'shall indemnify the Distributor, defend and hold harmless'. 8.3's v0.28 refinement says a same-taxonomy doublet is NOT tagged, and 8.8 names hold-harmless -> INDEMNIFY as a defensibly-landing mapping, so 'indemnify ... and hold harmless' alone would carry no tag -- that is exactly the C17-066 instance 8.3 records. But 'defend' is a THIRD verb naming a genuinely different performance (conducting the defence of a claim, as against bearing its cost), so a verb mapping to a different taxonomy label is dropped and 8.3's first branch fires. The competing reading treats the whole triplet as one legal formula losing nothing, in which case the tag should not fire; I record it and reject it because defence and indemnity are separately breachable in substance. NOT split under 4.3: the three verbs govern one shared, indivisible object (the same liability) and function as one integrated protection obligation, so 4.3's performance test keeps one item -- and 8.3 notes a compound-action sentence counts as ONE clause for 2's 1-3 band. Full verb phrase recorded per 8.3's every-branch rule. 'arising out of or in connection with that liability' is object scope, not a condition, by 3.8.2's removal test and its own E05-P1 table row. Both parties are named individual aliases and there is no DateRef, TriggerRef or bd duration, so underspecified is FALSE.",
+      "span_char_start": 5,
+      "span_char_end": 585
+    },
+    {
+      "span_text": "The Supplier shall add the distributor to their current insurance certificate",
+      "modality": "MUST",
+      "action": "INSURE",
+      "action_accept_set": [
+        "INSURE",
+        "ADD",
+        "INCLUDE",
+        "PROCURE",
+        "MAINTAIN"
+      ],
+      "obligor": "The Supplier",
+      "obligor_accept_set": [],
+      "obligee": "the distributor",
+      "object_class": "insurance_certificate",
+      "object_class_accept_set": [
+        "insurance_certificate",
+        "insurance",
+        "insurance_coverage",
+        "certificate",
+        "additional_insured"
+      ],
+      "temporal": null,
+      "conditions": [],
+      "conditions_accept_set": [],
+      "underspecified": false,
+      "missing_fields": [],
+      "vague_temporal_phrase": null,
+      "redacted_phrase": null,
+      "known_gaps": [],
+      "annotator_confidence": "CONFIDENT",
+      "rules_cited": [
+        "3.1",
+        "3.2",
+        "3.4",
+        "3.5",
+        "3.6",
+        "3.9",
+        "4.3.1"
+      ],
+      "annotator_notes": "A distinct obligation from the indemnity, checked against 4.3.1 step 1 rather than assumed: no scored field is identical -- different action, different object, no shared condition -- and no restatement marker appears, so 4.3.1 sends it to 4.3's ordinary treatment as its own item. PARTY VALUES ARE QUOTED WITH THE SPAN'S OWN CASING, per 3.5's 'exactly as it appears' rule: 'The Supplier' capitalised and 'the distributor' lowercase, even though the sibling item's span capitalises 'the Distributor'. This is deliberate and is worth flagging for the scoring harness: 21's R2 requires alias entries to be registered with EXACT span casing, and this segment is a live instance of the same document spelling one party two ways in adjacent sentences. Both are named individual aliases, so 3.9 has no trigger and underspecified is FALSE. ACTION is the open field. The literal verb is 'add', in the sense of naming the distributor as an additional insured on an existing certificate. I did NOT apply 8.8's genuine-gap treatment: the act is defensibly mappable onto an insurance/procurement verb -- the same shape as 8.8's own 'arrange -> PROCURE' -- and 8.8's rule is expressly limited to the class where no member is defensible. INSURE is my single best value with ADD, INCLUDE, PROCURE and MAINTAIN all defensible from the sentence alone (3.4's justification test: authored from the sentence, not from any prediction). I could not verify ACTIONS membership because compiler/ast.py is outside this pass's permitted directory; if none of these is a member this becomes an 8.8 item with a single-member accept-set and an action_not_in_taxonomy tag. No temporal phrase of any kind, no condition, no carve-out.",
+      "span_char_start": 587,
+      "span_char_end": 664
+    }
+  ],
+  "segment_notes": "2 items. Two sentences, both obligation-bearing, inside 2's 1-3 band; the three-verb indemnity counts as ONE clause per 8.3. This segment is 3.8.1's own reviewer-ruled instance establishing that branch 3 (carve-out, exception_unsupported) is a SEMANTIC class rather than a lexical one tied to the word 'unless' -- 'except to the extent' routes there identically. v0.41 later confirmed a fifth marker ('except where', at C02-045) without needing fresh re-litigation, and states that the marker list is citation convenience rather than a whitelist. '10.1' is a clause number, outside the span. Cross-references present ('all the conditions in this clause 10') but quoted verbatim inside a conditions entry, which 2's v0.28 row expressly permits; no scored field's value requires resolving it, so the segment is not cross-reference-dependent. No redaction, no OCR corruption, no mid-sentence corpus artifact, no vague temporal qualifier."
+}

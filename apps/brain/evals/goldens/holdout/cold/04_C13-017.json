@@ -1,0 +1,107 @@
+{
+  "segment_id": "C13-017",
+  "doc_id": "C13",
+  "stratum": "standard",
+  "items": [
+    {
+      "span_text": "In such a situation, DD will make available to MBRK, upon request, all of DD's pertinent records on MOXATAG",
+      "modality": "MUST",
+      "action": "PROVIDE",
+      "action_accept_set": [
+        "PROVIDE",
+        "DISCLOSE",
+        "DELIVER",
+        "SHARE"
+      ],
+      "obligor": "DD",
+      "obligor_accept_set": [],
+      "obligee": "MBRK",
+      "object_class": "records",
+      "object_class_accept_set": [
+        "records",
+        "record",
+        "pertinent_records",
+        "product_records",
+        "moxatag_records",
+        "documentation"
+      ],
+      "temporal": null,
+      "conditions": [
+        "upon request"
+      ],
+      "conditions_accept_set": [
+        []
+      ],
+      "underspecified": false,
+      "missing_fields": [],
+      "vague_temporal_phrase": null,
+      "redacted_phrase": null,
+      "known_gaps": [],
+      "annotator_confidence": "CONFIDENT",
+      "rules_cited": [
+        "2.6",
+        "3.1",
+        "3.2",
+        "3.5",
+        "3.6",
+        "3.8",
+        "3.8.2",
+        "3.8.4",
+        "3.9"
+      ],
+      "annotator_notes": "3.8.4's own motivating sentence, and its two-anchor removal test decides conditions here. The bare removal test would make BOTH 'In such a situation' and 'upon request' conditions, but 'In such a situation' merely restates a scope that item (h)'s heading -- 'handling all voluntary recalls and market withdrawals of MOXATAG', non-condition-shaped text elsewhere in the same segment -- already fixes independently, so it is anaphoric scene-setting and is NOT entered as a conditions entry. It is recorded here verbatim rather than dropped, per 3.8.4's own 'not scored, not silently dropped' treatment: 'In such a situation'. It DOES stay inside span_text, because 3.1 requires the leading subordinate clause that establishes the duty's scope. 'upon request' has no independent anchor anywhere in the segment -- nothing else makes DD's record-sharing conditional on MBRK asking -- so it is the one genuine condition, one entry. I read 'upon request' as a condition rather than as an 8.9 RELATIVE_TO_TRIGGER temporal, following 3.8.4's own worked treatment of this exact phrase in this exact sentence; the same resolution is applied to segment C17-021 so the two are consistent. Modality MUST from 'will make available' as a party undertaking (3.2's will-rule). Action: 'make available' maps defensibly to PROVIDE, so no 8.8 tag. underspecified is FALSE: both parties are named individual aliases, there is no DateRef, no TriggerRef and no bd duration, and 3.9's note that temporal null is never a trigger applies -- 14.2 forbids using the field to record anything else.",
+      "span_char_start": 807,
+      "span_char_end": 914
+    },
+    {
+      "span_text": "Any and all reasonable and documented costs and expenses incurred by DD in the conduct of any such recall or market withdrawal of MOXATAG shall be reimbursed by MBRK, except to the extent such recall or market withdrawal was the direct result of the negligence or failure of DD to comply with its obligations under this Agreement",
+      "modality": "MUST",
+      "action": "REIMBURSE",
+      "action_accept_set": [
+        "REIMBURSE",
+        "PAY",
+        "COMPENSATE"
+      ],
+      "obligor": "MBRK",
+      "obligor_accept_set": [],
+      "obligee": "DD",
+      "object_class": "costs_and_expenses",
+      "object_class_accept_set": [
+        "costs_and_expenses",
+        "costs",
+        "expenses",
+        "cost",
+        "expense",
+        "recall_costs",
+        "reimbursement"
+      ],
+      "temporal": null,
+      "conditions": [],
+      "conditions_accept_set": [],
+      "underspecified": false,
+      "missing_fields": [],
+      "vague_temporal_phrase": null,
+      "redacted_phrase": null,
+      "known_gaps": [
+        "exception_unsupported"
+      ],
+      "annotator_confidence": "CONFIDENT",
+      "rules_cited": [
+        "2.6",
+        "3.1",
+        "3.2",
+        "3.5",
+        "3.5.3",
+        "3.6",
+        "3.8.1",
+        "3.8.2",
+        "3.9",
+        "8.2"
+      ],
+      "annotator_notes": "Passive WITH an explicit by-agent ('by MBRK'), so 3.5.3's agentless-passive rule does not fire and obligor is simply MBRK under 3.5's ordinary positional test. obligee = 'DD': the reimbursement runs to the party that incurred the costs, and DD is named inside span_text, so 3.5's positional requirement is met without inferring anything from outside the span. The competing reading is obligee = ABSENT (no dative explicitly names the payee, and DD appears only as the agent of 'incurred' inside a relative clause) -- that is the drafter's-dissent shape recorded in 3.5.3, where the reviewer ruled for the in-span party over ABSENT; I follow that ruling rather than the dissent, and record the alternative here. THE CARVE-OUT: 'except to the extent such recall or market withdrawal was the direct result of the negligence or failure of DD to comply with its obligations under this Agreement' narrows an otherwise-stated duty under a stated circumstance, which is 3.8.1 branch 3 exactly -- the identical shape as C10-016's 'except to the extent', the reviewer-ruled marker for this class. So it is NOT absorbed into conditions (SPEC.md 6 forbids silently absorbing a carve-out as if it had been an IF), known_gaps gains exception_unsupported, the full text is recorded verbatim here, and the span still contains it per 3.1. Note the annotated obligation is therefore STRONGER than the one the contract imposes (8.2's stated, accepted cost), and 8.2's v0.28 correction means this fails SILENTLY on the extraction path rather than loudly. 'incurred by DD in the conduct of any such recall or market withdrawal of MOXATAG' is object scope, not a condition: 3.8.2's removal test leaves the duty unchanged and only broadens the set of costs covered. conditions is therefore empty. underspecified FALSE -- two named parties, no unresolvable date/trigger, no bd duration.",
+      "span_char_start": 916,
+      "span_char_end": 1245
+    }
+  ],
+  "segment_notes": "2 items. This is 2.6's own confirming case: the segment is an orphan enumeration (a)-(j) of bare noun phrases with no subject or modal of their own -- the C04-024/C22-025 shape -- but it WRAPS two fully self-contained sentences embedded inside item (h). Per 2.6, self-containment is checked at SENTENCE granularity, so the segment is not excluded wholesale; the (a)-(j) fragments are treated as non-obligation content (4.4-shaped) inside an otherwise-good segment and are not forced into items they cannot support. Explicitly considered and rejected: annotating (j) 'reporting adverse reaction reports to US regulatory authorities as required by applicable US law or regulation' -- it is a bare gerund phrase with no subject and no modal, so it fails 2's self-containment test on its own and 3.2's modality table has no row for it. Same for (a)-(g), (i). Obligation-bearing clause count is 2, inside 2's 1-3 band; the ten enumeration fragments do not count as clauses. Cross-reference check (2, v0.28): 'its obligations under this Agreement' sits inside verbatim-quoted carve-out text and no scored field's value depends on resolving it, so the segment is not cross-reference-dependent."
+}

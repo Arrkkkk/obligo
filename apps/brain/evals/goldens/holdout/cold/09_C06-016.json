@@ -1,0 +1,63 @@
+{
+  "segment_id": "C06-016",
+  "doc_id": "C06",
+  "stratum": "standard",
+  "items": [
+    {
+      "span_text": "the designee under any Lease/Contract Assumption Notice shall be required, if requested by the applicable counterparty, to provide adequate assurance of future performance with respect to such Lease or Contract if the applicable counterparty so requests",
+      "modality": "MUST",
+      "action": "PROVIDE",
+      "action_accept_set": [
+        "PROVIDE",
+        "ASSURE",
+        "DEMONSTRATE"
+      ],
+      "obligor": "the designee",
+      "obligor_accept_set": [],
+      "obligee": "the applicable counterparty",
+      "object_class": "adequate_assurance",
+      "object_class_accept_set": [
+        "adequate_assurance",
+        "assurance",
+        "future_performance_assurance",
+        "performance_assurance",
+        "assurance_of_future_performance"
+      ],
+      "temporal": null,
+      "conditions": [
+        "if requested by the applicable counterparty"
+      ],
+      "conditions_accept_set": [
+        [
+          "the applicable counterparty so requests"
+        ]
+      ],
+      "underspecified": true,
+      "missing_fields": [
+        "obligor",
+        "obligee"
+      ],
+      "vague_temporal_phrase": null,
+      "redacted_phrase": null,
+      "known_gaps": [],
+      "annotator_confidence": "CONFIDENT",
+      "rules_cited": [
+        "2",
+        "2.6",
+        "3.1",
+        "3.2",
+        "3.5",
+        "3.5.1",
+        "3.6",
+        "3.8",
+        "3.8.2",
+        "3.8.3",
+        "3.9"
+      ],
+      "annotator_notes": "3.8.3's own motivating sentence, and its belt-and-suspenders rule decides conditions here. TWO condition-shaped phrases -- 'if requested by the applicable counterparty' and 'if the applicable counterparty so requests' -- state the IDENTICAL real-world circumstance: the second is an anaphoric echo ('so requests' refers back to the same request already named), with no sub-condition, qualifier, deadline or narrower scope distinguishing them. 3.8.3's applicability gate is therefore satisfied: deleting either still leaves the condition stated once, which is exactly what separates this from a genuine 3.8.2 Rule B pair (where deleting either removes information both times). They collapse to ONE conditions entry -- recording both would assert an implicit-AND over a single fact and inflate count-sensitive clause 7. TIEBREAK, applied mechanically rather than by taste, per 3.8.3's hard positional rule: the governing modal phrase is 'shall be required'; measuring from the end of that phrase to the start of each candidate, 'if requested by the applicable counterparty' begins 2 characters later while 'if the applicable counterparty so requests' begins ~135 characters later, so the first wins on modal-distance. It also happens to be the earlier occurrence, but 3.8.3 explicitly rejects clause order as the criterion, so the win is recorded on modal-distance. The non-winning occurrence is NOT silently dropped: it goes into conditions_accept_set[0] as an accepted equivalent phrasing (a real extraction may reasonably quote either, and nothing about the sentence privileges one from a model's perspective), and it is recorded verbatim here -- 'if the applicable counterparty so requests'. Per 3.8.3 the accept-set member is stored without its leading 'if', matching that section's own worked value; clause 7's COUNT is still len(conditions) = 1, unaffected by the accept-set. 3.8.2 Rule A governs the winner's quote extent, which needs no trimming. PARTIES: 'the designee' names no registrable party -- it is a role description of exactly the kind 3.9 trigger 1 lists ('the executor, administrator, or personal representative') -- so 3.5.1 step 1 branch 2 puts the stated subject in the slot verbatim rather than ABSENT, which would be factually false. The restrictive modifier 'under any Lease/Contract Assumption Notice' is deliberately not part of the alias and not a conditions entry: 3.8.2's removal test shows it narrows WHICH designees are covered rather than stating a circumstance under which the duty applies, so it is obligor scope. obligee = 'the applicable counterparty', the in-span party the assurance runs to, on 3.5's positional test and 3.5.3's precedent of promoting an in-span recipient over ABSENT; the competing reading -- ABSENT, since the counterparty is named only inside the condition phrases and no dative names a recipient -- is recorded here and would change clause 4 only, not clause 8, since both parties are unresolvable either way. underspecified true on 3.9 trigger 1, twice over.",
+      "span_char_start": 8,
+      "span_char_end": 261
+    }
+  ],
+  "segment_notes": "1 item. Single-sentence segment, one obligation-bearing clause, inside 2's 1-3 band. ELIGIBILITY: this is 2.6's own cited precedent for the proposition that a segment is not disqualified by an incidental enumeration marker when the sentence carries its own subject and modal -- '(xviii)' is such a marker and the sentence is fully self-contained ('such Lease or Contract' resolves to the 'Lease/Contract Assumption Notice' named earlier in the same sentence). Cross-reference check (2, v0.28): 'under any Lease/Contract Assumption Notice' is a defined-term reference whose resolution no scored field needs -- modality, action, parties, object_class, temporal and conditions are all determinable from the sentence alone -- so the presence test is not the operative one and the segment is not excluded. Not a 2.5/2.5.1 exclusion: this is a duty, not a discretion clause, and it is gated by an observable condition (the counterparty's request). The only substantive decision in the segment is the redundant-restatement collapse, which 3.8.3 resolves mechanically; see the item's notes."
+}

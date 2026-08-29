@@ -1,0 +1,112 @@
+{
+  "segment_id": "E03-005",
+  "doc_id": "E03",
+  "stratum": "hard",
+  "items": [
+    {
+      "span_text": "At least ** before the ** of each Calendar Quarter during the Term of this Supply Agreement, Kissei shall provide Rigel a rolling forecast of its monthly requirements for the quantity of Products to be used for (i) Development purposes for the following ** period commencing from such Calendar Quarter and (ii) Commercial use for the following ** period commencing from such Calendar Quarter",
+      "modality": "MUST",
+      "action": "PROVIDE",
+      "action_accept_set": [
+        "PROVIDE",
+        "REPORT",
+        "DELIVER",
+        "SUBMIT"
+      ],
+      "obligor": "Kissei",
+      "obligor_accept_set": [],
+      "obligee": "Rigel",
+      "object_class": "rolling_forecast",
+      "object_class_accept_set": [
+        "rolling_forecast",
+        "forecast",
+        "order_forecast",
+        "demand_forecast",
+        "requirements_forecast"
+      ],
+      "temporal": null,
+      "conditions": [],
+      "conditions_accept_set": [],
+      "underspecified": false,
+      "missing_fields": [
+        "temporal"
+      ],
+      "vague_temporal_phrase": null,
+      "redacted_phrase": "At least ** before the ** of each Calendar Quarter",
+      "known_gaps": [
+        "redacted_value"
+      ],
+      "annotator_confidence": "CONFIDENT",
+      "rules_cited": [
+        "2",
+        "2.6",
+        "3.1",
+        "3.2",
+        "3.5",
+        "3.6",
+        "3.7",
+        "3.7.1",
+        "3.8.2",
+        "3.9",
+        "8.1",
+        "14.2"
+      ],
+      "annotator_notes": "3.7.1's own worked redacted_value example, verbatim ('At least ** before the ** of each Calendar Quarter'). Both the lead-time amount and the reference point inside the Calendar Quarter are withheld, so the CLAUSE survives and establishes that a periodic advance-notice deadline exists while only its operative values are gone -- redacted_value, not redacted_clause. Per 3.7.1/8.1: temporal is set to null, 'temporal' is named in missing_fields, known_gaps gains redacted_value, and the literal phrase goes in the non-scored redacted_phrase. TWO further redactions sit in the object phrase ('the following ** period', twice); they withhold the forecast's horizon rather than a scored field's value, and redacted_phrase holds only one literal, so they are recorded here instead. underspecified is deliberately FALSE: 8.1's v0.28 strike removed the 'underspecified = true' instruction from this rule, 3.9's trigger list is closed and a missing temporal is not on it, and 14.2 forbids using the field to record anything else. Both parties are named individual aliases. ALTERNATE TEMPORAL READING considered and rejected: 'before the ** of each Calendar Quarter' could be annotated RELATIVE_TO_TRIGGER(before, 'the ** of each Calendar Quarter'), keeping the form and letting only the constituents be unknown; I rejected it because 3.7.1's instruction is to null the AFFECTED FIELD and this is that section's own example sentence, and because the trigger constituent would itself be a redaction. Also noted and not annotated: 'during the Term of this Supply Agreement' is a second, composed timing signal -- 8's gap table records 'during the Term' as UNMAPPABLE_TEMPORAL (_DURING_RE needs two ISO dates) and an EVERY+DURING composition as EVERY-only-with-warning -- so no reading of it changes temporal from null here. Action: 'provide' is an exact taxonomy verb; REPORT/SUBMIT/DELIVER are the defensible alternates 3.4's accept-set exists for (the eval pilot's own PROVIDE/REPORT case).",
+      "span_char_start": 21,
+      "span_char_end": 412
+    },
+    {
+      "span_text": "The Parties shall discuss and review the Order Forecast at each regularly scheduled meeting of the JSC established by the Parties under the Collaboration and License Agreement (or by a subcommittee established by the JSC to oversee the manufacture and supply of the Product)",
+      "modality": "MUST",
+      "action": "REVIEW",
+      "action_accept_set": [
+        "REVIEW",
+        "DISCUSS",
+        "EVALUATE"
+      ],
+      "obligor": "The Parties",
+      "obligor_accept_set": [],
+      "obligee": "ABSENT",
+      "object_class": "order_forecast",
+      "object_class_accept_set": [
+        "order_forecast",
+        "forecast",
+        "rolling_forecast",
+        "forecast_review"
+      ],
+      "temporal": null,
+      "conditions": [],
+      "conditions_accept_set": [],
+      "underspecified": true,
+      "missing_fields": [
+        "obligor",
+        "obligee"
+      ],
+      "vague_temporal_phrase": null,
+      "redacted_phrase": null,
+      "known_gaps": [
+        "compound_action"
+      ],
+      "annotator_confidence": "CONFIDENT",
+      "rules_cited": [
+        "2",
+        "2.6",
+        "3.1",
+        "3.2",
+        "3.5",
+        "3.5.1",
+        "3.6",
+        "3.7",
+        "3.9",
+        "4.3",
+        "8.3",
+        "8.4",
+        "8.4.1"
+      ],
+      "annotator_notes": "obligor is the collective 'The Parties' -- 8.4.1's motivating form, whose rule now lives at 3.5.1 step 1 branch 2: the slot holds the reference verbatim, obligor_accept_set stays empty (there are no individual names in the span to accept), and ABSENT would be factually false because a subject IS stated. 3.9 trigger 1 fires, so underspecified is true. obligee ABSENT -- nothing in the span names a party the discussion is owed to. COMPOUND ACTION: 'discuss and review' are two verbs over one shared, indivisible object (the Order Forecast) performed in one sitting at one meeting, so 4.3's performance test keeps this as ONE item rather than two. The dropped verb maps to a different taxonomy label than the one in action, so 8.3's v0.28 refinement fires the compound_action tag (it would NOT fire for a same-taxonomy doublet). Full verb phrase verbatim: 'shall discuss and review the Order Forecast'. 8.3 also says a compound-action sentence counts as ONE clause for 2's 1-3 band. ACTION CHOICE, stated because it is a real judgment call: 8.3's older text says take the primary (first) verb, which is 'discuss'; I could not verify whether DISCUSS is a member of the closed 34-verb ACTIONS list because compiler/ast.py is outside this pass's permitted directory, so I put the more likely-member REVIEW in the exact-match slot and carried DISCUSS in the accept-set, which is exactly what 3.4's accept-set exists for. NOT TAGGED mutual_obligation: 8.4's discriminating test is whether the co-obligor is also the obligee, and this span carries no reciprocity marker at all ('each other', 'mutually', 'between the Parties'). 8.4.1's OPEN SUB-QUESTION applies literally -- the span states neither co-obligor names nor an obligee, so the discrimination is not makeable at span scope. Recording that here rather than guessing, per 8.4.1's own request that batch 3 either supply a decision procedure or record the undecidability. TEMPORAL null: 'at each regularly scheduled meeting of the JSC' is a recurrence with no amount and no unit, so it fits none of 3.7's five frozen forms -- EVERY needs amount+unit. Recorded rather than forced.",
+      "span_char_start": 845,
+      "span_char_end": 1119
+    }
+  ],
+  "segment_notes": "2 items. THE HARD CALL IN THIS SEGMENT IS WHETHER TO EXCLUDE IT WHOLE FOR CROSS-REFERENCE DEPENDENCE, and I decided not to. 2's row was narrowed at v0.28 to SCORED-FIELD dependence rather than mere presence, and 2.6 (v0.41) checks self-containment per SENTENCE rather than per segment. Three cross-references exist and all three sit in sentences I exclude on other grounds anyway: 'except as provided in Section 2.2(b)' (sentence 3), 'the JSC established by the Parties under the Collaboration and License Agreement' (sentence 4 -- present but no scored field's value turns on resolving it), and 'in substantially the form attached hereto as Exhibit B' (sentence 5). For the two sentences I do annotate, every one of 5's eight scored clauses is determinable from the sentence itself. A reader who applies the PRE-v0.28 presence test instead would exclude this segment whole; that reading is recorded here so the disagreement is legible rather than hidden. EXCLUDED SENTENCES AND THEIR RULES. Sentence 2 ('For clarity, each Order Forecast shall itemize the applicable quantity...'): non-party subject -- the subject is a document, not a party -- which is 8.8's measured 'not an obligation clause at all' class; the 'For clarity' marker is 4.3.1's restatement flag, but 4.3.1 step 1 fails immediately (the scored fields are not identical to sentence 1's: different action, different object), so it is not a restatement either, it is simply not obligation-bearing. Sentence 3 ('Each Order Forecast shall be made in good faith ... and shall be non-binding on Kissei and Rigel, except as provided in Section 2.2(b)'): non-party subject plus a copular 'shall be non-binding' status assertion, 8.8/8.8.1's class -- it describes a status rather than commanding conduct -- AND it is genuinely cross-reference-dependent in the v0.28 sense, since the extent of the non-binding character cannot be determined without Section 2.2(b). Sentence 5 ('The Order Forecast will be in substantially the form attached hereto as Exhibit B'): non-party subject and 3.2's 'will'-as-future-fact carve-out, which 3.2 says is an excluded clause and not a MUST item; also Exhibit-B-dependent. Obligation-bearing clause count is 2, inside 2's 1-3 band. Redaction handling is per 3.7.1: these are redacted_VALUE, not redacted_clause -- the clauses survive and read -- so no segment-level redacted_clause tag and nothing leaves either denominator."
+}

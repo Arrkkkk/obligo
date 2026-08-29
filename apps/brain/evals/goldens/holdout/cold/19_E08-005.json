@@ -1,0 +1,105 @@
+{
+  "segment_id": "E08-005",
+  "doc_id": "E08",
+  "stratum": "standard",
+  "items": [
+    {
+      "span_text": "It shall ensure that the DC is clean and maintains certification from all applicable regulators",
+      "modality": "MUST",
+      "action": "ENSURE",
+      "action_accept_set": [
+        "ENSURE",
+        "MAINTAIN",
+        "PROCURE",
+        "COMPLY"
+      ],
+      "obligor": "It",
+      "obligor_accept_set": [],
+      "obligee": "ABSENT",
+      "object_class": "facility_compliance",
+      "object_class_accept_set": [
+        "facility_compliance",
+        "dc_condition",
+        "dc_certification",
+        "cleanliness_and_certification",
+        "distribution_center_compliance"
+      ],
+      "temporal": null,
+      "conditions": [],
+      "conditions_accept_set": [],
+      "underspecified": true,
+      "missing_fields": [
+        "obligor",
+        "obligee"
+      ],
+      "vague_temporal_phrase": null,
+      "redacted_phrase": null,
+      "known_gaps": [],
+      "annotator_confidence": "AMBIGUOUS",
+      "rules_cited": [
+        "2",
+        "2.6",
+        "3.1",
+        "3.2",
+        "3.5",
+        "3.5.1",
+        "3.6",
+        "3.9",
+        "4.3",
+        "4.3.1",
+        "14.3",
+        "14.4"
+      ],
+      "annotator_notes": "AMBIGUOUS on obligor, an exact-match field (5 clause 3), so 14.3 routes it to 14.4; with no reviewer, all readings follow and I commit to one. The sentence opens with a bare pronoun 'It' whose antecedent is NOWHERE in the segment -- not even in a non-adjacent sentence, since 'It' is the segment's first word and NFI is first named only in the FOLLOWING sentence. READING 1 (ADOPTED): obligor = 'It', verbatim. 3.5.1 step 1 branch 2 governs -- a subject IS stated, and 8.4.1's retained reasoning (which 3.5.1 cites) is that ABSENT is factually FALSE where a subject is stated, because misusing it makes the item indistinguishable from a genuine absent-party item. The reference is unresolvable, so 3.9 trigger 1 fires. READING 2 (rejected): obligor = ABSENT, on the ground that a contentless pronoun names no party at all, which is 3.5.1's step-1 third branch. READING 3 (rejected, and the most consequential): the SENTENCE is excluded and the segment yields only 1 item, because 2's self-containment test fails -- who bears this duty cannot be read without following a reference out of the segment, and obligor is a scored field, which is exactly the shape 2's v0.28 row calls genuine dependence. I reject reading 3 because the dependence test asks whether a scored field's VALUE can be determined, and under 3.5/3.5.1 it can: the rule is positional and records what the span says without inferring, so 'It' (or ABSENT) is a determinate answer rather than an unknowable one. I record reading 3 prominently because a stricter annotator would exclude this sentence and report 1 item for this segment. FIELDS THAT DIFFER: clause 3 between readings 1 and 2; every clause between them and reading 3. Clause 8 is unaffected -- underspecified is true under both readings 1 and 2. NOT INFERRING NFI: 3.5 forbids taking a party from elsewhere in the document, and 3.5's v0.41 test extends that to an in-segment anaphoric antecedent from a non-adjacent sentence even where the real-world agent is obvious; here the candidate antecedent is not merely non-adjacent but LATER in the segment, which is weaker still. ONE item, not two: 'ensure that the DC is clean AND maintains certification' is a single governing verb over a compound complement, which is 4.3's own 'shall deliver the report and the invoice' row -- one verb, compound object, one item, and no compound_action tag since only one verb is present and nothing is dropped. obligee ABSENT: no beneficiary is named; 'all applicable regulators' is the source of the certification, not a party the duty runs to, and reading it as obligee would invert the relationship in the way 3.5.2 warns about.",
+      "span_char_start": 0,
+      "span_char_end": 95
+    },
+    {
+      "span_text": "NFI shall ensure that the DC and its operation are in compliance with all applicable Federal, State, or Local laws",
+      "modality": "MUST",
+      "action": "ENSURE",
+      "action_accept_set": [
+        "ENSURE",
+        "COMPLY",
+        "MAINTAIN",
+        "PROCURE"
+      ],
+      "obligor": "NFI",
+      "obligor_accept_set": [],
+      "obligee": "ABSENT",
+      "object_class": "regulatory_compliance",
+      "object_class_accept_set": [
+        "regulatory_compliance",
+        "legal_compliance",
+        "dc_compliance",
+        "compliance",
+        "facility_compliance"
+      ],
+      "temporal": null,
+      "conditions": [],
+      "conditions_accept_set": [],
+      "underspecified": true,
+      "missing_fields": [
+        "obligee"
+      ],
+      "vague_temporal_phrase": null,
+      "redacted_phrase": null,
+      "known_gaps": [],
+      "annotator_confidence": "CONFIDENT",
+      "rules_cited": [
+        "3.1",
+        "3.2",
+        "3.5",
+        "3.6",
+        "3.9",
+        "4.3",
+        "4.3.1",
+        "4.3.2"
+      ],
+      "annotator_notes": "A named-party obligor in the same segment as a pronoun-subject sibling, and the two are deliberately annotated differently -- that asymmetry is 3.5's span-scoped strictness doing its job, not an inconsistency. obligee ABSENT (no beneficiary named), so 3.9 trigger 1 makes underspecified true; NFI itself is a named individual alias. NOT A RESTATEMENT of the first sentence, checked against 4.3.1 step 1 rather than assumed: the scored fields are not identical -- different obligor value, different object_class (cleanliness and regulator certification against compliance with Federal/State/Local law) -- and 4.3.1 says that if ANY scored field differs the two are distinct obligations under 4.3's ordinary treatment. No restatement marker appears either, and 4.3.1 is explicit that the marker word is not the test. NOT A 4.3.2 FLOW-DOWN SPLIT, considered because 'ensure that X complies' superficially resembles a duty to bind a third party: 4.3.2's discriminating test is locus of accountability between the obligor's OWN conduct and a THIRD PARTY'S conduct, and the DC is a facility rather than a party capable of bearing an obligation, so there is no second, independently breachable oversight duty here -- one item. ONE item also under 4.3: 'the DC and its operation' is a compound object under a single governing verb, 4.3's 'deliver the report and the invoice' row, so no split and no compound_action tag. conditions empty: 'with all applicable Federal, State, or Local laws' is the standard the compliance is measured against, and 3.8.2's removal test leaves the duty applying in identical circumstances, so it is object scope rather than a circumstance. Its internal 'or' would in any case stay verbatim and unparsed under 17.2.",
+      "span_char_start": 97,
+      "span_char_end": 211
+    }
+  ],
+  "segment_notes": "2 items. Two sentences, both obligation-bearing, inside 2's 1-3 band. The segment's whole difficulty is the first sentence's bare pronoun subject 'It', whose antecedent is not in the segment at all -- see that item's AMBIGUOUS notes for the three readings, including the one under which the sentence is EXCLUDED for failing 2's self-containment test and this segment yields only 1 item. I annotate it, because 2's cross-reference row was narrowed at v0.28 to whether a scored field's VALUE can be determined, and 3.5/3.5.1 make that determination positional rather than resolution-based. This is a short segment (212 characters) and sits close to 2's 200-character floor; it clears it. No redaction, no OCR corruption, no mid-sentence corpus artifact, no carve-out marker, no vague temporal qualifier, no temporal of any kind in either sentence."
+}

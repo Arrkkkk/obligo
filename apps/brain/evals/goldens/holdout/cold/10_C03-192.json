@@ -1,0 +1,139 @@
+{
+  "segment_id": "C03-192",
+  "doc_id": "C03",
+  "stratum": "standard",
+  "items": [
+    {
+      "span_text": "Vendor will provide, at no additional cost to AT&T, full and complete technical assistance to AT&T for the Material and Services provisioned under this Agreement, including ongoing technical support and field service and assistance, and telephone assistance to assist with installation, operation, maintenance and problem resolution as set forth in the terms of the Maintenance Addendum",
+      "modality": "MUST",
+      "action": "PROVIDE",
+      "action_accept_set": [
+        "PROVIDE",
+        "SUPPORT",
+        "DELIVER",
+        "MAINTAIN"
+      ],
+      "obligor": "Vendor",
+      "obligor_accept_set": [],
+      "obligee": "AT&T",
+      "object_class": "technical_assistance",
+      "object_class_accept_set": [
+        "technical_assistance",
+        "technical_support",
+        "assistance",
+        "support_service",
+        "support_services",
+        "technical_service"
+      ],
+      "temporal": null,
+      "conditions": [],
+      "conditions_accept_set": [],
+      "underspecified": false,
+      "missing_fields": [],
+      "vague_temporal_phrase": null,
+      "redacted_phrase": null,
+      "known_gaps": [],
+      "annotator_confidence": "CONFIDENT",
+      "rules_cited": [
+        "2",
+        "3.1",
+        "3.2",
+        "3.5",
+        "3.6",
+        "3.8.2",
+        "3.9"
+      ],
+      "annotator_notes": "Modality MUST from 'will provide' as a party undertaking (3.2's will-rule), not the excluded future-fact sense. Both parties named individually and in-span, so 3.5's positional test is straightforward and 3.9 has no trigger: underspecified FALSE. NO conditions entries. Two candidate phrases were tested against 3.8.2's removal test and both fail as conditions: 'at no additional cost to AT&T' is a pricing term -- delete it and the duty applies in exactly the same circumstances, only the commercial terms change -- and 'for the Material and Services provisioned under this Agreement' is object scope, restricting WHICH assistance is covered rather than when the duty applies, which is 3.8.2's F8 rule and the same verdict its table gives 'in connection with any action, suit or other proceeding'. CROSS-REFERENCE CONSIDERED: 'as set forth in the terms of the Maintenance Addendum' is a reference out of the segment, so 2's row was checked under its v0.28 scored-field-dependence formulation rather than by presence. It fails the dependence test -- modality, action, obligor, obligee, object_class, temporal and conditions are every one determinable from the sentence itself; the Addendum details the manner of the telephone-assistance component only, not the identity of the duty. This is materially weaker than 2's own dependence example ('in the manner set forth in Section 12.3', which leaves the action's manner unknowable), so the segment is not excluded on this ground. Recorded because a stricter presence-based reading would exclude, and the disagreement should be legible. The long 'including ...' enumeration is object detail, not a chain of separate obligations, so 2's '4+ chained obligations in one sentence' row is not engaged.",
+      "span_char_start": 24,
+      "span_char_end": 410
+    },
+    {
+      "span_text": "Vendor will provide to AT&T, and keep current, an escalation document that includes names, titles and telephone numbers, including after-hours telephone numbers, of Vendor personnel responsible for providing technical support to AT&T",
+      "modality": "MUST",
+      "action": "PROVIDE",
+      "action_accept_set": [
+        "PROVIDE",
+        "DELIVER",
+        "MAINTAIN"
+      ],
+      "obligor": "Vendor",
+      "obligor_accept_set": [],
+      "obligee": "AT&T",
+      "object_class": "escalation_document",
+      "object_class_accept_set": [
+        "escalation_document",
+        "escalation_contact_list",
+        "contact_list",
+        "document",
+        "escalation_list"
+      ],
+      "temporal": null,
+      "conditions": [],
+      "conditions_accept_set": [],
+      "underspecified": false,
+      "missing_fields": [],
+      "vague_temporal_phrase": null,
+      "redacted_phrase": null,
+      "known_gaps": [
+        "compound_action"
+      ],
+      "annotator_confidence": "CONFIDENT",
+      "rules_cited": [
+        "3.1",
+        "3.2",
+        "3.5",
+        "3.6",
+        "3.9",
+        "4.3",
+        "8.3"
+      ],
+      "annotator_notes": "8.3's and 4.3's own worked one-item example. 'provide to AT&T, and keep current, an escalation document' carries two verbs over ONE shared, indivisible object, and 4.3's discriminating test is performance identity, not object identity: providing a contact document and keeping it current are aspects of one continuing duty over one deliverable, not two independent performances (contrast 'notify and remedy any breach', which 4.3 splits). ONE item, primary verb in action. The dropped verb maps to a DIFFERENT taxonomy verb than the primary -- PROVIDE (one-time) against MAINTAIN (ongoing) -- so 8.3's v0.28 refinement fires compound_action, which it would NOT do for a same-taxonomy doublet. Full verb phrase verbatim per 8.3's every-branch rule: 'will provide to AT&T, and keep current, an escalation document'. Recording only the primary verb genuinely weakens a continuing duty into a one-off, which is why 8.3 refuses to drop it with a prose note alone and requires the tag. 8.3 also notes a compound-action sentence counts as ONE clause for 2's 1-3 band. Both parties named in-span; no unresolvable date, trigger or bd duration, so underspecified is FALSE. The trailing 'that includes names, titles and telephone numbers, ... of Vendor personnel responsible for providing technical support to AT&T' is object detail, not a condition -- 3.8.2's removal test leaves the duty applying identically and only describes what the document must contain.",
+      "span_char_start": 763,
+      "span_char_end": 996
+    },
+    {
+      "span_text": "Vendor will maintain a streamlined escalation process to speed resolution of reported problems",
+      "modality": "MUST",
+      "action": "MAINTAIN",
+      "action_accept_set": [
+        "MAINTAIN",
+        "OPERATE",
+        "PROVIDE"
+      ],
+      "obligor": "Vendor",
+      "obligor_accept_set": [],
+      "obligee": "ABSENT",
+      "object_class": "escalation_process",
+      "object_class_accept_set": [
+        "escalation_process",
+        "escalation_procedure",
+        "process",
+        "problem_escalation",
+        "support_process"
+      ],
+      "temporal": null,
+      "conditions": [],
+      "conditions_accept_set": [],
+      "underspecified": true,
+      "missing_fields": [
+        "obligee"
+      ],
+      "vague_temporal_phrase": null,
+      "redacted_phrase": null,
+      "known_gaps": [],
+      "annotator_confidence": "CONFIDENT",
+      "rules_cited": [
+        "3.1",
+        "3.2",
+        "3.5",
+        "3.6",
+        "3.9",
+        "4.3.1"
+      ],
+      "annotator_notes": "A separate item from the escalation-DOCUMENT duty two sentences earlier, checked against 4.3.1 step 1 rather than assumed: this is not a restatement, because the scored fields are not identical -- different action (MAINTAIN against PROVIDE), different object (a process against a document), and no restatement marker ('for the avoidance of doubt', 'for clarity', 'without limiting the foregoing') appears. 4.3.1 says the marker is not the test and identity of every scored field is, so the two clauses are distinct obligations under 4.3's ordinary treatment. obligee ABSENT: unlike the two sibling items in this segment, this sentence names no beneficiary at all -- AT&T is not in this span -- and 3.5 forbids inferring it from the neighbouring sentences, so 3.9 trigger 1 fires and underspecified is true. That asymmetry between the three items in one segment is deliberate and is exactly what 3.5's span-scoped strictness is for; it was re-confirmed at v0.41 against an in-segment anaphoric antecedent (C14-044's S4) and declined there too. 'to speed resolution of reported problems' is a purpose clause; it names no party as beneficiary, so 3.5.2 does not fire (that section supplies an obligee only for 'for the benefit of X' / 'for X's account' constructions naming a party) and it is not a conditions entry either -- 3.8.2's removal test leaves the duty unchanged.",
+      "span_char_start": 998,
+      "span_char_end": 1092
+    }
+  ],
+  "segment_notes": "3 items, exactly at 2's 1-3 band ceiling. Five sentences, three of them obligation-bearing; the compound-action sentence counts as one clause per 8.3. EXCLUDED SENTENCE 2: 'The availability or performance of this technical support will not be construed as altering or affecting Vendor's obligations as set forth in the \"Warranty\" Section or as provided elsewhere in this Agreement.' -- an interpretive/savings provision with a non-party subject, which 3.8.1 names explicitly in its not-branch-1 list ('nothing in this Section shall limit...') and 8.8's measured table files as 'not an obligation clause at all'. It is also the one genuinely cross-reference-dependent sentence here in 2's v0.28 sense. NOT_ANNOTATABLE content (4.4) inside an otherwise-good segment. EXCLUDED SENTENCE 3: 'Field Service and technical support, including emergency support (service affecting), will be available on call twenty-four (24) hours a day.' -- non-party subject plus a copular 'will be available' status assertion; 3.2's will-as-future-fact carve-out says such a clause is an excluded clause and not a MUST item, and 8.8's copular class agrees. Noted as a near-miss: it carries a real availability standard ('twenty-four (24) hours a day') that a monitor could observe, so a competing reading would recast it as an agentless-passive obligation on Vendor under 3.5.3 with obligor ABSENT. I rejected that because 3.5.3 covers PASSIVE VERB constructions with a suppressed agent, not copular 'will be available' predications, and reading a status predication as a duty would swallow 8.8's whole copular class. If it were annotated the segment would hold 4 items and breach 2's 1-3 band, which is a second signal against it. No 2 exclusion at segment level; the Maintenance Addendum and Warranty Section references are discussed on the items they touch."
+}

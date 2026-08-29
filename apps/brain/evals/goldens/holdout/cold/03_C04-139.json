@@ -1,0 +1,99 @@
+{
+  "segment_id": "C04-139",
+  "doc_id": "C04",
+  "stratum": "hard",
+  "items": [
+    {
+      "span_text": "Bellicum shall use, and will cause its Subcontractors and Licensees to use, Miltenyi Products in accordance with all Applicable Laws and all requirements of Regulatory Authorities applicable to such use",
+      "modality": "MUST",
+      "action": "USE",
+      "action_accept_set": [
+        "USE",
+        "COMPLY"
+      ],
+      "obligor": "Bellicum",
+      "obligor_accept_set": [],
+      "obligee": "ABSENT",
+      "object_class": "self_compliant_use",
+      "object_class_accept_set": [
+        "self_compliant_use",
+        "compliant_use",
+        "product_use",
+        "miltenyi_products",
+        "regulatory_compliance"
+      ],
+      "temporal": null,
+      "conditions": [],
+      "conditions_accept_set": [],
+      "underspecified": true,
+      "missing_fields": [
+        "obligee"
+      ],
+      "vague_temporal_phrase": null,
+      "redacted_phrase": null,
+      "known_gaps": [],
+      "annotator_confidence": "CONFIDENT",
+      "rules_cited": [
+        "3.1",
+        "3.2",
+        "3.5",
+        "3.6",
+        "3.8.2",
+        "3.9",
+        "4.2",
+        "4.3",
+        "4.3.2"
+      ],
+      "annotator_notes": "4.3.2's own motivating sentence: item 1 of 2, the SELF-PERFORMANCE half. Bellicum's duty to use the Products lawfully itself, and its duty to bind its Subcontractors and Licensees to the same standard, are independently breachable -- Bellicum can comply itself while failing to police them, or the reverse -- and a breach of each is attributed differently, which is 4.3.2's locus-of-accountability test rather than 4.3's object-identity evidence. SPAN: byte-identical to the sibling item's, and deliberately so. The shared trailing object ('Miltenyi Products in accordance with...') sits after the interposed flow-down clause, so neither duty's MINIMAL complete span under 3.1 is any shorter than the other's -- exactly the collision 4.2's v0.36 amendment was written for, which resolves it by a content-based tie-break on action_accept_set membership (USE here, PROCURE/cause-family for the sibling) before falling through to ascending item_id. 'in accordance with all Applicable Laws and all requirements of Regulatory Authorities applicable to such use' is NOT a conditions entry: 3.8.2's removal test leaves the duty applying in identical circumstances and changes only the standard the use must meet, so it belongs to the object, which is why object_class carries it as the compliance root. object_class follows 4.3.2's v0.37 recommended self_/third_party_ prefix convention over a shared root. obligee ABSENT: no dative names a beneficiary anywhere in the span, so 3.5 forbids inferring Miltenyi from elsewhere in the document; 3.9 trigger 1 then makes underspecified true.",
+      "span_char_start": 4,
+      "span_char_end": 206
+    },
+    {
+      "span_text": "Bellicum shall use, and will cause its Subcontractors and Licensees to use, Miltenyi Products in accordance with all Applicable Laws and all requirements of Regulatory Authorities applicable to such use",
+      "modality": "MUST",
+      "action": "PROCURE",
+      "action_accept_set": [
+        "PROCURE",
+        "ENSURE",
+        "REQUIRE",
+        "CAUSE"
+      ],
+      "obligor": "Bellicum",
+      "obligor_accept_set": [],
+      "obligee": "ABSENT",
+      "object_class": "third_party_compliant_use",
+      "object_class_accept_set": [
+        "third_party_compliant_use",
+        "subcontractor_compliance",
+        "licensee_compliance",
+        "flow_down_compliance",
+        "third_party_use"
+      ],
+      "temporal": null,
+      "conditions": [],
+      "conditions_accept_set": [],
+      "underspecified": true,
+      "missing_fields": [
+        "obligee"
+      ],
+      "vague_temporal_phrase": null,
+      "redacted_phrase": null,
+      "known_gaps": [],
+      "annotator_confidence": "CONFIDENT",
+      "rules_cited": [
+        "3.1",
+        "3.2",
+        "3.4",
+        "3.5",
+        "3.6",
+        "3.9",
+        "4.2",
+        "4.3.2"
+      ],
+      "annotator_notes": "Item 2 of 2, the THIRD-PARTY-COMPLIANCE half of 4.3.2's flow-down split. obligor stays Bellicum, never the Subcontractors or Licensees: they are not bound by this obligation at all, they are the target of Bellicum's own oversight duty (4.3.2 item-2 rule, stated in terms). Modality MUST from 'will cause', read as a party undertaking under 3.2's will-rule rather than as a future fact about the agreement. ACTION IS THE WEAK POINT and is handled by 3.4's accept-set rather than by picking one verb confidently: 'cause X to do Y' has no exact match in the closed 34-verb taxonomy, which 4.3.2 acknowledges in terms ('apply 3.4's accept-set discipline rather than hard-coding one verb'). PROCURE is my single best value on the ground that 8.8 already records 'arrange'->PROCURE as a defensibly-landing mapping and procuring a third party's performance is the same shape. I did NOT tag action_not_in_taxonomy: 8.8's tag is reserved for the genuine-gap class where no member is defensible, and 4.3.2's own text treats this as an accept-set problem, not a taxonomy gap. compiler/ast.py is outside this pass's permitted directory so I could not verify which of PROCURE/ENSURE/REQUIRE/CAUSE are actually ACTIONS members; the set is authored from the sentence alone per 3.4's justification test. Span and object_class rationale as for item 1.",
+      "span_char_start": 4,
+      "span_char_end": 206
+    }
+  ],
+  "segment_notes": "2 items -- 4.3.2's precedent-setting sentence, split into a self-performance duty and a third-party-compliance (flow-down) duty. Counted as 2 obligation-bearing clauses, inside 2's 1-3 band. The leading '(5)' is an enumeration marker, not content; per 2.6 an incidental list marker on a sentence that carries its own subject and modal does not make the segment an orphan fragment, and this sentence is fully self-contained -- 'such use' resolves to the use named earlier in the same sentence. No 2 exclusion applies: not a definition/recital/table, not 4+ chained obligations, and 'in accordance with all Applicable Laws and all requirements of Regulatory Authorities' is a general standard rather than a cross-reference whose resolution any scored field depends on (2, v0.28 test). Both items carry byte-identical spans by necessity; 4.2's v0.36 content tie-break rather than IoU is what discriminates them."
+}

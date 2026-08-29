@@ -1,0 +1,22 @@
+{
+  "span_char_start": 0,
+  "span_char_end": 0,
+  "span_text": "verbatim substring of segment_text",
+  "modality": "MUST | MUST_NOT | MAY",
+  "action": "single best taxonomy verb",
+  "action_accept_set": ["every defensible alternate, including your best value"],
+  "obligor": "party alias as written, or ABSENT",
+  "obligee": "party alias as written, or ABSENT",
+  "object_class": "snake_case label",
+  "object_class_accept_set": ["every defensible alternate, including your best value"],
+  "temporal": null,
+  "conditions": [],
+  "underspecified": false,
+  "missing_fields": [],
+  "vague_temporal_phrase": null,
+  "redacted_phrase": null,
+  "known_gaps": [],
+  "annotator_confidence": "CONFIDENT | AMBIGUOUS",
+  "rules_cited": ["3.1", "3.2"],
+  "annotator_notes": "reasoning, alternate readings, and anything you would have escalated"
+}

@@ -1,0 +1,110 @@
+{
+  "segment_id": "C14-044",
+  "doc_id": "C14",
+  "stratum": "standard",
+  "items": [
+    {
+      "span_text": "Contractor will perform its best reasonable commercial efforts to complete such rescheduled Products at the new requested Due Date",
+      "modality": "MUST",
+      "action": "COMPLETE",
+      "action_accept_set": [
+        "COMPLETE",
+        "DELIVER",
+        "MANUFACTURE",
+        "PERFORM"
+      ],
+      "obligor": "Contractor",
+      "obligor_accept_set": [],
+      "obligee": "ABSENT",
+      "object_class": "rescheduled_products",
+      "object_class_accept_set": [
+        "rescheduled_products",
+        "products",
+        "product_completion",
+        "rescheduled_delivery",
+        "rescheduled_order"
+      ],
+      "temporal": {
+        "form": "RELATIVE_TO_TRIGGER",
+        "direction": "after",
+        "trigger": "the new requested Due Date"
+      },
+      "conditions": [],
+      "conditions_accept_set": [],
+      "underspecified": true,
+      "missing_fields": [
+        "obligee",
+        "temporal"
+      ],
+      "vague_temporal_phrase": null,
+      "redacted_phrase": null,
+      "known_gaps": [
+        "relative_trigger_preposition"
+      ],
+      "annotator_confidence": "AMBIGUOUS",
+      "rules_cited": [
+        "3.1",
+        "3.2",
+        "3.5",
+        "3.6",
+        "3.7",
+        "3.9",
+        "8.8",
+        "8.9",
+        "14.3",
+        "14.4",
+        "16.2",
+        "16.3"
+      ],
+      "annotator_notes": "MODALITY MUST, not SHOULD: 16.2 is categorical that an efforts qualifier belongs to the action and never to the deontic force, and 'will perform its best reasonable commercial efforts' is an obligation OF MEANS -- failing to try at all is a breach. 3.2's 'will' undertaking row agrees. 16.3 then puts the verb governing the QUALIFIED ACT in action ('complete'), not 'perform' and not 'use', and asks for a generous accept-set because efforts phrasing routinely makes more than one taxonomy verb defensible; 16.3 also confirms underspecified is unaffected by the efforts standard. obligee ABSENT: NICE is not named anywhere in this span, and 3.5 forbids inferring it from the neighbouring sentences -- a restriction 3.5 re-confirmed at v0.41 against exactly this document's in-segment anaphora. 3.9 trigger 1 fires. AMBIGUOUS on TEMPORAL, an exact-match field, so 14.3 routes it to 14.4 escalation; with no reviewer, both readings follow. READING 1 (ADOPTED): 'at the new requested Due Date' is a trigger-bearing relative temporal. 8.9's rule says annotate the direction the preposition expresses, and its own v0.34 data correction lists 'at' explicitly as mapping to 'after' (19 pool segments, 1.2%), so RELATIVE_TO_TRIGGER(after, 'the new requested Due Date') with known_gaps gaining relative_trigger_preposition. Expected v1 outcome is UNMAPPABLE_TEMPORAL, a LOUD failure in criterion 1b, since _RELATIVE_RE is ^(before|after). 3.9 trigger 3 fires regardless. READING 2 (rejected, defensible): 'at the new requested Due Date' is a DEADLINE rather than a trigger event, i.e. BY with the alias 'the new requested Due Date' -- the same two-way split 8.9's v0.34 note records for 'on the Delivery Date' in C04-087, where it observes that NEITHER answer is producible because BY needs a literal 'by' and _RELATIVE_RE a literal before/after. FIELDS THAT DIFFER: temporal form and constituents (clause 6) and known_gaps. I adopt the RELATIVE_TO_TRIGGER reading because 8.9's rule enumerates the preposition and 8's BY row does not, and I apply the same resolution to C04-087 in this pass so the two are consistent. ACTION: 8.8's genuine-gap list contains 'perform' twice, but the verb I place in action is 'complete', not 'perform', precisely because 16.3 directs the action to the qualified act; COMPLETE/DELIVER/MANUFACTURE are all defensible from the sentence, so no action_not_in_taxonomy tag is asserted. I could not check ACTIONS membership (compiler/ast.py is outside this pass's permitted directory).",
+      "span_char_start": 377,
+      "span_char_end": 507
+    },
+    {
+      "span_text": "All such rescheduling shall be performed by sending Contractor a written request for rescheduling",
+      "modality": "MUST",
+      "action": "NOTIFY",
+      "action_accept_set": [
+        "NOTIFY",
+        "REQUEST",
+        "PROVIDE",
+        "SUBMIT"
+      ],
+      "obligor": "ABSENT",
+      "obligor_accept_set": [],
+      "obligee": "Contractor",
+      "object_class": "rescheduling_request",
+      "object_class_accept_set": [
+        "rescheduling_request",
+        "written_request",
+        "rescheduling",
+        "request",
+        "rescheduling_notice"
+      ],
+      "temporal": null,
+      "conditions": [],
+      "conditions_accept_set": [],
+      "underspecified": true,
+      "missing_fields": [
+        "obligor"
+      ],
+      "vague_temporal_phrase": null,
+      "redacted_phrase": null,
+      "known_gaps": [],
+      "annotator_confidence": "CONFIDENT",
+      "rules_cited": [
+        "3.1",
+        "3.2",
+        "3.5",
+        "3.5.3",
+        "3.6",
+        "3.9",
+        "8.8"
+      ],
+      "annotator_notes": "3.5's v0.41 confirming instance, named in that section as this document's S4, and the ruling is that the strong contextual reading is DECLINED rather than acted on. 'All such rescheduling' is an agentless passive: 'by sending Contractor a written request' is a MEANS phrase, not a by-agent, so no agent is stated. The real-world actor is obvious from the segment -- 'such rescheduling' points back to the first sentence's NICE -- but 3.5 holds that an in-segment anaphoric antecedent from a NON-ADJACENT sentence does not satisfy its in-span requirement, and 3.5 says in terms that this span-scoped strictness is deliberate and stays deliberate because it feeds 5 clause 3's scored predicate directly rather than an eligibility or count decision, and because 'the anaphora seems unambiguous here' does not stay clean at the next instance. So obligor = ABSENT, obligor is named in missing_fields, and 3.9 trigger 1 makes underspecified true. I record the declined reading explicitly: NICE is the party that reschedules, per this segment's own first sentence. obligee = 'Contractor', the one party named inside the span that the performance runs to -- 3.5.3's rule for exactly this shape, and its positional test is satisfied. ACTION: the literal act is sending a written request. 8.8's genuine-gap list contains both 'perform' and 'request', which would make this an action_not_in_taxonomy item with a SINGLE-member accept-set. I decided against that and record the decision because it is close: 'send a written request' is defensibly mappable onto a notification verb, the same shape as 8.8's own 'nominate/designate -> APPOINT' and 'arrange -> PROCURE' mappings, and 8.8's rule applies ONLY to the genuine-gap class where no member is defensible. 8.8's own sub-choice paragraph flags the single-member accept-set as a v0.24 default pending confirmation that converts a measurement question into a guaranteed failure for roughly one item in four, which is a reason not to reach for it on a borderline verb. If a reviewer disagrees, the conforming change is action_accept_set -> ['NOTIFY'] plus known_gaps -> ['action_not_in_taxonomy']; the real verb, verbatim, is 'shall be performed by sending ... a written request'. No compound_action tag: one verb phrase.",
+      "span_char_start": 509,
+      "span_char_end": 606
+    }
+  ],
+  "segment_notes": "2 items. Four sentences; two are excluded and both exclusions are decided by named rules rather than by taste. EXCLUDED SENTENCE 1 -- 'NICE may, at its discretion, reschedule delivery of units of Products for which a PO has already been issued, by shortening the Due Date, without any implication.' This is 2.5.1's own v0.41 NEGATIVE worked example, and the section records that it was briefly drafted and locked as its own item before being RETRACTED at batch verification. The reasoning that failed was that restricted scope ('only already-issued POs') supplied monitorable stakes; 2.5.1 rules that scope restriction -- which instances a permission covers -- is not the same thing as monitorable stakes -- whether an exercise can be checked against a standard. No correlative party is named in the span, no deadline exists, and 'without any implication' is at least as direct a no-monitorable-stakes signal as C11-046's 'sole business judgment', arguably more direct since it states that exercising the discretion carries no consequence at all. Excluded under 2's 'party's right, no correlative duty' row as clarified by 2.5/2.5.1. EXCLUDED SENTENCE 2 -- 'In this respect, Contractor is aware that by the last three weeks of every calendar Quarter, a high level of flexibility is required to meet NICE' end of Quarter requirements.' An acknowledgement of awareness, with a copular 'is required' predicated of a non-party abstraction ('a high level of flexibility'). No deontic modal commands any party's conduct, so 3.2's table has no row for it and 8.8/8.8.1's status-not-conduct class covers it. Noted as a near-miss because it contains a timing phrase ('by the last three weeks of every calendar Quarter') that could tempt a date extractor; that phrase belongs to no annotated item here. Both exclusions are NOT_ANNOTATABLE content (4.4) inside an otherwise-good segment; per 2.6 their presence does not disqualify the two self-contained obligation-bearing sentences alongside them. Obligation-bearing clause count is 2, inside 2's 1-3 band. No cross-reference dependence, no redaction, no OCR corruption, no mid-sentence corpus artifact."
+}

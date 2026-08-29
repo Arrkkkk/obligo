@@ -1,0 +1,67 @@
+{
+  "segment_id": "E01-047",
+  "doc_id": "E01",
+  "stratum": "hard",
+  "items": [
+    {
+      "span_text": "No provisions of this Agreement shall be deemed waived, amended, supplemented or modified by any Party hereto, unless such waiver, amendment, supplement or modification is in writing and signed by the authorized representative of each Party",
+      "modality": "MUST_NOT",
+      "action": "WAIVE",
+      "action_accept_set": [
+        "WAIVE",
+        "AMEND",
+        "MODIFY",
+        "SUPPLEMENT"
+      ],
+      "obligor": "any Party",
+      "obligor_accept_set": [],
+      "obligee": "ABSENT",
+      "object_class": "agreement_provisions",
+      "object_class_accept_set": [
+        "agreement_provisions",
+        "contract_provisions",
+        "provisions",
+        "agreement_terms",
+        "waiver_or_amendment",
+        "agreement_amendment"
+      ],
+      "temporal": null,
+      "conditions": [],
+      "conditions_accept_set": [],
+      "underspecified": true,
+      "missing_fields": [
+        "obligor",
+        "obligee"
+      ],
+      "vague_temporal_phrase": null,
+      "redacted_phrase": null,
+      "known_gaps": [
+        "exception_unsupported",
+        "compound_action"
+      ],
+      "annotator_confidence": "AMBIGUOUS",
+      "rules_cited": [
+        "2",
+        "3.1",
+        "3.2",
+        "3.5",
+        "3.5.1",
+        "3.5.3",
+        "3.6",
+        "3.8.1",
+        "3.9",
+        "4.3",
+        "8.2",
+        "8.3",
+        "8.8",
+        "8.8.1",
+        "14.3",
+        "14.4"
+      ],
+      "annotator_notes": "AMBIGUOUS, and the ambiguity is whether this is an item at all -- the most consequential kind, since the two readings differ on every scored clause. READING 1 (ADOPTED): a no-oral-modification prohibition. 'No provisions ... shall be deemed waived, amended, supplemented or modified BY ANY PARTY hereto' has an explicit by-agent and forbids a Party from effecting an informal waiver or amendment; forbidding conduct is exactly what 8.8.1's own test asks for ('does the clause command or forbid CONDUCT, or does it describe a STATUS?'). modality MUST_NOT per 3.2's prohibition row. READING 2 (rejected, genuinely defensible): a deeming provision, i.e. 3.8.1's not-branch-1 example shape ('the Gas shall be deemed dry') combined with 8.8/8.8.1's copular non-party-subject class -- the subject is 'No provisions of this Agreement', a non-party, and 'shall be deemed' asserts an interpretive status rather than commanding anyone; on that reading the segment yields ZERO items and is logged as a 2 exclusion. I adopt reading 1 because the by-agent names a party whose conduct is constrained, which is the feature 8.8's copular class lacks, and because 3.5.3 establishes that a passive clause with a non-party grammatical subject can still be an obligation. THE CARVE-OUT drives 3.8.1 branch 3. 'unless such waiver, amendment, supplement or modification is in writing and signed by the authorized representative of each Party' states a circumstance that REMOVES the prohibition, so it is not absorbed into conditions -- SPEC.md 6 forbids treating a carve-out as if it were an IF -- known_gaps gains exception_unsupported (the tag actually in use, per 3.8.1's note that 8.2's literal 'unless_unsupported' wording is stale), the full carve-out is recorded verbatim right here, and the span still contains it per 3.1. Branch 1 was tested first as 3.8.1 requires: the carve-out would not stand alone as an obligation-bearing clause (its subject is the waiver instrument, not a party), so it is not a second item. 8.2's stated, accepted cost applies -- the annotated obligation is STRONGER than the one the contract imposes, a flat prohibition where the document has a conditional one -- and 8.2's v0.28 correction means this fails SILENTLY on the extraction path (a clause-7 PARTIAL or a spuriously FULLY_CORRECT item), not loudly. COMPOUND ACTION: four coordinated past participles ('waived, amended, supplemented or modified') over one shared object. 4.3 keeps ONE item -- they are disjunctive alternatives of one prohibited act-type over one indivisible object, not four separate performances -- and the dropped verbs map to different taxonomy labels than the primary, so 8.3's tag fires; splitting into four would also breach 2's 1-3 band, an independent signal. Full phrase verbatim: 'shall be deemed waived, amended, supplemented or modified'. 8.3 says take the primary (FIRST) verb, so action is WAIVE rather than AMEND, even though the section heading is 'Amendments'. PARTIES: obligor 'any Party' -- an indefinite reference naming no individual party, so 3.5.1 step 1 branch 2 records it verbatim rather than ABSENT (a subject IS stated), and 3.9 trigger 1 fires. obligee ABSENT; 'the authorized representative of each Party' sits inside the carve-out and is a signing role, not a party the duty runs to. object_class is authored in the document's own plural; 5's v0.33 number rule normalises both sides and 3.6 forbids padding the set with the other number.",
+      "span_char_start": 26,
+      "span_char_end": 266
+    }
+  ],
+  "segment_notes": "1 item, and its eligibility is the whole question -- see the item's AMBIGUOUS notes for the competing reading under which this segment yields ZERO items and is logged as a 2 exclusion (deeming provision / 8.8 copular non-party-subject class). The segment is a single sentence with one obligation-bearing clause under my adopted reading, inside 2's 1-3 band. 'SECTION 8.14. Amendments.' is a heading and is outside the span. No cross-reference dependence (2, v0.28): the clause resolves entirely within itself. No redaction, no OCR corruption, no mid-sentence corpus artifact. Not a 2.5/2.5.1 exclusion: this is a constraint on conduct, not a discretion clause, and its stakes are directly monitorable (was the change in writing and signed, or not)."
+}

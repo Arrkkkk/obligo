@@ -1,0 +1,65 @@
+{
+  "segment_id": "C02-045",
+  "doc_id": "C02",
+  "stratum": "standard",
+  "items": [
+    {
+      "span_text": "Except where AMAG is required by Applicable Law to account for any VAT to the applicable Governmental Authority, Antares shall be solely responsible for the timely payment of all such VAT and taxes to the applicable Governmental Authority",
+      "modality": "MUST",
+      "action": "PAY",
+      "action_accept_set": [
+        "PAY",
+        "REMIT",
+        "SETTLE"
+      ],
+      "obligor": "Antares",
+      "obligor_accept_set": [],
+      "obligee": "the applicable Governmental Authority",
+      "object_class": "vat_and_taxes",
+      "object_class_accept_set": [
+        "vat_and_taxes",
+        "vat",
+        "taxes",
+        "tax_payment",
+        "value_added_tax"
+      ],
+      "temporal": null,
+      "conditions": [],
+      "conditions_accept_set": [],
+      "underspecified": true,
+      "missing_fields": [
+        "obligee"
+      ],
+      "vague_temporal_phrase": "timely",
+      "redacted_phrase": null,
+      "known_gaps": [
+        "exception_unsupported"
+      ],
+      "annotator_confidence": "CONFIDENT",
+      "rules_cited": [
+        "2",
+        "3.1",
+        "3.2",
+        "3.5",
+        "3.5.3",
+        "3.6",
+        "3.7",
+        "3.8.1",
+        "3.8.2",
+        "3.9",
+        "8.2",
+        "8.8",
+        "8.8.1",
+        "14.2",
+        "15.1",
+        "15.2",
+        "15.3",
+        "15.3.1"
+      ],
+      "annotator_notes": "3.8.1's v0.41 fifth-marker instance, named there by segment id. 'Except where AMAG is required by Applicable Law to account for any VAT to the applicable Governmental Authority' narrows Antares's payment duty under the stated circumstance that AMAG accounts for it instead -- the identical shape as C14-01's 'unless' and C10-016's 'except to the extent'. Branch 3: NOT absorbed into conditions (SPEC.md 6 forbids treating a carve-out as an IF), known_gaps gains exception_unsupported, the full carve-out is recorded verbatim right here, and the span still contains it per 3.1. v0.41's point in adopting this instance is that branch 3's membership is decided by branch 3's own TEST and not by whether a marker is already on the list -- so 'except where' needed no fresh reviewer-ruled instance of its own. Branch 1 tested first, as 3.8.1 requires: the carve-out states a legal requirement on AMAG rather than an undertaking Antares gives, and it would not stand alone as an obligation-bearing clause, so it is not a second item. 8.2's stated cost applies -- as annotated the duty is STRONGER than the contract's, absolute rather than conditional -- and it fails SILENTLY on the extraction path per 8.2's v0.28 correction. ELIGIBILITY, CHECKED EXPLICITLY because the construction is a near-miss for an exclusion. 'shall be SOLELY RESPONSIBLE FOR the timely payment' is copular in form, and 8.8's measured table files copular 'shall not be liable/entitled' clauses as not obligation-bearing at all, with C04-163's 'shall not be RESPONSIBLE for payments' as a worked already-excluded instance. The distinction is 8.8.1's own test: does the clause command CONDUCT or describe a STATUS? C04-163 DISCLAIMS a duty and commands nothing; this clause AFFIRMATIVELY assigns a payment obligation that Antares can perform or breach, and 3.8.1's v0.41 note describes it in exactly those terms ('narrows Antares's payment duty'). So it is annotated, modality MUST per 3.2's 'shall' row. TEMPORAL: 'timely' is one of 15.1's measured vague qualifiers (13 occurrences in the pool), with NO trigger attached to it, so 15.5's trigger bullet does not fire and 15.2 applies unchanged -- temporal null, the literal phrase recorded in the non-scored vague_temporal_phrase, and per 15.3 and 14.2 it does NOT set underspecified (3.9's trigger list is closed; annotating true on this ground would fail clause 8 automatically for a capability v1 declined to build). 15.3.1's v0.34 correction is worth recording on this item: the class fails LOUDLY, not silently -- if a model quotes the vague qualifier into temporal_raw, _classify_temporal returns None and UNMAPPABLE_TEMPORAL rejects the WHOLE candidate, so the expected loss is a MISSED visible in criterion 1b rather than an unattributed PARTIAL. PARTIES: obligor 'Antares', a named individual alias. obligee = 'the applicable Governmental Authority', the in-span recipient the payment runs to, on 3.5's positional test and 3.5.3's ruling principle that a named in-span party owed the performance should not be discarded. Two alternatives considered: ABSENT (the Authority is a tax collector rather than a contract counterparty) and 'AMAG' (rejected outright -- AMAG appears only inside the carve-out, in the role of the party who accounts INSTEAD, so treating it as obligee inverts the relationship in the way 3.5.2 warns about). Clause 8 is stable across all three: the Authority is a role description that resolve_party() cannot match and ABSENT is likewise a 3.9 trigger, so underspecified is true either way -- which is why I record the alternatives without marking the item AMBIGUOUS. object_class carries the compound and both of its parts per 3.6's v0.33 enumeration 2; plurals are not padded in, per 3.6 and 5's number rule.",
+      "span_char_start": 4,
+      "span_char_end": 242
+    }
+  ],
+  "segment_notes": "1 item. Single-sentence segment, one obligation-bearing clause, inside 2's 1-3 band. This is 3.8.1's v0.41 CONFIRMING instance for the fifth branch-3 marker, 'except where', adopted there without fresh re-litigation on the ground that branch 3's test is semantic and the marker list is citation convenience rather than a whitelist. The one exclusion that had to be actively ruled out is 8.8/8.8.1's copular class: 'shall be solely responsible for' looks like C04-163's already-excluded 'shall not be responsible for payments', and the discriminator is 8.8.1's status-versus-conduct test -- the negative form disclaims and commands nothing, the affirmative form here assigns a performable, breachable payment duty. See the item's notes. '(b)' is an enumeration marker on a sentence carrying its own subject and modal, so 2.6's orphan-fragment exclusion does not reach it. No cross-reference dependence ('Applicable Law' is a defined standard, not a clause pointer whose resolution a scored field needs), no redaction, no OCR corruption, no mid-sentence corpus artifact. The segment is 242 characters, just above 2's 200-character floor."
+}

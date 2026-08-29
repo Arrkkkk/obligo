@@ -1,0 +1,172 @@
+{
+  "segment_id": "C04-117",
+  "doc_id": "C04",
+  "stratum": "hard",
+  "items": [
+    {
+      "span_text": "Bellicum will reimburse Miltenyi for Third Party royalties and/or license fees, if any, owed by Miltenyi under Third Party license agreements existing as of the Effective Date as set forth on Exhibit D solely to the extent Miltenyi's exercise of rights under such licenses is required 27 Miltenyi Biotec-Bellicum Supply Agreement (Execution Copy, March 27, 2019) to supply Miltenyi Product to Bellicum under this Agreement for the Permitted Use; and further provided that amounts owed under such Third Party license agreements have not otherwise been passed through to Bellicum and are actually paid by Miltenyi to Miltenyi's licensor(s)",
+      "modality": "MUST",
+      "action": "REIMBURSE",
+      "action_accept_set": [
+        "REIMBURSE",
+        "PAY",
+        "COMPENSATE"
+      ],
+      "obligor": "Bellicum",
+      "obligor_accept_set": [],
+      "obligee": "Miltenyi",
+      "object_class": "third_party_royalties",
+      "object_class_accept_set": [
+        "third_party_royalties",
+        "royalties",
+        "license_fees",
+        "royalties_and_license_fees",
+        "third_party_fees",
+        "royalty"
+      ],
+      "temporal": null,
+      "conditions": [
+        "solely to the extent Miltenyi's exercise of rights under such licenses is required 27 Miltenyi Biotec-Bellicum Supply Agreement (Execution Copy, March 27, 2019) to supply Miltenyi Product to Bellicum under this Agreement for the Permitted Use",
+        "provided that amounts owed under such Third Party license agreements have not otherwise been passed through to Bellicum and are actually paid by Miltenyi to Miltenyi's licensor(s)"
+      ],
+      "conditions_accept_set": [
+        [],
+        []
+      ],
+      "underspecified": false,
+      "missing_fields": [],
+      "vague_temporal_phrase": null,
+      "redacted_phrase": null,
+      "known_gaps": [
+        "corpus_artifact_in_span"
+      ],
+      "annotator_confidence": "CONFIDENT",
+      "rules_cited": [
+        "2",
+        "3.1",
+        "3.2",
+        "3.5",
+        "3.6",
+        "3.8",
+        "3.8.1",
+        "3.8.2",
+        "3.9",
+        "8.7",
+        "17.1",
+        "17.2"
+      ],
+      "annotator_notes": "8.7's own motivating sentence. A running page header -- '27 Miltenyi Biotec-Bellicum Supply Agreement (Execution Copy, March 27, 2019)' -- is spliced MID-SENTENCE at segment offsets 316-397 (measured on this span, characters 281-362 of span_text), inside a scope clause that sits on BOTH sides of the splice, so 3.1's minimal-COMPLETE-span rule makes truncating before it impossible. Per 8.7's Reading A the artifact is carried VERBATIM in span_text and, because it lands inside the first qualifier, verbatim in the first conditions entry too -- 8.7's own second-order consequence 1, so this affects count-sensitive clause 7 and not only span alignment. known_gaps gains corpus_artifact_in_span. LIVE FALSE-POSITIVE HAZARD, per 8.7's second-order consequence 2 and flagged here explicitly: the artifact contains a real date, 'March 27, 2019', inside an item whose temporal is null; an extractor that reads it as a deadline is wrong, and this item's temporal is null because the obligation genuinely carries no timing phrase, not because a date was overlooked. QUALIFIER ROUTING, both entries through 3.8.1: neither qualifier would stand alone as an obligation-bearing clause under 2/3.2 (branch 1 fails -- 'is required to supply' and 'have not ... been passed through / are actually paid' are conditions of the reimbursement, not undertakings borne by a party), and both state affirmative circumstances under which the duty applies rather than carve-outs that remove it, so both go to branch 2 as ordinary conditions entries. TWO entries, not one: 17.1's diagnostic counts scoping markers, and there are two distinct ones ('solely to the extent', 'provided that'), each independently satisfiable. QUOTE EXTENT: 3.8.2 Rule A begins the second quote at 'provided that' and excludes the leading 'further', which merely attaches the qualifier to its neighbour. Rule A itself records this as a SYMMETRIC ambiguity in which gold's earlier inclusion of 'further' was arbitrary rather than correct, so this convention must not be cited as evidence that any extraction quoting it the other way is defective. Internal 'and' inside each entry stays verbatim and unparsed (17.2) -- one entry with an internal boolean is the correct answer. underspecified FALSE: both parties are named individual aliases, temporal is genuinely absent (3.9's note that temporal null is never a trigger), and there is no DateRef, TriggerRef or bd duration. 'as set forth on Exhibit D' is a cross-reference whose resolution no scored field needs (2, v0.28), and it sits inside verbatim-quoted span text.",
+      "span_char_start": 36,
+      "span_char_end": 673
+    },
+    {
+      "span_text": "If, during the Term of this Agreement, the Parties mutually agree to obtain additional Third Party licenses to enable the Permitted Use of Miltenyi Products by Bellicum, its Affiliates, Subcontractors, and/or Licensees under this Agreement, and such additional licenses give rise to Third Party royalties and/or license fees with respect to Bellicum's use of Miltenyi Products under this Agreement, then the Parties will negotiate in good faith which Party(ies) is/are responsible for payment of such Third Party royalties and/or license fees",
+      "modality": "MUST",
+      "action": "NEGOTIATE",
+      "action_accept_set": [
+        "NEGOTIATE",
+        "AGREE",
+        "DETERMINE"
+      ],
+      "obligor": "the Parties",
+      "obligor_accept_set": [],
+      "obligee": "ABSENT",
+      "object_class": "payment_responsibility",
+      "object_class_accept_set": [
+        "payment_responsibility",
+        "royalty_payment_allocation",
+        "responsibility_allocation",
+        "third_party_royalties",
+        "payment_allocation"
+      ],
+      "temporal": null,
+      "conditions": [
+        "If, during the Term of this Agreement, the Parties mutually agree to obtain additional Third Party licenses to enable the Permitted Use of Miltenyi Products by Bellicum, its Affiliates, Subcontractors, and/or Licensees under this Agreement, and such additional licenses give rise to Third Party royalties and/or license fees with respect to Bellicum's use of Miltenyi Products under this Agreement"
+      ],
+      "conditions_accept_set": [
+        []
+      ],
+      "underspecified": true,
+      "missing_fields": [
+        "obligor",
+        "obligee"
+      ],
+      "vague_temporal_phrase": null,
+      "redacted_phrase": null,
+      "known_gaps": [],
+      "annotator_confidence": "CONFIDENT",
+      "rules_cited": [
+        "3.1",
+        "3.2",
+        "3.5",
+        "3.5.1",
+        "3.6",
+        "3.8",
+        "3.8.2",
+        "3.9",
+        "8.4",
+        "8.4.1",
+        "17.1",
+        "17.2"
+      ],
+      "annotator_notes": "8.4.1's own motivating sentence. obligor is the collective 'the Parties', which names NO party, so 8.4.1's rule (now living at 3.5.1 step 1 branch 2) puts the reference in the slot verbatim, lowercase 'the' exactly as it appears, with an empty obligor_accept_set -- there are no individual names in the span to accept. 8.4.1 blocks every alternative explicitly: 'Bellicum' would be 3.5's forbidden inference from elsewhere in the document, and ABSENT would be factually false since a subject IS stated. 3.9 trigger 1 fires. obligee ABSENT -- the negotiation is owed to no named party. ONE conditions entry, not two, and this is the segment's finest judgment call. A single scoping 'If' governs a coordinated pair ('the Parties mutually agree ... AND such additional licenses give rise ...'), which is exactly 17.1's second row and 17.2's rule: one entry, kept verbatim including its internal 'and', and that is the CORRECT answer rather than a clause-7 failure. 3.8.2 Rule B is NOT engaged -- Rule B covers two syntactically distinct phrases merely juxtaposed with a comma, whereas here one 'if' scopes both, and 3.8.2 says in terms that Rule B is not 17.2's boundary and the two must not be conflated. Quote runs from the 'If' marker to just before ', then' per Rule A. TEMPORAL null: 'during the Term of this Agreement' is a timing phrase but it sits INSIDE the if-clause, modifying when the Parties might agree, not when the negotiation duty must be performed; even taken as the obligation's own temporal it is 8's 'during the Term' row, UNMAPPABLE_TEMPORAL, since _DURING_RE needs two ISO dates. Recorded rather than forced into a form. mutual_obligation NOT tagged: negotiating is inherently joint, but 8.4's discriminating test asks whether the co-obligor is also the obligee, and this span names no obligee at all. 8.4.1's OPEN SUB-QUESTION covers exactly this -- 77% of collective-reference sentences state neither the co-obligor names nor an obligee, making the mutual/joint discrimination undecidable at span scope -- and I record that undecidability here rather than guessing, which is what 8.4.1 asks batch 3 to do. ACTION: NEGOTIATE's membership in the closed 34-verb ACTIONS list could not be verified (compiler/ast.py is outside this pass's permitted directory), so AGREE and DETERMINE ride in the accept-set per 3.4 rather than my applying 8.8's single-member treatment on a guess.",
+      "span_char_start": 898,
+      "span_char_end": 1440
+    },
+    {
+      "span_text": "Miltenyi, acting reasonably, reserves the right to defer the inclusion of additional Miltenyi Products in Exhibit B hereto until the Parties have reached agreement on this matter",
+      "modality": "MAY",
+      "action": "DEFER",
+      "action_accept_set": [
+        "DEFER",
+        "WITHHOLD",
+        "SUSPEND"
+      ],
+      "obligor": "Miltenyi",
+      "obligor_accept_set": [],
+      "obligee": "ABSENT",
+      "object_class": "product_inclusion",
+      "object_class_accept_set": [
+        "product_inclusion",
+        "exhibit_inclusion",
+        "additional_products",
+        "product_listing",
+        "additional_product"
+      ],
+      "temporal": {
+        "form": "RELATIVE_TO_TRIGGER",
+        "direction": "before",
+        "trigger": "the Parties have reached agreement on this matter"
+      },
+      "conditions": [],
+      "conditions_accept_set": [],
+      "underspecified": true,
+      "missing_fields": [
+        "obligee",
+        "temporal"
+      ],
+      "vague_temporal_phrase": null,
+      "redacted_phrase": null,
+      "known_gaps": [
+        "relative_trigger_preposition"
+      ],
+      "annotator_confidence": "CONFIDENT",
+      "rules_cited": [
+        "2",
+        "2.5",
+        "2.5.1",
+        "3.1",
+        "3.2",
+        "3.5",
+        "3.5.4",
+        "3.7",
+        "3.9",
+        "8.9"
+      ],
+      "annotator_notes": "ELIGIBILITY CHECKED EXPLICITLY against 2.5, because 'reserves the right to' is that section's own motivating phrasing and this clause could have been excluded on sight. It clears the test, and 2.5 says in terms that the phrase is not per se excluded. Three independent monitorable stakes exist where C04-026 had none: (i) an express REVIEWABLE standard, 'acting reasonably' -- 2.5.1's own counter-example to 'sole business judgment', which is what makes an exercise checkable at all; (ii) a bounded, observable end-point, 'until the Parties have reached agreement on this matter'; (iii) a narrow, specific object (inclusion of additional Products in Exhibit B) rather than a ten-verb catch-all enumeration. I note 2.5.1's v0.41 NEGATIVE worked example (C14-044's S1) and distinguish it: there, restricted SCOPE was wrongly treated as monitorable stakes with no reviewable standard and no correlative stake anywhere; here the reasonableness standard is explicit in the span. MODALITY MAY per 3.2's 'is entitled to / is permitted to' row. obligee ABSENT: 'the Parties' appears only inside the temporal trigger, not as a party the permission runs against, and 3.5.4 makes obligee assignment positional but does NOT license inventing a counterparty for a MAY. TEMPORAL: 'until the Parties have reached agreement on this matter' is a trigger-bearing relative form. 8.9's v0.34 data correction states that 'until' was never counted but IS covered by the rule as written, expressing a 'before' direction, so this is RELATIVE_TO_TRIGGER(before, ...) with the trigger verbatim and known_gaps gaining relative_trigger_preposition. Expected v1 outcome is UNMAPPABLE_TEMPORAL -- a LOUD failure visible in criterion 1b -- because _RELATIVE_RE is ^(before|after) and accepts no other head word. 8.9's own cassette observation records 'until <trigger>' occurring in C04-117 twice, which is this sentence. 3.9 trigger 3 fires regardless (resolve_trigger() returns None throughout v1), so temporal is also named in missing_fields alongside the ABSENT obligee.",
+      "span_char_start": 1442,
+      "span_char_end": 1620
+    }
+  ],
+  "segment_notes": "3 items, at the top of 2's 1-3 band, one per obligation-bearing sentence. EXCLUDED SENTENCE: 'Bellicum acknowledges that the potential volume of such Third Party royalties and/or license fees under applicable Third Party license agreements will be as set forth on Exhibit D, as updated from time to time by Miltenyi.' -- an acknowledgement of a fact, not an undertaking. 3.2's 'will'-as-future-fact carve-out puts it outside the four modalities ('will be as set forth' states a fact about the documents, not a party's undertaking), and 8.8's copular status class covers it from the other direction. It is additionally the one genuinely cross-reference-dependent clause here in 2's v0.28 sense: its whole content is 'whatever Exhibit D says'. Treated as NOT_ANNOTATABLE content (4.4) inside an otherwise-good segment. This segment carries 8.7's mid-sentence corpus artifact, which is document-concentrated in C04 (22 instances, 12% of that document's segments, all mid-sentence) -- so the tag on item 1 is an expected property of this document, not an anomaly. Not excluded as cross-reference-dependent at segment level (2, v0.28): the Exhibit D / Exhibit B references sit inside verbatim-quoted text and no scored field of any annotated item needs them resolved."
+}

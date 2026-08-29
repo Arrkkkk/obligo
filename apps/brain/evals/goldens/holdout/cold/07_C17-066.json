@@ -1,0 +1,170 @@
+{
+  "segment_id": "C17-066",
+  "doc_id": "C17",
+  "stratum": "standard",
+  "items": [
+    {
+      "span_text": "The Company and RGHI will use all commercially reasonable efforts to obtain within 24 months following the Commencement Date, from the counterparty to each Multi-party Contract any needed consent to separate the portion of such contract that relates to the goods or services purchased from or supplied to the Business under such Multi-party Contract (including but not limited to assignment or partial assignment of such contracts to the Company or RGHI or its Affiliates)",
+      "modality": "MUST",
+      "action": "OBTAIN",
+      "action_accept_set": [
+        "OBTAIN",
+        "PROCURE",
+        "SECURE"
+      ],
+      "obligor": "The Company",
+      "obligor_accept_set": [
+        "The Company",
+        "RGHI",
+        "The Company and RGHI"
+      ],
+      "obligee": "ABSENT",
+      "object_class": "consent",
+      "object_class_accept_set": [
+        "consent",
+        "counterparty_consent",
+        "contract_consent",
+        "separation_consent",
+        "needed_consent"
+      ],
+      "temporal": null,
+      "conditions": [],
+      "conditions_accept_set": [],
+      "underspecified": true,
+      "missing_fields": [
+        "obligee"
+      ],
+      "vague_temporal_phrase": null,
+      "redacted_phrase": null,
+      "known_gaps": [
+        "within_preposition"
+      ],
+      "annotator_confidence": "AMBIGUOUS",
+      "rules_cited": [
+        "3.1",
+        "3.2",
+        "3.4",
+        "3.5",
+        "3.5.1",
+        "3.5.2",
+        "3.7",
+        "3.9",
+        "8.6",
+        "14.3",
+        "14.4",
+        "16.2",
+        "16.3"
+      ],
+      "annotator_notes": "8.6's own motivating sentence. TEMPORAL: 'within 24 months following the Commencement Date' has a bare numeral, so 8's parenthetical-numeral gap is NOT the cause; the failure is the preposition after the duration -- _WITHIN_RE demands 'of' and gets 'following'. 8.6's rule is literal and I follow it: temporal null, known_gaps gains within_preposition, and underspecified is NOT set by this rule (8.6's v0.28 strike). Recorded tension, because it is a real inconsistency in the guideline rather than my choice: 3.7 says known-gap forms are annotated NORMALLY and 8.9 -- the sibling preposition gap -- instructs annotating the FORM (RELATIVE_TO_TRIGGER) with its trigger verbatim, whereas 8.6 instructs null. If 8.6 were read the 8.9 way this item's temporal would be WITHIN(24, months, 'the Commencement Date') and clause 6 would change; I follow the rule as literally written for its own motivating case. PARTIES: the span names the parties individually, so 3.5.1 step 1 branch 1 puts the first-named 'The Company' in obligor and obligor_accept_set carries each alternative plus the whole coordinated string 'The Company and RGHI' per the v0.33 forward rule. Conjunctive ('and'), recorded per 3.5.1. This is 3.5.1's JOINT case, not 8.4's mutual one -- the co-obligor is not the obligee, only one duty exists, and nothing is lost but which co-party is named -- so NO mutual_obligation tag. OBLIGEE IS WHY THIS IS AMBIGUOUS, and it is an exact-match field, so 14.3 routes it to 14.4; with no reviewer, both readings follow and I commit to one. READING 1 (ADOPTED): obligee ABSENT. The only third party named is 'the counterparty to each Multi-party Contract', and the consent is obtained FROM it -- it is the source of the performance, not its beneficiary. Treating it as obligee inverts the party relationship in exactly the way 3.5.2 warns about for 'on behalf of', which it calls worse than no rule at all. 3.9 trigger 1 then fires on ABSENT. READING 2 (rejected): obligee = 'the counterparty to each Multi-party Contract', on the strength of 3.5.1's own comparison table, which characterises this segment's joint case as having a third party in the obligee slot. FIELD THAT DIFFERS: obligee (clause 4) only; underspecified stays true either way, so clause 8 is unaffected. Modality MUST per 16.2 -- the efforts qualifier belongs to the action, never the deontic force -- and per 3.2's 'will' undertaking row. Action takes the verb governing the qualified act ('obtain'), not 'use' (16.3).",
+      "span_char_start": 37,
+      "span_char_end": 509
+    },
+    {
+      "span_text": "The contract constituting the separated portion of any Multi-party Contract that relates to the Business as described in the preceding sentence shall be assumed by and become the responsibility of the Company",
+      "modality": "MUST",
+      "action": "ASSUME",
+      "action_accept_set": [
+        "ASSUME",
+        "ACCEPT",
+        "PERFORM"
+      ],
+      "obligor": "the Company",
+      "obligor_accept_set": [],
+      "obligee": "ABSENT",
+      "object_class": "separated_contract",
+      "object_class_accept_set": [
+        "separated_contract",
+        "contract",
+        "contract_assumption",
+        "multi_party_contract",
+        "contract_responsibility"
+      ],
+      "temporal": null,
+      "conditions": [],
+      "conditions_accept_set": [],
+      "underspecified": true,
+      "missing_fields": [
+        "obligee"
+      ],
+      "vague_temporal_phrase": null,
+      "redacted_phrase": null,
+      "known_gaps": [
+        "compound_action"
+      ],
+      "annotator_confidence": "AMBIGUOUS",
+      "rules_cited": [
+        "2",
+        "3.1",
+        "3.2",
+        "3.5",
+        "3.5.3",
+        "3.9",
+        "4.3",
+        "8.3",
+        "8.8",
+        "14.3",
+        "14.4"
+      ],
+      "annotator_notes": "AMBIGUOUS, and the ambiguity is about whether this is an item at all, which is the sharpest kind. READING 1 (ADOPTED): it is a passive duty on the Company to assume the separated contract. The subject is non-party ('The contract'), but 3.5.3's own motivating case (C04-087, 'Each quantity of Miltenyi Product(s) ... shall be delivered ...') establishes that a passive clause with a non-party grammatical subject IS an obligation; here, unlike 3.5.3's case, an explicit by-agent exists ('by ... the Company'), so 3.5.3's ABSENT-obligor branch does NOT fire and obligor is simply 'the Company' under 3.5's ordinary positional test. READING 2 (rejected): it is an allocation/deeming provision rather than a commanded act -- 'shall ... become the responsibility of' asserts a status, which is 8.8's copular 'not an obligation clause at all' class and 3.8.1's not-branch-1 'future fact about the agreement' shape -- in which case the segment yields 2 items, not 3. FIELDS THAT DIFFER: the item's entire existence, hence every clause. I adopt reading 1 because 'shall be assumed by X' names a real performance X can fail to render, which 2.5.1's monitorable-stakes test treats as the discriminator, whereas 'become the responsibility of' alone would not. COMPOUND ACTION: 'shall be assumed by AND become the responsibility of' -- two coordinated predicates over one shared indivisible object, so 4.3 keeps ONE item; the second predicate maps to a different (or to no) taxonomy label, so 8.3's tag fires and the full phrase is recorded verbatim here. ACTION: I could not verify ASSUME's membership in the closed 34-verb ACTIONS list (compiler/ast.py is outside this pass's permitted directory), so the accept-set carries ACCEPT and PERFORM as the defensible alternates rather than my applying 8.8's single-member treatment on a guess. 'as described in the preceding sentence' is an INTRA-segment reference -- the preceding sentence is present in this same segment -- so 2's cross-reference row is not engaged; nothing outside the segment needs resolving. obligee ABSENT (no beneficiary named), so 3.9 trigger 1 makes underspecified true.",
+      "span_char_start": 511,
+      "span_char_end": 719
+    },
+    {
+      "span_text": "Each Party making purchases or receiving services under any Multi-party Contract shall indemnify and hold harmless the other Party and its Affiliates for any claims, damages, etc. arising out of such purchases or receipt of services",
+      "modality": "MUST",
+      "action": "INDEMNIFY",
+      "action_accept_set": [
+        "INDEMNIFY",
+        "DEFEND",
+        "COMPENSATE"
+      ],
+      "obligor": "Each Party",
+      "obligor_accept_set": [],
+      "obligee": "the other Party",
+      "object_class": "claims_and_damages",
+      "object_class_accept_set": [
+        "claims_and_damages",
+        "claims",
+        "damages",
+        "claim",
+        "damage",
+        "liability",
+        "indemnified_claims"
+      ],
+      "temporal": null,
+      "conditions": [
+        "making purchases or receiving services under any Multi-party Contract"
+      ],
+      "conditions_accept_set": [
+        []
+      ],
+      "underspecified": true,
+      "missing_fields": [
+        "obligor",
+        "obligee"
+      ],
+      "vague_temporal_phrase": null,
+      "redacted_phrase": null,
+      "known_gaps": [
+        "mutual_obligation"
+      ],
+      "annotator_confidence": "CONFIDENT",
+      "rules_cited": [
+        "3.1",
+        "3.2",
+        "3.5",
+        "3.5.1",
+        "3.6",
+        "3.8",
+        "3.8.2",
+        "3.9",
+        "8.3",
+        "8.4"
+      ],
+      "annotator_notes": "COMPOUND ACTION DELIBERATELY NOT TAGGED, and this segment is 8.3's own named instance of that refinement. 'indemnify and hold harmless' is a legal doublet: 8.8 records hold-harmless -> INDEMNIFY as a defensibly-landing mapping, so both verbs reach the SAME taxonomy verb, nothing is lost, and 8.3's v0.28 branch says tagging it would assert a v1 limitation that does not exist while wrongly removing a fully-scoreable item from 9's len(known_gaps)==0 denominator. Full verb phrase recorded anyway per 8.3's every-branch rule: 'shall indemnify and hold harmless'. MUTUAL: this clause IS reciprocal -- 'Each Party ... shall indemnify ... the other Party' makes the co-obligor also the obligee, which is exactly 8.4's discriminating test and the opposite answer from sentence 1's joint clause in this same segment. One item, known_gaps gains mutual_obligation, and the mirror-image duty running the other way is structurally unrepresentable in IR v1 (one obligor, one obligee, CHECK they differ). PARTIES: 'Each Party' is distributive and names no individual party, so 3.5.1 step 1 branch 2 puts it in the slot verbatim with an empty accept-set. obligee = 'the other Party'; 3.5.1 gives the obligee slot no accept-set field, so the co-beneficiary is recorded here instead -- the span's full beneficiary phrase is 'the other Party and its Affiliates'. Both references are unresolvable, so 3.9 trigger 1 fires. CONDITION: 'making purchases or receiving services under any Multi-party Contract' passes 3.8.2's removal test as a condition, not object scope -- delete it and every Party owes the indemnity at all times, which changes the circumstances in which the duty applies rather than merely broadening what it covers. This is the identical shape as C22-01's 'giving any notice required or permitted under this IP Agreement', which 3.8.2's own table files as a condition. Its internal 'or' stays verbatim and unparsed (17.2); it is one scoping phrase, not two, so 17.1's marker count gives one entry. The trailing 'arising out of such purchases or receipt of services' is object scope by the same removal test (the duty is unchanged, only the covered claims narrow) and is correctly in NEITHER conditions nor a second item, per 3.8.2's F8 rule and its E05-P1 row.",
+      "span_char_start": 721,
+      "span_char_end": 953
+    }
+  ],
+  "segment_notes": "3 items, at the top of 2's 1-3 band. Three obligation-bearing clauses, one per sentence. This segment carries two different party-structure classes in one place and they are annotated differently on purpose: sentence 1 is 3.5.1's JOINT case (two named co-obligors, duty toward a third party, only 'which co-party is named' is lost, no tag) while sentence 3 is 8.4's MUTUAL case (each Party indemnifies the other, so an entire second obligation is lost, tag fires). 3.5.1's own comparison table names this segment for the joint side; the mutual clause in the same segment is a separate finding of this pass. Sentence 2 is annotated but marked AMBIGUOUS on its eligibility -- see that item's notes for the competing reading under which the segment yields only 2 items. No 2 exclusion applies at segment level: the only outward reference in an annotated span is 'as described in the preceding sentence', which resolves inside this same segment, so 2's v0.28 scored-field-dependence test is not engaged. Not 4+ chained obligations in any one sentence."
+}

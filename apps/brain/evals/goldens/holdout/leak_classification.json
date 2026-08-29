@@ -1,0 +1,214 @@
+{
+  "C02-01": {
+    "level": "L2",
+    "basis": "id_citation",
+    "detail": "L792 states the obligor value verbatim: [\"Antares\", \"its Subcontractor\", ...]; L818 quotes the segment with the obligor bolded.",
+    "segment_id": "C02-021"
+  },
+  "C02-02": {
+    "level": "L1",
+    "basis": "id_citation",
+    "detail": "No own-field statement. L263 states a segment-level disposition for C02-021 (\"accept-set, no gap tag\"), which leaks known_gaps==[] for its items.",
+    "segment_id": "C02-021"
+  },
+  "C02-03": {
+    "level": "L2",
+    "basis": "id_citation",
+    "detail": "L1291 states the object_class compound (\"it must also hold invoice_costs; C02-03 failed on exactly that compound\"); L1202/L4464 queue it for accept-set widening.",
+    "segment_id": "C02-021"
+  },
+  "C02-04": {
+    "level": "L2",
+    "basis": "content",
+    "detail": "span_text quoted in guideline (2x 12-gram)",
+    "example": "Except where AMAG is required by Applicable Law to account for any",
+    "segment_id": "C02-045"
+  },
+  "C03-01": {
+    "level": "L1",
+    "basis": "id_citation",
+    "detail": "Bookkeeping tables (L3664/L3775) aside, L3965 names it among items an empty registry would contradict - leaks that its party fields are registry-resolvable.",
+    "segment_id": "C03-192"
+  },
+  "C03-02": {
+    "level": "L2",
+    "basis": "content",
+    "detail": "span_text quoted in guideline (2x 8-gram)",
+    "example": "provide to AT&T, and keep current, an escalation",
+    "segment_id": "C03-192"
+  },
+  "C03-03": {
+    "level": "L0",
+    "basis": "id_citation",
+    "detail": "Two citations, both bookkeeping: L3780 re-check table row (\"fully cleared\"); L3930 concerns C03-02, not this item. No scored field stated.",
+    "segment_id": "C03-192"
+  },
+  "C04-01": {
+    "level": "L2",
+    "basis": "content",
+    "detail": "span_text quoted in guideline (2x 12-gram)",
+    "example": "solely to the extent Miltenyi's exercise of rights under such licenses is",
+    "segment_id": "C04-117"
+  },
+  "C04-02": {
+    "level": "L2",
+    "basis": "content",
+    "detail": "span_text quoted in guideline (5x 12-gram)",
+    "example": "will negotiate in good faith which Party(ies) is/are responsible for payment of",
+    "segment_id": "C04-117"
+  },
+  "C04-03": {
+    "level": "L2",
+    "basis": "content",
+    "detail": "span_text quoted in guideline (3x 8-gram)",
+    "example": "Each quantity of Miltenyi Product(s) ordered by Bellicum",
+    "segment_id": "C04-087"
+  },
+  "C04-04": {
+    "level": "L2",
+    "basis": "content",
+    "detail": "span_text quoted in guideline (19x 12-gram)",
+    "example": "Bellicum shall use, and will cause its Subcontractors and Licensees to use,",
+    "segment_id": "C04-139"
+  },
+  "C04-05": {
+    "level": "L2",
+    "basis": "content",
+    "detail": "span_text quoted in guideline (19x 12-gram)",
+    "example": "Bellicum shall use, and will cause its Subcontractors and Licensees to use,",
+    "segment_id": "C04-139"
+  },
+  "C05-01": {
+    "level": "L0",
+    "basis": "id_citation",
+    "detail": "Four citations, all header bookkeeping (L164/170/172 draw provenance) plus L175, a process note about a review-status slip. No scored field stated.",
+    "segment_id": "C05-027"
+  },
+  "C06-01": {
+    "level": "L2",
+    "basis": "content",
+    "detail": "span_text quoted in guideline (3x 12-gram)",
+    "example": "to provide adequate assurance of future performance with respect to such Lease",
+    "segment_id": "C06-016"
+  },
+  "C10-01": {
+    "level": "L2",
+    "basis": "content",
+    "detail": "span_text quoted in guideline (6x 12-gram)",
+    "example": "except to the extent the liability arises as a result of the",
+    "segment_id": "C10-016"
+  },
+  "C10-02": {
+    "level": "L1",
+    "basis": "id_citation",
+    "detail": "No own-field statement. L441/L1518/L1540 quote and rule C10-016's carve-out, which is sibling item C10-01's tag - leaks segment context and the split's shape.",
+    "segment_id": "C10-016"
+  },
+  "C11-01": {
+    "level": "L2",
+    "basis": "content",
+    "detail": "span_text quoted in guideline (5x 12-gram)",
+    "example": "If the Principal is a natural person, upon the death or mental",
+    "segment_id": "C11-094"
+  },
+  "C13-01": {
+    "level": "L2",
+    "basis": "content",
+    "detail": "span_text quoted in guideline (8x 12-gram)",
+    "example": "In such a situation, DD will make available to MBRK, upon request,",
+    "segment_id": "C13-017"
+  },
+  "C13-02": {
+    "level": "L2",
+    "basis": "content",
+    "detail": "span_text quoted in guideline (2x 8-gram)",
+    "example": "shall be reimbursed by MBRK, except to the",
+    "segment_id": "C13-017"
+  },
+  "C13-03": {
+    "level": "L2",
+    "basis": "content",
+    "detail": "span_text quoted in guideline (3x 12-gram)",
+    "example": "Either party shall have the right to terminate this Agreement effective upon",
+    "segment_id": "C13-041"
+  },
+  "C14-01": {
+    "level": "L2",
+    "basis": "content",
+    "detail": "span_text quoted in guideline (4x 8-gram)",
+    "example": "such taxes from the payments due to the",
+    "segment_id": "C14-076"
+  },
+  "C14-02": {
+    "level": "L2",
+    "basis": "content",
+    "detail": "span_text quoted in guideline (3x 8-gram)",
+    "example": "shall promptly furnish such other party with appropriate",
+    "segment_id": "C14-076"
+  },
+  "C14-04": {
+    "level": "L2",
+    "basis": "id_citation",
+    "detail": "L121/L127/L144-149 assign S1/S3/S4 of C14-044 to items and explain C14-03's retraction - the section 4.3 splitting answer stated outright. L1067 quotes S1.",
+    "segment_id": "C14-044"
+  },
+  "C14-05": {
+    "level": "L2",
+    "basis": "id_citation",
+    "detail": "Same as C14-04, plus L129/L132 state explicitly that C14-05 stands as its own item and why.",
+    "segment_id": "C14-044"
+  },
+  "C17-01": {
+    "level": "L2",
+    "basis": "content",
+    "detail": "span_text quoted in guideline (2x 6-gram)",
+    "example": "into the Systems of the other",
+    "segment_id": "C17-021"
+  },
+  "C17-02": {
+    "level": "L2",
+    "basis": "content",
+    "detail": "span_text quoted in guideline (1x 12-gram)",
+    "example": "The Company and RGHI will use all commercially reasonable efforts to obtain",
+    "segment_id": "C17-066"
+  },
+  "C22-01": {
+    "level": "L2",
+    "basis": "content",
+    "detail": "span_text quoted in guideline (3x 8-gram)",
+    "example": "giving any notice required or permitted under this",
+    "segment_id": "C22-048"
+  },
+  "C22-02": {
+    "level": "L2",
+    "basis": "content",
+    "detail": "span_text quoted in guideline (13x 12-gram)",
+    "example": "the Seller hereby grants (and will cause each other Seller Party to",
+    "segment_id": "C22-022"
+  },
+  "E01-01": {
+    "level": "L2",
+    "basis": "id_citation",
+    "detail": "L1557/L4075/L4087 state its known_gaps tag (exception_unsupported, re-stamped); L3984 comments on its value being right.",
+    "segment_id": "E01-047"
+  },
+  "E03-01": {
+    "level": "L2",
+    "basis": "id_citation",
+    "detail": "L4023 states the underspecified flip true->false; L4010 names both parties (Kissei, Rigel); L4377-4386 give E03-005 NOT_ANNOTATABLE spans.",
+    "segment_id": "E03-005"
+  },
+  "E07-01": {
+    "level": "L2",
+    "basis": "content",
+    "detail": "span_text quoted in guideline (1x 6-gram)",
+    "example": "upon reasonable notice and approval by",
+    "segment_id": "E07-010"
+  },
+  "E08-01": {
+    "level": "L0",
+    "basis": "id_citation",
+    "detail": "Three citations, all in the header status line (L167/171/174) recording which segment locked to which item. No scored field stated.",
+    "segment_id": "E08-005"
+  }
+}

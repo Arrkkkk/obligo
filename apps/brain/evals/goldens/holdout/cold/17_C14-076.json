@@ -1,0 +1,114 @@
+{
+  "segment_id": "C14-076",
+  "doc_id": "C14",
+  "stratum": "standard",
+  "items": [
+    {
+      "span_text": "Each party shall deduct such taxes from the payments due to the other party hereunder as required by law including withholding taxes (unless an exemption is provided)",
+      "modality": "MUST",
+      "action": "WITHHOLD",
+      "action_accept_set": [
+        "WITHHOLD",
+        "DEDUCT",
+        "RETAIN"
+      ],
+      "obligor": "Each party",
+      "obligor_accept_set": [],
+      "obligee": "the other party",
+      "object_class": "taxes",
+      "object_class_accept_set": [
+        "taxes",
+        "withholding_taxes",
+        "tax_deduction",
+        "payment_taxes"
+      ],
+      "temporal": null,
+      "conditions": [],
+      "conditions_accept_set": [],
+      "underspecified": true,
+      "missing_fields": [
+        "obligor",
+        "obligee"
+      ],
+      "vague_temporal_phrase": null,
+      "redacted_phrase": null,
+      "known_gaps": [
+        "exception_unsupported"
+      ],
+      "annotator_confidence": "CONFIDENT",
+      "rules_cited": [
+        "3.1",
+        "3.2",
+        "3.5",
+        "3.5.1",
+        "3.6",
+        "3.8.1",
+        "3.8.2",
+        "3.9",
+        "4.3",
+        "8.2",
+        "8.3",
+        "8.3.1",
+        "8.4.1"
+      ],
+      "annotator_notes": "8.3.1's own motivating sentence, item 1 of the split. 4.3 requires two items here: 'deduct such taxes' and 'furnish ... tax receipts' have genuinely separate objects AND are separate performances (a party can withhold correctly and still fail to hand over receipts), which is 4.3's own worked row for this exact sentence. THE CARVE-OUT drives 3.8.1 branch 3, and this item is that branch's worked example. '(unless an exemption is provided)' states a circumstance that REMOVES the deduction duty, so it is not absorbed into conditions -- SPEC.md 6 forbids treating a carve-out as if it had been an IF, and 3.8.1 explains that branch 3 drops rather than absorbs because silently discarding a legal carve-out is a correctness bug with real stakes for a compliance tool. Branch 1 was tested first as 3.8.1 requires: the carve-out would not stand alone as an obligation-bearing clause, so it is not a third item. known_gaps gains exception_unsupported -- the tag actually in use, per 3.8.1's note that 8.2's literal 'unless_unsupported' wording is stale prose that was never updated after the approved rename. Full carve-out recorded verbatim: '(unless an exemption is provided)'. 8.2's stated cost applies: the annotated obligation is STRONGER than the contract's, and 8.2's v0.28 correction means this fails SILENTLY on the extraction path, not loudly. ACTION: 'deduct' is 8.8's own worked example of a DEFENSIBLY MAPPABLE verb -- deduct -> WITHHOLD -- so 8.8's genuine-gap treatment does NOT apply, no action_not_in_taxonomy tag, and the accept-set is not restricted to a single member. NO compound_action tag: this is the split branch, not the one-item branch. PARTIES: 'Each party' is the distributive form 8.4.1 measured separately at 4.7% of pool segments; it names no party, so 3.5.1 step 1 branch 2 records it verbatim with an empty accept-set, and ABSENT would be factually false. obligee 'the other party' is relational, same branch. Both are unresolvable, so 3.9 trigger 1 fires twice. mutual_obligation NOT tagged: the duty is distributive rather than reciprocal in 8.4's sense -- each party withholds from its own payments; no second mirror obligation is lost, only which party is named. 'as required by law including withholding taxes' is object scope, not a condition: 3.8.2's removal test shows it narrows WHICH taxes are covered without changing when the duty applies. object_class is authored in the document's own plural ('such taxes'); 5's v0.33 number rule normalises both sides and 3.6 forbids padding the set with the singular.",
+      "span_char_start": 12,
+      "span_char_end": 178
+    },
+    {
+      "span_text": "Each party shall deduct such taxes from the payments due to the other party hereunder as required by law including withholding taxes (unless an exemption is provided), and shall promptly furnish such other party with appropriate tax receipts",
+      "modality": "MUST",
+      "action": "PROVIDE",
+      "action_accept_set": [
+        "PROVIDE",
+        "DELIVER",
+        "FURNISH",
+        "SUBMIT"
+      ],
+      "obligor": "Each party",
+      "obligor_accept_set": [],
+      "obligee": "such other party",
+      "object_class": "tax_receipts",
+      "object_class_accept_set": [
+        "tax_receipts",
+        "receipts",
+        "tax_documentation",
+        "withholding_receipts"
+      ],
+      "temporal": null,
+      "conditions": [],
+      "conditions_accept_set": [],
+      "underspecified": true,
+      "missing_fields": [
+        "obligor",
+        "obligee"
+      ],
+      "vague_temporal_phrase": "promptly",
+      "redacted_phrase": null,
+      "known_gaps": [
+        "shared_subject_split"
+      ],
+      "annotator_confidence": "CONFIDENT",
+      "rules_cited": [
+        "3.1",
+        "3.2",
+        "3.5",
+        "3.5.1",
+        "3.6",
+        "3.9",
+        "4.1",
+        "4.3",
+        "8.3.1",
+        "15.2",
+        "15.3",
+        "15.3.1",
+        "15.4",
+        "14.2"
+      ],
+      "annotator_notes": "Item 2 of 8.3.1's split, annotated under the v0.31 AMENDMENT (option 4), not the superseded v0.23 default. The span runs CONTIGUOUSLY from the shared subject 'Each party' through the end of its own verb phrase, and therefore properly CONTAINS item 1's span. v0.23's option 3 (the bare verb phrase 'shall promptly furnish ...') is mechanically UNREACHABLE by the pipeline: ground_candidates() rejects any candidate whose obligor_alias is not a literal substring of span_text, as NESTED_FIELD_NOT_IN_SPAN, so an extraction can never produce that span while naming 'Each party' as obligor. The first scoring run proved it -- this item scored MISSED on all three runs although the model HAD extracted the duty correctly (run 3 emitted action=PROVIDE, matching 'furnish') with span [12:253] against gold's [184:253], IoU 0.286. Option 1 (both spans = the whole sentence) fails because byte-identical spans collide under 4.1, and option 2 (subject + second verb phrase, skipping the first) is non-contiguous and violates 3.1. The tag stays shared_subject_split, but what it records has changed from 'obligor unverifiable' to 'spans are nested'. ACCEPTED COST, stated rather than buried: the two spans are nested with IoU ~0.69, above 4.1's 0.5 threshold. Greedy-by-descending-IoU resolves it correctly when the model emits BOTH spans (an exact match to item 1's pairs at IoU 1.0 first), but when it emits only one the pairing is genuinely ambiguous and one of the two items is MISSED. TEMPORAL: 'promptly' is a vague qualifier with NO trigger attached, so 15.5's trigger bullet does not fire and 15.2 applies unchanged -- temporal null, the literal phrase in the non-scored vague_temporal_phrase, and per 15.3 and 14.2 it does NOT set underspecified (3.9's trigger list is closed and temporal null is never on it; annotating true would fail clause 8 on every such item because gold asserted a capability v1 declined to build). 15.3.1's v0.34 correction is directly relevant and worth recording on this item: the class fails LOUDLY, not silently -- it measured 'promptly' emitted into temporal_raw for this very segment on run 2 and QUARANTINED as UNMAPPABLE_TEMPORAL, so the loss is recall visible in criterion 1b, not an unattributed PARTIAL. 15.2's RULE is unaffected by that correction. THE CARVE-OUT is inside this span too (nested), but it modifies the DEDUCTION duty, not the furnishing duty, so exception_unsupported is deliberately NOT carried here -- tagging it would assert a loss this item does not suffer. Parties and underspecified as for item 1: distributive obligor, relational obligee, 3.9 trigger 1 twice.",
+      "span_char_start": 12,
+      "span_char_end": 253
+    }
+  ],
+  "segment_notes": "2 items, from the first sentence, split under 4.3 and spanned under 8.3.1's v0.31 option 4. Two obligation-bearing clauses, inside 2's 1-3 band. EXCLUDED SENTENCE 2: 'Each party will be solely responsible for any and all taxes imposed thereon, including, without limitation, all income taxes, sales taxes, goods and services taxes.' -- a copular 'will be solely responsible' status assertion, which is 8.8's measured 'not an obligation clause at all' class; 8.8.1 confirms the class turns on status-versus-conduct and not on negation placement, and 8.8's own already-excluded worked instance is C04-163's 'shall not be responsible for payments', the same construction affirmatively phrased. 3.2's 'will'-as-future-fact carve-out reaches it from the other direction. NOT_ANNOTATABLE content (4.4). EXCLUDED SENTENCE 3: 'Israel value added tax shall be added, if applicable, to all amounts payable hereunder and will be paid against submission of appropriate tax invoices.' -- non-party subject, and read as a tax-treatment/pricing rule rather than a commanded act: it states what happens to amounts payable, not what a party must do. COMPETING READING RECORDED: both predicates are agentless passives ('shall be added', 'will be paid'), and 3.5.3 expressly admits agentless passives as obligations -- under that reading this is a third (or, splitting the two verbs, a fourth) item with obligor ABSENT and obligee ABSENT, since 3.5.3 says obligee is ABSENT where no party is named at all, which is the case here. I rejected it on two grounds: the sentence allocates a tax consequence rather than assigning a performance, and admitting it would take the segment to 3-4 obligation-bearing clauses, pressing 2's 1-3 band for no gain. Its 'if applicable' would be a conditions entry under the competing reading. CONFORMING NOTE: item 2 is annotated under 8.3.1's v0.31 amendment. 22 records that the corresponding locked item was NOT conformed to that amendment because restamping it collides with the cassette-staleness invariants, and 22.1 decided that deferral deliberately. A cold pass annotating from the current guideline text produces the v0.31 span; the difference from any pre-v0.31 annotation is a conforming-debt artifact, not a disagreement about the sentence."
+}

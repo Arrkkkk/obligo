@@ -1,0 +1,66 @@
+{
+  "segment_id": "C04-087",
+  "doc_id": "C04",
+  "stratum": "hard",
+  "items": [
+    {
+      "span_text": "Each quantity of Miltenyi Product(s) ordered by Bellicum in a particular Purchase Order pursuant to this Agreement shall be delivered FCA (Incoterms 2010) Miltenyi's Facility by delivery 20 Miltenyi Biotec-Bellicum Supply Agreement (Execution Copy, March 27, 2019) of the shipped goods to Bellicum's designated carrier or freight forwarder, in adequate packaging and ready for loading, on the Delivery Date",
+      "modality": "MUST",
+      "action": "DELIVER",
+      "action_accept_set": [
+        "DELIVER",
+        "SHIP",
+        "PROVIDE"
+      ],
+      "obligor": "ABSENT",
+      "obligor_accept_set": [],
+      "obligee": "Bellicum",
+      "object_class": "miltenyi_products",
+      "object_class_accept_set": [
+        "miltenyi_products",
+        "product_quantity",
+        "products",
+        "ordered_products",
+        "shipped_goods",
+        "product_delivery"
+      ],
+      "temporal": {
+        "form": "RELATIVE_TO_TRIGGER",
+        "direction": "after",
+        "trigger": "the Delivery Date"
+      },
+      "conditions": [],
+      "conditions_accept_set": [],
+      "underspecified": true,
+      "missing_fields": [
+        "obligor",
+        "temporal"
+      ],
+      "vague_temporal_phrase": null,
+      "redacted_phrase": null,
+      "known_gaps": [
+        "corpus_artifact_in_span",
+        "relative_trigger_preposition"
+      ],
+      "annotator_confidence": "AMBIGUOUS",
+      "rules_cited": [
+        "3.1",
+        "3.2",
+        "3.5",
+        "3.5.2",
+        "3.5.3",
+        "3.6",
+        "3.7",
+        "3.9",
+        "8.7",
+        "8.9",
+        "14.3",
+        "14.4"
+      ],
+      "annotator_notes": "3.5.3's own motivating sentence. AGENTLESS PASSIVE: 'shall be delivered' has NO by-agent. Both party names appear and neither occupies a core argument slot -- 'Miltenyi's' is a possessive on a LOCATION (its Facility) and 'Bellicum' is the agent of a different verb ('ordered') inside a relative clause and a possessive on a non-party recipient (the carrier). Per 3.5.3: obligor = ABSENT (a possessive on a place is not a duty-bearer; reading one as obligor is 3.5's forbidden inference), obligee = 'Bellicum', the one party named in the span that the performance runs to, and underspecified = true with obligor in missing_fields. I record 3.5.3's DRAFTER DISSENT because this section says it governs every passive delivery and quality clause in the corpus and is the first place to look if disagreement clusters on passive-clause obligees: the drafter argued for ABSENT in BOTH slots, on the ground that taking a promoted possessive for one slot while taking ABSENT for the other is asymmetric. The reviewer ruled for 'Bellicum' and I follow the ruling. 3.5.2 was checked and does not fire -- there is no purpose or benefit clause here at all (no 'for the benefit of', 'to enable', 'on behalf of', 'for the account of'), so this is 3.5.3 alone. CORPUS ARTIFACT (8.7): the running page header '20 Miltenyi Biotec-Bellicum Supply Agreement (Execution Copy, March 27, 2019)' is spliced mid-sentence, at segment offsets 185-266 (characters 181-262 of span_text), directly between 'by delivery' and 'of the shipped goods' -- it severs a single prepositional phrase, so 3.1's minimal-COMPLETE-span rule makes truncating before it impossible. Carried verbatim per 8.7's Reading A; known_gaps gains corpus_artifact_in_span. C04 carries 22 such headers, 12% of its segments and all mid-sentence, so this is an expected property of this document. LIVE FALSE-POSITIVE HAZARD, 8.7's second-order consequence 2: the artifact contains a real date, 'March 27, 2019', which is NOT this obligation's deadline -- the real timing phrase is 'on the Delivery Date'. TEMPORAL is why this item is AMBIGUOUS, and temporal is an exact-match field, so 14.3 routes it to 14.4; with no reviewer, both readings follow. READING 1 (ADOPTED): RELATIVE_TO_TRIGGER(after, 'the Delivery Date'), per 8.9's rule as literally written -- 'annotate the direction the preposition expresses (upon / following / ON -> after) and the trigger verbatim', with known_gaps gaining relative_trigger_preposition. 8.9's own v0.34 data correction identifies 'on the <Defined> Date' as the exact construction in this segment and measures it at 12 pool segments. READING 2 (rejected): BY with the alias 'the Delivery Date', reading the Delivery Date as a deadline rather than a trigger event. FIELDS THAT DIFFER: temporal form and constituents (clause 6) and known_gaps. 8.9's v0.34 note states in terms that NEITHER answer is producible by the pipeline -- BY requires a literal 'by' and RELATIVE_TO_TRIGGER a literal 'before'/'after', and the span says 'on' -- so this item is structurally unscoreable on clause 6 under either reading, which is worth recording rather than discovering in a scoring run. 3.9 trigger 3 fires regardless (resolve_trigger() returns None throughout v1), so temporal joins obligor in missing_fields. object_class_accept_set follows 3.6's v0.33 enumeration 1: the object phrase 'Each quantity of Miltenyi Product(s)' has TWO nominal anchors, the measure ('quantity') and the thing measured ('Miltenyi Product(s)'), and the set carries both. 'ordered by Bellicum in a particular Purchase Order pursuant to this Agreement' is object scope by 3.8.2's removal test -- it narrows WHICH quantities are covered without changing when the duty applies -- so conditions is empty.",
+      "span_char_start": 4,
+      "span_char_end": 410
+    }
+  ],
+  "segment_notes": "1 item. Single-sentence segment, one obligation-bearing clause, inside 2's 1-3 band. The leading '(a)' is an enumeration marker on a sentence carrying its own modal, so 2.6's orphan-fragment exclusion does not reach it. The trailing '(\"Delivery\")' is a defined-term tag and is left outside the span under 3.1's minimal-span rule, since the obligation is complete at 'on the Delivery Date'. This segment is 3.5.3's and 8.7's shared exemplar: an agentless passive whose obligor is genuinely ABSENT, carrying a mid-sentence C04 running header inside the scored span. No 2 exclusion: 'pursuant to this Agreement' and 'FCA (Incoterms 2010)' are references whose resolution no scored field needs (2, v0.28). No redaction, no OCR corruption."
+}

@@ -1,0 +1,186 @@
+{
+  "segment_id": "C11-094",
+  "doc_id": "C11",
+  "stratum": "standard",
+  "items": [
+    {
+      "span_text": "If the Principal is a natural person, upon the death or mental incapacity of a Principal, the executor, administrator, or personal representative of such Principal shall transfer the Principal's interest in Franchisee to a third party approved by BKC within a reasonable time after the Principal's death or mental incapacity",
+      "modality": "MUST",
+      "action": "TRANSFER",
+      "action_accept_set": [
+        "TRANSFER",
+        "ASSIGN",
+        "CONVEY",
+        "SELL"
+      ],
+      "obligor": "the executor, administrator, or personal representative",
+      "obligor_accept_set": [],
+      "obligee": "a third party approved by BKC",
+      "object_class": "principal_interest",
+      "object_class_accept_set": [
+        "principal_interest",
+        "franchise_interest",
+        "franchisee_interest",
+        "ownership_interest",
+        "equity_interest"
+      ],
+      "temporal": {
+        "form": "RELATIVE_TO_TRIGGER",
+        "direction": "after",
+        "trigger": "the Principal's death or mental incapacity"
+      },
+      "conditions": [
+        "If the Principal is a natural person",
+        "upon the death or mental incapacity of a Principal"
+      ],
+      "conditions_accept_set": [
+        [],
+        []
+      ],
+      "underspecified": true,
+      "missing_fields": [
+        "obligor",
+        "obligee",
+        "temporal"
+      ],
+      "vague_temporal_phrase": "within a reasonable time",
+      "redacted_phrase": null,
+      "known_gaps": [],
+      "annotator_confidence": "CONFIDENT",
+      "rules_cited": [
+        "2.4",
+        "2.4.1",
+        "3.1",
+        "3.2",
+        "3.5",
+        "3.5.1",
+        "3.6",
+        "3.7",
+        "3.8",
+        "3.8.2",
+        "3.9",
+        "15.2",
+        "15.5",
+        "17.1"
+      ],
+      "annotator_notes": "3.8.2 Rule B's own motivating sentence. TWO conditions entries, not one: 'If the Principal is a natural person' and 'upon the death or mental incapacity of a Principal' are two syntactically distinct circumstances juxtaposed with only a comma and no conjunction, and Rule B says such adjacent phrases are separate entries. This is NOT 17.2's boundary -- no internal boolean is involved and nothing is being asked of the compiler -- and 17.1's marker count agrees, since the two phrases carry different scoping heads ('If', 'upon'). Rule B records that the model emitted them as ONE comma-joined string in two runs and as TWO in a third, unstable 2:1 against gold on byte-identical input at temperature 0, so this is a known instability and not an extraction-quality verdict. TEMPORAL is 15.5's third bullet, and this sentence is that bullet's own worked example: a vague quantity immediately followed by a named triggering event, so the TRIGGER decides the form -- RELATIVE_TO_TRIGGER(after, \"the Principal's death or mental incapacity\") -- and the vague quantifier is recorded in the non-scored vague_temporal_phrase ('within a reasonable time'). 15.5 generalised the older 'Immediately upon X' bullet to require recording the qualifier in EVERY branch, which is why vague_temporal_phrase is set here even though the form is not null. Not 8.6 and not 8.9: the preposition is a literal 'after', which _RELATIVE_RE accepts, so NO within_preposition and NO relative_trigger_preposition tag. 15.5's ACCEPTED RISK (F7) applies squarely and is recorded rather than left to a scoring run: both 'within a reasonable time after the death...' and 'after the death...' are literal substrings of the span, so the grounding gate permits either, and _RELATIVE_RE is anchored (^(before|after)) -- the gold answer is reachable ONLY if the extractor's quote starts at the preposition. 15.3.1 measured this exact segment failing first-pass on all three runs for that reason and being rescued only by the repair loop. 3.9 trigger 3 fires regardless (resolve_trigger() returns None throughout v1), so temporal is in missing_fields. PARTIES: obligor is a ROLE DESCRIPTION, and 3.9 trigger 1 names this very phrase as its example of one; 3.5.1 step 1 branch 2 records the stated subject verbatim rather than ABSENT, and 3.5.1 admits non-registry-resolvable values explicitly because 3.5's test is positional, not resolution-based. I quote 'the executor, administrator, or personal representative' exactly as 3.5.1's own example lists it; the span's fuller phrase is 'the executor, administrator, or personal representative of such Principal', and I record that here as the alternate extent. obligee: I take the in-span recipient the performance runs to, 'a third party approved by BKC', on 3.5.3's ruling principle that a party named in the span and owed the performance should not be discarded. Two alternatives were considered and ranked below it: ABSENT (defensible, since 'a third party' is an indefinite description rather than an alias, but a recipient IS stated so ABSENT would be factually false in 3.5.1's sense) and 'BKC' (rejected -- BKC is the approver, not the transferee, and treating an approver as obligee inverts the relationship in the way 3.5.2 warns about). Clause 8 is unaffected by the choice: every candidate is unresolvable, so underspecified is true either way. object_class carries BOTH nominal anchors per 3.6's v0.33 REQUIRED enumeration 1 -- the possessor ('principal_interest') and the thing owned ('franchise_interest'/'franchisee_interest') -- which is the enumeration authored precisely because this phrase, in this segment, is its worked example.",
+      "span_char_start": 46,
+      "span_char_end": 370
+    },
+    {
+      "span_text": "In the case of transfer by devise or inheritance, if the heir is not approved or there is no heir, the executor shall use best efforts to transfer the Principal's interest to another party approved by BKC within twelve (12) months from the date of the Principal's death",
+      "modality": "MUST",
+      "action": "TRANSFER",
+      "action_accept_set": [
+        "TRANSFER",
+        "ASSIGN",
+        "CONVEY",
+        "SELL"
+      ],
+      "obligor": "the executor",
+      "obligor_accept_set": [],
+      "obligee": "another party approved by BKC",
+      "object_class": "principal_interest",
+      "object_class_accept_set": [
+        "principal_interest",
+        "franchise_interest",
+        "franchisee_interest",
+        "ownership_interest",
+        "equity_interest"
+      ],
+      "temporal": null,
+      "conditions": [
+        "In the case of transfer by devise or inheritance",
+        "if the heir is not approved or there is no heir"
+      ],
+      "conditions_accept_set": [
+        [],
+        []
+      ],
+      "underspecified": true,
+      "missing_fields": [
+        "obligor",
+        "obligee"
+      ],
+      "vague_temporal_phrase": null,
+      "redacted_phrase": null,
+      "known_gaps": [
+        "within_preposition"
+      ],
+      "annotator_confidence": "CONFIDENT",
+      "rules_cited": [
+        "3.1",
+        "3.2",
+        "3.5",
+        "3.5.1",
+        "3.6",
+        "3.7",
+        "3.8.2",
+        "3.9",
+        "4.3.1",
+        "8",
+        "8.6",
+        "16.2",
+        "16.3",
+        "17.1",
+        "17.2"
+      ],
+      "annotator_notes": "A DISTINCT obligation from the segment's first item, checked against 4.3.1 step 1 rather than assumed: the two clauses share an obligor role and an object but differ on conditions (devise/inheritance plus an unapproved-or-absent heir, against natural-person-plus-death), on temporal (a twelve-month window against a reasonable time after the death), and on the efforts standard, so not every scored field is identical and 4.3.1 sends them to 4.3's ordinary two-item treatment. No restatement marker appears either. MODALITY MUST, not SHOULD: 16.2 is explicit that 'shall use best efforts' is MUST and that the efforts qualifier belongs to the ACTION, never to the deontic force -- failing to try at all is a breach. Per 16.3 action takes the verb governing the qualified act ('transfer'), not 'use', and 16.3 asks for a generous accept-set because efforts phrasing makes more than one taxonomy verb defensible. 16.3 also confirms underspecified is unaffected by an efforts standard. TWO conditions entries per 3.8.2 Rule B and 17.1's marker count: 'In the case of transfer by devise or inheritance' and 'if the heir is not approved or there is no heir' are distinct scoping phrases, comma-juxtaposed. The second entry's INTERNAL 'or' stays verbatim and unparsed per 17.2 -- one entry with an internal boolean is the correct gold answer, not a clause-7 failure, and 17.1's diagnostic is to count scoping markers rather than connectives (one 'if' governing a coordinated phrase). TEMPORAL: 'within twelve (12) months from the date of the Principal's death' hits TWO of 8's gaps at once. (i) 8.6's within_preposition gap -- _WITHIN_RE requires the preposition 'of' and gets 'from', which 8.6 measures at 17 pool occurrences -- and I follow 8.6's rule literally: temporal null, known_gaps gains within_preposition, and underspecified is NOT set by this rule (its v0.28 strike). (ii) 8's separate parenthetical-numeral gap, 'within twelve (12) months' -- _WITHIN_RE requires a bare digit -- which has no tag of its own; 8 measures that class at 74% (119 of 161) and 84% (152 of 180) on independent re-measurement, and 8.6 is explicit that the two must not be filed together because one is a one-word regex widening and the other a genuine numeral-parsing problem. Recorded here so the double gap is countable. I note the tension between 8.6's 'temporal: null' instruction and 3.7's 'known-gap forms are annotated NORMALLY' plus 8.9's annotate-the-form rule; I follow 8.6 as literally written and apply the same resolution to C17-066 in this pass so the two are consistent. underspecified is true on 3.9 trigger 1 (role-description obligor, unresolvable obligee), not on account of the temporal. obligee 'another party approved by BKC' on the same reasoning as item 1; ABSENT is the recorded alternative.",
+      "span_char_start": 822,
+      "span_char_end": 1091
+    },
+    {
+      "span_text": "If the conveyance of the Principal's interest to a party acceptable to BKC has not taken place within the twelve (12) month period, BKC shall have the option, to purchase the Principal's interest at fair market value",
+      "modality": "MAY",
+      "action": "PURCHASE",
+      "action_accept_set": [
+        "PURCHASE",
+        "BUY",
+        "ACQUIRE"
+      ],
+      "obligor": "BKC",
+      "obligor_accept_set": [],
+      "obligee": "ABSENT",
+      "object_class": "principal_interest",
+      "object_class_accept_set": [
+        "principal_interest",
+        "franchise_interest",
+        "franchisee_interest",
+        "ownership_interest",
+        "equity_interest"
+      ],
+      "temporal": null,
+      "conditions": [
+        "If the conveyance of the Principal's interest to a party acceptable to BKC has not taken place within the twelve (12) month period"
+      ],
+      "conditions_accept_set": [
+        []
+      ],
+      "underspecified": true,
+      "missing_fields": [
+        "obligee"
+      ],
+      "vague_temporal_phrase": null,
+      "redacted_phrase": null,
+      "known_gaps": [],
+      "annotator_confidence": "CONFIDENT",
+      "rules_cited": [
+        "2",
+        "2.5",
+        "2.5.1",
+        "3.1",
+        "3.2",
+        "3.5",
+        "3.5.4",
+        "3.6",
+        "3.8.2",
+        "3.9",
+        "17.1"
+      ],
+      "annotator_notes": "ELIGIBILITY CHECKED against 2's 'only a party's right with no correlative duty' row as clarified by 2.5/2.5.1, because this is a MAY-shaped option clause and could have been excluded on sight. It clears the monitorable-stakes test decisively: the permission is gated by an OBSERVABLE condition (whether the conveyance took place inside the twelve-month period -- a fact anyone can check), it runs against a real correlative interest-holder, and its exercise is bounded by a REVIEWABLE price standard ('at fair market value'), which is 2.5.1's own discriminator against unreviewable-discretion language like 'sole business judgment' or 'without any implication'. Nothing here resembles C04-026's unrestricted ten-verb reservation. MODALITY MAY per 3.2's 'is entitled to / is permitted to' row -- 'shall have the option, to purchase' is an entitlement, not a duty; 3.3 forbids an accept-set here, and 3.2's table is what decides the value once the clause is annotated at all (2.5.1 is explicit that the modal decides modality but not eligibility). obligee ABSENT: 3.5.4 makes obligee assignment positional and modality-independent, but it also says in terms that this is NOT a licence to invent a counterparty for every MAY. The only other party-ish reference in the span is 'a party acceptable to BKC', which sits inside the condition and denotes the transferee BKC's option DISPLACES rather than a party the option runs to; and 3.5 forbids importing 'the executor' from the neighbouring sentences, a strictness 3.5 re-confirmed at v0.41 against an in-segment anaphoric antecedent. 3.9 trigger 1 fires on ABSENT, so underspecified is true. ONE conditions entry: a single 'If' scopes the whole circumstance (17.1's marker count), and the embedded 'within the twelve (12) month period' is part of the quoted condition rather than the obligation's own temporal -- it says when the conveyance had to happen, not when BKC must exercise the option -- so temporal is null and no 8.6/8 numeral gap is asserted for this item. object_class carries both nominal anchors per 3.6's enumeration 1, matching the two sibling items.",
+      "span_char_start": 1093,
+      "span_char_end": 1309
+    }
+  ],
+  "segment_notes": "3 items, exactly at 2's 1-3 band ceiling. Five sentences; three carry a party-or-role subject with a deontic modal and are annotated, two do not. EXCLUDED SENTENCES 2 AND 3: 'Transfers by devise or inheritance shall not be subject to BKC's right of first refusal under Paragraph 15.4 above, but shall be subject to the same conditions imposed on any INTER VIVOS transfer under Paragraph 15.5 above.' and 'All other transfers shall be subject to BKC's right of first refusal under Paragraph 15.4 above, or if such right is not exercised, the same conditions as may be imposed on any INTER VIVOS transfer under Paragraph 15.5 above.' Both have a NON-PARTY subject ('Transfers', 'All other transfers') and are copular 'shall (not) be subject to' status assertions -- 8.8's measured 'not an obligation clause at all' class, confirmed by 8.8.1's rule that the class turns on whether a clause commands CONDUCT or describes a STATUS and not on where a negation sits. They are ALSO the segment's only genuine cross-reference exclusions under 2's v0.28 scored-field-dependence test: 'the same conditions imposed on any INTER VIVOS transfer under Paragraph 15.5' cannot be given any object_class or conditions value without resolving Paragraph 15.5, exactly 2's own worked dependence shape. Treated as NOT_ANNOTATABLE content (4.4) inside an otherwise-good segment; per 2.6 their presence does not disqualify the three self-contained sentences alongside them. OCR CHECK PERFORMED, because this is document C11 and 2.4.1's v0.41 re-sweep raised C11's corruption rate from 6 segments to 14. C11-094 is NOT among the 14, and 2.4.1 re-verifies that finding independently against the corrected list; I also read the segment for the two catalogued signatures (stray-space word splits, interest->merest substitutions) and for the newer shapes ('alI', 'lt', 'ln', 'uncle' for 'under') and found none. No 2.4 exclusion. The three annotated items are distinct obligations, not restatements -- 4.3.1 step 1 was applied to each pair and every pair differs on at least conditions and temporal."
+}

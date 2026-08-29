@@ -1,0 +1,267 @@
+{
+  "seed": 29082026,
+  "spot_check_seed": 2223141222,
+  "spot_check_seed_rule": "int(sha256(b\"29082026\").hexdigest()[:8], 16)",
+  "mode": "census",
+  "unit": "segment",
+  "n_segments": 22,
+  "n_items": 32,
+  "order": [
+    {
+      "rank": 1,
+      "segment_id": "C22-048",
+      "n_items": 1,
+      "items": [
+        "C22-01"
+      ],
+      "leak_levels": [
+        "L2"
+      ]
+    },
+    {
+      "rank": 2,
+      "segment_id": "C17-021",
+      "n_items": 1,
+      "items": [
+        "C17-01"
+      ],
+      "leak_levels": [
+        "L2"
+      ]
+    },
+    {
+      "rank": 3,
+      "segment_id": "C04-139",
+      "n_items": 2,
+      "items": [
+        "C04-04",
+        "C04-05"
+      ],
+      "leak_levels": [
+        "L2"
+      ]
+    },
+    {
+      "rank": 4,
+      "segment_id": "C13-017",
+      "n_items": 2,
+      "items": [
+        "C13-01",
+        "C13-02"
+      ],
+      "leak_levels": [
+        "L2"
+      ]
+    },
+    {
+      "rank": 5,
+      "segment_id": "C13-041",
+      "n_items": 1,
+      "items": [
+        "C13-03"
+      ],
+      "leak_levels": [
+        "L2"
+      ]
+    },
+    {
+      "rank": 6,
+      "segment_id": "E03-005",
+      "n_items": 1,
+      "items": [
+        "E03-01"
+      ],
+      "leak_levels": [
+        "L2"
+      ]
+    },
+    {
+      "rank": 7,
+      "segment_id": "C17-066",
+      "n_items": 1,
+      "items": [
+        "C17-02"
+      ],
+      "leak_levels": [
+        "L2"
+      ]
+    },
+    {
+      "rank": 8,
+      "segment_id": "C04-117",
+      "n_items": 2,
+      "items": [
+        "C04-01",
+        "C04-02"
+      ],
+      "leak_levels": [
+        "L2"
+      ]
+    },
+    {
+      "rank": 9,
+      "segment_id": "C06-016",
+      "n_items": 1,
+      "items": [
+        "C06-01"
+      ],
+      "leak_levels": [
+        "L2"
+      ]
+    },
+    {
+      "rank": 10,
+      "segment_id": "C03-192",
+      "n_items": 3,
+      "items": [
+        "C03-01",
+        "C03-02",
+        "C03-03"
+      ],
+      "leak_levels": [
+        "L0",
+        "L1",
+        "L2"
+      ]
+    },
+    {
+      "rank": 11,
+      "segment_id": "C02-021",
+      "n_items": 3,
+      "items": [
+        "C02-01",
+        "C02-02",
+        "C02-03"
+      ],
+      "leak_levels": [
+        "L1",
+        "L2"
+      ]
+    },
+    {
+      "rank": 12,
+      "segment_id": "E01-047",
+      "n_items": 1,
+      "items": [
+        "E01-01"
+      ],
+      "leak_levels": [
+        "L2"
+      ]
+    },
+    {
+      "rank": 13,
+      "segment_id": "C05-027",
+      "n_items": 1,
+      "items": [
+        "C05-01"
+      ],
+      "leak_levels": [
+        "L0"
+      ]
+    },
+    {
+      "rank": 14,
+      "segment_id": "C04-087",
+      "n_items": 1,
+      "items": [
+        "C04-03"
+      ],
+      "leak_levels": [
+        "L2"
+      ]
+    },
+    {
+      "rank": 15,
+      "segment_id": "C22-022",
+      "n_items": 1,
+      "items": [
+        "C22-02"
+      ],
+      "leak_levels": [
+        "L2"
+      ]
+    },
+    {
+      "rank": 16,
+      "segment_id": "C11-094",
+      "n_items": 1,
+      "items": [
+        "C11-01"
+      ],
+      "leak_levels": [
+        "L2"
+      ]
+    },
+    {
+      "rank": 17,
+      "segment_id": "C14-076",
+      "n_items": 2,
+      "items": [
+        "C14-01",
+        "C14-02"
+      ],
+      "leak_levels": [
+        "L2"
+      ]
+    },
+    {
+      "rank": 18,
+      "segment_id": "C14-044",
+      "n_items": 2,
+      "items": [
+        "C14-04",
+        "C14-05"
+      ],
+      "leak_levels": [
+        "L2"
+      ]
+    },
+    {
+      "rank": 19,
+      "segment_id": "E08-005",
+      "n_items": 1,
+      "items": [
+        "E08-01"
+      ],
+      "leak_levels": [
+        "L0"
+      ]
+    },
+    {
+      "rank": 20,
+      "segment_id": "E07-010",
+      "n_items": 1,
+      "items": [
+        "E07-01"
+      ],
+      "leak_levels": [
+        "L2"
+      ]
+    },
+    {
+      "rank": 21,
+      "segment_id": "C10-016",
+      "n_items": 2,
+      "items": [
+        "C10-01",
+        "C10-02"
+      ],
+      "leak_levels": [
+        "L1",
+        "L2"
+      ]
+    },
+    {
+      "rank": 22,
+      "segment_id": "C02-045",
+      "n_items": 1,
+      "items": [
+        "C02-04"
+      ],
+      "leak_levels": [
+        "L2"
+      ]
+    }
+  ]
+}

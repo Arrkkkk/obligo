@@ -1,0 +1,63 @@
+{
+  "segment_id": "E07-010",
+  "doc_id": "E07",
+  "stratum": "standard",
+  "items": [
+    {
+      "span_text": "As requested by Client, and upon reasonable notice and approval by TIBCO, TIBCO shall maintain personnel at any of the Covered Sites",
+      "modality": "MUST",
+      "action": "MAINTAIN",
+      "action_accept_set": [
+        "MAINTAIN",
+        "PROVIDE",
+        "STAFF",
+        "ASSIGN"
+      ],
+      "obligor": "TIBCO",
+      "obligor_accept_set": [],
+      "obligee": "Client",
+      "object_class": "personnel",
+      "object_class_accept_set": [
+        "personnel",
+        "on_site_personnel",
+        "staffing",
+        "maintenance_personnel",
+        "support_personnel"
+      ],
+      "temporal": null,
+      "conditions": [
+        "As requested by Client",
+        "upon reasonable notice and approval by TIBCO"
+      ],
+      "conditions_accept_set": [
+        [],
+        []
+      ],
+      "underspecified": false,
+      "missing_fields": [],
+      "vague_temporal_phrase": null,
+      "redacted_phrase": null,
+      "known_gaps": [],
+      "annotator_confidence": "CONFIDENT",
+      "rules_cited": [
+        "3.1",
+        "3.2",
+        "3.5",
+        "3.5.2",
+        "3.5.3",
+        "3.6",
+        "3.7",
+        "3.8",
+        "3.8.2",
+        "3.8.4",
+        "3.9",
+        "8.9",
+        "17.1"
+      ],
+      "annotator_notes": "TWO conditions entries. 3.8.2's own table files 'upon reasonable notice and approval by TIBCO' from this item as a CONDITION, and 'As requested by Client' is a second, syntactically distinct circumstance, so 3.8.2 Rule B applies: adjacent conditional phrases are separate entries, one per distinct phrase. 17.1's diagnostic agrees -- two different scoping heads ('As requested by', 'upon'), each independently satisfiable, so this is not the single-marker-plus-internal-boolean shape 17.2 keeps whole. Rule A trims the coordinating 'and' from the second quote, since that word joins the qualifier to its neighbour and says nothing about the circumstance. THE 'UPON' PHRASE IS A CONDITION, NOT AN 8.9 TEMPORAL, and this is the pass's recurring judgment call: 8.9's rule would map 'upon <trigger>' to RELATIVE_TO_TRIGGER(after, ...) with 'notice' a member of its own trigger-noun alternation. I file it as a condition because 3.8.2's table decides this exact phrase in this exact item that way, and because the phrase conjoins a substantive PRECONDITION (TIBCO's own approval) rather than naming a bare event-time; 3.8.4's treatment of 'upon request' is the same resolution, and I apply it consistently across C13-017, C17-021 and here. Under the competing reading temporal would be RELATIVE_TO_TRIGGER(after, 'reasonable notice and approval by TIBCO'), known_gaps would gain relative_trigger_preposition, conditions would drop to 1 entry, and 3.9 trigger 3 would flip underspecified to true -- so clauses 6, 7 and 8 all move. Recorded because the guideline genuinely supports both and never reconciles 8.9 with 3.8.2/3.8.4. Both entries pass 3.8.2's removal test as conditions rather than object scope: delete either and TIBCO owes the staffing duty in circumstances where it previously did not. NOTE THE ODDITY, since it is real and worth a second annotator seeing: the second condition makes the duty contingent partly on the OBLIGOR'S OWN approval, which is close to 2.5.1's unreviewable-discretion shape. I did not exclude on that ground because the clause also carries a genuine correlative-party trigger ('As requested by Client'), a named counterparty, and a concrete deliverable, so monitorable stakes plainly exist. obligee = 'Client', the in-span party the staffing runs to, on 3.5's positional test and 3.5.3's ruling principle that a party named in the span and owed the performance should not be discarded; the alternative is ABSENT, on the ground that Client is named only inside a condition and no dative names a beneficiary -- that would flip underspecified to true via 3.9 trigger 1, so clauses 4 AND 8 both move, which is why I record it. 3.5.2 was checked and does not fire: there is no purpose or benefit clause here. underspecified FALSE as annotated: two named individual aliases, no DateRef, no TriggerRef, no bd duration, and temporal null is never a trigger (3.9).",
+      "span_char_start": 0,
+      "span_char_end": 132
+    }
+  ],
+  "segment_notes": "1 item. Three sentences, one obligation-bearing under my reading; inside 2's 1-3 band. EXCLUDED SENTENCE 2 -- 'On-site personnel will perform ongoing [corpus artifact] system administration, monitoring, reconfiguration and tuning, problem diagnosis, and resolution, and interfacing with Client personnel on production system issues, to the extent possible during normal business hours.' Two independent grounds. (i) NON-PARTY SUBJECT: 'On-site personnel' is a class of individuals, not a party to the agreement -- 8.8's measured 'not an obligation clause at all' class, and 8.3's own note excludes this segment's parallel sentence on exactly this ground ('fails first on its obligor being These personnel, not a party'). (ii) 2's '4+ chained obligations in one sentence' row: the sentence chains at least six activities (system administration, monitoring, reconfiguration, tuning, problem diagnosis, resolution, interfacing), which is the density 2 excludes because IoU alignment degrades and one failure contaminates the segment. It also carries 8.7's mid-sentence corpus artifact -- a page-break rule plus running header, '-------------------------------------------------------------------------------- 98-9-14 TIBCO Maintenance Agreement Page 3 CONFIDENTIAL INFORMATION', spliced between 'ongoing' and 'system administration', severing a single noun phrase. 8.7 measures E07 page headers at 7 instances. Because this sentence is excluded, no annotated item carries corpus_artifact_in_span; batch 1's own record for this segment noted the class and deferred it because the annotated span happened to stop before the artifact, which is still true here. EXCLUDED SENTENCE 3 -- 'These personnel shall also be responsible for the installation of new TIBCO software releases on the production system and the distribution of documentation updates.' 8.3's table uses this very clause as its worked example of two verbs with genuinely separate objects that WOULD split into two items -- but 8.3's own follow-up note records that it 'fails first on its obligor being These personnel, not a party', so the split branch was never exercised on it. Same non-party-subject ground as sentence 2, reinforced by the copular 'shall be responsible for' construction, which is 8.8/8.8.1's status-not-conduct class (8.8's own already-excluded instance is C04-163's 'shall not be responsible for payments'). COMPETING READING RECORDED: 3.5.1 step 1 branch 2 could put 'These personnel' in the obligor slot verbatim on the ground that a subject IS stated, in which case 4.3 splits the sentence into TWO items (installation of software releases; distribution of documentation updates) and this segment yields 3 items rather than 1. I reject it because 8.3's note settles this clause explicitly, and because 3.5.1's branch-2 examples are all PARTY references (collective, distributive, relational) rather than a class of individuals who are not parties to the contract. Both exclusions are NOT_ANNOTATABLE content (4.4) inside an otherwise-good segment; per 2.6 their presence does not disqualify the self-contained first sentence."
+}

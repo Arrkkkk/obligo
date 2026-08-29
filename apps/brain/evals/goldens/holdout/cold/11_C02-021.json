@@ -1,0 +1,147 @@
+{
+  "segment_id": "C02-021",
+  "doc_id": "C02",
+  "stratum": "standard",
+  "items": [
+    {
+      "span_text": "Antares or its Subcontractor shall retain sufficient quantities of shipped Products, sample Products, Devices and Components as retained repository samples as required under the Quality Agreement and Applicable Laws at AMAG's sole cost and expense and as set forth in Exhibit G",
+      "modality": "MUST",
+      "action": "RETAIN",
+      "action_accept_set": [
+        "RETAIN",
+        "STORE",
+        "MAINTAIN",
+        "KEEP"
+      ],
+      "obligor": "Antares",
+      "obligor_accept_set": [
+        "Antares",
+        "its Subcontractor",
+        "Antares or its Subcontractor"
+      ],
+      "obligee": "ABSENT",
+      "object_class": "retained_samples",
+      "object_class_accept_set": [
+        "retained_samples",
+        "retained_repository_samples",
+        "samples",
+        "repository_samples",
+        "product_samples"
+      ],
+      "temporal": null,
+      "conditions": [],
+      "conditions_accept_set": [],
+      "underspecified": true,
+      "missing_fields": [
+        "obligee"
+      ],
+      "vague_temporal_phrase": null,
+      "redacted_phrase": null,
+      "known_gaps": [],
+      "annotator_confidence": "CONFIDENT",
+      "rules_cited": [
+        "2",
+        "3.1",
+        "3.2",
+        "3.5",
+        "3.5.1",
+        "3.5.1.1",
+        "3.5.2",
+        "3.6",
+        "3.8.2",
+        "3.9"
+      ],
+      "annotator_notes": "3.5.1's own disjunctive-obligor motivating sentence. The span names the alternatives individually, so 3.5.1 step 1 branch 1 applies: obligor holds the first-named 'Antares' and obligor_accept_set holds each alternative verbatim PLUS the whole coordinated string 'Antares or its Subcontractor', per the v0.33 forward rule -- that rule exists precisely because the coordination quoted whole is a faithful reading of a span offering alternatives. Disjunctive ('or'), recorded per 3.5.1, which annotates 'and' and 'or' identically; 3.5.1.1's retained reasoning is that with 'or' the contract itself declines to fix which party performs, so the accept-set records the CONTRACT'S indeterminacy, not mine. 'its Subcontractor' is admitted although it is not registry-resolvable -- 3.5's test is positional, and 3.5.1.1's own corpus finding is that C02 promises a definition of 'Subcontractor' it never supplies. NO known_gaps entry for the disjunction: 3.5.1 says the party slot is a field-value question, never an item-count one. OBLIGEE ABSENT, and this was checked against 3.5.2 rather than assumed. 'at AMAG's sole cost and expense' names AMAG as the party BEARING the cost, not as the beneficiary of the duty; 3.5.2 is deliberately narrow and admits only constructions naming a party as the DUTY'S beneficiary ('for the benefit of X', 'for X's account'), and it warns that a rule inverting the party relationship on such a phrase is worse than no rule. The competing reading -- that 'at AMAG's sole cost and expense' is close enough to 'for X's account' to supply AMAG as obligee -- is recorded here; it would change clause 4 but not clause 8, since underspecified is true either way. NO conditions entries: 'as required under the Quality Agreement and Applicable Laws' and 'as set forth in Exhibit G' both modify WHICH/HOW MANY samples are covered, so 3.8.2's removal test files them as object scope, not circumstances under which the duty applies. Those are also the segment's cross-references, and no scored field's value turns on resolving either (2, v0.28), so the segment is not cross-reference-dependent. object_class is authored in the document's own plural ('retained repository samples'); 5's v0.33 number rule normalises number on both sides, and 3.6 says explicitly not to pad the set with the other number.",
+      "span_char_start": 22,
+      "span_char_end": 299
+    },
+    {
+      "span_text": "AMAG shall advise Antares of the required quantities of shipped Products, sample Products, Devices and Components that AMAG desires to be retained",
+      "modality": "MUST",
+      "action": "NOTIFY",
+      "action_accept_set": [
+        "NOTIFY",
+        "REPORT",
+        "PROVIDE",
+        "INFORM"
+      ],
+      "obligor": "AMAG",
+      "obligor_accept_set": [],
+      "obligee": "Antares",
+      "object_class": "required_quantities",
+      "object_class_accept_set": [
+        "required_quantities",
+        "quantities",
+        "sample_quantities",
+        "retention_quantities",
+        "quantity_requirements"
+      ],
+      "temporal": null,
+      "conditions": [],
+      "conditions_accept_set": [],
+      "underspecified": false,
+      "missing_fields": [],
+      "vague_temporal_phrase": null,
+      "redacted_phrase": null,
+      "known_gaps": [],
+      "annotator_confidence": "CONFIDENT",
+      "rules_cited": [
+        "3.1",
+        "3.2",
+        "3.4",
+        "3.5",
+        "3.6",
+        "3.8.2",
+        "3.9"
+      ],
+      "annotator_notes": "Straightforward duty with both parties named individually and in-span, and the duty running the OPPOSITE direction from item 1 (AMAG is obligor here, obligee there). No unresolvable party, date or trigger and no bd duration, so 3.9 has no trigger and underspecified is FALSE. ACTION: the literal verb is 'advise'. 8.8's genuine-gap tag is deliberately NOT applied -- 'advise' is defensibly mappable onto a notification verb, the same shape as 8.8's own 'nominate/designate -> APPOINT' and 'arrange -> PROCURE' mappings, and 8.8's rule applies only to the genuine-gap class where no member is defensible. NOTIFY is my single best value; REPORT and PROVIDE are the defensible alternates 3.4's accept-set exists for, and the eval pilot's recorded PROVIDE/REPORT ambiguity is the same shape. 'that AMAG desires to be retained' is a relative clause restricting WHICH quantities are covered -- object scope by 3.8.2's removal test, not a conditions entry -- so conditions is empty.",
+      "span_char_start": 999,
+      "span_char_end": 1145
+    },
+    {
+      "span_text": "Antares shall invoice AMAG for the costs associated with performing these activities",
+      "modality": "MUST",
+      "action": "INVOICE",
+      "action_accept_set": [
+        "INVOICE",
+        "BILL",
+        "CHARGE",
+        "REPORT"
+      ],
+      "obligor": "Antares",
+      "obligor_accept_set": [],
+      "obligee": "AMAG",
+      "object_class": "costs",
+      "object_class_accept_set": [
+        "costs",
+        "cost",
+        "invoice",
+        "invoice_costs",
+        "activity_costs",
+        "charges"
+      ],
+      "temporal": null,
+      "conditions": [],
+      "conditions_accept_set": [],
+      "underspecified": false,
+      "missing_fields": [],
+      "vague_temporal_phrase": null,
+      "redacted_phrase": null,
+      "known_gaps": [],
+      "annotator_confidence": "CONFIDENT",
+      "rules_cited": [
+        "2.6",
+        "3.1",
+        "3.2",
+        "3.4",
+        "3.5",
+        "3.6",
+        "3.9"
+      ],
+      "annotator_notes": "object_class_accept_set is authored under 3.6's v0.33 REQUIRED enumeration 2, which is mandatory for items annotated from batch 3 onward: where a set holds 'invoice' and 'costs' it must ALSO hold the compound 'invoice_costs'. That enumeration exists because a compound built from two members already in a set is a faithful reading a competent annotator would defend at authoring time, and omitting it cost a real clause-5 failure on this exact clause while a sibling run emitting the bare 'costs' passed -- the same clause scored two ways across two runs. I have authored the compound in rather than relying on a later freeze-pass widening, which 3.4's bounded exception would otherwise be needed for. Nominal-anchor enumeration (3.6's rule 1) also considered: the object phrase 'the costs associated with performing these activities' has one nominal anchor, so no possessor/thing-owned pair arises. Plurals are NOT padded in, per 3.6's explicit instruction and 5's v0.33 number rule. 'these activities' is anaphoric to the retention and storage duties stated earlier in this SAME segment, so 2's self-containment test is satisfied at sentence granularity (2.6) and nothing outside the segment needs resolving. Both parties named in-span, no unresolvable date/trigger, no bd duration: underspecified FALSE.",
+      "span_char_start": 1147,
+      "span_char_end": 1231
+    }
+  ],
+  "segment_notes": "3 items. THE LOAD-BEARING DECISION HERE IS WHICH SENTENCES ARE OBLIGATION-BEARING, because a wider reading breaches 2's 1-3 band and would force the whole segment out. Five sentences; three carry a PARTY subject with a deontic modal and are annotated. Two do not, and are excluded: (A) 'Such retained samples shall minimally represent [***] the number of samples necessary to re-execute chemical release testing and will be maintained in a suitable storage facility at Antares' or its Subcontractors' Manufacturing Site until [***] or such longer period as may be required by Applicable Laws.' The subject is a non-party ('Such retained samples'); the first predicate is a copular specification ('shall minimally represent'), which is 8.8's measured 'not an obligation clause at all' class, and 8.8.1 confirms that class turns on whether the clause commands CONDUCT or describes a STATUS rather than on where a negation sits. COMPETING READING RECORDED: the second predicate, 'will be maintained in a suitable storage facility ... until [***]', is an agentless passive, and 3.5.3 expressly admits agentless passives as obligations (obligor ABSENT). Under that reading this is a fourth item, carrying redacted_value (temporal null, temporal in missing_fields, redacted_phrase '[***]') per 3.7.1/8.1, with obligee also ABSENT since 3.5.3 says a possessive on a PLACE ('Antares' or its Subcontractors' Manufacturing Site') is never promoted to a party slot. I rejected it because the sentence's governing subject and its first predicate are a specification of what the samples must BE, and because admitting it takes the segment to 4 obligation-bearing clauses, breaching 2's band and requiring the segment to be excluded whole -- an outcome the 1-3 band's own rationale (IoU degradation, one failure contaminating the segment) does not support for a segment with three clean, party-subject duties. (B) 'All such samples shall be available for inspection by AMAG at reasonable intervals upon reasonable ... notice.' Copular 'shall be available' predicating a status of a non-party subject -- 8.8's class again. Under the competing reading it would be a fifth item, and it carries three separately-taggable features that are worth recording even though I do not annotate it: a vague temporal ('at reasonable intervals', 15.1's class), a trailing condition ('upon reasonable ... notice'), and 8.7's mid-sentence corpus-artifact splice -- the SEC confidential-treatment legend '- 12 - [***] INDICATES MATERIAL THAT HAS BEEN OMITTED ... AS AMENDED' is spliced between 'upon reasonable' and 'notice', severing a single noun phrase. That splice is the strongest independent reason not to force this clause into an item: 3.1's minimal-COMPLETE-span rule would drag the whole legend into a scored span and into a conditions entry. REDACTIONS: the two [***] markers are 3.7.1 redacted_VALUE, not redacted_clause -- the clauses around them survive and read -- and both sit in sentences I exclude, so no annotated item carries redacted_value and no span leaves either denominator. Cross-references ('the Quality Agreement', 'Applicable Laws', 'Exhibit G') are present but no annotated item's scored field depends on resolving any of them, so 2's v0.28 test does not exclude."
+}
