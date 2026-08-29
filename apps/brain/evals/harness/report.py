@@ -60,6 +60,18 @@ over-count is triageable, not merely acknowledged: the exclusion logs already
 name excluded obligation-bearing clauses for at least one segment
 (E03-005#itemize, E03-005#discuss), so each UNEXPECTED is emitted with its span
 so it can be checked against the log rather than counted blind.
+
+G7 -- THE DENOMINATOR-SENSITIVITY BAND (evals/goldens/holdout/GAP_AGREEMENT_
+DESIGN.md, approved 2026-08-29). `known_gaps` is not one of score.CLAUSES, so
+two annotators can disagree about whether an item is even scoreable while K
+(the section-5 agreement metric) stays silent about it -- and that
+disagreement moves criterion 2's own denominator. When a `GapAgreementResult`
+(evals.harness.gap_agreement) is supplied, the in-force criterion-2 line is
+NEVER a bare point estimate: it always carries the band `[D_int, D_uni]` and
+the `G_swing` verdict inline, per the design's mandatory display rule. Absent
+a `GapAgreementResult` (no cold-annotator comparison exists for this run),
+the point figure alone is still all that is computable, which is why this
+stays an opt-in field rather than a hard requirement on every render().
 """
 
 from __future__ import annotations
@@ -68,6 +80,7 @@ import collections
 from dataclasses import dataclass, field
 from typing import Iterable, Sequence
 
+from evals.harness.gap_agreement import GapAgreementResult
 from evals.harness.score import Outcome
 
 # G6's gap taxonomy (section 9.1). Direction of the IR's departure from the
@@ -138,6 +151,7 @@ class Report:
     unscoreable_items: int = 0
     provenance: dict = field(default_factory=dict)
     miss_kinds: dict = field(default_factory=dict)   # item_id -> per-run miss diagnosis
+    gap_agreement: GapAgreementResult | None = None  # G7: the denominator-sensitivity band
 
     # --- section 9's two denominators -------------------------------------
     @property
@@ -212,6 +226,41 @@ class Report:
             "GOLD-SET TIER-2 SCORING REPORT",
             "",
             f"CRITERION 2 (IN FORCE, §9.1 — len(known_gaps)==0): {pct(fc_ng, n_ng)}",
+        ]
+        ga = self.gap_agreement
+        if ga is not None:
+            # Coherence precondition, not defensive padding: the design's own
+            # template (§5) prints D_gold once as the bare "over D=" figure
+            # and once as the band's own D_gold-vs-D_int/D_uni comparison --
+            # both are "items with gold.known_gaps==[]" over the SAME item
+            # population, just computed by two different call sites. A
+            # `gap_agreement` built over a different population (e.g. a
+            # partial cold-annotator pass that doesn't yet cover every scored
+            # item) would silently print an incoherent D=X [Y-Z] line, the
+            # exact class of unhandled-input failure Standing Principle 7
+            # names -- so this is checked before trusting it, not assumed.
+            if ga.d_gold != n_ng:
+                raise ValueError(
+                    f"gap_agreement.d_gold ({ga.d_gold}) does not match this report's own "
+                    f"len(known_gaps)==0 denominator ({n_ng}). gap_agreement must be computed "
+                    "over the exact same item population this report scores -- see G7."
+                )
+            # G7 -- mandatory display rule (GAP_AGREEMENT_DESIGN.md §5): the
+            # point figure is NEVER printed without the band. Band %'s hold
+            # the numerator fixed (fc_ng) and vary only the denominator
+            # across [D_int, D_uni] (see GapAgreementResult.criterion2_band).
+            lo_pct, hi_pct = ga.criterion2_band(fc_ng)
+            d_lo, d_hi = ga.d_band
+            lines.append(
+                f"    [band {lo_pct * 100:.1f}%–{hi_pct * 100:.1f}%]   "
+                f"over D={n_ng} [{d_lo}–{d_hi}]   "
+                f"G_swing={ga.g_swing_count}/{ga.n} → {ga.g_swing_verdict}"
+            )
+            lines.append(
+                f"    G (overall known_gaps disagreement) = {ga.g_count}/{ga.n} "
+                f"→ {ga.g_overall_verdict} (Wilson95 lower {ga.g_overall_wilson_lower * 100:.1f}%)"
+            )
+        lines += [
             "    ^ THE criterion as of guideline v0.33. Items IR v1 can represent faithfully.",
             f"Reported alongside, over ALL items:                {pct(fc_all, n_all)}",
             "    ^ NOT the criterion (§9.1). Its numerator can contain IRs that are knowingly",
@@ -300,6 +349,7 @@ def build(
     provenance: dict | None = None,
     short_run_reasons: dict[str, str] | None = None,
     failed_clauses: dict[str, Sequence[str]] | None = None,
+    gap_agreement: GapAgreementResult | None = None,
 ) -> Report:
     """`short_run_reasons` maps item_id -> why that item has fewer runs (G5).
     An item scored over fewer runs than the set's maximum WITHOUT a reason is a
@@ -308,7 +358,7 @@ def build(
     silently dropped a run. It raises rather than rendering an unexplained gap."""
     reasons = dict(short_run_reasons or {})
     failed = dict(failed_clauses or {})
-    report = Report(provenance=dict(provenance or {}))
+    report = Report(provenance=dict(provenance or {}), gap_agreement=gap_agreement)
     top = max((len(o) for o in per_item_runs.values()), default=0)
     for item_id, outcomes in sorted(per_item_runs.items()):
         if len(outcomes) < top and not reasons.get(item_id):
