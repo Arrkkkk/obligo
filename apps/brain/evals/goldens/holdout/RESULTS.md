@@ -148,3 +148,101 @@ DRAFT and unfrozen, and it was authored from these very items. The bands were no
 fixed in advance and K is reported against them as fixed. **Any argument that the band is
 mis-calibrated for this instrument is an argument to be made now, in the open, and applied
 to the *next* run — not applied retroactively to this one.**
+
+---
+
+# Spot-check (§7's final step) — and three findings K structurally cannot see
+
+**Draw:** seed `2223141222` (derived by the stated rule from `29082026`), 5 of the **18
+items on which both annotators agreed** under the pre-registered §5 predicate. Drawn:
+`C04-02`, `C13-01`, `C13-02`, `C14-01`, `E07-01` — **all five L2**, the leak-heaviest
+stratum, which is where a shared blind spot was most likely to sit. (13 of the 18 agreed
+items are L2, so this is unremarkable as a draw; it is convenient as a probe.)
+
+**Its power is reduced and that is stated, not assumed away.** §7 justifies the spot-check
+as putting the reviewer's *fresh* eyes on agreements; per §1 disclosure 2 those eyes are not
+fresh here. It nonetheless found three things, each then measured across the whole set
+rather than left as an impression of five items.
+
+## Finding 1 — `known_gaps` disagrees on 19.4% of matched items, and it moves criterion 2
+
+`known_gaps` is **not one of §5's eight clauses**, so a disagreement on it leaves K
+untouched. Measured across all 31 matched items: **6 disagree = 19.4%.**
+
+| item | gold | cold |
+| :-- | :--- | :--- |
+| `C04-02` | `mutual_obligation` | — |
+| `C10-02` | `action_not_in_taxonomy` | — |
+| `C14-01` | `mutual_obligation`, `exception_unsupported` | `exception_unsupported` |
+| `C04-03` | `corpus_artifact_in_span` | + `relative_trigger_preposition` |
+| `C14-04` | `action_not_in_taxonomy` | `relative_trigger_preposition` |
+| `E01-01` | `exception_unsupported` | + `compound_action` |
+
+**Consequence, and it is the most consequential thing in this whole run.** §9's in-force
+criterion-2 denominator is `len(known_gaps) == 0`. Over the matched items that denominator
+is **15 by gold's annotation and 17 by cold's** — it moves by 2 items (`C04-02`, `C10-02`)
+on annotator choice alone, a ~13% swing in the denominator of the project's own headline
+acceptance-criterion figure. **K is blind to every bit of it**, because §5 excludes
+`known_gaps` from the predicate. Both annotators "agreed" on `C04-02` and `C14-01` while
+disagreeing about whether the item is scoreable at all.
+
+This is precisely the shared-blind-spot class the spot-check exists to catch, and it was
+invisible to the instrument that was supposed to be measuring quality.
+
+## Finding 2 — `object_class` specificity is one-directional
+
+Across the 31 matched items: 13 identical labels; among the pairs where one label's tokens
+are a strict subset of the other's, **7 have cold more generic and 0 have cold more
+specific**; 11 differ orthogonally (including number-only pairs such as
+`retained_sample`/`retained_samples`). Examples: `pertinent_records`→`records`,
+`on_site_personnel`→`personnel`, `product_liability_indemnification`→`liability`,
+`adequate_assurance_of_future_performance`→`adequate_assurance`.
+
+**7–0 is not noise.** Gold systematically authors more specific labels than an independent
+annotator does, and where the items nonetheless agreed, agreement was purchased entirely by
+gold's accept-set happening to contain the generic form. Four of the five spot-checked items
+pass clause 5 exactly this way. Together with `object_class` being the single largest
+failure clause (6 of 23), this makes **§3.6 — which fixes no specificity convention at all —
+the highest-value guideline target this run identifies.** It is the same critique §5's own
+number-rule discussion already made of grammatical number: *"It was a coin flip, not a
+measurement."* The specificity axis is the larger, unaddressed instance.
+
+## Finding 3 — a one-directional span convention on trailing punctuation
+
+**19 of 31 matched items have identical span starts and a cold end exactly one character
+shorter**, with gold including a trailing `.` or `;` and cold excluding it. Zero go the
+other way.
+
+Costless here — IoU stays ≈0.99 and no alignment changes — but §3.1 evidently does not
+settle it, two careful annotators split 19–0 on it, and the gold set encodes the
+*punctuation-inclusive* convention. Recorded next to, and deliberately not conflated with,
+the tracked debt entry on trailing punctuation as a recurring hazard for regex-anchored
+classifiers over quoted text: that entry concerns `temporal_raw`, not `span_text`, so this
+is an adjacent convention gap rather than the same defect.
+
+---
+
+# Reviewer's ruling on the REDESIGN response (2026-08-29)
+
+**The verdict stands as REDESIGN, unsoftened.** The band was pre-registered before K was
+known precisely to prevent post-hoc adjustment, and the substantive findings underneath K do
+not depend on the exact boundary being right. The instrument-mismatch argument of the
+previous section is recorded as a **dated, forward-looking design note for the next run**,
+not as grounds to reinterpret this one.
+
+**REDESIGN here does NOT mean "start the gold set over."** It means: **resolve the specific,
+attributed findings before drawing any new items.**
+
+1. **§3.8.2's two conventions need real rulings** — quote extent (`C04-01`) and entry count
+   (`C13-03`). Not deferred to the Tier-B probe: this run's evidence has made that probe
+   *partially redundant*, since a second annotator disagreeing is stronger evidence of
+   underdetermination than model behaviour would have been.
+2. **The exclusion/splitting directional signal needs investigation** — all 6 item-count
+   disagreements run the same way (cold finds more). Determine which specific §2 exclusion
+   rules and §4.3 splitting tests produce it.
+3. **The three already-tracked items are marked REINFORCED, not re-litigated** — `C02-03`
+   and `C11-01` (queued §3.4 widenings, now independently confirmed necessary) and `C14-02`
+   (§22.1's deliberately-retained non-conformance, whose predicted consequence occurred).
+4. **Added by the spot-check:** `known_gaps` must be brought inside a scored or explicitly
+   adjudicated comparison (Finding 1), and §3.6 needs a specificity convention (Finding 2).
+   Neither was on any existing list before this run.
