@@ -1,6 +1,6 @@
 # Obligo Tier-2 Gold Set — Annotation Guideline
 
-**Version:** v0.42 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**. **v0.33 puts §9's dual denominator IN FORCE** on two independent grounds, adds §5 clause 5's number rule, §3.4's bounded freeze-pass exception, and the forward authoring rules §3.6 / §3.8.2 / §3.5.1 — **no annotation rule changed, no item restamped, no cassette stale**. **v0.34 records two MEASUREMENT corrections and changes no rule either** — §8.9's `on`/`until` rows and §15.3's loud-versus-silent class placement, both falsified by real model output from the compile-stage bottleneck investigation. **v0.35 adds §4.3.2** — a third splitting shape distinct from both existing §4.3 worked examples, reviewer-ruled at batch 3's `C04-139`: self-performance vs. a duty to bind/control a third party's conduct splits into two items even when the two verbs share an object phrase and a sentence subject, because the two performances do not share an actor. **v0.36 amends §4.2** — the resulting byte-identical spans (`C04-139`'s shared trailing object leaves neither item's minimal span shorter than the other's) break IoU's ability to discriminate between the two gold items, so a content-based tie-break on `action_accept_set` membership is added, falling through to ascending `item_id` when the tie-break itself is inconclusive. **v0.37 adds a
+**Version:** v0.43 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**. **v0.33 puts §9's dual denominator IN FORCE** on two independent grounds, adds §5 clause 5's number rule, §3.4's bounded freeze-pass exception, and the forward authoring rules §3.6 / §3.8.2 / §3.5.1 — **no annotation rule changed, no item restamped, no cassette stale**. **v0.34 records two MEASUREMENT corrections and changes no rule either** — §8.9's `on`/`until` rows and §15.3's loud-versus-silent class placement, both falsified by real model output from the compile-stage bottleneck investigation. **v0.35 adds §4.3.2** — a third splitting shape distinct from both existing §4.3 worked examples, reviewer-ruled at batch 3's `C04-139`: self-performance vs. a duty to bind/control a third party's conduct splits into two items even when the two verbs share an object phrase and a sentence subject, because the two performances do not share an actor. **v0.36 amends §4.2** — the resulting byte-identical spans (`C04-139`'s shared trailing object leaves neither item's minimal span shorter than the other's) break IoU's ability to discriminate between the two gold items, so a content-based tie-break on `action_accept_set` membership is added, falling through to ascending `item_id` when the tie-break itself is inconclusive. **v0.37 adds a
 recommended `object_class` naming convention to §4.3.2** — `self_` / `third_party_` prefixes over
 a shared root, so future flow-down splits land on visibly parallel labels rather than an
 unrelated pair invented fresh each time. **v0.38 adds §3.2.1** — present-tense self-executing
@@ -217,6 +217,15 @@ in-force criterion-2 denominator from 15 scoreable items to 17.** No K is trustw
 that is fixed, and whether the fix is a ninth §5 clause or a separately-thresholded agreement
 rate is an open decision deliberately left untaken. **No annotation rule changed, no item
 restamped, no cassette stale.**
+**v0.43 change: item 0 of the REDESIGN response (the `known_gaps` agreement instrument, `G`/
+`G_swing`) is IMPLEMENTED** — `evals/harness/gap_agreement.py`, wired into `report.py`'s
+criterion-2 render per the mandatory display rule; see
+`apps/brain/evals/goldens/holdout/GAP_AGREEMENT_DESIGN.md` for the design and
+`tests/evals/test_harness_gap_agreement.py` for the real-data reproduction
+(`G=6/31`, `G_swing=2/31` → BANDED, `D=15 [15–17]` → REDESIGN, matching v0.42's own figures
+exactly). **Also closes item 4 of the same response — three already-tracked items marked
+REINFORCED, not re-litigated** — see the confirming notes added to §3.4 and §22.1 below. **No
+annotation rule changed, no item restamped, no cassette stale.**
 
 **v0.2 change:** corpus rebuilt after a selection-bias audit — see §13.
 **v0.3 change:** annotator-uncertainty protocol added — see §14. Two fields added to §1.
@@ -1231,6 +1240,14 @@ own test**, so that what changed is legible in the diff and countable later.
 Franchisee"*, where all three existing entries anchor on the thing owned). Both are
 **deliberately NOT widened now** and both **keep scoring as failures until the freeze pass**;
 see §9's inline disclosure requirement for how the resulting understatement is reported.
+
+**REINFORCED, not re-litigated, by §7's cold second-annotator run (v0.43, 2026-08-29).** A
+second annotator, working independently and blind to this queue, produced `INVOICE`- and
+`principal_interest`-shaped labels for these same two items (`C02-03`, `C11-01`) —
+`apps/brain/evals/goldens/holdout/RESULTS.md`'s Attribution section. This is independent
+confirmation that the widening is warranted, not new evidence that changes when it happens:
+the bounded-exception rule above still governs, and both items keep scoring as failures until
+the pre-scheduled §10 freeze pass.
 
 ### 3.5 `obligor` / `obligee` — and the `ABSENT` rule
 
@@ -4548,6 +4565,13 @@ reader must not treat §22 as a to-do list.
 genuinely broken rule costs more than leaving it broken. Weakening either invariant so one
 item becomes conformable would buy a marginally better score by making the harness
 permanently less strict, which is the wrong trade in the wrong direction.
+
+**REINFORCED, not re-litigated, by §7's cold second-annotator run (v0.43, 2026-08-29).**
+`C14-02` is the single item the cold annotator did not match at all — exactly the predicted
+consequence of staying unconformed, occurring independently rather than being re-argued here.
+Nothing about this decision changes: `C14-02` still stays annotated under the superseded
+§8.3.1 v0.23 rule, and whether this counts toward the "forcing function" described below is
+left to that later session, not decided here.
 
 **Why defer rather than solve it now.** The real question — how to handle a mid-flight
 guideline correction against already-recorded cassettes — is a general one, and solving it in
