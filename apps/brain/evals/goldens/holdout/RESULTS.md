@@ -283,3 +283,52 @@ That question has never been asked in this project and should be asked before ei
 4. **Added by the spot-check:** `known_gaps` must be brought inside a scored or explicitly
    adjudicated comparison (Finding 1), and §3.6 needs a specificity convention (Finding 2).
    Neither was on any existing list before this run.
+
+---
+
+# Correction to Finding 2's counts (2026-08-30)
+
+**Finding 2 above is left exactly as published** — dated records are struck and kept, not
+edited. This entry is the correction, found while investigating the depth half of REDESIGN
+scope item 1 (`OBJECT_CLASS_INVESTIGATION.md` §9).
+
+**Finding 2's counts are not reproducible from the sealed data.** It reports *"13 identical
+labels … 7 have cold more generic and 0 have cold more specific … 11 differ orthogonally
+(including number-only pairs such as `retained_sample`/`retained_samples`)"*. That parenthesis
+is the tell: Finding 2 files number-only pairs as **orthogonal**, i.e. it does not apply §5's
+v0.33 number rule — a different convention from the one the guideline mandates for clause 5.
+Its script was not preserved.
+
+**Recomputed from the sealed cold output and the pre-v0.44 gold items, under the guideline's
+own rules — §4.2's v0.36 content tie-break for alignment and §5's number normalization for
+label comparison:**
+
+| | Finding 2 | corrected |
+| :--- | ---: | ---: |
+| identical | 13 | **15** |
+| nested (cold more generic) | 7 | **8** |
+| nested (cold more specific) | 0 | **0** |
+| orthogonal | 11 | **8** |
+
+The nested set gains `C14-01` (`withholding_tax` / `taxes`). **Finding 2's substantive claim is
+strengthened, not weakened: the direction is 8–0, not 7–0, and still zero the other way.**
+
+**Two defects, and both were also present in the first reproduction attempt in
+`OBJECT_CLASS_INVESTIGATION.md` §0, where they cancelled.** (1) No §4.2 tie-break, so
+`C04-139`'s **byte-identical spans** — the precise case v0.36 added that tie-break for — paired
+arbitrarily and produced a spurious `object_class` disagreement. **The two annotators agree
+exactly on both `C04-04` and `C04-05`**, on action as well as label. (2) The subset test ran on
+raw tokens while the identity test ran on number-normalized ones.
+
+**K is NOT affected, and this was checked rather than assumed.** K is computed from
+`comparison.json`'s per-clause `disagree` field — 14 disagreeing items, re-verified — and
+`comparison.json`'s alignment pairs `C04-139` correctly (neither item is marked disagreeing).
+**K stays 14/32 = 43.8% and the REDESIGN verdict stands.** Also unaffected: the clause-level
+profile (§"Clause-level profile"), which reads the same `fails` field; the leak-level table;
+channel 4's item counts; and Findings 1 and 3.
+
+**Recorded as a Standing Principle 7 instance, and a new variant of it.** The §0 reproduction
+was accepted *because it matched this published number exactly* — which is the check the
+principle prescribes. It matched because two errors cancelled against a reference that was
+itself unverified. **A known-answer check is evidence only when the known answer is
+independently sound**; matching an unverified number proves agreement, not correctness.

@@ -37,6 +37,47 @@ number, not by re-reading the code.
 
 The seven: `C02-03` `C06-01` `C10-01` `C10-02` `C13-01` `C17-02` `E07-01`.
 
+> **CORRECTION, 2026-08-30 — §0's reproduction above is WRONG, and it is struck rather than
+> edited.** The table and its "reproduces exactly" claim are kept as the dated record they
+> were; this block is the correction, found while investigating the depth rule (§9).
+>
+> **My pairing script had two defects that cancelled.** (1) It did not implement **§4.2's
+> v0.36 content tie-break**, so `C04-139`'s two items — which have *byte-identical* spans, the
+> exact case that tie-break was written for — were paired arbitrarily and reported as an
+> `object_class` disagreement (`self_compliant_use` ↔ `third_party_compliant_use`). **The two
+> annotators in fact agree exactly on both items**, matching on action as well
+> (`USE`/`USE`, `ENSURE`/`PROCURE`, both within gold's `action_accept_set`). (2) The
+> strict-subset test ran on **raw** tokens while the identity test ran on **number-normalized**
+> ones, so `withholding_tax`/`taxes` was filed orthogonal instead of nested.
+>
+> **Corrected counts on the pre-v0.44 items, under the guideline's own rules (§4.2 tie-break,
+> §5 number normalization): identical = 15, nested = 8, orthogonal = 8.** The nested set gains
+> **`C14-01`** (`withholding_tax` / `taxes`), so the direction is **8–0, not 7–0** — *still zero
+> the other way*.
+>
+> **RESULTS.md's own Finding 2 counts (13 / 7 / 11) are not reproducible from the sealed data
+> either**, under any of four interpretations I ran; the closest is 14 / 7 / 10 (raw identity,
+> correct pairing). Finding 2 states it files number-only pairs such as
+> `retained_sample`/`retained_samples` as *orthogonal*, i.e. it does not apply §5's v0.33 number
+> rule at all — which is a different convention from the one the guideline mandates. Its script
+> was not preserved. A correction entry is filed in `RESULTS.md` rather than editing Finding 2.
+>
+> **What does NOT change, checked rather than assumed.** **K is untouched** — it is computed
+> from `comparison.json`'s per-clause `disagree` field (14 disagreeing items, verified), not
+> from Finding 2's label classification, and `comparison.json`'s own alignment pairs `C04-139`
+> correctly (neither item is marked disagreeing). The **REDESIGN verdict stands**. §3's
+> clause-5 analysis is unaffected (it reads `comparison.json`'s `fails`, not my pairing); §5's
+> breadth measurements are unaffected (they do not depend on pairing at all); §2's model
+> evidence is unaffected. The **four-mechanism decomposition below is unaffected in substance**
+> and gains one item: `C14-01` joins mechanism **(D)**, which becomes 3 items, since both
+> `withholding taxes` and `taxes` appear literally in its span.
+>
+> **This is the fifth instance of Standing Principle 7 in this workstream and the first in my
+> own published output.** The reproduction *matched a known published answer*, which is exactly
+> the check the principle prescribes — and it matched because two errors cancelled. **A
+> known-answer check passing is evidence only when the answer it matches is itself verified**;
+> here the reference number was not independently sound, so agreement with it proved nothing.
+
 ---
 
 ## 1. The seven are not one phenomenon — a four-mechanism decomposition
@@ -376,7 +417,7 @@ answer is least in doubt (source) is the only one landing entirely on cassette-b
 | :-- | :--- | :--- | :--- |
 | 1 | **field independence** (`C10-01`, `C10-02`) | **RULED — §3.6.1, guideline v0.44** | free (batch-3, no cassette) and closest to a defect rather than a convention |
 | 2 | **accept-set breadth** (§5 of this note) | **HELD pending REDESIGN item 0** | promoted above the remaining rules — the only lever here that provably touches criterion 2 — but its shape depends on whether §5 is one predicate or two |
-| 3 | **depth rule** (`C06-01`, `C13-01`) | open | also free (batch-3, no cassette); genuinely underdetermined, and §5's number-rule precedent leaves a comparison-rule option unargued |
+| 3 | **depth rule** (`C06-01`, `C13-01`, and `C14-01` per §0's correction) | **INVESTIGATED — §9; no ruling proposed** | free (batch-3, no cassette). §9 finds the comparison-rule option **falsified**, the pipeline half **collapsing into row 2**, and only an annotator-side convention over three items left live |
 | 4 | **source rule**, two tiers | open, **batched into §10's freeze pass** | outside-span (`C02-03`) and outside-NP (`E07-01`, `C17-02`) are separable and only the second is contentious; all three are cassette-backed, so ruling either tier stales all 35 at once — it goes with the widenings already queued there |
 
 ### Ruling 1 — field independence → §3.6.1 (guideline v0.44)
@@ -432,3 +473,139 @@ taxes"*), `C22-02` is prefix noise (`license` ⊂ `Licensees`), and `C04-03`'s s
 (row 3 above) and ruling it by side effect would have prejudiced it. A named residue is
 accepted and recorded: the violating members remain in both accept-sets, so the instrument
 still *admits* a field-duplicating prediction — it merely no longer *requires* one.
+
+---
+
+## 9. The depth question — investigation (sequence row 3)
+
+Investigation only. **No rule is proposed**, and the finding is partly that one of the three
+candidate shapes for a depth rule is dead and another is not this item's to rule.
+
+### 9.1 The two items, in full
+
+Both are batch 3, both cassette-less, both **symmetric** — each annotator's accept-set contains
+the other's label, which is the signature of two annotators who agree the label is
+underdetermined and differ only on where to stop.
+
+**`C06-01` — `adequate_assurance_of_future_performance` vs `adequate_assurance`.** Span:
+*"the designee under any Lease/Contract Assumption Notice shall be required, if requested by
+the applicable counterparty, to provide **adequate assurance of future performance** with
+respect to such Lease or Contract…"*. The object NP is *"adequate assurance of future
+performance"* — gold keeps it whole, cold stops at the head before the `of`-postmodifier.
+**Both verbatim.** Gold's note records running §3.6's dual-anchor enumeration and authoring all
+four variants into the set; cold's records the same two anchors and authors five. **The
+enumeration did its job on both sides and the slots still disagreed** — the cleanest available
+demonstration that §3.6's existing rules govern the set and not the slot.
+
+**`C13-01` — `pertinent_records` vs `records`.** Span: *"In such a situation, DD will make
+available to MBRK, upon request, all of DD's **pertinent records** on MOXATAG."* Gold keeps
+the in-NP adjective, cold drops it. `pertinent` is in the text, so gold is not reaching outside
+the phrase — this is not mechanism (A) or (B). It is also non-discriminating: the records are
+pertinent by definition of what is requested.
+
+**A third item joins under §0's correction: `C14-01` — `withholding_tax` vs `taxes`.** Span:
+*"Each party shall deduct such **taxes** from the payments due to the other party hereunder as
+required by law including **withholding taxes**…"*. **Both forms appear literally in the same
+span**, which makes this the purest instance of the three: neither annotator is inferring
+anything, they simply anchored on different in-text mentions.
+
+### 9.2 The depth axis is a monotone three-way gradient, and it is measurable set-wide
+
+Unlike the 8–0 nested count, this does not depend on pairing at all — it is a property of each
+annotator's own output. `object_class` slot depth in tokens:
+
+| | mean depth | 1-token slots | max | label literally present in its own span |
+| :--- | ---: | ---: | ---: | ---: |
+| **gold** (32 items) | **2.25** | 2 (6%) | 5 | 47% |
+| **cold** (41 items) | **2.05** | 8 (20%) | 4 | 56% |
+| **model** (83 emissions) | **1.77** | 23 (28%) | 3 | **70%** |
+
+And the model's rule is explicit in its own output: **67 of 83 labels (81%) are built only from
+tokens of the `object_raw_text` it quoted.** Gold is the deepest and least literal of the three;
+the model is the shallowest and most literal; cold sits between them, nearer the model.
+
+### 9.3 The finding that decides this item's scope: the pipeline half of "depth" IS the breadth item
+
+§5 clause 5 tests `prediction ∈ gold's accept_set` and **never reads gold's slot**
+(`score.py:226`) — the same one-sidedness that made §3.6.1's slot half free. So a depth
+*convention* for the slot cannot move criterion 2. What moves criterion 2 is whether the **set
+spans the depth range the model actually emits**, and it largely does not:
+
+| | items whose accept-set contains a head-only (1-token) member |
+| :--- | ---: |
+| gold | **12 / 32 = 38%** |
+| cold | 31 / 41 = 76% |
+
+**The model emits a head-only label 28% of the time, and 62% of gold items cannot accept one at
+all.** When those coincide, clause 5 fails no matter which depth convention gold adopts for its
+own slot.
+
+**So the depth question splits, and only one half belongs to this row.** Its pipeline half is
+set coverage — i.e. it *is* the accept-set breadth item (§5 of this note), already promoted and
+**held pending REDESIGN item 0**. Its annotator half — which label goes in the slot — is
+rulable independently, free (all three items are batch-3 and cassette-less), and affects only
+K and any §7 re-run. **Ruling the slot half would not be wrong; it would simply not do what a
+reader might assume it does.**
+
+### 9.4 A structural gap that blocks mechanical adjudication either way
+
+**Neither gold nor cold records the object noun phrase the label was built from.** Verified
+against the field lists: gold items carry `object_class` and `object_class_accept_set` and
+nothing else object-related; cold the same. The pipeline **does** carry it — `LLMCandidate`'s
+`object_raw_text`, surviving into `ast.Obligation` as `object.raw_text` (excluded from
+`ir_hash`).
+
+Any depth convention — "keep the head", "keep head plus restrictive modifiers", "keep the whole
+NP" — is stated relative to an anchor phrase that gold does not record. Consequences, both
+real: a depth convention is **checkable at authoring time and not afterwards**, and §9.2's
+"literally present in span" figures are the closest available proxy rather than a direct
+measurement. **This also bounds §3.6.1**, ruled at v0.44: its restatement test names the object
+NP as its anchor, so it too is authoring-time-checkable only — which is precisely why that
+rule's §10 screen had to approximate by stem-matching and why it missed `C10-02`'s `_listing`.
+Adding an `object_raw_text`-equivalent field to gold items is a candidate remedy and is **not
+proposed here** — it would touch every item's schema.
+
+### 9.5 The comparison-rule option is FALSIFIED by measurement
+
+§5's number rule sets a precedent for handling an axis neither side was asked about: normalize
+it away in **comparison** rather than legislate an authoring convention. The natural analogue
+for depth is **head-only matching** — compare only the final token, since English compounds are
+head-final, so `product_liability` and `liability` would match.
+
+**Measured before proposing it, per §8.6's discipline, over the 31 correctly-paired items:**
+clause 5 passes 25/31 today and would pass **29/31** under head-only matching. Of the 4 items
+that flip, **only 1 is a genuine depth pair**:
+
+| item | gold | cold | is this a depth difference? |
+| :--- | :--- | :--- | :--- |
+| `C10-01` | `product_liability_indemnification` | `liability` | yes |
+| `C11-01` | `franchise_interest` | `principal_interest` | **no** — possessor vs thing-owned, §3.6 enum 1's own named example |
+| `E03-01` | `demand_forecast` | `rolling_forecast` | **no** — which qualifier |
+| `C22-02` | `trademark_license_grant` | `third_party_trademark_license` | **no** — the act vs the beneficiary class |
+
+**It buys one legitimate depth fix by erasing three real distinctions.** Worse, on the labels
+themselves it would make these gold pairs interchangeable:
+
+- `self_compliant_use` / `third_party_compliant_use` — **the exact pair §4.3.2's v0.37 naming
+  convention exists to distinguish.** Head-matching deletes, by construction, the prefix that
+  carries the distinction.
+- `recall_costs` / `retention_costs`, and `vat_and_taxes` / `withholding_tax`.
+
+**And the precedent does not transfer on its own stated terms.** §5 justifies number
+normalization as deleting *"a distinction neither side was ever asked to make"*. Depth is a
+distinction §4.3.2 **explicitly asks annotators to make**. This is exactly the *"nearly vacuous
+— the opposite failure, and a worse one"* outcome §5 already warns of for Porter-class
+stemming, now measured rather than predicted. **Head-only matching is rejected.**
+
+### 9.6 Where this leaves row 3
+
+- **Comparison-rule shape: dead**, on measurement (§9.5).
+- **Pipeline-side shape: not this row's** — it is set coverage, i.e. the held breadth item.
+- **Annotator-side shape: live, free, and low-value** — three symmetric items (`C06-01`,
+  `C13-01`, `C14-01`), all batch-3 and cassette-less, affecting K and nothing else.
+- **A precondition surfaces either way (§9.4):** without an anchor field, any depth rule is
+  unverifiable after authoring — and that limitation now also attaches to §3.6.1.
+
+**No ruling proposed.** The reviewer should decide whether an annotator-only convention worth
+three items is worth writing before item 0 settles what §5 is for, given that the same question
+determines whether the pipeline half ever comes back to this row at all.
