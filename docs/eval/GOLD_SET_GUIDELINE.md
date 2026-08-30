@@ -1,6 +1,6 @@
 # Obligo Tier-2 Gold Set — Annotation Guideline
 
-**Version:** v0.43 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**. **v0.33 puts §9's dual denominator IN FORCE** on two independent grounds, adds §5 clause 5's number rule, §3.4's bounded freeze-pass exception, and the forward authoring rules §3.6 / §3.8.2 / §3.5.1 — **no annotation rule changed, no item restamped, no cassette stale**. **v0.34 records two MEASUREMENT corrections and changes no rule either** — §8.9's `on`/`until` rows and §15.3's loud-versus-silent class placement, both falsified by real model output from the compile-stage bottleneck investigation. **v0.35 adds §4.3.2** — a third splitting shape distinct from both existing §4.3 worked examples, reviewer-ruled at batch 3's `C04-139`: self-performance vs. a duty to bind/control a third party's conduct splits into two items even when the two verbs share an object phrase and a sentence subject, because the two performances do not share an actor. **v0.36 amends §4.2** — the resulting byte-identical spans (`C04-139`'s shared trailing object leaves neither item's minimal span shorter than the other's) break IoU's ability to discriminate between the two gold items, so a content-based tie-break on `action_accept_set` membership is added, falling through to ascending `item_id` when the tie-break itself is inconclusive. **v0.37 adds a
+**Version:** v0.44 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**. **v0.33 puts §9's dual denominator IN FORCE** on two independent grounds, adds §5 clause 5's number rule, §3.4's bounded freeze-pass exception, and the forward authoring rules §3.6 / §3.8.2 / §3.5.1 — **no annotation rule changed, no item restamped, no cassette stale**. **v0.34 records two MEASUREMENT corrections and changes no rule either** — §8.9's `on`/`until` rows and §15.3's loud-versus-silent class placement, both falsified by real model output from the compile-stage bottleneck investigation. **v0.35 adds §4.3.2** — a third splitting shape distinct from both existing §4.3 worked examples, reviewer-ruled at batch 3's `C04-139`: self-performance vs. a duty to bind/control a third party's conduct splits into two items even when the two verbs share an object phrase and a sentence subject, because the two performances do not share an actor. **v0.36 amends §4.2** — the resulting byte-identical spans (`C04-139`'s shared trailing object leaves neither item's minimal span shorter than the other's) break IoU's ability to discriminate between the two gold items, so a content-based tie-break on `action_accept_set` membership is added, falling through to ascending `item_id` when the tie-break itself is inconclusive. **v0.37 adds a
 recommended `object_class` naming convention to §4.3.2** — `self_` / `third_party_` prefixes over
 a shared root, so future flow-down splits land on visibly parallel labels rather than an
 unrelated pair invented fresh each time. **v0.38 adds §3.2.1** — present-tense self-executing
@@ -501,6 +501,33 @@ batches. This document is versioned, never edited silently — the same discipli
 `prompts/` and Flyway migrations follow in this repo.
 
 ---
+
+**v0.44 change:** Adds **§3.6.1** — `object_class` must not encode `action`, `obligor` or
+`obligee` — and is the **first amendment in this document's history to restamp a locked item**.
+Ruled from the §3.6 investigation of REDESIGN scope item 1
+(`evals/goldens/holdout/OBJECT_CLASS_INVESTIGATION.md`), which decomposed §7's 7–0
+`object_class` specificity signal into four mechanisms and found that only two of the seven
+nested pairs — `C10-01`, `C10-02` — are a **defect** rather than a convention gap: their labels
+carried material already scored by clause 2 or clause 4, making those clauses co-vary with
+clause 5 so a single judgment was scored twice. **Two items restamped v0.40 → v0.44**
+(`C10-01` slot `product_liability_indemnification` → `product_liability`; `C10-02` slot
+`distributor_insurance_certificate_listing` → `insurance_certificate`), **no accept-set member
+removed**, and **no cassette staled** — `C10-016` was never recorded and all 14 batch-3 items
+already sit outside `run_scoring`'s single-stamp scoreable set. The rule is deliberately
+narrow in three ways, each argued in §3.6.1's own text: the **slot** half is retroactive
+because clause 5 never reads gold's slot, so it cannot fit anything to a prediction; the
+**set** half is **widening-only**, because retroactive stripping would have flipped `C04-03`'s
+`product_delivery` from pass to fail against a prediction `C04-087` run 2 actually emits; and
+retroactive widening is confined to items with **no recorded cassette**, everything else
+waiting for §10's freeze pass under §3.4's bounded exception. §3.6's forward-only clause gains
+a scope note saying it governs its own two enumerations and not §3.6.1. **The §10 re-check is
+logged, not asserted** — all 32 items screened, four further candidates adjudicated and all
+four cleared — and it carries a Standing Principle 7 note recording that the screener **missed**
+`C10-02`'s own `_listing`, because `action` holds `ESTABLISH` while the real verb is *"add"*
+(§8.8): the screen is a lower bound, not a census, and is structurally blind to every
+`action_not_in_taxonomy` item. **The depth question is explicitly left open** — the corrections
+strip only the restating tokens so the still-unruled `product_liability` vs `liability` choice
+stays unprejudiced.
 
 ## 1. What a gold item is
 
@@ -1341,7 +1368,107 @@ not safer.
 
 **This rule is forward-only and restamps nothing.** It governs items annotated from batch 3
 onward. Locked items are not re-authored against it — that is the freeze pass's job (§3.4's
-exception, §10).
+exception, §10). **Scope note added at v0.44: this forward-only clause governs the two
+enumerations above and nothing else.** §3.6.1 is retroactive and says so in its own text; the
+two are different in kind, and the difference is argued there.
+
+### 3.6.1 `object_class` must not encode `action`, `obligor` or `obligee` (v0.44 — REVIEWER-RULED, RETROACTIVE)
+
+`object_class` names **the thing the obligation is about**. It must not carry material whose
+content is already the value of clause 2 (`action`), clause 3 (`obligor`) or clause 4
+(`obligee`) for the same item.
+
+**The restatement test.** Take the object noun phrase — the phrase in `span_text` naming what
+the duty acts on, the same phrase `prompts/extraction/v3.yaml` asks the model to record as
+`object_raw_text`. Identify its head noun. For each remaining token group in a candidate label,
+ask: **does it name the duty type or a party, rather than a property of the thing?** If it does,
+it is restated material and does not belong in the label.
+
+**Two carve-outs, both load-bearing, both derived from real locked items.**
+
+1. **A token that appears in the span as part of the object's own name is never a restatement**,
+   even where it shares a root with the item's `action`. `C02-01`'s span reads *"…as **retained
+   repository samples**…"* and `C14-01`'s reads *"…including **withholding taxes**…"* — both
+   label the object by the name the document itself gives it, and both were checked against this
+   rule at v0.44 and cleared. The test is **content-relative to this item's own field values and
+   its own span**, never a string blacklist against the `ACTIONS` list. §3.6's own enum-2 example
+   `invoice_costs` clears for the same reason: `invoice` there names a document, not the act, and
+   `C02-03`'s `action` is `PROVIDE`.
+2. **§4.3.2's `self_` / `third_party_` naming convention is unaffected.** Those prefixes name
+   *whose conduct* the object concerns in a flow-down split; in `C04-05` the third party is
+   neither the obligor nor the obligee. A prefix falls foul of this rule only when it reproduces
+   **this item's actual `obligor`/`obligee` value**, as `distributor_` does in `C10-02`.
+
+**Why this is a CORRECTION and not a convention — the argument that makes it retroactive.**
+§5 is conjunctive, so a label that restates the `action` makes clauses 2 and 5 **co-vary**: one
+judgment gets scored twice. An item can lose two clauses for a single mistake and gain two for a
+single lucky guess. That is a defect in the instrument rather than a preference between two
+faithful labels, and it is wrong under *any* specificity convention — which is exactly what
+distinguishes it from §3.6's two enumerations. An older item authored without those is merely
+narrower; an item violating §3.6.1 is measuring the wrong thing. **It is also detectable without
+reference to any prediction**, so applying it retroactively raises no §3.4 freeze-rule question.
+
+**Scope, and the asymmetry between the slot and the set — this is the part that constrains the
+rule, and it was settled by measurement.**
+
+- **The slot rule is a correction and applies retroactively.** §5 clause 5 never reads gold's
+  slot value at all (it tests `prediction ∈ accept_set`), so correcting a slot has **zero**
+  effect on criterion 2 and cannot fit anything to a prediction. It affects annotator
+  comparison only.
+- **The set rule is WIDENING-ONLY: an accept-set must contain at least one member that names
+  the object with no restated material.** A member is **never removed** by this rule. The
+  reason is measured, not stylistic: `C04-03`'s set carries `product_delivery` (against
+  `action = DELIVER`), and `C04-087` run 2 **emits exactly `product_delivery`**. Stripping
+  restating members retroactively would therefore flip a currently-passing clause 5 to failing
+  — a **narrowing made with the prediction already visible**, which is §3.4's prohibition
+  running in the more dangerous direction, since narrowing can only manufacture failures.
+  Widening-only is monotone and cannot.
+- **Retroactive widening is confined to items with no recorded cassette.** For `C10-01` and
+  `C10-02` there is *no prediction in existence* — `C10-016` was never recorded — so the
+  widening is provably not prediction-fitted. For any item that **is** cassette-backed, a
+  §3.6.1 widening waits for §10's freeze pass under §3.4's bounded exception, alongside the
+  widenings already queued there.
+
+**The v0.44 re-check across all prior batches (§10's requirement), logged rather than asserted.**
+All 32 locked items were screened, every `object_class` slot value and every accept-set member,
+against each item's own `action`, `obligor`, `obligee` and `obligor_accept_set`. Four candidates
+beyond the two rulings were adjudicated individually and **all four cleared**: `C02-01` and
+`C14-01` under carve-out 1 above; `C22-02` as a detector false positive (`license`, the thing
+granted, prefix-matching the obligee `the Purchaser Licensees` — and its `action` is `ENSURE`,
+so `_grant` restates nothing either); `C04-03`, whose **slot** `product_shipment` is clean, with
+its `product_delivery` accept-set member retained under the widening-only rule above.
+
+**Standing Principle 7 note on that screen, recorded because it failed in the instructive
+direction.** The screener matches action nominalizations by stem, and **it did not flag
+`C10-02`'s `_listing`** — the item's `action` is `ESTABLISH` while the real verb is *"add"*
+(§8.8), so no stem could match. The violation was already known from the investigation, which is
+the only reason the miss was visible. **The screen is therefore a lower bound on §3.6.1
+violations, not a census**, and specifically it is blind to any item carrying an
+`action_not_in_taxonomy` tag, where the label may restate the *real* verb while `action` holds a
+different one. Re-run it by hand against the §8.8 items at the freeze pass.
+
+**The two corrected instances (v0.44).**
+
+| item | field | was | now | restated material removed |
+| :--- | :--- | :--- | :--- | :--- |
+| `C10-01` | slot | `product_liability_indemnification` | `product_liability` | `_indemnification` restates `action = INDEMNIFY` |
+| `C10-02` | slot | `distributor_insurance_certificate_listing` | `insurance_certificate` | `distributor_` restates `obligee`; `_listing` restates the real verb *"add"* |
+
+Both accept-sets gain their corrected slot value and keep every existing member. `C10-01`
+already satisfied the set rule before this amendment — `design_defect_liability` carries no
+restated material — so **only its slot changed**; `C10-02`'s set satisfied it nowhere (all three
+members restate: `_listing`, `_addition`, `_designation`), so `insurance_certificate` is added
+under the widening-only rule.
+
+**A named, deliberate residue.** The violating members stay in both sets, so the instrument
+still *admits* a prediction that duplicates a scored field — it simply no longer *requires* one.
+Removing them is a narrowing and belongs to the freeze pass, not here. Recorded so it is a known
+cost rather than an oversight.
+
+**What this rule does NOT settle.** It says nothing about how specific a label should be once
+the restated material is gone — `product_liability` versus `liability` is the **depth** question,
+which is open and separately scoped. The slot corrections above therefore strip **only** the
+restating tokens and change nothing else, so that the depth ruling stays unprejudiced.
 
 ### 3.7 `temporal` — one of five forms, or `null`
 

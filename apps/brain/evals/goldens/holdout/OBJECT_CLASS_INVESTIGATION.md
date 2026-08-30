@@ -358,3 +358,77 @@ If it is two, then the specificity convention belongs to the annotator-compariso
 only, and the breadth item in §5 above is the *entire* pipeline-side finding of this
 investigation. **Which of those is true determines what item 1's fix even looks like, so item
 0's ordering ahead of it is confirmed by a second, independent route.**
+
+---
+
+## 8. Ruling log
+
+Appended as rulings land. The investigation above is unedited — per this project's
+corrections-are-new-text discipline, a ruling is recorded here rather than folded back into
+the findings it came from.
+
+### Sequence, ruled 2026-08-30
+
+Set against the measured cost table in §4, which inverts the intuitive ordering: the rule whose
+answer is least in doubt (source) is the only one landing entirely on cassette-backed items.
+
+| # | item | status | why here |
+| :-- | :--- | :--- | :--- |
+| 1 | **field independence** (`C10-01`, `C10-02`) | **RULED — §3.6.1, guideline v0.44** | free (batch-3, no cassette) and closest to a defect rather than a convention |
+| 2 | **accept-set breadth** (§5 of this note) | **HELD pending REDESIGN item 0** | promoted above the remaining rules — the only lever here that provably touches criterion 2 — but its shape depends on whether §5 is one predicate or two |
+| 3 | **depth rule** (`C06-01`, `C13-01`) | open | also free (batch-3, no cassette); genuinely underdetermined, and §5's number-rule precedent leaves a comparison-rule option unargued |
+| 4 | **source rule**, two tiers | open, **batched into §10's freeze pass** | outside-span (`C02-03`) and outside-NP (`E07-01`, `C17-02`) are separable and only the second is contentious; all three are cassette-backed, so ruling either tier stales all 35 at once — it goes with the widenings already queued there |
+
+### Ruling 1 — field independence → §3.6.1 (guideline v0.44)
+
+`object_class` must not carry material whose content is already the value of clause 2
+(`action`), clause 3 (`obligor`) or clause 4 (`obligee`) for the same item. Full text, both
+carve-outs, and the retroactivity argument live in `docs/eval/GOLD_SET_GUIDELINE.md` §3.6.1;
+what follows is only what this note contributed and what the ruling changed.
+
+**The defect argument.** §5 is conjunctive, so a label restating the `action` makes clauses 2
+and 5 co-vary — one judgment scored twice, two clauses lost for one mistake or gained for one
+lucky guess. Wrong under *any* specificity convention, which is what makes it a correction and
+justifies retroactivity where §3.6's own enumerations are forward-only.
+
+**Two items corrected, v0.40 → v0.44:**
+
+| item | slot was | slot now | removed |
+| :--- | :--- | :--- | :--- |
+| `C10-01` | `product_liability_indemnification` | `product_liability` | `_indemnification` = `action` |
+| `C10-02` | `distributor_insurance_certificate_listing` | `insurance_certificate` | `distributor_` = `obligee`; `_listing` = the real verb *"add"* |
+
+**Three deliberate narrowings of the rule's own reach, each forced by something measured here.**
+
+- **Slot half retroactive, and free.** Clause 5 never reads gold's slot (`score.py:226`), so a
+  slot correction has zero effect on criterion 2 and cannot fit anything to a prediction.
+- **Set half widening-only.** `C04-03`'s accept-set carries `product_delivery` against
+  `action = DELIVER`, and **`C04-087` run 2 emits exactly `product_delivery`**. Retroactive
+  stripping would have flipped a passing clause to failing — §3.4's prohibition running in the
+  more dangerous direction, since narrowing can only manufacture failures. Discovered by
+  checking the cassettes before writing the rule, not after.
+- **Retroactive widening confined to cassette-less items.** `C10-016` was never recorded, so no
+  prediction for either item exists and the widening is provably not prediction-fitted.
+  Everything cassette-backed waits for the freeze pass.
+
+**Cost, verified rather than assumed:** no accept-set member removed, no cassette staled, no
+effect on the scoreable set. Stamps moved from `{v0.28 ×18, v0.37 ×2, v0.38 ×1, v0.40 ×2,
+v0.41 ×9}` to the same with `v0.40 ×2 → v0.44 ×2`; `run_scoring.guideline_version_from_items()`
+already refused the 32-item set on five stamps and refuses it on five still. All 32 items
+re-validated clean afterwards (span offsets reproduce, slot ∈ accept-set, action ∈ accept-set).
+
+**Standing Principle 7, and it failed in the instructive direction.** The §10 re-check screen
+matches action nominalizations by stem and **did not flag `C10-02`'s own `_listing`** — the
+item's `action` is `ESTABLISH` while the real verb is *"add"* (§8.8). It was visible only
+because the investigation had already found it by hand. **The screen is a lower bound, not a
+census, and is structurally blind to every `action_not_in_taxonomy` item**; §3.6.1 carries that
+caveat and defers a hand re-check of the §8.8 items to the freeze pass. Four further candidates
+it did raise were adjudicated individually and all four cleared — `C02-01` and `C14-01` name the
+object by the document's own words (*"as retained repository samples"*, *"including withholding
+taxes"*), `C22-02` is prefix noise (`license` ⊂ `Licensees`), and `C04-03`'s slot is clean.
+
+**What the ruling deliberately did not do.** The corrections strip *only* the restating tokens.
+`product_liability` was not further reduced to `liability`, because that is the depth question
+(row 3 above) and ruling it by side effect would have prejudiced it. A named residue is
+accepted and recorded: the violating members remain in both accept-sets, so the instrument
+still *admits* a field-duplicating prediction — it merely no longer *requires* one.
