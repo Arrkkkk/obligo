@@ -180,17 +180,61 @@ scored end to end. `D = 15 [15–17]` is real now; the percentages are not.
 
 ## 6. Explicitly deferred
 
+> **CLOSED 2026-09-02 — ANSWERED, not withdrawn, and the deferral's own reasoning is corrected.**
+> The §8 tag-vocabulary review this section defers to has now run (guideline §8.2 correction,
+> §10.1 F7–F10). Three findings, in the order they bear on the text below:
+>
+> 1. **The question was already settled three times before it was deferred.** Tags **can**
+>    co-apply: v0.22's list schema exists *because* they do (`C14-01`'s own notes call it *"the
+>    FIRST GENUINE MULTI-GAP ITEM in the gold set, and the item that forced the v0.22 known_gaps
+>    list schema"*); §9's v0.22 rules legislate for it directly (*"a two-tag item is scored
+>    identically to a one-tag item"*, *"per-tag figures are non-exclusive and MUST NOT be
+>    summed… because one item may carry several"*); and §8.3's v0.28 F2 branch 3 rules an explicit
+>    instance (*"tag `compound_action` **and** `action_not_in_taxonomy`. **Both apply**… Settled
+>    here rather than left to be discovered."*). **3 of the 32 locked items carry two tags today.**
+> 2. **The inference below runs backwards, and that is the substantive correction.** *"If tags can
+>    legitimately co-apply, plain set inequality is over-strict and `G_disjoint` overcounts"* does
+>    not follow. If both tags truly apply the correct set is `{both}`, so an annotator writing only
+>    one has **under-tagged** — a real defect that set equality correctly catches. Co-application
+>    makes strict set equality **more** correct, not less. Over-strictness would require two tags
+>    to be **alternative encodings of one fact**, which is a different property (vocabulary
+>    disjointness) that this section never named.
+> 3. **That different property was real, was found, and is fixed.** Every pair in the 11-tag
+>    vocabulary was checked. Exactly one was an alternative encoding —
+>    `unless_unsupported`/`exception_unsupported`, the same tag under two names, both live in
+>    `SECTION_8_TAGS` while guideline §8.2's own Rule paragraph still mandated the retired one.
+>    Measured: an annotator following that paragraph literally moves **`G` from 4/26 (DIAGNOSE) to
+>    7/26 (REDESIGN)** and `G_disjoint` from **0 to 5**. Corrected in place at guideline v0.46.
+>    Every other pair is disjoint by construction — `within_preposition` /
+>    `relative_trigger_preposition` explicitly so, under §8.9's own boundary paragraph.
+>
+> **So `G` stays on strict set equality, and the caveat published with it is withdrawn rather than
+> carried forward.** The three-way decomposition in §2 is unchanged. What the banner at the top of
+> this file warned about — *"the review must not read the empty cell as a result"* — was heeded:
+> `G_disjoint = 0` was **not** treated as evidence either way, and the question was closed on the
+> guideline's own prior rulings instead.
+>
+> **What did NOT close.** The two applicability-criterion disagreements the review found in place
+> of an equivalence problem — §8.4.1's trigger (`mutual_obligation`, 2 of the 4 surviving `G`
+> disagreements) and §8.3's branch 2/3 precedence — are **reviewer rulings**, queued as guideline
+> §10.1 **F7** and **F8**. Neither is a defect in this metric.
+
+
 **Tag equivalence is NOT decided by this metric's definition.** `C14-04`'s disjoint case —
 gold `action_not_in_taxonomy` against cold `relative_trigger_preposition` for the same item —
 suggests §8's tags may **co-apply** in practice, one annotator naming the action problem and
 the other the temporal one for a single item. If tags can legitimately co-apply, plain set
 inequality is over-strict and `G_disjoint` overcounts.
 
-**This is deferred to the §8 tag-vocabulary review that `G = 6` now demands**, and must not
+~~**This is deferred to the §8 tag-vocabulary review that `G = 6` now demands**, and must not
 be settled inside the metric in isolation — defining equivalence to make a number look better
 is exactly the post-hoc adjustment this project's pre-registration discipline exists to
 prevent. Until that review rules, `G` is computed on strict set equality and the caveat is
-published with it.
+published with it.~~ **Superseded — see the CLOSED banner at the head of this section. The
+discipline it states was honoured: equivalence was not redefined, and the number moved only
+because §5.1's conformance gate removed two items on independent structural grounds. Note also
+that `G = 6` no longer holds and so no longer "demands" anything — the review ran at `G = 4/26`,
+DIAGNOSE.**
 
 **Per-run, not cumulative.** `G` and `G_swing` are computed per run, consistent with K's own
 treatment. *Confirmed decision.*
