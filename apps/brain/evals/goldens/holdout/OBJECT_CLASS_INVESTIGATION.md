@@ -609,3 +609,87 @@ stemming, now measured rather than predicted. **Head-only matching is rejected.*
 **No ruling proposed.** The reviewer should decide whether an annotator-only convention worth
 three items is worth writing before item 0 settles what §5 is for, given that the same question
 determines whether the pipeline half ever comes back to this row at all.
+
+---
+
+## 10. Set-wide pairing-ambiguity audit — is `C04-139` the only instance? (2026-09-01)
+
+§0's correction found that my pairing script mis-resolved `C04-139` because it did not implement
+§4.2's v0.36 content tie-break. That correction established *that* the case existed; it did not
+establish that it was the **only** one. Reviewer-requested check, run before the depth ruling is
+treated as settled: re-audit all 32 gold items against all 41 cold items for anything sharing
+`C04-139`'s shape.
+
+### 10.1 Four independent detectors, all 22 segments
+
+| Detector | What it catches | Hits |
+| :-- | :-- | :-- |
+| identical spans **within gold** for a segment | the gold half of the shape | `C04-139` (`C04-04`, `C04-05`, both `(4,207)`) |
+| identical spans **within cold** for a segment | the cold half | `C04-139` (both `(4,206)`) |
+| per-item IoU **tie** between top-2 cold candidates ≥ 0.5 | any pairing decided by a coin flip | `C04-04`, `C04-05` (both 0.9951 to both candidates) |
+| **non-unique** max-total-IoU assignment (brute force over all permutations per segment) | ambiguity of the assignment as a whole, not just per item | `C04-139` only |
+
+**`C04-139` is the only instance, on all four.**
+
+### 10.2 The margin distribution says the rest of the set is not close to ambiguous
+
+Top-1 vs top-2 IoU margin, per gold item:
+
+- **29 of 32 items have exactly one cold candidate above IoU 0.5 at all** — for those the pairing
+  is not a choice, so there is no tie-break to get wrong.
+- **2 items** (`C04-04`, `C04-05`) are the exact tie.
+- **1 item** (`C14-01`) has two candidates, at **1.000 vs 0.689** — a margin of 0.311, and the
+  second candidate is a plainly different span, not a near-duplicate.
+- **1 item** (`C14-02`) has **zero** candidates above 0.5 — §22.1's deliberately-retained
+  non-conformance, and the single `UNMATCHED` in `comparison.json`. It reads correctly.
+
+There is no near-tie band. The smallest nonzero margin anywhere is 0.311.
+
+### 10.3 Standing Principle 7 — the detector was checked before its verdict was used
+
+A "no other instances" result is a negative finding from a detector, which is precisely the shape
+this project has been burned by seven times. Three controls:
+
+1. **Positive control (known instance):** the detectors fire on `C04-139`, whose answer was
+   already established in §0.
+2. **Positive control (known second answer):** `C14-02` returns zero candidates, matching
+   `comparison.json`'s independently-recorded single `UNMATCHED`.
+3. **Planted-instance falsification:** a clone of `C02-01` was injected into its own segment
+   (`C02-021`) and the audit re-run. The duplicate-span detector fired on the plant
+   (`('C02-021', 'dup_gold', ['C02-01', 'ZZ-99'])`) while `C04-139`'s three baseline hits were
+   preserved. The detector is not silently returning "nothing found."
+
+The plant also exposed a **real coverage property worth stating**, since it did *not* trip the
+tie detector: a gold-side-only duplication gives both gold items the *same single* best cold
+candidate, which is a collision, not a tie. The duplicate-span detectors and the tie detector
+cover **different halves** of the shape and only together cover both sides. `C04-139` trips all
+three precisely because both sides duplicate. Any future re-run must keep all four, not just the
+tie test.
+
+### 10.4 The reference alignment is independently confirmed correct on this case
+
+Read directly out of `comparison.json` rather than inferred:
+
+- `C04-04` → `iou 0.995, fails: [], disagree: false`
+- `C04-05` → `iou 0.995, fails: [], disagree: false`
+- Whole-file recompute: **`disagree` = 14 of 32 (K unchanged)**, `matched` = 31, and the clause
+  profile reproduces exactly — `object 6, action 5, obligor 3, obligee 3, temporal 2,
+  conditions 2, underspec 1, UNMATCHED 1` (23 clause failures over 14 items).
+
+And the tie-break is **load-bearing, not cosmetic** here, which is why my script's omission of it
+mattered:
+
+| | gold | cold | resolved by |
+| :-- | :-- | :-- | :-- |
+| pair 1 | `C04-04` — `USE`, accept `{USE, COMPLY}`, `self_compliant_use` | `#0` — `USE`, `self_compliant_use` | §4.2 action-accept-set membership |
+| pair 2 | `C04-05` — `ENSURE`, accept `{ENSURE, PROCURE}`, `third_party_compliant_use` | `#1` — `PROCURE`, `third_party_compliant_use` | §4.2 action-accept-set membership |
+
+Both pairs agree exactly on `object_class` and both pass clause 2. The **wrong** resolution pairs
+`USE` against `PROCURE` and `self_` against `third_party_` — two clause failures on each item,
+which is exactly the spurious "swap" §0's correction retracted.
+
+### 10.5 Verdict
+
+**Clean.** `C04-139` was the single instance; the corrected counts in §0 stand; K, the clause
+profile, and every §1–§9 finding are unaffected. The depth ruling can be held on its own merits
+rather than under a cloud from the correction that surfaced it.
