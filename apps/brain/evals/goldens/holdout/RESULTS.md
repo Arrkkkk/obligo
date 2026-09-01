@@ -332,3 +332,52 @@ was accepted *because it matched this published number exactly* — which is the
 principle prescribes. It matched because two errors cancelled against a reference that was
 itself unverified. **A known-answer check is evidence only when the known answer is
 independently sound**; matching an unverified number proves agreement, not correctness.
+
+---
+
+# Correction to Sensitivity B's attribution (2026-09-01)
+
+**Sensitivity B above is left exactly as published** — dated records are struck and kept, not
+edited, the same treatment Finding 2's counts got. This entry is the correction, found during
+guideline v0.45's close-out re-validation of all 32 locked items (17 invariants, 544 assertions).
+
+**Sensitivity B names the right disagreement and blames the wrong annotator.** It reports
+*"`C10-02` has gold `the Supplier`/`the Distributor` against cold `The Supplier`/`the
+distributor`, differing in case alone"* — which reads, and has been read since, as a cold-side
+quirk that §5's rule happens not to normalize. **It is a gold-side defect.** `C10-02`'s own
+`span_text` reads:
+
+> *"**The Supplier** shall add **the distributor** to their current insurance certificate."*
+
+§3.5 requires the alias *"exactly as it appears inside `span_text`"*. **Cold is verbatim-correct
+on both slots. Gold is verbatim-correct on neither** — and the two errors run in *opposite*
+directions (`obligor` under-capitalised, `obligee` over-capitalised), so this is two independent
+slips rather than a systematic convention gold could be said to be following.
+
+**What does NOT change, checked rather than assumed.** Sensitivity B's stated *conclusion* is
+untouched: no item flips under case-insensitive comparison, `C10-02` fails on other clauses
+regardless, and **K stays 14/32**. The clause-level profile, the leak table, channel 4, and
+Findings 1–3 are all unaffected. **The REDESIGN verdict stands.** What changes is only which
+annotator the reader should take the finding to be about.
+
+**Why the direction matters even though the number does not.** Sensitivity B's own closing
+sentence — *"guideline §21 R2 flags this case-sensitivity trap for the scoring harness, and it
+is now measured: it costs nothing here"* — is the part the correction bites. R2's trap is that
+the scoring registry matches `aliases` **case-SENSITIVELY**, so an alias annotated or registered
+in the wrong case silently fails to resolve. Read as a cold-side quirk, the measurement says the
+trap is harmless. Read correctly, **the gold set itself contains an instance of exactly the
+defect R2 exists to catch**, and it "costs nothing" only because `C10-016` has no cassette and
+`C10` has no scoring registry — i.e. R5, the check designed to fail loudly on this, has never run
+against this document. The item is also `NON_CONFORMING` under §5.1's predicate `A` for an
+unrelated reason (cold's off-taxonomy `INSURE`), so no published figure moves either way.
+
+**Not fixed here.** Correcting `C10-02`'s two party slots is a restamp of a locked item, which is
+§10's freeze pass and the reviewer's call, not a close-out's. Tracked as item **F2** in §10's
+freeze-pass queue.
+
+**A second Standing Principle 7 observation, and it is a different one from Finding 2's.** That
+correction was about a known-answer check that passed against an unverified reference. This one
+is about a check that was **never run at all**: the verbatim-in-span invariant is mechanical,
+cheap, and had simply never been executed over the locked set until v0.45's close-out — at which
+point it found this in one pass, along with the `C04-04` rule conflict. **The cost of an
+invariant nobody has run is indistinguishable from the cost of not having one.**

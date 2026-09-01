@@ -416,8 +416,8 @@ answer is least in doubt (source) is the only one landing entirely on cassette-b
 | # | item | status | why here |
 | :-- | :--- | :--- | :--- |
 | 1 | **field independence** (`C10-01`, `C10-02`) | **RULED — §3.6.1, guideline v0.44** | free (batch-3, no cassette) and closest to a defect rather than a convention |
-| 2 | **accept-set breadth** (§5 of this note) | **HELD pending REDESIGN item 0** | promoted above the remaining rules — the only lever here that provably touches criterion 2 — but its shape depends on whether §5 is one predicate or two |
-| 3 | **depth rule** (`C06-01`, `C13-01`, and `C14-01` per §0's correction) | **INVESTIGATED — §9; no ruling proposed** | free (batch-3, no cassette). §9 finds the comparison-rule option **falsified**, the pipeline half **collapsing into row 2**, and only an annotator-side convention over three items left live |
+| 2 | **accept-set breadth** (§5 of this note) | ~~HELD pending REDESIGN item 0~~ **RULED — §3.6, guideline v0.45** | promoted above the remaining rules — the only lever here that provably touches criterion 2 — but its shape depends on whether §5 is one predicate or two. **Item 0 ruled "two", which confirmed the shape rather than merely releasing the hold — see Ruling 3** |
+| 3 | **depth rule** (`C06-01`, `C13-01`, and `C14-01` per §0's correction) | ~~INVESTIGATED — §9; no ruling proposed~~ **SCOPED — §3.6, guideline v0.45; convention still unwritten** | free (batch-3, no cassette). §9 finds the comparison-rule option **falsified**, the pipeline half **collapsing into row 2**, and only an annotator-side convention over three items left live. **Ruled to be `A`'s scope only — see Ruling 4** |
 | 4 | **source rule**, two tiers | open, **batched into §10's freeze pass** | outside-span (`C02-03`) and outside-NP (`E07-01`, `C17-02`) are separable and only the second is contentious; all three are cassette-backed, so ruling either tier stales all 35 at once — it goes with the widenings already queued there |
 
 ### Ruling 1 — field independence → §3.6.1 (guideline v0.44)
@@ -693,3 +693,150 @@ which is exactly the spurious "swap" §0's correction retracted.
 **Clean.** `C04-139` was the single instance; the corrected counts in §0 stand; K, the clause
 profile, and every §1–§9 finding are unaffected. The depth ruling can be held on its own merits
 rather than under a cloud from the correction that surfaced it.
+
+
+---
+
+### Ruling 2 — §5 is two predicates, not one → §5.1 (guideline v0.45)
+
+**Ruled 2026-09-01.** §7's REDESIGN response item 0 asked whether §5 is one predicate serving
+both pipeline-vs-gold scoring and gold-vs-cold annotator comparison, or two sharing eight
+clauses. **Ruled: two.** §5 is unchanged and is the pipeline's; the annotator-comparison
+predicate is `A` (§5.1), differing in a slot-only conformance gate, symmetric mutual-membership
+accept-set comparison, and no registry branch for parties. Full statement and derivation in the
+guideline; recorded here because §7 of this note reached the same question independently from
+clause 5 and its own conclusion now resolves.
+
+**§7 of this note asked which of two things item 0's answer would make true. It is the first:**
+
+> *"If §5 is one predicate, then §3.6 must be written to constrain the accept-set (the thing
+> scoring reads) rather than the slot (the thing annotators argue about) — and the same is true
+> of §3.4. If it is two, then the specificity convention belongs to the annotator-comparison
+> predicate only, and the breadth item in §5 above is the entire pipeline-side finding of this
+> investigation."*
+
+**So §5-of-this-note is confirmed as this investigation's entire pipeline-side finding**, and the
+specificity/depth axis is annotator-side only. Rulings 3 and 4 are those two halves.
+
+**Evidence this note did not have, added by the item-0 investigation** — the decisive argument
+came from clause 2, not clause 5, and it is measured: cold wrote an **off-taxonomy `action` slot**
+on exactly five matched items (`C02-03` `INVOICE`, `C10-02` `INSURE`, `C14-04` `COMPLETE`,
+`C17-01` `PREVENT`, `C17-02` `OBTAIN`), which are **exactly** the five `comparison.json` marks
+`2_action` — 5 of 5. Gold carries **zero** off-taxonomy values across 32 items; cold used
+`action_not_in_taxonomy` **0 times in 41**, gold twice, on two of those same five. Recomputed
+under `A`: **K = 7/27 = 25.9%** (from 14/32), **conformance 5/32**, **G = 4/26 → DIAGNOSE** (from
+6/31 → REDESIGN), **`D` = 14 [14–15]**. **The REDESIGN verdict stands.**
+
+**A note on ordering, logged rather than tidied away.** `GAP_AGREEMENT_DESIGN.md` §1 disqualified
+option (a) on the ground that *"§5 is a gold-vs-prediction predicate… this alone settles it"* —
+which **pre-answered this very question**, while `RESULTS.md` was simultaneously recording that it
+*"has never been asked in this project and should be asked before either fix."* The conclusion
+survives, independently re-derived here from clause 2 rather than from `known_gaps`. The ordering
+does not, and is recorded.
+
+---
+
+### Ruling 3 — accept-set breadth: UNBLOCKED, pipeline-side, anchored (guideline v0.45, §3.6)
+
+Row 2's hold is released **and its shape is settled**, which is the part that needed item 0.
+Breadth acts on the **set** — what §5 clause 5 reads — so it is the only lever in this cluster
+that can move criterion 2, exactly as §5 of this note argued.
+
+**Anchors: §3.6's own 3–6 band and the model's measured depth distribution** (§9.2/§9.3 — the
+model emits a head-only label 28% of the time while 62% of gold items cannot accept one).
+**Cold's median is explicitly disqualified as an anchor**, and the item-0 investigation supplied
+the measurement that settles it rather than leaving it an argument: cold's `action` accept-sets
+average **3.51 as written and 1.93 once restricted to legal taxonomy verbs — below gold's 2.12 —
+with 3 of 41 holding no legal member at all.** On the one field where breadth calibration is
+checkable, cold's apparent generosity **inverts**. §5-of-this-note's warning that *"cold's 5.35 is
+not a target"* is therefore confirmed by measurement, not merely by caution.
+
+**Both hazards carry forward unchanged** (monotone widening makes an unsequenced delta
+uninterpretable; every widening must be defensible from the span alone), and **venue is
+unchanged**: §10's freeze pass, its scope expanded from three queued widenings to a systematic
+audit.
+
+---
+
+### Ruling 4 — depth: scoped to `A`, convention deliberately NOT written (guideline v0.45, §3.6)
+
+Row 3 is ruled to be **§5.1 `A`'s scope and nothing else**. It cannot constrain criterion 2 now
+or ever, because clause 5 never reads gold's slot; its pipeline half is row 2 and does not exist
+separately; and the comparison-rule shape stays falsified by §9.5.
+
+**No convention is written, and that is the ruling rather than a deferral by default.** §9.4's
+precondition is unmet — neither annotator records the object noun phrase the label was built
+from, so any depth rule is checkable at authoring time and **unverifiable afterwards**, a
+limitation that also attaches to §3.6.1. A rule whose compliance cannot be audited across the
+locked set is the shape of guarantee this project has repeatedly had to undo. The cost of waiting
+is stated and small: three items, all batch-3 and cassette-less, so writing it later is exactly
+as cheap as writing it now.
+
+**One thing this ruling hands to the §8 tag-vocabulary review.** `A`'s gate drops `C14-04` from
+G, and `C14-04` was `GAP_AGREEMENT_DESIGN.md` §6's **only** motivating instance for the deferred
+*"can §8 tags legitimately co-apply?"* question — `G_disjoint` falls to **zero**. That does not
+answer the question; it removes its only evidence, and the review should be told so rather than
+finding an empty cell and reading it as a result.
+
+---
+
+### Re-verification findings (2026-09-01) — TWO PREVIOUSLY-UNRECORDED DEFECTS, NEITHER FIXED
+
+v0.45's close-out re-validated all 32 locked items against 17 invariants (544 assertions).
+**Four items failed. One is expected — and is the validator's own known-answer check — and two
+are real, new, and deliberately left unfixed**: restamping a locked item is §10's freeze pass and
+the reviewer's call, not a close-out's.
+
+**Expected.** `C14-02`'s `obligor` *"Each party"* does not appear in its `span_text` at all. This
+is §22.1's **deliberately-retained** non-conformance — the item annotated under the superseded
+§8.3.1 v0.23 rule whose span is documented as wrong and which knowingly scores `MISSED`. The
+validator finding exactly the one item the guideline says is non-conforming, and no others, is
+what makes its verdict on the other 31 worth anything.
+
+**REAL, NEW (1) — `C10-02`'s party slots are NOT verbatim, and the published attribution of this
+runs the wrong way.** §3.5 requires the alias *"exactly as it appears inside `span_text`"*. The
+span reads *"**The Supplier** shall add **the distributor** to their current insurance
+certificate."* Gold annotates `obligor: "the Supplier"` and `obligee: "the Distributor"` —
+**both differ from the span in case, and in opposite directions**, so this is two independent
+slips rather than a systematic convention.
+
+- **`RESULTS.md`'s sensitivity B has the attribution backwards.** It records gold
+  `the Supplier`/`the Distributor` against cold `The Supplier`/`the distributor` as a case
+  difference costing nothing. **Cold is verbatim-correct on both slots; gold is not.** The
+  sensitivity's *conclusion* survives — `C10-02` fails on other clauses either way and K is
+  unchanged — but the finding as written reads as a cold-side quirk and it is a gold-side defect.
+- **Not cosmetic: §21 R2 already names the mechanism.** The scoring registry matches `aliases`
+  **case-SENSITIVELY**, so a non-verbatim gold alias is exactly the trap R2 flags and R5 fails
+  loudly on. It costs nothing **today** only because `C10-016` has no cassette and `C10` has no
+  registry — i.e. the guard that would catch it has never run on this document.
+- **Consequence if fixed:** none for any published number. Under §5.1's `A` the item is
+  `NON_CONFORMING` on cold's off-taxonomy `INSURE` regardless, and it sits outside
+  `run_scoring`'s scoreable 18.
+- **Tracked as guideline §10.1 item F2**, and corrected on the record in `RESULTS.md`'s own
+  dated "Correction to Sensitivity B's attribution (2026-09-01)" — not only here, because
+  `RESULTS.md` is the document a reader consults to find out what the §7 run found.
+
+**REAL, NEW (2) — §3.6.1 and §4.3.2's naming convention CONFLICT at `C04-04`, structurally rather
+than by slip.** `C04-04` holds `action = USE` and `object_class = self_compliant_use`: the slot
+restates the action, which §3.6.1 (v0.44, retroactive) forbids in terms. But §4.3.2's v0.37
+convention **requires** `self_`/`third_party_` prefixes over a **shared root**, and §9.5 of this
+note leans on that very pair as the distinction head-only matching would destroy. Both rules are
+live and both cannot be satisfied here.
+
+- **The conflict is asymmetric, which is the diagnostic detail.** `C04-05` holds
+  `action = ENSURE` against `third_party_compliant_use` and is clean — `use` is not `ensure`. So
+  §4.3.2's shared root collides with §3.6.1 on **exactly one item of a split pair**: whichever
+  half's action verb happens to equal the root. Any future §4.3.2 split whose root is a taxonomy
+  verb reproduces it.
+- **The v0.44 §10 screen missed it, consistent with its own recorded caveat.** That screen
+  already logged a Standing Principle 7 note calling itself *"a lower bound, not a census"* after
+  missing `C10-02`'s `_listing`. This is a second miss by a different mechanism: the screen looked
+  for restated material, and `self_compliant_use` reads as a purpose-built §4.3.2 label rather
+  than as a restatement.
+- **Not adjudicated here.** It needs a ruling on which rule yields, and the options are visibly
+  different: narrow §3.6.1 to exempt §4.3.2's shared root, amend §4.3.2 to require a root that is
+  not a taxonomy verb, or restamp `C04-04`. The third touches a **cassette-backed** item
+  (`C04-139` was recorded), so this is **freeze-pass work**, not close-out work. **Tracked as
+  guideline §10.1 item F3**, which states the three options and their differing costs — filed as
+  a rule conflict rather than a label fix, because the asymmetry above makes it reproducible by
+  any future §4.3.2 split whose root is a taxonomy verb.

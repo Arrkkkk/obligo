@@ -1,8 +1,34 @@
-# `known_gaps` agreement — design note (APPROVED, NOT IMPLEMENTED)
+# `known_gaps` agreement — design note (APPROVED, IMPLEMENTED)
 
-**Status: reviewer-approved 2026-08-29 as a design. No code, no guideline section, no
-`report.py` change exists for any of it.** This note is the specification a future session
-implements against; it is not a record of something built.
+> **STATUS, corrected in place 2026-09-01 (guideline §10 requires live status statements to be
+> corrected rather than struck).** The banner below was accurate when written and is now false in
+> both its claims. **The design IS implemented** — `evals/harness/gap_agreement.py` and
+> `report.py`'s G7, at guideline v0.43 — and a guideline section now exists: **§5.1**, which rules
+> the architectural question §1 below leans on. Two amendments follow from that ruling:
+>
+> 1. **§1's disqualification of option (a) stands, but its stated ground was an assumption at the
+>    time, not a ruling.** *"§5 is a gold-vs-prediction predicate… **This alone settles it**"*
+>    pre-answered the question `RESULTS.md` was simultaneously recording as *"never asked in this
+>    project and [it] should be asked before either fix."* §5.1 has now asked and answered it —
+>    **two predicates** — and re-derived the conclusion independently from clause 2 rather than
+>    from `known_gaps`. So (a) is correctly dead and §1's other two grounds were always sound;
+>    the ordering was wrong and is logged rather than tidied away.
+> 2. **`G` is not "beside" K — it is §5.1 clause 9 of the annotator predicate `A`.** Nothing about
+>    the metric changes: §2's *"never added, averaged, or reported as one number"* is unchanged and
+>    §6's deferrals stand. What changes is that G now has a stated home rather than orbiting a
+>    predicate it was explicitly not part of.
+>
+> **And one measured consequence for §6's deferred question.** Under `A`'s conformance gate,
+> `C14-04` leaves the matched set (cold wrote an off-taxonomy `action` slot), taking with it the
+> **only** instance of `G_disjoint` — which falls to **zero**, alongside `G = 4/26 → DIAGNOSE`
+> (from 6/31 → REDESIGN) and `G_swing = 1/26 → BANDED`. §6 defers *"can §8 tags legitimately
+> co-apply?"* to the tag-vocabulary review on the strength of that single case. **The case was a
+> conformance artifact, so the question now has no evidence at all — which is not the same as
+> being answered**, and the review must not read the empty cell as a result.
+
+**Status (2026-08-29, superseded — see above): reviewer-approved as a design. No code, no
+guideline section, no `report.py` change exists for any of it.** This note is the specification a
+future session implements against; it is not a record of something built.
 
 **Why it exists.** §7's cold second-annotator run (`RESULTS.md`) found that `known_gaps` is
 not one of §5's eight scored clauses, so no disagreement on it can move K — while the two

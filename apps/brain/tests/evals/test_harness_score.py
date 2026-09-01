@@ -156,6 +156,64 @@ def test_clause7_condition_set_semantics(gold, baseline, reg, predicted, expecte
     assert got is expected, why
 
 
+@pytest.mark.parametrize(
+    "accept,predicted,expected,why",
+    [
+        ([[], []], ("upon notice", "if the Customer requests"), True,
+         "empty accept-sets behave exactly as before (the 31-of-32 case)"),
+        ([["the Customer so requests"], []], ("upon notice", "the Customer so requests"), True,
+         "an accepted equivalent phrasing matches its own entry (section 3.8.3)"),
+        ([["the Customer so requests"], []], ("upon notice", "some other clause"), False,
+         "a phrasing in NEITHER the entry nor its accept-set still fails"),
+        ([["the Customer so requests"], []],
+         ("upon notice", "if the Customer requests", "the Customer so requests"), False,
+         "count stays len(conditions): an accept-set never raises the count"),
+        ([["a shared phrasing"], ["a shared phrasing"]],
+         ("a shared phrasing", "if the Customer requests"), True,
+         "two entries sharing an accepted phrasing must still match by backtracking, "
+         "not be rejected because a greedy first-fit consumed the wrong entry"),
+    ],
+)
+def test_clause7_reads_conditions_accept_set(gold, baseline, reg, accept, predicted, expected, why):
+    """Section 3.8.3's field (v0.41), wired into clause 7 on 2026-09-01.
+
+    The last case is the one a greedy matcher gets wrong, and it took two attempts
+    to make it actually discriminate -- recorded because the reason is a trap, not
+    a typo. "a shared phrasing" is accepted by BOTH gold entries, so a first-fit
+    binds it to entry 0; "if the Customer requests" is then accepted ONLY by entry
+    0, which is already consumed, and a complete match is reported as a failure on
+    nothing but iteration order.
+
+    THE LEADING "a" IS LOAD-BEARING. `_condition_multiset` SORTS the predicted
+    strings, so the order written in this parametrize tuple never reaches the
+    matcher -- only lexicographic order does. The first draft used "shared
+    phrasing", which sorts AFTER "if the Customer requests" and hands the matcher
+    the one ordering greedy happens to get right. Both drafts read identically at a
+    glance and only one tests anything.
+
+    Caught by breaking the matcher to greedy and watching the suite stay green
+    (Standing Principle 7: a test is not evidence until it has been seen to fail on
+    the case it was written for) -- and the same check is what proved the fix.
+    """
+    amended = dict(gold,
+                   conditions=["if the Customer requests", "upon notice"],
+                   conditions_accept_set=accept)
+    got = score.score_item(amended, _with_conditions(baseline, *predicted), reg).clauses["conditions"]
+    assert got is expected, why
+
+
+def test_clause7_accept_set_is_absent_from_almost_every_locked_item():
+    """Section 3.8.3 is explicitly not a general paraphrase-tolerance mechanism.
+    If this count grows without a ruling, clause 7 is quietly being loosened."""
+    import glob
+    carrying = [
+        json.loads(Path(p).read_text())["item_id"]
+        for p in glob.glob(str(GOLD.parents[2] / "batch0*" / "items" / "*.json"))
+        if any(json.loads(Path(p).read_text()).get("conditions_accept_set") or ())
+    ]
+    assert carrying == ["C06-01"]
+
+
 # --- sections 4.1 / 4.2 alignment -------------------------------------------
 
 @pytest.mark.parametrize(

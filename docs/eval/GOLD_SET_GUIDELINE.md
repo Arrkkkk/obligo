@@ -1,6 +1,6 @@
 # Obligo Tier-2 Gold Set — Annotation Guideline
 
-**Version:** v0.44 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**. **v0.33 puts §9's dual denominator IN FORCE** on two independent grounds, adds §5 clause 5's number rule, §3.4's bounded freeze-pass exception, and the forward authoring rules §3.6 / §3.8.2 / §3.5.1 — **no annotation rule changed, no item restamped, no cassette stale**. **v0.34 records two MEASUREMENT corrections and changes no rule either** — §8.9's `on`/`until` rows and §15.3's loud-versus-silent class placement, both falsified by real model output from the compile-stage bottleneck investigation. **v0.35 adds §4.3.2** — a third splitting shape distinct from both existing §4.3 worked examples, reviewer-ruled at batch 3's `C04-139`: self-performance vs. a duty to bind/control a third party's conduct splits into two items even when the two verbs share an object phrase and a sentence subject, because the two performances do not share an actor. **v0.36 amends §4.2** — the resulting byte-identical spans (`C04-139`'s shared trailing object leaves neither item's minimal span shorter than the other's) break IoU's ability to discriminate between the two gold items, so a content-based tie-break on `action_accept_set` membership is added, falling through to ascending `item_id` when the tie-break itself is inconclusive. **v0.37 adds a
+**Version:** v0.45 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**. **v0.33 puts §9's dual denominator IN FORCE** on two independent grounds, adds §5 clause 5's number rule, §3.4's bounded freeze-pass exception, and the forward authoring rules §3.6 / §3.8.2 / §3.5.1 — **no annotation rule changed, no item restamped, no cassette stale**. **v0.34 records two MEASUREMENT corrections and changes no rule either** — §8.9's `on`/`until` rows and §15.3's loud-versus-silent class placement, both falsified by real model output from the compile-stage bottleneck investigation. **v0.35 adds §4.3.2** — a third splitting shape distinct from both existing §4.3 worked examples, reviewer-ruled at batch 3's `C04-139`: self-performance vs. a duty to bind/control a third party's conduct splits into two items even when the two verbs share an object phrase and a sentence subject, because the two performances do not share an actor. **v0.36 amends §4.2** — the resulting byte-identical spans (`C04-139`'s shared trailing object leaves neither item's minimal span shorter than the other's) break IoU's ability to discriminate between the two gold items, so a content-based tie-break on `action_accept_set` membership is added, falling through to ascending `item_id` when the tie-break itself is inconclusive. **v0.37 adds a
 recommended `object_class` naming convention to §4.3.2** — `self_` / `third_party_` prefixes over
 a shared root, so future flow-down splits land on visibly parallel labels rather than an
 unrelated pair invented fresh each time. **v0.38 adds §3.2.1** — present-tense self-executing
@@ -155,7 +155,7 @@ segment count (153/1,547), and `C14-028` was drawn as the **twelfth** standard-q
 not the eleventh as originally written — both fixed in place per this document's own
 corrections-are-new-text discipline, not silently edited.
 **Created:** 2026-08-17
-**Status:** **32 items locked** — batch 1 complete (10), batch 2 at 8 of 10 with two
+**Status:** **32 items locked** — no item restamped at v0.45 (§5.1 governs annotator comparison only and touches no annotation rule) — batch 1 complete (10), batch 2 at 8 of 10 with two
 items still undrawn, **batch 3's draw target is FULLY MET: 10 of 10 segments locked**
 (3 hard + 7 standard, per `draw.json`'s own `"count": 10, "hard": 3` — 14 items total, since
 `C13-017` is this batch's only two-item segment; `C14-044` originally yielded three drafted
@@ -528,6 +528,49 @@ four cleared — and it carries a Standing Principle 7 note recording that the s
 `action_not_in_taxonomy` item. **The depth question is explicitly left open** — the corrections
 strip only the restating tokens so the still-unruled `product_liability` vs `liability` choice
 stays unprejudiced.
+
+**v0.45 change:** Answers **REDESIGN scope item 0's architectural question** — *is §5 one
+predicate serving both pipeline scoring and annotator comparison, or two?* — and rules **two**,
+in a new **§5.1**. §5 is **unchanged** and remains the pipeline's predicate; the
+annotator-comparison predicate is named `A` and differs in three ways, each forced by
+measurement: a **slot-only conformance gate** (an out-of-vocabulary value is `NON_CONFORMING`,
+never a disagreement), **symmetric mutual-membership** accept-set comparison, and **no registry
+branch** for parties. The decisive argument is structural — §5 clause 2's one-sidedness is
+coherent against a predictor bound by a closed grammar and incoherent against a peer annotator —
+and it is **5 of the 14** disagreements the 2026-08-29 run counted: cold wrote an off-taxonomy
+`action` slot on exactly the five items `comparison.json` marks `2_action`, gold carries zero
+off-taxonomy values in 32 items, and cold never once used `action_not_in_taxonomy`. **`known_gaps`
+is `A`'s ninth clause** — item 0's fix (b) re-derived from clause 2 rather than assumed — and is
+still reported as `G`/`G_swing`, never folded into K. **Recomputed: `K = 7/27 = 25.9%` (from
+14/32), conformance failures 5/32, `G = 4/26 → DIAGNOSE` (from 6/31 → REDESIGN), `D = 14 [14–15]`
+— and the REDESIGN verdict STANDS**, which is what makes the fix safe to adopt: it was ruled on
+structural grounds before its effect on the verdict was known. Executable and preserved as
+`evals/harness/annotator_agreement.py`, whose tests reproduce the published run **item by item
+and clause by clause** in a retained legacy mode — the original comparison's script was never
+preserved. **Also lands three consequences of that ruling:** **§3.6 gains an accept-set BREADTH
+ruling** (REDESIGN item 1's held half — unblocked, confirmed pipeline-side, anchored on §3.6's
+3–6 band and the model's measured depth distribution, with the cold annotator's median explicitly
+disqualified as an anchor because cold's `action` breadth **inverts** to 1.93 against gold's 2.12
+once restricted to legal verbs); **§3.6 gains a DEPTH scope ruling** (annotator-predicate scope
+only, cannot ever constrain criterion 2, comparison-rule shape stays falsified, and **no
+convention written** — §9.4's anchor-field precondition is unmet); and **§3.6.1 gains a
+correction** — its slot half was summarised as *"free"* when only *free on the pipeline side* was
+ever established, since `A` reads the very field it edits (measured: `C10-02`'s clause-5
+comparison flipped, `object_class` 6→5 of 23; **K did not move**). **§7's comparison clause is
+superseded in part.** **No annotation rule changed, no item restamped, no cassette stale.**
+**The close-out re-validation of all 32 items (17 invariants, 544 assertions) surfaced TWO
+previously-unrecorded defects, both left UNFIXED as freeze-pass work** — `C10-02`'s `obligor`/
+`obligee` are **not verbatim** against their own span (`"the Supplier"`/`"the Distributor"` where
+the span reads `"The Supplier"`/`"the distributor"`), which also means `RESULTS.md`'s sensitivity
+B attributed that case difference to the wrong annotator; and **§3.6.1 conflicts with §4.3.2's
+shared-root naming convention at `C04-04`** (`action = USE` against `object_class =
+self_compliant_use`), asymmetrically, on whichever half of a split pair has the root as its own
+action verb. Both are recorded in `OBJECT_CLASS_INVESTIGATION.md`'s "Re-verification findings", and
+`RESULTS.md` gains a **dated correction** for the sensitivity-B attribution. **§10 gains §10.1,
+a single freeze-pass queue (F1–F6)**, because both defects were found by an invariant that had
+never been run while the work they belong to was tracked across five different documents — the
+new defects enter as **F2** and **F3**, the latter with its own subsection since it needs a
+ruling on which rule yields rather than an item fix.
 
 ## 1. What a gold item is
 
@@ -1261,7 +1304,9 @@ pressed on it. It is recorded here as a **defined, bounded exception with its ow
 own test**, so that what changed is legible in the diff and countable later.
 
 **Applies identically to §3.6's `object_class_accept_set`** and to §3.5.1's
-`obligor_accept_set`. **Two locked items are queued under this exception** — `C02-03`
+`obligor_accept_set`. **The full freeze-pass queue is §10.1**; these widenings are its item
+**F1**, and §3.6's v0.45 breadth audit (**F5**) expands them from three to a systematic pass.
+**Two locked items are queued under this exception** — `C02-03`
 (`invoice_costs`, a compound of two of its own accept-set members) and `C11-01`
 (`principal_interest`, the possessor-anchored reading of *"the Principal's interest in
 Franchisee"*, where all three existing entries anchor on the thing owned). Both are
@@ -1366,6 +1411,59 @@ at authoring time and expensive to fix afterwards:
 normalizes grammatical number on both sides as of v0.33, so a set carrying both is redundant,
 not safer.
 
+**ACCEPT-SET BREADTH — UNBLOCKED AND SCOPED (v0.45 — REVIEWER-RULED).** REDESIGN scope item 1's
+breadth half was **held pending item 0**, because its shape depended on whether §5 is one
+predicate or two. §5.1 rules **two**, and that settles the shape rather than merely releasing the
+hold: **breadth acts on the SET, which is the thing §5 clause 5 actually reads, so it is a
+pipeline-side lever and the only one in this cluster that can move criterion 2.** A convention on
+the *slot* — which annotators argue about — binds no model, since the model never reads this
+document; its prompt asks only for *"a short lowercase snake_case label"*.
+
+**Two anchors, and one explicitly disqualified.** The set is authored against (i) §3.6's own
+stated **3–6** band and (ii) **the depth range the model actually emits**, measured in
+`OBJECT_CLASS_INVESTIGATION.md` §9.2–§9.3: the model emits a head-only (1-token) label **28%** of
+the time while **62% of gold items cannot accept one at all** (only 12 of 32 sets carry a
+head-only member). Where those coincide clause 5 fails regardless of any convention.
+**Disqualified as an anchor: the cold annotator's median.** Cold's `object_class` sets are wider
+(median 5 against gold's 3.5) but nothing shows them *calibrated* rather than merely risk-averse,
+and the one field where calibration is checkable **inverts** — cold's `action` accept-sets average
+3.51 as written and **1.93 once restricted to legal taxonomy verbs, below gold's 2.12, with 3 of
+41 holding no legal member at all.** Anchoring on cold would be fitting gold to a single
+unvalidated second annotator.
+
+**Both §5-of-the-note hazards carry forward unchanged**: widening is **monotone**, so a breadth
+pass between two criterion-2 measurements makes the delta uninterpretable — it runs **before** the
+next baseline, or criterion 2 is reported against both the pre- and post-widening sets; and every
+widening must be defensible **from the span alone**, stated without reference to any prediction
+(§3.4's justification test). **Venue is unchanged: §10's pre-scheduled freeze pass**, whose scope
+expands from the three individually-queued widenings (`C02-03`, `C11-01`, `C02-01`) to a
+systematic breadth audit. Doing it piecemeal forces a conforming pass per item, which is §22's
+blocker.
+
+**DEPTH — SCOPED TO `A`, AND STILL UNWRITTEN (v0.45 — REVIEWER-RULED).** The specificity/depth
+question (`C06-01` `adequate_assurance_of_future_performance`/`adequate_assurance`, `C13-01`
+`pertinent_records`/`records`, `C14-01` `withholding_tax`/`taxes`) is ruled to be **§5.1 `A`'s
+scope and nothing else** — a convention on which label occupies the *slot*. Consequences, stated
+so the scope cannot later be misread as larger than it is:
+
+- It **cannot** constrain criterion 2, now or ever, because §5 clause 5 never reads gold's slot.
+  Anything written here governs annotator agreement and any §7 re-run.
+- Its **pipeline half does not exist separately** — it collapses into the breadth item above
+  (`OBJECT_CLASS_INVESTIGATION.md` §9.3), which is where set coverage of the model's real depth
+  range is handled.
+- The **comparison-rule shape stays dead**: head-only matching was falsified by measurement
+  (§9.5 — it buys one legitimate depth fix by erasing three real distinctions, including the
+  `self_`/`third_party_` pair §4.3.2's naming convention exists to keep apart).
+
+**No depth convention is written here, deliberately.** §9.4's precondition is unmet: neither
+annotator records the object noun phrase a label was built from, so any depth rule
+("keep the head", "keep head plus restrictive modifiers", "keep the whole NP") is stated against
+an anchor gold does not store, and is therefore **checkable at authoring time and unverifiable
+afterwards** — a limitation that now also attaches to §3.6.1. Writing a rule whose compliance
+cannot be audited across the locked set would be the shape of guarantee this project has
+repeatedly had to undo. **Open, with its cost stated: three items, all batch-3 and cassette-less,
+so writing it later is as cheap as writing it now.**
+
 **This rule is forward-only and restamps nothing.** It governs items annotated from batch 3
 onward. Locked items are not re-authored against it — that is the freeze pass's job (§3.4's
 exception, §10). **Scope note added at v0.44: this forward-only clause governs the two
@@ -1415,6 +1513,32 @@ rule, and it was settled by measurement.**
   slot value at all (it tests `prediction ∈ accept_set`), so correcting a slot has **zero**
   effect on criterion 2 and cannot fit anything to a prediction. It affects annotator
   comparison only.
+
+  > **CORRECTION (v0.45): "free" was the wrong word for this, and only "free on the pipeline
+  > side" was ever established.** The bullet above is accurate as written — the correction is to
+  > how the ruling was *summarised*, in v0.44's changelog entry and commit message, as a slot
+  > half that is *"retroactive and free."* It is free of any effect on criterion 2. It is **not**
+  > free of effect on the other predicate, because §5.1's `A` compares the **slot** — which is
+  > exactly the field this rule changes — so a "free" retroactive edit moves a published
+  > measurement. Measured rather than inferred: restamping `C10-02` flipped its clause-5
+  > comparison against the sealed cold output from *disagree* to *agree*, moving the published
+  > clause-level profile's `object_class` count from **6 to 5** of 23. **K itself did not move**
+  > (`C10-02` still disagrees on clauses 2, 3 and 4, so it stays one of the 14) and no verdict
+  > changes — this is a real but bounded effect, and it is stated at that size rather than
+  > inflated. **The rule stands unchanged; what changes is the disclosure owed with it.**
+  >
+  > **A second, separate defect in this rule surfaced at v0.45's close-out and is NOT fixed
+  > here: §3.6.1 CONFLICTS with §4.3.2's shared-root naming convention at `C04-04`** (`action =
+  > USE` against `object_class = self_compliant_use`), asymmetrically, on whichever half of a
+  > flow-down split has the root as its own action verb. It is a rule conflict rather than a bad
+  > label, it is reproducible by any future §4.3.2 split on a taxonomy-verb root, and the v0.44
+  > §10 screen missed it — its **second** recorded miss. Tracked as **§10.1's item F3**, with the
+  > three candidate resolutions and their costs stated there.
+  >
+  > **Forward requirement.** Any retroactive slot edit states its effect on **both** predicates,
+  > and "free" is never used unqualified for either. §5.1 §A2 is why: the slot is unread by §5
+  > and read by `A`, so the two predicates have *opposite* sensitivities to exactly this kind of
+  > edit, and a single word cannot honestly cover both.
 - **The set rule is WIDENING-ONLY: an accept-set must contain at least one member that names
   the object with no restated material.** A member is **never removed** by this rule. The
   reason is measured, not stylistic: `C04-03`'s set carries `product_delivery` (against
@@ -2183,6 +2307,133 @@ two unresolved strings are **not known** to corefer, and asserting they do is th
 Other outcomes: `PARTIAL` (aligned, predicate fails), `MISSED` (no aligned prediction),
 `UNEXPECTED` (prediction aligned to no gold item and not `NOT_ANNOTATABLE`).
 
+### 5.1 §5 is the PIPELINE's predicate. Comparing two annotators uses a different one — `A` (v0.45 — REVIEWER-RULED)
+
+**The question, asked and answered.** `RESULTS.md`'s REDESIGN response left one architectural
+question open and ordered it ahead of everything else: *is §5 one predicate serving both
+pipeline-vs-gold scoring and gold-vs-cold annotator comparison, or two predicates that happen
+to share eight clauses?* **Ruled: two predicates, sharing eight clause definitions and §4's
+alignment, differing in three comparison rules.** §5 above is **unchanged** and is the pipeline's
+predicate. The annotator-comparison predicate is named `A` and is defined here.
+
+**The decisive argument is structural, not a preference.** §5 clause 2 tests
+`prediction ∈ gold's accept_set` — **one-sided by construction**. One-sidedness is *coherent*
+against a predictor bound by a closed grammar: `grammar/obligation.lark`'s `ACTION` terminal is a
+closed set of 34 verbs, so an out-of-vocabulary emission is impossible and the accept-set can do
+its real job of absorbing genuine sentence ambiguity. It is *incoherent* against a peer
+annotator, for whom an out-of-vocabulary value is **not a competing reading of the sentence but a
+malformed annotation**. §7 already half-conceded this in its own wording — *"a **prediction**
+inside the accept-set is not a disagreement"* — while describing two annotators.
+
+**Measured, not argued: this is 5 of the 14 disagreements the 2026-08-29 run counted.** The cold
+annotator wrote an off-taxonomy `action` slot on exactly five matched items — `C02-03` `INVOICE`,
+`C10-02` `INSURE`, `C14-04` `COMPLETE`, `C17-01` `PREVENT`, `C17-02` `OBTAIN` — and those are
+**exactly** the five items `comparison.json` marks `2_action`, a 5-of-5 correspondence. Gold
+carries **zero** off-taxonomy values across all 32 items. Cold used `action_not_in_taxonomy`
+**0 times in 41 items**; gold used it twice, on two of those same five. So on `C10-02` and
+`C14-04` **both annotators saw the same thing** — a real verb outside the taxonomy — and encoded
+it differently: gold as *(nearest taxonomy verb + tag)* per §8.8, cold as *(true verb, no tag)*.
+K saw only the clause-2 half, because `known_gaps` is not one of its clauses. Two of the fourteen
+(`C02-03`, `C17-02`) fail on **nothing else at all**.
+
+**The three differences, each forced by something measured.**
+
+**A1 — a conformance gate, applied before comparison, and it is SLOT-ONLY.** A closed-vocabulary
+field whose own value falls outside its vocabulary makes the item `NON_CONFORMING`: it leaves
+**both** the numerator and the denominator of K and is reported as its own figure. It is **never**
+counted as a disagreement. The closed vocabularies are `modality` (4), `action` (34, §8.8),
+`temporal.form` (5) and `known_gaps` (§8's tag set).
+
+> **The gate does not reach accept-set members, and that boundary was PROVEN by execution rather
+> than argued** (Standing Principle 7). An off-vocabulary *accept-set member* is **inert**: it can
+> only ever be compared against a slot value, every legal slot value is in the vocabulary, so it
+> can never produce a match in either direction. Measured — stripping all **52** of cold's
+> off-taxonomy accept-set members from both sides changes **no clause outcome on any item**.
+> Gating on them instead marks **27 of 32** items `NON_CONFORMING` and leaves K over **n=5**,
+> which supports no inference whatever. **The instrument is destroyed by a gate one scope too
+> wide, and the first draft of this rule had exactly that scope.**
+
+**A2 — accept-set fields are compared symmetrically, by MUTUAL MEMBERSHIP.** Agreement iff gold's
+slot ∈ the other's accept-set **or** the other's slot ∈ gold's accept-set — precisely §5's own
+test run in both directions and disjoined, not a new rule. Applies to clause 2 (`action`), clause
+3 (`obligor`, via `obligor_accept_set`), clause 5 (`object_class`, with §5's number rule) and
+clause 7 (via §3.8.3's `conditions_accept_set`).
+
+> **The looser alternative is REJECTED at zero measured cost.** Non-empty *intersection* of the
+> two accept-sets — the form `RESULTS.md`'s sensitivity A measured — gives the **identical**
+> result under the A1 gate (`K = 7/27` either way), because the only item separating them
+> (`C02-03`: both sets hold `REPORT` while neither slot is in the other's set) is gated out for an
+> off-taxonomy slot. Intersection therefore buys nothing measurable and would "agree" an item
+> whose slot value the field cannot hold. The tighter rule is taken on principle, and the fact
+> that it costs nothing is stated so nobody re-opens it expecting a different number.
+
+**A3 — parties are compared as strings; there is no registry branch.** §5's lenient identity
+branch fires when the *pipeline* resolved a party; a cold annotation carries an alias and nothing
+else, so that branch is not merely unused but **unavailable**. Resolving both annotators' aliases
+through the document registry was considered and is **deferred, not adopted**, on two measured
+grounds: it changes nothing (of 31 matched pairs, 16 gold obligors and 10 gold obligees resolve,
+and **zero** disagreements flip), and registries exist for only **10 of the 15** documents, so
+adopting it would make the instrument's strictness vary by document — a silent coverage hazard
+bought for an effect measured at zero. Revisit when a cold run puts a genuine
+same-party/different-alias pair in front of it.
+
+**Clause 9 — `known_gaps` belongs to `A`, and is still reported separately.** This is the answer
+to REDESIGN item 0 stated in its proper place: `known_gaps` is an annotator judgment, so it is
+`A`'s ninth clause and has no business in §5, which scores a pipeline that structurally cannot
+emit the field. It is nonetheless reported as its own instrument — `G`/`G_swing`,
+`GAP_AGREEMENT_DESIGN.md` — and is **never added to, averaged with, or folded into K**. Clauses
+1–8 produce K; clause 9 produces G; conformance produces its own rate. **Three figures, always
+published together, never combined.** Option (a)'s disqualification stands, and the ground the
+design note gave for it — *"§5 is a gold-vs-prediction predicate… this alone settles it"* — is now
+a **ruled** fact rather than the assumption it was when written. *(Recorded plainly because the
+ordering was wrong: the design note pre-answered this question while `RESULTS.md` was saying it
+"has never been asked and should be asked before either fix." The conclusion survives independent
+re-derivation from clause 2; the ordering does not, and is logged rather than tidied away.)*
+
+**Verdict bands are DERIVED at `A`'s own `n`, never transcribed.** A1's gate changes the
+denominator, and reusing counts fixed for n=32 would silently change the band's evidential
+strength. `PREREGISTRATION.md` §4's own method — preserve §7's Wilson₉₅ **lower** bound at each
+trigger (0.0279 DIAGNOSE, 0.0807 REDESIGN) — is applied at whatever `n` survives the gate. The
+derivation reproduces the published n=32 bands (DIAGNOSE ≥3, REDESIGN ≥6) exactly, which is the
+known-answer check that makes it usable at any other `n`.
+
+**The 2026-08-29 run, recomputed under `A`. The published verdict is NOT overturned.**
+
+| | published (§5, one-sided) | under `A` |
+| :--- | :--- | :--- |
+| K | **14 / 32 = 43.8%**, Wilson₉₅ [28.2%, 60.7%] | **7 / 27 = 25.9%**, Wilson₉₅ [13.2%, 44.7%] |
+| conformance failures | not measured | **5 / 32 = 15.6%** — all cold's, all `action` slots |
+| bands at that `n` | DIAGNOSE ≥3 / REDESIGN ≥6 | DIAGNOSE ≥3 / REDESIGN ≥5 |
+| **verdict** | **REDESIGN** | **REDESIGN** |
+| G | 6 / 31 = 19.4% → REDESIGN | **4 / 26 = 15.4% → DIAGNOSE** |
+| G_swing | 2 / 31 → BANDED | **1 / 26 → BANDED** |
+| `D` band | 15 [15–17] | **14 [14–15]** |
+
+**Read the K row precisely.** The instrument fix moves the number a long way and moves the
+**decision** not at all. That is the outcome that makes the fix safe to adopt: it was ruled on
+structural grounds before its effect on the verdict was known, and had it flipped the verdict
+this section would say so.
+
+**The G row is a substantive finding, not bookkeeping.** Both items `A` removes from G — `C10-02`
+(swing) and `C14-04` (disjoint) — were removed for the **same** conformance failure, cold never
+once using `action_not_in_taxonomy`. So part of G's own REDESIGN was the artifact A1 exists to
+remove, and **`G_disjoint` falls to zero**: `GAP_AGREEMENT_DESIGN.md` §6's deferred *"can §8 tags
+legitimately co-apply?"* question had exactly one motivating instance and it was a conformance
+artifact. That question is not thereby answered — one instance disappearing is not evidence
+either way — but its only evidence is gone, and the §8 tag-vocabulary review should be told so.
+
+**Executable, and preserved.** `evals/harness/annotator_agreement.py`, with
+`tests/evals/test_harness_annotator_agreement.py` reproducing the published run **item by item
+and clause by clause** in a retained one-sided legacy mode. That reproduction is required rather
+than decorative: the original comparison's script was **never preserved** — the defect
+`evals/goldens/holdout/audit/README.md` was written about, and the reason `RESULTS.md` Finding
+2's counts are not re-derivable at all — and an aggregate-only match is what
+`OBJECT_CLASS_INVESTIGATION.md` §0's struck reproduction already proved insufficient.
+
+**What `A` does NOT do.** It does not change §5, does not restamp any item, does not touch any
+cassette, and does not alter criterion 1b or criterion 2 — `A` never scores a prediction. It
+governs §7 re-runs and any future annotator comparison, and nothing else.
+
 ---
 
 ## 6. Non-determinism
@@ -2268,6 +2519,15 @@ items cannot certify anything, but they can catch a gross shared error.
 - **K counts disagreements, not confirmed first-pass errors** — if adjudication finds the
   second annotator wrong, it still counts. Item-level, not field-level. A prediction
   inside the accept-set is not a disagreement; a defensible label *outside* it is.
+
+> **SUPERSEDED IN PART BY §5.1 (v0.45).** The clause above is the one place this document ever
+> stated how two annotators are compared, and it says *"a **prediction** inside the accept-set"* —
+> reaching for the pipeline's word while describing two annotators, which is the conflation §5.1
+> rules on. **From v0.45, every annotator comparison uses §5.1's predicate `A`, not §5.** Three
+> things change: an out-of-vocabulary value is `NON_CONFORMING`, never a disagreement; accept-set
+> clauses compare by mutual membership rather than one-sidedly against gold's set; and bands are
+> derived at the surviving `n`. The 2026-08-29 run recomputed under `A` gives **K = 7/27**, still
+> **REDESIGN** — see §5.1's table.
 
 **Thresholds, fixed in advance:**
 
@@ -3147,6 +3407,68 @@ mechanical check rather than a judgment call.
   Deferring to the freeze would face an estimated ~390 in one tangle. The freeze itself stays after batch 3, unchanged: at the
   measured discovery rate (§19.2) freezing earlier would put ~82 items on the post-freeze
   path, where every amendment requires a logged re-check across all prior batches.
+
+### 10.1 The freeze-pass queue (added v0.45) — one list, so nothing is tracked only in a session record
+
+**Why this exists.** Work deferred to the freeze pass has been accumulating in five different
+places — §3.4's bounded exception, §22.1's decision, CLAUDE.md's debt list, `RESULTS.md`, and
+`OBJECT_CLASS_INVESTIGATION.md`'s ruling log — with no single list. Two of the entries below were
+found in one afternoon by an invariant that had never been run, which is direct evidence that
+"it is mentioned somewhere" is not tracking. **This table is the queue. An item deferred to the
+freeze pass is added here, or it is not deferred, it is dropped.**
+
+| # | item(s) | what has to be decided or done | cassette-backed? | source |
+| :-- | :--- | :--- | :--- | :--- |
+| **F1** | `C02-03`, `C11-01`, `C02-01` | **accept-set widenings**, already approved in principle under §3.4's bounded exception; all three keep scoring as failures until the pass | yes | §3.4 |
+| **F2** | `C10-02` | **`obligor`/`obligee` are not verbatim against their own span** — gold has `"the Supplier"`/`"the Distributor"` where the span reads `"The Supplier"`/`"the distributor"`, in *opposite* directions. A §3.5 violation and an instance of the exact §21 R2 case-sensitivity trap. Restamp both slots | no | v0.45 re-validation; `RESULTS.md`'s 2026-09-01 correction |
+| **F3** | `C04-04` | **§3.6.1 and §4.3.2 CONFLICT** — see §10.1.1 below. Needs a ruling on which rule yields, not just an item fix | **yes** (`C04-139`) | v0.45 re-validation |
+| **F4** | `C14-02` | §22.1's **deliberately-retained** non-conformance under the superseded §8.3.1 v0.23 rule. Revisit only if §22's forcing function (a second independent conforming instance) has arrived — **F2 and F3 are candidates, and whether either counts is itself part of this item** | yes | §22.1 |
+| **F5** | whole set | the **systematic accept-set breadth audit** (§3.6, v0.45), expanding F1 from three queued widenings. Carries §3.6's two hazards: monotone widening must not straddle a criterion-2 baseline, and every widening must be defensible from the span alone | mixed | §3.6, `OBJECT_CLASS_INVESTIGATION.md` Ruling 3 |
+| **F6** | `C06-01`, `C13-01`, `C14-01` | the **depth convention** (§3.6, v0.45) — annotator-predicate scope only, **and blocked on a precondition**: §9.4's missing anchor field means any depth rule is unverifiable after authoring. Decide the precondition before the rule | no | §3.6, Ruling 4 |
+
+**Ordering note.** F3 is the only entry that is both cassette-backed and a *rule* conflict rather
+than an item fix, so it is the one whose resolution can stale cassettes; F2 and F6 are free.
+
+#### 10.1.1 F3 — §3.6.1 conflicts with §4.3.2's shared-root naming convention (found 2026-09-01, NOT resolved)
+
+**The conflict, stated as a contradiction rather than as a defect in either rule.** `C04-04`
+holds `action = USE` and `object_class = self_compliant_use`.
+
+- **§3.6.1 (v0.44, RETROACTIVE)** forbids `object_class` carrying material whose content is
+  already the value of clause 2. `use` is `USE`. The label violates it.
+- **§4.3.2 (v0.37)** *requires* the `self_` / `third_party_` prefixes over a **shared root** so
+  flow-down splits land on visibly parallel labels, and `OBJECT_CLASS_INVESTIGATION.md` §9.5
+  leans on this very pair as the distinction head-only matching would destroy.
+
+Both are live rules, both are cited by the item, and they cannot both be satisfied.
+
+**It is asymmetric, and that is the diagnostic detail rather than a curiosity.** The sibling
+`C04-05` holds `action = ENSURE` against `third_party_compliant_use` and is clean, because `use`
+is not `ensure`. So §4.3.2's shared root collides with §3.6.1 on **exactly one half of a split
+pair** — whichever half's own action verb happens to equal the root. **This is not specific to
+`C04-04`: any future §4.3.2 split whose root is a taxonomy verb reproduces it**, which is why
+this is filed as a rule conflict rather than as one item's label.
+
+**Why the v0.44 §10 re-check did not catch it, consistent with its own caveat.** That screen
+already carries a Standing Principle 7 note calling itself *"a lower bound, not a census"* after
+missing `C10-02`'s `_listing`. This is a **second** miss by a different mechanism: the screen
+looked for *restated material*, and `self_compliant_use` reads as a purpose-built §4.3.2 label
+rather than as a restatement. Two independent misses by one screen is the stronger signal — the
+screen's stated limitation is real and should not be relied on for the freeze pass.
+
+**Three options, none pre-selected, and their costs differ enough that the choice is real.**
+
+1. **Narrow §3.6.1 to exempt a root that §4.3.2 mandates.** Cheapest — no item changes, no
+   cassette stales. But it puts a named exception into a rule whose whole force is that it is
+   categorical, and §3.4's history with exactly that move is on record.
+2. **Amend §4.3.2 to require a root that is not a taxonomy verb.** Keeps §3.6.1 categorical and
+   fixes the class rather than the instance, but it is a **forward** rule that leaves `C04-04`
+   needing a restamp anyway, and it constrains label choice on a field §3.6 otherwise leaves open.
+3. **Restamp `C04-04` alone.** Treats it as one bad label — but the asymmetry argument above says
+   it is not, so this is the option most likely to be re-litigated at the next flow-down split.
+
+**Do not resolve this outside the freeze pass.** `C04-139` **is** cassette-backed, so an item
+change here is a conforming event with §22's blocker attached.
 
 ---
 

@@ -5,9 +5,18 @@ per-clause verdict. No database, no network, no pipeline import beyond
 compiler.ast. Every clause is independently checkable, which is what makes a
 PARTIAL diagnosable rather than merely a failure.
 
+THIS IS THE PIPELINE'S PREDICATE AND ONLY THAT (section 5.1, ruled 2026-09-01).
+Comparing two ANNOTATORS uses a different predicate -- `evals.harness.
+annotator_agreement` -- which shares these eight clause definitions and differs
+in three comparison rules. Do not reach for score_item() to compare annotators:
+its one-sidedness (`prediction in gold's accept_set`) is coherent only against a
+predictor bound by the closed grammar, and its signature already says so by
+taking an `ast.Obligation` that no annotation can produce.
+
 Three comparison rules were decided at v0.28 and are implemented here
 literally rather than softened, plus two added at v0.33 (clause 5's number
-rule; clause 3 finally reading section 3.5.1's obligor_accept_set):
+rule; clause 3 finally reading section 3.5.1's obligor_accept_set) and one at
+v0.41 (clause 7 reading section 3.8.3's conditions_accept_set):
 
   Clauses 3 and 4 (parties) compare by IDENTITY, not by string, whenever the
   pipeline resolved the party -- gold's alias must resolve, through the
@@ -16,10 +25,11 @@ rule; clause 3 finally reading section 3.5.1's obligor_accept_set):
   discards it and PipelineResult retains no candidate for a successfully
   typechecked obligation.
 
-  Clause 7 (conditions) is an order-insensitive, count-sensitive multiset of
-  WHITESPACE-NORMALIZED strings. Case is NOT folded: section 3.8 requires
-  verbatim quotes and "NOT" versus "not" is exactly the distinction section
-  17 exists to keep.
+  Clause 7 (conditions) is an order-insensitive, count-sensitive match of
+  WHITESPACE-NORMALIZED strings, each gold entry matched by its canonical text
+  or one of section 3.8.3's accepted equivalent phrasings (v0.41, wired here
+  2026-09-01). Case is NOT folded: section 3.8 requires verbatim quotes and
+  "NOT" versus "not" is exactly the distinction section 17 exists to keep.
 
   Clause 6 (temporal) requires exact, whitespace-normalized equality on the
   constituents, trigger text included. That is deliberately strict. If it
@@ -203,6 +213,43 @@ def _condition_multiset(conds) -> list[str]:
     return sorted(out)
 
 
+def _conditions_match(gold: dict, predicted: Sequence[str]) -> bool:
+    """Clause 7. Each predicted string must consume a distinct gold entry, matching
+    that entry's canonical text or one of its section 3.8.3 accepted phrasings.
+
+    Exhaustive backtracking rather than greedy: two gold entries can share an
+    accepted phrasing, and a greedy first-fit would then reject a genuinely
+    complete match depending on iteration order. The sets are at most a handful of
+    entries, so correctness is free -- and a scoring predicate that fails by
+    iteration order is precisely the silent-wrong-answer shape Standing Principle 7
+    is about.
+    """
+    entries = gold["conditions"]
+    if len(entries) != len(predicted):
+        return False
+    accept = gold.get("conditions_accept_set") or []
+    options = [
+        {norm(text)} | {norm(x) for x in (accept[i] if i < len(accept) else ()) or ()}
+        for i, text in enumerate(entries)
+    ]
+
+    used = [False] * len(entries)
+
+    def assign(k: int) -> bool:
+        if k == len(predicted):
+            return True
+        for i, opts in enumerate(options):
+            if used[i] or predicted[k] not in opts:
+                continue
+            used[i] = True
+            if assign(k + 1):
+                return True
+            used[i] = False
+        return False
+
+    return assign(0)
+
+
 def score_item(gold: dict, pred: ast.Obligation, reg: DocumentRegistry) -> ItemScore:
     clauses: dict[str, bool] = {}
     detail: dict[str, str] = {}
@@ -240,10 +287,25 @@ def score_item(gold: dict, pred: ast.Obligation, reg: DocumentRegistry) -> ItemS
     clauses["temporal"] = g_t == p_t
     detail["temporal"] = f"gold {g_t} vs predicted {p_t}"
 
-    g_c = sorted(norm(c) for c in gold["conditions"])
+    # Clause 7, section 3.8.3's conditions_accept_set (v0.41). Count-sensitive on
+    # len(conditions) and order-insensitive, with each gold entry i matched by its
+    # canonical string OR any member of conditions_accept_set[i].
+    #
+    # ADDED 2026-09-01. The field has been a guideline-mandated part of clause 7
+    # since v0.41 and this function read only gold["conditions"] -- the SECOND
+    # instance of the exact defect this module's own docstring records for
+    # obligor_accept_set ("written down and then ignored"), and the reason a
+    # versioned schema addition needs a scoring change landed with it rather than
+    # after it. Currently harmless and verified so rather than assumed: exactly one
+    # locked item (C06-01) carries the field, it stamps v0.41, and the scoreable set
+    # is the 18 items stamping v0.28 -- so no published number moves.
     p_c = _condition_multiset(pred.conditions)
-    clauses["conditions"] = g_c == p_c
-    detail["conditions"] = f"gold {g_c} vs predicted {p_c}"
+    clauses["conditions"] = _conditions_match(gold, p_c)
+    detail["conditions"] = (
+        f"gold {sorted(norm(c) for c in gold['conditions'])} vs predicted {p_c}"
+        + (f" (accept-sets {gold.get('conditions_accept_set')})"
+           if any(gold.get("conditions_accept_set") or ()) else "")
+    )
 
     clauses["underspecified"] = bool(pred.underspecified) == bool(gold["underspecified"])
     detail["underspecified"] = (
