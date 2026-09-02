@@ -226,26 +226,50 @@ def _load_holdout_pairs() -> list[GapPair]:
     return pairs
 
 
-def test_reproduces_the_2026_08_29_holdout_run_exactly():
+def test_reproduces_the_holdout_run_against_the_CURRENT_gold_set():
     """Real evidence, not a planted fixture: reloads the actual 32 gold items
     (batch01/02/03) and the actual 22 cold/*.json files, realigns them with
-    the same guideline-4.1/4.2 IoU matching the scorer itself uses, and
-    checks the result against GAP_AGREEMENT_DESIGN.md §2/§5 and RESULTS.md's
-    Finding 1 -- both written before this code existed."""
+    the same guideline-4.1/4.2 IoU matching the scorer itself uses.
+
+    RENAMED AT v0.48, and the rename is the point. This test computes G from
+    the LIVE gold items, so it reproduces "the 2026-08-29 run" only for as
+    long as no gold item is restamped -- and the v0.48 freeze-pass batch
+    restamped five. Its old name promised a historical reproduction it can no
+    longer deliver; asserting the old numbers against new data would have been
+    the falsehood, not the failure.
+
+    The 2026-08-29 published figures were:
+        n=31  G=6  G_swing=2  swing={C04-02, C10-02}
+        superset={C04-03, C14-01, E01-01}  disjoint={C14-04}
+        D_gold=15  D_int=15  D_uni=17  band=(15,17)
+
+    What v0.48 moved, and why -- all three deltas are one ruling each:
+      * F7 removed `mutual_obligation` from C04-02. Cold had never assigned it,
+        so gold moved ONTO cold: C04-02 stops swinging (G_swing 2 -> 1) and
+        enters D_gold (15 -> 16), narrowing the band to (16,17).
+      * F11 added `action_not_in_taxonomy` to C10-01, which cold does not use
+        at all, so gold's tag set becomes a strict superset there.
+      * F8 added two tags to E01-01, which was already a superset item.
+
+    NOT moved: n, G itself, and the REDESIGN verdict. This is the same
+    disclosure shape §3.6.1's v0.45 correction established for a retroactive
+    slot edit -- state the effect at its true size, do not freeze the
+    computation and do not inflate it.
+    """
     pairs = _load_holdout_pairs()
     result = compute_gap_agreement(pairs)
 
     assert result.n == 31, "design §2: n=31 matched items (32 items, 1 unmatched -- C14-02)"
-    assert result.g_count == 6
-    assert result.g_swing_count == 2
-    assert set(result.swing_items) == {"C04-02", "C10-02"}
-    assert set(result.superset_items) == {"C04-03", "C14-01", "E01-01"}
+    assert result.g_count == 6, "unchanged by v0.48 -- the REDESIGN trigger still holds"
+    assert result.g_swing_count == 1, "was 2; F7 moved C04-02 onto cold"
+    assert set(result.swing_items) == {"C10-02"}
+    assert set(result.superset_items) == {"C04-03", "C10-01", "C14-01", "E01-01"}
     assert set(result.disjoint_items) == {"C14-04"}
 
-    assert result.d_gold == 15
-    assert result.d_int == 15
-    assert result.d_uni == 17
-    assert result.d_band == (15, 17)
+    assert result.d_gold == 16, "was 15; C04-02's known_gaps is now empty (§9.2)"
+    assert result.d_int == 16
+    assert result.d_uni == 17, "unchanged -- cold's side did not move"
+    assert result.d_band == (16, 17), "was (15,17); the annotator-swing band NARROWED"
 
     assert result.g_swing_verdict == GSWING_BANDED
     assert result.g_overall_verdict == G_REDESIGN
@@ -340,13 +364,15 @@ def test_render_end_to_end_with_the_real_holdout_gap_agreement():
 
     pairs = _load_holdout_pairs()
     ga = compute_gap_agreement(pairs)
-    assert (ga.n, ga.g_count, ga.g_swing_count) == (31, 6, 2)
-    assert (ga.d_gold, ga.d_int, ga.d_uni) == (15, 15, 17)
+    # v0.48: was (31, 6, 2) / (15, 15, 17). See the rename note above --
+    # F7's restamp of C04-02 moved D_gold and G_swing; both verdicts hold.
+    assert (ga.n, ga.g_count, ga.g_swing_count) == (31, 6, 1)
+    assert (ga.d_gold, ga.d_int, ga.d_uni) == (16, 16, 17)
     assert ga.g_swing_verdict == GSWING_BANDED
     assert ga.g_overall_verdict == G_REDESIGN
 
     d_gold_items = sorted(p.item_id for p in pairs if not p.gold_gaps)
-    assert len(d_gold_items) == 15
+    assert len(d_gold_items) == 16
 
     gold_by_id = {}
     for item_id in d_gold_items:
@@ -365,9 +391,13 @@ def test_render_end_to_end_with_the_real_holdout_gap_agreement():
     )
     text = report.render()
 
-    assert "CRITERION 2 (IN FORCE, §9.1 — len(known_gaps)==0): 9/15 = 60.0%" in text
-    assert "[band 52.9%–60.0%]" in text
-    assert "over D=15 [15–17]" in text
-    assert "G_swing=2/31 → BANDED" in text
+    # v0.48: the illustrative numerator moves purely because D_gold grew 15 -> 16
+    # (F7's C04-02 restamp) and the fixed placeholder pattern now covers one more
+    # item. These are RENDER-FORMAT assertions over an explicitly illustrative
+    # numerator -- see this test's own docstring -- not a republished measurement.
+    assert "CRITERION 2 (IN FORCE, §9.1 — len(known_gaps)==0): 10/16 = 62.5%" in text
+    assert "[band 58.8%–62.5%]" in text
+    assert "over D=16 [16–17]" in text
+    assert "G_swing=1/31 → BANDED" in text
     assert "G (overall known_gaps disagreement) = 6/31 → REDESIGN (Wilson95 lower 9.2%)" in text
     assert "ILLUSTRATIVE -- outcomes are a placeholder pattern" in text

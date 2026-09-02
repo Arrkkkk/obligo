@@ -92,7 +92,32 @@ GAP_DIRECTION = {
     "unless_unsupported": "OVERSTATING",
     "compound_action": "INCOMPLETENESS",
     "mutual_obligation": "INCOMPLETENESS",
+    # v0.48 (section 10.1 F10, scoped): action_not_in_taxonomy is INCOMPLETENESS on
+    # the identical ground as compound_action -- section 8.8 puts the NEAREST taxonomy
+    # verb in `action` and the real verb is lost, so the IR claims less than the
+    # document says. Added in the same batch as the F8/F11 rulings that apply this tag
+    # to E01-01 and C10-01, deliberately: those two rulings would otherwise have
+    # doubled the set's exposure to an UNCLASSIFIED tag while claiming to close a
+    # taxonomy gap, which is the reporting-layer half of the same disclosure.
+    "action_not_in_taxonomy": "INCOMPLETENESS",
 }
+
+# STILL UNCLASSIFIED, DELIBERATELY -- and this list is the honest scope of F10's
+# remaining gap rather than an oversight. Five tags are in live use with no direction:
+#   corpus_artifact_in_span  -- section 8's own table calls it "not a v1 compiler gap";
+#                               it is a corpus-TEXT defect, so an IR direction may not
+#                               exist to assign rather than merely be missing.
+#   shared_subject_split     -- an annotation-CONVENTION exception, same objection.
+#   redacted_value           -- a SCOREABILITY removal (section 8.1), same objection.
+#   within_preposition       -- section 8.6; a compile-side regex gap whose direction is
+#   relative_trigger_preposition  genuinely two-sided (the temporal is annotated in full
+#                               and the loss is downstream), so assigning one here would
+#                               be a ruling, not a classification.
+# All five turn on section 10.1 F9's open question -- whether the vocabulary needs a
+# `kind` axis before it gains more tags -- which is NOT decided in this batch. Assigning
+# a direction to any of them now would let a report.py edit masquerade as the taxonomy
+# ruling F9 exists to make, the exact inversion the reviewer filed F10 separately to
+# prevent.
 
 # Worst-first severity. Used only for the no-unique-mode tie-break (G2).
 SEVERITY = {Outcome.UNEXPECTED: 3, Outcome.MISSED: 2, Outcome.PARTIAL: 1, Outcome.FULLY_CORRECT: 0}

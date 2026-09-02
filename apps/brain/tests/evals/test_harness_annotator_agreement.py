@@ -245,7 +245,24 @@ def test_gap_agreement_recomputed_over_conforming_pairs_only(gold, cold):
     """G belongs to `A` (section 5.1 clause 9) and is reported separately, never
     folded into K. Restricting it to conforming pairs moves it off its own
     REDESIGN trigger -- because both items it drops were dropped for the SAME
-    conformance failure, cold never once using `action_not_in_taxonomy`."""
+    conformance failure, cold never once using `action_not_in_taxonomy`.
+
+    v0.48 UPDATE. The published (all-pairs) figures moved from
+    (31, 6, 2) / band (15,17) to (31, 6, 1) / band (16,17), and the
+    conforming-only figures from (26, 4, 1) / band (14,15) to
+    (26, 4, 0) / band (15,15) -- all of it F7's restamp of C04-02, whose
+    known_gaps is now empty and which cold had never tagged.
+
+    THE CONFORMING-ONLY BAND IS NOW A POINT, AND THAT IS THE SUBSTANTIVE
+    RESULT. Among conforming pairs the two annotators no longer disagree at
+    all about which items are scoreable: G_swing = 0, D = 15 exactly. That
+    is the instrument defect CLAUDE.md's REDESIGN entry calls the highest-
+    priority open item -- "no future K is trustworthy until this is fixed" --
+    now measuring zero on the conforming subset. It does NOT close that item:
+    the all-pairs band is still (16,17), the five non-conforming pairs are
+    still excluded rather than resolved, and F9's kind-axis question is
+    untouched. Neither verdict changed (REDESIGN / DIAGNOSE both hold), so
+    this is a real but bounded movement, stated at its size."""
     nc = {i.item_id for i in compute(gold, cold).non_conforming}
     all_pairs, conforming = [], []
     for segment_id, gold_items in sorted(gold.items()):
@@ -261,12 +278,12 @@ def test_gap_agreement_recomputed_over_conforming_pairs_only(gold, cold):
                 conforming.append(pair)
 
     published = compute_gap_agreement(all_pairs)
-    assert (published.n, published.g_count, published.g_swing_count) == (31, 6, 2)
-    assert published.d_band == (15, 17)
+    assert (published.n, published.g_count, published.g_swing_count) == (31, 6, 1)
+    assert published.d_band == (16, 17)
     assert published.g_overall_verdict == "REDESIGN"
 
     corrected = compute_gap_agreement(conforming)
-    assert (corrected.n, corrected.g_count, corrected.g_swing_count) == (26, 4, 1)
-    assert corrected.d_band == (14, 15)
+    assert (corrected.n, corrected.g_count, corrected.g_swing_count) == (26, 4, 0)
+    assert corrected.d_band == (15, 15)
     assert corrected.g_overall_verdict == "DIAGNOSE"
     assert corrected.disjoint_items == ()      # GAP_AGREEMENT_DESIGN section 6's only instance

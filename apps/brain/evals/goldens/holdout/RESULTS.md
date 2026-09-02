@@ -4,6 +4,17 @@
 rolling SHA-256 `e5d0b42a…d87623`) and after PREREGISTRATION.md was fixed.** Nothing in
 the pre-registration was changed after this number was known.
 
+> **v0.48 UPDATE — K is UNCHANGED at 14/32; the `known_gaps` (`G`) figures below are NOT.**
+> The §10.1 freeze-pass batch restamped five gold items. K does not read `known_gaps` — that is
+> precisely the instrument gap Finding 1 reports — so **every K figure, band, leak-level
+> gradient and clause profile in this document stands exactly as published.** What moved is the
+> `G` family, and only through three rulings: `G_swing` **2 → 1** (`C04-02` stops swinging;
+> F7 removed a tag cold had never assigned, so gold moved onto cold), `D_gold` **15 → 16**, band
+> **(15, 17) → (16, 17)**, and the conforming-only band **(14, 15) → (15, 15)** with
+> `G_swing = 0`. `G` itself stays 6/31 and both verdicts hold. Full table and reasoning in
+> `GAP_AGREEMENT_DESIGN.md`'s v0.48 note. **Finding 1 is narrowed, not closed** — the all-pairs
+> denominator still swings by one item, and §10.1 F9 is untouched.
+
 ## Verdict
 
 | | |

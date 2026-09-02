@@ -1,5 +1,41 @@
 # `known_gaps` agreement — design note (APPROVED, IMPLEMENTED)
 
+> **v0.48 UPDATE — three figures in this document moved, and this note is the disclosure owed
+> with them. Nothing below is edited; the original values are the 2026-08-29 run's and stay
+> readable as written.** The §10.1 freeze-pass batch restamped five gold items, three of which
+> carry `known_gaps` changes, so every `G`-family figure computed from the live gold set moves:
+>
+> | figure | 2026-08-29 (as written below) | after v0.48 |
+> | :--- | :--- | :--- |
+> | `n` | 31 | **31** (unchanged) |
+> | `G` | 6/31 → REDESIGN | **6/31 → REDESIGN** (unchanged) |
+> | `G_swing` | **2/31** — `C04-02`, `C10-02` | **1/31** — `C10-02` |
+> | `D_gold` / `D_int` / `D_uni` | 15 / 15 / 17 | **16 / 16 / 17** |
+> | band | (15, 17) | **(16, 17)** |
+> | conforming-only `G_swing` / band | 1/26, (14, 15) | **0/26, (15, 15)** |
+> | superset items | `C04-03`, `C14-01`, `E01-01` | **+ `C10-01`** |
+>
+> **All of it is three rulings, itemised rather than aggregated.** F7 removed
+> `mutual_obligation` from `C04-02`; cold had never assigned it, so **gold moved onto cold** —
+> the item stops swinging and enters `D_gold`. F11 added `action_not_in_taxonomy` to `C10-01`,
+> a tag cold does not use at all, making gold a strict superset there. F8 added two tags to
+> `E01-01`, already a superset item.
+>
+> **The substantive result is the conforming-only line: the band collapses to a POINT (15, 15)
+> and `G_swing` reaches 0.** Among conforming pairs the two annotators no longer disagree at
+> all about which items are scoreable — which is the instrument defect CLAUDE.md's REDESIGN
+> entry names as its highest-priority open item. **It does NOT close that item**: the all-pairs
+> band is still (16, 17), the five non-conforming pairs are excluded rather than resolved, and
+> §6's `kind`-axis question (§10.1 F9) is untouched.
+>
+> **Neither verdict changed.** `G` is still REDESIGN and `G_swing` still BANDED, so this is a
+> real but bounded movement — the same disclosure shape §3.6.1's v0.45 correction established
+> for a retroactive edit that moves an `A`-side published measurement: state the effect at its
+> true size, neither freeze the computation nor inflate the result. **The direction is toward
+> agreement, and it was not sought**: all three rulings were made on their own grounds before
+> any `G` was recomputed.
+
+
 > **STATUS, corrected in place 2026-09-01 (guideline §10 requires live status statements to be
 > corrected rather than struck).** The banner below was accurate when written and is now false in
 > both its claims. **The design IS implemented** — `evals/harness/gap_agreement.py` and

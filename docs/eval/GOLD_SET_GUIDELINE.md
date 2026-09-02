@@ -1,6 +1,6 @@
 # Obligo Tier-2 Gold Set — Annotation Guideline
 
-**Version:** v0.47 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**. **v0.33 puts §9's dual denominator IN FORCE** on two independent grounds, adds §5 clause 5's number rule, §3.4's bounded freeze-pass exception, and the forward authoring rules §3.6 / §3.8.2 / §3.5.1 — **no annotation rule changed, no item restamped, no cassette stale**. **v0.34 records two MEASUREMENT corrections and changes no rule either** — §8.9's `on`/`until` rows and §15.3's loud-versus-silent class placement, both falsified by real model output from the compile-stage bottleneck investigation. **v0.35 adds §4.3.2** — a third splitting shape distinct from both existing §4.3 worked examples, reviewer-ruled at batch 3's `C04-139`: self-performance vs. a duty to bind/control a third party's conduct splits into two items even when the two verbs share an object phrase and a sentence subject, because the two performances do not share an actor. **v0.36 amends §4.2** — the resulting byte-identical spans (`C04-139`'s shared trailing object leaves neither item's minimal span shorter than the other's) break IoU's ability to discriminate between the two gold items, so a content-based tie-break on `action_accept_set` membership is added, falling through to ascending `item_id` when the tie-break itself is inconclusive. **v0.37 adds a
+**Version:** v0.48 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**. **v0.33 puts §9's dual denominator IN FORCE** on two independent grounds, adds §5 clause 5's number rule, §3.4's bounded freeze-pass exception, and the forward authoring rules §3.6 / §3.8.2 / §3.5.1 — **no annotation rule changed, no item restamped, no cassette stale**. **v0.34 records two MEASUREMENT corrections and changes no rule either** — §8.9's `on`/`until` rows and §15.3's loud-versus-silent class placement, both falsified by real model output from the compile-stage bottleneck investigation. **v0.35 adds §4.3.2** — a third splitting shape distinct from both existing §4.3 worked examples, reviewer-ruled at batch 3's `C04-139`: self-performance vs. a duty to bind/control a third party's conduct splits into two items even when the two verbs share an object phrase and a sentence subject, because the two performances do not share an actor. **v0.36 amends §4.2** — the resulting byte-identical spans (`C04-139`'s shared trailing object leaves neither item's minimal span shorter than the other's) break IoU's ability to discriminate between the two gold items, so a content-based tie-break on `action_accept_set` membership is added, falling through to ascending `item_id` when the tie-break itself is inconclusive. **v0.37 adds a
 recommended `object_class` naming convention to §4.3.2** — `self_` / `third_party_` prefixes over
 a shared root, so future flow-down splits land on visibly parallel labels rather than an
 unrelated pair invented fresh each time. **v0.38 adds §3.2.1** — present-tense self-executing
@@ -191,6 +191,18 @@ conformed — every one now stamps `v0.28`**, verified by reading the items them
 not an open question** — §22.1 (v0.32) rejects both proposed fixes and defers the general
 problem until a second, independent instance exists. The set is therefore conformed to
 `v0.28` and carries **one known, deliberately-retained outstanding conformance**, not zero.
+
+**UPDATED v0.48 — the sentence above is a dated record and this is the live count.** The first
+§10.1 freeze-pass batch executed at v0.48 and **restamped five items to `v0.48`**: `C04-04`,
+`C04-05` (F3), `C10-01` (F11), `E01-01` (F8) and `C04-02` (F7). Live stamp distribution across the
+**32 locked items**: `v0.28` ×16, `v0.38` ×1, `v0.41` ×9, `v0.44` ×1, `v0.48` ×5. The set is
+therefore **not** conformed to a single version and `run_scoring.guideline_version_from_items()`
+raises by design — which is the pre-existing state, not something v0.48 created: the set has
+carried multiple stamps since batch 3 opened at `v0.37`. `C14-02`'s deliberately-retained
+non-conformance (§22.1) is **unchanged** and still the only *intended* outstanding conformance.
+**Cassette consequence, stated exactly: 6 of 36 gold cassettes are now stale, in 2 of 12
+segments** — `C04-117` ×3 and `E01-047` ×3, from F7's and F8's restamps. F3's and F11's items were
+never recorded, so they staled nothing (see §10.1's cassette-backed table correction).
 *(This line read "No items have been annotated against this document yet" from v0.1 through
 v0.25 — false from 2026-08-19 onward, corrected at v0.26; see §19.3. It then read
 "consolidation pass … in progress, not complete", "Items stamp guideline versions
@@ -617,6 +629,38 @@ non-membership **plus** non-mappability, since bare non-membership would fire on
 worked example (`hold harmless`). The re-check leaves `C03-02` unchanged and opens **F11** —
 whether `defend` is defensibly `INDEMNIFY`, which decides `C10-01` and was not in front of the
 reviewer.
+
+**v0.48 change:** **The first §10.1 freeze-pass batch is EXECUTED — four entries ruled, five items
+restamped, and this is the first version since the batch-1 conforming pass to change locked
+items.** **(1) §4.3.2 gains a ROOT CONSTRAINT (F3)**: §3.6.1 does not yield, §4.3.2's root choice
+does, and a shared root may no longer restate either half's own `action`. `C04-04` and `C04-05`
+move to `self_`/`third_party_regulatory_compliance` on a root that was **already an accept-set
+member of both**, so §3.4's justification test is met by construction; both sets widened
+monotonically, no member removed. Two documents had misstated §4.3.2 as *requiring* its
+convention — it recommends it, which is why the conflict resolved as cleanly as it did.
+**(2) §8.8.2 rules `defend` a GENUINE GAP (F11)**, on evidence measured across the whole
+28-document corpus rather than asserted: 33 sentences use it with no `indemnify`, `C03` disjoins
+*"failed to defend or indemnify"*, `C03` §(c) owes the defence *"whether or not … the allegations
+are meritorious"*, and `C11` converts a failed defence duty into a payment duty. `hold
+harmless`→`INDEMNIFY` is untouched, so **the two non-member verbs of one triplet land on opposite
+sides of §8.3's non-mappability limb** — its first real exercise against a verb §8.8 had not
+ruled on. `C10-01` gains `action_not_in_taxonomy`. **(3) F8 and F7's v0.47 rulings are applied**:
+`E01-01` gains **two** tags, not the one its queue row named (`compound_action` had never been
+applied to it either), and `C04-02` loses `mutual_obligation`. **(4) THE ONE PUBLISHED NUMBER THAT
+MOVES: §9.2 — `C04-02`'s empty `known_gaps` puts it into §9.1's in-force criterion-2 denominator,
+8 → 9.** In-force criterion 2 is now `3/9 = 33.3%` or `4/9 = 44.4%` depending on how `C04-02`
+itself scores; `3/8 = 37.5%` is superseded and must not be quoted. The denominator is asserted,
+the numerator is not — it is a scorer output and no run exists against the restamped items.
+**(5) F10 is partially executed, scoped**: `action_not_in_taxonomy` is classified
+`INCOMPLETENESS`, because F8 and F11 apply that tag and shipping them alone would have widened a
+reporting gap while claiming to close a taxonomy one; the other five live tags stay
+`UNCLASSIFIED`, are now named in `report.py` with reasons, and wait on **F9**. **(6) F12 is filed,
+not decided** — §3.6.1 tests the `action` slot only and not `action_accept_set`; zero exposure
+today, and F3's own root creates the first instance. **(7) §10.1's cassette-backed column is
+CORRECTED against the directory**: `C04-139` and `C10-016` were **never recorded**, so F3 and F11
+were free and were executed first; **§22's blocker attached to F7 and F8 only**, and the three
+`C04-117` and three `E01-047` cassettes are now stale by design. **Cassettes stale: 6 of 36, in 2
+of 12 segments. Items restamped: 5 of 32.**
 
 ## 1. What a gold item is
 
@@ -1581,6 +1625,55 @@ rule, and it was settled by measurement.**
   > §10 screen missed it — its **second** recorded miss. Tracked as **§10.1's item F3**, with the
   > three candidate resolutions and their costs stated there.
   >
+  > **RESOLVED v0.48 (§10.1 F3) — §3.6.1 does NOT yield; §4.3.2's root choice does.** The ruling
+  > and both restamps are in **§4.3.2**, not here, because what changed is a *naming convention*
+  > and not this rule: §4.3.2 now constrains the shared root so neither half's label restates its
+  > own item's `action`, and `C04-04`/`C04-05` move to `self_regulatory_compliance` /
+  > `third_party_regulatory_compliance`. **Nothing in this section is amended by that ruling** —
+  > it stands categorical, and it stayed categorical because that is precisely why it won. One
+  > premise of the conflict was also false and is corrected there: §4.3.2 *recommends* its
+  > convention, it does not require it.
+  >
+  > **The v0.44 screen was re-run at v0.48 against all 32 items and validated first**, against 12
+  > known answers including both this section's own corrected instances, `C04-03`'s retained
+  > `product_delivery` member, and `C10-02`'s documented `_listing` blind spot. Its first draft
+  > failed two of the twelve — it missed `deliver`→`delivery` and `indemnify`→`indemnification`,
+  > both nominalisations of verbs this very section has already ruled on — and was corrected
+  > before being trusted, Standing Principle 7 applied to a re-run of the screen that principle
+  > was already attached to. **Result: after the two restamps, `C04-04` is cleared and the only
+  > remaining slot-level hits in the whole set are `C02-01` and `C14-01`, both carve-out 1 clears
+  > already adjudicated at v0.44.** The screen's stated limitation is unchanged — it is still a
+  > lower bound, still blind to an item whose label restates a *real* verb `action` does not hold,
+  > and the by-hand re-run against the §8.8 items is still owed at the freeze pass.
+  >
+  > **A THIRD defect in this rule is now filed rather than fixed: it tests the `action` SLOT
+  > VALUE only, and not `action_accept_set`.** The v0.44 screen swept each item's `action`,
+  > `obligor`, `obligee` and `obligor_accept_set` — the action accept-set was never in it. The
+  > co-variance argument that makes this section a correction runs through the accept-sets, since
+  > §5 clause 2 tests *membership*, not slot equality.
+  >
+  > **MEASURED, AND THE FIRST MEASUREMENT WAS WRONG — the corrected numbers are these.** Across
+  > all 32 items, the accept-set screen finds **exactly one instance, and it is the same item
+  > before and after F3**: `C04-04`'s *old* slot `self_compliant_use` restated `COMPLY` (via
+  > `compliant`) as well as `USE`, and its new slot `self_regulatory_compliance` restates `COMPLY`
+  > via `compliance`. **Exposure was 1 before v0.48 and is 1 after.** F3's root choice therefore
+  > neither creates this hazard nor removes it — it **inherits** one that was already there, which
+  > is a materially weaker objection to the chosen root than the one first written down.
+  >
+  > **The first pass reported ZERO, and that was a detector failure, not a fact.** The screen's
+  > stemmer generated `complyance` rather than `compliance`, so `COMPLY` → `compliance` was
+  > invisible to it; the miss surfaced only because the automated count contradicted a claim
+  > reached by reading the label. **This is the THIRD nominalisation miss by this same screen in
+  > one session** — `deliver`→`delivery` and `indemnify`→`indemnification` were the other two, both
+  > caught by the known-answer gate before any count was trusted, this one caught by a
+  > contradiction with prose. All three are the same `y`/`e`-boundary family. Standing Principle 7,
+  > and specifically its *"a clean-looking result is not evidence until you have checked what it
+  > does on a case whose answer you already know"* clause: **a zero is exactly as much a detector
+  > output as a positive count, and reads more reassuringly.**
+  >
+  > Extending this rule to accept-sets is a retroactive rule change and is **§10.1 F12**,
+  > deliberately not decided inside F3.
+  >
   > **Forward requirement.** Any retroactive slot edit states its effect on **both** predicates,
   > and "free" is never used unqualified for either. §5.1 §A2 is why: the slot is unread by §5
   > and read by `A`, so the two predicates have *opposite* sensitivities to exactly this kind of
@@ -2265,6 +2358,90 @@ judgment calls (§3.6); recorded as a recommendation precisely because `C04-139`
 precedent-setting instance and the naming choice made here is the one future batches will see
 first.
 
+**ROOT CONSTRAINT (v0.48 — REVIEWER-RULED, §10.1 F3). The shared root must be chosen so that
+neither half's label restates its own item's `action`.** The prefixes are unchanged and stay
+recommended; what is constrained is the root.
+
+**Why this rule yielded rather than §3.6.1.** `C04-139`'s own pair was authored as
+`self_compliant_use` / `third_party_compliant_use`, and at v0.44 §3.6.1 forbade a label carrying
+material already scored by clause 2. `use` **is** `USE`, so the self-performance half violated it
+— and the third-party half did not, because `use` is not `ensure`. The collision therefore lands
+on **exactly one half of a split pair**: whichever half's own action verb happens to equal the
+root. Both rules were live and the item cited both.
+
+**It was ruled as a genuine conflict of rules, and §3.6.1 does not yield.** §3.6.1 is a
+categorical correction of an **instrument** defect — a label restating the action makes clauses 2
+and 5 co-vary, so one judgment is scored twice — and it is retroactive on that ground. This
+section's naming convention is an **author-time recommendation** by its own text above. A
+recommendation gives way to a categorical rule; the reverse would put a named exception into the
+one rule whose whole force is that it has none, and §3.4's history with exactly that move is on
+record. Narrowing §3.6.1 to exempt a §4.3.2 root would not remove the double-scoring, it would
+bless it.
+
+**What was NOT ruled, stated so the constraint is not read as wider than it is.** Nothing here
+requires the root to avoid the `ACTIONS` list as a *string* — §3.6.1's test is content-relative to
+**this item's own field values**, never a blacklist, and its carve-out 1 (a token that appears in
+the span as part of the object's own name) applies here unchanged. A pair whose natural root
+happens to be a taxonomy verb neither half holds as its `action` is unaffected.
+
+**The two corrected instances (v0.48).**
+
+| item | field | was | now |
+| :--- | :--- | :--- | :--- |
+| `C04-04` | slot | `self_compliant_use` | `self_regulatory_compliance` |
+| `C04-05` | slot | `third_party_compliant_use` | `third_party_regulatory_compliance` |
+
+`regulatory_compliance` was chosen because it was **already an accept-set member of both items**
+before this ruling, so the root is defensible **from the span alone** and was authored before any
+prediction for `C04-139` could exist — §3.4's justification test, satisfied by construction rather
+than by argument. Both new slot values are added to their own accept-sets (the slot ∈ accept-set
+invariant holds 32/32 across the locked set), a **monotone widening** permitted by §3.6.1's
+widening-only set rule; **no member is removed from either set.**
+
+**`C04-05`'s change is driven by THIS section, not by §3.6.1, and is recorded that way so it is
+not later re-read as a second §3.6.1 violation.** Its old slot was already §3.6.1-clean. It moves
+only to keep the pair on a shared root once `C04-04` moved — which is this convention's entire
+purpose, and the distinction §9.5 of `OBJECT_CLASS_INVESTIGATION.md` measured head-only matching
+would destroy.
+
+**A constraint on label choice, stated as a real cost rather than a free fix.** On `C04-139` every
+*natural* root collides with one half: `use` restates `C04-04`'s `action`, and `compliance` shares
+a root with `COMPLY`, which sits in `C04-04`'s `action_accept_set`. The chosen root is clean under
+§3.6.1 **as written**, which tests the `action` **slot value** only — but that it needed checking
+at all is the point, and the accept-set question it raises is filed as **§10.1 F12** rather than
+decided here.
+
+**Measured, because the honest version of that cost is smaller than it first looked.** The old
+label `self_compliant_use` restated `COMPLY` too — via `compliant` — so on the accept-set axis the
+item's exposure is **1 before this ruling and 1 after**. The new root **inherits** an existing
+hazard rather than introducing one, which is why F3 was ruled without waiting on F12. Stated
+plainly because the first measurement of this said *zero before, one after*, which would have made
+the new root look worse than the old one; that reading came from a stemmer that could not see
+`COMPLY`→`compliance`, and is corrected in §3.6.1's own note.
+
+**One live instance, and the class is nonetheless real.** A validated screen over all 32 locked
+items (below) finds `C04-04` to be the only §3.6.1 slot violation in the set, so this is a
+one-member class. It is still filed as a rule rather than a bad label because **any future §4.3.2
+split whose root is one half's own taxonomy verb reproduces it** — and the set's *other* §4.3.2
+application nearly did. `C22-02` is this rule's second live instance (its own notes say so); it
+reduces to a single item because §3.2.1 excludes the self-performance half, and `GRANT` **is** a
+taxonomy verb, so had that half survived, `self_…_grant` / `third_party_…_grant` would have
+collided identically.
+
+**A finding about this convention's own standing, recorded because it is what made the ruling
+cheap.** `C22-02` was annotated at `guideline_version v0.38` — *after* this convention was written
+at v0.37 — carries `object_class = trademark_license_grant` with **no prefix, no shared root, and
+no reference to this convention at all**, and is `reviewer_status: APPROVED`. The one other live
+application of §4.3.2 declined the naming convention outright and was approved. That is direct
+evidence the convention is optional in practice and not merely on paper, which is what a ruling
+making it yield requires.
+
+**Two propagated misstatements, corrected here rather than silently.** §10.1.1 (v0.45) and
+`OBJECT_CLASS_INVESTIGATION.md` §11 each state that this section ***requires*** the prefixes over
+a shared root. It does not, and never did — the heading above reads *RECOMMENDED, not mandatory*
+and its closing sentence says so again. The conflict was real, but it was between §3.6.1 and one
+**root choice**, not between two mandates.
+
 ### 4.4 `NOT_ANNOTATABLE`
 A clause inside an otherwise-good segment that the exclusion rules of §2 would reject on
 its own is labelled `NOT_ANNOTATABLE`. A prediction aligning to it counts as **neither**
@@ -2821,7 +2998,7 @@ answer via a false premise is not adopted, because the premise is what generalis
 | :--- | :--- | :--- | :--- |
 | `C03-02` | *"keep current"* → `MAINTAIN` | a **taxonomy member** | branch 1 — `compound_action` only. **Unchanged** |
 | `E01-01` | *amend, supplement, modify* | non-members, **no** defensible mapping | **branch 3 — gains `action_not_in_taxonomy`.** Restamp pending, §10.1 F8 |
-| `C10-01` | *defend*, *hold harmless* | `hold harmless`→`INDEMNIFY` is §8.8's own named mapping; ***`defend` is unruled*** | **OPEN — §10.1 F11** |
+| `C10-01` | *defend*, *hold harmless* | `hold harmless`→`INDEMNIFY` is §8.8's own named mapping; **`defend` is neither a member nor mappable (§8.8.2)** | **branch 3 — gains `action_not_in_taxonomy`. RULED and restamped v0.48** |
 | `C10-02`, `C14-04` | n/a — single-verb items | carry `action_not_in_taxonomy` on §8.8's own ground | **Unchanged** |
 
 **`C10-01` is deliberately NOT decided here.** Its own notes state branch 3's raw condition —
@@ -2829,6 +3006,17 @@ answer via a false premise is not adopted, because the premise is what generalis
 restamp it too. Whether **`defend` is defensibly `INDEMNIFY`** is a substantive question (a duty to
 defend is conventionally distinct from a duty to indemnify) that was **not** in front of the
 reviewer when this ruling was made, and it is not folded in silently. Queued as **§10.1 F11**.
+
+**DECIDED v0.48 — §8.8.2.** `defend` is ruled a genuine gap on corpus evidence (33 sentences use
+it with no `indemnify` anywhere in them; `C03` disjoins *"failed to defend or indemnify"*; `C03`
+§(c) owes the defence *"whether or not litigation is actually commenced or the allegations are
+meritorious"*; `C11` converts a failed defence duty into a payment duty). Branch 3 fires and
+`C10-01` is restamped at v0.48. **The parenthetical above — *"a duty to defend is conventionally
+distinct from a duty to indemnify"* — was the hypothesis this ruling tested, not an assumption it
+rested on, and it held.** Note what the outcome does to this section's own worked reasoning:
+`hold harmless` and `defend`, the two non-member verbs of a single triplet, land on **opposite**
+sides of the mappability limb — the clearest available demonstration that the limb discriminates
+rather than rubber-stamping.
 
 
 **The full verb phrase goes verbatim in `annotator_notes` in every branch, tagged or not** —
@@ -3072,6 +3260,89 @@ finding and must not be reported as one.
 
 **No locked item carries this tag yet** — `dispose` (`C02-049`) and `analyze` (`C04-118`) both
 sit in segments excluded under §2, so the first real instance is still ahead.
+
+**Superseded (v0.48): the paragraph above is a dated record, not live status.** Locked items now
+carry this tag — `C10-02` and `C14-04` on this section's own ground, and, from v0.47/v0.48's
+rulings, `E01-01` (§8.3.2) and `C10-01` (§8.8.2 below). Left unedited per the corrections-are-new-
+text discipline.
+
+#### 8.8.2 `defend` is a GENUINE GAP, not defensibly `INDEMNIFY` (v0.48 — REVIEWER-RULED, §10.1 F11)
+
+**The question, and why it was not answerable by lookup.** §8.3.2's v0.47 re-check left `C10-01`
+open: its span reads *"the Supplier shall **indemnify** the Distributor, **defend** and **hold
+harmless** against any liability…"*, and §8.3's corrected branch test fires branch 3 iff a dropped
+verb is **neither a taxonomy member nor defensibly mappable** to the verb in `action`.
+`hold harmless`→`INDEMNIFY` is already this section's own named mapping, so the item turned
+**entirely** on `defend`. Whether a duty to defend is conventionally the same duty as a duty to
+indemnify is a substantive question about contract drafting, not a taxonomy-lookup question, and
+it was put to the corpus rather than asserted.
+
+**Ruled: `defend` is NOT defensibly mappable to `INDEMNIFY`. Branch 3 fires. `C10-01` gains
+`action_not_in_taxonomy`**, joining `E01-01` as the set's second three-tag item.
+`action_accept_set` already read `['INDEMNIFY']`, which is this section's single-verb requirement,
+so **no accept-set change**. Verified against `compiler/ast.py`'s real 34-verb `ACTIONS`: there is
+no `DEFEND`, and no member denotes conducting a defence (`RECOVER` and `REPAIR` are the nearest by
+appearance and neither is one).
+
+**MEASURED ACROSS THE WHOLE 28-DOCUMENT CORPUS, not argued from outside it.** 187 sentences use an
+indemnity-family term. The detector was validated first against two known sentences — `C10`'s own
+`C10-016` verb string and `C17`'s *"indemnify and hold harmless"*, the instance §8.3.2 already
+cites — before any count was read off it.
+
+| `indemnify` | `defend` | `hold harmless` | sentences |
+| :--- | :--- | :--- | --: |
+| ✓ | — | — | **86** |
+| ✓ | ✓ | — | 30 |
+| — | **✓** | — | **30** |
+| ✓ | ✓ | ✓ | 28 |
+| ✓ | — | ✓ | 9 |
+| — | ✓ | ✓ | 3 |
+| — | — | ✓ | 1 |
+
+**33 sentences carry `defend`/`defence` with no `indemnify` in them at all.** A synonym is not
+used alone 33 times and added 58 times.
+
+**Three passages settle it, and all three are the corpus's own words.**
+
+1. **`C03` — the contract treats them as two obligations that can be failed independently:**
+   *"…except in a case where a Party has **failed to defend or indemnify** the other Party where
+   it had an obligation to do so pursuant to Sections 3.15 or 3.36…"*
+2. **`C03` §(c) — the defence duty is expressly triggered by allegations that may be meritless,
+   which no indemnity can be:** *"Vendor shall conduct the defense … at Vendor's expense, against
+   any claim … within the scope of Subsection (a) above, **whether or not litigation is actually
+   commenced or the allegations are meritorious**…"* Subsection (a) is the indemnity; (c) is a
+   separately numbered defence clause. A duty owed on a meritless allegation is a duty owed when
+   there is, by definition, no loss to indemnify. This is the black-letter *"the duty to defend is
+   broader than the duty to indemnify"* distinction, appearing **in this corpus** rather than
+   imported into it.
+3. **`C11` — breach of the defence duty *converts into* a payment duty, so they cannot be one
+   duty:** *"If Franchisee **fails to assume the defense**, BKC may defend the action … and
+   Franchisee **shall pay** to BKC all costs, including attorney's fees, incurred by BKC in
+   effecting such defense, **in addition to** any sum which BKC may…"*
+
+Structurally the same: defence carries counsel selection, litigation control, settlement authority
+and progress reporting — 11 sentences across 5 documents assign defence *control* to a named
+party, 15 across 11 documents tie settlement to it. An indemnity carries none of these.
+**`defend` is a duty to *do* something; `indemnify` is a duty to *bear a loss*.** Mapping one onto
+the other does not lose a shade of meaning, it loses the entire performance — which is exactly
+what §8.8's mappable list never does: every entry there (`hold harmless`→`INDEMNIFY`,
+`nominate`→`APPOINT`, `arrange`→`PROCURE`, `deduct`→`WITHHOLD`) maps a verb onto a member
+denoting the **same** performance.
+
+**`hold harmless`→`INDEMNIFY` is untouched and stays in the mappable list.** `hold harmless` alone
+would have kept `C10-01` on branch 2; it is `defend` alone that moves it. The two halves of the
+classic triplet come out on **opposite sides of the same test**, which is the useful result: this
+is the first exercise of §8.3's v0.47 non-mappability limb against a verb this section had not
+already ruled on, and the limb **discriminates** rather than rubber-stamping.
+
+**Added to this section's genuine-gap class**, alongside `resign`, `discontinue`, `perform`,
+`approve` and `request` — and it is the first entry there that is not merely *absent* from
+`ACTIONS` but affirmatively **distinct from its nearest member**. Recorded as its own class of
+reason so the next mapping question asks *"same performance?"* rather than *"close enough?"*.
+
+**The 23% measured rate is NOT restated upward by this ruling.** That figure came from a seeded
+40-clause sample; `defend` did not appear in it, and one adjudicated verb outside the sample does
+not move a sample-based rate. The rate stands at 23%, 95% Wilson CI [11%, 42%], unchanged.
 
 #### 8.8.1 Negated entitlement is the same copular class as affirmative entitlement (v0.41 — REVIEWER-RULED)
 
@@ -3549,6 +3820,47 @@ footnote: the same on-the-spot discipline §6.1 already requires for a short run
 reason — a reader who does not reach the methods section still gets the caveat. Implemented as
 `report.py` G6.
 
+### 9.2 The v0.48 freeze-pass batch MOVES THE IN-FORCE DENOMINATOR: 8 → 9 (§10.1 F7)
+
+**Stated at the top of §9 rather than in a note, because it changes this phase's own headline
+acceptance figure.** F7's ruling (§8.4.2) removes `mutual_obligation` from `C04-02`, leaving its
+`known_gaps` **empty**. §9.1's in-force criterion-2 denominator is `len(known_gaps) == 0`, so the
+item **enters** it.
+
+| | before v0.48 | after v0.48 |
+| :--- | :--- | :--- |
+| in-force denominator (over `run_scoring`'s single-stamp v0.28 set) | **8** | **9** |
+| in-force criterion 2 | `3/8 = 37.5%` | **`3/9 = 33.3%`** if `C04-02` does not itself score `FULLY_CORRECT`; **`4/9 = 44.4%`** if it does |
+
+**The denominator is asserted; the numerator is not.** The 8 → 9 move is arithmetic over the
+locked items and was computed, not estimated: the clean items were `C03-01`, `C03-03`, `C11-01`,
+`C22-01`, `E07-01`, `C02-01`, `C02-02`, `C02-03`, and `C04-02` joins them. Which of the two
+resulting figures is correct is a **scorer output**, and no scoring run has been made against the
+restamped items — nor can one be until the cassettes F7 and F8 staled are re-recorded. **Do not
+quote `3/8 = 37.5%` anywhere after v0.48.** It is superseded, and quoting it would understate the
+denominator of the very criterion §21 grades this phase on.
+
+**Direction of the change, stated so it is not read as bad news or good.** The denominator grew
+because an item stopped claiming a v1 gap it could not demonstrate — the instrument got *more*
+honest, and a larger denominator on the same numerator reads as a *lower* percentage. That is the
+correct behaviour of a dual denominator, not a regression. §9.1's ground 2 says so in terms: a
+denominator that does not read the tag bakes the gap into the score; one that reads a tag which
+should never have fired does the same thing in reverse.
+
+**The other three entries in the batch leave the denominator untouched, checked rather than
+assumed.** `E01-01` (F8) already carried `exception_unsupported`, so `len(known_gaps)` was already
+non-zero; `C10-01` (F11) already carried two tags; `C04-04`/`C04-05` (F3) are batch-3 items outside
+the single-stamp scoreable set entirely, and their `known_gaps` stay `[]` either way.
+
+**Inline-disclosure consequence, and it is why F10 was folded into this batch.** F8 and F11 each
+add `action_not_in_taxonomy`, which `report.py`'s `GAP_DIRECTION` did **not** classify — so the
+mandatory on-the-spot split above would have reported the set's two three-tag items as
+`UNCLASSIFIED` at exactly the moment they became numerator-relevant. It is now classified
+**INCOMPLETENESS**, on the same ground as `compound_action`: §8.8 puts the *nearest* verb in
+`action` and the real verb is lost, so the IR claims less than the document. Five tags remain
+deliberately unclassified and `report.py` now names them and says why — they turn on **F9**'s open
+`kind`-axis question, which this batch does not decide.
+
 See §19.5 for why the 100-item target is a working figure rather than a derived one, and
 CLAUDE.md's debt list for the compile-stage loud-path fix (`ir_compile` routing a carve-out to
 `compile_quarantine` instead of `IF`) that would make the spec-compliant behaviour reachable at
@@ -3605,28 +3917,58 @@ freeze pass is added here, or it is not deferred, it is dropped.**
 | :-- | :--- | :--- | :--- | :--- |
 | **F1** | `C02-03`, `C11-01`, `C02-01` | **accept-set widenings**, already approved in principle under §3.4's bounded exception; all three keep scoring as failures until the pass | yes | §3.4 |
 | **F2** | `C10-02` | **`obligor`/`obligee` are not verbatim against their own span** — gold has `"the Supplier"`/`"the Distributor"` where the span reads `"The Supplier"`/`"the distributor"`, in *opposite* directions. A §3.5 violation and an instance of the exact §21 R2 case-sensitivity trap. Restamp both slots | no | v0.45 re-validation; `RESULTS.md`'s 2026-09-01 correction |
-| **F3** | `C04-04` | **§3.6.1 and §4.3.2 CONFLICT** — see §10.1.1 below. Needs a ruling on which rule yields, not just an item fix | **yes** (`C04-139`) | v0.45 re-validation |
+| **F3** | `C04-04`, `C04-05` | **EXECUTED v0.48 — §4.3.2's ROOT CONSTRAINT.** §3.6.1 does not yield; §4.3.2's *root choice* does, and §4.3.2 now forbids a root that restates either half's own `action`. One premise of the conflict was false: §4.3.2 **recommends** its convention, it does not require it (§10.1.1 and `OBJECT_CLASS_INVESTIGATION.md` §11 both misstated this; corrected). Both halves restamped to `self_`/`third_party_regulatory_compliance`, both accept-sets widened monotonically. **F12 filed, not decided.** **DONE** | **NO — see the cassette correction below** | v0.45 re-validation |
 | **F4** | `C14-02` | §22.1's **deliberately-retained** non-conformance under the superseded §8.3.1 v0.23 rule. Revisit only if §22's forcing function (a second independent conforming instance) has arrived — **F2 and F3 are candidates, and whether either counts is itself part of this item** | yes | §22.1 |
 | **F5** | whole set | the **systematic accept-set breadth audit** (§3.6, v0.45), expanding F1 from three queued widenings. Carries §3.6's two hazards: monotone widening must not straddle a criterion-2 baseline, and every widening must be defensible from the span alone | mixed | §3.6, `OBJECT_CLASS_INVESTIGATION.md` Ruling 3 |
 | **F6** | `C06-01`, `C13-01`, `C14-01` | the **depth convention** (§3.6, v0.45) — annotator-predicate scope only, **and blocked on a precondition**: §9.4's missing anchor field means any depth rule is unverifiable after authoring. Decide the precondition before the rule | no | §3.6, Ruling 4 |
-| **F7** | `C04-02` | **RULED v0.47 — §8.4.2.** §8.4.1's open sub-question is closed with a decision procedure: §3.5.1's *"is the co-obligor also the obligee?"* test, gated on a duty-bearing modality. **Ruling recorded; restamp NOT applied.** Re-check across all 32 items: exactly one changes — `C04-02` **loses** `mutual_obligation` (obligee `ABSENT`, so the discrimination is undecidable at span scope, which is cold's own reasoning). `C17-01`/`C14-01`/`C14-02` keep it, `C13-03` stays untagged. **Remaining work: restamp `C04-02` at the freeze pass** | **yes** | §8.4.2; v0.46 §8 review |
-| **F8** | `E01-01` | **RULED v0.47 — §8.3.2.** §8.3 branch 3 applies on its letter; branch 2's "legal doublet" spirit is refused where no defensible mapping exists. **Ruling recorded; restamp NOT applied.** `E01-01` **gains `action_not_in_taxonomy`** (3 tags total). Re-check: `C03-02` unchanged (branch 1, `MAINTAIN` is a member); `C10-01` **open, see F11**. **Remaining work: restamp `E01-01` at the freeze pass** | **yes** | §8.3.2; v0.46 §8 review |
+| **F7** | `C04-02` | **EXECUTED v0.48.** Ruled v0.47 (§8.4.2); restamp applied here. `C04-02` loses `mutual_obligation` (obligee `ABSENT`, so the discrimination is undecidable at span scope). **MOVES §9's IN-FORCE DENOMINATOR 8 → 9** — its `known_gaps` is now empty, so it enters the criterion-2 denominator; see **§9.2**. **DONE** | **yes** (`C04-117`, 3 runs — now stale) | §8.4.2; v0.46 §8 review |
+| **F8** | `E01-01` | **EXECUTED v0.48.** Ruled v0.47 (§8.3.2); restamp applied here. **The row as originally written understated the work: `E01-01` carried only `exception_unsupported` — `compound_action` had never been applied to it either — so the restamp adds TWO tags, not one**, reaching the three §8.3.2 requires. **DONE** | **yes** (`E01-047`, 3 runs — now stale) | §8.3.2; v0.46 §8 review |
 | **F9** | whole set | **§8's tag vocabulary carries at least three different KINDS of thing under one flat set** — IR-representational gaps, corpus-text defects (`corpus_artifact_in_span`, which §8's own table says is *"not a v1 compiler gap"*), annotation-convention exceptions (`shared_subject_split`) and scoreability removals (`redacted_clause`) — and §9's `len(known_gaps) == 0` denominator treats all of them identically. Decide whether the vocabulary needs a `kind` axis before it gains more tags | mixed | v0.46 §8 tag-vocabulary review |
-| **F10** | n/a — reporting layer | **`report.py`'s `GAP_DIRECTION` classifies 4 of §8's 11 tags**; the other 7 report `UNCLASSIFIED`. §9.1 calls that inline overstating/incompleteness disclosure the mechanism that closes a **validity** failure, and it covers a minority of the vocabulary. **Filed separately on purpose and NOT part of the §8 review** (reviewer-directed, 2026-09-02): this is a reporting-layer coverage gap, not a tag-taxonomy question, and folding it in would let a `report.py` fix masquerade as a taxonomy ruling. Interacts with F9 — some unclassified tags may have no direction to assign rather than a missing one | no | v0.46; §9.1, `report.py` G6 |
-| **F11** | `C10-01` | **NEEDS ITS OWN RULING — not deferred silently, and not answerable by lookup.** The question, stated as the reviewer put it: **is `defend` conventionally distinct enough from `indemnify` that §8.8's `hold harmless`→`INDEMNIFY` mapping should NOT extend to it, or does the same defensible-mapping logic apply cleanly?** Opened by §8.3.2's re-check and explicitly **outside** the F8 ruling — the reviewer was not shown it when ruling. `C10-01`'s own notes state branch 3's raw condition (*"DEFEND and HOLD_HARMLESS are not taxonomy members at all"*), and `hold harmless` is already settled by §8.8's named mapping, so the item turns **entirely** on `defend`. **Not mappable** → `C10-01` gains `action_not_in_taxonomy`, becoming a second three-tag item; **mappable** → unchanged. Bears on the rule, not just the item: it is the first test of §8.3's v0.47 non-mappability limb against a verb §8.8 has not already ruled on | **yes** | §8.3.2's re-check |
+| **F10** | n/a — reporting layer | **PARTIALLY EXECUTED v0.48, scoped deliberately.** `action_not_in_taxonomy` is now classified **INCOMPLETENESS** — added in this batch *because* F8 and F11 apply that tag, so shipping them alone would have widened the gap while claiming to close a taxonomy one. **The remaining five live-use tags stay `UNCLASSIFIED` and `report.py` now names each and says why** (`corpus_artifact_in_span`, `shared_subject_split`, `redacted_value`, `within_preposition`, `relative_trigger_preposition`): each turns on **F9**'s `kind`-axis question, and assigning a direction now would be the very masquerade the reviewer filed F10 separately to prevent. **STILL OPEN for those five** | no | v0.46; §9.1, `report.py` G6 |
+| **F12** | whole set | **§3.6.1 tests the `action` SLOT VALUE only, not `action_accept_set`** — its v0.44 screen swept `action`, `obligor`, `obligee` and `obligor_accept_set`, and the action accept-set was never in it. The co-variance argument that makes §3.6.1 a *correction* runs through the accept-sets, since §5 clause 2 tests **membership**, not slot equality. **Measured at v0.48: exactly ONE instance across the 32, and it is the same item before and after F3** — `C04-04`'s old slot `self_compliant_use` restated its accept-set member `COMPLY` (via `compliant`) just as its new slot does (via `compliance`), so exposure was **1 → 1** and F3 inherited the hazard rather than creating it. **A first pass reported zero; that was a stemmer miss (`complyance` ≠ `compliance`), the third nominalisation miss by that screen in one session.** Decide whether §3.6.1 extends to accept-sets. Retroactive reach, so it is a rule change, not a screen fix | mixed | v0.48 F3 ruling; §3.6.1 |
+| **F11** | `C10-01` | **EXECUTED v0.48 — §8.8.2.** `defend` is ruled **NOT** defensibly mappable to `INDEMNIFY`, on corpus evidence: 33 sentences use it with no `indemnify`; `C03` disjoins *"failed to defend or indemnify"*; `C03` §(c) owes the defence *"whether or not … the allegations are meritorious"*; `C11` converts a failed defence duty into a payment duty. Branch 3 fires; `C10-01` restamped to three tags. `hold harmless`→`INDEMNIFY` untouched — **the two non-member verbs of one triplet land on opposite sides of the limb**, which is the first real exercise of §8.3's v0.47 non-mappability test. **DONE** | **NO — see the cassette correction below** | §8.3.2's re-check |
 
-**Ordering note.** F3 is the only entry that is both cassette-backed and a *rule* conflict rather
-than an item fix, so it is the one whose resolution can stale cassettes; F2 and F6 are free.
-**F3, F7, F8 and F11 form one cassette-backed freeze-pass batch** — their items (`C04-139`,
-`C04-117`, `E01-047`, `C10-016`) restamp on any outcome that changes a field or a tag, so §22's
-blocker attaches to each and they are worked together rather than one at a time. **F9 and F10 are
-free** (no cassette), as are F2 and F6.
+**Ordering note — SUPERSEDED v0.48, and its factual error is corrected below rather than edited
+away.** It read: *"F3 is the only entry that is both cassette-backed and a rule conflict rather
+than an item fix… F3, F7, F8 and F11 form one cassette-backed freeze-pass batch — their items
+(`C04-139`, `C04-117`, `E01-047`, `C10-016`) restamp on any outcome that changes a field or a tag,
+so §22's blocker attaches to each."* **Two of those four segments were never recorded.** It also
+correctly noted that F7 and F8 were RULED (v0.47) with only the restamp outstanding while F3 and
+F11 were not ruled at all — that distinction was right, and all four are now ruled and executed.
 
-**Ruled status differs inside that batch and the table says which is which, because "same batch"
-is not "same state".** **F7 and F8 are RULED (v0.47) with only the restamp outstanding** — the
-decision is made and recorded in §8.4.2 and §8.3.2. **F3 and F11 are NOT ruled**: F3 needs a
-decision on which of §3.6.1 / §4.3.2 yields, F11 on whether `defend` is defensibly `INDEMNIFY`.
-Reading the batch as uniformly settled would be exactly the error §10.1 exists to prevent.
+#### CASSETTE-BACKED TABLE CORRECTION (v0.48) — checked against the directory, not against this table
+
+`apps/brain/evals/cassettes/gold/` holds **12 segments**: `C02-021`, `C03-192`, `C04-087`,
+`C04-117`, `C11-094`, `C14-076`, `C17-021`, `C17-066`, `C22-048`, `E01-047`, `E03-005`, `E07-010`.
+These are **exactly the 12 segments of the 18 v0.28 batch-1/batch-2 items**. **No batch-3 item has
+a cassette.**
+
+| entry | item(s) | segment | table said | actually |
+| :--- | :--- | :--- | :--- | :--- |
+| **F3** | `C04-04`, `C04-05` | `C04-139` | cassette-backed **yes** | **NO** — never recorded |
+| **F7** | `C04-02` | `C04-117` | yes | **yes** ✓ |
+| **F8** | `E01-01` | `E01-047` | yes | **yes** ✓ |
+| **F11** | `C10-01` | `C10-016` | cassette-backed **yes** | **NO** — never recorded |
+
+**This table contradicted a live rule section for two versions.** §3.6.1's own v0.44 text already
+says, in terms, *"For `C10-01` and `C10-02` there is no prediction in existence — `C10-016` was
+never recorded."* The queue was written from the session record rather than from the artifact, and
+the artifact was right. **Consequence for how the batch was executed: §22's conforming blocker
+attaches to F7 and F8 ONLY.** F3 and F11 were free — the same footing as F2 and F6 — and were run
+first for that reason, so that the two genuinely blocked entries were the only ones staling
+anything.
+
+**A general lesson worth more than the correction, and it is Standing Principle 7's shape applied
+to a document rather than to a detector.** §10.1 exists because *"it is mentioned somewhere"* is
+not tracking — and this table, the fix for that, then carried a wrong fact about its own items for
+two versions because nobody listed the directory. **Whenever a queue row asserts a property of an
+artifact (`cassette-backed?`, run counts, stamps), that property is re-derived from the artifact at
+execution time, never trusted from the row.** Both corrections in this batch — this one and F8's
+two-tags-not-one — were found that way and by no other means.
+
+**Execution order used (v0.48): F3 → F11 (free) → F8 → F7 (cassette-backed).** F10's
+`action_not_in_taxonomy` classification landed with F8/F11 rather than after them, so that the two
+rulings applying that tag never shipped into an unclassified reporting slot.
 
 **Why F7–F10 exist as queue entries at all (added v0.46).** The §8 tag-vocabulary review was
 triggered by `GAP_AGREEMENT_DESIGN.md` §4's `G = 6/31 → REDESIGN` band. **That trigger no longer
@@ -3678,6 +4020,42 @@ screen's stated limitation is real and should not be relied on for the freeze pa
 
 **Do not resolve this outside the freeze pass.** `C04-139` **is** cassette-backed, so an item
 change here is a conforming event with §22's blocker attached.
+
+#### RESOLVED v0.48 — ruled as option 2, with option 3 subsumed; and TWO factual errors above are corrected
+
+**Ruling: §3.6.1 does not yield. §4.3.2's root choice does.** The amendment, both restamps and the
+full reasoning live in **§4.3.2**, because what changed is that section's naming convention and
+not §3.6.1. In short: §3.6.1 is a categorical correction of an *instrument* defect and stays
+categorical — option 1 was refused because exempting the split half would bless the double-scoring
+rather than remove it, and §3.4's history with named exceptions is on record. Option 3 is
+subsumed: this section already observed that option 2 *"leaves `C04-04` needing a restamp anyway."*
+
+**Error 1 — §4.3.2 does not *require* the shared root; it RECOMMENDS it.** The paragraph above
+says *"§4.3.2 (v0.37) **requires** the `self_` / `third_party_` prefixes over a **shared root**"*.
+§4.3.2's own heading reads *RECOMMENDED, not mandatory*, and its closing sentence repeats it.
+`OBJECT_CLASS_INVESTIGATION.md` §11 carries the identical misstatement. **A recommendation cannot
+contradict a categorical rule — it yields by construction — so the conflict was never between two
+mandates**, but between §3.6.1 and one *root choice*. The substance survived the correction; the
+framing did not.
+
+**Error 2 — the option costs were stated against a false premise about cassettes.** *"`C04-139` is
+cassette-backed"* is **wrong**: the segment was never recorded (see the cassette-backed table
+correction in §10.1). F3 was therefore free, and was executed before the two genuinely
+cassette-backed entries for exactly that reason.
+
+**The asymmetry argument above is CONFIRMED, not weakened, and the class stays real at one
+member.** A screen over all 32 locked items — validated against 12 known answers first, and
+corrected twice before it was trusted — finds `C04-04` to be the **only** §3.6.1 slot violation in
+the set. But the set's *other* live §4.3.2 application very nearly reproduced it: `C22-02` reduces
+to one item only because §3.2.1 excludes its self-performance half, and `GRANT` **is** a taxonomy
+verb, so had that half survived, `self_…_grant` / `third_party_…_grant` would have collided
+identically. Filed as a rule, on one instance, for that reason.
+
+**And a finding that made the ruling cheap.** `C22-02` was annotated at `v0.38` — *after* the v0.37
+convention — with **no prefix, no shared root, and no citation of the convention at all** — and is
+`reviewer_status: APPROVED`. The one other application of §4.3.2 declined its naming convention
+outright and passed review. That is direct evidence the convention is optional in practice, which
+is what a ruling making it yield needs.
 
 ---
 

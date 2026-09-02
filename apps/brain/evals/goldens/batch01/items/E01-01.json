@@ -30,6 +30,8 @@
   "vague_temporal_phrase": null,
   "redacted_phrase": null,
   "known_gaps": [
+    "compound_action",
+    "action_not_in_taxonomy",
     "exception_unsupported"
   ],
   "annotator_confidence": "AMBIGUOUS",
@@ -40,13 +42,15 @@
     "3.4",
     "3.5",
     "3.5.1",
-    "3.9",
     "3.8.1",
+    "3.9",
     "8.2",
+    "8.3",
+    "8.8",
     "14.3"
   ],
-  "guideline_version": "v0.28",
-  "annotator_notes": "Carve-out recorded verbatim per section 8.2: 'unless such waiver, amendment, supplement or modification is in writing and signed by the authorized representative of each Party.' As annotated the obligation is deliberately STRONGER than the contract's -- a flat prohibition where the document permits waiver in signed writing. Three judgment calls, reviewer-approved: (1) 'waived, amended, supplemented or modified' read as ONE obligation with a compound near-synonymous action, not 4 chained obligations, so section 2's 4+ exclusion does not fire; only WAIVE exists in the 34-verb taxonomy. (2) span_text includes the unless clause though the fields encode the carve-out-free reading. (3) obligor 'any Party' is generic and will also return UNRESOLVED_PARTY from typecheck(), so this item exercises two gaps at once.",
+  "guideline_version": "v0.48",
+  "annotator_notes": "Carve-out recorded verbatim per section 8.2: 'unless such waiver, amendment, supplement or modification is in writing and signed by the authorized representative of each Party.' As annotated the obligation is deliberately STRONGER than the contract's -- a flat prohibition where the document permits waiver in signed writing. Three judgment calls, reviewer-approved: (1) 'waived, amended, supplemented or modified' read as ONE obligation with a compound near-synonymous action, not 4 chained obligations, so section 2's 4+ exclusion does not fire; only WAIVE exists in the 34-verb taxonomy. (2) span_text includes the unless clause though the fields encode the carve-out-free reading. (3) obligor 'any Party' is generic and will also return UNRESOLVED_PARTY from typecheck(), so this item exercises two gaps at once.\n\nRESTAMPED AT GUIDELINE v0.48 (section 10.1 F8, ruled at section 8.3.2 in v0.47; the restamp was deliberately deferred to this freeze-pass batch). GAINS TWO TAGS, NOT ONE -- this item carried only ['exception_unsupported'] and now carries all THREE that section 8.3.2 requires: compound_action, action_not_in_taxonomy, exception_unsupported. Section 10.1's F8 row said 'gains action_not_in_taxonomy (3 tags total)'; the parenthetical total was right and the verb phrase was incomplete, because compound_action had never been applied to this item either. Both are added, and the discrepancy is recorded rather than quietly reconciled. THE RULING: the span reads 'No provisions of this Agreement shall be deemed WAIVED, AMENDED, SUPPLEMENTED OR MODIFIED by any Party hereto'. WAIVE is a taxonomy member; AMEND, SUPPLEMENT and MODIFY are not, verified against compiler/ast.py's real ACTIONS, and none is defensibly mappable to WAIVE -- amending a provision and waiving one are different legal acts. Section 8.3 branch 3 therefore applies on its letter: a dropped verb outside the taxonomy entirely is genuinely lost, so BOTH compound_action (the verb bundle IR v1's single action field cannot hold) and action_not_in_taxonomy (the dropped verbs have no home in the 34-verb list) fire; section 8.3's own branch 3 says both apply and that section 9's per-tag counts are non-summable. Branch 2's SPIRIT was genuinely arguable -- both annotators independently described the chain as one act-type -- and was REJECTED because branch 2 states that intuition as a mechanical mapping test, and extending it to a 'feels like a legal doublet' judgment would trade a checkable boundary for an unfalsifiable one. SECTION 9 DENOMINATOR: unaffected -- this item already carried exception_unsupported, so len(known_gaps) was already non-zero. CASSETTE: segment E01-047 IS recorded (3 runs), so this restamp is a genuine section 22 conforming event and those cassettes go stale on the guideline_version staleness dimension. Accepted deliberately as part of the freeze-pass batch, not discovered afterwards. Original v0.28 annotation preserved above unedited.",
   "reviewer_status": "APPROVED",
   "obligor_accept_set": []
 }
