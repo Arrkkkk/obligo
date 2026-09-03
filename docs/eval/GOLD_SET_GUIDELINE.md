@@ -1,6 +1,6 @@
 # Obligo Tier-2 Gold Set — Annotation Guideline
 
-**Version:** v0.48 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**. **v0.33 puts §9's dual denominator IN FORCE** on two independent grounds, adds §5 clause 5's number rule, §3.4's bounded freeze-pass exception, and the forward authoring rules §3.6 / §3.8.2 / §3.5.1 — **no annotation rule changed, no item restamped, no cassette stale**. **v0.34 records two MEASUREMENT corrections and changes no rule either** — §8.9's `on`/`until` rows and §15.3's loud-versus-silent class placement, both falsified by real model output from the compile-stage bottleneck investigation. **v0.35 adds §4.3.2** — a third splitting shape distinct from both existing §4.3 worked examples, reviewer-ruled at batch 3's `C04-139`: self-performance vs. a duty to bind/control a third party's conduct splits into two items even when the two verbs share an object phrase and a sentence subject, because the two performances do not share an actor. **v0.36 amends §4.2** — the resulting byte-identical spans (`C04-139`'s shared trailing object leaves neither item's minimal span shorter than the other's) break IoU's ability to discriminate between the two gold items, so a content-based tie-break on `action_accept_set` membership is added, falling through to ascending `item_id` when the tie-break itself is inconclusive. **v0.37 adds a
+**Version:** v0.49 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**. **v0.33 puts §9's dual denominator IN FORCE** on two independent grounds, adds §5 clause 5's number rule, §3.4's bounded freeze-pass exception, and the forward authoring rules §3.6 / §3.8.2 / §3.5.1 — **no annotation rule changed, no item restamped, no cassette stale**. **v0.34 records two MEASUREMENT corrections and changes no rule either** — §8.9's `on`/`until` rows and §15.3's loud-versus-silent class placement, both falsified by real model output from the compile-stage bottleneck investigation. **v0.35 adds §4.3.2** — a third splitting shape distinct from both existing §4.3 worked examples, reviewer-ruled at batch 3's `C04-139`: self-performance vs. a duty to bind/control a third party's conduct splits into two items even when the two verbs share an object phrase and a sentence subject, because the two performances do not share an actor. **v0.36 amends §4.2** — the resulting byte-identical spans (`C04-139`'s shared trailing object leaves neither item's minimal span shorter than the other's) break IoU's ability to discriminate between the two gold items, so a content-based tie-break on `action_accept_set` membership is added, falling through to ascending `item_id` when the tie-break itself is inconclusive. **v0.37 adds a
 recommended `object_class` naming convention to §4.3.2** — `self_` / `third_party_` prefixes over
 a shared root, so future flow-down splits land on visibly parallel labels rather than an
 unrelated pair invented fresh each time. **v0.38 adds §3.2.1** — present-tense self-executing
@@ -661,6 +661,38 @@ CORRECTED against the directory**: `C04-139` and `C10-016` were **never recorded
 were free and were executed first; **§22's blocker attached to F7 and F8 only**, and the three
 `C04-117` and three `E01-047` cassettes are now stale by design. **Cassettes stale: 6 of 36, in 2
 of 12 segments. Items restamped: 5 of 32.**
+
+**v0.49 change: §9.2's `? / 9` RESOLVES to `3/9 = 33.3%` — a MEASUREMENT entry, no rule
+changed, no item restamped (`C04-02` keeps the `v0.48` stamp F7 already gave it).** The narrow
+path was taken deliberately, not the full §10 conform: `C04-117` alone was re-recorded live
+(3 runs, 4 model calls, `openai/gpt-oss-120b`, prompt `v3`, guideline `v0.48`) — the one
+cassette F7's restamp required, and mandatory regardless of path since it carries `C04-02`
+itself. Scored by pure replay against the fresh recordings: `C04-02`'s three runs are
+`PARTIAL`, `MISSED`, `MISSED` — three genuinely different failures (run 1 fails the `obligee`
+clause; run 2 extracts nothing at this segment; run 3's best candidate is IoU 0.25, below the
+0.5 alignment threshold) — so the modal outcome is `MISSED` and no run reaches `FULLY_CORRECT`.
+**The numerator holds at 3. In-force criterion 2 is `3/9 = 33.3%`. Do not quote `4/9 = 44.4%`
+— that branch is now closed, not merely undecided.**
+
+**CAVEAT, stated inline rather than left implicit — same footing as `C14-02`'s §22.1
+non-conformance.** This figure is measured over a population that is still guideline-mixed:
+the 18-item cassette-covered set carries `v0.28×16` / `v0.48×2` (`C04-02`, `E01-01`). The full
+§10 conforming pass — restamping the remaining 16 items and re-recording all 12 segments,
+~35 cassettes — was deliberately **not** run; it was weighed against the narrow path and
+rejected for this session on the ground that F5/F6/F9/F12 (§10.1) are real open design
+questions a recording session should not rush to close just to earn a single-stamp
+denominator, and F6 is structurally blocked regardless (§9.4's missing anchor field). `3/9` is
+therefore an in-force figure computed over a genuinely mixed-stamp scoreable set, not the
+uncaveated single-stamp number full conforming would produce — recorded here so it is never
+read as the latter.
+
+**A structural side effect of this same re-recording, disclosed on its own footing rather than
+folded into the caveat above — see §22.3.** Restamping `C04-117`'s cassette to serve `C04-02`
+(`v0.48`) made it newly stale against its own sibling `C04-01` (`v0.28`, same segment,
+unrestamped) — cassette staleness did not disappear, it moved from one item sharing the
+segment to the other. Costless to criterion 2 today (`C04-01` was never in its denominator),
+but a real, general property of a single-`guideline_version`-per-cassette scheme worth its own
+citable record.
 
 ## 1. What a gold item is
 
@@ -3830,15 +3862,20 @@ item **enters** it.
 | | before v0.48 | after v0.48 |
 | :--- | :--- | :--- |
 | in-force denominator (over `run_scoring`'s single-stamp v0.28 set) | **8** | **9** |
-| in-force criterion 2 | `3/8 = 37.5%` | **`3/9 = 33.3%`** if `C04-02` does not itself score `FULLY_CORRECT`; **`4/9 = 44.4%`** if it does |
+| in-force criterion 2 | `3/8 = 37.5%` | **`3/9 = 33.3%` — RESOLVED v0.49** |
 
-**The denominator is asserted; the numerator is not.** The 8 → 9 move is arithmetic over the
-locked items and was computed, not estimated: the clean items were `C03-01`, `C03-03`, `C11-01`,
-`C22-01`, `E07-01`, `C02-01`, `C02-02`, `C02-03`, and `C04-02` joins them. Which of the two
-resulting figures is correct is a **scorer output**, and no scoring run has been made against the
-restamped items — nor can one be until the cassettes F7 and F8 staled are re-recorded. **Do not
-quote `3/8 = 37.5%` anywhere after v0.48.** It is superseded, and quoting it would understate the
-denominator of the very criterion §21 grades this phase on.
+**RESOLVED v0.49.** `C04-117` was re-recorded live (the narrow §10.1-precondition-2 path, not a
+full §10 conform — see the v0.49 changelog entry above) and scored by pure replay: `C04-02`'s
+three runs are `PARTIAL`/`MISSED`/`MISSED`, modal `MISSED`, never `FULLY_CORRECT` on any run.
+**The numerator holds at 3. In-force criterion 2 is `3/9 = 33.3%`; `4/9 = 44.4%` is closed, not
+merely undecided.** The 8 → 9 move itself is arithmetic over the locked items and was computed,
+not estimated: the clean items were `C03-01`, `C03-03`, `C11-01`, `C22-01`, `E07-01`, `C02-01`,
+`C02-02`, `C02-03`, and `C04-02` joins them. **Do not quote `3/8 = 37.5%` anywhere after v0.48** —
+it understates the denominator of the very criterion §21 grades this phase on — **and do not
+quote `4/9 = 44.4%`** — that branch is now measured shut, not open. This figure still carries the
+mixed-stamp caveat stated in the v0.49 changelog entry: it is computed over a genuinely
+guideline-mixed 18-item set (`v0.28×16`/`v0.48×2`), not the single-stamp population a full §10
+conform would produce.
 
 **Direction of the change, stated so it is not read as bad news or good.** The denominator grew
 because an item stopped claiming a v1 gap it could not demonstrate — the instrument got *more*
@@ -3921,7 +3958,7 @@ freeze pass is added here, or it is not deferred, it is dropped.**
 | **F4** | `C14-02` | §22.1's **deliberately-retained** non-conformance under the superseded §8.3.1 v0.23 rule. Revisit only if §22's forcing function (a second independent conforming instance) has arrived — **F2 and F3 are candidates, and whether either counts is itself part of this item** | yes | §22.1 |
 | **F5** | whole set | the **systematic accept-set breadth audit** (§3.6, v0.45), expanding F1 from three queued widenings. Carries §3.6's two hazards: monotone widening must not straddle a criterion-2 baseline, and every widening must be defensible from the span alone | mixed | §3.6, `OBJECT_CLASS_INVESTIGATION.md` Ruling 3 |
 | **F6** | `C06-01`, `C13-01`, `C14-01` | the **depth convention** (§3.6, v0.45) — annotator-predicate scope only, **and blocked on a precondition**: §9.4's missing anchor field means any depth rule is unverifiable after authoring. Decide the precondition before the rule | no | §3.6, Ruling 4 |
-| **F7** | `C04-02` | **EXECUTED v0.48.** Ruled v0.47 (§8.4.2); restamp applied here. `C04-02` loses `mutual_obligation` (obligee `ABSENT`, so the discrimination is undecidable at span scope). **MOVES §9's IN-FORCE DENOMINATOR 8 → 9** — its `known_gaps` is now empty, so it enters the criterion-2 denominator; see **§9.2**. **DONE** | **yes** (`C04-117`, 3 runs — now stale) | §8.4.2; v0.46 §8 review |
+| **F7** | `C04-02` | **EXECUTED v0.48, RE-RECORDED AND SCORED v0.49.** Ruled v0.47 (§8.4.2); restamp applied at v0.48. `C04-02` loses `mutual_obligation` (obligee `ABSENT`, so the discrimination is undecidable at span scope). **MOVES §9's IN-FORCE DENOMINATOR 8 → 9** — its `known_gaps` is now empty, so it enters the criterion-2 denominator; see **§9.2**. `C04-117` re-recorded live at v0.49 (3 runs, 4 calls) and scored: `C04-02` modal `MISSED` (`PARTIAL`/`MISSED`/`MISSED`), never `FULLY_CORRECT`. **Numerator resolved at 3 — criterion 2 is `3/9 = 33.3%`. DONE, fully closed.** | **yes** (`C04-117`, 3 runs — re-recorded v0.49, now stale against `C04-01` instead; see §22.3) | §8.4.2; v0.46 §8 review |
 | **F8** | `E01-01` | **EXECUTED v0.48.** Ruled v0.47 (§8.3.2); restamp applied here. **The row as originally written understated the work: `E01-01` carried only `exception_unsupported` — `compound_action` had never been applied to it either — so the restamp adds TWO tags, not one**, reaching the three §8.3.2 requires. **DONE** | **yes** (`E01-047`, 3 runs — now stale) | §8.3.2; v0.46 §8 review |
 | **F9** | whole set | **§8's tag vocabulary carries at least three different KINDS of thing under one flat set** — IR-representational gaps, corpus-text defects (`corpus_artifact_in_span`, which §8's own table says is *"not a v1 compiler gap"*), annotation-convention exceptions (`shared_subject_split`) and scoreability removals (`redacted_clause`) — and §9's `len(known_gaps) == 0` denominator treats all of them identically. Decide whether the vocabulary needs a `kind` axis before it gains more tags | mixed | v0.46 §8 tag-vocabulary review |
 | **F10** | n/a — reporting layer | **PARTIALLY EXECUTED v0.48, scoped deliberately.** `action_not_in_taxonomy` is now classified **INCOMPLETENESS** — added in this batch *because* F8 and F11 apply that tag, so shipping them alone would have widened the gap while claiming to close a taxonomy one. **The remaining five live-use tags stay `UNCLASSIFIED` and `report.py` now names each and says why** (`corpus_artifact_in_span`, `shared_subject_split`, `redacted_value`, `within_preposition`, `relative_trigger_preposition`): each turns on **F9**'s `kind`-axis question, and assigning a direction now would be the very masquerade the reviewer filed F10 separately to prevent. **STILL OPEN for those five** | no | v0.46; §9.1, `report.py` G6 |
@@ -5640,3 +5677,34 @@ only guessable now.**
 actually on the table. Nothing in v0.33 is blocked by leaving this open: every v0.33 change is
 forward-only or comparison-only, restamps nothing, and the three queued items keep scoring as
 failures in the meantime — a stated understatement, which §9's inline disclosure reports.
+
+### 22.3 Invariant B's real cost, measured for the first time (v0.49): staleness does not
+disappear when a shared-segment item is restamped, it moves to the sibling
+
+§22's invariant B was argued in the abstract — restamping an item invalidates its cassette,
+demanding a live re-record. The v0.49 `C04-117` re-record (§10.1 F7's resolution, §9.2) is the
+first time that cost was actually paid on a segment two gold items share, and it surfaced a
+sharper shape than the abstract argument states.
+
+`C04-117` backs **two** locked items, `C04-01` (stays `v0.28`) and `C04-02` (restamped `v0.48`
+at the freeze pass, §10.1 F7). One cassette, one `guideline_version` field, two items with
+different stamps sharing it — `Cassette.verify()` can only agree with one of them at a time.
+Before this session, the cassette was recorded at `v0.28`: valid for `C04-01`, stale against
+`C04-02`. Re-recording it at `v0.48` to unblock `C04-02`'s criterion-2 score flips this exactly:
+now valid for `C04-02`, stale against `C04-01`. **The cassette did not go from stale to clean —
+it went from stale-for-one-sibling to stale-for-the-other.** Nothing was gained for `C04-01`,
+and nothing was lost for it either, beyond what was already true of the pre-v0.49 state read
+the other way.
+
+**Why this is worth a citable record of its own, separate from the v0.49 changelog entry that
+disclosed it inline.** It is a **general property of a single-`guideline_version`-per-cassette
+scheme**, not a fact about `C04-117` specifically: any segment backing two-or-more items whose
+restamp history diverges will exhibit it, and the next occurrence should be recognised as an
+instance of this rather than re-derived. It also sharpens §22's own framing — the abstract
+argument treats "restamping invalidates the cassette" as if there is a clean before/after; the
+real mechanism, now measured, is a **transfer of validity between the items that share the
+recording**, not a simple gain or loss. `C04-01` is unaffected in practice today only because it
+was never in criterion 2's denominator to begin with (its `known_gaps` question was never at
+issue) — a future segment shared by two denominator-relevant items would make this transfer
+directly costly rather than incidental, which is the case this record exists to make findable
+before it happens.
