@@ -429,4 +429,69 @@ clean two-way rule boundary — and none of the three is a prerequisite for any 
 
 ## 11. Ruling log
 
-*Empty. Nothing in this note has been ruled. Decisions 1–4 are open as of 2026-09-03.*
+**Decision 1 — RULED 2026-09-04: ADOPT, forward AND retrofit; reconciliation is a HARD REVIEW
+FAILURE.** Written into the guideline as **§2.7** at **v0.50**. Decisions 2, 3 and 4 remain
+**open** and were not compressed to fit inside this ruling, per §9.
+
+**What was measured before ruling, since §8 scoped the decision without pricing it.**
+
+| | §8's framing | measured |
+| :--- | :--- | :--- |
+| cost per segment | *"materially more work"*, anchored on batch01's 3.12 mean density | **0.37–0.67 dispositions/segment** pool-weighted; **0.00 for a single-modal-sentence segment (n=9, all nine)**, and §2.6.1's pool is **57.8%** such segments |
+| observed batch series | — | batch01 **1.88** → batch02 **1.00** → batch03 **0.20** |
+| zero-extra segments | — | **11 of 22** |
+| retrofit size | — | **39 spans** over 22 segments (21 modal-bearing + 18 non-modal); **13 of the 18 are headings / corpus artifacts**, disposable as one class entry |
+| already-recorded fraction | §6.3's **~11%** (1 of 9 surplus clauses) | **10 of 21 (48%)** carry a genuine disposition; 1 more a classification without one — §6.3's denominator is the *surplus*, selected for disagreement, not the population §2.7 reaches |
+| benefit | R6's over-count *"can only shrink"*, size unknown until §6.2 | **19 of 24 `UNEXPECTED` retired (79%)** — `COLD_ONLY` 12/13, `NEITHER` 7/11 |
+| cassette exposure | — | **none.** `not_annotatable` lives outside `Cassette.verify()`'s stamp comparison; **no item restamped, no cassette staled**, so §22's blocker is not engaged |
+
+**Two premises this note stated were corrected while ruling, and both are recorded rather than
+silently fixed.**
+
+1. **`C11-094` and `C17-021` are NOT §2 band violations.** Both sit exactly **at** the 1-3
+   band's ceiling — 3 obligation-bearing clauses each (`C11-094`: s2 duty, s5 duty, s6 right,
+   with s3/s4 `shall be subject to` status; `C17-021`: s2 mutual counted as one clause under
+   §8.4, s3 splitting two) — and both were correctly eligible. §8's *"a required clause count
+   would have caught"* is right and never claimed a breach; what the count catches is the
+   **3-versus-1 arithmetic**. This is a **stronger** argument for §2.7 than a breach would have
+   been: the clause count is already performed implicitly on every segment to admit it, and is
+   then discarded.
+2. **§6.3's ~89%-fresh cost figure does not transfer to decision 1.** It is correct for what it
+   measured — the 9 surplus clauses — but that subsample is selected *for annotator
+   disagreement*, which correlates with absence of record. Over the 21 sentences §2.7 actually
+   reaches, roughly half already have prose. §6.3 stands; it is the wrong denominator here.
+
+**A design fault caught by the measurement and fixed in the rule text before adoption.** The
+trigger **cannot** be modal-keyed: `C04-117`'s *"Miltenyi… **reserves the right to defer**…"* —
+surplus clause **#1**, the §2.5 case — matches none of `shall|must|will|may|should`, so a rule
+scoped to modal-bearing sentences would silently drop exactly the class §2.5 exists for.
+Standing Principle 7's shape, reached inside a proposed rule rather than inside a script. §2.7's
+unit is therefore **every sentence**, at a measured cost of +18 spans over the 22 drawn
+segments, 13 of them one-line class entries.
+
+**The strongest single argument for making the practice mandatory was already in the data.**
+9 of 32 locked items across **8 of 22 segments** state an explicit clause count unprompted
+(`C14-04`, `C03-02`, `E03-01`, `C13-01`, `E08-01`, `C06-01`, `C05-01`, `E01-01`). Of the six
+segments carrying surplus clauses, **the only two that recorded a clause count — `E03-005` and
+`E08-005` — are exactly the two whose surplus clauses have any recorded disposition at all**
+(§3's #8 and #9). On n=6 that is a measured alignment, not a proven mechanism, and it is
+recorded as such — but it is §2.7's own mechanism, observed working wherever it was applied
+voluntarily.
+
+**Known limit carried forward, not buried.** §2.7 reaches **sentence** granularity only. The
+residual **5** of the 24 are sub-sentence spans inside sentences that already carry a gold item,
+where the model split differently within covered text (`C02-021` *"Such retained samples shall
+minimally represent…"*, `C04-117` *"reserves the right to defer"* as a candidate against
+`C04-01`'s covered sentence and *"the Parties will negotiate in good faith…"*, `C22-048` *"Each
+party giving any notice…"*). **R6's caveat is narrowed, not retired, and must keep travelling
+with every published `UNEXPECTED` figure.**
+
+**Reproduction.** Every number in this log comes from `splitting/disposition_cost.py`, which
+asserts `counts.py`'s 32/22/6 and `unexpected.py`'s 46/13/11/11 before reading any new figure,
+and which corrected two of its own detectors under Standing Principle 7 during the run: the
+arithmetic proxy `modal − gold` **undercounts** (21, not 20 — `C14-076` carries two gold items
+inside one sentence), and two apparent `exclusions.json` dispositions for `E03-005` were
+**false positives** matching quoted context inside `#discuss`'s own `segment_text` field rather
+than any disposition.
+
+*Decisions 2, 3 and 4 remain open as of 2026-09-04.*

@@ -1,6 +1,6 @@
 # Obligo Tier-2 Gold Set — Annotation Guideline
 
-**Version:** v0.49 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**. **v0.33 puts §9's dual denominator IN FORCE** on two independent grounds, adds §5 clause 5's number rule, §3.4's bounded freeze-pass exception, and the forward authoring rules §3.6 / §3.8.2 / §3.5.1 — **no annotation rule changed, no item restamped, no cassette stale**. **v0.34 records two MEASUREMENT corrections and changes no rule either** — §8.9's `on`/`until` rows and §15.3's loud-versus-silent class placement, both falsified by real model output from the compile-stage bottleneck investigation. **v0.35 adds §4.3.2** — a third splitting shape distinct from both existing §4.3 worked examples, reviewer-ruled at batch 3's `C04-139`: self-performance vs. a duty to bind/control a third party's conduct splits into two items even when the two verbs share an object phrase and a sentence subject, because the two performances do not share an actor. **v0.36 amends §4.2** — the resulting byte-identical spans (`C04-139`'s shared trailing object leaves neither item's minimal span shorter than the other's) break IoU's ability to discriminate between the two gold items, so a content-based tie-break on `action_accept_set` membership is added, falling through to ascending `item_id` when the tie-break itself is inconclusive. **v0.37 adds a
+**Version:** v0.50 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**. **v0.33 puts §9's dual denominator IN FORCE** on two independent grounds, adds §5 clause 5's number rule, §3.4's bounded freeze-pass exception, and the forward authoring rules §3.6 / §3.8.2 / §3.5.1 — **no annotation rule changed, no item restamped, no cassette stale**. **v0.34 records two MEASUREMENT corrections and changes no rule either** — §8.9's `on`/`until` rows and §15.3's loud-versus-silent class placement, both falsified by real model output from the compile-stage bottleneck investigation. **v0.35 adds §4.3.2** — a third splitting shape distinct from both existing §4.3 worked examples, reviewer-ruled at batch 3's `C04-139`: self-performance vs. a duty to bind/control a third party's conduct splits into two items even when the two verbs share an object phrase and a sentence subject, because the two performances do not share an actor. **v0.36 amends §4.2** — the resulting byte-identical spans (`C04-139`'s shared trailing object leaves neither item's minimal span shorter than the other's) break IoU's ability to discriminate between the two gold items, so a content-based tie-break on `action_accept_set` membership is added, falling through to ascending `item_id` when the tie-break itself is inconclusive. **v0.37 adds a
 recommended `object_class` naming convention to §4.3.2** — `self_` / `third_party_` prefixes over
 a shared root, so future flow-down splits land on visibly parallel labels rather than an
 unrelated pair invented fresh each time. **v0.38 adds §3.2.1** — present-tense self-executing
@@ -694,6 +694,48 @@ segment to the other. Costless to criterion 2 today (`C04-01` was never in its d
 but a real, general property of a single-`guideline_version`-per-cassette scheme worth its own
 citable record.
 
+**v0.50 change: §2.7 is ADDED — REDESIGN scope item 4, decision 1, RULED (adopt; forward AND
+retrofit; reconciliation is a hard review failure).** A kept segment now requires a disposition
+for **every sentence in it**, not only the sentences that become items. **No existing rule is
+changed, no item is restamped, and no cassette is staled** — the data lives in
+`goldens/batchNN/segments/<segment_id>.json`, the shape §21 R6 already decided and
+`run_scoring.load_not_annotatable()` already reads, and `Cassette.verify()` compares the
+*items'* stamp, which this file does not carry. **§2.7 therefore does not engage §22's
+conforming blocker**, which distinguishes it from decisions 2 and 3 of the same investigation,
+both still open.
+
+**Ruled on measurement, not on principle, and two of the measurements moved the trade.**
+**(1)** The forward cost is **0.37–0.67 dispositions per segment**, not the "materially more
+work per segment" the investigation's §8 estimated: conditioning on density gives **0.00**
+undisposed sentences for a single-modal-sentence segment (n=9, all nine), and §2.6.1's measured
+pool is **57.8%** such segments. The §8 estimate priced batch01's 3.12 mean density, which §5 of
+that same note flags as an unrepresentative draw; the observed series is 1.88 → 1.00 → **0.20**
+across batches 1–3. **(2)** The benefit is **19 of 24 currently-`UNEXPECTED` candidates retired
+(79%)**, measured across all 35 gold cassettes with the harness's own IoU rule — §21 R6's
+caveat is narrowed for the first time since it was written, though **not retired**: the residual
+5 are sub-sentence spans inside already-covered sentences, which §2.7 does not reach and says so.
+
+**Two premises corrected in the course of ruling, both recorded rather than quietly fixed.**
+**(a) `C11-094` and `C17-021` are NOT §2 band violations** — both sit exactly at the 1-3 band's
+ceiling at 3 obligation-bearing clauses and were correctly eligible. What a required clause count
+catches on them is the **3-versus-1 arithmetic**, not an eligibility failure; the investigation's
+§8 said "would have caught", never "breached", and neither may be cited as a band violation.
+**(b) §6.3's ~89%-fresh figure does not transfer**, because it was measured over the 9 surplus
+clauses — selected *for disagreement*, which correlates with absence of record — while §2.7
+reaches 21 sentences, of which **10 already carry a genuine disposition**. §6.3 stands for what
+it measured; it is the wrong denominator for this decision.
+
+**One design fault found by the measurement and fixed in the rule text before adoption:** the
+trigger **cannot** be modal-keyed. `C04-117`'s *"reserves the right to defer"* — surplus clause
+#1 and the §2.5 case — carries no modal verb, so a rule scoped to modal-bearing sentences would
+silently drop exactly the class §2.5 exists for. Standing Principle 7's shape, caught inside a
+proposed rule rather than inside a script.
+
+**Decisions 2, 3 and 4 of the same investigation are UNCHANGED and remain open.** §2.7 rules
+only decision 1, and deliberately does not dispose of `E03-005#discuss`, the two v0.28-era `MAY`
+clauses, or `C17-066` sentence 2 — each carries its own precedent weight and none is a
+prerequisite for another (investigation §9).
+
 ## 1. What a gold item is
 
 **One gold item = one obligation, as a human annotator reads it, located in one segment
@@ -895,6 +937,136 @@ the largest and least visible bias risk in the whole build (§13).
 4. Every segment rejected as ineligible is logged **with its verbatim text and the rule
    invoked**, and a random sample of rejections goes into the reviewer's batch packet —
    so an exclusion that was really a difficulty dodge is visible.
+
+### 2.7 Complete segment disposition (v0.50 — REVIEWER-RULED)
+
+**§2.1 step 4's bias safeguard is segment-level and has never reached inside a kept
+segment.** §2.6 moved the self-containment test to sentence granularity at v0.41 and did not
+move the logging requirement with it; §4.4 defines the `NOT_ANNOTATABLE` label and §21 R6
+defines its file format, but nothing obliged an annotator to record a sentence-level
+non-annotation inside a segment that was kept. The consequence is structural, not incidental:
+**the reviewer's rejection sample can only sample logged rejections**, so seven un-recorded
+omissions across six segments were never eligible to be reviewed, while every gold item on
+those same six segments is `APPROVED` or `RULED_BY_REVIEWER`. Approval of an item is not
+approval of a non-item. Measured in
+`evals/goldens/holdout/SPLITTING_EXCLUSION_INVESTIGATION.md` §3.
+
+**Rule.** For every segment admitted to the gold set, the drafter records a disposition for
+**every sentence in the segment**, not only those that become items. A segment's annotation is
+**incomplete** — returned in review on the same standing as a missing field (§14.5) — until its
+dispositions account for all of its sentences.
+
+**The unit is the sentence, not the modal-bearing sentence, and this is load-bearing rather
+than pedantic.** A rights-reservation, a copular status clause and an acknowledgment carry no
+modal verb at all. `C04-117`'s *"Miltenyi, acting reasonably, **reserves the right to defer**
+the inclusion of additional Miltenyi Products in Exhibit B hereto until the Parties have
+reached agreement on this matter"* — the §2.5 case, and one of the nine clauses that motivated
+this section — matches none of `shall|must|will|may|should`. **Any modal-keyed trigger silently
+drops exactly the class §2.5 exists for**, which is Standing Principle 7's shape reached inside
+a rule rather than inside a script.
+
+**A disposition minimally contains, and deliberately nothing more:**
+
+1. `span_char_start` / `span_char_end` / `span_text` — verbatim, per §2.1 step 4's own
+   "with its verbatim text" requirement and because the harness needs offsets;
+2. `disposition` — one of `ANNOTATED` (carrying `item_id`), `NOT_OBLIGATION_BEARING`,
+   `NOT_ANNOTATABLE` (§4.4), `EXCLUDED` (carrying `exclusion_log_id`);
+3. `rule` — the § actually invoked (§14.5);
+4. one sentence of reason.
+
+**A disposition is explicitly NOT a shadow gold item.** No `action`, no `object_class`, no
+accept-set, no `temporal`, no `underspecified`, no field-level adjudication. It answers *"why
+is this not an item, and under which rule"* — never *"what would it be if it were."* **This is
+the whole of the cost control**, and it is the specific point on which this section departs
+from the cost the investigation's §8 estimated: that estimate assumed a disposition would need
+*"the same per-item adjudication a gold item gets,"* and it does not.
+
+**Bulk disposition is permitted for a named class.** Section headings, orphan list fragments
+(§2.6), and corpus artifacts (§8.7) may be disposed as a single entry citing one rule and
+enumerating the spans it covers. Measured over the 22 drawn segments: 13 of the 18 non-modal
+sentences fall into exactly such classes.
+
+**Segment-level reconciliation — REVIEWER-RULED as a HARD REVIEW FAILURE.** Each segment file
+states `sentences_total`, `obligation_bearing_clauses`, and `items_annotated`, and asserts they
+reconcile. A segment whose obligation-bearing clause count exceeds its item count by more than
+its dispositions explain is **returned in review**, not merely noted. This is the mechanical
+half of the section and the reason it was ruled the load-bearing one: it would have surfaced
+`C11-094` (3 obligation-bearing clauses, 1 annotated) and `C17-021` (3, 1) **at annotation
+time, with no judgment involved**.
+
+**Note precisely what the two named segments are and are not.** *Neither breaches §2's 1-3
+band* — both sit exactly at its ceiling at 3 clauses and were correctly eligible. What was lost
+is not an eligibility decision but its arithmetic: the clause count is already performed
+implicitly on every segment in order to admit it, and was then discarded. Do not cite either as
+a band violation.
+
+**A classification is not a disposition.** `C17-02`'s `annotator_notes` name that segment's
+third sentence as *"a section 8.4 mutual case"* and stop. Under this section that entry is
+incomplete: it states what the clause **is** and never states that it was not annotated, or
+under which rule.
+
+**Genuinely two-way dispositions are flagged `AMBIGUOUS` and escalated (§14.3/§14.4), never
+disposed silently.** Three of the nine clauses that motivated this section were marked exactly
+that way by the second annotator with both readings written out. The safeguard is worth nothing
+if a hard call can be closed with a one-line dismissal.
+
+**Reviewer sample.** §2.1 step 4's random rejection sample **extends to sentence-level
+dispositions**. This is the entire purpose of the section, and without it the rest is
+bookkeeping.
+
+**Data location — additive to an already-decided shape, with no code change.**
+`goldens/batchNN/segments/<segment_id>.json`, the file §21 R6 already specified and
+`run_scoring.load_not_annotatable()` already reads (`align.py` consumes it and defaults to
+empty). **No item is restamped and no cassette is staled**: `Cassette.verify()` compares the
+*items'* `guideline_version` stamp, and this file carries none. Unlike the other open decisions
+in the same investigation, §2.7 does **not** engage §22's conforming blocker.
+
+**Measured cost, so this is adopted on evidence rather than on principle.** Across the 22 drawn
+segments, undisposed sentences per segment distribute
+`[0×11, 1×5, 2×4, 4×2]` — **zero extra work on half of them**. Conditioned on density: 1
+modal-bearing sentence → **0.00** undisposed (n=9), 2 → 0.50 (n=4), 3 → 1.60 (n=5), 4+ → 2.75
+(n=4). Weighting by §2.6.1's measured pool density, in which **57.8% of band-eligible segments
+carry a single modal-bearing sentence**, the forward cost is **0.37–0.67 dispositions per
+segment** — roughly **17–31 across the ~47 further segments** the 100-item working figure
+(§19.5) implies, against 68 further full gold items, a 0.25×–0.46× surcharge. The
+batch01→batch02→batch03 observed series is 1.88 → 1.00 → **0.20**; the investigation's §8 cost
+sentence priced this against batch01's 3.12 mean density, which §5 of that same note flags as
+an unrepresentative draw.
+
+**Measured benefit.** Classifying all 35 gold cassettes' candidates with the harness's own
+IoU rule: of the **24** grounded candidates that score `UNEXPECTED` today, **19 (79%) are
+retired** by populating §4.4 from these dispositions (`COLD_ONLY` 12/13, `NEITHER` 7/11). §21
+R6's caveat currently travels with every published `UNEXPECTED` figure and blocks any precision
+claim from gold-set scoring.
+
+**Known limit, stated here rather than discovered later.** This reaches **sentence** granularity
+only. The residual 5 of those 24 are sub-sentence spans falling *inside* sentences that already
+carry a gold item, where the model split differently within covered text. R6's caveat is
+therefore **narrowed, not retired**, and must continue to travel with published figures until
+those are addressed separately.
+
+**§6.3's ~89%-fresh cost figure does not transfer to this section, and the difference is a
+denominator not a contradiction.** That figure was measured over the **9 surplus clauses** — a
+subsample selected *for annotator disagreement*, which correlates with absence of record. Over
+the **21 sentences this section actually reaches**, 10 already carry a genuine disposition (4 in
+`exclusions.json`, 6 in `annotator_notes` prose) and 1 more carries a classification without
+one. Roughly half, not ~11%. §6.3 stands for what it measured.
+
+**The practice already exists informally, and its correlation with completeness is the
+strongest single argument for making it mandatory.** 9 of 32 locked items across **8 of 22
+segments** already state an explicit clause count unprompted — `C14-04`: *"Segment clause count
+after retraction: 2, comfortably within section 2's 1-3 band"*; `C03-02`: *"Under the rejected
+two-item option this segment would hold FOUR duties and fail section 2's 1-3 band."* Of the six
+segments carrying surplus clauses, **the only two that recorded a clause count (`E03-005`,
+`E08-005`) are exactly the two whose surplus clauses have any recorded disposition at all.**
+n=6, so this is a measured alignment and not a proven mechanism — but it is this section's own
+mechanism, already observed working where it was applied voluntarily.
+
+**Scope of adoption (v0.50).** Binding on batch 4 onward, **and** retrofitted to the 22
+already-drawn segments: 39 spans (21 modal-bearing, 18 non-modal), of which ~half already have
+prose to transcribe and 13 are one-line class entries. The retrofit is what retires the 79%
+above on the 12 cassette-covered segments, and it is cassette-neutral. It is scheduled work with
+a measured size, not a background intention.
 
 ### 3.5.2 Beneficiary-naming purpose clauses (v0.21 — REVIEWER-APPROVED)
 
@@ -5583,6 +5755,29 @@ log records that the reviewer never ruled on it and that it is reversible.
 work over **12 segments**, requiring the same per-item adjudication every gold item received.
 Until it is done, R6's caveat travels with every published `UNEXPECTED` figure, and no precision
 or false-positive claim may be made from gold-set scoring.
+
+**SCHEDULED at v0.50 — §2.7 rules that this data is a by-product of drafting, and the paragraph
+above is corrected on two points rather than merely satisfied.** (1) *"requiring the same
+per-item adjudication every gold item received"* is **not** what §2.7 requires: a disposition
+carries offsets, verbatim text, one of four outcome labels, a rule citation and one sentence of
+reason — no `action`, no `object_class`, no accept-set, no field-level adjudication. That
+narrowing is the whole cost control. (2) The measured retrofit is **39 spans over 22 segments**
+(12 of them cassette-covered), of which roughly half already have prose to transcribe and 13 are
+one-line class entries — not 12 segments of fresh per-item work.
+
+**R6's verbatim caveat above still travels, and MUST, because §2.7 narrows it rather than
+retiring it.** Measured across all 35 gold cassettes: **19 of the 24** grounded candidates that
+score `UNEXPECTED` today are retired by populating this data (79%); the residual **5** are
+sub-sentence spans falling *inside* sentences that already carry a gold item, which §2.7's
+sentence-level unit does not reach. Delete the caveat only when the sub-sentence class is
+addressed too. See `evals/goldens/holdout/SPLITTING_EXCLUSION_INVESTIGATION.md` §11 and
+`splitting/disposition_cost.py`.
+
+**§6.3 of that investigation corrected R6's *"partly transcription from the exclusion logs"*
+claim downward to ~11%, and that correction is itself scoped**: it was measured over the 9
+surplus clauses, a subsample selected for annotator disagreement. Over the 21 sentences §2.7
+actually reaches, 10 already carry a genuine disposition. Both figures are right for their own
+denominator; use the second when estimating this work.
 
 ### R5 — startup self-check, so R1–R3 cannot fail silently
 
