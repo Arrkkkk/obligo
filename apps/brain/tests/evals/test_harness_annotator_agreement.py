@@ -37,14 +37,37 @@ from evals.harness.gap_agreement import GapPair, compute_gap_agreement
 GOLD_DIR = Path(__file__).resolve().parents[2] / "evals" / "goldens"
 HOLDOUT_DIR = GOLD_DIR / "holdout"
 
-# C10-01 and C10-02 were restamped v0.40 -> v0.44 by section 3.6.1's slot
-# correction, AFTER the 2026-08-29 comparison was computed. Reproducing the
-# published per-clause result therefore requires the pre-v0.44 labels. Keeping
-# them here rather than reaching into git makes the ruling's finding (4)
-# executable: the restamp was justified as free because section 5 clause 5
-# never reads gold's SLOT -- true for the pipeline, and false for `A`, where
-# the slot is exactly what is compared.
-PRE_V044 = {
+# Gold values as they stood when the 2026-08-29 comparison was computed, for
+# every item RETROACTIVELY RESTAMPED since. Reproducing the published
+# per-clause result requires them, and keeping them here rather than reaching
+# into git is what makes each restamp's effect on `A` executable rather than
+# merely asserted in prose.
+#
+# Two restamps are represented, and both are instances of the SAME rule --
+# section 3.6.1's v0.45 forward requirement that a retroactive edit state its
+# effect on BOTH predicates, because section 5 and `A` have OPPOSITE
+# sensitivities: section 5 clause 5 never reads gold's slot, while `A` compares
+# it directly.
+#
+#   C10-01, C10-02  v0.40 -> v0.44, section 3.6.1's slot correction.
+#                   Moved the published `5_object` count 6 -> 5 of 23.
+#   C17-02          v0.28 -> v0.52, section 8.6.1 / section 10.1 F13's
+#                   representable-vs-reachable ruling: `temporal` null -> the
+#                   WITHIN form. The cold annotator annotated this span under
+#                   section 8.6 AS WRITTEN (temporal null) and its output is
+#                   sealed, so gold moving flips clause 6 from agree to
+#                   disagree. Published `6_temporal` count 2 -> 3 of 23.
+#                   K is UNCHANGED at 14/32 -- C17-02 already disagreed on
+#                   2_action -- and under the IN-FORCE predicate `A` the item
+#                   is NON_CONFORMING anyway (cold's action slot OBTAIN is
+#                   off-taxonomy, section 5.1 A1), so it sits outside both K
+#                   and n there and A's 7/27 does not move either.
+#
+# THE ASSERTION BELOW IS NOT WEAKENED BY EITHER ENTRY. The published run must
+# still reproduce EXACTLY, item by item and clause by clause; what this map
+# does is hold the inputs it was computed from, so a later retroactive ruling
+# cannot quietly erase the record it is supposed to be checked against.
+PRE_RESTAMP = {
     "C10-01": {
         "object_class": "product_liability_indemnification",
         "object_class_accept_set": [
@@ -59,6 +82,9 @@ PRE_V044 = {
             "additional_insured_designation",
         ],
     },
+    "C17-02": {
+        "temporal": None,
+    },
 }
 
 # The published run's clause names, in section 5's numbering.
@@ -69,12 +95,12 @@ PUBLISHED_CLAUSE = {
 }
 
 
-def _load_gold(pre_v044: bool = False) -> dict[str, list[dict]]:
+def _load_gold(pre_restamp: bool = False) -> dict[str, list[dict]]:
     out: dict[str, list[dict]] = {}
     for path in glob.glob(str(GOLD_DIR / "batch0*" / "items" / "*.json")):
         item = json.loads(Path(path).read_text())
-        if pre_v044 and item["item_id"] in PRE_V044:
-            item = {**item, **PRE_V044[item["item_id"]]}
+        if pre_restamp and item["item_id"] in PRE_RESTAMP:
+            item = {**item, **PRE_RESTAMP[item["item_id"]]}
         out.setdefault(item["segment_id"], []).append(item)
     return out
 
@@ -110,7 +136,7 @@ def published_rows():
 
 def test_legacy_mode_reproduces_the_published_run_item_by_item(published_rows, cold):
     """K = 14/32, AND every per-item clause-failure list, exactly."""
-    result = compute(_load_gold(pre_v044=True), cold, symmetric=False, gate=False)
+    result = compute(_load_gold(pre_restamp=True), cold, symmetric=False, gate=False)
     assert len(result.items) == 32
     assert result.k == 14
     assert result.n == 32
@@ -126,7 +152,7 @@ def test_band_derivation_reproduces_the_preregistered_n32_bands(cold):
     transcribing them, so deriving the published pair back is the check that
     the derivation is the same one -- and it is what makes the band at any
     other n trustworthy."""
-    result = compute(_load_gold(pre_v044=True), cold, symmetric=False, gate=False)
+    result = compute(_load_gold(pre_restamp=True), cold, symmetric=False, gate=False)
     assert result.n == 32
     assert result.bands == (3, 6)
     assert result.verdict == "REDESIGN"

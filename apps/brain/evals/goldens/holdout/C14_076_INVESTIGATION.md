@@ -417,9 +417,24 @@ consistent with locked `C17-02`.
 | span | verdict | what its session actually decides |
 | :--- | :--- | :--- |
 | `C11-094` #2 | **NARROWED** | Approve/reject cold's drafted item. **Do NOT use the retrofit's best-attempt reading — its `temporal` is wrong** (§7.1) |
-| `C11-094` #3 | **NARROWED to Decision 3 alone** | Retroactivity only; merits settled concordantly |
-| `C04-117` #1 | **NARROWED to Decision 3 alone** | Retroactivity only; merits settled concordantly |
-| §8.6 vs §8.9/§3.7 | **NEW** | Own ruling, F13; not a prerequisite |
+| `C11-094` #3 | **CLOSED 2026-09-05 — Decision 3 RULED, span ELIGIBLE** | Nothing left to decide on eligibility. Its §14.4 session now DRAFTS the item, with §8.8 flagged (see the caveat below) |
+| `C04-117` #1 | **CLOSED 2026-09-05 — Decision 3 RULED, span ELIGIBLE** | As above |
+| §8.6 vs §8.9/§3.7 | **RULED 2026-09-05 — §8.9's treatment governs (guideline §8.6.1, v0.52)** | `C17-02` restamped to the `WITHIN` form; criterion 2 unmoved; `C17-066`'s re-record deferred to the freeze pass |
+
+**A CAVEAT THIS TABLE DID NOT CARRY, ADDED 2026-09-05 AND LOAD-BEARING FOR BOTH DRAFTING
+SESSIONS: "approve/reject cold's item" is not "lock cold's item."** Cold's drafts are annotations
+by a second annotator, not gold items, and they were authored without §3.4's *"every **taxonomy**
+verb"* constraint on `action_accept_set`. Measured across all 41 cold items against
+`compiler/ast.py`'s `ACTIONS`: **36 (87.8%)** carry at least one off-taxonomy accept-set member,
+**3 (7.3%)** carry *no* taxonomy verb at all, over **52** distinct off-taxonomy verbs. *(That 52
+reproduces §5.1 A1's own independently-measured count exactly, which served as this screen's
+known-answer gate — Standing Principle 7.)* **§5.1 A1 rules those members INERT for `K`, and that
+ruling is untouched — it governs annotator comparison, not gold.** Both Decision-3 spans are hit:
+`C11-094` #3's set is `PURCHASE`/`BUY`/`ACQUIRE` (**zero** taxonomy verbs) and `C04-117` #1's is
+`DEFER`/`WITHHOLD`/`SUSPEND` (**one**). §8.8's decision procedure must be run explicitly on each,
+and on `C11-094` #3 the answer **moves a published figure** — see both segment files'
+`drafting_instructions`. `C11-094` #2, when its own session runs, needs the same check: cold's
+`action_accept_set` there is subject to the identical constraint.
 
 ---
 

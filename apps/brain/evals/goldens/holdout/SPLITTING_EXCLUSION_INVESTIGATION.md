@@ -511,3 +511,65 @@ inside one sentence), and two apparent `exclusions.json` dispositions for `E03-0
 than any disposition.
 
 *Decisions 2, 3 and 4 remain open as of 2026-09-04.*
+
+---
+
+**Decision 3 — RULED 2026-09-05: §2.5/§2.5.1 REACHES v0.28-era segments. Both `MAY` spans (#1,
+#3) are ELIGIBLE.** Written into the guideline as **§10.2** — general retroactivity policy, not a
+per-item call — at **v0.52**. Both spans move `AMBIGUOUS` → `PENDING_ANNOTATION` (§2.7's sixth
+disposition value, added by this ruling because the original five could not express *"eligibility
+settled, item not yet drafted"*). **Decisions 2 and 4 remain open and were not compressed to fit
+inside this ruling, per §9.**
+
+**The framing in §8 above is corrected, and that correction is the ruling's substance.** §8 scoped
+this as *"§3.6.1 is the precedent for a retroactive correction; §22.1 is the precedent for
+deliberate retention. Both are on the books and they point opposite ways."* **They do not point
+opposite ways — they answer different questions.** §3.6.1 reached back because it corrects the
+**instrument** and doing so was affordable; §22.1 declined **not on the merits** — it calls
+`C14-02` *"a known wrong number carrying an honest label"* — but because conforming was
+**mechanically blocked**. Reach and conforming cost are two axes, and this note had been reading
+them as one. §10.2 separates them into three parts: **(1)** a clarification reaches back, a new
+criterion does not; **(2)** reach and cost are independent, and a known-wrong retained item must be
+**labelled**; **(3)** direction is the safeguard — retroactively *adding* an item is monotone and
+needs no freeze-pass protection, retroactively *removing* one or *narrowing* an accept-set is
+§3.4's forbidden direction and waits.
+
+**And the retroactivity answer does not actually decide these two spans, which is why this was a
+safe case to settle the general policy on.** §2's exclusion row is **segment-level and gated on
+"only"** — *"Contains **only** a party's right with no correlative duty"* — and both `C11-094` and
+`C04-117` carry annotated duties, so that row could not reach either clause at v0.28. §2.6's
+sentence-granularity ruling is itself v0.41. **Both branches converge on annotate:** if §2.5
+reaches back, the clauses **clear** its test (concordantly, §7.2 of `C14_076_INVESTIGATION.md`);
+if it does not, **no v0.28 rule excluded them**. The *"pre-§2.5 practice never annotated a bare
+`MAY`/option clause"* reading is a description of **practice, not a rule**, and §2.1's bias
+safeguard and §14.4 both refuse to treat an unrecorded practice as a disposition.
+
+**Disclosed against interest BEFORE the ruling, and now a standing requirement in §10.2 part 3.**
+The predictions were measured first: the model emits a candidate at `C11-094` #3 on **1 of 3 runs**
+and at `C04-117` #1 on **1 of 3 runs**, so both new items score modal `MISSED` (§6). Adding them
+**lowers** criterion 2 — 1 to a denominator, 0 to a numerator. The ruling was made knowing that.
+
+**A drafting hazard found while checking the base, flagged into both segment files rather than
+left for whoever drafts them.** Cold's two `MAY` drafts are **not lockable as written**: their
+`action_accept_set`s are `PURCHASE`/`BUY`/`ACQUIRE` (**zero** taxonomy verbs) and
+`DEFER`/`WITHHOLD`/`SUSPEND` (**one**), against §3.4's requirement that the set hold every
+**taxonomy** verb defensible for the sentence. §8.8's decision procedure must be run explicitly on
+`purchase` and on `defer`. **This is not a drafting detail — it is a published-figure decision:**
+cold's `C11-094` draft carries `known_gaps: []`, which would move §9's in-force denominator
+**9 → 10** and criterion 2 to **`3/10 = 30.0%`**; if `action_not_in_taxonomy` fires instead, the
+item stays out and criterion 2 holds at **`3/9 = 33.3%`**. §5.1 A1's ruling that off-taxonomy
+accept-set members are **inert** governs annotator comparison (`K`) only and does **not** licence
+one in a gold item — a distinction §7.5's *"approve/reject cold's item"* framing did not carry, and
+which is now added there.
+
+**Nothing is restamped by this ruling and no cassette is staled by it.** The two segment files
+carry no `guideline_version`, and the `not_annotatable` arrays are deliberately untouched —
+`PENDING_ANNOTATION` stays out of them for the same reason `AMBIGUOUS` does. `C04-117`'s
+`reconciliation.status` moves `ESCALATED` → `PENDING_ANNOTATION` (its only escalated span is
+disposed); `C11-094` stays `ESCALATED`, because span **#2** is untouched by Decision 3 and its own
+§14.4 session is still owed.
+
+**A blocker on measuring any of the above, filed the same day as guideline §10.1 F16 and ranked
+above F5/F6/F9/F10/F12:** `run_scoring.run()` currently cannot execute against the committed gold
+set at **any** single `guideline_version` — verified by execution — so the denominator arithmetic
+in this ruling is computed by hand and cannot yet be confirmed by a run.

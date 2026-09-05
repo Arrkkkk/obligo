@@ -1,6 +1,6 @@
 # Obligo Tier-2 Gold Set — Annotation Guideline
 
-**Version:** v0.51 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**. **v0.33 puts §9's dual denominator IN FORCE** on two independent grounds, adds §5 clause 5's number rule, §3.4's bounded freeze-pass exception, and the forward authoring rules §3.6 / §3.8.2 / §3.5.1 — **no annotation rule changed, no item restamped, no cassette stale**. **v0.34 records two MEASUREMENT corrections and changes no rule either** — §8.9's `on`/`until` rows and §15.3's loud-versus-silent class placement, both falsified by real model output from the compile-stage bottleneck investigation. **v0.35 adds §4.3.2** — a third splitting shape distinct from both existing §4.3 worked examples, reviewer-ruled at batch 3's `C04-139`: self-performance vs. a duty to bind/control a third party's conduct splits into two items even when the two verbs share an object phrase and a sentence subject, because the two performances do not share an actor. **v0.36 amends §4.2** — the resulting byte-identical spans (`C04-139`'s shared trailing object leaves neither item's minimal span shorter than the other's) break IoU's ability to discriminate between the two gold items, so a content-based tie-break on `action_accept_set` membership is added, falling through to ascending `item_id` when the tie-break itself is inconclusive. **v0.37 adds a
+**Version:** v0.52 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**. **v0.33 puts §9's dual denominator IN FORCE** on two independent grounds, adds §5 clause 5's number rule, §3.4's bounded freeze-pass exception, and the forward authoring rules §3.6 / §3.8.2 / §3.5.1 — **no annotation rule changed, no item restamped, no cassette stale**. **v0.34 records two MEASUREMENT corrections and changes no rule either** — §8.9's `on`/`until` rows and §15.3's loud-versus-silent class placement, both falsified by real model output from the compile-stage bottleneck investigation. **v0.35 adds §4.3.2** — a third splitting shape distinct from both existing §4.3 worked examples, reviewer-ruled at batch 3's `C04-139`: self-performance vs. a duty to bind/control a third party's conduct splits into two items even when the two verbs share an object phrase and a sentence subject, because the two performances do not share an actor. **v0.36 amends §4.2** — the resulting byte-identical spans (`C04-139`'s shared trailing object leaves neither item's minimal span shorter than the other's) break IoU's ability to discriminate between the two gold items, so a content-based tie-break on `action_accept_set` membership is added, falling through to ascending `item_id` when the tie-break itself is inconclusive. **v0.37 adds a
 recommended `object_class` naming convention to §4.3.2** — `self_` / `third_party_` prefixes over
 a shared root, so future flow-down splits land on visibly parallel labels rather than an
 unrelated pair invented fresh each time. **v0.38 adds §3.2.1** — present-tense self-executing
@@ -155,7 +155,7 @@ segment count (153/1,547), and `C14-028` was drawn as the **twelfth** standard-q
 not the eleventh as originally written — both fixed in place per this document's own
 corrections-are-new-text discipline, not silently edited.
 **Created:** 2026-08-17
-**Status:** **32 items locked** — no item restamped at v0.45 (§5.1 governs annotator comparison only and touches no annotation rule) — batch 1 complete (10), batch 2 at 8 of 10 with two
+**Status:** **32 items locked; ONE restamped at v0.52** (`C17-02`, §8.6.1/§10.1 F13 — `temporal` `null` → the `WITHIN` form; `C17-066`'s three cassettes are consequently **STALE**, re-record **deferred to §10's freeze pass** by reviewer ruling, so the item is known-stale and honestly labelled, the same footing §22.1 gives `C14-02`). **`C11-01`'s `annotator_notes` were corrected record-only at v0.52 with its stamp deliberately UNCHANGED** — the note contradicted the item's own §15.5-correct data, and restamping it would have staled three cassettes for nothing. **TWO SPANS ARE NOW `PENDING_ANNOTATION` and are NOT yet items** — `C11-094` #3 and `C04-117` #1, ruled eligible by §10.2 (Decision 3); each owes its own §14.4 drafting session, with §8.8's taxonomy question flagged in its segment file. **BLOCKING: `run_scoring.run()` cannot execute against the committed gold set at any single `guideline_version` (§10.1 F16), so no figure below can currently be confirmed by a run.** — no item restamped at v0.45 (§5.1 governs annotator comparison only and touches no annotation rule) — batch 1 complete (10), batch 2 at 8 of 10 with two
 items still undrawn, **batch 3's draw target is FULLY MET: 10 of 10 segments locked**
 (3 hard + 7 standard, per `draw.json`'s own `"count": 10, "hard": 3` — 14 items total, since
 `C13-017` is this batch's only two-item segment; `C14-044` originally yielded three drafted
@@ -775,6 +775,77 @@ exists to prevent. The real defect is upstream in the prompt (F14) and sideways 
 dependence (F15). **This investigation is NOT a prerequisite for `C14-076`'s band-eligibility
 ruling** — see §10.1 F14/F15's own scope lines and `C14_076_INVESTIGATION.md` §8.6.
 
+**v0.52 change: TWO RULINGS AND ONE BLOCKING DEFECT FILED. (1) §10.1 F13 is RESOLVED — §8.6 is
+amended at §8.6.1, RETROACTIVE, and `C17-02` is restamped. (2)
+`SPLITTING_EXCLUSION_INVESTIGATION.md`'s DECISION 3 is RULED — the general retroactivity policy is
+written into §10.2 and both v0.28-era `MAY` spans are ELIGIBLE. (3) §10.1 F16 is filed and
+RANKED ABOVE F5/F6/F9/F10/F12: `run_scoring.run()` cannot execute against the committed gold set
+at any `guideline_version`.** One item restamped (`C17-02`), one item's notes corrected
+record-only with its stamp deliberately unchanged (`C11-01`), three cassettes newly stale
+(`C17-066`) with their re-record **deferred to the freeze pass by reviewer ruling**. **No published
+figure moves: in-force criterion 2 stays `3/9 = 33.3%` and `K` stays `14/32`.**
+
+**(1) F13 — §8.9's treatment governs; §8.6 is the outlier.** Ruled on a **principle**, not a vote
+count: **`temporal: null` marks what IR v1 cannot REPRESENT — a bare vague qualifier, §15.2 —
+never what the classifier cannot REACH.** Verified by execution: `within 24 months of the
+Commencement Date` classifies to `WITHIN 24mo OF "the Commencement Date"`, so the IR expresses the
+form perfectly well and `_WITHIN_RE`'s single-preposition alternation is the entire obstacle.
+**Two sections beyond the two F13 first named were found siding against §8.6** — **§11 decision 1
+(v0.8)**, which rules *"annotated honestly, exactly as the document writes them"* for the
+parenthetical gap **on this same regex**, and **§15.5 (v0.28)**, whose existing `C11-01` treatment
+is **CONFIRMED rather than changed**. §8.6's own *"why its own tag rather than §8's row"*
+paragraph shows it was written looking straight at §11 and reconciled only the *tagging* question.
+A second, independent ground: under the superseded rule a model that drops the timing phrase
+**passes** clause 6, crediting the IR for silently discarding a deadline. §10's retroactive
+re-check is logged — a screen validated on a known answer, plus a loose sweep for **any** `within`
+across all 32 locked spans returning exactly **two** hits, one of which (`C11-01`) already
+conforms. **Supporting evidence: no locked item carried a `WITHIN` temporal at all — zero of 32 —
+so the superseded rule had removed one of §3.7's five frozen forms from the gold set by rule.**
+Dual-predicate disclosure per §3.6.1's v0.45 forward requirement: `K` unchanged at `14/32`, and
+the published clause profile moves `6_temporal` **2 → 3 of 23**. **Under the IN-FORCE predicate the effect is ZERO** — §5.1 A1 marks `C17-02` `NON_CONFORMING` (cold's `action` slot `OBTAIN` is off-taxonomy), so it sits outside both `A`'s numerator and denominator and **`A` holds at `7/27`**; the `14/32` movement is to the *legacy* pre-§5.1 published run, which `tests/evals/test_harness_annotator_agreement.py` still reproduces exactly via its `PRE_RESTAMP` map, **extended by this ruling rather than relaxed**.
+
+**(2) Decision 3 — §10.2, and the reframe IS the ruling.** The investigation scoped this as two
+precedents *"pointing opposite ways"* (§3.6.1 retroactive vs §22.1 retention). **They point at two
+different axes.** §3.6.1 reached back because it corrects the **instrument** and was affordable;
+§22.1 declined **not on the merits** — it calls `C14-02` *"a known wrong number carrying an honest
+label"* — but because conforming was **mechanically blocked**. §10.2 separates them: **(a)** a
+clarification reaches back, a new criterion does not — §2.5 says of itself that it clarifies §2's
+existing row; **(b)** reach and cost are independent, and a known-wrong retained item must be
+**labelled**; **(c)** direction is the safeguard — retroactively *adding* an item is monotone and
+needs no freeze-pass protection, *removing* one or *narrowing* an accept-set is §3.4's forbidden
+direction. An "affordability" fourth part was considered and **rejected**: cost decides timing,
+never truth. **The retroactivity answer does not in fact decide the two spans**, which is why this
+was a safe case to settle general policy on — §2's exclusion row is segment-level and gated on
+*"only"*, both segments carry duties, so **both branches converge on annotate**. §2.7 gains a
+sixth disposition value, **`PENDING_ANNOTATION`**, because the original five could not express
+*"eligibility settled, item not yet drafted"*. **Disclosed against interest before ruling, now a
+standing §10.2 requirement:** the model emits at each span on **1 of 3 runs**, so both items score
+modal `MISSED` and **lower** criterion 2.
+
+**A drafting hazard flagged into both segment files rather than left to whoever drafts them.**
+Cold's `MAY` drafts are **not lockable as written** — `PURCHASE`/`BUY`/`ACQUIRE` (**zero**
+taxonomy verbs) and `DEFER`/`WITHHOLD`/`SUSPEND` (**one**), against §3.4's *"every **taxonomy**
+verb"*. §8.8's procedure must be run explicitly on `purchase` and `defer`, and **on `C11-094` #3
+the answer moves a published figure**: `known_gaps: []` takes §9's in-force denominator 9 → 10 and
+criterion 2 to `3/10 = 30.0%`, while `action_not_in_taxonomy` firing keeps it at `3/9`. §5.1 A1's
+inertness ruling covers `K` only and does not licence an off-taxonomy member in gold. Measured
+across all 41 cold items: **36 (87.8%)** carry ≥1 off-taxonomy accept-set member over **52**
+distinct verbs — a count that **reproduces §5.1 A1's own figure exactly** and served as the
+screen's known-answer gate.
+
+**(3) F16 — the blocking defect, and it is a broken invariant, not a design question.** Verified by
+execution: cassettes stand at `v0.28 ×32` / `v0.48 ×3`, `Cassette.verify()` compares one run-level
+`guideline_version` by exact equality, and a stale cassette **propagates by design** — so at
+`v0.28` the run dies on `C04-117` and at `v0.48` on **11 segments**, while all 10 batch-3 segments
+have no cassette at all. **Cause is on the record: the v0.48 freeze-pass batch restamped `C04-02`
+and `E01-01` alone, which is exactly the move §22.1's own "what must NOT happen" list forbids.**
+§9.2 and the v0.49 entry disclose the resulting mixed-stamp *population*; **neither states that the
+entry point stopped executing**, so this has been carried as a caveat about a number rather than a
+defect in the instrument. **Consequence: every criterion-2 figure since v0.48 was produced by a
+scoped or per-segment path that no session record names**, and both v0.52 rulings' stated costs are
+computed by hand and cannot currently be confirmed by a run. **Not a licence to weaken a staleness
+dimension** — §22.1 rejected that and its reasoning is untouched.
+
 ## 1. What a gold item is
 
 **One gold item = one obligation, as a human annotator reads it, located in one segment
@@ -1043,6 +1114,19 @@ a band violation.
 third sentence as *"a section 8.4 mutual case"* and stop. Under this section that entry is
 incomplete: it states what the clause **is** and never states that it was not annotated, or
 under which rule.
+
+**A sixth value, added at v0.52 because Decision 3's ruling created a state the original five
+could not express: `PENDING_ANNOTATION`.** An escalated `AMBIGUOUS` span whose eligibility a
+reviewer has since **ruled in favour of** is no longer ambiguous — but it is not `ANNOTATED`
+either, because no item exists yet and §2.7 forbids a disposition from carrying field-level
+adjudication that would amount to a shadow item. Leaving it `AMBIGUOUS` would assert an open
+question that has been closed; promoting it to `ANNOTATED` would assert an `item_id` that does
+not exist. `PENDING_ANNOTATION` carries the ruling, its date and the § invoked, and **fails
+segment reconciliation exactly as a missing item does** — it is a transient state that a
+drafting session clears by producing the item, never a resting place. It is deliberately kept
+**out** of the `not_annotatable` array, on the identical ground `AMBIGUOUS` is: including a span
+the reviewer has ruled *annotatable* in the array of non-items would resolve it silently in the
+opposite direction, and `run_scoring.load_not_annotatable()` reads that array.
 
 **Genuinely two-way dispositions are flagged `AMBIGUOUS` and escalated (§14.3/§14.4), never
 disposed silently.** Three of the nine clauses that motivated this section were marked exactly
@@ -3845,8 +3929,139 @@ accepted one 59 to 40. Restricted to bare numerals, where §8 cannot explain the
 there are **7 confirmed instances across 7 documents** (`C09`, `C13`, `C14`, `C17`×2,
 `E08`).
 
-**Rule.** `temporal: null`, `known_gaps: ["within_preposition"]`. **`underspecified` per §3.9 —
-not set by this rule (v0.28 — struck).** Same defect and same reasoning as §8.1's struck clause.
+**Rule (v0.17 — SUPERSEDED at v0.52 by §10.1 F13; kept, not edited, per this document's
+corrections-are-new-text discipline).** ~~`temporal: null`~~, `known_gaps:
+["within_preposition"]`. **`underspecified` per §3.9 — not set by this rule (v0.28 — struck).**
+Same defect and same reasoning as §8.1's struck clause.
+
+#### 8.6.1 AMENDED RULE (v0.52 — REVIEWER-RULED, §10.1 F13, RETROACTIVE): annotate the `WITHIN` form
+
+**Rule, in force.** Annotate `temporal` as the **`WITHIN` form** with its amount, unit and
+trigger **verbatim**, exactly as the document writes them, whichever preposition follows the
+duration. `known_gaps` keeps **`within_preposition`**. `underspecified` per §3.9 — trigger 3
+fires regardless, since `symbols.resolve_trigger()` returns `None` throughout v1. The expected
+v1 outcome is `UNMAPPABLE_TEMPORAL`, **a loud failure visible in criterion 1b** — word for word
+§8.9's own expected outcome for its sibling gap, and §11 decision 1's for the parenthetical gap
+on this very regex.
+
+**The unifying principle, stated as a principle rather than settled by counting sections:
+`temporal: null` marks what the IR cannot REPRESENT, never what the classifier cannot REACH.**
+
+- **`null`** when IR v1 has **no form** for the timing at all — a bare vague qualifier
+  (*"promptly"*, *"as soon as practicable"*, *"within a reasonable time"* with no trigger),
+  §15.2. There is nothing to annotate, so `null` is the honest answer.
+- **Annotate the form** when the IR **can** express the timing and only the classifier's
+  surface pattern rejects the input. Verified by execution against the production classifier,
+  not inferred from the pattern: `within 24 months of the Commencement Date` →
+  `WITHIN 24mo OF "the Commencement Date"`; `within 24 months following the Commencement Date`
+  → `None`. **The IR is fully capable of the form; `_WITHIN_RE`'s single-preposition
+  alternation is the entire obstacle.** That is a reachability defect in one regex, not a
+  representational gap in the IR, and §8 exists to record representational gaps honestly —
+  not to launder a regex's blind spot into an assertion about the contract.
+
+**Reconciliation — the four sections §8.6 as written was inconsistent with, in version order.**
+The conflict was surfaced by the cold annotator, who flagged it in `C11-094` item 2's notes,
+resolved it per §8.6 as literally written, and applied that resolution to `C17-066` as well for
+consistency (`goldens/holdout/C14_076_INVESTIGATION.md` §7.4). It is real, and it is wider than
+first filed:
+
+| section | version | says | on |
+| :--- | :--- | :--- | :--- |
+| **§11 decision 1** | **v0.8** | *"Parenthetical-form `WITHIN` items are **annotated honestly, exactly as the document writes them**… the expected v1 outcome is `UNMAPPABLE_TEMPORAL` under the current grammar, and that is a **measurement, not an annotation error**"* | **`_WITHIN_RE` — the same regex** |
+| §3.7 | — | *"Known-gap forms (§8) are **annotated normally**. Do not avoid them."* — and `temporal = null` **only** when the obligation *"genuinely carries no timing phrase"* | general |
+| §15.5 | v0.28 | *"This is **not** a reason to annotate `null` — §8's standing posture and §11's `_WITHIN_RE` decision both hold that a known gap is annotated honestly and measured, never avoided"* | anchored-regex unreachability |
+| §8.9 | v0.28 | annotate the form + trigger verbatim; `relative_trigger_preposition` | `_RELATIVE_RE` |
+| **§8.6 (v0.17)** | — | **`temporal: null`** | `_WITHIN_RE` |
+
+**§11 is the decisive one, and §8.6's own text shows it was written looking straight at it.**
+§8.6's *"Why its own tag rather than §8's row"* paragraph distinguishes itself from §11's
+parenthetical gap on **tagging** — correctly, and that argument survives this amendment intact
+— and then silently adopted the **opposite annotation treatment** from the rule it was
+distinguishing itself from, on the same regex, without noticing. §8.9 (v0.28) was later written
+explicitly as §8.6's sibling (*"Why its own tag rather than §8.6's"*) and reconciled the tag
+question while never reaching the annotation question either.
+
+**§15.5's treatment was already right and is CONFIRMED, not changed.** `C11-01`'s *"within a
+reasonable time **after** the Principal's death"* is `RELATIVE_TO_TRIGGER(after, …)` with the
+vague qualifier in `vague_temporal_phrase` — the same call this amendment makes, reached one
+version earlier on a sentence carrying both a vague quantity and a reachable form. This
+amendment generalises §15.5 rather than competing with it.
+
+**A second, independent argument, and it is about the direction of the error.** Under the
+superseded rule, a model that emits `temporal_raw: null` for a clause plainly carrying a
+deadline **passes clause 6** — gold agrees that there is no timing. A compliance IR would be
+credited for silently discarding a timing constraint. That is the same direction of loss
+`packages/ir-spec/SPEC.md` §6 calls *"a correctness bug with real stakes for a compliance tool"*
+for a dropped carve-out. Under the amended rule that emission fails clause 6, which is correct.
+
+**Supporting evidence, measured across the locked set: NO locked item carries a `WITHIN`
+temporal. Zero, of 32.** The superseded rule had removed one of §3.7's five frozen forms from
+the gold set entirely — not by any item happening not to need it, but by rule.
+
+**Retroactive, and the §10 re-check is logged rather than asserted.** A screen over all 32
+locked spans for `within <numeral> <unit> <word>` was **validated against a known answer before
+its counts were trusted** (Standing Principle 7): it must find `C17-02`, and it does. A
+deliberately looser sweep for **any** occurrence of the bare word `within` in any locked
+`span_text` returns exactly **two** hits — `C17-02`, and `C11-01`, which §15.5 already governs by
+name and which this amendment leaves untouched. **Exposure: one item.**
+
+| item | field | was | now |
+| :--- | :--- | :--- | :--- |
+| `C17-02` | `temporal` | `null` | `{"form": "WITHIN", "amount": 24, "unit": "mo", "trigger": "the Commencement Date"}` |
+
+The restamped value is **confirmed by execution**, not by reading §3.7's constituent table:
+`score._canonical_gold_temporal()` on the dict above and `score._canonical_temporal()` on the
+`ast.WithinTemporal` a real `WITHIN 24mo OF "the Commencement Date"` parse produces both return
+`{'form': 'WITHIN', 'amount': 24.0, 'unit': 'mo', 'trigger': 'the Commencement Date'}`. Note
+`unit` is the AST's `"mo"`, not the document's `"months"` — clause 6 compares the canonical
+forms, and a `"months"` stamp would fail against every correct prediction.
+
+**`missing_fields` is repaired by this restamp rather than disturbed by it.** `C17-02` already
+carried `["obligee", "temporal"]`, which was anomalous under §3.9's *"`temporal: null` is never a
+trigger"*; under the amended rule §3.9 trigger 3 fires and the existing value becomes correct.
+`underspecified` stays `true`. No other field moves.
+
+**Effect on criterion 2: ZERO, on both denominators — measured, not assumed.** `C17-02` carries
+`within_preposition`, so it is outside §9.1's in-force `len(known_gaps) == 0` denominator either
+way. It also scores `MISSED` either way, which was checked against the cassettes rather than
+predicted: `openai/gpt-oss-120b` quotes `"within 24 months following the Commencement Date"` into
+`temporal_raw` on **3 of 3 runs**; the repair loop returned `{"repairs": []}` on runs 1 and 2 and
+on run 3 proposed `"within 24 months"` — the grammar-unsatisfiable narrowing already tracked in
+`CLAUDE.md`'s debt list, since `within_form` makes `OF trigger` mandatory. No candidate survives
+compile on any run. A second, independent blocker: the model emits `action: "OBTAIN"`, which is
+**not** one of `ACTIONS`' 34 verbs. **In-force criterion 2 stays `3/9 = 33.3%`.**
+
+**Effect on the OTHER predicate, stated because §3.6.1's v0.45 forward requirement demands both
+and forbids the unqualified word "free."** The cold annotator annotated `C17-066` under §8.6 as
+written (`temporal: null`), and its output is sealed, so restamping gold flips clause 6 from
+agree to disagree. **`K` does not move — it stays `14/32`**, because `C17-02` already disagreed
+on `2_action` and is already one of the 14. What moves is the published clause-level failure
+profile: **`6_temporal` goes from 2 to 3 of 23.** Real, bounded, and disclosed here rather than
+found later. **And under the IN-FORCE predicate the effect is
+zero, which is the sharper statement and was proven by execution rather than argued:** §5.1 A1
+marks `C17-02` **`NON_CONFORMING`** — cold's `action` slot is `OBTAIN`, off-taxonomy — so the item
+sits outside **both** `A`'s numerator and its denominator, and **`A` holds at `7/27` unchanged**
+(`tests/evals/test_harness_annotator_agreement.py` asserts `k == 7`, `n == 27` and `C17-02`
+∈ `non_conforming` against the live, restamped gold, and passes). The `14/32` movement above is to
+the **legacy** pre-§5.1 published run, which the same test file continues to reproduce exactly
+item-by-item via its `PRE_RESTAMP` map — extended by this ruling rather than relaxed.
+
+**Cassette cost, and §22.3's transfer does NOT apply.** `C17-066`'s three cassettes go stale
+against the restamped item. `C17-066` backs **only** `C17-02` — checked against the directory,
+not against a queue row — so there is no sibling for validity to transfer to, unlike `C04-117`.
+**The re-record is DEFERRED to §10's freeze pass rather than spent live now** (reviewer-ruled
+2026-09-05): the item has zero criterion-2 effect in either direction, so it does not justify its
+own live-spend session, and it rides along with the batched freeze-pass re-recording. Until then
+`C17-02` is a **known-stale, honestly-labelled** item — the same footing §22.1 gives `C14-02`,
+and recorded as such rather than left implicit.
+
+**What this amendment does NOT do.** It does not touch §15.2 or §15.5's vague class: a bare vague
+qualifier with no reachable form stays `null` with the phrase in `vague_temporal_phrase`. It does
+not widen `_WITHIN_RE` — §11's *"changing the classifier first would tune the compiler to the
+corpus it is about to be graded on"* still holds, and this amendment strengthens that decision by
+making the gap countable in criterion 1b instead of invisible. It does not restamp `C11-01`,
+`C13-03` or `C22-02`, all of which already conform. It changes no tag vocabulary, so **§10.1 F9
+and F10 are untouched**.
 
 **Why its own tag rather than §8's row.** Different cause, different fix: this is a
 one-word regex widening (`of|after|from|following`), while the parenthetical case is a
@@ -4152,6 +4367,63 @@ mechanical check rather than a judgment call.
   measured discovery rate (§19.2) freezing earlier would put ~82 items on the post-freeze
   path, where every amendment requires a logged re-check across all prior batches.
 
+### 10.2 Does an amendment reach items stamped at an earlier version? (v0.52 — REVIEWER-RULED, general policy)
+
+**Why this is a rule and not a per-item call.** The question first arose as
+`SPLITTING_EXCLUSION_INVESTIGATION.md`'s **decision 3** — whether §2.5/§2.5.1's
+monitorable-stakes clarification (v0.39/v0.41) reaches segments locked at v0.28 — and was scoped
+there as *"§3.6.1 is the precedent for a retroactive correction; §22.1 is the precedent for
+deliberate retention. Both are on the books and they point opposite ways."* **They do not point
+opposite ways. They answer different questions, and the record had been reading one axis as
+two.** §3.6.1 reached back because it **corrects the instrument** and doing so was affordable.
+§22.1 declined **not because retention was right on the merits** — it says in terms that
+`C14-02` is *"a known wrong number carrying an honest label"* — but because conforming was
+**mechanically blocked** by invariants A and B. Separating the two axes is what makes this
+decidable rather than a coin flip between precedents.
+
+**Part 1 — a CLARIFICATION reaches back; a NEW CRITERION does not.** A section that states, of
+itself, that it says what an existing rule already meant applies to every item whatever its
+stamp — because **the rule it clarifies was already in force**, and there is nothing to make
+retroactive. §2.5's own text is the worked case: *"This clarifies what §2's own exclusion row
+already means; it does not add a new, unrelated exclusion"* and *"a clarification of what that
+row was always for, not a new criterion layered on top of it"*; §2.5.1 likewise, *"§2.5's own
+real test was already stated as principle."* Ruling that §2.5 does **not** reach v0.28 items
+would require asserting that its own self-description is false — which is a legitimate position,
+but it is an **amendment to §2.5**, made openly, not a reading available by default. A section
+adding a genuinely new criterion is **forward-only** unless separately and explicitly ruled
+retroactive, as §3.6.1 was.
+
+**Part 2 — REACH and CONFORMING COST are separate questions, and neither answers the other.**
+Reach tells you what the item's **correct** value is. §22 tells you **when you may pay** to
+change the artifact. An item may legitimately sit *known-wrong-and-retained* — that is exactly
+`C14-02` under §22.1, and now `C17-02` between §8.6.1 and the freeze pass. **What is never
+permitted is leaving such an item unlabelled**, because an unlabelled known-wrong item is
+indistinguishable from a correct one, which is the failure mode §10.1 exists to prevent. A
+retroactive ruling therefore always produces **either** a restamp **or** a dated entry recording
+what the correct value is and why the artifact has not moved yet.
+
+**Part 3 — DIRECTION is the safeguard, and it is what makes Part 1 safe to apply with
+predictions already visible.** A retroactive application that **removes** an item or **narrows**
+an accept-set is §3.4's prohibited direction — it can only manufacture agreement with a
+prediction already seen — and waits for §10's pre-scheduled freeze pass under §3.4's bounded
+exception. A retroactive application that **adds** an item, or widens an accept-set, is monotone
+in the conservative direction: it can only lower criterion 2 or leave it unchanged, so it cannot
+be self-serving and does not need the freeze pass's protections.
+
+> **A disclosure requirement that comes with Part 3, and it is not optional.** Where the
+> predictions for an affected span are already recorded, the session applying a retroactive
+> ruling **states what they are, before the ruling, and says which way they cut.** Decision 3's
+> own ruling did this: the two `MAY` spans it makes eligible are emitted by the model on **1 of
+> 3 runs each**, so both score modal `MISSED` (§6) and both **lower** criterion 2. Disclosing an
+> against-interest measurement up front is what distinguishes a ruling from a fitted one; a
+> ruling that would *raise* the number carries the same duty and a heavier burden.
+
+**A fourth part, deliberately NOT adopted: an "affordability" exception.** It was considered and
+rejected. §22.1 already governs whether conforming is paid for, and folding cost into the reach
+test would let a ruling's *correctness* depend on how expensive its artifact change happens to
+be — which is precisely the standing incentive not to fix a broken rule that §22 identifies as
+its own central defect. Cost decides **timing**, never **truth**.
+
 ### 10.1 The freeze-pass queue (added v0.45) — one list, so nothing is tracked only in a session record
 
 **Why this exists.** Work deferred to the freeze pass has been accumulating in five different
@@ -4175,9 +4447,20 @@ freeze pass is added here, or it is not deferred, it is dropped.**
 | **F10** | n/a — reporting layer | **PARTIALLY EXECUTED v0.48, scoped deliberately.** `action_not_in_taxonomy` is now classified **INCOMPLETENESS** — added in this batch *because* F8 and F11 apply that tag, so shipping them alone would have widened the gap while claiming to close a taxonomy one. **The remaining five live-use tags stay `UNCLASSIFIED` and `report.py` now names each and says why** (`corpus_artifact_in_span`, `shared_subject_split`, `redacted_value`, `within_preposition`, `relative_trigger_preposition`): each turns on **F9**'s `kind`-axis question, and assigning a direction now would be the very masquerade the reviewer filed F10 separately to prevent. **STILL OPEN for those five** | no | v0.46; §9.1, `report.py` G6 |
 | **F12** | whole set | **§3.6.1 tests the `action` SLOT VALUE only, not `action_accept_set`** — its v0.44 screen swept `action`, `obligor`, `obligee` and `obligor_accept_set`, and the action accept-set was never in it. The co-variance argument that makes §3.6.1 a *correction* runs through the accept-sets, since §5 clause 2 tests **membership**, not slot equality. **Measured at v0.48: exactly ONE instance across the 32, and it is the same item before and after F3** — `C04-04`'s old slot `self_compliant_use` restated its accept-set member `COMPLY` (via `compliant`) just as its new slot does (via `compliance`), so exposure was **1 → 1** and F3 inherited the hazard rather than creating it. **A first pass reported zero; that was a stemmer miss (`complyance` ≠ `compliance`), the third nominalisation miss by that screen in one session.** Decide whether §3.6.1 extends to accept-sets. Retroactive reach, so it is a rule change, not a screen fix | mixed | v0.48 F3 ruling; §3.6.1 |
 | **F11** | `C10-01` | **EXECUTED v0.48 — §8.8.2.** `defend` is ruled **NOT** defensibly mappable to `INDEMNIFY`, on corpus evidence: 33 sentences use it with no `indemnify`; `C03` disjoins *"failed to defend or indemnify"*; `C03` §(c) owes the defence *"whether or not … the allegations are meritorious"*; `C11` converts a failed defence duty into a payment duty. Branch 3 fires; `C10-01` restamped to three tags. `hold harmless`→`INDEMNIFY` untouched — **the two non-member verbs of one triplet land on opposite sides of the limb**, which is the first real exercise of §8.3's v0.47 non-mappability test. **DONE** | **NO — see the cassette correction below** | §8.3.2's re-check |
-| **F13** | whole set (1 locked item today: `C17-02`) | **§8.6 and §8.9 give OPPOSITE instructions for the same structural problem, and §3.7's general rule sides against §8.6.** Both gaps are *a preposition the production regex does not accept* — §8.6 is `_WITHIN_RE` wanting `of`, §8.9 is `_RELATIVE_RE` wanting `before`/`after` — yet §8.6 rules **`temporal: null`** while §8.9 rules **annotate the form + trigger verbatim**, and §3.7 says *"Known-gap forms (§8) are annotated **normally**. Do not avoid them."* §8.6 is the outlier against both. It also makes gold assert `temporal: null` where the text plainly carries a timing phrase, which §3.7 permits *"only when the obligation genuinely carries no timing phrase"*. **The inconsistency is in the GUIDELINE, not in the annotation** — measured, both annotators follow each section literally and consistently: `within_preposition` → `null` (gold `C17-02`; cold `C17-066`, `C11-094`) and `relative_trigger_preposition` → the form (gold `C13-03`, `C22-02`; cold ×5). §8.9 (v0.28) was written explicitly as §8.6's sibling (*"Why its own tag rather than §8.6's"*) and never reconciled it. **Exposure: §8.6's own measurement — the word after `within N <unit>` is `of` 40 vs `after` 34 / `from` 17 / `following` 8, so 59 pool-wide occurrences sit on the rejected side.** Decide which treatment governs; if §8.9's, §8.6's rule line and `C17-02` both move. **NOT a prerequisite for any escalation** — surfaced by the cold annotator, who flagged the tension in `C11-094` item 2's notes, resolved it per §8.6 as literally written, and applied that resolution to `C17-066` too for consistency | yes (`C17-066`, `C11-094` both cassette-covered) | 2026-09-05 escalation re-read; `holdout/C14_076_INVESTIGATION.md` §7.4 |
+| **F13** | whole set (1 locked item today: `C17-02`) | **RESOLVED v0.52 — §8.9's treatment governs; §8.6 is amended at §8.6.1, RETROACTIVE, and `C17-02` is restamped to the `WITHIN` form.** Ruled on the *representable-vs-reachable* principle rather than by counting sections: `temporal: null` marks what the IR cannot REPRESENT (a bare vague qualifier, §15.2), never what the classifier cannot REACH. Two further sections were found siding against §8.6 beyond the two first filed — **§11 decision 1 (v0.8), on `_WITHIN_RE` itself**, and **§15.5 (v0.28)**, whose existing `C11-01` treatment is CONFIRMED rather than changed. §10 re-check logged: a screen validated on a known answer plus a loose sweep for any `within` in any locked span finds **exactly 2 hits**, of which one (`C11-01`) already conforms — **exposure is 1 item**. **Criterion 2 unmoved on both denominators (`3/9 = 33.3%`)**, measured: the model quotes the rejected preposition on 3/3 runs and no candidate survives compile. `K` unchanged at 14/32; the published clause profile moves `6_temporal` **2 → 3 of 23** (§3.6.1's dual-predicate disclosure). **Under the IN-FORCE predicate the effect is ZERO** — §5.1 A1 marks `C17-02` `NON_CONFORMING` (cold's `action` slot `OBTAIN` is off-taxonomy), so it sits outside both `A`'s numerator and denominator and **`A` holds at `7/27`**; the `14/32` movement is to the *legacy* pre-§5.1 published run, which `tests/evals/test_harness_annotator_agreement.py` still reproduces exactly via its `PRE_RESTAMP` map, **extended by this ruling rather than relaxed**. `C17-066`'s 3 cassettes go stale; **the re-record is DEFERRED to the freeze pass** — zero criterion-2 effect either way, so it rides along rather than earning its own live-spend session. **DONE.** *Original entry follows, left as written:* **§8.6 and §8.9 give OPPOSITE instructions for the same structural problem, and §3.7's general rule sides against §8.6.** Both gaps are *a preposition the production regex does not accept* — §8.6 is `_WITHIN_RE` wanting `of`, §8.9 is `_RELATIVE_RE` wanting `before`/`after` — yet §8.6 rules **`temporal: null`** while §8.9 rules **annotate the form + trigger verbatim**, and §3.7 says *"Known-gap forms (§8) are annotated **normally**. Do not avoid them."* §8.6 is the outlier against both. It also makes gold assert `temporal: null` where the text plainly carries a timing phrase, which §3.7 permits *"only when the obligation genuinely carries no timing phrase"*. **The inconsistency is in the GUIDELINE, not in the annotation** — measured, both annotators follow each section literally and consistently: `within_preposition` → `null` (gold `C17-02`; cold `C17-066`, `C11-094`) and `relative_trigger_preposition` → the form (gold `C13-03`, `C22-02`; cold ×5). §8.9 (v0.28) was written explicitly as §8.6's sibling (*"Why its own tag rather than §8.6's"*) and never reconciled it. **Exposure: §8.6's own measurement — the word after `within N <unit>` is `of` 40 vs `after` 34 / `from` 17 / `following` 8, so 59 pool-wide occurrences sit on the rejected side.** Decide which treatment governs; if §8.9's, §8.6's rule line and `C17-02` both move. **NOT a prerequisite for any escalation** — surfaced by the cold annotator, who flagged the tension in `C11-094` item 2's notes, resolved it per §8.6 as literally written, and applied that resolution to `C17-066` too for consistency | yes (`C17-066`, `C11-094` both cassette-covered) | 2026-09-05 escalation re-read; `holdout/C14_076_INVESTIGATION.md` §7.4 |
 | **F14** | whole set (13 locked items carry an `ABSENT` slot today: **2 on the obligor slot** — `C04-03`, `C14-05` — and 11 on the obligee slot) | **THE PROMPT NEVER STATES THAT AN EMPTY ALIAS IS PERMITTED, AND §5 CLAUSE 3 IS MEASURING THAT OMISSION RATHER THAN EXTRACTION QUALITY.** §5 encodes "this party is absent" as an `UnresolvedParty` carrying an empty alias (`score.py`'s ABSENT branch requires `norm(pred.alias) == ""`), but `prompts/extraction/v3.yaml` states **no rule permitting an empty alias anywhere**. Its only signal is one worked example carrying `"obligee_alias": ""`, with **no obligor counterpart** — and the emission split follows exactly: across all 81 candidates in the 35 gold cassettes, `obligee_alias` is empty **40/81 (49.4%)** and `obligor_alias` is empty **0/81 (0.0%)**, Wilson₉₅ upper bound **4.53%**. §3.5 already called the empty-obligee behaviour *"undesigned behavior, not a chosen rule"*; the measurement shows the undesign is **one-sided**. **Not a capability gap — verified by execution:** a both-`ABSENT` candidate grounds (`_is_grounded_substring` returns `True` on an empty needle, by design), compiles to `MUST "" PAY "" …`, and parses to `UnresolvedParty(alias='')` on both slots, so the ABSENT branch is reachable and the 0/81 is **behavioural**. Decide whether the prompt gains an explicit empty-alias instruction and an obligor worked example. **Tier C — a `prompt_version` bump stales all 35 gold cassettes at once and `C17-021` run 3 is unobtainable (§6.1) — so it is bundled with the already-approved-and-never-run `v4` `condition_raws` probe rather than taken alone**; whether the wording moves the 0/81 is a fact about `openai/gpt-oss-120b`, settleable only live. **NOT a prerequisite for `C14-076`'s band-eligibility ruling, nor for candidate 2's field assignment**, which §3.5.3's rule text decides regardless of how this resolves | yes (all 35 stale on any bump) | 2026-09-05 §5 both-`ABSENT` investigation; `holdout/C14_076_INVESTIGATION.md` §8.2 |
 | **F15** | whole set | **§5 EXCLUDES `missing_fields` FROM THE PREDICATE WHILE SCORING `underspecified`, WHICH §3.9 STATES *IS* `bool(missing_fields)`.** §5's own closing line reads *"`missing_fields` is **reported but excluded** from the predicate"*, and §3.9 states *"`typecheck.py` computes `underspecified = bool(missing_fields)`"* — so clause 8 scores the boolean of the field clause-by-clause scoring deliberately drops. **Measured, not argued: across the 24 locked items whose documents carry a committed §21 R3 registry, `underspecified` is predicted with ZERO mismatches by *NOT(obligor resolves AND obligee resolves AND temporal is null)*.** Clause 8 is a **function of clauses 3/4/6's inputs**, not an independent eighth check. **Sharpest on a partyless span, where it is not merely dependent but GUARANTEED:** grounding requires each alias to be a substring of the span, no substring of a partyless span can resolve, so `underspecified` is `True` whatever the model emits and clause 8 passes **for any prediction, including a wholly wrong one** — verified against the real `C14` registry. Reaches the **62 partyless agentless performance passives (3.1% of modal-bearing sentences)** measured over the 10 registry-backed documents, and weakly the 19 currently-`underspecified` locked items. **TWO CANDIDATE RESOLUTIONS, NEITHER DECIDED HERE: (i)** keep clause 8 scored and disclose the guarantee at the point of use, the way §9 already discloses the dual denominator — cheapest, changes no number, but leaves a clause that cannot fail on a whole structural class; **(ii)** move clause 8 to reported-not-scored alongside `missing_fields`, making §5 seven scored clauses — internally consistent, but it is a **retroactive change to what `FULLY_CORRECT` means** and would move criterion 2's numerator, so it cannot be taken casually and interacts with §9's in-force denominator. **A first draft of the measuring script tested `ABSENT`-ness instead of resolvability and reported 4 spurious mismatches (`C14-01`, `C14-02`, `C02-04`, `C06-01` — every one a named but unresolvable party under §3.9 trigger 1); the looser predicate was the defect, not the data**, and the correction is preserved in the script rather than only in this row (Standing Principle 7). **NOT a prerequisite for `C14-076`'s band-eligibility ruling** | mixed | 2026-09-05 §5 both-`ABSENT` investigation; `holdout/C14_076_INVESTIGATION.md` §8.4; §5, §3.9 |
+| **F16** | **whole set — BLOCKING, and it OUTRANKS F5/F6/F9/F10/F12** | **THE SCORER CANNOT RUN END TO END AGAINST THE COMMITTED GOLD SET AT ANY `guideline_version`. This is a broken invariant, not a design question — which is why it is ranked above the five open design entries rather than queued behind them.** `Cassette.verify()` tests `guideline_version` by exact string equality against **one run-level value** (`run_scoring.run()` passes a single `guideline_version` to every `available_runs()` call), and a stale cassette **propagates by design** — `available_runs`' own docstring: *"A stale cassette is not silently treated as a missing run -- it propagates, because replaying it would answer a question that was never asked."* **Verified by execution against the committed artifacts, not inferred:** cassettes stand at `v0.28 ×32` / `v0.48 ×3`, so at **`v0.28`** the run dies on `C04-117` (all 3 cassettes `StaleCassette`) and at **`v0.48`** it dies on **11 segments**; separately, all **10 batch-3 segments have no cassette at all**, which raises `"segment <id> has no usable cassette; cannot score it"`. **Cause, and it is on the record rather than mysterious: the v0.48 freeze-pass batch restamped `C04-02` and `E01-01` ALONE, which is exactly the move §22.1's own "what must NOT happen" list forbids** — *"conforming `C14-02` alone (it yields mixed stamps and the scorer will refuse to run)"*. §9.2 and the v0.49 changelog disclose the resulting mixed-stamp **population** and caveat the `3/9` figure accordingly; **neither states that the entry point itself no longer executes**, so the breakage has been carried as a caveat about a number rather than as a defect in the instrument. **Consequence, stated precisely: every criterion-2 figure since v0.48 has been produced by a scoped or per-segment path, not by `run_scoring.run()` over the committed set, and no session record says which.** That is a reproducibility gap on this phase's own headline acceptance figure. **It also blocks live measurement of both v0.52 rulings' stated costs** — §8.6.1's zero-effect claim and Decision 3's denominator arithmetic are each computed by hand here and cannot currently be confirmed by a run. **NOT a licence to weaken a staleness dimension**: §22.1 rejected exactly that and its reasoning is untouched. The candidate resolutions — a per-item rather than per-run `guideline_version` comparison; an explicit scoped-subset entry point that names which items it scored; or a full §10 conform that restores a single stamp — are a real choice and this row does not pre-select one. **Decide before executing the freeze pass, because the freeze pass is the thing that would otherwise hide it.** | yes (diagnosis is over the cassette directory) | 2026-09-05 F13 / decision-3 ruling session; §22.1, §9.2 |
+
+**PRECEDENCE, set at v0.52 and stated here rather than left to the row order: F16 outranks
+every other open entry, including F5, F6, F9, F10 and F12.** Those five are genuine two-sided
+design questions — a breadth audit, a depth convention, a tag `kind` axis, a reporting
+classification, an accept-set scope — and each may legitimately take a session to think about.
+**F16 is not a design question. It is a broken invariant with a reproducible failure**, and
+until it is resolved no figure this queue produces can be confirmed by running the harness,
+including the figures the other entries' rulings would move. A queue whose entries cannot be
+measured is back to *"it is mentioned somewhere"*, which is the condition §10.1 was created to
+end.
 
 **Ordering note — SUPERSEDED v0.48, and its factual error is corrected below rather than edited
 away.** It read: *"F3 is the only entry that is both cassette-backed and a rule conflict rather

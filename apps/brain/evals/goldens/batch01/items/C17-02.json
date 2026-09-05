@@ -26,7 +26,12 @@
     "third_party_consent",
     "consent"
   ],
-  "temporal": null,
+  "temporal": {
+    "form": "WITHIN",
+    "amount": 24,
+    "unit": "mo",
+    "trigger": "the Commencement Date"
+  },
   "conditions": [],
   "underspecified": true,
   "missing_fields": [
@@ -49,9 +54,12 @@
     "3.6",
     "3.9",
     "8.6",
+    "8.6.1",
+    "11",
+    "15.5",
     "16"
   ],
-  "guideline_version": "v0.28",
-  "annotator_notes": "JOINT obligors (section 3.5.1), NOT mutual (section 8.4): 'The Company and RGHI' are both bound but toward the counterparty, a third party -- one duty, no mirror image, fully representable. Handled by obligor_accept_set with NO known_gap. Contrast is visible inside this same segment: its third sentence ('Each Party... shall indemnify and hold harmless the other Party') IS a section 8.4 mutual case. NEW GAP, section 8.6: 'within 24 months following the Commencement Date' fails _WITHIN_RE despite a BARE numeral, because the regex requires the preposition 'of'. Verified against the production regex directly; pool-wide the following word is of=40, after=34, from=17, following=8, so rejected prepositions outnumber the accepted one 59:40. Section 16 efforts qualifier applies again ('will use all commercially reasonable efforts') -- modality MUST from 'will', qualifier belongs to the action.",
+  "guideline_version": "v0.52",
+  "annotator_notes": "JOINT obligors (section 3.5.1), NOT mutual (section 8.4): 'The Company and RGHI' are both bound but toward the counterparty, a third party -- one duty, no mirror image, fully representable. Handled by obligor_accept_set with NO known_gap. Contrast is visible inside this same segment: its third sentence ('Each Party... shall indemnify and hold harmless the other Party') IS a section 8.4 mutual case. NEW GAP, section 8.6: 'within 24 months following the Commencement Date' fails _WITHIN_RE despite a BARE numeral, because the regex requires the preposition 'of'. Verified against the production regex directly; pool-wide the following word is of=40, after=34, from=17, following=8, so rejected prepositions outnumber the accepted one 59:40. Section 16 efforts qualifier applies again ('will use all commercially reasonable efforts') -- modality MUST from 'will', qualifier belongs to the action.\n\nRESTAMPED 2026-09-05 (guideline v0.52, section 8.6.1, section 10.1 F13 -- RETROACTIVE). temporal moves from null to the WITHIN form: {form: WITHIN, amount: 24, unit: mo, trigger: 'the Commencement Date'}. The v0.17 section 8.6 rule that produced the null (' temporal: null, known_gaps within_preposition') is SUPERSEDED. Ground: the unifying principle is representable-vs-reachable -- temporal null marks what IR v1 cannot REPRESENT (a bare vague qualifier, section 15.2), never what the classifier cannot REACH. Verified by execution against the production classifier: 'within 24 months of the Commencement Date' classifies to WITHIN 24mo OF \"the Commencement Date\", so the IR expresses this form fine; only _WITHIN_RE's single-preposition alternation rejects 'following'. Section 8.6 as written was inconsistent with FOUR sections -- section 11 decision 1 (v0.8, on _WITHIN_RE itself), section 3.7, section 15.5 (v0.28) and section 8.9 (v0.28) -- and its own 'why its own tag' paragraph shows it was written while looking directly at section 11. known_gaps KEEPS within_preposition; the gap is unchanged, only its annotation is. unit is the AST's 'mo', not the document's 'months' -- clause 6 compares canonical forms and a 'months' stamp would fail every correct prediction (confirmed against score._canonical_gold_temporal / _canonical_temporal). underspecified stays true; missing_fields ['obligee','temporal'] was anomalous under section 3.9's 'temporal null is never a trigger' and is now CORRECT, since section 3.9 trigger 3 fires. NO SCORE MOVES: this item carries within_preposition so it is outside section 9.1's in-force denominator either way, and it scores MISSED either way -- the model quotes 'within 24 months following the Commencement Date' into temporal_raw on 3 of 3 runs, repair returned no repairs on runs 1-2 and proposed the grammar-unsatisfiable 'within 24 months' on run 3, and the emitted action 'OBTAIN' is not in ACTIONS. In-force criterion 2 stays 3/9 = 33.3%. OTHER PREDICATE (section 3.6.1's v0.45 forward requirement -- 'free' is never used unqualified): the cold annotator annotated this span under section 8.6 as written (temporal null), so gold's restamp flips clause 6 to disagree; K is UNCHANGED at 14/32 (this item already disagreed on 2_action) but the published clause profile moves 6_temporal from 2 to 3 of 23. UNDER THE IN-FORCE PREDICATE THE EFFECT IS ZERO, proven by execution: section 5.1 A1 marks this item NON_CONFORMING (cold's action slot 'OBTAIN' is off-taxonomy), so it sits outside both A's numerator and denominator and A holds at 7/27 unchanged. The 14/32 movement is to the LEGACY pre-section-5.1 published run, which tests/evals/test_harness_annotator_agreement.py continues to reproduce exactly item-by-item via its PRE_RESTAMP map -- extended by this restamp rather than relaxed, so the published record stays re-derivable instead of being erased by the ruling that moved it. CASSETTE STATUS: C17-066's three cassettes are now STALE against this item and the re-record is DEFERRED to section 10's freeze pass by reviewer ruling (zero criterion-2 effect, so it rides along rather than earning its own live-spend session). Until then this is a KNOWN-STALE, honestly-labelled item, the same footing section 22.1 gives C14-02. Section 22.3's validity-transfer does NOT apply: C17-066 backs only this item, checked against the cassette directory rather than against a queue row.",
   "reviewer_status": "APPROVED"
 }
