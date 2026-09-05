@@ -14,6 +14,12 @@ false, that its stated arithmetic is wrong in a way that changes which candidate
 and that the false premise is an instance of a **repo-wide record-scope gap**, not a
 one-segment slip. Scripts and their known-answer checks: `band_risk/`.
 
+**Scope note added 2026-09-05.** *"Nothing is ruled here"* refers to the two **candidates**,
+and still holds — both remain escalated. **§8, appended later the same day, DOES rule one
+thing**: the §5/§5.1 both-`ABSENT` scoring question §3.2 raised is answered and §5 is confirmed
+final. **That ruling is not a prerequisite for either candidate** and does not touch candidate
+2's field assignment — see §8.0, which states the non-dependence in full.
+
 ---
 
 ## 0. The three corrections, up front
@@ -414,3 +420,181 @@ consistent with locked `C17-02`.
 | `C11-094` #3 | **NARROWED to Decision 3 alone** | Retroactivity only; merits settled concordantly |
 | `C04-117` #1 | **NARROWED to Decision 3 alone** | Retroactivity only; merits settled concordantly |
 | §8.6 vs §8.9/§3.7 | **NEW** | Own ruling, F13; not a prerequisite |
+
+---
+
+## 8. Addendum (2026-09-05) — the §5/§5.1 both-`ABSENT` scoring question, ANSWERED
+
+§3.2 above named the genuinely novel part of candidate 2 as downstream, in §5: *"Candidate 2
+would be the **first gold item where two of the eight scored clauses pass on a vacuous
+match**. That is a §5/§5.1 question … and it has never been asked."* §5 above records it as
+the more urgent of the two escalations. It was asked, and this section answers it.
+
+**Framed generally, as scoped: this is a question about the scoring predicate, not about one
+segment.** It reaches the **62 partyless agentless performance passives (3.1% of modal-bearing
+sentences)** §3.3 measured over the 10 registry-backed documents, and the 13 locked items that
+already carry an `ABSENT` slot.
+
+**Verdict: §5 handles a both-`ABSENT` item and needs no amendment — the concern ran backwards.
+Two real defects surfaced in the course of checking it and are filed as §10.1 F14 and F15.**
+Adopted as final at guideline v0.51. Scripts and their known-answer checks: `band_risk/`.
+
+### 8.0 THIS SECTION IS NOT A PREREQUISITE FOR `C14-076`'s BAND-ELIGIBILITY RULING
+
+Stated first, and at this length, because the escalation record made the §5 question sound like
+a gate and it is not one. A future reader must not treat F14 or F15 as blocking.
+
+- **Candidate 2's field assignment stands on existing rule text, whatever F14 and F15 decide.**
+  §3.1 above already settled it by citation: §3.5.3's rule text anticipates the no-party case
+  **in terms** (*"Where no party is named at all … `obligee` = `ABSENT`"*), and `obligor =
+  ABSENT` is that section's headline. The fields are `obligor: ABSENT`, `obligee: ABSENT`,
+  `underspecified: true` (§3.9 trigger 1), both roles in `missing_fields`. **Nothing below
+  changes any of those five values.**
+- **F14 is a prompt-wording question** — whether the model can be made to emit an empty obligor
+  alias. That governs how a candidate-2-shaped item *scores*, never whether it is annotatable
+  or how it is annotated.
+- **F15 is a predicate-composition question** — whether clause 8 stays scored. Same: it moves a
+  scoring figure, not an eligibility or field decision.
+- **The band question is decided on §2's clause count**, which §4 above already showed candidate
+  2 alone settles (two verbs, different obligors, so it cannot be one item; genuine ⇒ segment =
+  4 ⇒ over band). That argument runs entirely on §4.3 and §2 and touches §5 nowhere.
+
+**So the ordering is free.** `C14-076`'s eligibility session may be scheduled before, after, or
+independently of F14 and F15, and F14/F15 may be resolved without reopening `C14-076`. The one
+thing that would be wrong is deferring the band ruling *because* F14/F15 are open.
+
+### 8.1 The premise is falsified: `ABSENT` is a HARDER target than a named party
+
+`band_risk/party_alias_check.py`, over the 35 gold cassettes, aligned with the harness's **own**
+`align()`/`iou()` rather than a reimplementation — 44 aligned (item, run) pairs, 17 distinct
+items:
+
+| clause | gold `ABSENT` | gold NAMED |
+| :--- | ---: | ---: |
+| 3 `obligor` | **0/3 = 0.0%** | 32/41 = 78.0% |
+| 4 `obligee` | **13/17 = 76.5%** | 24/27 = 88.9% |
+
+**Read the direction, which is the whole result.** A vacuous clause would score *above* the
+named-party rate. Neither does. On the obligor slot the gap is not marginal — it is total.
+
+**The mechanism, and it is a rule the guideline already states.** §5 can express "absent" only
+as an empty alias, and the model supplies a hallucinated party instead. `C04-03` emits
+`"Miltenyi"` on **all three runs** — precisely the possessive-on-a-**location** inference
+§3.5.3's reviewer ruling forbids in terms (*"A possessive on a place is not a duty-bearer;
+reading one as the obligor is §3.5's forbidden inference"*). That is a clause failing on a rule
+gold states explicitly, not the model being imprecise. `C17-02` gives `"the counterparty"` ×2,
+`C11-01` `"BKC"` ×1, `C04-02` `"the Parties"`.
+
+**Stated limitation.** The obligor-`ABSENT` cell is one item × 3 runs (`C14-05`'s segment
+`C14-044` is not cassette-covered), so it is n=3 and weak alone. It is load-bearing only in
+combination with §8.2's 0/81, which is the same phenomenon measured on a much larger base. And
+`party_alias_check.py` is **not the scorer** — it does not run the pipeline, so candidates that
+would have been rejected or quarantined are still counted, which biases the pass rates
+**upward**: the conservative direction for a vacuous-pass claim.
+
+### 8.2 The cause is the prompt, and the asymmetry is one-sided — §10.1 F14
+
+`band_risk/alias_census.py`, over all **81** emitted candidates in the 35 cassettes:
+
+| slot | empty | rate |
+| :--- | ---: | :--- |
+| `obligee_alias` | 40/81 | **49.4%** |
+| `obligor_alias` | **0/81** | **0.0%**, Wilson₉₅ upper **4.53%** |
+| both | 0/81 | 0.0% |
+
+`prompts/extraction/v3.yaml` states **no rule permitting an empty alias anywhere**. Its only
+signal is one worked example carrying `"obligee_alias": ""`, with **no obligor counterpart**.
+§3.5 already called that *"undesigned behavior, not a chosen rule"* — the measurement shows the
+undesign is **one-sided**, and that one-sidedness is what produces the 0%.
+
+**So clause 3's rate on an `ABSENT` slot is not measuring extraction quality. It is measuring an
+unstated prompt convention.** Same class as the already-tracked `condition_raws` *"'if'-type"*
+alignment question: a scored clause whose pass rate is fixed by prompt wording.
+
+**Not a capability gap — verified by execution, not by reading** (`band_risk/both_absent_exec.py`,
+on candidate 2's real text). Every prior instance of this shape in this repo was settled wrongly
+by reading — the `UNLESS` carve-out, the `AndPredicate`/`OrPredicate` gap, the trailing-period
+bug — each a guarantee held at the grammar/DSL layer that the real extraction path bypassed. Run
+instead: grounding **accepts** an empty alias (`_is_grounded_substring`: `if not needle: return
+True`, by design), `_build_dsl` emits `MUST "" PAY "" value_added_tax …`, and the parser returns
+`UnresolvedParty(alias='')` on **both** slots. **The ABSENT branch is reachable; the 0/81 is
+behavioural.**
+
+### 8.3 What §5.1 has to say, and it is less than expected
+
+`A` (v0.45) governs **annotator comparison** and never scores a prediction, so the both-`ABSENT`
+question does not reach it — with one exception worth recording. **A3 compares parties as
+strings with no registry branch**, so under `A` a both-`ABSENT` item agrees iff both annotators
+wrote `ABSENT`. That is genuinely vacuous for `A`, but it is the *existing* A3 design decision
+(*"deferred, not adopted … revisit when a cold run puts a genuine same-party/different-alias
+pair in front of it"*), not a new consequence of both-`ABSENT`, and A3's own deferral note
+already covers it.
+
+### 8.4 The genuinely vacuous clause is 8, not 3 and 4 — §10.1 F15
+
+`band_risk/clause8_vacuous.py`. On a span naming **no registered party**, this is a proof rather
+than a rate:
+
+1. `ground_candidates()` requires each alias to be a substring of the grounded span.
+2. `symbols.resolve_party()` matches only a registered `canonical_name` (case-insensitively) or
+   a registered alias (case-**sensitively**, §21 R2).
+3. So if no registry party name occurs in the span, **no grounded alias can resolve**, whatever
+   the model emits.
+4. `typecheck._resolve_party()` appends **both** roles to `missing_fields`; `underspecified =
+   bool(missing_fields)` is `True` unconditionally.
+5. Gold says `True` (§3.9 trigger 1). **Clause 8 passes for any prediction whatsoever, including
+   a wholly wrong one.**
+
+Checked against the real `C14` registry: candidate 2 → **zero** hits. Known-answer check:
+`C04-03`'s span → `Bellicum`, `Miltenyi` found, so the detector is not merely always answering
+"no party here".
+
+**And clause 8 is not an independent eighth check set-wide.** Across the **24** locked items
+whose documents carry a committed §21 R3 registry, `underspecified` is predicted with **zero**
+mismatches by *NOT(obligor resolves AND obligee resolves AND temporal is null)*. The 8 items on
+registry-less documents are **skipped rather than counted as non-resolving** — the question is
+unfalsifiable there, the same scope restriction `partyless.py` already applies.
+
+**The §5 tension this exposes, stated plainly.** §5's own closing line reads *"`missing_fields`
+is **reported but excluded** from the predicate"*, while §3.9 states *"`typecheck.py` computes
+`underspecified = bool(missing_fields)`"*. **§5 excludes the field and scores its boolean.**
+
+**A DETECTOR FAULT CORRECTED MID-INVESTIGATION, kept in the script rather than only here**
+(Standing Principle 7, and the third such correction this `band_risk/` directory records). The
+first draft tested `ABSENT`-ness instead of **resolvability** and reported **4** mismatches —
+`C14-01`, `C14-02`, `C02-04`, `C06-01`. Reading them showed every one is a **named but
+unresolvable** party (a collective, a distributive, or a relational reference), which §3.9
+trigger 1 covers explicitly. **The looser predicate was the defect, not the data**, and the
+corrected run is 0 of 24.
+
+### 8.5 The "first item where 2 of 8 pass vacuously" count is wrong as stated
+
+| absence-matched scored slots (clauses 3/4/6) | locked items |
+| ---: | ---: |
+| 0 | 2 |
+| 1 | 20 |
+| 2 | **10** |
+
+**10 of 32** locked items already carry two absence-matched scored slots — obligee `ABSENT` plus
+`temporal: null` — and 30 of 32 carry at least one. Gold `temporal` is null on **27/32 (84.4%)**.
+
+A both-`ABSENT` item would be the first with two **party** clauses absent. That is a smaller and
+different claim than the one §3.2 recorded, and it is corrected here rather than edited there.
+
+### 8.6 Status
+
+| item | disposition |
+| :-- | :--- |
+| §5's `ABSENT matches ABSENT` | **CONFIRMED FINAL, no amendment.** It is the strictest cell in the party clauses on this evidence; amending it would fit the predicate to a sample of one, which is what §22.1 exists to prevent |
+| Unstated empty-alias prompt convention | **FILED — §10.1 F14.** Tier C, bundled with the approved-and-never-run `v4` probe |
+| Clause 8 / `missing_fields` tension | **FILED — §10.1 F15.** Both candidate resolutions stated; **not decided here** |
+| `C14-076` band eligibility | **UNAFFECTED — see §8.0.** Not gated on F14 or F15 |
+| Candidate 2's field assignment | **UNCHANGED** — `obligor: ABSENT`, `obligee: ABSENT`, `underspecified: true`, both roles in `missing_fields`, per §3.5.3 and §3.9 |
+| `C14-01` / `C14-02` field annotations | **STILL NOT in question**, as §4 already recorded |
+
+### 8.7 What this section deliberately does not do
+
+It rules neither F14 nor F15; it does not restamp any item; it does not touch a cassette (no item
+`guideline_version` changes, so `Cassette.verify()` is unaffected and §22's conforming blocker is
+not engaged); it does not change any published figure, including criterion 2's `3/9 = 33.3%`; and
+it does not rule `C14-076`'s band eligibility, which remains escalated on its own merits.
