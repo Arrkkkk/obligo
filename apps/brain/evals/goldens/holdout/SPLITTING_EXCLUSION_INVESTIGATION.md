@@ -143,7 +143,23 @@ writing**, **classified** under §8.4, and then neither annotated nor excluded.
 
 `splitting/records.py` searches all three places a disposition could live, exhaustively.
 
-**Result: 7 of 9 surplus clauses have no record anywhere.** One has an `exclusions.json`
+**Result: 7 of 9 surplus clauses have no record anywhere.**
+
+> **CORRECTION (2026-09-05) — the word "anywhere" is wrong; "gold-side" (this section's own
+> heading) is right.** `holdout/cold/*.json` is a **fourth** source this audit never searched:
+> all 22 cold files carry a substantive `segment_notes` (734–3,260 chars) and 16 of 22
+> explicitly discuss excluded sentences. Re-run with a cold-side column, **21 of the 21
+> sentences §2.7 reaches have a cold-side disposition** (7 cold items, 14 cold notes),
+> including all 10 this audit reports as `NONE`. **The gold-side numbers above are unchanged
+> and are the ones §2.1 step 4's safeguard actually needs** — the cold annotator is a second
+> annotator, not the reviewer, so a cold disposition is evidence, not authority, and the two
+> tallies are reported separately and never merged. What the overreach cost: three §2.7
+> retrofitted segment files (`C11-094`, `C04-117`, `C14-076`) went on to assert *"no
+> disposition of any kind exists on record"* / *"neither annotator flagged it"* for five spans
+> the cold annotator had **annotated or reasoned about**, and in `C14-076`'s case that false
+> silence was offered as evidence for one of two competing readings. Left as written per the
+> corrections-are-new-text discipline. Full audit: `C14_076_INVESTIGATION.md` §1;
+> `holdout/band_risk/cold_dispositions.py`. One has an `exclusions.json`
 entry (#8). One has an `annotator_notes` paragraph (#9). The single mention of any other is
 `C17-02`'s aside naming `C17-066`'s third sentence as a §8.4 mutual case — which states a
 classification and stops, giving no disposition.

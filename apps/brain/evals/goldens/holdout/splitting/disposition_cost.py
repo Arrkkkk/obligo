@@ -114,6 +114,10 @@ for b in ("batch01", "batch02", "batch03"):
 print("\n=== 3. How much is ALREADY recorded (the §6.3 denominator correction) ===")
 print("Only `reason`/`rule`/`segment_id` are searched -- `segment_text` quotes NEIGHBOURING")
 print("sentences and matching it gives false positives (fault (2) above).")
+print("GOLD-SIDE ONLY. This is the question §2.1 step 4's bias safeguard asks, because the")
+print("reviewer's rejection sample can only sample gold-side logs. A separate COLD_SIDE")
+print("column (added 2026-09-05) reports the fourth source WITHOUT merging it in -- see the")
+print("note printed after the table, and holdout/C14_076_INVESTIGATION.md §1.")
 ANCH = {  # a distinctive phrase per undisposed sentence; 'non-binding' is E03-01's own wording
     "C02-021": ["available for inspection"],
     "C03-192": ["not be construed as altering", "available on call"],
@@ -143,7 +147,18 @@ for seg, ans in ANCH.items():
         elif a.lower() in notes.lower():     tag = "ANNOTATOR_NOTES"
         else:                                tag = "NONE"
         n[tag] += 1
-        print(f"  {seg:9} {tag:19} {a!r}")
+        # FOURTH SOURCE, reported alongside and NEVER folded into the gold-side tally:
+        # a cold-side disposition does not satisfy §2.1's safeguard (the cold annotator is
+        # a second annotator, not the reviewer), but its existence makes a claim of silence
+        # falsifiable. Added after three retrofitted segment files asserted "no disposition
+        # of any kind exists on record" for spans the cold annotator had ANNOTATED.
+        cnotes = (COLD[seg]["segment_notes"] or "").lower() if seg in COLD else ""
+        citems = [it["span_text"].lower() for it in COLD.get(seg, {}).get("items", [])]
+        cold_tag = ("COLD_ITEM" if any(a.lower() in sp for sp in citems)
+                    else "COLD_NOTE" if a.lower() in cnotes else "-")
+        if cold_tag != "-":
+            n["COLD_" + cold_tag.split("_")[1]] += 1
+        print(f"  {seg:9} {tag:19} {cold_tag:10} {a!r}")
 print(f"\n  exclusions.json {n['EXCLUSION_LOG']} + annotator_notes {n['ANNOTATOR_NOTES']} "
       f"= {n['EXCLUSION_LOG']+n['ANNOTATOR_NOTES']}/21 genuinely disposed "
       f"({100*(n['EXCLUSION_LOG']+n['ANNOTATOR_NOTES'])/21:.0f}%)")
@@ -151,6 +166,13 @@ print(f"  classification without a disposition: {n['CLASSIFICATION_ONLY']}   "
       f"nothing anywhere: {n['NONE']}")
 print(f"  §6.3 measured ~11% over the 9 SURPLUS clauses -- a subsample selected FOR")
 print(f"  disagreement. Over the 21 sentences §2.7 reaches, it is ~half.")
+print(f"\n  COLD-SIDE, reported separately and NOT added to the figures above:")
+print(f"    cold ITEM {n['COLD_ITEM']}   cold NOTE {n['COLD_NOTE']}   "
+      f"(of {sum(len(v) for v in ANCH.values())} anchors)")
+print( "    On the six count-disagreeing segments a COLD_ITEM is TAUTOLOGICAL -- those spans")
+print( "    ARE the surplus clauses. The informative verdicts are COLD_NOTE, and the")
+print( "    absence of any cold record. Per-span verdicts across all 22 segments, with a")
+print( "    known-answer check: holdout/band_risk/cold_dispositions.py")
 
 print("\n=== 4. The modal-keyed trigger is UNSAFE: non-modal sentences ===")
 nm = [(s, x) for s in sorted(TEXT) for i, j, x in sentences(s)

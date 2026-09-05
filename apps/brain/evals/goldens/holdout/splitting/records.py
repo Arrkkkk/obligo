@@ -1,8 +1,25 @@
-"""The record audit: is there ANY gold-side disposition for each surplus clause?
+"""The record audit: is there ANY disposition for each surplus clause?
 
-Three sources are searched exhaustively: exclusions.json (segment- and sub-sentence-level),
-the populated §21 R6 not_annotatable spans, and every gold item's annotator_notes on the
-six disagreeing segments.
+GOLD-SIDE (sections 1-3), three sources searched exhaustively: exclusions.json (segment- and
+sub-sentence-level), the populated section 21 R6 not_annotatable spans, and every gold item's
+annotator_notes on the six disagreeing segments. This is the question section 2.1 step 4's
+bias safeguard actually asks, because the reviewer's rejection sample can only sample
+gold-side logs.
+
+COLD-SIDE (section 4, added 2026-09-05), a FOURTH source: holdout/cold/*.json. Added after
+the C14-076 investigation found that this script's gold-side result had been generalised, in
+three retrofitted segment files, from "no gold-side disposition exists" (true, and the whole
+point of section 2.7) into "neither annotator recorded why" (false, and offered as evidence
+for one of two competing readings). All 22 cold files carry a substantive segment_notes and
+16 of 22 explicitly discuss excluded sentences; none of it was read by any script.
+
+KEEP THE TWO SIDES LABELLED AND NEVER MERGE THEM. A cold-side disposition does NOT satisfy
+section 2.1's safeguard -- the cold annotator is a second annotator, not the reviewer, and
+its notes are evidence, not authority. Section 4 exists so a claim of silence is falsifiable,
+not so cold prose can be counted as a gold-side record.
+
+The per-span verdict across all 22 segments (not just these six) is
+holdout/band_risk/cold_dispositions.py, which carries the known-answer check.
 """
 import json, glob, re
 
@@ -46,3 +63,20 @@ for p in sorted(glob.glob(f"{G}/batch0*/items/*.json")):
           f"{len(hits)} hit(s)")
     for m in hits:
         print("     ..." + n[max(0, m.start()-95):m.end()+95].replace("\n", " ") + "...")
+
+print("\n=== 4. COLD-SIDE (fourth source): holdout/cold/*.json -- NOT a gold-side record ==="
+      "\n    A cold ITEM is a stronger disposition than a prose exclusion: the cold annotator"
+      "\n    did not merely say why not, it said what the clause is, field by field.")
+for p in sorted(glob.glob(f"{G}/holdout/cold/*.json")):
+    d = json.load(open(p))
+    seg, notes = d["segment_id"], (d.get("segment_notes") or "")
+    if seg not in PROBE:
+        continue
+    hits = list(re.finditer(PROBE[seg], notes, re.I))
+    items = [i["span_text"] for i in d.get("items", [])]
+    print(f"  {seg}: {len(items)} cold item(s), segment_notes {len(notes)} chars, "
+          f"{len(hits)} probe hit(s) in notes")
+    for n, sp in enumerate(items, 1):
+        print(f"     item {n}: {sp[:88]!r}")
+    for m in hits:
+        print("     notes ..." + notes[max(0, m.start()-95):m.end()+95].replace("\n", " ") + "...")
