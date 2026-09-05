@@ -1,13 +1,13 @@
 {
   "segment_id": "C11-094",
   "doc_id": "C11",
-  "schema": "\u00a72.7 (v0.50) -- complete per-sentence segment disposition, superseding \u00a721 R6's not_annotatable-only shape. `not_annotatable` (R6's original array, the only key run_scoring.load_not_annotatable() reads) is preserved for scoring and holds every NOT_OBLIGATION_BEARING / NOT_ANNOTATABLE / EXCLUDED span. `dispositions` is the full per-sentence record \u00a72.7 requires, covering ANNOTATED and AMBIGUOUS spans too, which `not_annotatable` deliberately excludes -- an AMBIGUOUS span is an open reviewer question, not a settled non-item, and including it in the scoring array would resolve it silently.",
+  "schema": "§2.7 (v0.50) -- complete per-sentence segment disposition, superseding §21 R6's not_annotatable-only shape. `not_annotatable` (R6's original array, the only key run_scoring.load_not_annotatable() reads) is preserved for scoring and holds every NOT_OBLIGATION_BEARING / NOT_ANNOTATABLE / EXCLUDED span. `dispositions` is the full per-sentence record §2.7 requires, covering ANNOTATED and AMBIGUOUS spans too, which `not_annotatable` deliberately excludes -- an AMBIGUOUS span is an open reviewer question, not a settled non-item, and including it in the scoring array would resolve it silently.",
   "reconciliation": {
     "sentences_total": 6,
     "obligation_bearing_clauses": 3,
     "items_annotated": 1,
     "status": "ESCALATED",
-    "note": "3 obligation-bearing clauses vs 1 items_annotated. 2 span(s) AMBIGUOUS, escalated per \u00a714.3/\u00a714.4 rather than resolved silently. Gap fully explained by recorded dispositions (nothing uncovered); resolution is a reviewer decision, not taken here."
+    "note": "AMENDED 2026-09-05 -- escalation scope RE-READ against the cold-side dispositions, before any section 14.4 session is scheduled, so no session starts on a scope fixed under a premise now known to be wrong. See holdout/C14_076_INVESTIGATION.md section 7. NEITHER SPAN IS RESOLVED; ALL ARE NARROWED. The 'no disposition of any kind exists on record' premise in the readings below is FALSE -- it generalised a GOLD-SIDE search result; the cold annotator annotated every one of these spans CONFIDENT. C11-094 #2 ('the executor shall use best efforts to transfer'): narrowed to approve/reject cold's drafted item -- AND THE RETROFIT'S OWN BEST-ATTEMPT READING IS WRONG ON `temporal` and must not be the drafting base (it paraphrases the contract's 'within twelve (12) months FROM the date' as 'OF', the one preposition _WITHIN_RE accepts; section 8.6 rules temporal null + within_preposition). C11-094 #3 ('BKC shall have the option to purchase'): narrowed to DECISION 3 ALONE -- retroactivity over a v0.28-locked segment; the merits are settled concordantly by two independent annotators. Concordance is a LOWER BOUND on error, not proof (section 7.1: correlated model-family error, guideline leakage, no reviewer blinding). ORIGINAL NOTE FOLLOWS, left as written per the corrections-are-new-text discipline: 3 obligation-bearing clauses vs 1 items_annotated. 2 span(s) AMBIGUOUS, escalated per §14.3/§14.4 rather than resolved silently. Gap fully explained by recorded dispositions (nothing uncovered); resolution is a reviewer decision, not taken here."
   },
   "dispositions": [
     {
@@ -15,8 +15,8 @@
       "span_char_end": 45,
       "span_text": "15.7 DEATH OR MENTAL INCAPACITY OF PRINCIPAL.",
       "disposition": "NOT_OBLIGATION_BEARING",
-      "rule": "\u00a72.6 (\u00a72's \u2018no obligation-bearing sentences\u2019 exclusion row, applied at sentence granularity)",
-      "reason": "A numbered/lettered section or clause heading: no subject, no modal, no clause content of any kind -- one of the 13 spans \u00a72.7 bulk-dispositions as a single class."
+      "rule": "§2.6 (§2's ‘no obligation-bearing sentences’ exclusion row, applied at sentence granularity)",
+      "reason": "A numbered/lettered section or clause heading: no subject, no modal, no clause content of any kind -- one of the 13 spans §2.7 bulk-dispositions as a single class."
     },
     {
       "span_char_start": 46,
@@ -32,15 +32,15 @@
       "span_char_end": 595,
       "span_text": "Transfers by devise or inheritance shall not be subject to BKC's right of first refusal under Paragraph 15.4 above, but shall be subject to the same conditions imposed on any INTER VIVOS transfer under Paragraph 15.5 above.",
       "disposition": "NOT_OBLIGATION_BEARING",
-      "rule": "guideline v0.50 ruling log (\u00a72.7)",
-      "reason": "'Transfers by devise or inheritance shall not be subject to ... but shall be subject to ...' -- a status clause stating which procedural rule governs a transfer type, not an independent party performance duty. Already characterised this way in the \u00a72.7 v0.50 ruling log itself: 'C11-094: s2 duty, s5 duty, s6 right, with s3/s4 shall-be-subject-to status'."
+      "rule": "guideline v0.50 ruling log (§2.7)",
+      "reason": "'Transfers by devise or inheritance shall not be subject to ... but shall be subject to ...' -- a status clause stating which procedural rule governs a transfer type, not an independent party performance duty. Already characterised this way in the §2.7 v0.50 ruling log itself: 'C11-094: s2 duty, s5 duty, s6 right, with s3/s4 shall-be-subject-to status'."
     },
     {
       "span_char_start": 596,
       "span_char_end": 821,
       "span_text": "All other transfers shall be subject to BKC's right of first refusal under Paragraph 15.4 above, or if such right is not exercised, the same conditions as may be imposed on any INTER VIVOS transfer under Paragraph 15.5 above.",
       "disposition": "NOT_OBLIGATION_BEARING",
-      "rule": "guideline v0.50 ruling log (\u00a72.7)",
+      "rule": "guideline v0.50 ruling log (§2.7)",
       "reason": "'All other transfers shall be subject to BKC's right of first refusal ...' -- same status class as the preceding sentence, same v0.50 ruling-log citation."
     },
     {
@@ -48,38 +48,38 @@
       "span_char_end": 1092,
       "span_text": "In the case of transfer by devise or inheritance, if the heir is not approved or there is no heir, the executor shall use best efforts to transfer the Principal's interest to another party approved by BKC within twelve (12) months from the date of the Principal's death.",
       "disposition": "AMBIGUOUS",
-      "rule": "no identifiable exclusion rule \u2014 SPLITTING_EXCLUSION_INVESTIGATION.md Category A",
-      "reason": "Surplus clause #2 -- 'the executor shall use best efforts to transfer the Principal's interest ... within twelve (12) months'. The investigation searched exhaustively (\u00a73) and found no gold-side disposition of any kind and no \u00a72 exclusion row that reaches it; escalated rather than silently annotated or silently dropped.",
+      "rule": "no identifiable exclusion rule — SPLITTING_EXCLUSION_INVESTIGATION.md Category A",
+      "reason": "Surplus clause #2 -- 'the executor shall use best efforts to transfer the Principal's interest ... within twelve (12) months'. The investigation searched exhaustively (§3) and found no gold-side disposition of any kind and no §2 exclusion row that reaches it; escalated rather than silently annotated or silently dropped.",
       "readings": [
         {
           "reading": "Genuine MUST item (best attempt)",
-          "detail": "\u00a716.2 makes 'shall use best efforts' MUST; the obligor is the role description 'the executor' (same non-party-alias treatment already ruled for this segment's own C11-01, \u00a73.5 positional/verbatim); temporal RELATIVE_TO_TRIGGER (within 12 months of the Principal's death); condition 'if the heir is not approved or there is no heir'. No rule excludes it."
+          "detail": "§16.2 makes 'shall use best efforts' MUST; the obligor is the role description 'the executor' (same non-party-alias treatment already ruled for this segment's own C11-01, §3.5 positional/verbatim); temporal RELATIVE_TO_TRIGGER (within 12 months of the Principal's death); condition 'if the heir is not approved or there is no heir'. No rule excludes it. WITHDRAWN IN PART 2026-09-05 -- THIS BEST ATTEMPT IS WRONG ON `temporal` AND MUST NOT BE USED AS THE DRAFTING BASE. It asserts RELATIVE_TO_TRIGGER 'within 12 months OF the Principal's death'. Checked against the real segment text rather than this paraphrase, the document reads 'within twelve (12) months FROM the date of the Principal's death' -- the reading silently substituted `of`, the one preposition _WITHIN_RE accepts, for the `from` the contract uses. On the real text this is a WITHIN construction, not RELATIVE_TO_TRIGGER at all, and section 8.6's rule for exactly this is explicit: temporal null, known_gaps ['within_preposition'] (`from` is one of the three rejected prepositions section 8.6 measured, 17 pool occurrences); 'twelve (12)' additionally hits section 8's SEPARATE parenthetical-numeral gap, which section 8.6 is explicit must not be filed with it. This reading also gives ONE conditions entry where section 3.8.2 Rule B / section 17.1's marker count give TWO. Cold's item has all of this right. A reviewer approving this draft would have been approving a wrong item. See also F13 (section 8.6 vs section 8.9/3.7 conflict), filed separately and NOT a prerequisite here. Source: holdout/C14_076_INVESTIGATION.md §7; source is holdout/cold/16_C11-094.json / 08_C04-117.json, audited by holdout/band_risk/cold_dispositions.py"
         },
         {
-          "reading": "No disposition (as left)",
-          "detail": "No annotator or reviewer has ever recorded a reason for treating this differently from C11-01 in the same segment; the omission may simply be an unrecorded judgment call this retrofit cannot reconstruct."
+          "reading": "Annotated by the cold annotator (CORRECTED 2026-09-05 -- this reading previously asserted that no annotator had ever recorded a reason)",
+          "detail": "CORRECTION: the previous text read 'No annotator or reviewer has ever recorded a reason for treating this differently from C11-01 in the same segment.' FALSE. The cold annotator performed exactly that comparison, under the rule that governs it, and annotated the clause CONFIDENT with 14 rules cited: 'A DISTINCT obligation from the segment's first item, checked against section 4.3.1 step 1 rather than assumed: the two clauses share an obligor role and an object but differ on conditions ..., on temporal ..., and on the efforts standard, so not every scored field is identical and section 4.3.1 sends them to section 4.3's ordinary two-item treatment. No restatement marker appears either.' STILL OPEN, and narrowed rather than resolved: gold's omission is still unexplained, and cold is a second ANNOTATOR, not the reviewer (section 14.4). NARROWED SCOPE: this session approves or rejects cold's drafted item -- it no longer reconstructs the question. Source: holdout/C14_076_INVESTIGATION.md §7; source is holdout/cold/16_C11-094.json / 08_C04-117.json, audited by holdout/band_risk/cold_dispositions.py"
         }
       ],
-      "escalation_ref": "evals/goldens/holdout/SPLITTING_EXCLUSION_INVESTIGATION.md \u00a71 row 2, \u00a72.2 Category A"
+      "escalation_ref": "evals/goldens/holdout/SPLITTING_EXCLUSION_INVESTIGATION.md §1 row 2, §2.2 Category A"
     },
     {
       "span_char_start": 1093,
       "span_char_end": 1310,
       "span_text": "If the conveyance of the Principal's interest to a party acceptable to BKC has not taken place within the twelve (12) month period, BKC shall have the option, to purchase the Principal's interest at fair market value.",
       "disposition": "AMBIGUOUS",
-      "rule": "\u00a72.5 / \u00a72.5.1 (retroactivity OPEN \u2014 SPLITTING_EXCLUSION_INVESTIGATION.md Decision 3)",
-      "reason": "Surplus clause #3 -- 'BKC shall have the option, to purchase the Principal's interest at fair market value'. Same open Decision 3 as C04-117's rights-reservation: a pre-\u00a72.5 MAY-shaped clause with no disposition on record.",
+      "rule": "§2.5 / §2.5.1 (retroactivity OPEN — SPLITTING_EXCLUSION_INVESTIGATION.md Decision 3)",
+      "reason": "Surplus clause #3 -- 'BKC shall have the option, to purchase the Principal's interest at fair market value'. Same open Decision 3 as C04-117's rights-reservation: a pre-§2.5 MAY-shaped clause with no disposition on record.",
       "readings": [
         {
-          "reading": "EXCLUDED (as originally, silently, left)",
-          "detail": "No disposition of any kind exists on record -- investigation table says 'none -- nowhere'. Under the pre-\u00a72.5 reading of \u00a72's rights-only row, a bare MAY/option clause was never annotated."
+          "reading": "EXCLUDED under pre-section-2.5 practice (CORRECTED 2026-09-05 -- the 'no disposition on record' premise is false; the pre-2.5 practice point is unaffected)",
+          "detail": "CORRECTION: the previous text read 'No disposition of any kind exists on record -- investigation table says none -- nowhere.' FALSE: that table is GOLD-SIDE only. The cold annotator ANNOTATED this clause as a MAY item, CONFIDENT, reaching the sibling reading below with the same two discriminators. The reading's SUBSTANCE -- that pre-section-2.5 practice never annotated a bare MAY/option clause -- is unaffected and still stands. Source: holdout/C14_076_INVESTIGATION.md §7; source is holdout/cold/16_C11-094.json / 08_C04-117.json, audited by holdout/band_risk/cold_dispositions.py"
         },
         {
           "reading": "ANNOTATED as a MAY item",
-          "detail": "Under the current \u00a72.5/\u00a72.5.1 test the clause clears on an observable gating condition (whether conveyance occurred inside the twelve months) and a reviewable price standard ('at fair market value'); \u00a73.2 MAY, \u00a73.5.4 obligee ABSENT."
+          "detail": "Under the current §2.5/§2.5.1 test the clause clears on an observable gating condition (whether conveyance occurred inside the twelve months) and a reviewable price standard ('at fair market value'); §3.2 MAY, §3.5.4 obligee ABSENT. CORROBORATED 2026-09-05: the cold annotator reached this reading independently and CONFIDENT, citing the same two discriminators -- an observable gating condition (whether conveyance occurred inside the twelve months) and 'at fair market value' as section 2.5.1's own reviewable-standard discriminator, explicitly contrasted with C04-026. NARROWED SCOPE: the SUBSTANTIVE question (does this clear section 2.5/2.5.1?) is now settled concordantly by two independent annotators. What remains is DECISION 3 ALONE -- retroactivity, i.e. whether a clarification added at v0.39/v0.41 reaches a segment locked at v0.28 (C11-01 stamps v0.28). Cold annotated from the CURRENT guideline, so its agreement cannot touch that policy question; the precedents point both ways (section 3.6.1 retroactive correction vs section 22.1 deliberate retention). One Decision 3 ruling now disposes of BOTH this span and C04-117's, rather than two sessions each re-arguing eligibility. CAVEAT per section 7.1: concordance between these two annotators is a LOWER BOUND on error, not proof -- correlated model-family error and guideline leakage both apply and no reviewer was blinded. Source: holdout/C14_076_INVESTIGATION.md §7; source is holdout/cold/16_C11-094.json / 08_C04-117.json, audited by holdout/band_risk/cold_dispositions.py"
         }
       ],
-      "escalation_ref": "evals/goldens/holdout/SPLITTING_EXCLUSION_INVESTIGATION.md \u00a71 row 3, \u00a74, \u00a78 Decision 3"
+      "escalation_ref": "evals/goldens/holdout/SPLITTING_EXCLUSION_INVESTIGATION.md §1 row 3, §4, §8 Decision 3"
     }
   ],
   "not_annotatable": [
@@ -87,13 +87,13 @@
       "span_char_start": 0,
       "span_char_end": 45,
       "span_text": "15.7 DEATH OR MENTAL INCAPACITY OF PRINCIPAL.",
-      "reason": "A numbered/lettered section or clause heading: no subject, no modal, no clause content of any kind -- one of the 13 spans \u00a72.7 bulk-dispositions as a single class."
+      "reason": "A numbered/lettered section or clause heading: no subject, no modal, no clause content of any kind -- one of the 13 spans §2.7 bulk-dispositions as a single class."
     },
     {
       "span_char_start": 372,
       "span_char_end": 595,
       "span_text": "Transfers by devise or inheritance shall not be subject to BKC's right of first refusal under Paragraph 15.4 above, but shall be subject to the same conditions imposed on any INTER VIVOS transfer under Paragraph 15.5 above.",
-      "reason": "'Transfers by devise or inheritance shall not be subject to ... but shall be subject to ...' -- a status clause stating which procedural rule governs a transfer type, not an independent party performance duty. Already characterised this way in the \u00a72.7 v0.50 ruling log itself: 'C11-094: s2 duty, s5 duty, s6 right, with s3/s4 shall-be-subject-to status'."
+      "reason": "'Transfers by devise or inheritance shall not be subject to ... but shall be subject to ...' -- a status clause stating which procedural rule governs a transfer type, not an independent party performance duty. Already characterised this way in the §2.7 v0.50 ruling log itself: 'C11-094: s2 duty, s5 duty, s6 right, with s3/s4 shall-be-subject-to status'."
     },
     {
       "span_char_start": 596,

@@ -288,3 +288,129 @@ It does not rule either candidate; it does not restamp any item; it does not tou
 cassette (no item `guideline_version` changes, so `Cassette.verify()` is unaffected and §22's
 conforming blocker is not engaged); and it does not re-open the six count-disagreeing
 segments' own dispositions beyond recording that cold-side evidence exists for them.
+
+---
+
+## 7. Addendum (2026-09-05) — the `C11-094` / `C04-117` escalation re-read
+
+§1.3 established that three retrofitted segments assert a false silence-claim, and that two of
+them — `C11-094` (×2) and `C04-117` (×1) — set their escalation scope partly on that premise.
+Those escalations are re-read here against the cold-side dispositions that actually exist,
+**before** either §14.4 session is scheduled, so no session starts on a scope fixed under a
+premise now known to be wrong.
+
+**Verdict: neither is resolved outright; both are narrowed; one carries a correction that
+changes what its session must do.**
+
+### 7.1 `C11-094` #2 — *"the executor shall use best efforts to transfer…"* → NARROWED, and the retrofit's own best attempt is WRONG
+
+The escalation's second reading was, in full: *"No annotator or reviewer has ever recorded a
+reason for treating this differently from `C11-01` in the same segment; the omission may simply
+be an unrecorded judgment call this retrofit cannot reconstruct."* That is precisely the
+analysis cold performed, under the rule that governs it:
+
+> *"A DISTINCT obligation from the segment's first item, **checked against §4.3.1 step 1 rather
+> than assumed**: the two clauses share an obligor role and an object but differ on conditions …,
+> on temporal …, and on the efforts standard, so not every scored field is identical and §4.3.1
+> sends them to §4.3's ordinary two-item treatment. No restatement marker appears either."*
+> — `annotator_confidence: CONFIDENT`, 14 rules cited.
+
+The reading's entire content is falsified. What remains open is narrower and different: gold's
+omission is still unexplained, and **cold is a second annotator, not the reviewer** (§14.4). The
+reviewer now approves or rejects a drafted, rule-cited candidate rather than reconstructing the
+question from scratch.
+
+**THE CORRECTION, and it is the reason this re-read was worth doing before the session.** The
+retrofit's *"Genuine MUST item (best attempt)"* reading asserts
+`temporal: RELATIVE_TO_TRIGGER` — *"(within 12 months **of** the Principal's death)"*. Checked
+against the real segment text rather than the paraphrase, the document reads:
+
+> *"…to transfer the Principal's interest to another party approved by BKC **within twelve (12)
+> months from the date of the Principal's death**."*
+
+The reading silently substituted `of` — the single preposition `_WITHIN_RE` accepts — for the
+`from` the contract actually uses. On the real text this is a **`WITHIN` construction, not
+`RELATIVE_TO_TRIGGER` at all**, and §8.6's rule for exactly this is explicit: **`temporal: null`,
+`known_gaps: ["within_preposition"]`**. `from` is one of the three rejected prepositions §8.6
+measured (17 pool occurrences), and `twelve (12)` additionally hits §8's *separate*
+parenthetical-numeral gap, which §8.6 is explicit must not be filed with it. Cold has both right,
+and additionally splits `conditions` into **two** entries (§3.8.2 Rule B / §17.1's marker count)
+where the retrofit's reading has one.
+
+**A reviewer approving the retrofit's draft would have been approving a wrong item.** Draft from
+cold's item, corrected as needed — not from the retrofit's reading.
+
+### 7.2 `C11-094` #3 and `C04-117` #1 — the two `MAY` clauses → NARROWED to Decision 3 alone
+
+Both escalations bundle a **substantive** question with a **procedural** one. Cold settles the
+first and structurally cannot touch the second.
+
+**Substantive — does the clause clear §2.5/§2.5.1? Concordant, and settled on the merits.**
+On `C11-094` #3 cold reaches the retrofit's reading 2 with the same two discriminators: an
+observable gating condition (whether conveyance occurred inside the twelve months) and *"at fair
+market value"* as §2.5.1's own reviewable-standard discriminator, explicitly contrasted with
+`C04-026`. On `C04-117` #1 the convergence is near-verbatim — cold lists the **identical three
+stakes in the same order** (*"acting reasonably"*, the bounded end-point *"until the Parties have
+reached agreement"*, the narrow specific object) and independently distinguishes §2.5.1's
+`C14-044` negative example. Two annotators who could not see each other, same answer, same rule
+path, both `CONFIDENT`.
+
+**Procedural — Decision 3's retroactivity. Completely untouched.** Cold annotated from the
+**current** guideline, so its agreement establishes what these clauses are under §2.5/§2.5.1 — it
+says nothing about whether a clarification added at **v0.39/v0.41** reaches segments locked at
+**v0.28** (confirmed: `C11-01` and `C04-01` both stamp `guideline_version: v0.28`; §2.5 is v0.39,
+§2.5.1 is v0.41). That is a policy call with precedents pointing both ways — §3.6.1's retroactive
+correction against §22.1's deliberate retention — and no amount of annotator agreement resolves
+it.
+
+**Scope consequence worth acting on:** with the merits settled concordantly for both spans,
+**Decision 3 is now the single remaining question for both, and one policy call disposes of both
+together** — not two sessions each re-arguing eligibility.
+
+### 7.3 The standing of concordance, stated rather than left implicit
+
+Per §7.1's own disclosures, agreement between these two annotators is a **lower bound on error,
+not proof**: correlated model-family error applies, guideline leakage applies, and no reviewer was
+blinded. Two annotators agreeing is evidence that raises the reviewer's starting point; it is not
+a ruling and does not close §14.4.
+
+### 7.4 One genuinely new item, surfaced by the re-read — filed as F13, not folded in
+
+Cold flagged a guideline conflict in `C11-094` item 2's notes and resolved it unilaterally:
+
+> *"I note the tension between §8.6's `temporal: null` instruction and §3.7's 'known-gap forms are
+> annotated NORMALLY' plus §8.9's annotate-the-form rule; I follow §8.6 as literally written and
+> apply the same resolution to `C17-066` in this pass so the two are consistent."*
+
+It is real. For the **same** structural problem — a preposition the production regex does not
+accept — the guideline gives opposite instructions:
+
+| section | gap | instruction |
+| :--- | :--- | :--- |
+| **§8.6** | `within_preposition` (`_WITHIN_RE` wants `of`) | **`temporal: null`** |
+| **§8.9** | `relative_trigger_preposition` (`_RELATIVE_RE` wants `before`/`after`) | **annotate the form** + trigger verbatim |
+| **§3.7** | general | *"Known-gap forms (§8) are **annotated normally**. Do not avoid them."* |
+
+§8.6 is the outlier against both, and it also makes gold assert `temporal: null` where the text
+plainly carries a timing phrase — which §3.7 permits *"only when the obligation genuinely carries
+no timing phrase."* §8.9 (v0.28) was written explicitly as §8.6's sibling and never reconciled it.
+
+**Measured: the inconsistency is in the GUIDELINE, not in the annotation.** Both annotators
+follow each section literally and consistently — `within_preposition` → `null` (gold `C17-02`;
+cold `C17-066`, `C11-094` #2) and `relative_trigger_preposition` → the form (gold `C13-03`,
+`C22-02`; cold ×5). Exposure, from §8.6's own measurement: the word after `within N <unit>` runs
+`of` 40 vs `after` 34 / `from` 17 / `following` 8 — **59 pool-wide occurrences on the rejected
+side**.
+
+**Filed as guideline §10.1 F13. NOT a prerequisite for either escalation** — it is a field-level
+question that arises only if `C11-094` #2 is annotated at all, and cold's resolution is already
+consistent with locked `C17-02`.
+
+### 7.5 Confirmed scope going into the sessions
+
+| span | verdict | what its session actually decides |
+| :--- | :--- | :--- |
+| `C11-094` #2 | **NARROWED** | Approve/reject cold's drafted item. **Do NOT use the retrofit's best-attempt reading — its `temporal` is wrong** (§7.1) |
+| `C11-094` #3 | **NARROWED to Decision 3 alone** | Retroactivity only; merits settled concordantly |
+| `C04-117` #1 | **NARROWED to Decision 3 alone** | Retroactivity only; merits settled concordantly |
+| §8.6 vs §8.9/§3.7 | **NEW** | Own ruling, F13; not a prerequisite |

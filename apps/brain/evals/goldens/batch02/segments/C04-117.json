@@ -1,13 +1,13 @@
 {
   "segment_id": "C04-117",
   "doc_id": "C04",
-  "schema": "\u00a72.7 (v0.50) -- complete per-sentence segment disposition, superseding \u00a721 R6's not_annotatable-only shape. `not_annotatable` (R6's original array, the only key run_scoring.load_not_annotatable() reads) is preserved for scoring and holds every NOT_OBLIGATION_BEARING / NOT_ANNOTATABLE / EXCLUDED span. `dispositions` is the full per-sentence record \u00a72.7 requires, covering ANNOTATED and AMBIGUOUS spans too, which `not_annotatable` deliberately excludes -- an AMBIGUOUS span is an open reviewer question, not a settled non-item, and including it in the scoring array would resolve it silently.",
+  "schema": "§2.7 (v0.50) -- complete per-sentence segment disposition, superseding §21 R6's not_annotatable-only shape. `not_annotatable` (R6's original array, the only key run_scoring.load_not_annotatable() reads) is preserved for scoring and holds every NOT_OBLIGATION_BEARING / NOT_ANNOTATABLE / EXCLUDED span. `dispositions` is the full per-sentence record §2.7 requires, covering ANNOTATED and AMBIGUOUS spans too, which `not_annotatable` deliberately excludes -- an AMBIGUOUS span is an open reviewer question, not a settled non-item, and including it in the scoring array would resolve it silently.",
   "reconciliation": {
     "sentences_total": 5,
     "obligation_bearing_clauses": 3,
     "items_annotated": 2,
     "status": "ESCALATED",
-    "note": "3 obligation-bearing clauses vs 2 items_annotated. 1 span(s) AMBIGUOUS, escalated per \u00a714.3/\u00a714.4 rather than resolved silently. Gap fully explained by recorded dispositions (nothing uncovered); resolution is a reviewer decision, not taken here."
+    "note": "AMENDED 2026-09-05 -- escalation scope RE-READ against the cold-side dispositions, before any section 14.4 session is scheduled, so no session starts on a scope fixed under a premise now known to be wrong. See holdout/C14_076_INVESTIGATION.md section 7. NEITHER SPAN IS RESOLVED; ALL ARE NARROWED. The 'no disposition of any kind exists on record' premise in the readings below is FALSE -- it generalised a GOLD-SIDE search result; the cold annotator annotated every one of these spans CONFIDENT. C04-117 #1 ('Miltenyi reserves the right to defer'): narrowed to DECISION 3 ALONE -- retroactivity over a v0.28-locked segment (C04-01 stamps v0.28; section 2.5 is v0.39, 2.5.1 is v0.41). The merits are settled concordantly -- cold listed the identical three stakes in the same order, independently. One Decision 3 ruling disposes of this span and C11-094 #3 together, not two merit debates. Concordance is a LOWER BOUND on error, not proof (section 7.1: correlated model-family error, guideline leakage, no reviewer blinding). ORIGINAL NOTE FOLLOWS, left as written per the corrections-are-new-text discipline: 3 obligation-bearing clauses vs 2 items_annotated. 1 span(s) AMBIGUOUS, escalated per §14.3/§14.4 rather than resolved silently. Gap fully explained by recorded dispositions (nothing uncovered); resolution is a reviewer decision, not taken here."
   },
   "dispositions": [
     {
@@ -15,8 +15,8 @@
       "span_char_end": 35,
       "span_text": "8.3 Third Party Fees and Royalties.",
       "disposition": "NOT_OBLIGATION_BEARING",
-      "rule": "\u00a72.6 (\u00a72's \u2018no obligation-bearing sentences\u2019 exclusion row, applied at sentence granularity)",
-      "reason": "A numbered/lettered section or clause heading: no subject, no modal, no clause content of any kind -- one of the 13 spans \u00a72.7 bulk-dispositions as a single class."
+      "rule": "§2.6 (§2's ‘no obligation-bearing sentences’ exclusion row, applied at sentence granularity)",
+      "reason": "A numbered/lettered section or clause heading: no subject, no modal, no clause content of any kind -- one of the 13 spans §2.7 bulk-dispositions as a single class."
     },
     {
       "span_char_start": 36,
@@ -32,8 +32,8 @@
       "span_char_end": 897,
       "span_text": "Bellicum acknowledges that the potential volume of such Third Party royalties and/or license fees under applicable Third Party license agreements will be as set forth on Exhibit D, as updated from time to time by Miltenyi.",
       "disposition": "NOT_OBLIGATION_BEARING",
-      "rule": "\u00a73.2",
-      "reason": "\u2018Bellicum acknowledges that ... will be as set forth on Exhibit D\u2019 states a future FACT about what an exhibit will say, not a party's undertaking -- \u00a73.2's own 'will'-ambiguity rule: 'will' is not an obligation at all when it states a future fact about the agreement ('this Agreement will terminate on...'); this is the identical shape one level removed via an acknowledgment. Matches \u00a72.7's own text naming 'an acknowledgment' as a no-modal-verb class alongside a rights-reservation and a copular status clause."
+      "rule": "§3.2",
+      "reason": "‘Bellicum acknowledges that ... will be as set forth on Exhibit D’ states a future FACT about what an exhibit will say, not a party's undertaking -- §3.2's own 'will'-ambiguity rule: 'will' is not an obligation at all when it states a future fact about the agreement ('this Agreement will terminate on...'); this is the identical shape one level removed via an acknowledgment. Matches §2.7's own text naming 'an acknowledgment' as a no-modal-verb class alongside a rights-reservation and a copular status clause."
     },
     {
       "span_char_start": 898,
@@ -49,19 +49,19 @@
       "span_char_end": 1621,
       "span_text": "Miltenyi, acting reasonably, reserves the right to defer the inclusion of additional Miltenyi Products in Exhibit B hereto until the Parties have reached agreement on this matter.",
       "disposition": "AMBIGUOUS",
-      "rule": "\u00a72.5 / \u00a72.5.1 (retroactivity OPEN \u2014 SPLITTING_EXCLUSION_INVESTIGATION.md Decision 3)",
-      "reason": "This is surplus clause #1 in the investigation's table -- 'Miltenyi ... reserves the right to defer ... until the Parties have reached agreement'; escalated rather than resolved because Decision 3 (whether \u00a72.5/\u00a72.5.1's clarification is retroactive over this pre-\u00a72.5 segment) is explicitly open, not ruled.",
+      "rule": "§2.5 / §2.5.1 (retroactivity OPEN — SPLITTING_EXCLUSION_INVESTIGATION.md Decision 3)",
+      "reason": "This is surplus clause #1 in the investigation's table -- 'Miltenyi ... reserves the right to defer ... until the Parties have reached agreement'; escalated rather than resolved because Decision 3 (whether §2.5/§2.5.1's clarification is retroactive over this pre-§2.5 segment) is explicitly open, not ruled.",
       "readings": [
         {
-          "reading": "EXCLUDED (as originally, silently, left)",
-          "detail": "No disposition of any kind exists on record for this clause -- the investigation's table says 'none -- nowhere'. Under the rule in force when the segment was locked (pre-\u00a72.5), a bare 'reserves the right to' reads as \u00a72's rights-only row and was never annotated."
+          "reading": "EXCLUDED under pre-section-2.5 practice (CORRECTED 2026-09-05 -- the 'no disposition on record' premise is false; the pre-2.5 practice point is unaffected)",
+          "detail": "CORRECTION: the previous text read 'No disposition of any kind exists on record for this clause -- the investigation's table says none -- nowhere.' FALSE: that table is GOLD-SIDE only. The cold annotator ANNOTATED this clause as a MAY item, CONFIDENT, reaching the sibling reading below. The reading's SUBSTANCE -- that pre-section-2.5 practice read a bare 'reserves the right to' as section 2's rights-only row -- is unaffected and still stands. Source: holdout/C14_076_INVESTIGATION.md §7; source is holdout/cold/16_C11-094.json / 08_C04-117.json, audited by holdout/band_risk/cold_dispositions.py"
         },
         {
           "reading": "ANNOTATED as a MAY item",
-          "detail": "Under the CURRENT \u00a72.5/\u00a72.5.1 test, the clause clears on three independent stakes: a reviewable standard ('acting reasonably' -- \u00a72.5.1's own named discriminator), a bounded observable end-point ('until the Parties have reached agreement'), and a narrow specific object -- distinguished from C04-026 and from \u00a72.5.1's C14-044 negative example."
+          "detail": "Under the CURRENT §2.5/§2.5.1 test, the clause clears on three independent stakes: a reviewable standard ('acting reasonably' -- §2.5.1's own named discriminator), a bounded observable end-point ('until the Parties have reached agreement'), and a narrow specific object -- distinguished from C04-026 and from §2.5.1's C14-044 negative example. CORROBORATED 2026-09-05, near-verbatim: the cold annotator reached this reading independently and CONFIDENT, listing the IDENTICAL THREE STAKES IN THE SAME ORDER ('acting reasonably' as section 2.5.1's own counter-example to 'sole business judgment'; the bounded observable end-point 'until the Parties have reached agreement'; the narrow specific object against C04-026's ten-verb catch-all) and independently distinguishing section 2.5.1's C14-044 negative example on the same ground. Cold additionally reaches a field this reading does not: temporal RELATIVE_TO_TRIGGER(before, 'the Parties have reached agreement on this matter') with known_gaps ['relative_trigger_preposition'], per section 8.9's v0.34 correction that 'until' was never counted but IS covered by the rule as written -- and section 8.9's own cassette observation records 'until <trigger>' occurring in C04-117 twice, which is this sentence. NARROWED SCOPE: the SUBSTANTIVE question is settled concordantly; what remains is DECISION 3 ALONE -- retroactivity over a segment locked at v0.28 (C04-01 stamps v0.28; section 2.5 is v0.39, section 2.5.1 is v0.41). One Decision 3 ruling disposes of both this span and C11-094 #3. CAVEAT per section 7.1: concordance is a LOWER BOUND on error, not proof. Source: holdout/C14_076_INVESTIGATION.md §7; source is holdout/cold/16_C11-094.json / 08_C04-117.json, audited by holdout/band_risk/cold_dispositions.py"
         }
       ],
-      "escalation_ref": "evals/goldens/holdout/SPLITTING_EXCLUSION_INVESTIGATION.md \u00a71 row 1, \u00a74, \u00a78 Decision 3"
+      "escalation_ref": "evals/goldens/holdout/SPLITTING_EXCLUSION_INVESTIGATION.md §1 row 1, §4, §8 Decision 3"
     }
   ],
   "not_annotatable": [
@@ -69,13 +69,13 @@
       "span_char_start": 0,
       "span_char_end": 35,
       "span_text": "8.3 Third Party Fees and Royalties.",
-      "reason": "A numbered/lettered section or clause heading: no subject, no modal, no clause content of any kind -- one of the 13 spans \u00a72.7 bulk-dispositions as a single class."
+      "reason": "A numbered/lettered section or clause heading: no subject, no modal, no clause content of any kind -- one of the 13 spans §2.7 bulk-dispositions as a single class."
     },
     {
       "span_char_start": 675,
       "span_char_end": 897,
       "span_text": "Bellicum acknowledges that the potential volume of such Third Party royalties and/or license fees under applicable Third Party license agreements will be as set forth on Exhibit D, as updated from time to time by Miltenyi.",
-      "reason": "\u2018Bellicum acknowledges that ... will be as set forth on Exhibit D\u2019 states a future FACT about what an exhibit will say, not a party's undertaking -- \u00a73.2's own 'will'-ambiguity rule: 'will' is not an obligation at all when it states a future fact about the agreement ('this Agreement will terminate on...'); this is the identical shape one level removed via an acknowledgment. Matches \u00a72.7's own text naming 'an acknowledgment' as a no-modal-verb class alongside a rights-reservation and a copular status clause."
+      "reason": "‘Bellicum acknowledges that ... will be as set forth on Exhibit D’ states a future FACT about what an exhibit will say, not a party's undertaking -- §3.2's own 'will'-ambiguity rule: 'will' is not an obligation at all when it states a future fact about the agreement ('this Agreement will terminate on...'); this is the identical shape one level removed via an acknowledgment. Matches §2.7's own text naming 'an acknowledgment' as a no-modal-verb class alongside a rights-reservation and a copular status clause."
     }
   ]
 }
