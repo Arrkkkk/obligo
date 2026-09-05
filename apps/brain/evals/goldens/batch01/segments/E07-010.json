@@ -1,0 +1,57 @@
+{
+  "segment_id": "E07-010",
+  "doc_id": "E07",
+  "schema": "\u00a72.7 (v0.50) -- complete per-sentence segment disposition, superseding \u00a721 R6's not_annotatable-only shape. `not_annotatable` (R6's original array, the only key run_scoring.load_not_annotatable() reads) is preserved for scoring and holds every NOT_OBLIGATION_BEARING / NOT_ANNOTATABLE / EXCLUDED span. `dispositions` is the full per-sentence record \u00a72.7 requires, covering ANNOTATED and AMBIGUOUS spans too, which `not_annotatable` deliberately excludes -- an AMBIGUOUS span is an open reviewer question, not a settled non-item, and including it in the scoring array would resolve it silently.",
+  "reconciliation": {
+    "sentences_total": 3,
+    "obligation_bearing_clauses": 1,
+    "items_annotated": 1,
+    "status": "PASS",
+    "note": "All sentences accounted for; obligation-bearing clause count matches items_annotated exactly."
+  },
+  "dispositions": [
+    {
+      "span_char_start": 0,
+      "span_char_end": 133,
+      "span_text": "As requested by Client, and upon reasonable notice and approval by TIBCO, TIBCO shall maintain personnel at any of the Covered Sites.",
+      "disposition": "ANNOTATED",
+      "rule": "-",
+      "reason": "Covers locked item E07-01.",
+      "item_id": "E07-01"
+    },
+    {
+      "span_char_start": 134,
+      "span_char_end": 539,
+      "span_text": "On-site personnel will perform ongoing -------------------------------------------------------------------------------- 98-9-14 TIBCO Maintenance Agreement Page 3 CONFIDENTIAL INFORMATION system administration, monitoring, reconfiguration and tuning, problem diagnosis, and resolution, and interfacing with Client personnel on production system issues, to the extent possible during normal business hours.",
+      "disposition": "NOT_OBLIGATION_BEARING",
+      "rule": "\u00a73.5",
+      "reason": "Grammatical subject is 'On-site personnel', not a party; \u00a73.5 forbids importing TIBCO from the preceding sentence. (Also carries 4+ chained obligations and a page-break artifact spliced mid-sentence, but the non-party subject alone is dispositive, same class as E03-005's 'itemize' clause.) Already logged as batch01/exclusions.json E07-010#sentence2.",
+      "exclusion_log_id": "E07-010#sentence2"
+    },
+    {
+      "span_char_start": 540,
+      "span_char_end": 705,
+      "span_text": "These personnel shall also be responsible for the installation of new TIBCO software releases on the production system and the distribution of documentation updates.",
+      "disposition": "NOT_OBLIGATION_BEARING",
+      "rule": "\u00a73.5",
+      "reason": "Grammatical subject is 'These personnel', not a party; \u00a73.5 forbids importing TIBCO from the neighbouring sentence. Already logged as batch01/exclusions.json E07-010#sentence3.",
+      "exclusion_log_id": "E07-010#sentence3"
+    }
+  ],
+  "not_annotatable": [
+    {
+      "span_char_start": 134,
+      "span_char_end": 539,
+      "span_text": "On-site personnel will perform ongoing -------------------------------------------------------------------------------- 98-9-14 TIBCO Maintenance Agreement Page 3 CONFIDENTIAL INFORMATION system administration, monitoring, reconfiguration and tuning, problem diagnosis, and resolution, and interfacing with Client personnel on production system issues, to the extent possible during normal business hours.",
+      "reason": "Grammatical subject is 'On-site personnel', not a party; \u00a73.5 forbids importing TIBCO from the preceding sentence. (Also carries 4+ chained obligations and a page-break artifact spliced mid-sentence, but the non-party subject alone is dispositive, same class as E03-005's 'itemize' clause.) Already logged as batch01/exclusions.json E07-010#sentence2.",
+      "exclusion_log_id": "E07-010#sentence2"
+    },
+    {
+      "span_char_start": 540,
+      "span_char_end": 705,
+      "span_text": "These personnel shall also be responsible for the installation of new TIBCO software releases on the production system and the distribution of documentation updates.",
+      "reason": "Grammatical subject is 'These personnel', not a party; \u00a73.5 forbids importing TIBCO from the neighbouring sentence. Already logged as batch01/exclusions.json E07-010#sentence3.",
+      "exclusion_log_id": "E07-010#sentence3"
+    }
+  ]
+}

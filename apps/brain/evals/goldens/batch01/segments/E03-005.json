@@ -1,15 +1,99 @@
 {
   "segment_id": "E03-005",
   "doc_id": "E03",
-  "schema": "§21 R6 — NOT_ANNOTATABLE spans, segment-level. A prediction aligning to one of these counts as NEITHER a correct item NOR a false positive (§4.4).",
-  "status": "PARTIAL — this segment's spans are recorded; the other 11 gold segments are not yet done",
-  "not_annotatable": [
+  "schema": "\u00a72.7 (v0.50) -- complete per-sentence segment disposition, superseding \u00a721 R6's not_annotatable-only shape. `not_annotatable` (R6's original array, the only key run_scoring.load_not_annotatable() reads) is preserved for scoring and holds every NOT_OBLIGATION_BEARING / NOT_ANNOTATABLE / EXCLUDED span. `dispositions` is the full per-sentence record \u00a72.7 requires, covering ANNOTATED and AMBIGUOUS spans too, which `not_annotatable` deliberately excludes -- an AMBIGUOUS span is an open reviewer question, not a settled non-item, and including it in the scoring array would resolve it silently.",
+  "reconciliation": {
+    "sentences_total": 6,
+    "obligation_bearing_clauses": 2,
+    "items_annotated": 1,
+    "status": "PASS_WITH_OPEN_CONCERN",
+    "note": "All 6 sentences accounted for. 2 obligation-bearing clauses (E03-01 annotated, plus the \"discuss and review\" clause excluded via the pre-existing exclusion_log_id=E03-005#discuss) match this segment's own documented history exactly. NOT a fresh escalation from this retrofit -- but flagging rather than silently affirming: SPLITTING_EXCLUSION_INVESTIGATION.md Decision 2 (explicitly OPEN, not ruled) found that exclusion's own stated grounds partially do not survive re-test against \u00a72's own re-check rule. Recorded here as-is, per that investigation's \u00a710 (\"does not reverse E03-005#discuss\"); reversing it would add a locked item on a cassette-covered segment and is a reviewer decision, not this retrofit's to make."
+  },
+  "dispositions": [
+    {
+      "span_char_start": 0,
+      "span_char_end": 20,
+      "span_text": "(a)Rolling Forecast.",
+      "disposition": "NOT_OBLIGATION_BEARING",
+      "rule": "\u00a72.6 (\u00a72's \u2018no obligation-bearing sentences\u2019 exclusion row, applied at sentence granularity)",
+      "reason": "A numbered/lettered section or clause heading: no subject, no modal, no clause content of any kind -- one of the 13 spans \u00a72.7 bulk-dispositions as a single class."
+    },
+    {
+      "span_char_start": 21,
+      "span_char_end": 432,
+      "span_text": "At least ** before the ** of each Calendar Quarter during the Term of this Supply Agreement, Kissei shall provide Rigel a rolling forecast of its monthly requirements for the quantity of Products to be used for (i) Development purposes for the following ** period commencing from such Calendar Quarter and (ii) Commercial use for the following ** period commencing from such Calendar Quarter (\u201cOrder Forecast\u201d).",
+      "disposition": "ANNOTATED",
+      "rule": "-",
+      "reason": "Covers locked item E03-01.",
+      "item_id": "E03-01"
+    },
     {
       "span_char_start": 433,
       "span_char_end": 665,
       "span_text": "For clarity, each Order Forecast shall itemize the applicable quantity (i.e., the unit of Drum or naked bottle, but not limited to such unit) of the Product and its placebo (if applicable) for each of Development and Commercial use.",
-      "reason": "Grammatical subject is a document ('each Order Forecast'), not a party, so the clause has no obligor and §3.5 forbids importing one. Reviewer-confirmed 2026-08-22 (B3). Source: batch01/exclusions.json E03-005#itemize -- transcribed from the exclusion log, which §21 R6 records as a partial source for this data.",
+      "disposition": "NOT_OBLIGATION_BEARING",
+      "rule": "\u00a71 / \u00a73.5",
+      "reason": "Grammatical subject is a document ('each Order Forecast'), not a party; \u00a73.5 forbids importing an obligor. RULED_BY_REVIEWER 2026-08-22 (B3): the segment's own documented final count is TWO obligation-bearing clauses (provide / discuss-and-review), explicitly NOT counting this one -- transcribed from batch01/exclusions.json E03-005#itemize, the existing R6 not_annotatable entry for this segment.",
       "exclusion_log_id": "E03-005#itemize"
+    },
+    {
+      "span_char_start": 666,
+      "span_char_end": 844,
+      "span_text": "Each Order Forecast shall be made in good faith for budget and capacity planning purposes only and shall be non-binding on Kissei and Rigel, except as provided in Section 2.2(b).",
+      "disposition": "NOT_OBLIGATION_BEARING",
+      "rule": "\u00a72.6",
+      "reason": "'Each Order Forecast shall be made in good faith ... and shall be non-binding on Kissei and Rigel, except as provided in Section 2.2(b)' -- status characterisation, already read this way, unprompted, in E03-01's own annotator_notes ('read as status characterisations rather than duties')."
+    },
+    {
+      "span_char_start": 845,
+      "span_char_end": 1120,
+      "span_text": "The Parties shall discuss and review the Order Forecast at each regularly scheduled meeting of the JSC established by the Parties under the Collaboration and License Agreement (or by a subcommittee established by the JSC to oversee the manufacture and supply of the Product).",
+      "disposition": "NOT_ANNOTATABLE",
+      "rule": "\u00a72 (cross-reference-dependent)",
+      "reason": "'The Parties shall discuss and review the Order Forecast at each ... meeting of the JSC established ... under the Collaboration and License Agreement ...' -- already logged as batch01/exclusions.json E03-005#discuss, and STILL counted among the segment's own documented two obligation-bearing clauses (a real party subject, 'The Parties', structurally disqualified by cross-reference rather than never obligation-bearing). NOTE: SPLITTING_EXCLUSION_INVESTIGATION.md \u00a77 tested this exclusion's own stated grounds against \u00a72's re-check test and found one of its three grounds does not survive (a scored field's value does not in fact turn on resolving the JSC reference) and two supplementary grounds are contradicted by rules that postdate it (\u00a78.8, \u00a78.4.1). Decision 2 (whether to reverse this exclusion) is explicitly OPEN and NOT taken by this retrofit -- recorded as-is, not reversed, per that investigation's own \u00a710.",
+      "exclusion_log_id": "E03-005#discuss"
+    },
+    {
+      "span_char_start": 1121,
+      "span_char_end": 1203,
+      "span_text": "The Order Forecast will be in substantially the form attached hereto as Exhibit B.",
+      "disposition": "NOT_OBLIGATION_BEARING",
+      "rule": "\u00a72.6",
+      "reason": "'The Order Forecast will be in substantially the form attached hereto as Exhibit B' -- status characterisation, already read this way, unprompted, in E03-01's own annotator_notes."
+    }
+  ],
+  "not_annotatable": [
+    {
+      "span_char_start": 0,
+      "span_char_end": 20,
+      "span_text": "(a)Rolling Forecast.",
+      "reason": "A numbered/lettered section or clause heading: no subject, no modal, no clause content of any kind -- one of the 13 spans \u00a72.7 bulk-dispositions as a single class."
+    },
+    {
+      "span_char_start": 433,
+      "span_char_end": 665,
+      "span_text": "For clarity, each Order Forecast shall itemize the applicable quantity (i.e., the unit of Drum or naked bottle, but not limited to such unit) of the Product and its placebo (if applicable) for each of Development and Commercial use.",
+      "reason": "Grammatical subject is a document ('each Order Forecast'), not a party; \u00a73.5 forbids importing an obligor. RULED_BY_REVIEWER 2026-08-22 (B3): the segment's own documented final count is TWO obligation-bearing clauses (provide / discuss-and-review), explicitly NOT counting this one -- transcribed from batch01/exclusions.json E03-005#itemize, the existing R6 not_annotatable entry for this segment.",
+      "exclusion_log_id": "E03-005#itemize"
+    },
+    {
+      "span_char_start": 666,
+      "span_char_end": 844,
+      "span_text": "Each Order Forecast shall be made in good faith for budget and capacity planning purposes only and shall be non-binding on Kissei and Rigel, except as provided in Section 2.2(b).",
+      "reason": "'Each Order Forecast shall be made in good faith ... and shall be non-binding on Kissei and Rigel, except as provided in Section 2.2(b)' -- status characterisation, already read this way, unprompted, in E03-01's own annotator_notes ('read as status characterisations rather than duties')."
+    },
+    {
+      "span_char_start": 845,
+      "span_char_end": 1120,
+      "span_text": "The Parties shall discuss and review the Order Forecast at each regularly scheduled meeting of the JSC established by the Parties under the Collaboration and License Agreement (or by a subcommittee established by the JSC to oversee the manufacture and supply of the Product).",
+      "reason": "'The Parties shall discuss and review the Order Forecast at each ... meeting of the JSC established ... under the Collaboration and License Agreement ...' -- already logged as batch01/exclusions.json E03-005#discuss, and STILL counted among the segment's own documented two obligation-bearing clauses (a real party subject, 'The Parties', structurally disqualified by cross-reference rather than never obligation-bearing). NOTE: SPLITTING_EXCLUSION_INVESTIGATION.md \u00a77 tested this exclusion's own stated grounds against \u00a72's re-check test and found one of its three grounds does not survive (a scored field's value does not in fact turn on resolving the JSC reference) and two supplementary grounds are contradicted by rules that postdate it (\u00a78.8, \u00a78.4.1). Decision 2 (whether to reverse this exclusion) is explicitly OPEN and NOT taken by this retrofit -- recorded as-is, not reversed, per that investigation's own \u00a710.",
+      "exclusion_log_id": "E03-005#discuss"
+    },
+    {
+      "span_char_start": 1121,
+      "span_char_end": 1203,
+      "span_text": "The Order Forecast will be in substantially the form attached hereto as Exhibit B.",
+      "reason": "'The Order Forecast will be in substantially the form attached hereto as Exhibit B' -- status characterisation, already read this way, unprompted, in E03-01's own annotator_notes."
     }
   ]
 }

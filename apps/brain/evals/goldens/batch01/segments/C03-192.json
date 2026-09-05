@@ -1,0 +1,85 @@
+{
+  "segment_id": "C03-192",
+  "doc_id": "C03",
+  "schema": "\u00a72.7 (v0.50) -- complete per-sentence segment disposition, superseding \u00a721 R6's not_annotatable-only shape. `not_annotatable` (R6's original array, the only key run_scoring.load_not_annotatable() reads) is preserved for scoring and holds every NOT_OBLIGATION_BEARING / NOT_ANNOTATABLE / EXCLUDED span. `dispositions` is the full per-sentence record \u00a72.7 requires, covering ANNOTATED and AMBIGUOUS spans too, which `not_annotatable` deliberately excludes -- an AMBIGUOUS span is an open reviewer question, not a settled non-item, and including it in the scoring array would resolve it silently.",
+  "reconciliation": {
+    "sentences_total": 6,
+    "obligation_bearing_clauses": 3,
+    "items_annotated": 3,
+    "status": "PASS",
+    "note": "All sentences accounted for; obligation-bearing clause count matches items_annotated exactly."
+  },
+  "dispositions": [
+    {
+      "span_char_start": 0,
+      "span_char_end": 23,
+      "span_text": "4.23 Technical Support.",
+      "disposition": "NOT_OBLIGATION_BEARING",
+      "rule": "\u00a72.6 (\u00a72's \u2018no obligation-bearing sentences\u2019 exclusion row, applied at sentence granularity)",
+      "reason": "A numbered/lettered section or clause heading: no subject, no modal, no clause content of any kind -- one of the 13 spans \u00a72.7 bulk-dispositions as a single class."
+    },
+    {
+      "span_char_start": 24,
+      "span_char_end": 411,
+      "span_text": "Vendor will provide, at no additional cost to AT&T, full and complete technical assistance to AT&T for the Material and Services provisioned under this Agreement, including ongoing technical support and field service and assistance, and telephone assistance to assist with installation, operation, maintenance and problem resolution as set forth in the terms of the Maintenance Addendum.",
+      "disposition": "ANNOTATED",
+      "rule": "-",
+      "reason": "Covers locked item C03-01.",
+      "item_id": "C03-01"
+    },
+    {
+      "span_char_start": 412,
+      "span_char_end": 620,
+      "span_text": "The availability or performance of this technical support will not be construed as altering or affecting Vendor's obligations as set forth in the \"Warranty\" Section or as provided elsewhere in this Agreement.",
+      "disposition": "NOT_OBLIGATION_BEARING",
+      "rule": "\u00a72.6",
+      "reason": "Interpretive/savings clause -- states that the existence of technical support does not alter Vendor's warranty obligations. No party undertaking of its own; already read this way, unprompted, in C03-01's own annotator_notes ('interpretive')."
+    },
+    {
+      "span_char_start": 621,
+      "span_char_end": 762,
+      "span_text": "Field Service and technical support, including emergency support (service affecting), will be available on call twenty-four (24) hours a day.",
+      "disposition": "NOT_OBLIGATION_BEARING",
+      "rule": "\u00a72.6",
+      "reason": "Status characterisation of service availability, not a party's undertaking to perform an action -- already read this way, unprompted, in C03-01's own annotator_notes."
+    },
+    {
+      "span_char_start": 763,
+      "span_char_end": 997,
+      "span_text": "Vendor will provide to AT&T, and keep current, an escalation document that includes names, titles and telephone numbers, including after-hours telephone numbers, of Vendor personnel responsible for providing technical support to AT&T.",
+      "disposition": "ANNOTATED",
+      "rule": "-",
+      "reason": "Covers locked item C03-02.",
+      "item_id": "C03-02"
+    },
+    {
+      "span_char_start": 998,
+      "span_char_end": 1093,
+      "span_text": "Vendor will maintain a streamlined escalation process to speed resolution of reported problems.",
+      "disposition": "ANNOTATED",
+      "rule": "-",
+      "reason": "Covers locked item C03-03.",
+      "item_id": "C03-03"
+    }
+  ],
+  "not_annotatable": [
+    {
+      "span_char_start": 0,
+      "span_char_end": 23,
+      "span_text": "4.23 Technical Support.",
+      "reason": "A numbered/lettered section or clause heading: no subject, no modal, no clause content of any kind -- one of the 13 spans \u00a72.7 bulk-dispositions as a single class."
+    },
+    {
+      "span_char_start": 412,
+      "span_char_end": 620,
+      "span_text": "The availability or performance of this technical support will not be construed as altering or affecting Vendor's obligations as set forth in the \"Warranty\" Section or as provided elsewhere in this Agreement.",
+      "reason": "Interpretive/savings clause -- states that the existence of technical support does not alter Vendor's warranty obligations. No party undertaking of its own; already read this way, unprompted, in C03-01's own annotator_notes ('interpretive')."
+    },
+    {
+      "span_char_start": 621,
+      "span_char_end": 762,
+      "span_text": "Field Service and technical support, including emergency support (service affecting), will be available on call twenty-four (24) hours a day.",
+      "reason": "Status characterisation of service availability, not a party's undertaking to perform an action -- already read this way, unprompted, in C03-01's own annotator_notes."
+    }
+  ]
+}

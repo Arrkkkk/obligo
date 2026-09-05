@@ -1,0 +1,78 @@
+{
+  "segment_id": "C14-044",
+  "doc_id": "C14",
+  "schema": "\u00a72.7 (v0.50) -- complete per-sentence segment disposition, superseding \u00a721 R6's not_annotatable-only shape. `not_annotatable` (R6's original array, the only key run_scoring.load_not_annotatable() reads) is preserved for scoring and holds every NOT_OBLIGATION_BEARING / NOT_ANNOTATABLE / EXCLUDED span. `dispositions` is the full per-sentence record \u00a72.7 requires, covering ANNOTATED and AMBIGUOUS spans too, which `not_annotatable` deliberately excludes -- an AMBIGUOUS span is an open reviewer question, not a settled non-item, and including it in the scoring array would resolve it silently.",
+  "reconciliation": {
+    "sentences_total": 5,
+    "obligation_bearing_clauses": 2,
+    "items_annotated": 2,
+    "status": "PASS",
+    "note": "All sentences accounted for; obligation-bearing clause count matches items_annotated exactly."
+  },
+  "dispositions": [
+    {
+      "span_char_start": 0,
+      "span_char_end": 37,
+      "span_text": "3.6. RESCHEDULING OF RELEASED ORDERS.",
+      "disposition": "NOT_OBLIGATION_BEARING",
+      "rule": "\u00a72.6 (\u00a72's \u2018no obligation-bearing sentences\u2019 exclusion row, applied at sentence granularity)",
+      "reason": "A numbered/lettered section or clause heading: no subject, no modal, no clause content of any kind -- one of the 13 spans \u00a72.7 bulk-dispositions as a single class."
+    },
+    {
+      "span_char_start": 38,
+      "span_char_end": 200,
+      "span_text": "NICE may, at its discretion, reschedule delivery of units of Products for which a PO has already been issued, by shortening the Due Date, without any implication.",
+      "disposition": "NOT_OBLIGATION_BEARING",
+      "rule": "\u00a72.5.1",
+      "reason": "'NICE may, at its discretion, reschedule delivery ... without any implication' -- briefly drafted and locked as C14-03, then RETRACTED at batch verification: restricted scope ('already-issued POs only') is not monitorable stakes, and 'without any implication' is at least as direct a no-stakes signal as C11-046's 'sole business judgment'. Reviewer-tested and held (see \u00a72.5.1's own negative worked example and C14-04's annotator_notes); no correlative party is named in this span. Never logged in exclusions.json until this retrofit added it as C14-044#S1 -- a small instance of the same un-logged-sub-sentence gap \u00a72.7 exists to close, distinct from the substantive disposition itself, which is settled.",
+      "exclusion_log_id": "C14-044#S1"
+    },
+    {
+      "span_char_start": 201,
+      "span_char_end": 376,
+      "span_text": "In this respect, Contractor is aware that by the last three weeks of every calendar Quarter, a high level of flexibility is required to meet NICE' end of Quarter requirements.",
+      "disposition": "NOT_OBLIGATION_BEARING",
+      "rule": "\u00a72.7's own named 'acknowledgment' class",
+      "reason": "'Contractor is aware that ... a high level of flexibility is required to meet NICE\u2019 end of Quarter requirements' -- an awareness/context statement, no modal verb, no party undertaking to perform an action. Same shape as C04-117's 'acknowledges' clause in this same batch."
+    },
+    {
+      "span_char_start": 377,
+      "span_char_end": 508,
+      "span_text": "Contractor will perform its best reasonable commercial efforts to complete such rescheduled Products at the new requested Due Date.",
+      "disposition": "ANNOTATED",
+      "rule": "-",
+      "reason": "Covers locked item C14-04.",
+      "item_id": "C14-04"
+    },
+    {
+      "span_char_start": 509,
+      "span_char_end": 607,
+      "span_text": "All such rescheduling shall be performed by sending Contractor a written request for rescheduling.",
+      "disposition": "ANNOTATED",
+      "rule": "-",
+      "reason": "Covers locked item C14-05.",
+      "item_id": "C14-05"
+    }
+  ],
+  "not_annotatable": [
+    {
+      "span_char_start": 0,
+      "span_char_end": 37,
+      "span_text": "3.6. RESCHEDULING OF RELEASED ORDERS.",
+      "reason": "A numbered/lettered section or clause heading: no subject, no modal, no clause content of any kind -- one of the 13 spans \u00a72.7 bulk-dispositions as a single class."
+    },
+    {
+      "span_char_start": 38,
+      "span_char_end": 200,
+      "span_text": "NICE may, at its discretion, reschedule delivery of units of Products for which a PO has already been issued, by shortening the Due Date, without any implication.",
+      "reason": "'NICE may, at its discretion, reschedule delivery ... without any implication' -- briefly drafted and locked as C14-03, then RETRACTED at batch verification: restricted scope ('already-issued POs only') is not monitorable stakes, and 'without any implication' is at least as direct a no-stakes signal as C11-046's 'sole business judgment'. Reviewer-tested and held (see \u00a72.5.1's own negative worked example and C14-04's annotator_notes); no correlative party is named in this span. Never logged in exclusions.json until this retrofit added it as C14-044#S1 -- a small instance of the same un-logged-sub-sentence gap \u00a72.7 exists to close, distinct from the substantive disposition itself, which is settled.",
+      "exclusion_log_id": "C14-044#S1"
+    },
+    {
+      "span_char_start": 201,
+      "span_char_end": 376,
+      "span_text": "In this respect, Contractor is aware that by the last three weeks of every calendar Quarter, a high level of flexibility is required to meet NICE' end of Quarter requirements.",
+      "reason": "'Contractor is aware that ... a high level of flexibility is required to meet NICE\u2019 end of Quarter requirements' -- an awareness/context statement, no modal verb, no party undertaking to perform an action. Same shape as C04-117's 'acknowledges' clause in this same batch."
+    }
+  ]
+}

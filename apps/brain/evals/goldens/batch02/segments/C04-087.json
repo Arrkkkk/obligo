@@ -1,0 +1,24 @@
+{
+  "segment_id": "C04-087",
+  "doc_id": "C04",
+  "schema": "\u00a72.7 (v0.50) -- complete per-sentence segment disposition, superseding \u00a721 R6's not_annotatable-only shape. `not_annotatable` (R6's original array, the only key run_scoring.load_not_annotatable() reads) is preserved for scoring and holds every NOT_OBLIGATION_BEARING / NOT_ANNOTATABLE / EXCLUDED span. `dispositions` is the full per-sentence record \u00a72.7 requires, covering ANNOTATED and AMBIGUOUS spans too, which `not_annotatable` deliberately excludes -- an AMBIGUOUS span is an open reviewer question, not a settled non-item, and including it in the scoring array would resolve it silently.",
+  "reconciliation": {
+    "sentences_total": 1,
+    "obligation_bearing_clauses": 1,
+    "items_annotated": 1,
+    "status": "PASS",
+    "note": "All sentences accounted for; obligation-bearing clause count matches items_annotated exactly."
+  },
+  "dispositions": [
+    {
+      "span_char_start": 0,
+      "span_char_end": 424,
+      "span_text": "(a) Each quantity of Miltenyi Product(s) ordered by Bellicum in a particular Purchase Order pursuant to this Agreement shall be delivered FCA (Incoterms 2010) Miltenyi's Facility by delivery 20 Miltenyi Biotec-Bellicum Supply Agreement (Execution Copy, March 27, 2019) of the shipped goods to Bellicum's designated carrier or freight forwarder, in adequate packaging and ready for loading, on the Delivery Date (\"Delivery\").",
+      "disposition": "ANNOTATED",
+      "rule": "-",
+      "reason": "Covers locked item C04-03.",
+      "item_id": "C04-03"
+    }
+  ],
+  "not_annotatable": []
+}

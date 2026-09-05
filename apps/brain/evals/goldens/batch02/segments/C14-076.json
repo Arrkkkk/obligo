@@ -1,0 +1,114 @@
+{
+  "segment_id": "C14-076",
+  "doc_id": "C14",
+  "schema": "§2.7 (v0.50) -- complete per-sentence segment disposition, superseding §21 R6's not_annotatable-only shape. `not_annotatable` (R6's original array, the only key run_scoring.load_not_annotatable() reads) is preserved for scoring and holds every NOT_OBLIGATION_BEARING / NOT_ANNOTATABLE / EXCLUDED span. `dispositions` is the full per-sentence record §2.7 requires, covering ANNOTATED and AMBIGUOUS spans too, which `not_annotatable` deliberately excludes -- an AMBIGUOUS span is an open reviewer question, not a settled non-item, and including it in the scoring array would resolve it silently.",
+  "reconciliation": {
+    "sentences_total": 4,
+    "obligation_bearing_clauses": 4,
+    "items_annotated": 2,
+    "status": "ESCALATED_BAND_RISK",
+    "note": "4 obligation-bearing clauses vs 2 items_annotated. 2 clauses are AMBIGUOUS -- logged as a NEW TRACKED FINDING in CLAUDE.md (2026-09-04), deliberately NOT folded into SPLITTING_EXCLUSION_INVESTIGATION.md decisions 2-4 since it is a new discovery, not a known open question resurfacing. Checked directly rather than taken on citation: the precedent C02-04 cites (\"C14-139's Q1\") is forward guidance in a logged exclusion entry, never tested against a locked item -- neither candidate here matches either real precedent cleanly. Two real sub-questions scoped in CLAUDE.md: (a) does bare cost-allocation with no act-verb clear section 2.5's monitorable-stakes bar, (b) how does section 3.5.3 handle a fully agentless, partyless sentence with no worked precedent. IF BOTH CLAUSES ARE GENUINE, the segment totals 4 -- OVER section 2's 1-3 eligibility band, threatening C14-01/C14-02's own locked status. Scheduled as its own dedicated session, same tier as decisions 2-4 -- can wait alongside them, no urgency before batches 4-10 resume. C14-01/C14-02 are NOT themselves in question, only whether the segment is under-annotated."
+  },
+  "dispositions": [
+    {
+      "span_char_start": 0,
+      "span_char_end": 11,
+      "span_text": "8.5. TAXES.",
+      "disposition": "NOT_OBLIGATION_BEARING",
+      "rule": "§2.6 (§2's ‘no obligation-bearing sentences’ exclusion row, applied at sentence granularity)",
+      "reason": "A numbered/lettered section or clause heading: no subject, no modal, no clause content of any kind -- one of the 13 spans §2.7 bulk-dispositions as a single class."
+    },
+    {
+      "span_char_start": 12,
+      "span_char_end": 178,
+      "span_text": "Each party shall deduct such taxes from the payments due to the other party hereunder as required by law including withholding taxes (unless an exemption is provided)",
+      "disposition": "ANNOTATED",
+      "rule": "-",
+      "reason": "Covers locked item C14-01 (§8.3.1 split-span case, disjoint from C14-02 within the same sentence).",
+      "item_id": "C14-01"
+    },
+    {
+      "span_char_start": 184,
+      "span_char_end": 253,
+      "span_text": "shall promptly furnish such other party with appropriate tax receipts",
+      "disposition": "ANNOTATED",
+      "rule": "-",
+      "reason": "Covers locked item C14-02 (§8.3.1 split-span case, disjoint from C14-01 within the same sentence).",
+      "item_id": "C14-02"
+    },
+    {
+      "span_char_start": 255,
+      "span_char_end": 419,
+      "span_text": "Each party will be solely responsible for any and all taxes imposed thereon, including, without limitation, all income taxes, sales taxes, goods and services taxes.",
+      "disposition": "AMBIGUOUS",
+      "rule": "no identifiable exclusion rule -- NEW FINDING, not in the investigation's original 9",
+      "reason": "'Each party will be solely responsible for any and all taxes imposed thereon ...' -- a plain 'each party'-subject MUST clause (same distributive-obligor shape as this segment's own C14-01/C14-02) with real precedent for annotatability: C02-045's locked item uses almost identical 'shall be solely responsible for' language. CONSEQUENTIAL: see this segment's reconciliation note -- if this and the next sentence are both genuine obligation-bearing clauses, the segment holds 4, over §2's 1-3 band.",
+      "readings": [
+        {
+          "reading": "Genuine MUST item (best attempt)",
+          "detail": "obligor 'Each party' (distributive, matching C14-01/C14-02's own treatment), obligee ABSENT, action likely a taxonomy gap ('be responsible for' has no clean 34-verb match, nearest BEAR/WITHHOLD-adjacent), no rule excludes it."
+        },
+        {
+          "reading": "No disposition (as left)",
+          "detail": "Neither the gold drafter nor the independent cold annotator flagged this sentence, which is some evidence both readers judged it non-obligation-bearing on sight -- but neither recorded why, so this retrofit cannot treat silence as a decision."
+        }
+      ],
+      "escalation_ref": "CLAUDE.md carried-forward debt list, \"NEW TRACKED FINDING, 2026-09-04\" -- its own scoped, unresolved finding, deliberately kept separate from SPLITTING_EXCLUSION_INVESTIGATION.md decisions 2-4. Precedent checked directly and found not to hold cleanly for either candidate (see that entry's full text)."
+    },
+    {
+      "span_char_start": 420,
+      "span_char_end": 571,
+      "span_text": "Israel value added tax shall be added, if applicable, to all amounts payable hereunder and will be paid against submission of appropriate tax invoices.",
+      "disposition": "AMBIGUOUS",
+      "rule": "no identifiable exclusion rule -- NEW FINDING, not in the investigation's original 9",
+      "reason": "'Israel value added tax shall be added ... and will be paid against submission of appropriate tax invoices' -- an agentless passive MUST clause (no party named at all, so §3.5.3's obligor/obligee-ABSENT treatment would apply if annotated). CONSEQUENTIAL: same band-risk note as the preceding sentence -- together these two would put the segment at 4 obligation-bearing clauses, over the 1-3 ceiling that governed this segment's own eligibility at draft time.",
+      "readings": [
+        {
+          "reading": "Genuine MUST item (best attempt)",
+          "detail": "§3.5.3 agentless-passive treatment: obligor ABSENT (no agent stated), obligee ABSENT (no party named at all), underspecified=true. No rule excludes it as written."
+        },
+        {
+          "reading": "No disposition (as left)",
+          "detail": "Same as the preceding sentence: neither annotator flagged it, but neither recorded a reason."
+        }
+      ],
+      "escalation_ref": "CLAUDE.md carried-forward debt list, \"NEW TRACKED FINDING, 2026-09-04\" -- its own scoped, unresolved finding, deliberately kept separate from SPLITTING_EXCLUSION_INVESTIGATION.md decisions 2-4. Precedent checked directly and found not to hold cleanly for either candidate (see that entry's full text)."
+    },
+    {
+      "span_char_start": 178,
+      "span_char_end": 184,
+      "span_text": ", and ",
+      "disposition": "NOT_OBLIGATION_BEARING",
+      "rule": "§2.6",
+      "reason": "Leading list/section-number marker or inter-clause connective (', and ' connecting the two split-span duties, §8.3.1) -- no clause content of its own; closes full sentence coverage alongside the adjacent ANNOTATED item(s)."
+    },
+    {
+      "span_char_start": 253,
+      "span_char_end": 254,
+      "span_text": ".",
+      "disposition": "NOT_OBLIGATION_BEARING",
+      "rule": "§2.6",
+      "reason": "Leading list/section-number marker or inter-clause connective (trailing '.') -- no clause content of its own; closes full sentence coverage alongside the adjacent ANNOTATED item(s)."
+    }
+  ],
+  "not_annotatable": [
+    {
+      "span_char_start": 0,
+      "span_char_end": 11,
+      "span_text": "8.5. TAXES.",
+      "reason": "A numbered/lettered section or clause heading: no subject, no modal, no clause content of any kind -- one of the 13 spans §2.7 bulk-dispositions as a single class."
+    },
+    {
+      "span_char_start": 178,
+      "span_char_end": 184,
+      "span_text": ", and ",
+      "reason": "Leading list/section-number marker or inter-clause connective (', and ' connecting the two split-span duties, §8.3.1) -- no clause content of its own; closes full sentence coverage alongside the adjacent ANNOTATED item(s)."
+    },
+    {
+      "span_char_start": 253,
+      "span_char_end": 254,
+      "span_text": ".",
+      "reason": "Leading list/section-number marker or inter-clause connective (trailing '.') -- no clause content of its own; closes full sentence coverage alongside the adjacent ANNOTATED item(s)."
+    }
+  ]
+}

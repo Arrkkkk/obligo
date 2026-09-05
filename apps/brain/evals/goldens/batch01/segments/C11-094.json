@@ -1,0 +1,105 @@
+{
+  "segment_id": "C11-094",
+  "doc_id": "C11",
+  "schema": "\u00a72.7 (v0.50) -- complete per-sentence segment disposition, superseding \u00a721 R6's not_annotatable-only shape. `not_annotatable` (R6's original array, the only key run_scoring.load_not_annotatable() reads) is preserved for scoring and holds every NOT_OBLIGATION_BEARING / NOT_ANNOTATABLE / EXCLUDED span. `dispositions` is the full per-sentence record \u00a72.7 requires, covering ANNOTATED and AMBIGUOUS spans too, which `not_annotatable` deliberately excludes -- an AMBIGUOUS span is an open reviewer question, not a settled non-item, and including it in the scoring array would resolve it silently.",
+  "reconciliation": {
+    "sentences_total": 6,
+    "obligation_bearing_clauses": 3,
+    "items_annotated": 1,
+    "status": "ESCALATED",
+    "note": "3 obligation-bearing clauses vs 1 items_annotated. 2 span(s) AMBIGUOUS, escalated per \u00a714.3/\u00a714.4 rather than resolved silently. Gap fully explained by recorded dispositions (nothing uncovered); resolution is a reviewer decision, not taken here."
+  },
+  "dispositions": [
+    {
+      "span_char_start": 0,
+      "span_char_end": 45,
+      "span_text": "15.7 DEATH OR MENTAL INCAPACITY OF PRINCIPAL.",
+      "disposition": "NOT_OBLIGATION_BEARING",
+      "rule": "\u00a72.6 (\u00a72's \u2018no obligation-bearing sentences\u2019 exclusion row, applied at sentence granularity)",
+      "reason": "A numbered/lettered section or clause heading: no subject, no modal, no clause content of any kind -- one of the 13 spans \u00a72.7 bulk-dispositions as a single class."
+    },
+    {
+      "span_char_start": 46,
+      "span_char_end": 371,
+      "span_text": "If the Principal is a natural person, upon the death or mental incapacity of a Principal, the executor, administrator, or personal representative of such Principal shall transfer the Principal's interest in Franchisee to a third party approved by BKC within a reasonable time after the Principal's death or mental incapacity.",
+      "disposition": "ANNOTATED",
+      "rule": "-",
+      "reason": "Covers locked item C11-01.",
+      "item_id": "C11-01"
+    },
+    {
+      "span_char_start": 372,
+      "span_char_end": 595,
+      "span_text": "Transfers by devise or inheritance shall not be subject to BKC's right of first refusal under Paragraph 15.4 above, but shall be subject to the same conditions imposed on any INTER VIVOS transfer under Paragraph 15.5 above.",
+      "disposition": "NOT_OBLIGATION_BEARING",
+      "rule": "guideline v0.50 ruling log (\u00a72.7)",
+      "reason": "'Transfers by devise or inheritance shall not be subject to ... but shall be subject to ...' -- a status clause stating which procedural rule governs a transfer type, not an independent party performance duty. Already characterised this way in the \u00a72.7 v0.50 ruling log itself: 'C11-094: s2 duty, s5 duty, s6 right, with s3/s4 shall-be-subject-to status'."
+    },
+    {
+      "span_char_start": 596,
+      "span_char_end": 821,
+      "span_text": "All other transfers shall be subject to BKC's right of first refusal under Paragraph 15.4 above, or if such right is not exercised, the same conditions as may be imposed on any INTER VIVOS transfer under Paragraph 15.5 above.",
+      "disposition": "NOT_OBLIGATION_BEARING",
+      "rule": "guideline v0.50 ruling log (\u00a72.7)",
+      "reason": "'All other transfers shall be subject to BKC's right of first refusal ...' -- same status class as the preceding sentence, same v0.50 ruling-log citation."
+    },
+    {
+      "span_char_start": 822,
+      "span_char_end": 1092,
+      "span_text": "In the case of transfer by devise or inheritance, if the heir is not approved or there is no heir, the executor shall use best efforts to transfer the Principal's interest to another party approved by BKC within twelve (12) months from the date of the Principal's death.",
+      "disposition": "AMBIGUOUS",
+      "rule": "no identifiable exclusion rule \u2014 SPLITTING_EXCLUSION_INVESTIGATION.md Category A",
+      "reason": "Surplus clause #2 -- 'the executor shall use best efforts to transfer the Principal's interest ... within twelve (12) months'. The investigation searched exhaustively (\u00a73) and found no gold-side disposition of any kind and no \u00a72 exclusion row that reaches it; escalated rather than silently annotated or silently dropped.",
+      "readings": [
+        {
+          "reading": "Genuine MUST item (best attempt)",
+          "detail": "\u00a716.2 makes 'shall use best efforts' MUST; the obligor is the role description 'the executor' (same non-party-alias treatment already ruled for this segment's own C11-01, \u00a73.5 positional/verbatim); temporal RELATIVE_TO_TRIGGER (within 12 months of the Principal's death); condition 'if the heir is not approved or there is no heir'. No rule excludes it."
+        },
+        {
+          "reading": "No disposition (as left)",
+          "detail": "No annotator or reviewer has ever recorded a reason for treating this differently from C11-01 in the same segment; the omission may simply be an unrecorded judgment call this retrofit cannot reconstruct."
+        }
+      ],
+      "escalation_ref": "evals/goldens/holdout/SPLITTING_EXCLUSION_INVESTIGATION.md \u00a71 row 2, \u00a72.2 Category A"
+    },
+    {
+      "span_char_start": 1093,
+      "span_char_end": 1310,
+      "span_text": "If the conveyance of the Principal's interest to a party acceptable to BKC has not taken place within the twelve (12) month period, BKC shall have the option, to purchase the Principal's interest at fair market value.",
+      "disposition": "AMBIGUOUS",
+      "rule": "\u00a72.5 / \u00a72.5.1 (retroactivity OPEN \u2014 SPLITTING_EXCLUSION_INVESTIGATION.md Decision 3)",
+      "reason": "Surplus clause #3 -- 'BKC shall have the option, to purchase the Principal's interest at fair market value'. Same open Decision 3 as C04-117's rights-reservation: a pre-\u00a72.5 MAY-shaped clause with no disposition on record.",
+      "readings": [
+        {
+          "reading": "EXCLUDED (as originally, silently, left)",
+          "detail": "No disposition of any kind exists on record -- investigation table says 'none -- nowhere'. Under the pre-\u00a72.5 reading of \u00a72's rights-only row, a bare MAY/option clause was never annotated."
+        },
+        {
+          "reading": "ANNOTATED as a MAY item",
+          "detail": "Under the current \u00a72.5/\u00a72.5.1 test the clause clears on an observable gating condition (whether conveyance occurred inside the twelve months) and a reviewable price standard ('at fair market value'); \u00a73.2 MAY, \u00a73.5.4 obligee ABSENT."
+        }
+      ],
+      "escalation_ref": "evals/goldens/holdout/SPLITTING_EXCLUSION_INVESTIGATION.md \u00a71 row 3, \u00a74, \u00a78 Decision 3"
+    }
+  ],
+  "not_annotatable": [
+    {
+      "span_char_start": 0,
+      "span_char_end": 45,
+      "span_text": "15.7 DEATH OR MENTAL INCAPACITY OF PRINCIPAL.",
+      "reason": "A numbered/lettered section or clause heading: no subject, no modal, no clause content of any kind -- one of the 13 spans \u00a72.7 bulk-dispositions as a single class."
+    },
+    {
+      "span_char_start": 372,
+      "span_char_end": 595,
+      "span_text": "Transfers by devise or inheritance shall not be subject to BKC's right of first refusal under Paragraph 15.4 above, but shall be subject to the same conditions imposed on any INTER VIVOS transfer under Paragraph 15.5 above.",
+      "reason": "'Transfers by devise or inheritance shall not be subject to ... but shall be subject to ...' -- a status clause stating which procedural rule governs a transfer type, not an independent party performance duty. Already characterised this way in the \u00a72.7 v0.50 ruling log itself: 'C11-094: s2 duty, s5 duty, s6 right, with s3/s4 shall-be-subject-to status'."
+    },
+    {
+      "span_char_start": 596,
+      "span_char_end": 821,
+      "span_text": "All other transfers shall be subject to BKC's right of first refusal under Paragraph 15.4 above, or if such right is not exercised, the same conditions as may be imposed on any INTER VIVOS transfer under Paragraph 15.5 above.",
+      "reason": "'All other transfers shall be subject to BKC's right of first refusal ...' -- same status class as the preceding sentence, same v0.50 ruling-log citation."
+    }
+  ]
+}

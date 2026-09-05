@@ -1,0 +1,39 @@
+{
+  "segment_id": "C06-016",
+  "doc_id": "C06",
+  "schema": "\u00a72.7 (v0.50) -- complete per-sentence segment disposition, superseding \u00a721 R6's not_annotatable-only shape. `not_annotatable` (R6's original array, the only key run_scoring.load_not_annotatable() reads) is preserved for scoring and holds every NOT_OBLIGATION_BEARING / NOT_ANNOTATABLE / EXCLUDED span. `dispositions` is the full per-sentence record \u00a72.7 requires, covering ANNOTATED and AMBIGUOUS spans too, which `not_annotatable` deliberately excludes -- an AMBIGUOUS span is an open reviewer question, not a settled non-item, and including it in the scoring array would resolve it silently.",
+  "reconciliation": {
+    "sentences_total": 1,
+    "obligation_bearing_clauses": 1,
+    "items_annotated": 1,
+    "status": "PASS",
+    "note": "All sentences accounted for; obligation-bearing clause count matches items_annotated exactly."
+  },
+  "dispositions": [
+    {
+      "span_char_start": 8,
+      "span_char_end": 262,
+      "span_text": "the designee under any Lease/Contract Assumption Notice shall be required, if requested by the applicable counterparty, to provide adequate assurance of future performance with respect to such Lease or Contract if the applicable counterparty so requests;",
+      "disposition": "ANNOTATED",
+      "rule": "-",
+      "reason": "Covers locked item C06-01.",
+      "item_id": "C06-01"
+    },
+    {
+      "span_char_start": 0,
+      "span_char_end": 8,
+      "span_text": "(xviii) ",
+      "disposition": "NOT_OBLIGATION_BEARING",
+      "rule": "\u00a72.6",
+      "reason": "Leading list/section-number marker or inter-clause connective ('(xviii) ') -- no clause content of its own; closes full sentence coverage alongside the adjacent ANNOTATED item(s)."
+    }
+  ],
+  "not_annotatable": [
+    {
+      "span_char_start": 0,
+      "span_char_end": 8,
+      "span_text": "(xviii) ",
+      "reason": "Leading list/section-number marker or inter-clause connective ('(xviii) ') -- no clause content of its own; closes full sentence coverage alongside the adjacent ANNOTATED item(s)."
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "segment_id": "E08-005",
+  "doc_id": "E08",
+  "schema": "\u00a72.7 (v0.50) -- complete per-sentence segment disposition, superseding \u00a721 R6's not_annotatable-only shape. `not_annotatable` (R6's original array, the only key run_scoring.load_not_annotatable() reads) is preserved for scoring and holds every NOT_OBLIGATION_BEARING / NOT_ANNOTATABLE / EXCLUDED span. `dispositions` is the full per-sentence record \u00a72.7 requires, covering ANNOTATED and AMBIGUOUS spans too, which `not_annotatable` deliberately excludes -- an AMBIGUOUS span is an open reviewer question, not a settled non-item, and including it in the scoring array would resolve it silently.",
+  "reconciliation": {
+    "sentences_total": 2,
+    "obligation_bearing_clauses": 2,
+    "items_annotated": 1,
+    "status": "PASS",
+    "note": "All sentences accounted for; obligation-bearing clause count matches items_annotated exactly."
+  },
+  "dispositions": [
+    {
+      "span_char_start": 0,
+      "span_char_end": 96,
+      "span_text": "It shall ensure that the DC is clean and maintains certification from all applicable regulators.",
+      "disposition": "NOT_ANNOTATABLE",
+      "rule": "\u00a72.6 (self-containment / unresolvable pronoun subject)",
+      "reason": "'It' has no antecedent anywhere in this segment (it is the segment's first word) and cannot forward-reference 'NFI' in the next sentence -- a genuine external-dependency failure under \u00a72.6's own test ('does the sentence need something from outside the segment'), reviewer-confirmed. A real party (NFI) would resolve this if the antecedent were available, so it counts as obligation-bearing content, structurally disqualified -- same shape as E03-005's cross-reference-dependent 'discuss' clause, not the same shape as a genuinely non-party subject. Already reasoned, unprompted, in E08-01's own annotator_notes."
+    },
+    {
+      "span_char_start": 97,
+      "span_char_end": 212,
+      "span_text": "NFI shall ensure that the DC and its operation are in compliance with all applicable Federal, State, or Local laws.",
+      "disposition": "ANNOTATED",
+      "rule": "-",
+      "reason": "Covers locked item E08-01.",
+      "item_id": "E08-01"
+    }
+  ],
+  "not_annotatable": [
+    {
+      "span_char_start": 0,
+      "span_char_end": 96,
+      "span_text": "It shall ensure that the DC is clean and maintains certification from all applicable regulators.",
+      "reason": "'It' has no antecedent anywhere in this segment (it is the segment's first word) and cannot forward-reference 'NFI' in the next sentence -- a genuine external-dependency failure under \u00a72.6's own test ('does the sentence need something from outside the segment'), reviewer-confirmed. A real party (NFI) would resolve this if the antecedent were available, so it counts as obligation-bearing content, structurally disqualified -- same shape as E03-005's cross-reference-dependent 'discuss' clause, not the same shape as a genuinely non-party subject. Already reasoned, unprompted, in E08-01's own annotator_notes."
+    }
+  ]
+}

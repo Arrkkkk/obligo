@@ -1,0 +1,81 @@
+{
+  "segment_id": "C04-117",
+  "doc_id": "C04",
+  "schema": "\u00a72.7 (v0.50) -- complete per-sentence segment disposition, superseding \u00a721 R6's not_annotatable-only shape. `not_annotatable` (R6's original array, the only key run_scoring.load_not_annotatable() reads) is preserved for scoring and holds every NOT_OBLIGATION_BEARING / NOT_ANNOTATABLE / EXCLUDED span. `dispositions` is the full per-sentence record \u00a72.7 requires, covering ANNOTATED and AMBIGUOUS spans too, which `not_annotatable` deliberately excludes -- an AMBIGUOUS span is an open reviewer question, not a settled non-item, and including it in the scoring array would resolve it silently.",
+  "reconciliation": {
+    "sentences_total": 5,
+    "obligation_bearing_clauses": 3,
+    "items_annotated": 2,
+    "status": "ESCALATED",
+    "note": "3 obligation-bearing clauses vs 2 items_annotated. 1 span(s) AMBIGUOUS, escalated per \u00a714.3/\u00a714.4 rather than resolved silently. Gap fully explained by recorded dispositions (nothing uncovered); resolution is a reviewer decision, not taken here."
+  },
+  "dispositions": [
+    {
+      "span_char_start": 0,
+      "span_char_end": 35,
+      "span_text": "8.3 Third Party Fees and Royalties.",
+      "disposition": "NOT_OBLIGATION_BEARING",
+      "rule": "\u00a72.6 (\u00a72's \u2018no obligation-bearing sentences\u2019 exclusion row, applied at sentence granularity)",
+      "reason": "A numbered/lettered section or clause heading: no subject, no modal, no clause content of any kind -- one of the 13 spans \u00a72.7 bulk-dispositions as a single class."
+    },
+    {
+      "span_char_start": 36,
+      "span_char_end": 674,
+      "span_text": "Bellicum will reimburse Miltenyi for Third Party royalties and/or license fees, if any, owed by Miltenyi under Third Party license agreements existing as of the Effective Date as set forth on Exhibit D solely to the extent Miltenyi's exercise of rights under such licenses is required 27 Miltenyi Biotec-Bellicum Supply Agreement (Execution Copy, March 27, 2019) to supply Miltenyi Product to Bellicum under this Agreement for the Permitted Use; and further provided that amounts owed under such Third Party license agreements have not otherwise been passed through to Bellicum and are actually paid by Miltenyi to Miltenyi's licensor(s).",
+      "disposition": "ANNOTATED",
+      "rule": "-",
+      "reason": "Covers locked item C04-01.",
+      "item_id": "C04-01"
+    },
+    {
+      "span_char_start": 675,
+      "span_char_end": 897,
+      "span_text": "Bellicum acknowledges that the potential volume of such Third Party royalties and/or license fees under applicable Third Party license agreements will be as set forth on Exhibit D, as updated from time to time by Miltenyi.",
+      "disposition": "NOT_OBLIGATION_BEARING",
+      "rule": "\u00a73.2",
+      "reason": "\u2018Bellicum acknowledges that ... will be as set forth on Exhibit D\u2019 states a future FACT about what an exhibit will say, not a party's undertaking -- \u00a73.2's own 'will'-ambiguity rule: 'will' is not an obligation at all when it states a future fact about the agreement ('this Agreement will terminate on...'); this is the identical shape one level removed via an acknowledgment. Matches \u00a72.7's own text naming 'an acknowledgment' as a no-modal-verb class alongside a rights-reservation and a copular status clause."
+    },
+    {
+      "span_char_start": 898,
+      "span_char_end": 1441,
+      "span_text": "If, during the Term of this Agreement, the Parties mutually agree to obtain additional Third Party licenses to enable the Permitted Use of Miltenyi Products by Bellicum, its Affiliates, Subcontractors, and/or Licensees under this Agreement, and such additional licenses give rise to Third Party royalties and/or license fees with respect to Bellicum's use of Miltenyi Products under this Agreement, then the Parties will negotiate in good faith which Party(ies) is/are responsible for payment of such Third Party royalties and/or license fees.",
+      "disposition": "ANNOTATED",
+      "rule": "-",
+      "reason": "Covers locked item C04-02.",
+      "item_id": "C04-02"
+    },
+    {
+      "span_char_start": 1442,
+      "span_char_end": 1621,
+      "span_text": "Miltenyi, acting reasonably, reserves the right to defer the inclusion of additional Miltenyi Products in Exhibit B hereto until the Parties have reached agreement on this matter.",
+      "disposition": "AMBIGUOUS",
+      "rule": "\u00a72.5 / \u00a72.5.1 (retroactivity OPEN \u2014 SPLITTING_EXCLUSION_INVESTIGATION.md Decision 3)",
+      "reason": "This is surplus clause #1 in the investigation's table -- 'Miltenyi ... reserves the right to defer ... until the Parties have reached agreement'; escalated rather than resolved because Decision 3 (whether \u00a72.5/\u00a72.5.1's clarification is retroactive over this pre-\u00a72.5 segment) is explicitly open, not ruled.",
+      "readings": [
+        {
+          "reading": "EXCLUDED (as originally, silently, left)",
+          "detail": "No disposition of any kind exists on record for this clause -- the investigation's table says 'none -- nowhere'. Under the rule in force when the segment was locked (pre-\u00a72.5), a bare 'reserves the right to' reads as \u00a72's rights-only row and was never annotated."
+        },
+        {
+          "reading": "ANNOTATED as a MAY item",
+          "detail": "Under the CURRENT \u00a72.5/\u00a72.5.1 test, the clause clears on three independent stakes: a reviewable standard ('acting reasonably' -- \u00a72.5.1's own named discriminator), a bounded observable end-point ('until the Parties have reached agreement'), and a narrow specific object -- distinguished from C04-026 and from \u00a72.5.1's C14-044 negative example."
+        }
+      ],
+      "escalation_ref": "evals/goldens/holdout/SPLITTING_EXCLUSION_INVESTIGATION.md \u00a71 row 1, \u00a74, \u00a78 Decision 3"
+    }
+  ],
+  "not_annotatable": [
+    {
+      "span_char_start": 0,
+      "span_char_end": 35,
+      "span_text": "8.3 Third Party Fees and Royalties.",
+      "reason": "A numbered/lettered section or clause heading: no subject, no modal, no clause content of any kind -- one of the 13 spans \u00a72.7 bulk-dispositions as a single class."
+    },
+    {
+      "span_char_start": 675,
+      "span_char_end": 897,
+      "span_text": "Bellicum acknowledges that the potential volume of such Third Party royalties and/or license fees under applicable Third Party license agreements will be as set forth on Exhibit D, as updated from time to time by Miltenyi.",
+      "reason": "\u2018Bellicum acknowledges that ... will be as set forth on Exhibit D\u2019 states a future FACT about what an exhibit will say, not a party's undertaking -- \u00a73.2's own 'will'-ambiguity rule: 'will' is not an obligation at all when it states a future fact about the agreement ('this Agreement will terminate on...'); this is the identical shape one level removed via an acknowledgment. Matches \u00a72.7's own text naming 'an acknowledgment' as a no-modal-verb class alongside a rights-reservation and a copular status clause."
+    }
+  ]
+}

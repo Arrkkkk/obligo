@@ -1,0 +1,48 @@
+{
+  "segment_id": "C13-017",
+  "doc_id": "C13",
+  "schema": "\u00a72.7 (v0.50) -- complete per-sentence segment disposition, superseding \u00a721 R6's not_annotatable-only shape. `not_annotatable` (R6's original array, the only key run_scoring.load_not_annotatable() reads) is preserved for scoring and holds every NOT_OBLIGATION_BEARING / NOT_ANNOTATABLE / EXCLUDED span. `dispositions` is the full per-sentence record \u00a72.7 requires, covering ANNOTATED and AMBIGUOUS spans too, which `not_annotatable` deliberately excludes -- an AMBIGUOUS span is an open reviewer question, not a settled non-item, and including it in the scoring array would resolve it silently.",
+  "reconciliation": {
+    "sentences_total": 3,
+    "obligation_bearing_clauses": 2,
+    "items_annotated": 2,
+    "status": "PASS",
+    "note": "All sentences accounted for; obligation-bearing clause count matches items_annotated exactly."
+  },
+  "dispositions": [
+    {
+      "span_char_start": 0,
+      "span_char_end": 806,
+      "span_text": "(a) manufacturing, storage, and distribution of MOXATAG trade and sample product; (b) the scope and strategies with respect to the marketing and promotion of MOXATAG, including, without limitation, any labeling or claims in connection therewith; (c) booking sales and distribution of MOXATAG hereunder and performance of related services; (d) handling all aspects of order processing, invoicing and collection, inventory and receivables; (e) providing customer support, including handling medical queries, and performing other functions consistent with consumer practice for prescription pharmaceuticals; (f) responding to product and medical complaints relating to MOXATAG; (g) handling all returns of MOXATAG trade and sample product; (h) handling all voluntary recalls and market withdrawals of MOXATAG.",
+      "disposition": "NOT_OBLIGATION_BEARING",
+      "rule": "\u00a72.6",
+      "reason": "The orphan enumeration (a)-(j): bare noun-phrase list items with no subject or modal of their own. This segment IS \u00a72.6's own confirming/precedent case (written up in the guideline body verbatim); the two fully self-contained sentences the enumeration wraps, embedded inside item (h)'s text, are separately annotated as C13-01/C13-02."
+    },
+    {
+      "span_char_start": 807,
+      "span_char_end": 915,
+      "span_text": "In such a situation, DD will make available to MBRK, upon request, all of DD's pertinent records on MOXATAG.",
+      "disposition": "ANNOTATED",
+      "rule": "-",
+      "reason": "Covers locked item C13-01 (embedded in item (h)).",
+      "item_id": "C13-01"
+    },
+    {
+      "span_char_start": 916,
+      "span_char_end": 1666,
+      "span_text": "Any and all reasonable and documented costs and expenses incurred by DD in the conduct of any such recall or market withdrawal of MOXATAG shall be reimbursed by MBRK, except to the extent such recall or market withdrawal was the direct result of the negligence or failure of DD to comply with its obligations under this Agreement; (i) communicating with any governmental agencies and satisfying their requirements regarding all regulatory approvals of MOXATAG; including the filing of marketing and promotion materials approved by MBRK under this Agreement with the FDA in compliance with all FDA pharmaceutical marketing regulations; (j) reporting adverse reaction reports to US regulatory authorities as required by applicable US law or regulation;",
+      "disposition": "ANNOTATED",
+      "rule": "-",
+      "reason": "Covers locked item C13-02 (embedded in item (h)).",
+      "item_id": "C13-02"
+    }
+  ],
+  "not_annotatable": [
+    {
+      "span_char_start": 0,
+      "span_char_end": 806,
+      "span_text": "(a) manufacturing, storage, and distribution of MOXATAG trade and sample product; (b) the scope and strategies with respect to the marketing and promotion of MOXATAG, including, without limitation, any labeling or claims in connection therewith; (c) booking sales and distribution of MOXATAG hereunder and performance of related services; (d) handling all aspects of order processing, invoicing and collection, inventory and receivables; (e) providing customer support, including handling medical queries, and performing other functions consistent with consumer practice for prescription pharmaceuticals; (f) responding to product and medical complaints relating to MOXATAG; (g) handling all returns of MOXATAG trade and sample product; (h) handling all voluntary recalls and market withdrawals of MOXATAG.",
+      "reason": "The orphan enumeration (a)-(j): bare noun-phrase list items with no subject or modal of their own. This segment IS \u00a72.6's own confirming/precedent case (written up in the guideline body verbatim); the two fully self-contained sentences the enumeration wraps, embedded inside item (h)'s text, are separately annotated as C13-01/C13-02."
+    }
+  ]
+}

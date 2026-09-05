@@ -1,0 +1,39 @@
+{
+  "segment_id": "E01-047",
+  "doc_id": "E01",
+  "schema": "\u00a72.7 (v0.50) -- complete per-sentence segment disposition, superseding \u00a721 R6's not_annotatable-only shape. `not_annotatable` (R6's original array, the only key run_scoring.load_not_annotatable() reads) is preserved for scoring and holds every NOT_OBLIGATION_BEARING / NOT_ANNOTATABLE / EXCLUDED span. `dispositions` is the full per-sentence record \u00a72.7 requires, covering ANNOTATED and AMBIGUOUS spans too, which `not_annotatable` deliberately excludes -- an AMBIGUOUS span is an open reviewer question, not a settled non-item, and including it in the scoring array would resolve it silently.",
+  "reconciliation": {
+    "sentences_total": 2,
+    "obligation_bearing_clauses": 1,
+    "items_annotated": 1,
+    "status": "PASS",
+    "note": "All sentences accounted for; obligation-bearing clause count matches items_annotated exactly."
+  },
+  "dispositions": [
+    {
+      "span_char_start": 0,
+      "span_char_end": 25,
+      "span_text": "SECTION 8.14. Amendments.",
+      "disposition": "NOT_OBLIGATION_BEARING",
+      "rule": "\u00a72.6 (\u00a72's \u2018no obligation-bearing sentences\u2019 exclusion row, applied at sentence granularity)",
+      "reason": "A numbered/lettered section or clause heading: no subject, no modal, no clause content of any kind -- one of the 13 spans \u00a72.7 bulk-dispositions as a single class."
+    },
+    {
+      "span_char_start": 26,
+      "span_char_end": 267,
+      "span_text": "No provisions of this Agreement shall be deemed waived, amended, supplemented or modified by any Party hereto, unless such waiver, amendment, supplement or modification is in writing and signed by the authorized representative of each Party.",
+      "disposition": "ANNOTATED",
+      "rule": "-",
+      "reason": "Covers locked item E01-01.",
+      "item_id": "E01-01"
+    }
+  ],
+  "not_annotatable": [
+    {
+      "span_char_start": 0,
+      "span_char_end": 25,
+      "span_text": "SECTION 8.14. Amendments.",
+      "reason": "A numbered/lettered section or clause heading: no subject, no modal, no clause content of any kind -- one of the 13 spans \u00a72.7 bulk-dispositions as a single class."
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "segment_id": "C22-048",
+  "doc_id": "C22",
+  "schema": "\u00a72.7 (v0.50) -- complete per-sentence segment disposition, superseding \u00a721 R6's not_annotatable-only shape. `not_annotatable` (R6's original array, the only key run_scoring.load_not_annotatable() reads) is preserved for scoring and holds every NOT_OBLIGATION_BEARING / NOT_ANNOTATABLE / EXCLUDED span. `dispositions` is the full per-sentence record \u00a72.7 requires, covering ANNOTATED and AMBIGUOUS spans too, which `not_annotatable` deliberately excludes -- an AMBIGUOUS span is an open reviewer question, not a settled non-item, and including it in the scoring array would resolve it silently.",
+  "reconciliation": {
+    "sentences_total": 3,
+    "obligation_bearing_clauses": 1,
+    "items_annotated": 1,
+    "status": "PASS",
+    "note": "All sentences accounted for; obligation-bearing clause count matches items_annotated exactly."
+  },
+  "dispositions": [
+    {
+      "span_char_start": 0,
+      "span_char_end": 21,
+      "span_text": "Section 6.12 Notices.",
+      "disposition": "NOT_OBLIGATION_BEARING",
+      "rule": "\u00a72.6 (\u00a72's \u2018no obligation-bearing sentences\u2019 exclusion row, applied at sentence granularity)",
+      "reason": "A numbered/lettered section or clause heading: no subject, no modal, no clause content of any kind -- one of the 13 spans \u00a72.7 bulk-dispositions as a single class."
+    },
+    {
+      "span_char_start": 22,
+      "span_char_end": 529,
+      "span_text": "Each party giving any notice required or permitted under this IP Agreement will give the notice in writing, and shall be deemed to have been duly given: (i) when received if delivered personally; (ii) when transmitted if sent by facsimile (with transmission confirmed); (iii) the day after it is sent if sent by commercial overnight courier; (iv) upon receipt if sent by certified or registered mail (return receipt requested); or (v) when transmitted if sent by email (with receipt confirmed by recipient).",
+      "disposition": "ANNOTATED",
+      "rule": "-",
+      "reason": "Covers locked item C22-01.",
+      "item_id": "C22-01"
+    },
+    {
+      "span_char_start": 530,
+      "span_char_end": 754,
+      "span_text": "Notice to a party is effective for purposes of this Agreement only if given as provided in this Section 6.12 at the address of which the sending party has been notified in accordance with this Section 6.12. If to the Seller:",
+      "disposition": "NOT_OBLIGATION_BEARING",
+      "rule": "\u00a72.6",
+      "reason": "'Notice to a party is effective for purposes of this Agreement only if given as provided in this Section 6.12 ...' is a definitional/procedural validity rule for what counts as effective notice, not a party's performance duty -- same 'no obligation-bearing content' class as a definitions clause. The trailing 'If to the Seller:' is a truncated address-block fragment where the segment cuts off before any address text, carrying no content of its own."
+    }
+  ],
+  "not_annotatable": [
+    {
+      "span_char_start": 0,
+      "span_char_end": 21,
+      "span_text": "Section 6.12 Notices.",
+      "reason": "A numbered/lettered section or clause heading: no subject, no modal, no clause content of any kind -- one of the 13 spans \u00a72.7 bulk-dispositions as a single class."
+    },
+    {
+      "span_char_start": 530,
+      "span_char_end": 754,
+      "span_text": "Notice to a party is effective for purposes of this Agreement only if given as provided in this Section 6.12 at the address of which the sending party has been notified in accordance with this Section 6.12. If to the Seller:",
+      "reason": "'Notice to a party is effective for purposes of this Agreement only if given as provided in this Section 6.12 ...' is a definitional/procedural validity rule for what counts as effective notice, not a party's performance duty -- same 'no obligation-bearing content' class as a definitions clause. The trailing 'If to the Seller:' is a truncated address-block fragment where the segment cuts off before any address text, carrying no content of its own."
+    }
+  ]
+}

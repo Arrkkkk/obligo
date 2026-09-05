@@ -1,0 +1,24 @@
+{
+  "segment_id": "C02-045",
+  "doc_id": "C02",
+  "schema": "\u00a72.7 (v0.50) -- complete per-sentence segment disposition, superseding \u00a721 R6's not_annotatable-only shape. `not_annotatable` (R6's original array, the only key run_scoring.load_not_annotatable() reads) is preserved for scoring and holds every NOT_OBLIGATION_BEARING / NOT_ANNOTATABLE / EXCLUDED span. `dispositions` is the full per-sentence record \u00a72.7 requires, covering ANNOTATED and AMBIGUOUS spans too, which `not_annotatable` deliberately excludes -- an AMBIGUOUS span is an open reviewer question, not a settled non-item, and including it in the scoring array would resolve it silently.",
+  "reconciliation": {
+    "sentences_total": 1,
+    "obligation_bearing_clauses": 1,
+    "items_annotated": 1,
+    "status": "PASS",
+    "note": "All sentences accounted for; obligation-bearing clause count matches items_annotated exactly."
+  },
+  "dispositions": [
+    {
+      "span_char_start": 0,
+      "span_char_end": 242,
+      "span_text": "(b) Except where AMAG is required by Applicable Law to account for any VAT to the applicable Governmental Authority, Antares shall be solely responsible for the timely payment of all such VAT and taxes to the applicable Governmental Authority",
+      "disposition": "ANNOTATED",
+      "rule": "-",
+      "reason": "Covers locked item C02-04.",
+      "item_id": "C02-04"
+    }
+  ],
+  "not_annotatable": []
+}

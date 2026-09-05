@@ -1,0 +1,77 @@
+{
+  "segment_id": "C17-066",
+  "doc_id": "C17",
+  "schema": "\u00a72.7 (v0.50) -- complete per-sentence segment disposition, superseding \u00a721 R6's not_annotatable-only shape. `not_annotatable` (R6's original array, the only key run_scoring.load_not_annotatable() reads) is preserved for scoring and holds every NOT_OBLIGATION_BEARING / NOT_ANNOTATABLE / EXCLUDED span. `dispositions` is the full per-sentence record \u00a72.7 requires, covering ANNOTATED and AMBIGUOUS spans too, which `not_annotatable` deliberately excludes -- an AMBIGUOUS span is an open reviewer question, not a settled non-item, and including it in the scoring array would resolve it silently.",
+  "reconciliation": {
+    "sentences_total": 4,
+    "obligation_bearing_clauses": 3,
+    "items_annotated": 1,
+    "status": "ESCALATED",
+    "note": "3 obligation-bearing clauses vs 1 items_annotated. 2 span(s) AMBIGUOUS, escalated per \u00a714.3/\u00a714.4 rather than resolved silently. Gap fully explained by recorded dispositions (nothing uncovered); resolution is a reviewer decision, not taken here."
+  },
+  "dispositions": [
+    {
+      "span_char_start": 0,
+      "span_char_end": 36,
+      "span_text": "Section 10.11 Multi-party Contracts.",
+      "disposition": "NOT_OBLIGATION_BEARING",
+      "rule": "\u00a72.6 (\u00a72's \u2018no obligation-bearing sentences\u2019 exclusion row, applied at sentence granularity)",
+      "reason": "A numbered/lettered section or clause heading: no subject, no modal, no clause content of any kind -- one of the 13 spans \u00a72.7 bulk-dispositions as a single class."
+    },
+    {
+      "span_char_start": 37,
+      "span_char_end": 510,
+      "span_text": "The Company and RGHI will use all commercially reasonable efforts to obtain within 24 months following the Commencement Date, from the counterparty to each Multi-party Contract any needed consent to separate the portion of such contract that relates to the goods or services purchased from or supplied to the Business under such Multi-party Contract (including but not limited to assignment or partial assignment of such contracts to the Company or RGHI or its Affiliates).",
+      "disposition": "ANNOTATED",
+      "rule": "-",
+      "reason": "Covers locked item C17-02.",
+      "item_id": "C17-02"
+    },
+    {
+      "span_char_start": 511,
+      "span_char_end": 720,
+      "span_text": "The contract constituting the separated portion of any Multi-party Contract that relates to the Business as described in the preceding sentence shall be assumed by and become the responsibility of the Company.",
+      "disposition": "AMBIGUOUS",
+      "rule": "live rule boundary, OPEN \u2014 SPLITTING_EXCLUSION_INVESTIGATION.md Decision 4",
+      "reason": "Surplus clause #6 -- 'The contract constituting the separated portion ... shall be assumed by and become the responsibility of the Company.' A genuine two-way boundary between two established rules, not a gap in either: marked AMBIGUOUS by the cold annotator with both readings written out; gold left no trace at all.",
+      "readings": [
+        {
+          "reading": "\u00a73.5.3 passive-with-by-agent (ANNOTATED, 1 item)",
+          "detail": "An explicit by-agent exists ('by ... the Company'), so this is NOT the ABSENT-obligor branch of \u00a73.5.3 -- a passive clause with a named by-agent is an obligation under that section's own rule."
+        },
+        {
+          "reading": "\u00a78.8 copular-status class (excluded, or 2 items under a different split)",
+          "detail": "'shall be assumed by and become the responsibility of' reads as a copular status/characterisation of the contract's disposition rather than an action-verb duty -- under this reading the segment yields 2 items via a different split than the one that would follow from the first reading."
+        }
+      ],
+      "escalation_ref": "evals/goldens/holdout/SPLITTING_EXCLUSION_INVESTIGATION.md \u00a71 row 6, \u00a72.2 Category C, \u00a78 Decision 4"
+    },
+    {
+      "span_char_start": 721,
+      "span_char_end": 954,
+      "span_text": "Each Party making purchases or receiving services under any Multi-party Contract shall indemnify and hold harmless the other Party and its Affiliates for any claims, damages, etc. arising out of such purchases or receipt of services.",
+      "disposition": "AMBIGUOUS",
+      "rule": "no identifiable exclusion rule; gold's own notes classify but never dispose it \u2014 SPLITTING_EXCLUSION_INVESTIGATION.md Category A, row 7",
+      "reason": "Surplus clause #7 -- 'Each Party making purchases ... shall indemnify and hold harmless the other Party ...'. This is \u00a72.7's OWN worked example of 'a classification is not a disposition': C17-02's annotator_notes name this sentence 'a section 8.4 mutual case' and stop, without ever annotating or excluding it.",
+      "readings": [
+        {
+          "reading": "Genuine \u00a78.4 mutual item (best attempt)",
+          "detail": "'Each Party ... the other Party' makes the co-obligor the obligee -- the identical pattern this segment's own C17-01 (in C17-021) and C17-02 (this segment) already apply; tag mutual_obligation, annotate one direction. Strongly looks like a drafting-time omission rather than a considered exclusion."
+        },
+        {
+          "reading": "No disposition (as left)",
+          "detail": "Classified but never resolved on record; the investigation found no \u00a72 row that would exclude it."
+        }
+      ],
+      "escalation_ref": "evals/goldens/holdout/SPLITTING_EXCLUSION_INVESTIGATION.md \u00a71 row 7, \u00a72.2 Category A"
+    }
+  ],
+  "not_annotatable": [
+    {
+      "span_char_start": 0,
+      "span_char_end": 36,
+      "span_text": "Section 10.11 Multi-party Contracts.",
+      "reason": "A numbered/lettered section or clause heading: no subject, no modal, no clause content of any kind -- one of the 13 spans \u00a72.7 bulk-dispositions as a single class."
+    }
+  ]
+}
