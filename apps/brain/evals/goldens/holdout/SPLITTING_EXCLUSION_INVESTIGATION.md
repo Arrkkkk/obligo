@@ -573,3 +573,7 @@ disposed); `C11-094` stays `ESCALATED`, because span **#2** is untouched by Deci
 above F5/F6/F9/F10/F12:** `run_scoring.run()` currently cannot execute against the committed gold
 set at **any** single `guideline_version` — verified by execution — so the denominator arithmetic
 in this ruling is computed by hand and cannot yet be confirmed by a run.
+
+**RESOLVED 2026-09-16 — see guideline §10.1's F16 row.** `run_scoring.run()` now executes end to
+end (per-item, not per-run, `guideline_version` checking); the denominator arithmetic above is
+confirmed by a real run, not only computed by hand.
