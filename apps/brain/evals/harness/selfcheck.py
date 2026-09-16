@@ -35,6 +35,7 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Sequence
 
 from evals.harness import registry as registry_mod
 
@@ -119,11 +120,22 @@ def check_item(item: dict, reg: registry_mod.DocumentRegistry) -> list[Failure]:
     return failures
 
 
-def run(items_dir: Path = GOLDENS_DIR) -> list[Failure]:
+def run(items_dir: Path = GOLDENS_DIR, *,
+        items: Sequence[dict] | None = None) -> list[Failure]:
+    """R5 over every LOCKED item by default (globbing `items_dir`), or over an
+    explicit `items` sequence when the caller has already scoped this pass to
+    a subset -- run_scoring.run() passes only registry-backed items (F16,
+    section 10.1): a document with no scoring registry committed yet (a
+    not-yet-spent batch 3 document) is a distinct, disclosed
+    cassette-unscoreable state, not an R5 failure -- R5's guarantee is about a
+    registry that EXISTS being wrong, not about one that was never built."""
     failures: list[Failure] = []
     registries: dict[str, registry_mod.DocumentRegistry] = {}
-    for path in sorted(items_dir.rglob("items/*.json")):
-        item = json.loads(path.read_text())
+    source = (
+        (json.loads(p.read_text()) for p in sorted(items_dir.rglob("items/*.json")))
+        if items is None else items
+    )
+    for item in source:
         doc_id = item["doc_id"]
         if doc_id not in registries:
             registries[doc_id] = registry_mod.load(doc_id)

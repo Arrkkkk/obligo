@@ -153,6 +153,20 @@ class UnscoreableCandidate:
     span_text: str
 
 
+@dataclass(frozen=True)
+class CassetteUnscoreableItem:
+    """G8 (F16, §10.1) -- a locked gold item with ZERO counted runs: either its
+    segment has no recorded cassette at all (batch 3, not yet spent), or every
+    run that exists is stale on guideline_version against THIS item's own
+    stamp (§22.3's validity-transfer case -- a sibling item on the same
+    segment may score fine). Excluded from both criterion-2 denominators
+    exactly as an item run_scoring never reached would be, but DISCLOSED here
+    with its own reason rather than left implicit or, as before F16's fix,
+    crashing the whole run."""
+    item_id: str
+    reason: str
+
+
 @dataclass
 class ItemReport:
     item_id: str
@@ -177,6 +191,8 @@ class Report:
     provenance: dict = field(default_factory=dict)
     miss_kinds: dict = field(default_factory=dict)   # item_id -> per-run miss diagnosis
     gap_agreement: GapAgreementResult | None = None  # G7: the denominator-sensitivity band
+    # G8: locked items scored over ZERO runs -- see CassetteUnscoreableItem.
+    cassette_unscoreable_gold_items: list[CassetteUnscoreableItem] = field(default_factory=list)
 
     # --- section 9's two denominators -------------------------------------
     @property
@@ -336,6 +352,17 @@ class Report:
         else:
             lines.append("    Every item scored over the full number of runs.")
 
+        cu = self.cassette_unscoreable_gold_items
+        lines += ["",
+                  f"Cassette-unscoreable items (G8, §10.1 F16): {len(cu)}/"
+                  f"{len(self.items) + len(cu)} locked items -- ZERO counted runs, excluded "
+                  "from both criterion-2 denominators, same as any item this run never reached:"]
+        if cu:
+            for u in sorted(cu, key=lambda u: u.item_id):
+                lines.append(f"    {u.item_id}: {u.reason}")
+        else:
+            lines.append("    None -- every locked item was scored over at least one run.")
+
         lines += ["", "Per item (modal outcome; run count stated inline per §6.1):"]
         for i in self.items:
             note = "" if i.run_count == self.max_runs else (
@@ -375,14 +402,28 @@ def build(
     short_run_reasons: dict[str, str] | None = None,
     failed_clauses: dict[str, Sequence[str]] | None = None,
     gap_agreement: GapAgreementResult | None = None,
+    cassette_unscoreable_items: dict[str, str] | None = None,
 ) -> Report:
     """`short_run_reasons` maps item_id -> why that item has fewer runs (G5).
     An item scored over fewer runs than the set's maximum WITHOUT a reason is a
     programming error, not a reportable state: section 6.1 admits a short run only
     when the provider refused the request, and an unexplained one means the driver
-    silently dropped a run. It raises rather than rendering an unexplained gap."""
+    silently dropped a run. It raises rather than rendering an unexplained gap.
+
+    `cassette_unscoreable_items` maps item_id -> why (G8, §10.1 F16): a locked
+    item with ZERO counted runs. It must NOT also appear as a key in
+    per_item_runs -- zero runs belongs to exactly one of the two collections,
+    never both, and never silently neither."""
     reasons = dict(short_run_reasons or {})
     failed = dict(failed_clauses or {})
+    unscoreable = dict(cassette_unscoreable_items or {})
+    overlap = set(unscoreable) & set(per_item_runs)
+    if overlap:
+        raise ValueError(
+            f"item(s) {sorted(overlap)} appear in BOTH per_item_runs and "
+            "cassette_unscoreable_items -- an item is either scored over its actual "
+            "runs or disclosed as cassette-unscoreable, never both."
+        )
     report = Report(provenance=dict(provenance or {}), gap_agreement=gap_agreement)
     top = max((len(o) for o in per_item_runs.values()), default=0)
     for item_id, outcomes in sorted(per_item_runs.items()):
@@ -413,4 +454,8 @@ def build(
     report.unscoreable_items = sum(
         1 for g in gold_by_id.values() if "redacted_clause" in g.get("known_gaps", ())
     )
+    report.cassette_unscoreable_gold_items = [
+        CassetteUnscoreableItem(item_id=item_id, reason=reason)
+        for item_id, reason in sorted(unscoreable.items())
+    ]
     return report

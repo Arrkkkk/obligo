@@ -60,7 +60,18 @@ class CassetteUnderflow(CassetteError):
 
 
 class StaleCassette(CassetteError):
-    pass
+    """Raised by Cassette.verify(). Carries WHICH dimensions mismatched, not just
+    a formatted message -- added for F16 (§10.1): a caller needs to tell a
+    guideline_version-only mismatch (governs scoring, may legitimately diverge
+    per item pre-freeze, §22.3) apart from a segment_text/model_id/prompt_version
+    mismatch (the recording answers a different question outright, always
+    fatal). The set of dimensions checked, and the strictness of each, is
+    UNCHANGED by this -- every mismatch still raises here. This only lets a
+    caller react differently to WHICH one fired."""
+
+    def __init__(self, message: str, dimensions: frozenset[str] = frozenset()) -> None:
+        super().__init__(message)
+        self.dimensions = dimensions
 
 
 @dataclass(frozen=True)
@@ -80,27 +91,32 @@ class Cassette:
         all failures are reported together, so a re-record fixes them in one
         pass instead of one error at a time."""
         actual = hashlib.sha256(segment_text.encode()).hexdigest()
-        problems = []
+        problems: list[tuple[str, str]] = []
         if actual != self.segment_sha256:
-            problems.append(
+            problems.append((
+                "segment_text",
                 f"segment text changed: recorded sha256 {self.segment_sha256[:16]}…, "
-                f"now {actual[:16]}… -- every recorded response answers a different input"
-            )
+                f"now {actual[:16]}… -- every recorded response answers a different input",
+            ))
         if model_id != self.model_id:
-            problems.append(f"model_id: recorded {self.model_id!r}, now {model_id!r}")
+            problems.append(
+                ("model_id", f"model_id: recorded {self.model_id!r}, now {model_id!r}"))
         if prompt_version != self.prompt_version:
-            problems.append(
-                f"prompt_version: recorded {self.prompt_version!r}, now {prompt_version!r}"
-            )
+            problems.append((
+                "prompt_version",
+                f"prompt_version: recorded {self.prompt_version!r}, now {prompt_version!r}",
+            ))
         if guideline_version != self.guideline_version:
-            problems.append(
+            problems.append((
+                "guideline_version",
                 f"guideline_version: recorded {self.guideline_version!r}, now "
-                f"{guideline_version!r}"
-            )
+                f"{guideline_version!r}",
+            ))
         if problems:
             raise StaleCassette(
                 f"cassette {self.segment_id}/run{self.run} is stale and MUST be re-recorded:\n  - "
-                + "\n  - ".join(problems)
+                + "\n  - ".join(msg for _, msg in problems),
+                dimensions=frozenset(dim for dim, _ in problems),
             )
 
 

@@ -148,3 +148,44 @@ def test_provenance_is_rendered():
     text = r.render()
     assert "guideline_version: v0.28" in text
     assert "model_id: llama-3.3-70b-versatile" in text
+
+
+# --- G8 (F16, section 10.1): cassette-unscoreable items ----------------------
+
+def test_cassette_unscoreable_items_are_disclosed_with_their_reason():
+    gold = {"A": _gold("A"), "B": _gold("B")}
+    r = build({"A": [FC]}, gold,
+              cassette_unscoreable_items={"B": "no cassette recorded for this segment"})
+    assert [u.item_id for u in r.cassette_unscoreable_gold_items] == ["B"]
+    assert r.cassette_unscoreable_gold_items[0].reason == (
+        "no cassette recorded for this segment")
+    text = r.render()
+    assert "Cassette-unscoreable items" in text
+    assert "B: no cassette recorded for this segment" in text
+
+
+def test_cassette_unscoreable_items_are_excluded_from_both_denominators():
+    """PLANTED: the whole point of G8 is that an unscoreable item must not
+    silently inflate OR deflate either criterion-2 denominator -- it must be
+    ABSENT from both, exactly as an item this run never reached would be."""
+    gold = {"A": _gold("A"), "B": _gold("B")}
+    r = build({"A": [FC]}, gold, cassette_unscoreable_items={"B": "reason"})
+    assert r.criterion2_all_items == (1, 1)
+    assert r.criterion2_no_known_gaps == (1, 1)
+
+
+def test_an_item_in_both_scored_and_unscoreable_is_rejected():
+    """PLANTED: an item cannot be simultaneously 'scored over N>=1 runs' and
+    'disclosed as zero-run unscoreable' -- that is two contradictory claims
+    about the same item, and the discipline that catches an unexplained short
+    run (test_an_unexplained_short_run_is_refused_by_the_report) must catch
+    this contradiction too rather than silently picking one."""
+    gold = {"A": _gold("A")}
+    with pytest.raises(ValueError, match="never both"):
+        build({"A": [FC]}, gold, cassette_unscoreable_items={"A": "reason"})
+
+
+def test_no_cassette_unscoreable_items_renders_the_none_case():
+    r = build({"A": [FC]}, {"A": _gold("A")})
+    assert r.cassette_unscoreable_gold_items == []
+    assert "None -- every locked item was scored over at least one run." in r.render()

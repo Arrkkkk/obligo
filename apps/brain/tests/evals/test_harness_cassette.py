@@ -133,6 +133,48 @@ def test_all_staleness_problems_are_reported_together(tmp_path):
         assert dimension in message
 
 
+# --- structured StaleCassette.dimensions (F16, section 10.1) ----------------
+#
+# run_scoring.runs_for_item needs to tell a guideline_version-ONLY mismatch
+# (governs scoring, may legitimately diverge per item pre-freeze) apart from a
+# structural mismatch (the recording answers a different question outright,
+# always fatal). Planted so the distinction is proven, not merely plausible --
+# both directions, and the "several dimensions at once" case that must NOT be
+# mistaken for a guideline-only one.
+
+def test_guideline_only_mismatch_reports_exactly_that_dimension(tmp_path):
+    with pytest.raises(C.StaleCassette) as exc:
+        _verify(make(tmp_path), guideline_version="v0.48")
+    assert exc.value.dimensions == frozenset({"guideline_version"})
+
+
+def test_structural_mismatch_alone_does_not_report_as_guideline_only(tmp_path):
+    """PLANTED: a caller that only checks 'is guideline_version in dimensions'
+    without also checking it is the ONLY entry would wrongly treat a genuine
+    structural drift (here: model_id) as a safe-to-skip per-item mismatch."""
+    with pytest.raises(C.StaleCassette) as exc:
+        _verify(make(tmp_path), model_id="some-other-model")
+    assert exc.value.dimensions == frozenset({"model_id"})
+    assert exc.value.dimensions != frozenset({"guideline_version"})
+
+
+def test_guideline_plus_structural_mismatch_is_not_guideline_only(tmp_path):
+    """PLANTED: the specific case runs_for_item's dimensions == {'guideline_version'}
+    check exists to reject -- a cassette that is ALSO structurally stale must
+    still raise fatally, never be silently narrowed to the lenient path just
+    because guideline_version happens to be one of several mismatches."""
+    with pytest.raises(C.StaleCassette) as exc:
+        _verify(make(tmp_path), model_id="some-other-model", guideline_version="v0.48")
+    assert exc.value.dimensions == frozenset({"model_id", "guideline_version"})
+    assert exc.value.dimensions != frozenset({"guideline_version"})
+
+
+def test_no_mismatch_carries_no_dimensions():
+    """Not raised at all, but dimensions defaults to empty for anyone constructing
+    or catching a StaleCassette outside verify()."""
+    assert C.StaleCassette("msg").dimensions == frozenset()
+
+
 # --- missing cassettes ------------------------------------------------------
 
 def test_missing_cassette_names_the_3x_requirement(tmp_path):

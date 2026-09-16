@@ -257,6 +257,129 @@ def test_available_runs_reports_only_runs_that_exist(tmp_path):
                              guideline_version="v0.28", root=tmp_path) == [2]
 
 
+# --- W6 / F16: per-item guideline_version resolution -------------------------
+#
+# The real bug this fixes: C04-117 backs C04-01 (stamped v0.28) and C04-02
+# (stamped v0.48), sharing ONE cassette that can carry only one
+# guideline_version. Planted here as the same two-item-one-segment shape,
+# smaller, so the mechanism is proven directly rather than only re-observed on
+# the real gold set.
+
+def _write_cassette(tmp_path, *, segment_id="S-001", run=1, text="hello",
+                    guideline_version="v0.48", model_id="m", prompt_version="v3"):
+    import hashlib
+    cassette_mod.write(cassette_mod.Cassette(
+        segment_id=segment_id, run=run, model_id=model_id, prompt_version=prompt_version,
+        segment_sha256=hashlib.sha256(text.encode()).hexdigest(),
+        guideline_version=guideline_version, recorded_at="2026-01-01T00:00:00+00:00",
+        responses=(),
+    ), root=tmp_path)
+
+
+def test_runs_for_item_matches_when_the_items_own_stamp_agrees(tmp_path):
+    _write_cassette(tmp_path, guideline_version="v0.48")
+    avail = rs.runs_for_item("S-001", "hello", "v0.48", model_id="m",
+                             prompt_version="v3", root=tmp_path)
+    assert avail.runs == (1,)
+    assert avail.skipped == {}
+
+
+def test_runs_for_item_skips_rather_than_raises_on_guideline_only_mismatch(tmp_path):
+    """PLANTED, the §22.3 shape: cassette re-recorded at v0.48 to serve one
+    sibling item now mismatches the OTHER sibling's v0.28 stamp. This must not
+    raise -- it must exclude the run for THIS item, with a stated reason."""
+    _write_cassette(tmp_path, guideline_version="v0.48")
+    avail = rs.runs_for_item("S-001", "hello", "v0.28", model_id="m",
+                             prompt_version="v3", root=tmp_path)
+    assert avail.runs == ()
+    assert avail.skipped == {
+        1: "cassette recorded at guideline_version='v0.48', item stamped 'v0.28' "
+           "(§22.3 validity transfer)"
+    }
+
+
+def test_runs_for_item_still_raises_on_a_structural_mismatch(tmp_path):
+    """The lenient path is guideline_version ONLY. A structural mismatch
+    (model_id here) must still propagate exactly as available_runs() does --
+    F16's fix narrows the exception to one dimension, it does not weaken any
+    other staleness check."""
+    _write_cassette(tmp_path, guideline_version="v0.48", model_id="old-model")
+    with pytest.raises(cassette_mod.StaleCassette):
+        rs.runs_for_item("S-001", "hello", "v0.48", model_id="new-model",
+                         prompt_version="v3", root=tmp_path)
+
+
+def test_runs_for_item_still_raises_when_guideline_is_one_of_several_mismatches(tmp_path):
+    """PLANTED: guideline_version being ONE of several mismatched dimensions
+    must not be treated as guideline-only -- a structurally stale cassette is
+    still fatal even if its guideline_version also happens to differ."""
+    _write_cassette(tmp_path, guideline_version="v0.48", model_id="old-model")
+    with pytest.raises(cassette_mod.StaleCassette):
+        rs.runs_for_item("S-001", "hello", "v0.28", model_id="new-model",
+                         prompt_version="v3", root=tmp_path)
+
+
+def test_two_items_sharing_a_segment_can_disagree_on_which_runs_count(tmp_path):
+    """The full §22.3 shape: ONE segment, ONE cassette (guideline_version
+    v0.48), TWO items stamped differently. The v0.48 item is scoreable; the
+    v0.28 item is not -- and that is the correct, disclosed outcome, not a
+    crash for either."""
+    _write_cassette(tmp_path, guideline_version="v0.48")
+    newer = rs.runs_for_item("S-001", "hello", "v0.48", model_id="m",
+                             prompt_version="v3", root=tmp_path)
+    older = rs.runs_for_item("S-001", "hello", "v0.28", model_id="m",
+                             prompt_version="v3", root=tmp_path)
+    assert newer.runs == (1,)
+    assert older.runs == ()
+    assert rs.cassette_unscoreable_reason(older, max_runs=3) == (
+        "run1: cassette recorded at guideline_version='v0.48', item stamped "
+        "'v0.28' (§22.3 validity transfer)"
+    )
+
+
+def test_cassette_unscoreable_reason_for_a_wholly_missing_segment(tmp_path):
+    """batch 3's shape: no cassette recorded at all yet, not a staleness case."""
+    empty = rs.ItemRunAvailability(runs=(), skipped={})
+    assert rs.cassette_unscoreable_reason(empty, max_runs=3) == (
+        "no cassette recorded for this segment (0 of 3 runs found)"
+    )
+
+
+# --- F16: a document with no committed registry is disclosed, not a crash ---
+
+def test_registry_backed_items_splits_on_registry_existence(tmp_path):
+    (tmp_path / "D1.json").write_text("{}")
+    items = [
+        {"item_id": "A-01", "doc_id": "D1"},
+        {"item_id": "B-01", "doc_id": "D2"},
+    ]
+    scoreable, unscoreable = rs.registry_backed_items(items, registry_dir=tmp_path)
+    assert [it["item_id"] for it in scoreable] == ["A-01"]
+    assert list(unscoreable) == ["B-01"]
+    assert "no scoring registry committed for document 'D2'" in unscoreable["B-01"]
+    assert "not yet spent" in unscoreable["B-01"]
+
+
+def test_registry_backed_items_keeps_everything_when_every_doc_has_one(tmp_path):
+    (tmp_path / "D1.json").write_text("{}")
+    (tmp_path / "D2.json").write_text("{}")
+    items = [{"item_id": "A-01", "doc_id": "D1"}, {"item_id": "B-01", "doc_id": "D2"}]
+    scoreable, unscoreable = rs.registry_backed_items(items, registry_dir=tmp_path)
+    assert len(scoreable) == 2
+    assert unscoreable == {}
+
+
+def test_registry_backed_items_defaults_to_the_real_committed_registry_dir():
+    """Batch 1/2's real docs have committed registries; a doc this repo has
+    never registered (synthetic here) does not."""
+    scoreable, unscoreable = rs.registry_backed_items([
+        {"item_id": "C03-01", "doc_id": "C03"},
+        {"item_id": "Z-01", "doc_id": "NOPE-DOC-DOES-NOT-EXIST"},
+    ])
+    assert [it["item_id"] for it in scoreable] == ["C03-01"]
+    assert "Z-01" in unscoreable
+
+
 # --- W6 refined: a compile-stage failure is not an extraction failure --------
 
 class _FakeQuarantined:

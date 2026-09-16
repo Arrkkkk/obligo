@@ -42,6 +42,20 @@ W5 -- COMPILE SUCCESS HERE IS *NOT* CRITERION 1b. 1b is defined over the
 28-document dev corpus; this runs over the 12 gold segments. The figure is
 computed because it is free and diagnostic, and is labelled at every point of
 use so it cannot be quoted as 1b.
+
+W6 (F16, section 10.1) -- guideline_version IS CHECKED PER ITEM, NOT PER RUN.
+A single run-wide guideline_version required every committed item to stamp the
+same version, which the real gold set has not done since batch 2 began
+drafting against a moving guideline, and which broke a second, sharper way
+when the v0.48 freeze-pass batch restamped two items (C04-02, E01-01) alone,
+leaving items sharing a segment's cassette (section 22.3's "validity
+transfer") unable to agree on one value. `runs_for_item` resolves each item's
+OWN stamp against its segment's cassette; a guideline_version-only mismatch
+excludes that item from that run, loudly, with a stated reason
+(cassette_unscoreable_reason / report.py's G8) -- never a crash, and never
+silent. Every OTHER staleness dimension (segment_text, model_id,
+prompt_version) is still checked by the same Cassette.verify() and is still
+fatal for every item on the segment alike, exactly as before.
 """
 
 from __future__ import annotations
@@ -141,6 +155,88 @@ def available_runs(segment_id: str, segment_text: str, *, model_id: str,
                  prompt_version=prompt_version, guideline_version=guideline_version)
         out.append(run)
     return out
+
+
+@dataclass(frozen=True)
+class ItemRunAvailability:
+    """Per-ITEM cassette availability (F16, §10.1). `runs` are numbers this
+    item may be scored over; `skipped` names every run that EXISTS and is
+    structurally fresh (segment_text/model_id/prompt_version all match) but
+    was excluded because ITS cassette's guideline_version does not match this
+    item's own stamp -- the §22.3 validity-transfer case, disclosed rather than
+    dropped."""
+    runs: tuple[int, ...]
+    skipped: dict[int, str]
+
+
+def runs_for_item(segment_id: str, segment_text: str, item_guideline_version: str, *,
+                  model_id: str, prompt_version: str, max_runs: int = 3,
+                  root: Path | None = None) -> ItemRunAvailability:
+    """F16's fix: guideline_version is checked against the ITEM asking the
+    question, not against one value shared by every item on a run. Every OTHER
+    staleness dimension is still checked exactly as before by the same
+    Cassette.verify() and is still FATAL -- those describe what question was
+    actually put to the model, and disagreeing on them means the recording
+    answers a different question outright, run-wide, for every item on the
+    segment alike. Only guideline_version, which governs SCORING rather than
+    extraction, degrades to a per-item skip instead of propagating as a crash;
+    it still never degrades SILENTLY -- the skip is returned, not swallowed,
+    and the caller must disclose it (see run()'s use of this)."""
+    runs: list[int] = []
+    skipped: dict[int, str] = {}
+    for run in range(1, max_runs + 1):
+        try:
+            c = cassette_mod.load(segment_id, run, root=root)
+        except cassette_mod.CassetteMissing:
+            continue
+        try:
+            c.verify(segment_text=segment_text, model_id=model_id,
+                     prompt_version=prompt_version,
+                     guideline_version=item_guideline_version)
+        except cassette_mod.StaleCassette as exc:
+            if exc.dimensions == frozenset({"guideline_version"}):
+                skipped[run] = (
+                    f"cassette recorded at guideline_version={c.guideline_version!r}, "
+                    f"item stamped {item_guideline_version!r} (§22.3 validity transfer)"
+                )
+                continue
+            raise
+        runs.append(run)
+    return ItemRunAvailability(runs=tuple(runs), skipped=skipped)
+
+
+def cassette_unscoreable_reason(avail: ItemRunAvailability, max_runs: int) -> str:
+    """Why an item with ZERO counted runs is unscoreable -- always non-empty,
+    per this module's own no-unexplained-gap discipline (W3/G5)."""
+    if avail.skipped:
+        return "; ".join(f"run{r}: {why}" for r, why in sorted(avail.skipped.items()))
+    return f"no cassette recorded for this segment (0 of {max_runs} runs found)"
+
+
+def registry_backed_items(
+    items: Sequence[dict], *, registry_dir: Path | None = None,
+) -> tuple[list[dict], dict[str, str]]:
+    """Splits locked items into (scoreable, unscoreable-with-reason) by whether
+    their document has a committed scoring registry at all (section 21 R1-R3).
+
+    A document R5's own registry_mod.load() has never seen (batch 3, not yet
+    spent on this front) is a distinct, disclosed cassette-unscoreable state --
+    the same "never spent" shape as a segment with no recorded cassette --
+    not an R5 failure. R5's guarantee is about a registry that EXISTS being
+    wrong, never about one that was never built. Pulled out as its own
+    function so this split is unit-testable without a database."""
+    root = registry_dir or registry_mod.REGISTRY_DIR
+    scoreable: list[dict] = []
+    unscoreable: dict[str, str] = {}
+    for it in items:
+        if (root / f"{it['doc_id']}.json").exists():
+            scoreable.append(it)
+        else:
+            unscoreable[it["item_id"]] = (
+                f"no scoring registry committed for document {it['doc_id']!r} "
+                "(document not yet spent -- §21 R1-R3)"
+            )
+    return scoreable, unscoreable
 
 
 def replay_segment(segment_id: str, segment_text: str, run: int, *,
@@ -308,28 +404,51 @@ def active_prompt_version() -> str:
     return prompt_registry.load("extraction").version
 
 
-def run(*, model_id: str, guideline_version: str | None = None,
+def run(*, model_id: str,
         prompt_version: str | None = None,
         goldens_dir: Path = GOLDENS_DIR, cassette_root: Path | None = None,
         verbose: bool = True) -> tuple[report_mod.Report, str, dict]:
-    """The whole scoring pass. Returns (report, condition-check rendering, compile stats)."""
+    """The whole scoring pass. Returns (report, condition-check rendering, compile stats).
+
+    F16 (§10.1) fix: guideline_version is no longer a single run-wide value
+    gating every cassette -- guideline_version_from_items() (still present,
+    still tested) required every committed item to share one stamp, which the
+    real gold set has not done since batch 2/3 began drafting against a moving
+    DRAFT guideline, and which the v0.48 freeze-pass batch broke a second way
+    by restamping two items alone. Each item's OWN guideline_version is now
+    checked against the cassette backing ITS segment (runs_for_item), so a
+    segment shared by items stamped at different versions -- §22.3's
+    "validity transfer" case -- correctly scores the matching item and
+    correctly, LOUDLY, excludes the mismatched one, rather than crashing the
+    whole run. §22.1's staleness dimension itself is unchanged: nothing here
+    is dropped, weakened, or restamped -- see cassette_unscoreable_reason and
+    ItemRunAvailability above."""
     prompt_version = prompt_version or active_prompt_version()
     items = load_gold_items(goldens_dir)
-    guideline_version = guideline_version or guideline_version_from_items(items)
-    segments = segments_from_items(items)
+
+    # A document with no scoring registry committed yet (batch 3, never spent
+    # on this front either -- see the cassette case below) is a distinct,
+    # disclosed cassette-unscoreable state, not an R5 failure: R5's guarantee
+    # is about a registry that EXISTS being wrong, not one that was never
+    # built. Scoped out here, before R5, so R5 keeps checking only registries
+    # this pass actually relies on.
+    scoreable_items, cassette_unscoreable_items = registry_backed_items(items)
+
+    segments = segments_from_items(scoreable_items)
     not_annotatable = load_not_annotatable(goldens_dir)
 
     by_segment: dict[str, list[dict]] = {}
-    for it in items:
+    for it in scoreable_items:
         by_segment.setdefault(it["segment_id"], []).append(it)
 
     per_doc: dict[str, list[tuple[str, str]]] = {}
     for sid, (doc, text) in sorted(segments.items()):
         per_doc.setdefault(doc, []).append((sid, text))
 
-    # R5 first: a registry-fixture defect must fail loudly, never as a clause-8 loss.
+    # R5 next: a registry-fixture defect must fail loudly, never as a clause-8 loss.
     from evals.harness import selfcheck
-    blocking = [f for f in selfcheck.run(goldens_dir) if "non-blocking" not in f.kind]
+    blocking = [f for f in selfcheck.run(goldens_dir, items=scoreable_items)
+               if "non-blocking" not in f.kind]
     if blocking:
         raise RuntimeError(
             "R5 self-check failed; refusing to score. "
@@ -343,6 +462,10 @@ def run(*, model_id: str, guideline_version: str | None = None,
     all_runs: list[SegmentRun] = []
     short_run_reasons: dict[str, str] = {}
     runs_by_segment: dict[str, list[int]] = {}
+    # Per-item availability, kept for the W3 short-run pass below -- a segment's
+    # items can disagree on which runs count for THEM even though they share
+    # one replay (§22.3: one cassette, several items, at most one stamp match).
+    item_availability: dict[str, ItemRunAvailability] = {}
 
     with fixtures_mod.document_fixtures(per_doc) as fx_by_doc:
         seg_to: dict[str, tuple[str, str]] = {}
@@ -352,11 +475,32 @@ def run(*, model_id: str, guideline_version: str | None = None,
 
         for sid in sorted(segments):
             doc, text = segments[sid]
-            runs = available_runs(sid, text, model_id=model_id, prompt_version=prompt_version,
-                                  guideline_version=guideline_version, root=cassette_root)
+            seg_items = by_segment[sid]
+            union_runs: set[int] = set()
+            for it in seg_items:
+                avail = runs_for_item(
+                    sid, text, it["guideline_version"], model_id=model_id,
+                    prompt_version=prompt_version, root=cassette_root,
+                )
+                item_availability[it["item_id"]] = avail
+                union_runs.update(avail.runs)
+            runs = sorted(union_runs)
             runs_by_segment[sid] = runs
+
             if not runs:
-                raise RuntimeError(f"segment {sid} has no usable cassette; cannot score it")
+                # Nothing usable for ANY item on this segment -- either no cassette
+                # was ever recorded here (batch 3, not yet spent) or every item's
+                # own stamp mismatches every recorded run. Every item here is
+                # unscoreable, disclosed with its own reason, not a crash.
+                for it in seg_items:
+                    cassette_unscoreable_items[it["item_id"]] = cassette_unscoreable_reason(
+                        item_availability[it["item_id"]], max_runs=3)
+                if verbose:
+                    print(f"  {sid}: NO USABLE CASSETTE -- "
+                          f"items={[g['item_id'] for g in seg_items]} all unscoreable",
+                          flush=True)
+                continue
+
             reg = registry_mod.load(doc)
             seg_uuid, org_id = seg_to[sid]
             for run_no in runs:
@@ -364,10 +508,15 @@ def run(*, model_id: str, guideline_version: str | None = None,
                                     org_id=org_id, root=cassette_root)
                 all_runs.append(sr)
                 scores, unx = score_segment_run(
-                    sr, by_segment[sid], reg, text, not_annotatable.get(sid, ())
+                    sr, seg_items, reg, text, not_annotatable.get(sid, ())
                 )
                 unexpected.extend(unx)
                 for item_id, sc in scores.items():
+                    if run_no not in item_availability[item_id].runs:
+                        # This run's cassette doesn't verify against THIS item's own
+                        # guideline_version -- it verified for a sibling item sharing
+                        # the segment instead. Not counted toward this item's outcomes.
+                        continue
                     per_item_runs.setdefault(item_id, []).append(sc.outcome)
                     if sc.outcome is Outcome.MISSED and "miss_kind" in sc.detail:
                         miss_kinds.setdefault(item_id, []).append(
@@ -377,23 +526,48 @@ def run(*, model_id: str, guideline_version: str | None = None,
                         for c in sc.failed:
                             if c not in failed_clauses[item_id]:
                                 failed_clauses[item_id].append(c)
-            if verbose:
-                print(f"  {sid}: runs={runs} "
-                      f"items={[g['item_id'] for g in by_segment[sid]]}", flush=True)
 
-    # W3: thread section 6.1's reason onto every item backed by a short segment.
-    top = max((len(v) for v in runs_by_segment.values()), default=0)
-    for sid, runs in runs_by_segment.items():
-        if len(runs) < top:
-            reason = SHORT_RUN_REASONS.get(sid, "")
+            # An item on this segment may still end up with ZERO counted runs even
+            # though the segment itself replayed fine -- e.g. C04-01 (v0.28) sharing
+            # C04-117 with C04-02 (v0.48) once the cassette was re-recorded for the
+            # latter (§22.3). Disclosed the same way as the whole-segment case above.
+            for it in seg_items:
+                if not per_item_runs.get(it["item_id"]):
+                    cassette_unscoreable_items[it["item_id"]] = cassette_unscoreable_reason(
+                        item_availability[it["item_id"]], max_runs=3)
+
+            if verbose:
+                per_item_note = ", ".join(
+                    f"{g['item_id']}={len(item_availability[g['item_id']].runs)}"
+                    for g in seg_items
+                )
+                print(f"  {sid}: replayed runs={runs} items(runs used)={{{per_item_note}}}",
+                      flush=True)
+
+    # W3: thread section 6.1's reason onto every SCOREABLE item backed by a short
+    # run. Fully unscoreable items (0 runs) are reported separately above/below,
+    # never fed into modal_outcome, which requires at least one run.
+    top = max((len(v) for v in per_item_runs.values()), default=0)
+    for item_id, outcomes in per_item_runs.items():
+        if len(outcomes) < top:
+            seg_id = next(it["segment_id"] for it in items if it["item_id"] == item_id)
+            parts = []
+            structural = SHORT_RUN_REASONS.get(seg_id, "")
+            if structural:
+                parts.append(structural)
+            avail = item_availability[item_id]
+            if avail.skipped:
+                parts.append("; ".join(f"run{r}: {why}" for r, why in
+                                       sorted(avail.skipped.items())))
+            reason = "; ".join(parts)
             if not reason:
                 raise RuntimeError(
-                    f"segment {sid} has {len(runs)} runs against a set maximum of {top} "
-                    "and no recorded reason. Section 6.1 admits a short run only with its "
-                    "reason stated; add it to SHORT_RUN_REASONS or re-record."
+                    f"item {item_id} was scored over {len(outcomes)} run(s) against a set "
+                    f"maximum of {top} and no recorded reason (neither a structural "
+                    "SHORT_RUN_REASONS entry nor a per-item guideline_version skip). "
+                    "Section 6.1 admits a short run only with its reason stated."
                 )
-            for g in by_segment[sid]:
-                short_run_reasons[g["item_id"]] = reason
+            short_run_reasons[item_id] = reason
 
     gold_by_id = {it["item_id"]: it for it in items}
     rep = report_mod.build(
@@ -401,11 +575,16 @@ def run(*, model_id: str, guideline_version: str | None = None,
         unscoreable_candidates=unexpected,
         short_run_reasons=short_run_reasons,
         failed_clauses=failed_clauses,
+        cassette_unscoreable_items=cassette_unscoreable_items,
         provenance={
             "model_id": model_id, "prompt_version": prompt_version,
-            "guideline_version": guideline_version,
+            "guideline_versions_scored": sorted({
+                it["guideline_version"] for it in items if it["item_id"] in per_item_runs
+            }),
             "cassettes": sum(len(v) for v in runs_by_segment.values()),
             "segments": len(segments), "items": len(items),
+            "items_scored": len(per_item_runs),
+            "items_cassette_unscoreable": len(cassette_unscoreable_items),
         },
     )
     rep.miss_kinds = miss_kinds
