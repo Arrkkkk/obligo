@@ -95,13 +95,51 @@ PUBLISHED_CLAUSE = {
 }
 
 
-def _load_gold(pre_restamp: bool = False) -> dict[str, list[dict]]:
+def published_population() -> frozenset[str]:
+    """The 32 gold items the published §7 run actually compared, read off the
+    SEALED artifact rather than hardcoded as a count.
+
+    Why this exists (v0.53). Every reproduction below pins a PUBLISHED, DATED
+    measurement -- `K = 14/32` and the §5.1 `A` figures, computed 2026-08-29
+    against a sealed cold annotation. `_load_gold` globs the live gold
+    directory, so the moment a later session drafts a new item the reproduction
+    silently compares a population the published run never had. That is not a
+    stale assertion to bump: cold annotated at BOTH spans the v0.53 drafting
+    session turned into `C11-02` and `C04-06`, so those items PAIR, and simply
+    updating 32 -> 34 would have moved a published K by retroactively adding
+    gold the run never saw.
+
+    Deriving the set from `comparison.json` rather than listing it keeps the
+    pin correct for every future addition automatically, and it fails LOUDLY
+    (see the guard in `_load_gold`) if an item in the published run ever goes
+    missing from disk -- the failure a hardcoded count cannot distinguish from
+    an addition. Same discipline as `PRE_RESTAMP` above: the reproduction is
+    extended to keep reproducing, never relaxed to keep passing.
+
+    A future §7 re-run is a DIFFERENT measurement over the current set and must
+    not reuse this scope -- see `test_new_items_are_outside_the_published_run`.
+    """
+    raw = json.loads((HOLDOUT_DIR / "comparison.json").read_text())
+    return frozenset(r["item"] for r in raw["rows"])
+
+
+def _load_gold(pre_restamp: bool = False, scope: frozenset[str] | None = None,
+               ) -> dict[str, list[dict]]:
     out: dict[str, list[dict]] = {}
+    seen: set[str] = set()
     for path in glob.glob(str(GOLD_DIR / "batch0*" / "items" / "*.json")):
         item = json.loads(Path(path).read_text())
+        if scope is not None and item["item_id"] not in scope:
+            continue
         if pre_restamp and item["item_id"] in PRE_RESTAMP:
             item = {**item, **PRE_RESTAMP[item["item_id"]]}
+        seen.add(item["item_id"])
         out.setdefault(item["segment_id"], []).append(item)
+    if scope is not None and seen != set(scope):
+        raise AssertionError(
+            "published-run scope no longer matches the gold set on disk; "
+            f"missing from disk: {sorted(set(scope) - seen)}"
+        )
     return out
 
 
@@ -115,7 +153,9 @@ def _load_cold() -> dict[str, list[dict]]:
 
 @pytest.fixture(scope="module")
 def gold():
-    return _load_gold()
+    """Scoped to the PUBLISHED run's 32 items -- every test in this file
+    reproduces a dated, published figure. See `published_population`."""
+    return _load_gold(scope=published_population())
 
 
 @pytest.fixture(scope="module")
@@ -136,7 +176,8 @@ def published_rows():
 
 def test_legacy_mode_reproduces_the_published_run_item_by_item(published_rows, cold):
     """K = 14/32, AND every per-item clause-failure list, exactly."""
-    result = compute(_load_gold(pre_restamp=True), cold, symmetric=False, gate=False)
+    result = compute(_load_gold(pre_restamp=True, scope=published_population()),
+                     cold, symmetric=False, gate=False)
     assert len(result.items) == 32
     assert result.k == 14
     assert result.n == 32
@@ -152,7 +193,8 @@ def test_band_derivation_reproduces_the_preregistered_n32_bands(cold):
     transcribing them, so deriving the published pair back is the check that
     the derivation is the same one -- and it is what makes the band at any
     other n trustworthy."""
-    result = compute(_load_gold(pre_restamp=True), cold, symmetric=False, gate=False)
+    result = compute(_load_gold(pre_restamp=True, scope=published_population()),
+                     cold, symmetric=False, gate=False)
     assert result.n == 32
     assert result.bands == (3, 6)
     assert result.verdict == "REDESIGN"
@@ -313,3 +355,51 @@ def test_gap_agreement_recomputed_over_conforming_pairs_only(gold, cold):
     assert corrected.d_band == (15, 15)
     assert corrected.g_overall_verdict == "DIAGNOSE"
     assert corrected.disjoint_items == ()      # GAP_AGREEMENT_DESIGN section 6's only instance
+
+
+# --------------------------------------------------------------------------
+# v0.53 -- the published run's POPULATION is pinned, not just its numbers
+# --------------------------------------------------------------------------
+
+def test_new_items_are_outside_the_published_run_and_would_have_moved_K(cold):
+    """The §7 run published `K = 14/32` on 2026-08-29 against a sealed cold
+    annotation. v0.53's §14.4 drafting session added `C11-02` and `C04-06`.
+
+    This pins the two facts that make scoping the reproduction the right fix
+    rather than bumping 32 -> 34:
+
+      1. Both new items are OUTSIDE the published population, so no published
+         figure moves -- which is what the v0.53 changelog claims.
+      2. They are not inert. Cold annotated at BOTH spans, so each new item
+         PAIRS, and an unscoped reproduction would have silently recomputed a
+         published K over gold the run never saw.
+
+    A future §7 re-run is a different measurement over the current 34-item set
+    and SHOULD include them. It must not reuse `published_population()`.
+    """
+    published = published_population()
+    live = {i["item_id"] for items in _load_gold().values() for i in items}
+
+    added = live - published
+    assert added == {"C11-02", "C04-06"}, added
+    assert len(published) == 32
+    assert len(live) == 34
+
+    # Fact 2: each new item pairs against a real cold item at the same span,
+    # so excluding them is a deliberate scope decision, not a no-op.
+    for item_id, segment_id, char_start in [("C11-02", "C11-094", 1093),
+                                            ("C04-06", "C04-117", 1442)]:
+        gold_item = next(i for items in _load_gold().values() for i in items
+                         if i["item_id"] == item_id)
+        assert gold_item["span_char_start"] == char_start
+        cold_spans = [c["span_text"] for c in cold[segment_id]]
+        assert any(c in gold_item["span_text"] for c in cold_spans), (
+            f"{item_id} has no cold counterpart; the premise of this test is wrong")
+
+
+def test_published_scope_fails_loudly_if_a_published_item_vanishes():
+    """The guard distinguishes "an item was ADDED" (fine, scoped out) from "a
+    published item is MISSING" (a real defect). A hardcoded count cannot tell
+    those apart -- both just read as a wrong number."""
+    with pytest.raises(AssertionError, match="missing from disk"):
+        _load_gold(scope=published_population() | {"ZZ-99"})

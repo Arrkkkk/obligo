@@ -1,6 +1,6 @@
 # Obligo Tier-2 Gold Set — Annotation Guideline
 
-**Version:** v0.52 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**. **v0.33 puts §9's dual denominator IN FORCE** on two independent grounds, adds §5 clause 5's number rule, §3.4's bounded freeze-pass exception, and the forward authoring rules §3.6 / §3.8.2 / §3.5.1 — **no annotation rule changed, no item restamped, no cassette stale**. **v0.34 records two MEASUREMENT corrections and changes no rule either** — §8.9's `on`/`until` rows and §15.3's loud-versus-silent class placement, both falsified by real model output from the compile-stage bottleneck investigation. **v0.35 adds §4.3.2** — a third splitting shape distinct from both existing §4.3 worked examples, reviewer-ruled at batch 3's `C04-139`: self-performance vs. a duty to bind/control a third party's conduct splits into two items even when the two verbs share an object phrase and a sentence subject, because the two performances do not share an actor. **v0.36 amends §4.2** — the resulting byte-identical spans (`C04-139`'s shared trailing object leaves neither item's minimal span shorter than the other's) break IoU's ability to discriminate between the two gold items, so a content-based tie-break on `action_accept_set` membership is added, falling through to ascending `item_id` when the tie-break itself is inconclusive. **v0.37 adds a
+**Version:** v0.53 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**. **v0.33 puts §9's dual denominator IN FORCE** on two independent grounds, adds §5 clause 5's number rule, §3.4's bounded freeze-pass exception, and the forward authoring rules §3.6 / §3.8.2 / §3.5.1 — **no annotation rule changed, no item restamped, no cassette stale**. **v0.34 records two MEASUREMENT corrections and changes no rule either** — §8.9's `on`/`until` rows and §15.3's loud-versus-silent class placement, both falsified by real model output from the compile-stage bottleneck investigation. **v0.35 adds §4.3.2** — a third splitting shape distinct from both existing §4.3 worked examples, reviewer-ruled at batch 3's `C04-139`: self-performance vs. a duty to bind/control a third party's conduct splits into two items even when the two verbs share an object phrase and a sentence subject, because the two performances do not share an actor. **v0.36 amends §4.2** — the resulting byte-identical spans (`C04-139`'s shared trailing object leaves neither item's minimal span shorter than the other's) break IoU's ability to discriminate between the two gold items, so a content-based tie-break on `action_accept_set` membership is added, falling through to ascending `item_id` when the tie-break itself is inconclusive. **v0.37 adds a
 recommended `object_class` naming convention to §4.3.2** — `self_` / `third_party_` prefixes over
 a shared root, so future flow-down splits land on visibly parallel labels rather than an
 unrelated pair invented fresh each time. **v0.38 adds §3.2.1** — present-tense self-executing
@@ -155,7 +155,7 @@ segment count (153/1,547), and `C14-028` was drawn as the **twelfth** standard-q
 not the eleventh as originally written — both fixed in place per this document's own
 corrections-are-new-text discipline, not silently edited.
 **Created:** 2026-08-17
-**Status:** **32 items locked; ONE restamped at v0.52** (`C17-02`, §8.6.1/§10.1 F13 — `temporal` `null` → the `WITHIN` form; `C17-066`'s three cassettes are consequently **STALE**, re-record **deferred to §10's freeze pass** by reviewer ruling, so the item is known-stale and honestly labelled, the same footing §22.1 gives `C14-02`). **`C11-01`'s `annotator_notes` were corrected record-only at v0.52 with its stamp deliberately UNCHANGED** — the note contradicted the item's own §15.5-correct data, and restamping it would have staled three cassettes for nothing. **TWO SPANS ARE NOW `PENDING_ANNOTATION` and are NOT yet items** — `C11-094` #3 and `C04-117` #1, ruled eligible by §10.2 (Decision 3); each owes its own §14.4 drafting session, with §8.8's taxonomy question flagged in its segment file. **§10.1 F16 RESOLVED 2026-09-16 (commit `94a2daa`, CI run 35087036051 green) — `run_scoring.run()` now executes end to end against the committed gold set; see the F16 table row for the fix and the real-run confirmation.** *(Superseded text, left as written: "BLOCKING: `run_scoring.run()` cannot execute against the committed gold set at any single `guideline_version` (§10.1 F16), so no figure below can currently be confirmed by a run.")* — no item restamped at v0.45 (§5.1 governs annotator comparison only and touches no annotation rule) — batch 1 complete (10), batch 2 at 8 of 10 with two
+**Status:** **32 items locked; ONE restamped at v0.52** (`C17-02`, §8.6.1/§10.1 F13 — `temporal` `null` → the `WITHIN` form; `C17-066`'s three cassettes are consequently **STALE**, re-record **deferred to §10's freeze pass** by reviewer ruling, so the item is known-stale and honestly labelled, the same footing §22.1 gives `C14-02`). **`C11-01`'s `annotator_notes` were corrected record-only at v0.52 with its stamp deliberately UNCHANGED** — the note contradicted the item's own §15.5-correct data, and restamping it would have staled three cassettes for nothing. ~~**TWO SPANS ARE NOW `PENDING_ANNOTATION` and are NOT yet items** — `C11-094` #3 and `C04-117` #1, ruled eligible by §10.2 (Decision 3); each owes its own §14.4 drafting session, with §8.8's taxonomy question flagged in its segment file.~~ **SUPERSEDED v0.53 — BOTH SPANS ARE NOW DRAFTED ITEMS, so the set stands at 34, not 32.** `C11-02` and `C04-06` (both `reviewer_status: PENDING_REVIEW`; eligibility was `RULED_BY_REVIEWER` at v0.52, the drafting is a §14.4 session). §8.8's flagged taxonomy question is **ruled in §8.8.3, with the two verbs landing on opposite sides**: `purchase` → `PROCURE` is defensibly mappable (`C11-02` carries **no** tag and `known_gaps: []`), `defer` is a genuine gap (`C04-06` carries `action_not_in_taxonomy`). **Both are cassette-unscoreable today** — stamped `v0.53` against `v0.28`/`v0.48` cassettes, disclosed by G8, backdating rejected per §22.1 — so **no published figure moves: in-force criterion 2 stays `3/9 = 33.3%`, all-items `5/15`, `K` `14/32`**, confirmed by a real run. `C11-02` queues the in-force denominator to go **9 → 10** at §10's freeze-pass re-record (§9.2.1). **§10.1 F16 RESOLVED 2026-09-16 (commit `94a2daa`, CI run 35087036051 green) — `run_scoring.run()` now executes end to end against the committed gold set; see the F16 table row for the fix and the real-run confirmation.** *(Superseded text, left as written: "BLOCKING: `run_scoring.run()` cannot execute against the committed gold set at any single `guideline_version` (§10.1 F16), so no figure below can currently be confirmed by a run.")* — no item restamped at v0.45 (§5.1 governs annotator comparison only and touches no annotation rule) — batch 1 complete (10), batch 2 at 8 of 10 with two
 items still undrawn, **batch 3's draw target is FULLY MET: 10 of 10 segments locked**
 (3 hard + 7 standard, per `draw.json`'s own `"count": 10, "hard": 3` — 14 items total, since
 `C13-017` is this batch's only two-item segment; `C14-044` originally yielded three drafted
@@ -846,6 +846,59 @@ scoped or per-segment path that no session record names**, and both v0.52 ruling
 computed by hand and cannot currently be confirmed by a run. **Not a licence to weaken a staleness
 dimension** — §22.1 rejected that and its reasoning is untouched.
 
+**v0.53 change: THE TWO `MAY` SPANS §10.2 RULED ELIGIBLE AT v0.52 ARE NOW DRAFTED AS REAL GOLD
+ITEMS — `C11-02` and `C04-06` — and the §8.8 taxonomy question v0.52 flagged into both segment
+files is RULED, in a new §8.8.3, with the two verbs coming out on OPPOSITE SIDES of the same
+test.** The gold set moves **32 → 34 locked-shape items** (both `PENDING_REVIEW`; eligibility was
+`RULED_BY_REVIEWER` at v0.52, the drafting is a §14.4 session). No existing item is restamped, no
+rule that governs an existing item changes, and **no cassette is newly staled**.
+
+**(1) `purchase` → `PROCURE` is DEFENSIBLY MAPPABLE; `defer` → `WITHHOLD` is a GENUINE GAP.**
+§8.8.3 records both, together, because — like §8.8.2's two halves of the indemnity triplet — they
+run through the identical *"same performance?"* test and **it discriminates**. Measured over the
+same 1,547-segment pool (the rebuild reproduces 1,547 exactly, its own known-answer gate), every
+detector validated against a named known answer first per Standing Principle 7. For `purchase`:
+**10 of the 12 `procure` sentences in this corpus use the obtain-a-thing sense, including outright
+buying**, and both §8.8.2 discriminators come back negative — purchase and procure co-occur in
+**1 of 251** sentences and that one is a header-spliced fragment, not two enumerated duties. For
+`defer`: **all 41 withhold-family sentences keep back something OWED, DUE or REQUESTED** (consent
+~24, tax-from-payment ~9 including §8.8's own `deduct` case, held-back payment/delivery/document
+~8) and **not one postpones a step not yet due**, while the corpus's own boilerplate enumerates
+the two as separately failable in **10 of 41 (24.4%) across 5 documents** — *"not to be
+unreasonably **withheld, conditioned or delayed**"*, the same evidence shape as §8.8.2's
+*"failed to defend or indemnify"*. **Stated against interest: `defer` occurs exactly ONCE in the
+whole pool**, so no base rate for it is claimed; the 41-sentence measurement is of the member
+being mapped *onto*. **The 23% rate is not restated** by either addition, for §8.8.2's own reason.
+
+**(2) The published-figure consequence, which v0.52 correctly said this ruling would decide —
+and the part of it that v0.52 could not have known.** `C11-02` carries `known_gaps: []`, so it
+**does** belong in §9.1's in-force criterion-2 denominator: marginal effect **+1 denominator, +0
+numerator** (`3/9 = 33.3%` → `3/10 = 30.0%` in isolation), since the model emits at that span on
+1 of 3 runs and scores modal `MISSED` under the disclosure pre-registered at v0.52. **It does not
+move today.** Both new items are stamped `v0.53` against cassettes stamped `v0.28` (`C11-094`) and
+`v0.48` (`C04-117`), so F16's per-item staleness check makes both **cassette-unscoreable**, and
+they are disclosed by `report.py`'s G8 exactly as `C17-02` already is. **Backdating either stamp
+to force a cassette match was considered and REJECTED** — it is precisely the move §22.1's own
+*"what must NOT happen"* list forbids, and it would be false besides, since §2.5 (v0.39),
+§2.5.1 (v0.41), §10.2 (v0.52) and §8.8.3 (v0.53) are all rules these items were annotated under.
+The `+1` is realised when `C11-094` is re-recorded at §10's freeze pass. **`C04-06`'s denominator
+was CONFIRMED rather than assumed**, as its drafting instruction required: it carries
+`relative_trigger_preposition` **and** `action_not_in_taxonomy`, and either alone keeps it out of
+the in-force denominator, so the §8.8 answer does not move the in-force figure for that item.
+
+**(3) Verified by a real run, not by hand — the first ruling since F16's fix for which that was
+possible.** `run_scoring.run()` executed end to end before and after: scored items hold at **15**,
+cassette-unscoreable moves **17 → 19** (exactly the two new items, named with their reasons), and
+**in-force criterion 2 reports `3/9 = 33.3%` with all-items `5/15` — both unmoved**. `K` is
+untouched at `14/32`; these are new gold items, not restamps, and §5.1's `A` is unaffected.
+
+**(4) Two smaller corrections made against the cold drafts rather than inherited from them.**
+`C04-06`'s `missing_fields` uses **`"temporal.trigger"`**, not cold's bare `"temporal"` — checked
+against `typecheck.py`'s real `_typecheck_temporal`, which appends that path for the
+`RELATIVE_TO_TRIGGER` form, and matching locked `C11-01`'s existing spelling. `C04-06`'s
+`object_class_accept_set` drops cold's `additional_product`/`additional_products` pair, which is
+the plural-padding §3.6 forbids in terms.
+
 ## 1. What a gold item is
 
 **One gold item = one obligation, as a human annotator reads it, located in one segment
@@ -1127,6 +1180,15 @@ drafting session clears by producing the item, never a resting place. It is deli
 **out** of the `not_annotatable` array, on the identical ground `AMBIGUOUS` is: including a span
 the reviewer has ruled *annotatable* in the array of non-items would resolve it silently in the
 opposite direction, and `run_scoring.load_not_annotatable()` reads that array.
+
+> **v0.53 — the value's "transient, never a resting place" claim is now DEMONSTRATED rather than
+> merely asserted, and there are currently ZERO `PENDING_ANNOTATION` spans in the set.** Both
+> instances the value was created for were cleared by drafting sessions one version later:
+> `C11-094` #3 → `C11-02`, `C04-117` #1 → `C04-06`. Each moved to `ANNOTATED` with its `item_id`
+> attached, and the reconciliation behaviour held as specified — `C04-117` reconciles fully at
+> **3 of 3** and moves to `RECONCILED`, while `C11-094` **stays `ESCALATED`** on its untouched
+> `AMBIGUOUS` span #2, correctly refusing to report a segment as reconciled when a real open
+> question remains in it.
 
 **Genuinely two-way dispositions are flagged `AMBIGUOUS` and escalated (§14.3/§14.4), never
 disposed silently.** Three of the nine clauses that motivated this section were marked exactly
@@ -3671,6 +3733,112 @@ reason so the next mapping question asks *"same performance?"* rather than *"clo
 40-clause sample; `defend` did not appear in it, and one adjudicated verb outside the sample does
 not move a sample-based rate. The rate stands at 23%, 95% Wilson CI [11%, 42%], unchanged.
 
+#### 8.8.3 `purchase` is MAPPABLE to `PROCURE`; `defer` is a GENUINE GAP (v0.53 — §14.4 drafting session, `C11-094` #3 and `C04-117` #1)
+
+**Why both are adjudicated in one subsection.** They arrived together — the two `MAY` spans §10.2
+ruled eligible at v0.52 — and v0.52 flagged both into their segment files as *"must not be
+silently resolved by whoever drafts it"*. They are kept together because, like §8.8.2's two halves
+of the indemnity triplet, **they go through the identical test and come out on opposite sides**,
+which is the result worth recording: the test discriminates rather than rubber-stamping in either
+direction.
+
+**The test applied is §8.8.2's, unchanged** — not *"close enough?"* but *"does a taxonomy member
+denote the SAME PERFORMANCE?"*, with its two corpus discriminators: does the corpus treat the two
+as separately failable, and does one carry performance machinery the other lacks. Every count
+below comes from the same 1,547-segment pool, rebuilt from `evals/corpus.py` (**the rebuild
+reproduces 1,547 exactly**, which is the pool's own known-answer gate), and **every detector was
+validated against a named known answer before any count was read off it** (Standing Principle 7).
+
+##### `purchase` → `PROCURE`: DEFENSIBLY MAPPABLE. No tag.
+
+`ACTIONS` has no `PURCHASE`, `BUY` or `ACQUIRE` — checked by execution against the real 34-verb
+list, which is why cold's `PURCHASE`/`BUY`/`ACQUIRE` set was unlockable. **`PROCURE` is the
+nearest member, and it denotes the same performance: obtaining the thing.**
+
+**Measured, and the sense of `procure` in THIS corpus is what settles it.** The verb occurs in
+**12** sentences, and **10 of the 12 use the obtain/secure-a-thing sense**, including outright
+buying — `C06-064` *"additional merchandise **procured by Agent**"*, `E08-002` *"from import or
+from domestic **procurement**"*, `C03-028` *"shall **procure** all approvals, bonds, certificates,
+insurance, inspections, licenses, and permits"*, `C03-064` *"**procure** the required insurance"*.
+Only **2** (`C14-104` *"undertakes to **procure that** its Personnel…"*, `C10-002` *"**procure
+permission for** the Distributor"*) use the causative cause-a-third-party sense. Purchasing is a
+**species** of procuring, and this corpus uses the genus for things that are plainly bought.
+
+**Discriminator 1 — separately failable? No.** Across **251** sentences carrying
+`purchase`/`procure`/`acquire`, the two co-occur in **exactly 1**, and that one (`C03-078`) is a
+header-spliced fragment where *"**procurement** or trial of Work … **purchased** under this
+Agreement"* puts the words in different grammatical roles — **not two enumerated duties**.
+Contrast §8.8.2's `defend`, used alone **33** times *and* added alongside `indemnify` **58** times:
+that pattern is what separately-failable looks like, and it is absent here.
+
+**Discriminator 2 — distinct machinery? No.** `purchase` adds consideration (*"at fair market
+value"*). That is a **differentia of means**, not a different act: BKC ends up holding the
+Principal's interest either way. §8.8's own accepted mapping `arrange`→`PROCURE` is a **looser**
+fit than this one — arranging does not even require the arranger to end up holding the thing.
+
+**Consequence, stated because it is not obvious from the outcome.** `C11-02`'s
+`action_accept_set` is `["PROCURE"]` — a **single member, and NOT because §8.8's genuine-gap rule
+fired**. It is single because §3.4 asks for every taxonomy verb a competent annotator could
+defend and no second member clears: `PAY` does not compose with this item's own `object_class`
+(*"pay the Principal's interest"* is not what the span says), and `TRANSFER` names the executor's
+side of the conveyance, not `BKC`'s. **A singleton accept-set must not be read backwards as
+evidence of a tag.**
+
+##### `defer` → `WITHHOLD`: GENUINE GAP. `action_not_in_taxonomy` fires.
+
+`ACTIONS` has no `DEFER`, `POSTPONE` or `SUSPEND`; `WITHHOLD` is the nearest member by appearance
+— both name an abstention — and cold's `DEFER`/`WITHHOLD`/`SUSPEND` set held exactly one legal
+verb. **But nearest is not the same performance, and here it is not.**
+
+**Measured: every `withhold` in this corpus keeps back something OWED, DUE, or REQUESTED.** All
+**41** withhold-family sentences fall in three classes and **not one postpones a step that is not
+yet due**:
+
+| what is withheld | instances | examples |
+| :--- | --: | :--- |
+| consent / approval | ~24 | *"such consent not to be unreasonably **withheld**"* (`C02-012`, `C02-076`, `C05-075`, `C13-048`, `E03-044`, …) |
+| tax deducted from a payment | ~9 | `C14-076` *"**withhold** such taxes from the payments due"* — **§8.8's own `deduct`→`WITHHOLD` worked case** |
+| a payment, delivery or document held back | ~8 | `C15-043` *"**withholds** payment of any disputed amount"*, `C14-087` *"will not **withhold** delivery"*, `C17-043` *"may **withhold** any document"* |
+
+**Miltenyi's deferral keeps back nothing owed.** No duty to include additional Products in
+Exhibit B exists — *that is precisely what the Parties have yet to agree*. Labelling it `WITHHOLD`
+asserts that inclusion **was** due and is being kept back, which is a **stronger** proposition
+than the contract's: the **overstating** direction §9.1 ground 2 names as a validity failure, in
+§8.2's own words *"stronger than the one the contract imposes."*
+
+**Discriminator 1 — separately failable? YES, and the corpus says so in its own boilerplate.**
+**10 of the 41 withhold-family sentences (24.4%), across 5 documents** (`C02`, `C03`, `C13`,
+`C15`, `E03`), coordinate `withhold` with a delay verb in the standard formula — *"not to be
+unreasonably **withheld, conditioned or delayed**"* (5), *"**withheld or delayed**"* (3),
+*"**withhold**, condition or **delay**"* (1), *"**withheld, conditioned, or delayed**"* (1).
+Drafters who thought withholding and delaying were one performance would not enumerate both,
+systematically, across five documents. **This is the same evidence shape as §8.8.2's
+`C03` *"failed to defend or indemnify"*.**
+
+**Discriminator 2 — distinct machinery? YES, and it is the asymmetry that matters.** Withholding
+may be permanent; deferring resolves by construction — it carries an **end-point**, here
+*"until the Parties have reached agreement"*. **`withhold` is refusing to release something due;
+`defer` is postponing a step not yet due.** Mapping loses the whole act, not a shade.
+
+**A tempting counter-argument, considered and REJECTED.** One could say the deferral's temporal
+content is not lost, because the IR's own `temporal` field carries
+`RELATIVE_TO_TRIGGER(before, "the Parties have reached agreement on this matter")`. **That
+reasoning is unsound and must not be reused**: it makes the `action` ruling depend on *another
+field's* content for *this one item*, so a bare *"may defer"* with no stated end-point would
+decide the same verb the opposite way. §8.8 asks about the **verb**.
+
+**Stated against interest: `defer` occurs EXACTLY ONCE in the whole 1,547-segment pool** —
+`C04-117`'s own sentence. There is **no base rate for `defer` itself**, and none is claimed; the
+41-sentence measurement is of `WITHHOLD`, the member being mapped *onto*, which is the side the
+same-performance test actually needs.
+
+**Added to §8.8's genuine-gap class** alongside `resign`, `discontinue`, `perform`, `approve`,
+`request` and (§8.8.2) `defend`. **`purchase` is added to the defensibly-mappable list.**
+
+**Neither addition restates the 23% rate**, for the reason §8.8.2 already gave: that figure is a
+seeded 40-clause sample, neither verb appeared in it, and adjudicated verbs from outside a sample
+do not move a sample-based rate. It stands at 23%, 95% Wilson CI [11%, 42%].
+
 #### 8.8.1 Negated entitlement is the same copular class as affirmative entitlement (v0.41 — REVIEWER-RULED)
 
 **The class this section names — *"not an obligation clause at all (copular 'shall not be
@@ -4323,6 +4491,30 @@ mandatory on-the-spot split above would have reported the set's two three-tag it
 `action` and the real verb is lost, so the IR claims less than the document. Five tags remain
 deliberately unclassified and `report.py` now names them and says why — they turn on **F9**'s open
 `kind`-axis question, which this batch does not decide.
+
+#### 9.2.1 A THIRD in-force denominator move is now QUEUED but NOT YET REALISED: 9 → 10 (v0.53)
+
+**Stated here rather than only in the v0.53 changelog, because a reader checking this phase's
+headline figure should find the pending change next to the figure itself.** `C11-02` (§14.4
+drafting session, v0.53) carries `known_gaps: []` — §8.8.3 rules its `purchase` **defensibly
+mappable** to `PROCURE`, so no `action_not_in_taxonomy` fires — and §9.1's in-force denominator is
+`len(known_gaps) == 0`, so the item belongs in it. Marginal effect: **+1 denominator, +0
+numerator**, `3/9 = 33.3%` → `3/10 = 30.0%` **in isolation**.
+
+**It is NOT realised yet, and the figure to quote today is still `3/9 = 33.3%`.** `C11-02` is
+stamped `v0.53` against `C11-094`'s `v0.28` cassettes, so F16's per-item staleness check makes it
+**cassette-unscoreable** and `report.py`'s G8 discloses it by id and reason. Confirmed by a real
+run, not by arithmetic: scored items hold at **15**, cassette-unscoreable moves **17 → 19**, and
+both criterion-2 figures are **unmoved**. The move lands when `C11-094` is re-recorded at §10's
+freeze pass.
+
+**"In isolation" is load-bearing.** The freeze pass re-records everything, so other currently
+unscoreable items enter the denominator at the same moment. `3/10 = 30.0%` is this item's own
+marginal contribution, **not a prediction of the post-freeze figure**, and must not be quoted as
+one. Its sibling `C04-06` moves nothing on the in-force denominator in either direction — it
+carries `relative_trigger_preposition` **and** `action_not_in_taxonomy`, and either alone excludes
+it; that was **confirmed by reading the item's tags rather than assumed** from the §8.8 outcome,
+as its drafting instruction required.
 
 See §19.5 for why the 100-item target is a working figure rather than a derived one, and
 CLAUDE.md's debt list for the compile-stage loud-path fix (`ir_compile` routing a carve-out to

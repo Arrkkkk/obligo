@@ -106,9 +106,17 @@ def test_the_real_gold_set_has_consistent_segments_and_a_refused_mixed_stamp():
     on the real set is that guideline_version_from_items REFUSES it with the
     same "conforming pass" error test_mixed_guideline_stamps_are_refused
     plants above, not that it returns a single version -- returning one
-    would mean the real set is smaller/more conformed than it actually is."""
+    would mean the real set is smaller/more conformed than it actually is.
+
+    v0.53 UPDATE: 34 items over the SAME 22 segments. The section 14.4 drafting
+    session added `C11-02` and `C04-06` at spans section 10.2 had already ruled
+    eligible, both inside segments the set already covered -- so the item count
+    moves and the segment count deliberately does not. Both are stamped v0.53
+    against v0.28/v0.48 cassettes and are therefore cassette-unscoreable, which
+    is F16's per-item check doing its job rather than a defect; the mixed-stamp
+    refusal this test's name is about is unchanged and still fires."""
     items = rs.load_gold_items()
-    assert len(items) == 32
+    assert len(items) == 34
     assert len(rs.segments_from_items(items)) == 22
     with pytest.raises(ValueError, match="conforming pass"):
         rs.guideline_version_from_items(items)
