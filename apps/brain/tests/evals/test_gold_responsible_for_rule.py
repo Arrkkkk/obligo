@@ -19,6 +19,23 @@ WHAT IS ACTUALLY AT RISK HERE, and why these are the tests rather than a prose a
       whole shape comes from `C03-024` and `C03-016` landing on OPPOSITE sides while
       sitting in the same document with the same obligor. If the classifier ever stops
       reproducing that pair, §8.8.4's central worked example has gone out from under it.
+
+GROUP (3) DOES NOT RUN IN CI, AND THAT IS STATED HERE RATHER THAN LEFT TO BE INFERRED FROM A
+SKIP COUNT. Those five tests rebuild the 1,547-segment pool from `.corpus/`, which is
+git-ignored (28 source documents plus CUAD's 106MB zip, re-acquired on demand and
+hash-verified by `evals/corpus.py fetch`). No other test in `tests/evals/` touches the raw
+corpus -- every one of them reads only committed artifacts -- so this file is the first to
+need the guard, and it is `skipif`, not a silent no-op.
+
+**Why that is acceptable, stated precisely.** Groups (1) and (2) are the tests that protect
+anything a scoring run can see -- the `not_annotatable` wiring, the band staying escalated,
+no item restamped -- and they read only committed gold JSON, so they run everywhere. Group
+(3) pins a measurement over source documents that CI does not have; it is checked locally,
+and the first run of this file recorded 13 passed with the corpus present. **Do not read a
+green CI as having re-verified §8.8.4's corpus evidence** -- it verifies the ruling's effect
+on the gold set, which is a different and smaller claim. This distinction is exactly the one
+CLAUDE.md's own audit entry names, where a checkpoint's "0 failed... clean" turned out to be
+a without-DB-env number with 33 tests silently skipping.
 """
 import json
 import pathlib
@@ -117,7 +134,25 @@ def test_the_set_is_unchanged_at_35_items_over_22_segments():
 
 
 # --- (3) the evidence the rule rests on --------------------------------------
+#
+# Corpus-gated: see the module docstring. `.corpus/` is git-ignored and absent in CI, so
+# these five are SKIPPED there and run only where the corpus has been fetched.
 
+CORPUS = pathlib.Path(rs.__file__).resolve().parents[4] / ".corpus"
+
+corpus_required = pytest.mark.skipif(
+    not (CORPUS / "cuad").is_dir(),
+    reason=(
+        "needs the git-ignored .corpus/ working copy (28 documents + CUAD zip; fetch with "
+        "`python -m evals.corpus fetch`). §8.8.4's corpus evidence is therefore NOT "
+        "re-verified by CI -- see this module's docstring, which says so rather than "
+        "leaving it to be inferred from a skip count."
+    ),
+)
+
+
+# No marker here: pytest markers are inert on a fixture. The guard belongs on each test,
+# and the fixture body only ever runs for a test that was not skipped.
 @pytest.fixture(scope="module")
 def classifier():
     sys.path.insert(0, str(GOLDENS / "holdout" / "band_risk"))
@@ -125,6 +160,7 @@ def classifier():
     return rr
 
 
+@corpus_required
 def test_the_c03_contrast_pair_still_lands_on_opposite_sides(classifier):
     """§8.8.4's central worked example. `C03-016` ('...any and all OBLIGATIONS of any such
     Affiliate') and `C03-024` ('...such Affiliate's FAILURE to satisfy its obligations') are
@@ -137,6 +173,7 @@ def test_the_c03_contrast_pair_still_lands_on_opposite_sides(classifier):
     assert cls == {"C03-016": "RENDER", "C03-024": "ABSORB"}
 
 
+@corpus_required
 def test_candidate_1_classifies_absorb_like_the_ruling_says(classifier):
     _, _, rows = classifier.classify_all()
     got = [(ov or c) for seg, _, side, c, _, _, ov in rows
@@ -144,6 +181,7 @@ def test_candidate_1_classifies_absorb_like_the_ruling_says(classifier):
     assert got == ["ABSORB"]
 
 
+@corpus_required
 def test_c02_045_the_falsified_near_miss_classifies_render(classifier):
     """The citation §8.8.4 overturns: `C02-045` reads as 'almost identical language' and is
     RENDER ('the timely PAYMENT of ... TO the applicable Governmental Authority'), locked as
@@ -154,6 +192,7 @@ def test_c02_045_the_falsified_near_miss_classifies_render(classifier):
     assert got == ["RENDER"]
 
 
+@corpus_required
 def test_polarity_is_a_prior_filter_that_the_complement_axis_does_not_answer_for(classifier):
     """`C04-163`'s complement is an act nominalisation -- it reads RENDER -- yet the clause
     is EXCLUDED, because §8.8.1's polarity filter removes it first. The two axes are
@@ -164,6 +203,7 @@ def test_polarity_is_a_prior_filter_that_the_complement_axis_does_not_answer_for
     assert got == [("RENDER", "NEGATIVE")]
 
 
+@corpus_required
 def test_the_classifiers_known_answer_gate_still_passes(classifier):
     """Standing Principle 7: the totals are not evidence unless the gate passes. Runs the
     same 11-case check the script runs before printing anything."""
