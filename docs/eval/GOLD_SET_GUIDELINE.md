@@ -1,6 +1,6 @@
 # Obligo Tier-2 Gold Set — Annotation Guideline
 
-**Version:** v0.57 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**. **v0.33 puts §9's dual denominator IN FORCE** on two independent grounds, adds §5 clause 5's number rule, §3.4's bounded freeze-pass exception, and the forward authoring rules §3.6 / §3.8.2 / §3.5.1 — **no annotation rule changed, no item restamped, no cassette stale**. **v0.34 records two MEASUREMENT corrections and changes no rule either** — §8.9's `on`/`until` rows and §15.3's loud-versus-silent class placement, both falsified by real model output from the compile-stage bottleneck investigation. **v0.35 adds §4.3.2** — a third splitting shape distinct from both existing §4.3 worked examples, reviewer-ruled at batch 3's `C04-139`: self-performance vs. a duty to bind/control a third party's conduct splits into two items even when the two verbs share an object phrase and a sentence subject, because the two performances do not share an actor. **v0.36 amends §4.2** — the resulting byte-identical spans (`C04-139`'s shared trailing object leaves neither item's minimal span shorter than the other's) break IoU's ability to discriminate between the two gold items, so a content-based tie-break on `action_accept_set` membership is added, falling through to ascending `item_id` when the tie-break itself is inconclusive. **v0.37 adds a
+**Version:** v0.58 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**. **v0.33 puts §9's dual denominator IN FORCE** on two independent grounds, adds §5 clause 5's number rule, §3.4's bounded freeze-pass exception, and the forward authoring rules §3.6 / §3.8.2 / §3.5.1 — **no annotation rule changed, no item restamped, no cassette stale**. **v0.34 records two MEASUREMENT corrections and changes no rule either** — §8.9's `on`/`until` rows and §15.3's loud-versus-silent class placement, both falsified by real model output from the compile-stage bottleneck investigation. **v0.35 adds §4.3.2** — a third splitting shape distinct from both existing §4.3 worked examples, reviewer-ruled at batch 3's `C04-139`: self-performance vs. a duty to bind/control a third party's conduct splits into two items even when the two verbs share an object phrase and a sentence subject, because the two performances do not share an actor. **v0.36 amends §4.2** — the resulting byte-identical spans (`C04-139`'s shared trailing object leaves neither item's minimal span shorter than the other's) break IoU's ability to discriminate between the two gold items, so a content-based tie-break on `action_accept_set` membership is added, falling through to ascending `item_id` when the tie-break itself is inconclusive. **v0.37 adds a
 recommended `object_class` naming convention to §4.3.2** — `self_` / `third_party_` prefixes over
 a shared root, so future flow-down splits land on visibly parallel labels rather than an
 unrelated pair invented fresh each time. **v0.38 adds §3.2.1** — present-tense self-executing
@@ -155,7 +155,7 @@ segment count (153/1,547), and `C14-028` was drawn as the **twelfth** standard-q
 not the eleventh as originally written — both fixed in place per this document's own
 corrections-are-new-text discipline, not silently edited.
 **Created:** 2026-08-17
-**Status:** **32 items locked; ONE restamped at v0.52** (`C17-02`, §8.6.1/§10.1 F13 — `temporal` `null` → the `WITHIN` form; `C17-066`'s three cassettes are consequently **STALE**, re-record **deferred to §10's freeze pass** by reviewer ruling, so the item is known-stale and honestly labelled, the same footing §22.1 gives `C14-02`). **`C11-01`'s `annotator_notes` were corrected record-only at v0.52 with its stamp deliberately UNCHANGED** — the note contradicted the item's own §15.5-correct data, and restamping it would have staled three cassettes for nothing. ~~**TWO SPANS ARE NOW `PENDING_ANNOTATION` and are NOT yet items** — `C11-094` #3 and `C04-117` #1, ruled eligible by §10.2 (Decision 3); each owes its own §14.4 drafting session, with §8.8's taxonomy question flagged in its segment file.~~ **SUPERSEDED v0.53 — BOTH SPANS ARE NOW DRAFTED ITEMS, so the set stands at 34, not 32.** **SUPERSEDED AGAIN, v0.56 — THE SET STANDS AT 35.** `C11-03` was ruled at v0.55 (`C11-094`'s last escalated span) and this line was not updated then, which is the fourth logged instance of exactly the drift §10's own close-out process note exists to catch — corrected in place here, per that note's rule that live status statements are corrected rather than struck. **v0.56 adds no item**: §8.8.4 rules `C14-076` candidate 1 `NOT_OBLIGATION_BEARING`, so the set stays at 35 and no published figure moves. **SUPERSEDED v0.57 — THE SET STANDS AT 36.** `C14-076`'s band escalation is ruled: candidate 2 yields one item, `C14-06`, from verb 2 only; the segment reconciles at 3 clauses, at the band ceiling and eligible, and `C14-01`/`C14-02` stay locked. Still no published figure moves — `C14-06` is cassette-unscoreable at `v0.57`. `C11-02` and `C04-06` — **both REVIEWER-APPROVED at v0.54** (`adjudicated_by: reviewer`; eligibility was `RULED_BY_REVIEWER` at v0.52, the field-level drafting approved as drafted, with the singleton accept-set kept, the sibling `object_class` divergence accepted as temporary, and `conditions: []` confirmed and generalised into §3.8). **Both keep `guideline_version: v0.53`** — the v0.54 rule confirms rather than changes their treatment, so restamping is refused per §22.1. §8.8's flagged taxonomy question is **ruled in §8.8.3, with the two verbs landing on opposite sides**: `purchase` → `PROCURE` is defensibly mappable (`C11-02` carries **no** tag and `known_gaps: []`), `defer` is a genuine gap (`C04-06` carries `action_not_in_taxonomy`). **Both are cassette-unscoreable today** — stamped `v0.53` against `v0.28`/`v0.48` cassettes, disclosed by G8, backdating rejected per §22.1 — so **no published figure moves: in-force criterion 2 stays `3/9 = 33.3%`, all-items `5/15`, `K` `14/32`**, confirmed by a real run. `C11-02` queues the in-force denominator to go **9 → 10** at §10's freeze-pass re-record (§9.2.1). **§10.1 F16 RESOLVED 2026-09-16 (commit `94a2daa`, CI run 35087036051 green) — `run_scoring.run()` now executes end to end against the committed gold set; see the F16 table row for the fix and the real-run confirmation.** *(Superseded text, left as written: "BLOCKING: `run_scoring.run()` cannot execute against the committed gold set at any single `guideline_version` (§10.1 F16), so no figure below can currently be confirmed by a run.")* — no item restamped at v0.45 (§5.1 governs annotator comparison only and touches no annotation rule) — batch 1 complete (10), batch 2 at 8 of 10 with two
+**Status:** **32 items locked; ONE restamped at v0.52** (`C17-02`, §8.6.1/§10.1 F13 — `temporal` `null` → the `WITHIN` form; `C17-066`'s three cassettes are consequently **STALE**, re-record **deferred to §10's freeze pass** by reviewer ruling, so the item is known-stale and honestly labelled, the same footing §22.1 gives `C14-02`). **`C11-01`'s `annotator_notes` were corrected record-only at v0.52 with its stamp deliberately UNCHANGED** — the note contradicted the item's own §15.5-correct data, and restamping it would have staled three cassettes for nothing. ~~**TWO SPANS ARE NOW `PENDING_ANNOTATION` and are NOT yet items** — `C11-094` #3 and `C04-117` #1, ruled eligible by §10.2 (Decision 3); each owes its own §14.4 drafting session, with §8.8's taxonomy question flagged in its segment file.~~ **SUPERSEDED v0.53 — BOTH SPANS ARE NOW DRAFTED ITEMS, so the set stands at 34, not 32.** **SUPERSEDED AGAIN, v0.56 — THE SET STANDS AT 35.** `C11-03` was ruled at v0.55 (`C11-094`'s last escalated span) and this line was not updated then, which is the fourth logged instance of exactly the drift §10's own close-out process note exists to catch — corrected in place here, per that note's rule that live status statements are corrected rather than struck. **v0.56 adds no item**: §8.8.4 rules `C14-076` candidate 1 `NOT_OBLIGATION_BEARING`, so the set stays at 35 and no published figure moves. **SUPERSEDED v0.57 — THE SET STANDS AT 36.** `C14-076`'s band escalation is ruled: candidate 2 yields one item, `C14-06`, from verb 2 only; the segment reconciles at 3 clauses, at the band ceiling and eligible, and `C14-01`/`C14-02` stay locked. Still no published figure moves — `C14-06` is cassette-unscoreable at `v0.57`. **v0.58 ADDS NO ITEM and the set stays at 36** — §10.1 **F5** and **F12** are ruled together: §3.6.1's scope extends to the whole `action_accept_set` (§3.6.2, retroactive, widening-only, **zero cost — 35 of 36 items already conform**), `C22-01` is adjudicated explicitly under carve-out 1 with its cognate-object co-variance **accepted as irreducible**, and the breadth audit is **REDUCED to F1's three items** plus a forward head-only rule for batch 4 onward. **No item restamped, no cassette staled, no member removed, no published figure moved** — `3/9 = 33.3%`, `5/15`, `K` `14/32`, confirmed by a real run before and after. **F1's own value is now MEASURED rather than hand-computed — `3/9 → 5/9 = 55.6%`, movers `C02-01` and `C02-03`, with `C11-01` worth ZERO** — and its execution stays queued as one atomic freeze-pass event. `C11-02` and `C04-06` — **both REVIEWER-APPROVED at v0.54** (`adjudicated_by: reviewer`; eligibility was `RULED_BY_REVIEWER` at v0.52, the field-level drafting approved as drafted, with the singleton accept-set kept, the sibling `object_class` divergence accepted as temporary, and `conditions: []` confirmed and generalised into §3.8). **Both keep `guideline_version: v0.53`** — the v0.54 rule confirms rather than changes their treatment, so restamping is refused per §22.1. §8.8's flagged taxonomy question is **ruled in §8.8.3, with the two verbs landing on opposite sides**: `purchase` → `PROCURE` is defensibly mappable (`C11-02` carries **no** tag and `known_gaps: []`), `defer` is a genuine gap (`C04-06` carries `action_not_in_taxonomy`). **Both are cassette-unscoreable today** — stamped `v0.53` against `v0.28`/`v0.48` cassettes, disclosed by G8, backdating rejected per §22.1 — so **no published figure moves: in-force criterion 2 stays `3/9 = 33.3%`, all-items `5/15`, `K` `14/32`**, confirmed by a real run. `C11-02` queues the in-force denominator to go **9 → 10** at §10's freeze-pass re-record (§9.2.1). **§10.1 F16 RESOLVED 2026-09-16 (commit `94a2daa`, CI run 35087036051 green) — `run_scoring.run()` now executes end to end against the committed gold set; see the F16 table row for the fix and the real-run confirmation.** *(Superseded text, left as written: "BLOCKING: `run_scoring.run()` cannot execute against the committed gold set at any single `guideline_version` (§10.1 F16), so no figure below can currently be confirmed by a run.")* — no item restamped at v0.45 (§5.1 governs annotator comparison only and touches no annotation rule) — batch 1 complete (10), batch 2 at 8 of 10 with two
 items still undrawn, **batch 3's draw target is FULLY MET: 10 of 10 segments locked**
 (3 hard + 7 standard, per `draw.json`'s own `"count": 10, "hard": 3` — 14 items total, since
 `C13-017` is this batch's only two-item segment; `C14-044` originally yielded three drafted
@@ -1103,6 +1103,104 @@ connective in this same segment. Tagged `shared_subject_split`, **with one diffe
 rather than conflated**: for `C14-02` the preceding clause is a sibling **item**, here it is a
 **non-obligation**, so the spans are not nested against another item and §4.1 cannot collide.
 
+**v0.58 change: TWO FREEZE-PASS QUEUE ENTRIES RULED TOGETHER — §10.1 F12 (accept-set scope) and
+§10.1 F5 (breadth audit). NO ITEM IS ADDED, RESTAMPED OR RE-AUTHORED; NO CASSETTE IS STALED; NO
+MEMBER IS REMOVED; NO PUBLISHED FIGURE MOVES — in-force criterion 2 stays `3/9 = 33.3%`,
+all-items `5/15`, `K` `14/32`, confirmed by a real `run_scoring.run()` before and after rather
+than by hand.** The set stands at **36**. They are ruled in one pass because they are one
+question seen twice: F12 fixes what *counts* as a legitimate accept-set member, and F5 decides
+how many members to *add* — so F12 constrains F5, and on one item they collide outright.
+
+**(1) F12 — §3.6.1 EXTENDS to the whole `action_accept_set` (§3.6.2), retroactive,
+widening-only.** Clause 2 tests `prediction ∈ action_accept_set`, so the co-variance argument
+that makes §3.6.1 a *correction* rather than a convention runs through **membership**; a screen
+sweeping only the slot was measuring a narrower thing than its own justification. **Exposure is
+three items, not one** — the row's "exactly ONE" filled the slot × accept-set-verb cell
+(`C04-04`, which reproduces exactly) and the member × accept-set-verb cell had never been
+measured: `C04-01`'s `royalty_payment` and `C14-01`'s `payment_deduction` both restate `PAY`.
+**Cost is ZERO, measured: 35 of 36 items already satisfy the extended rule.** Members are
+**never** removed — the `C04-03`/`product_delivery` reason stands untouched, since narrowing
+with predictions visible can only manufacture failures.
+
+**(2) A FOURTH nominalisation miss by the §3.6.1 screen, recorded as a miss rather than folded
+into the ruling it produced: `C22-01`'s slot `notice` restates its own `action = NOTIFY`,**
+inside the **v0.44 screen's own declared scope**, and §3.6.1's v0.48 re-run names only `C02-01`
+and `C14-01` as remaining slot-level hits. **`notify → notice` is SUPPLETIVE — a different
+family from the three `y`/`e`-boundary misses (`deliver→delivery`, `indemnify→indemnification`,
+`comply→compliance`), so no stemmer of any kind reaches it** and "stem more carefully" would not
+have caught it. This ruling's own screen is hand-authored and gated on 12 known answers,
+including all three prior misses, before any count was read off it (Standing Principle 7).
+
+**(3) `C22-01` is ADJUDICATED EXPLICITLY under carve-out 1 rather than left an implicit pass**
+(§3.6.2). It **clears**: the span names the thing *"any **notice** … will give the **notice** in
+writing"*, so `notice` is the document's own word for the object, exactly as `retained
+repository samples` and `withholding taxes` are. **It is stated as the hardest instance carve-out
+1 has faced**, harder than either precedent on two axes: the precedents put the restating token
+on a **modifier** over a distinct head, leaving a clean head-only label available (`tax`,
+`sample`), while `notice` is a **1-token label whose entire content is the action nominal**; and
+it is the **only item in the set with no member free of restated material**.
+
+**(4) The cognate-object residue is ACCEPTED AS IRREDUCIBLE, not designed around.** For
+`NOTIFY`/notice, `GRANT`/grant, `REPORT`/report, clauses 2 and 5 co-vary because the object of
+the duty simply **is** the action's nominal and no faithful alternative label exists; forcing a
+non-cognate label would buy instrument independence with an unfaithful annotation. **§3.6.1
+bounds the co-variance defect; it does not eliminate it**, and §3.6.2 now says so rather than
+letting a clean screen be read as clean independence.
+
+**(5) F5 — NO SYSTEMATIC RETROACTIVE BREADTH PASS. F1's three items only, plus a forward
+head-only rule for batch 4 onward (§3.6).** The audit's scope is **reduced**, not expanded.
+Measured, the six clause-5-failing items decompose into three mechanisms: three head-only-depth
+items, F1's two, and **one genuine model error** — `C17-01`'s `efforts`, which no defensible
+head-noun reading of its span supports and which must **not** be widened. **AGAINST INTEREST:
+the largest structural gap is worth ZERO on the in-force criterion today.** Head-only member
+coverage is **13/36 (36%)** against the model emitting head-only **28%** of the time — so the
+gap is real and §3.6/Ruling 3's anchor survives the four new items — but `C04-03` and `E01-01`
+carry `known_gaps` and sit outside §9.1's in-force denominator, and `C02-01` already passes
+clause 5 on runs 2–3. Retro-widening those three moves nothing while being authored with the
+failure list visible, so it is **refused, not deferred**.
+
+**(6) F1's VALUE IS NOW MEASURED BY A REAL RUN — `3/9 = 33.3%` → `5/9 = 55.6%`** — applied to a
+scratch copy of the goldens, scored against the real cassettes and a real database, with the
+repo untouched. **Movers are `C02-01`** (`obligor` its **only** failing clause; the model emits
+*"Antares or its Subcontractor"* on every aligned run, which does not resolve in the committed
+`C02` registry and so takes `_party_matches`' unresolved branch where §3.5.1's
+`obligor_accept_set` is read) **and `C02-03`** (`object_class` its **only** failing clause, with
+the repair loop rewriting the off-taxonomy `INVOICE` → `PROVIDE` so clause 5 is genuinely
+reached rather than the candidate being rejected first). **`C11-01` is worth ZERO, and that is
+stated first rather than buried: the item this project has cited most often as breadth's
+motivating case fails `conditions` and `obligee` independently**, so its widening removes one of
+three failing clauses and changes no verdict.
+
+**(7) SEQUENCING IS NOW BINDING RATHER THAN ADVISORY.** At a measured **+2 on a 9-item
+denominator**, §3.6's monotone-widening hazard is live at full strength: a delta that large
+straddling two published baselines would make pipeline improvement and a loosened bar
+indistinguishable. **F1 lands as ONE ATOMIC freeze-pass event**, never split across baselines,
+and its post-widening figure is re-confirmed by a real `run_scoring.run()` at the moment it
+lands. **F1's EXECUTION REMAINS QUEUED — this ruling authorises and sizes it, and does not
+perform it.**
+
+**(8a) A DRAFTING OVERCLAIM IN THIS SAME RULING, CAUGHT BY ITS OWN TEST AND CORRECTED BEFORE IT
+LANDED.** The first draft of §3.6's bound 3 said a head-only member requirement *is* auditable
+after authoring because "1-token-ness is mechanical and span-presence is mechanical." **`C04-03`
+falsifies it**: its set carries `goods`, which is 1 token and genuinely present in the span
+(*"the shipped goods"*), so it passes the mechanical check — while the object phrase is *"Each
+quantity of Miltenyi Product(s)"*, the head noun is `product`, and the model emits exactly
+`product`. The mechanical check would have marked the item compliant and changed nothing about
+its failure. **The rule is now stated as PARTLY auditable, with the residual "which noun is the
+head" judgment named as genuinely unsolved** — §9.4's blocker reaching the breadth item too, in
+a weaker form than it reaches F6. Recorded because of how it was found: a regression test
+asserting `C04-03` had no head-only member **failed**, and the assertion rather than the data
+was wrong.
+
+**(8) The forward head-only rule carries its collision NAMED IN ADVANCE**, rather than
+discovered the way F3's conflict was: a head-only member and §3.6.2's cognate-object residue
+collide on precisely the cognate items, since `C22-01`'s only available head-only label **is**
+its action nominal. §3.6's rule 2 therefore exempts that case explicitly. It also records why it
+is writable while F6 is not: §9.4's missing-anchor blocker defeats a *depth convention on the
+slot*, but 1-token-ness and span-presence are both mechanically checkable, so a head-only
+**member** requirement is auditable across the locked set — with the residual *"which noun is
+the head"* judgment stated as unsolved rather than claimed away.
+
 ## 1. What a gold item is
 
 **One gold item = one obligation, as a human annotator reads it, located in one segment
@@ -1997,7 +2095,10 @@ own test**, so that what changed is legible in the diff and countable later.
 
 **Applies identically to §3.6's `object_class_accept_set`** and to §3.5.1's
 `obligor_accept_set`. **The full freeze-pass queue is §10.1**; these widenings are its item
-**F1**, and §3.6's v0.45 breadth audit (**F5**) expands them from three to a systematic pass.
+**F1**. ~~and §3.6's v0.45 breadth audit (**F5**) expands them from three to a systematic pass.~~
+**CORRECTED v0.58: F5 is RULED and it REDUCES this scope back to F1's three items rather than
+expanding it** — no systematic retroactive pass, plus a forward-only head-only rule for batch 4
+onward. See §3.6's v0.58 breadth ruling.
 **Two locked items are queued under this exception** — `C02-03`
 (`invoice_costs`, a compound of two of its own accept-set members) and `C11-01`
 (`principal_interest`, the possessor-anchored reading of *"the Principal's interest in
@@ -2131,6 +2232,97 @@ widening must be defensible **from the span alone**, stated without reference to
 expands from the three individually-queued widenings (`C02-03`, `C11-01`, `C02-01`) to a
 systematic breadth audit. Doing it piecemeal forces a conforming pass per item, which is §22's
 blocker.
+
+**BREADTH — RULED v0.58 (§10.1 F5): F1 ONLY, PLUS A FORWARD HEAD-ONLY RULE. NO SYSTEMATIC
+RETROACTIVE PASS.** The v0.45 scoping above stands; what is settled here is how much of the set
+the audit actually touches, and the answer is measured rather than chosen. **The real gap is
+fully accounted for by F1's three already-queued items**, and a systematic pass would spend
+effort re-deriving what F1 already captures while risking exactly the over-generalisation §5's
+number rule refused when it declined to become a stemmer — clause 5 is the only check on an
+open vocabulary, and a set widened item-by-item across 36 items is the cheapest way to hollow
+it out.
+
+**What the measurement actually found.** Six locked items fail clause 5 on at least one aligned
+run, and they decompose into three mechanisms, not one:
+
+| item | emitted | mechanism |
+| :--- | :--- | :--- |
+| `C02-01` | `samples` | head-only depth — **no** head-only member |
+| `C04-03` | `product` | head-only depth — **has one, and it is the WRONG NOUN** (see below) |
+| `E01-01` | `provisions` | head-only depth — **no** head-only member |
+| `C02-03` | `invoice_costs` | **F1, already queued** |
+| `C11-01` | `principal_interest` | **F1, already queued** |
+| `C17-01` | `efforts` | **genuine model error — must NOT be widened** |
+
+`C17-01` is the case that disciplines the whole item: `efforts` is a 1-token label that **no
+defensible head-noun reading of the span supports** — the object is virus prevention, not
+efforts — so "carry a head-only member" cannot mean "accept any 1-token label the model emits."
+
+**AGAINST INTEREST, and it is the finding that decides the scope: the largest STRUCTURAL breadth
+gap is worth ZERO on the in-force criterion today.** The head-only gap reproduces at n=36 —
+**13/36 (36%)** of sets carry a 1-token member against the model emitting one **28%** of the
+time, so §3.6/Ruling 3's anchor is unchanged by the four items added since. But `C04-03` and
+`E01-01` both carry `known_gaps` and sit outside §9.1's in-force denominator, and `C02-01`'s
+head-only failure is run 1 only while runs 2–3 already pass clause 5. **Retro-widening the three
+head-only items would move the in-force figure by nothing**, while being authored with the
+failure list visible — §3.4's prediction-fitting shape for no measured gain. It is therefore
+refused, not deferred.
+
+**Where the movement actually is — MEASURED BY A REAL RUN, not hand-computed.** F1's three
+queued widenings, applied to a scratch copy of the goldens and scored by `run_scoring.run()`
+against the real cassettes and a real database:
+
+| | in-force criterion 2 | movers |
+| :--- | :--- | :--- |
+| committed baseline | **3 / 9 = 33.3%** | — |
+| F1 applied | **5 / 9 = 55.6%** | `C02-01`, `C02-03` |
+
+- **`C02-01`** — `obligor` is its **only** failing clause; the model emits the coordinated
+  phrase *"Antares or its Subcontractor"* on every aligned run, which does not resolve in the
+  committed `C02` registry and so takes `_party_matches`' unresolved branch, where §3.5.1's
+  `obligor_accept_set` is read. **+1.**
+- **`C02-03`** — `object_class` is its **only** failing clause, and the repair loop rewrites the
+  off-taxonomy `INVOICE` → `PROVIDE`, so clause 2 passes at scoring time and `invoice_costs` is
+  genuinely scored rather than being rejected before clause 5 is reached. **+1.**
+- **`C11-01`** — **worth zero**, and this is stated first rather than buried: it fails
+  `object_class`, `conditions` **and** `obligee` independently, so the widening removes one of
+  three failing clauses and changes no verdict. **The item this project has singled out most
+  often as the motivating case for breadth is the one F1 widening that cannot move criterion 2.**
+
+**FORWARD RULE (batch 4 onward, RESTAMPS NOTHING): every `object_class_accept_set` must carry a
+head-only member — the head noun of the object phrase, standing alone.** Uniform, applied to
+every new item without reference to any prediction, which is what keeps it inside §3.4 exactly
+as §5's number rule is. Three bounds, each load-bearing:
+
+1. **It is the head noun of the object phrase, not any 1-token label.** `C17-01`'s `efforts` is
+   the counter-example: a head-only member is owed for *virus prevention*, and `efforts` is not
+   a reading of that phrase at all.
+2. **Exempt where the head noun is the item's own action nominal** — §3.6.2's cognate-object
+   residue. `C22-01` is the instance: its only available head-only label is `notice`, which
+   §3.6.2 rules is the document's own name for the thing and not a restatement. The exemption is
+   written here in advance precisely so this does not resurface as F3's shape did.
+3. **It is PARTLY auditable after authoring — more so than a depth convention, and NOT fully.
+   This is stated at its real strength because a first draft of this ruling overstated it, and
+   the item that falsifies the stronger claim is `C04-03`.** §9.4's blocker — neither annotator
+   records the object noun phrase a label was built from — defeats a *depth convention on the
+   slot* outright, because "keep the head" is stated against an anchor gold does not store. A
+   head-only **member** requirement escapes it only in part. What IS mechanical: whether a
+   1-token member exists, and whether its token appears in the span. What is NOT: whether it is
+   the head noun **of the object phrase** rather than some other noun the span happens to
+   contain.
+   **`C04-03` is the worked counter-example, and it passes the mechanical check while still
+   failing clause 5.** Its set carries `goods` — 1 token, and genuinely present in the span
+   (*"the shipped **goods**"*). But the object phrase is *"Each quantity of Miltenyi
+   **Product(s)**"*, so the head noun is `product`, the model emits exactly `product`, and the
+   set holds `product` only inside the 2-token `miltenyi_product`. A rule reading "carry any
+   1-token span-present member" would therefore mark `C04-03` **compliant** and change nothing
+   about its failure. The rule means the head noun of the object phrase, and **that residual
+   judgment is genuinely unsolved, not merely unstated** — it is §9.4's blocker reaching the
+   breadth item too, in a weaker form than it reaches F6.
+
+**Locked items are NOT re-authored against this**, per §3.6's own forward-only clause, and the
+freeze pass's breadth scope is hereby **reduced back to F1's three items** rather than expanded
+to a systematic audit.
 
 **DEPTH — SCOPED TO `A`, AND STILL UNWRITTEN (v0.45 — REVIEWER-RULED).** The specificity/depth
 question (`C06-01` `adequate_assurance_of_future_performance`/`adequate_assurance`, `C13-01`
@@ -2281,7 +2473,9 @@ rule, and it was settled by measurement.**
   > and read by `A`, so the two predicates have *opposite* sensitivities to exactly this kind of
   > edit, and a single word cannot honestly cover both.
 - **The set rule is WIDENING-ONLY: an accept-set must contain at least one member that names
-  the object with no restated material.** A member is **never removed** by this rule. The
+  the object with no restated material.** **Scope EXTENDED at v0.58 (§10.1 F12) — "restated
+  material" is read against the whole `action_accept_set`, not the `action` slot value alone;
+  see §3.6.2.** A member is **never removed** by this rule. The
   reason is measured, not stylistic: `C04-03`'s set carries `product_delivery` (against
   `action = DELIVER`), and `C04-087` run 2 **emits exactly `product_delivery`**. Stripping
   restating members retroactively would therefore flip a currently-passing clause 5 to failing
@@ -2334,6 +2528,91 @@ cost rather than an oversight.
 the restated material is gone — `product_liability` versus `liability` is the **depth** question,
 which is open and separately scoped. The slot corrections above therefore strip **only** the
 restating tokens and change nothing else, so that the depth ruling stays unprejudiced.
+
+#### 3.6.2 §3.6.1 reaches the whole `action_accept_set`, not the `action` slot alone (v0.58 — REVIEWER-RULED, §10.1 F12, RETROACTIVE, WIDENING-ONLY)
+
+**The rule.** Wherever §3.6.1 says an `object_class` label must not restate the item's
+`action`, read `action` as **every member of that item's `action_accept_set`**, not its slot
+value alone. Both halves of §3.6.1 inherit the wider scope, with their existing asymmetry
+intact: the **slot** rule is a correction and reaches back; the **set** rule stays
+**widening-only** — a member is never removed, ever, for the `C04-03` reason §3.6.1 already
+gives and which this ruling does not disturb.
+
+**Why the narrower scope was incoherent with §3.6.1's own justification.** §3.6.1 is a
+*correction* rather than a convention because §5 is conjunctive and a label restating the
+`action` makes clauses 2 and 5 **co-vary** — one judgment scored twice. But clause 2 does not
+test slot equality; it tests `prediction ∈ action_accept_set`. So the co-variance the section
+exists to remove runs through **membership**, and a screen that swept only the slot was
+measuring a narrower thing than the argument it was written to serve.
+
+**Exposure is THREE items, not one, and the record's "exactly ONE" was scope-correct but
+incomplete.** The screen is a 2×2 grid and only three cells had ever been filled:
+
+| | label = **slot** | label = accept-set **member** |
+| :--- | :--- | :--- |
+| verb = `action` **slot** | v0.44 scope — swept | v0.44 scope — swept |
+| verb = accept-set **member** | **F12's measured 1: `C04-04`** — reproduces exactly | **NEVER MEASURED: `C04-01`, `C14-01`** |
+
+- `C04-01` member `royalty_payment` restates `PAY`, an accept-set verb; the slot is `REIMBURSE`.
+- `C14-01` member `payment_deduction` restates `PAY`; the slot is `WITHHOLD`.
+
+F12's own `1 → 1` statement about F3 is a **slot-side** claim and is untouched — `C04-04`
+reproduces exactly. What was never measured is the member × accept-set-verb cell.
+
+**COST: ZERO, measured rather than asserted.** Screened across all 36 locked items, **35 of 36
+already satisfy the extended set rule** — each carries at least one member restating no
+accept-set verb and neither party. The single exception is `C22-01`, and its hit is against its
+own **slot** verb, i.e. inside v0.44's scope and outside F12's; it is adjudicated below and
+clears. **So the extension restamps no item, stales no cassette, removes no member, and moves
+no published figure** — in-force criterion 2 stays `3/9 = 33.3%`, confirmed by a real
+`run_scoring.run()` before and after rather than by hand.
+
+**The screen was gated on 12 known answers before any count was read off it** (Standing
+Principle 7), including all three nominalisation misses this same screen has already made in
+this project — `deliver→delivery`, `indemnify→indemnification`, `comply→compliance`. It is a
+hand-authored forms table, **deliberately not a stemmer**: every one of those misses was a
+stemmer `y`/`e`-boundary artifact, so the fix is to stop stemming rather than to stem better.
+
+##### `C22-01` — the explicit carve-out 1 adjudication, and a FOURTH nominalisation miss
+
+**`C22-01`'s slot is `notice` and its `action` is `NOTIFY`.** That is a slot-level §3.6.1 hit
+inside the **v0.44 screen's own declared scope**, and §3.6.1's v0.48 re-run states that *"the
+only remaining slot-level hits in the whole set are `C02-01` and `C14-01`"*. `C22-01` is not
+among the four candidates it logs as adjudicated. **It is a fourth miss by that screen, and it
+is a DIFFERENT FAMILY from the other three**: `notify → notice` is suppletive, not a `y`/`e`
+boundary, so no stemmer of any kind reaches it and "stem more carefully" would not have caught
+it. Recorded as a miss rather than folded into the ruling it produced.
+
+**It CLEARS under carve-out 1, and the reason is the carve-out's own: the span itself names the
+thing `notice`.** The span reads *"Each party giving any **notice** required or permitted under
+this IP Agreement will give the **notice** in writing"* — the document's own word for the
+object, twice, exactly as `retained repository samples` and `withholding taxes` are in
+`C02-01` and `C14-01`. Carve-out 1 is content-relative to this item's own span, never a string
+blacklist against `ACTIONS`, and on that test `notice` is the object's name and not a
+restatement of the duty type.
+
+**Stated as the hardest instance carve-out 1 has faced, rather than left as an implicit pass.**
+It is harder than either precedent on two axes at once. `withholding_tax` and `retained_sample`
+put the restating token on a **modifier** over a distinct head noun, so a head-only label
+(`tax`, `sample`) is available that restates nothing; `notice` is a **1-token label whose entire
+content is the action nominal**, so no such escape exists. And it is the **only item in the set
+with no member free of restated material** — all three of `notice` / `written_notice` /
+`contract_notice` carry it. The set rule is satisfied not by a clean member but because, on this
+item, there **is** no restated material to be free of.
+
+**The residue this exposes is ACCEPTED, not a defect to be designed around.** For
+cognate-object obligations — `NOTIFY`/notice, `GRANT`/grant, `REPORT`/report — clauses 2 and 5
+co-vary **irreducibly**, because the object of the duty simply *is* the action's own nominal and
+no faithful alternative label exists. Forcing a non-cognate label to break the co-variance would
+buy instrument independence with an unfaithful annotation, which is the worse trade for a gold
+set whose whole purpose is faithfulness. **So §3.6.1 bounds the co-variance defect; it does not
+eliminate it, and this section says so rather than letting a future reader infer that a clean
+screen means clean independence.** Carve-out 1 is doing exactly its intended job here.
+
+**Forward consequence for §3.6's head-only rule.** A head-only member and this residue collide
+on precisely these items: `C22-01`'s only available head-only label **is** its action nominal.
+§3.6's v0.58 head-only requirement therefore carries an explicit exemption pointing here — named
+in advance rather than discovered as F3's conflict was.
 
 ### 3.7 `temporal` — one of five forms, or `null`
 
@@ -5099,13 +5378,13 @@ freeze pass is added here, or it is not deferred, it is dropped.**
 | **F2** | `C10-02` | **`obligor`/`obligee` are not verbatim against their own span** — gold has `"the Supplier"`/`"the Distributor"` where the span reads `"The Supplier"`/`"the distributor"`, in *opposite* directions. A §3.5 violation and an instance of the exact §21 R2 case-sensitivity trap. Restamp both slots | no | v0.45 re-validation; `RESULTS.md`'s 2026-09-01 correction |
 | **F3** | `C04-04`, `C04-05` | **EXECUTED v0.48 — §4.3.2's ROOT CONSTRAINT.** §3.6.1 does not yield; §4.3.2's *root choice* does, and §4.3.2 now forbids a root that restates either half's own `action`. One premise of the conflict was false: §4.3.2 **recommends** its convention, it does not require it (§10.1.1 and `OBJECT_CLASS_INVESTIGATION.md` §11 both misstated this; corrected). Both halves restamped to `self_`/`third_party_regulatory_compliance`, both accept-sets widened monotonically. **F12 filed, not decided.** **DONE** | **NO — see the cassette correction below** | v0.45 re-validation |
 | **F4** | `C14-02` | §22.1's **deliberately-retained** non-conformance under the superseded §8.3.1 v0.23 rule. Revisit only if §22's forcing function (a second independent conforming instance) has arrived — **F2 and F3 are candidates, and whether either counts is itself part of this item** | yes | §22.1 |
-| **F5** | whole set | the **systematic accept-set breadth audit** (§3.6, v0.45), expanding F1 from three queued widenings. Carries §3.6's two hazards: monotone widening must not straddle a criterion-2 baseline, and every widening must be defensible from the span alone | mixed | §3.6, `OBJECT_CLASS_INVESTIGATION.md` Ruling 3 |
+| **F5** | whole set → **reduced to F1's three items** | **RULED v0.58 — NO SYSTEMATIC RETROACTIVE PASS; F1 ONLY, plus a forward head-only rule for batch 4 onward (§3.6).** The audit's scope is *reduced*, not expanded: measured, the six clause-5-failing items decompose into three head-only-depth items, F1's two, and one genuine model error (`C17-01`'s `efforts`, which must **not** be widened). **AGAINST INTEREST: the largest structural gap is worth ZERO on the in-force criterion** — head-only member coverage is 13/36 (36%) against the model emitting head-only 28% of the time, but `C04-03`/`E01-01` carry `known_gaps` and `C02-01` already passes clause 5 on runs 2–3, so retro-widening those three would move nothing while being authored with the failure list visible. **F1's own value is now MEASURED BY A REAL RUN, not hand-computed: `3/9 = 33.3%` → `5/9 = 55.6%`, movers `C02-01` (obligor its only failing clause) and `C02-03` (object_class its only failing clause, `INVOICE` repaired to `PROVIDE` so clause 5 is genuinely reached). `C11-01` — the item most often cited as breadth's motivating case — is worth ZERO: it fails `conditions` and `obligee` independently.** **SEQUENCING IS NOW BINDING, not advisory**: at a measured +2 on a 9-item denominator §3.6's monotone-widening hazard is live at full strength, so F1 lands as **one atomic freeze-pass event**, never straddling two published baselines, and its post-widening figure is re-confirmed by a real `run_scoring.run()` at the time it lands. **DONE as a ruling; F1's EXECUTION remains queued** | mixed | §3.6, `OBJECT_CLASS_INVESTIGATION.md` Ruling 3 |
 | **F6** | `C06-01`, `C13-01`, `C14-01` | the **depth convention** (§3.6, v0.45) — annotator-predicate scope only, **and blocked on a precondition**: §9.4's missing anchor field means any depth rule is unverifiable after authoring. Decide the precondition before the rule | no | §3.6, Ruling 4 |
 | **F7** | `C04-02` | **EXECUTED v0.48, RE-RECORDED AND SCORED v0.49.** Ruled v0.47 (§8.4.2); restamp applied at v0.48. `C04-02` loses `mutual_obligation` (obligee `ABSENT`, so the discrimination is undecidable at span scope). **MOVES §9's IN-FORCE DENOMINATOR 8 → 9** — its `known_gaps` is now empty, so it enters the criterion-2 denominator; see **§9.2**. `C04-117` re-recorded live at v0.49 (3 runs, 4 calls) and scored: `C04-02` modal `MISSED` (`PARTIAL`/`MISSED`/`MISSED`), never `FULLY_CORRECT`. **Numerator resolved at 3 — criterion 2 is `3/9 = 33.3%`. DONE, fully closed.** | **yes** (`C04-117`, 3 runs — re-recorded v0.49, now stale against `C04-01` instead; see §22.3) | §8.4.2; v0.46 §8 review |
 | **F8** | `E01-01` | **EXECUTED v0.48.** Ruled v0.47 (§8.3.2); restamp applied here. **The row as originally written understated the work: `E01-01` carried only `exception_unsupported` — `compound_action` had never been applied to it either — so the restamp adds TWO tags, not one**, reaching the three §8.3.2 requires. **DONE** | **yes** (`E01-047`, 3 runs — now stale) | §8.3.2; v0.46 §8 review |
 | **F9** | whole set | **§8's tag vocabulary carries at least three different KINDS of thing under one flat set** — IR-representational gaps, corpus-text defects (`corpus_artifact_in_span`, which §8's own table says is *"not a v1 compiler gap"*), annotation-convention exceptions (`shared_subject_split`) and scoreability removals (`redacted_clause`) — and §9's `len(known_gaps) == 0` denominator treats all of them identically. Decide whether the vocabulary needs a `kind` axis before it gains more tags | mixed | v0.46 §8 tag-vocabulary review |
 | **F10** | n/a — reporting layer | **PARTIALLY EXECUTED v0.48, scoped deliberately.** `action_not_in_taxonomy` is now classified **INCOMPLETENESS** — added in this batch *because* F8 and F11 apply that tag, so shipping them alone would have widened the gap while claiming to close a taxonomy one. **The remaining five live-use tags stay `UNCLASSIFIED` and `report.py` now names each and says why** (`corpus_artifact_in_span`, `shared_subject_split`, `redacted_value`, `within_preposition`, `relative_trigger_preposition`): each turns on **F9**'s `kind`-axis question, and assigning a direction now would be the very masquerade the reviewer filed F10 separately to prevent. **STILL OPEN for those five** | no | v0.46; §9.1, `report.py` G6 |
-| **F12** | whole set | **§3.6.1 tests the `action` SLOT VALUE only, not `action_accept_set`** — its v0.44 screen swept `action`, `obligor`, `obligee` and `obligor_accept_set`, and the action accept-set was never in it. The co-variance argument that makes §3.6.1 a *correction* runs through the accept-sets, since §5 clause 2 tests **membership**, not slot equality. **Measured at v0.48: exactly ONE instance across the 32, and it is the same item before and after F3** — `C04-04`'s old slot `self_compliant_use` restated its accept-set member `COMPLY` (via `compliant`) just as its new slot does (via `compliance`), so exposure was **1 → 1** and F3 inherited the hazard rather than creating it. **A first pass reported zero; that was a stemmer miss (`complyance` ≠ `compliance`), the third nominalisation miss by that screen in one session.** Decide whether §3.6.1 extends to accept-sets. Retroactive reach, so it is a rule change, not a screen fix | mixed | v0.48 F3 ruling; §3.6.1 |
+| **F12** | whole set | **§3.6.1 tests the `action` SLOT VALUE only, not `action_accept_set`** — its v0.44 screen swept `action`, `obligor`, `obligee` and `obligor_accept_set`, and the action accept-set was never in it. The co-variance argument that makes §3.6.1 a *correction* runs through the accept-sets, since §5 clause 2 tests **membership**, not slot equality. **Measured at v0.48: exactly ONE instance across the 32, and it is the same item before and after F3** — `C04-04`'s old slot `self_compliant_use` restated its accept-set member `COMPLY` (via `compliant`) just as its new slot does (via `compliance`), so exposure was **1 → 1** and F3 inherited the hazard rather than creating it. **A first pass reported zero; that was a stemmer miss (`complyance` ≠ `compliance`), the third nominalisation miss by that screen in one session.** **RULED v0.58 — §3.6.1 DOES EXTEND, widening-only, at §3.6.2. Retroactive, and COST IS ZERO: 35 of 36 items already satisfy the extended set rule, no item restamped, no cassette staled, no member removed, no published figure moved (`3/9 = 33.3%` before and after, by a real run).** The extension is the coherent scope, because clause 2 tests membership and the co-variance argument that makes §3.6.1 a *correction* therefore runs through the accept-set. **Exposure is THREE items, not one — the row's "exactly ONE" was scope-correct but incomplete**: it filled the slot × accept-set-verb cell (`C04-04`, which reproduces exactly) and the member × accept-set-verb cell had never been measured — `C04-01`'s `royalty_payment` and `C14-01`'s `payment_deduction` both restate `PAY`. **A FOURTH nominalisation miss surfaced and is recorded rather than folded in: `C22-01`'s slot `notice` restates its own `action = NOTIFY`, inside the v0.44 screen's own scope, and `notify → notice` is SUPPLETIVE — a different family from the three `y`/`e`-boundary misses, which no stemmer reaches.** It is adjudicated explicitly at §3.6.2 and **clears under carve-out 1** (the span names the thing *"notice"* twice). **The cognate-object co-variance it exposes is ACCEPTED as irreducible, not designed around** — §3.6.1 bounds the defect, it does not eliminate it. **DONE** | mixed | v0.48 F3 ruling; §3.6.1 |
 | **F11** | `C10-01` | **EXECUTED v0.48 — §8.8.2.** `defend` is ruled **NOT** defensibly mappable to `INDEMNIFY`, on corpus evidence: 33 sentences use it with no `indemnify`; `C03` disjoins *"failed to defend or indemnify"*; `C03` §(c) owes the defence *"whether or not … the allegations are meritorious"*; `C11` converts a failed defence duty into a payment duty. Branch 3 fires; `C10-01` restamped to three tags. `hold harmless`→`INDEMNIFY` untouched — **the two non-member verbs of one triplet land on opposite sides of the limb**, which is the first real exercise of §8.3's v0.47 non-mappability test. **DONE** | **NO — see the cassette correction below** | §8.3.2's re-check |
 | **F13** | whole set (1 locked item today: `C17-02`) | **RESOLVED v0.52 — §8.9's treatment governs; §8.6 is amended at §8.6.1, RETROACTIVE, and `C17-02` is restamped to the `WITHIN` form.** Ruled on the *representable-vs-reachable* principle rather than by counting sections: `temporal: null` marks what the IR cannot REPRESENT (a bare vague qualifier, §15.2), never what the classifier cannot REACH. Two further sections were found siding against §8.6 beyond the two first filed — **§11 decision 1 (v0.8), on `_WITHIN_RE` itself**, and **§15.5 (v0.28)**, whose existing `C11-01` treatment is CONFIRMED rather than changed. §10 re-check logged: a screen validated on a known answer plus a loose sweep for any `within` in any locked span finds **exactly 2 hits**, of which one (`C11-01`) already conforms — **exposure is 1 item**. **Criterion 2 unmoved on both denominators (`3/9 = 33.3%`)**, measured: the model quotes the rejected preposition on 3/3 runs and no candidate survives compile. `K` unchanged at 14/32; the published clause profile moves `6_temporal` **2 → 3 of 23** (§3.6.1's dual-predicate disclosure). **Under the IN-FORCE predicate the effect is ZERO** — §5.1 A1 marks `C17-02` `NON_CONFORMING` (cold's `action` slot `OBTAIN` is off-taxonomy), so it sits outside both `A`'s numerator and denominator and **`A` holds at `7/27`**; the `14/32` movement is to the *legacy* pre-§5.1 published run, which `tests/evals/test_harness_annotator_agreement.py` still reproduces exactly via its `PRE_RESTAMP` map, **extended by this ruling rather than relaxed**. `C17-066`'s 3 cassettes go stale; **the re-record is DEFERRED to the freeze pass** — zero criterion-2 effect either way, so it rides along rather than earning its own live-spend session. **DONE.** *Original entry follows, left as written:* **§8.6 and §8.9 give OPPOSITE instructions for the same structural problem, and §3.7's general rule sides against §8.6.** Both gaps are *a preposition the production regex does not accept* — §8.6 is `_WITHIN_RE` wanting `of`, §8.9 is `_RELATIVE_RE` wanting `before`/`after` — yet §8.6 rules **`temporal: null`** while §8.9 rules **annotate the form + trigger verbatim**, and §3.7 says *"Known-gap forms (§8) are annotated **normally**. Do not avoid them."* §8.6 is the outlier against both. It also makes gold assert `temporal: null` where the text plainly carries a timing phrase, which §3.7 permits *"only when the obligation genuinely carries no timing phrase"*. **The inconsistency is in the GUIDELINE, not in the annotation** — measured, both annotators follow each section literally and consistently: `within_preposition` → `null` (gold `C17-02`; cold `C17-066`, `C11-094`) and `relative_trigger_preposition` → the form (gold `C13-03`, `C22-02`; cold ×5). §8.9 (v0.28) was written explicitly as §8.6's sibling (*"Why its own tag rather than §8.6's"*) and never reconciled it. **Exposure: §8.6's own measurement — the word after `within N <unit>` is `of` 40 vs `after` 34 / `from` 17 / `following` 8, so 59 pool-wide occurrences sit on the rejected side.** Decide which treatment governs; if §8.9's, §8.6's rule line and `C17-02` both move. **NOT a prerequisite for any escalation** — surfaced by the cold annotator, who flagged the tension in `C11-094` item 2's notes, resolved it per §8.6 as literally written, and applied that resolution to `C17-066` too for consistency | yes (`C17-066`, `C11-094` both cassette-covered) | 2026-09-05 escalation re-read; `holdout/C14_076_INVESTIGATION.md` §7.4 |
 | **F14** | whole set (13 locked items carry an `ABSENT` slot today: **2 on the obligor slot** — `C04-03`, `C14-05` — and 11 on the obligee slot) | **THE PROMPT NEVER STATES THAT AN EMPTY ALIAS IS PERMITTED, AND §5 CLAUSE 3 IS MEASURING THAT OMISSION RATHER THAN EXTRACTION QUALITY.** §5 encodes "this party is absent" as an `UnresolvedParty` carrying an empty alias (`score.py`'s ABSENT branch requires `norm(pred.alias) == ""`), but `prompts/extraction/v3.yaml` states **no rule permitting an empty alias anywhere**. Its only signal is one worked example carrying `"obligee_alias": ""`, with **no obligor counterpart** — and the emission split follows exactly: across all 81 candidates in the 35 gold cassettes, `obligee_alias` is empty **40/81 (49.4%)** and `obligor_alias` is empty **0/81 (0.0%)**, Wilson₉₅ upper bound **4.53%**. §3.5 already called the empty-obligee behaviour *"undesigned behavior, not a chosen rule"*; the measurement shows the undesign is **one-sided**. **Not a capability gap — verified by execution:** a both-`ABSENT` candidate grounds (`_is_grounded_substring` returns `True` on an empty needle, by design), compiles to `MUST "" PAY "" …`, and parses to `UnresolvedParty(alias='')` on both slots, so the ABSENT branch is reachable and the 0/81 is **behavioural**. Decide whether the prompt gains an explicit empty-alias instruction and an obligor worked example. **Tier C — a `prompt_version` bump stales all 35 gold cassettes at once and `C17-021` run 3 is unobtainable (§6.1) — so it is bundled with the already-approved-and-never-run `v4` `condition_raws` probe rather than taken alone**; whether the wording moves the 0/81 is a fact about `openai/gpt-oss-120b`, settleable only live. **NOT a prerequisite for `C14-076`'s band-eligibility ruling, nor for candidate 2's field assignment**, which §3.5.3's rule text decides regardless of how this resolves | yes (all 35 stale on any bump) | 2026-09-05 §5 both-`ABSENT` investigation; `holdout/C14_076_INVESTIGATION.md` §8.2 |
@@ -5121,6 +5400,12 @@ until it is resolved no figure this queue produces can be confirmed by running t
 including the figures the other entries' rulings would move. A queue whose entries cannot be
 measured is back to *"it is mentioned somewhere"*, which is the condition §10.1 was created to
 end.
+
+**F5 AND F12 RULED 2026-09-18 (v0.58) — two of those five are now closed, and both were closed
+using exactly the capability F16 restored**: F12's zero-cost claim and F5's `3/9 → 5/9` are each
+confirmed by a real `run_scoring.run()` rather than computed by hand, which is the first time a
+queue ruling's cost has been measured rather than argued. **Three genuine design questions
+remain open: F6, F9, F10.**
 
 **F16 RESOLVED 2026-09-16 (see the F16 row above for the fix and the real-run confirmation).**
 Every other entry in this table can now be measured by running the harness rather than computed
