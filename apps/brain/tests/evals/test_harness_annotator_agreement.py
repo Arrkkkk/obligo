@@ -381,14 +381,15 @@ def test_new_items_are_outside_the_published_run_and_would_have_moved_K(cold):
     live = {i["item_id"] for items in _load_gold().values() for i in items}
 
     added = live - published
-    assert added == {"C11-02", "C04-06"}, added
+    assert added == {"C11-02", "C04-06", "C11-03"}, added
     assert len(published) == 32
-    assert len(live) == 34
+    assert len(live) == 35
 
     # Fact 2: each new item pairs against a real cold item at the same span,
     # so excluding them is a deliberate scope decision, not a no-op.
     for item_id, segment_id, char_start in [("C11-02", "C11-094", 1093),
-                                            ("C04-06", "C04-117", 1442)]:
+                                            ("C04-06", "C04-117", 1442),
+                                            ("C11-03", "C11-094", 822)]:
         gold_item = next(i for items in _load_gold().values() for i in items
                          if i["item_id"] == item_id)
         assert gold_item["span_char_start"] == char_start

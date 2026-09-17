@@ -1,6 +1,6 @@
 # Obligo Tier-2 Gold Set — Annotation Guideline
 
-**Version:** v0.54 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**. **v0.33 puts §9's dual denominator IN FORCE** on two independent grounds, adds §5 clause 5's number rule, §3.4's bounded freeze-pass exception, and the forward authoring rules §3.6 / §3.8.2 / §3.5.1 — **no annotation rule changed, no item restamped, no cassette stale**. **v0.34 records two MEASUREMENT corrections and changes no rule either** — §8.9's `on`/`until` rows and §15.3's loud-versus-silent class placement, both falsified by real model output from the compile-stage bottleneck investigation. **v0.35 adds §4.3.2** — a third splitting shape distinct from both existing §4.3 worked examples, reviewer-ruled at batch 3's `C04-139`: self-performance vs. a duty to bind/control a third party's conduct splits into two items even when the two verbs share an object phrase and a sentence subject, because the two performances do not share an actor. **v0.36 amends §4.2** — the resulting byte-identical spans (`C04-139`'s shared trailing object leaves neither item's minimal span shorter than the other's) break IoU's ability to discriminate between the two gold items, so a content-based tie-break on `action_accept_set` membership is added, falling through to ascending `item_id` when the tie-break itself is inconclusive. **v0.37 adds a
+**Version:** v0.55 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**. **v0.33 puts §9's dual denominator IN FORCE** on two independent grounds, adds §5 clause 5's number rule, §3.4's bounded freeze-pass exception, and the forward authoring rules §3.6 / §3.8.2 / §3.5.1 — **no annotation rule changed, no item restamped, no cassette stale**. **v0.34 records two MEASUREMENT corrections and changes no rule either** — §8.9's `on`/`until` rows and §15.3's loud-versus-silent class placement, both falsified by real model output from the compile-stage bottleneck investigation. **v0.35 adds §4.3.2** — a third splitting shape distinct from both existing §4.3 worked examples, reviewer-ruled at batch 3's `C04-139`: self-performance vs. a duty to bind/control a third party's conduct splits into two items even when the two verbs share an object phrase and a sentence subject, because the two performances do not share an actor. **v0.36 amends §4.2** — the resulting byte-identical spans (`C04-139`'s shared trailing object leaves neither item's minimal span shorter than the other's) break IoU's ability to discriminate between the two gold items, so a content-based tie-break on `action_accept_set` membership is added, falling through to ascending `item_id` when the tie-break itself is inconclusive. **v0.37 adds a
 recommended `object_class` naming convention to §4.3.2** — `self_` / `third_party_` prefixes over
 a shared root, so future flow-down splits land on visibly parallel labels rather than an
 unrelated pair invented fresh each time. **v0.38 adds §3.2.1** — present-tense self-executing
@@ -925,6 +925,47 @@ record-only correction both refuse. `reviewer_status`/`adjudicated_by` are prove
 by no harness code. In-force criterion 2 stays `3/9 = 33.3%`, all-items `5/15`, `K` `14/32`; both
 items remain cassette-unscoreable until §10's freeze-pass re-record, and `C11-02`'s queued
 denominator move (9 → 10, §9.2.1) is unchanged.
+
+**v0.55 change: `C11-094`'s LAST ESCALATED SPAN IS RULED — `C11-03` — and the segment
+RECONCILES FULLY. No `AMBIGUOUS` or `PENDING_ANNOTATION` span remains anywhere in the set.**
+The set moves **34 → 35** items. **No rule is added or changed**; this ruling applies §8.6.1,
+§3.5.3, §3.4 and §4.3.1 as they already stand, and the only guideline edit is closing §8.6.1's
+now-dated *"zero of 32"* observation. **No published figure moves: in-force criterion 2 stays
+`3/9 = 33.3%`** — `C11-03` carries `within_preposition`, so it is outside that denominator by
+construction — **all-items `5/15`, `K` `14/32`.**
+
+**Cold's drafted item is APPROVED IN SUBSTANCE AND CORRECTED IN FOUR FIELDS**, each correction
+checked against real rule text or by execution rather than taken on citation. Its distinctness
+from `C11-01` (§4.3.1 step 1), `MUST` modality (§16.2's *"shall use best efforts"* row), `TRANSFER`
+action (§16.3), verbatim `the executor` obligor and **two** `conditions` entries (§3.8.2 Rule B,
+§17.1's marker count, internal `or` kept per §17.2) all survive unchanged.
+
+1. **`temporal` `null` → the `WITHIN` form**, `{WITHIN, 12, mo, "the date of the Principal's
+   death"}`. **Cold is not at fault**: it annotated before v0.52, followed §8.6 as literally
+   written, and flagged the tension itself — §8.6's `null` was struck **retroactively** by
+   §8.6.1. Verified by execution: `within 12 months **of** the date…` classifies fine, so the IR
+   represents the form and only `_WITHIN_RE`'s surface pattern rejects this input.
+2. **`action_accept_set` `[TRANSFER, ASSIGN, CONVEY, SELL]` → `[TRANSFER, ASSIGN]`** — `CONVEY`
+   and `SELL` are not in `ACTIONS` (checked by execution). §16.3's *"generous"* means generous
+   **within** the taxonomy. The corrected set is byte-identical to locked `C11-01`'s.
+3. **`obligee` `"another party approved by BKC"` → `ABSENT`**, and cold's citation does not hold.
+   §3.5.3 fails to reach this clause on **two** independent grounds: it governs **agentless
+   passive** clauses and this one is **active with a stated obligor**; and its rule requires the
+   party *"**named** inside the span"*, where an indefinite description of a future transferee
+   names none. **Decisive precedent: locked `C11-01`, same segment, same construction
+   (*"to a third party approved by BKC"*), is `ABSENT` and `RULED_BY_REVIEWER`** — cold itself
+   recorded `ABSENT` as defensible on this exact ground for its own sibling item.
+4. **`missing_fields` gains `"temporal.of"`** — `typecheck.py`'s `WithinTemporal` branch uses
+   that path, **not** the `"temporal.trigger"` used by `RELATIVE_TO_TRIGGER` (and correctly by
+   `C04-06`/`C11-01`).
+
+**A STALE CROSS-REFERENCE CORRECTED IN PASSING, and it had already propagated into a work
+instruction.** `C11-094`'s own 2026-09-05 amendment note says *"§8.6 rules temporal null +
+within_preposition"*. True when written, **false since v0.52**. It is left in place per the
+corrections-are-new-text discipline with the correction recorded beside it. Worth naming as a
+pattern rather than a one-off: **a superseded rule quoted inside a segment file outlives the
+amendment that superseded it**, because §10's retroactive sweeps screen *items*, not the prose
+of segment notes.
 
 ## 1. What a gold item is
 
@@ -4215,6 +4256,17 @@ for a dropped carve-out. Under the amended rule that emission fails clause 6, wh
 **Supporting evidence, measured across the locked set: NO locked item carries a `WITHIN`
 temporal. Zero, of 32.** The superseded rule had removed one of §3.7's five frozen forms from
 the gold set entirely — not by any item happening not to need it, but by rule.
+
+> **CLOSED at v0.55 — the "zero" above is a DATED observation and is no longer live status.**
+> The set now carries **two** `WITHIN` temporals: `C17-02` (restamped by this very amendment)
+> and **`C11-03`**, the first item drafted *under* this rule rather than corrected *by* it.
+> `C11-03` is worth naming because it shows the retroactive sweep was correctly scoped and not
+> merely lucky: the sweep covered *locked spans*, and `C11-094` #2 was an `AMBIGUOUS` span at
+> the time, so it was rightly outside — and then landed on this rule the moment it became an
+> item. **It also exercises the "two gaps, one tag" boundary for the first time**: its phrase
+> (*"within twelve (12) months **from** the date…"*) trips **both** this section's preposition
+> gap and §8's separate parenthetical-numeral gap, verified by execution, and only
+> `within_preposition` is tagged — exactly as §8.6 requires and as §8.9 reiterates.
 
 **Retroactive, and the §10 re-check is logged rather than asserted.** A screen over all 32
 locked spans for `within <numeral> <unit> <word>` was **validated against a known answer before

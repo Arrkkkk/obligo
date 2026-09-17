@@ -1,0 +1,78 @@
+{
+  "item_id": "C11-03",
+  "doc_id": "C11",
+  "segment_id": "C11-094",
+  "stratum": "standard",
+  "segment_text": "15.7 DEATH OR MENTAL INCAPACITY OF PRINCIPAL. If the Principal is a natural person, upon the death or mental incapacity of a Principal, the executor, administrator, or personal representative of such Principal shall transfer the Principal's interest in Franchisee to a third party approved by BKC within a reasonable time after the Principal's death or mental incapacity. Transfers by devise or inheritance shall not be subject to BKC's right of first refusal under Paragraph 15.4 above, but shall be subject to the same conditions imposed on any INTER VIVOS transfer under Paragraph 15.5 above. All other transfers shall be subject to BKC's right of first refusal under Paragraph 15.4 above, or if such right is not exercised, the same conditions as may be imposed on any INTER VIVOS transfer under Paragraph 15.5 above. In the case of transfer by devise or inheritance, if the heir is not approved or there is no heir, the executor shall use best efforts to transfer the Principal's interest to another party approved by BKC within twelve (12) months from the date of the Principal's death. If the conveyance of the Principal's interest to a party acceptable to BKC has not taken place within the twelve (12) month period, BKC shall have the option, to purchase the Principal's interest at fair market value.",
+  "span_char_start": 822,
+  "span_char_end": 1092,
+  "span_text": "In the case of transfer by devise or inheritance, if the heir is not approved or there is no heir, the executor shall use best efforts to transfer the Principal's interest to another party approved by BKC within twelve (12) months from the date of the Principal's death.",
+  "modality": "MUST",
+  "action": "TRANSFER",
+  "action_accept_set": [
+    "TRANSFER",
+    "ASSIGN"
+  ],
+  "obligor": "the executor",
+  "obligor_accept_set": [],
+  "obligee": "ABSENT",
+  "object_class": "principal_interest",
+  "object_class_accept_set": [
+    "principal_interest",
+    "franchise_interest",
+    "franchisee_interest",
+    "ownership_interest",
+    "equity_interest"
+  ],
+  "temporal": {
+    "form": "WITHIN",
+    "amount": 12,
+    "unit": "mo",
+    "trigger": "the date of the Principal's death"
+  },
+  "conditions": [
+    "In the case of transfer by devise or inheritance",
+    "if the heir is not approved or there is no heir"
+  ],
+  "underspecified": true,
+  "missing_fields": [
+    "obligor",
+    "obligee",
+    "temporal.of"
+  ],
+  "vague_temporal_phrase": null,
+  "redacted_phrase": null,
+  "known_gaps": [
+    "within_preposition"
+  ],
+  "annotator_confidence": "CONFIDENT",
+  "annotated_at": "2026-09-17T00:00:00+00:00",
+  "rules_cited": [
+    "3.1",
+    "3.2",
+    "3.4",
+    "3.5",
+    "3.5.1",
+    "3.5.3",
+    "3.6",
+    "3.6.1",
+    "3.7",
+    "3.8",
+    "3.8.2",
+    "3.9",
+    "4.3",
+    "4.3.1",
+    "8",
+    "8.6",
+    "8.6.1",
+    "16.2",
+    "16.3",
+    "17.1",
+    "17.2",
+    "21"
+  ],
+  "guideline_version": "v0.55",
+  "annotator_notes": "§14.4 DRAFTING SESSION, 2026-09-17. C11-094's last escalated span. RULING: cold's drafted item is APPROVED IN SUBSTANCE AND CORRECTED IN FOUR FIELDS. It is not rejected -- the clause IS a distinct obligation, and cold's eligibility, span, modality, action, obligor, object_class and conditions all survive checking. The retrofit's \"best attempt\" reading was NOT used as the drafting base, per the segment file's own instruction.\n\nWHAT COLD GOT RIGHT, each re-checked against real rule text rather than taken on citation.\nDISTINCTNESS from C11-01 (§4.3.1 step 1): the two clauses share an obligor role and an object but differ on conditions (devise/inheritance plus an unapproved-or-absent heir, against natural-person-plus-death), on temporal (a twelve-month window against a reasonable time after the death) and on the efforts standard, so not every scored field is identical and §4.3.1 sends them to §4.3's ordinary two-item treatment. No restatement marker appears. MODALITY MUST, not SHOULD: §16.2's table is explicit that \"shall use best efforts to X\" is MUST and that an efforts qualifier belongs to the ACTION, never to the deontic force -- failing to try at all is a breach. ACTION TRANSFER, not USE, per §16.3's first bullet. CONDITIONS -- TWO entries, confirmed against §3.8.2 Rule B and §17.1's marker count: \"In the case of transfer by devise or inheritance\" and \"if the heir is not approved or there is no heir\" are syntactically distinct phrases with different scoping heads, comma-juxtaposed with no conjunction, which is Rule B exactly; the second entry's INTERNAL \"or\" stays verbatim and unparsed per §17.2, and that is the correct answer rather than a clause-7 failure. This matches the locked sibling C11-01's own two-entry treatment on the same segment. OBLIGOR \"the executor\" verbatim -- the span says exactly that and no more, so §3.5's positional test takes it as written; it is a role description, not a party alias, and will not resolve (§3.9 trigger 1).\n\nCORRECTION 1 -- TEMPORAL: cold's `null` is REPLACED by the WITHIN form. This is the substantive correction and it reverses cold's call. Cold annotated `temporal: null` following §8.6 as literally written, and said so in terms, explicitly flagging the tension with §3.7 and §8.9. §8.6's `temporal: null` was SUPERSEDED at v0.52 by §8.6.1 (§10.1 F13), which is RETROACTIVE and rules: annotate the WITHIN form with amount, unit and trigger verbatim, `known_gaps` keeps within_preposition. §8.6's own rule line now carries that null struck through. The governing principle is §8.6.1's: `temporal: null` marks what IR v1 cannot REPRESENT, never what the classifier cannot REACH. Verified by execution against the production classifier rather than inferred: \"within 12 months of the date of the Principal's death\" classifies to WITHIN 12mo OF \"the date of the Principal's death\", so the IR expresses this form perfectly well and only _WITHIN_RE's surface pattern rejects this input. WHY COLD IS NOT AT FAULT: it annotated before v0.52 existed and applied the then-current rule correctly; §8.6.1's retroactive sweep covered \"all 32 locked spans\" and correctly did NOT reach this one, because it was an AMBIGUOUS span and not a locked item. This is the FIRST NEW item drafted under §8.6.1, and with C17-02 it makes the second WITHIN temporal in the set -- §8.6.1's \"no locked item carries a WITHIN temporal, zero of 32\" is a dated observation that this item and C17-02 together close.\n\nTHE PHRASE HITS TWO INDEPENDENT GAPS AND ONLY ONE IS TAGGED, which is a rule and not an oversight. Measured by execution: \"within twelve (12) months FROM the date...\" returns None; so does \"within 12 months from...\"; so does \"within twelve (12) months of...\". Only \"within 12 months of...\" classifies. So BOTH the preposition (§8.6, `from` where _WITHIN_RE demands `of` -- one of the three rejected prepositions §8.6 measures, at 17 pool occurrences) AND §8's separate parenthetical-numeral gap (`twelve (12)` where _WITHIN_RE demands a bare digit) are live. §8.6 is explicit that the two must NOT be filed together -- one is a one-word regex widening, the other a genuine numeral-parsing problem -- and the parenthetical gap has no tag of its own. known_gaps therefore holds within_preposition ALONE, with the double gap recorded here so it stays countable. Cold reached this same conclusion and its reasoning is adopted unchanged.\n\nCORRECTION 2 -- ACTION_ACCEPT_SET: cold's [TRANSFER, ASSIGN, CONVEY, SELL] is REDUCED to [TRANSFER, ASSIGN]. CONVEY and SELL are NOT in compiler/ast.py's closed 34-verb ACTIONS list, checked by execution. §3.4 requires every member to be a TAXONOMY verb; §16.3's call for a \"generous\" accept-set means generous WITHIN the taxonomy, not outside it. §5.1 A1's ruling that off-taxonomy members are INERT governs annotator comparison (K) only and does not licence one in a gold item -- the same defect, and the same correction, as the two v0.53 MAY drafts. The corrected set is byte-identical to locked C11-01's, which is the consistency anchor for the sibling clause.\n\nCORRECTION 3 -- OBLIGEE: cold's \"another party approved by BKC\" is REPLACED by ABSENT, and cold's supporting citation does not hold. Cold cited §3.5.3's reviewer principle that \"a party named in the span and owed the performance should not be discarded\". §3.5.3 fails to reach this clause on TWO independent grounds, both checked against its actual text. (i) SCOPE: §3.5.3 governs AGENTLESS PASSIVE clauses -- its motivating case has no by-agent at all and its obligor rule is ABSENT for that reason. This clause is ACTIVE with a stated obligor (\"the executor shall use best efforts to transfer\"), so the section's own subject matter is absent. (ii) The rule's own wording requires \"the party NAMED inside the span\"; in the motivating case that is `Bellicum`, a real registered alias. \"another party approved by BKC\" NAMES no party -- it is an indefinite description of a future, not-yet-identified transferee, which is precisely what §3.5's \"a party genuinely not stated in the span is annotated ABSENT\" covers. DECISIVE PRECEDENT: the locked sibling C11-01, same segment, same construction (\"to a third party approved by BKC\"), is obligee ABSENT and is RULED_BY_REVIEWER. Cold itself recorded ABSENT as a defensible alternative for its own item 1, on exactly this indefinite-description ground. Annotating this item otherwise would put two contradictory readings of one construction inside one segment.\n\nCORRECTION 4 -- MISSING_FIELDS: gains \"temporal.of\". Verified against production code rather than copied: typecheck.py's _typecheck_temporal calls _resolve_trigger(temporal.of, \"temporal.of\", ...) for the WithinTemporal branch -- the path is \"temporal.of\", NOT \"temporal.trigger\", which is the RELATIVE_TO_TRIGGER branch's path and the one C04-06 and C11-01 correctly use for their form. §3.9 trigger 3 fires regardless, since symbols.resolve_trigger() returns None throughout v1. §5's predicate does not read missing_fields (§10.1 F15), so this moves no score; it is recorded correctly because the field exists to predict what the pipeline actually produces.\n\nUNDERSPECIFIED true, over-determined three ways: an unresolvable role-description obligor (§3.9 trigger 1), an ABSENT obligee (trigger 1), and an unresolvable trigger (trigger 3). §16.3 confirms the efforts standard does not affect it, and §14.2 forbids reading it as a confidence signal.\n\nOBJECT_CLASS. §3.6 enum 1's both-anchors requirement, same treatment as the sibling C11-02: the possessor anchor (principal_interest, what this span says) and the thing-owned anchors. Five entries, inside the 3-6 band, no plural padding. §3.6.1 checked: \"principal_\" is not this item's obligor (\"the executor\") or obligee (ABSENT), so carve-out 2 clears it, and \"the Principal's interest\" is the object's own name in the span, which carve-out 1 clears independently.\n\nDENOMINATOR: known_gaps is NON-EMPTY (within_preposition), so this item stays OUT of §9.1's in-force criterion-2 denominator and the published 3/9 = 33.3% is unmoved. It joins the all-items denominator once scoreable. SCOREABILITY: stamped v0.55 against C11-094's v0.28 cassettes, so it is cassette-unscoreable today and disclosed by report.py's G8, the same footing as its siblings; backdating was rejected on §22.1's ground.\n\nSEGMENT: C11-094 now reconciles fully at 3 items for 3 obligation-bearing clauses and moves ESCALATED -> RECONCILED. No AMBIGUOUS span remains.",
+  "reviewer_status": "APPROVED",
+  "adjudicated_by": "reviewer"
+}
