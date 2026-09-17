@@ -9,11 +9,15 @@ WHAT IS ACTUALLY AT RISK HERE, and why these are the tests rather than a prose a
       The model DOES emit a candidate at that span on run 1, so the effect is live and not
       hypothetical -- before the ruling it was counted as an UNEXPECTED prediction.
 
-  (2) THE THING THE RULING DELIBERATELY DID NOT DO. §8.8.4 states against interest that
-      excluding candidate 1 does NOT rescue `C14-076`'s band: candidate 2 alone takes the
-      segment to 4 obligation-bearing clauses, because its two verbs carry DIFFERENT
-      obligors. A later session reading "candidate 1 is settled" could easily flip the
-      segment to RECONCILED and quietly un-escalate a live band question. That is pinned.
+  (2) HOW THE BAND QUESTION §8.8.4 DELIBERATELY LEFT OPEN WAS ACTUALLY RESOLVED. These
+      tests originally pinned "candidate 2 is still AMBIGUOUS and the segment is still
+      ESCALATED_BAND_RISK", which was correct on 2026-09-17 and was CLOSED by reviewer
+      ruling on 2026-09-18 (guideline v0.57). They now pin the resolution, and the shape of
+      it is what matters: candidate 2 yields ONE item, from VERB 2 ONLY, so the segment
+      sits at 3 -- AT §2's band ceiling, eligible -- rather than at the 4 the escalation
+      had assumed since 2026-09-04. The failure of these tests on the ruling day is the
+      system working: they pinned a live open question and stopped compiling when it
+      closed.
 
   (3) THE EVIDENCE THE RULE RESTS ON. The rule is drafted against `C03-024` -- and its
       whole shape comes from `C03-024` and `C03-016` landing on OPPOSITE sides while
@@ -96,34 +100,51 @@ def test_the_ruled_span_is_where_the_segment_text_says_it_is(segment):
 
 # --- (2) what the ruling deliberately did NOT settle -------------------------
 
-def test_candidate_2_is_still_ambiguous_and_the_band_question_is_still_open(segment):
-    """§8.8.4's against-interest disclosure, made mechanical. Candidate 2 ALONE takes the
-    segment over §2's 1-3 band (different obligors on its two verbs), so ruling candidate 1
-    settles nothing about eligibility -- and `C14-01`/`C14-02`'s locked status stays open."""
-    assert _disposition(segment, CANDIDATE_2)["disposition"] == "AMBIGUOUS"
-    assert segment["reconciliation"]["status"] == "ESCALATED_BAND_RISK"
+def test_candidate_2_split_into_an_excluded_verb_1_and_an_annotated_verb_2(segment):
+    """The v0.57 ruling, at clause granularity. The sentence is NOT disposed as a whole any
+    more -- it is four spans, mirroring this segment's own `C14-01`/`C14-02` treatment:
+    verb 1 (the gross-up statement) excluded, the ` and ` connective excluded, verb 2
+    annotated as `C14-06`, the trailing `.` excluded. Pinning the SPLIT rather than a single
+    verdict is the point: "candidate 2 is an obligation" and "candidate 2 is not" are both
+    wrong, and either one stated flatly would lose the ruling."""
+    by_start = {d["span_char_start"]: d for d in segment["dispositions"]}
+    assert by_start[420]["disposition"] == "NOT_OBLIGATION_BEARING"   # verb 1, gross-up
+    assert by_start[506]["disposition"] == "NOT_OBLIGATION_BEARING"   # " and "
+    assert by_start[511]["disposition"] == "ANNOTATED"                # verb 2, the duty
+    assert by_start[511]["item_id"] == "C14-06"
+    assert by_start[570]["disposition"] == "NOT_OBLIGATION_BEARING"   # "."
 
 
-def test_candidate_2_is_not_in_not_annotatable(segment):
-    """An AMBIGUOUS span is an open reviewer question, not a settled non-item; putting it in
-    the scoring array would resolve it silently. §2.7 states this for AMBIGUOUS in terms."""
-    d = _disposition(segment, CANDIDATE_2)
+def test_only_verb_1_reaches_the_scorer_as_not_annotatable(segment):
+    """Verb 1 must be set aside; verb 2 must NOT be, because it is now a real gold item and
+    putting an annotated span in that array would make the scorer discard predictions for
+    the very item it is meant to score."""
     spans = rs.load_not_annotatable(GOLDENS)["C14-076"]
-    assert (d["span_char_start"], d["span_char_end"]) not in spans
+    assert (420, 506) in spans
+    assert (511, 570) not in spans
 
 
-def test_the_clause_count_is_explicitly_indeterminate_not_a_number(segment):
-    """UPDATED the same day it was written, and the reason is the point. This first asserted
-    `== 3`, which is what the §8.8.4 amendment left in the file -- and 3 SILENTLY ENCODES ONE
-    OF THE THREE LIVE READINGS of candidate 2 (that it yields exactly one item). With
-    candidate 1 excluded the segment stands at 2 and candidate 2 adds 0, 1 or 2, so the count
-    is 2, 3 or 4 and ONLY the 4 branch breaches §2's band. A plain integer there would have
-    quietly pre-decided the very question the segment is escalated on, and a test asserting
-    that integer would have locked the pre-decision in. See INVESTIGATION §10.3."""
+def test_the_segment_is_reconciled_at_three_clauses_at_the_band_ceiling(segment):
+    """REWRITTEN TWICE, and both rewrites are the record. It first asserted `== 3` (the
+    §8.8.4 amendment's leftover, which silently encoded one of three live readings), then
+    an explicit INDETERMINATE while the question was open, and now the ruled value. Three is
+    AT §2's 1-3 ceiling and eligible -- settled by the v0.50 ruling that `C11-094` and
+    `C17-021` "are NOT §2 band violations ... both sit exactly at the 1-3 band's ceiling at
+    3". So `C14-01`/`C14-02` are no longer at band risk."""
     r = segment["reconciliation"]
-    assert isinstance(r["obligation_bearing_clauses"], str)
-    assert "INDETERMINATE" in r["obligation_bearing_clauses"]
-    assert r["items_annotated"] == 2              # C14-01, C14-02 -- untouched
+    assert r["obligation_bearing_clauses"] == 3
+    assert r["items_annotated"] == 3              # C14-01, C14-02, C14-06
+    assert r["status"] == "RECONCILED"
+
+
+def test_c14_06_is_stamped_v057_and_is_therefore_cassette_unscoreable():
+    """The new item carries the current stamp against `C14-076`'s v0.28 cassettes, so F16's
+    per-item check makes it cassette-unscoreable and G8 discloses it -- the same position
+    `C11-02` and `C04-06` are in. Backdating it to force a cassette match is exactly §22.1's
+    forbidden "restamping to force one stamp", and this pins that it was not done."""
+    items = {i["item_id"]: i for i in rs.load_gold_items(GOLDENS)}
+    assert items["C14-06"]["guideline_version"] == "v0.57"
+    assert items["C14-06"]["known_gaps"] == ["shared_subject_split"]
 
 
 def test_no_item_was_restamped_by_this_ruling():
@@ -135,9 +156,9 @@ def test_no_item_was_restamped_by_this_ruling():
     assert items["C14-02"]["guideline_version"] == "v0.28"
 
 
-def test_the_set_is_unchanged_at_35_items_over_22_segments():
+def test_the_set_is_36_items_over_22_segments():
     items = rs.load_gold_items(GOLDENS)
-    assert len(items) == 35
+    assert len(items) == 36
     assert len(rs.segments_from_items(items)) == 22
 
 

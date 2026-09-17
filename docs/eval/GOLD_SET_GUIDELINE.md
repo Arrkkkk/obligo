@@ -1,6 +1,6 @@
 # Obligo Tier-2 Gold Set — Annotation Guideline
 
-**Version:** v0.56 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**. **v0.33 puts §9's dual denominator IN FORCE** on two independent grounds, adds §5 clause 5's number rule, §3.4's bounded freeze-pass exception, and the forward authoring rules §3.6 / §3.8.2 / §3.5.1 — **no annotation rule changed, no item restamped, no cassette stale**. **v0.34 records two MEASUREMENT corrections and changes no rule either** — §8.9's `on`/`until` rows and §15.3's loud-versus-silent class placement, both falsified by real model output from the compile-stage bottleneck investigation. **v0.35 adds §4.3.2** — a third splitting shape distinct from both existing §4.3 worked examples, reviewer-ruled at batch 3's `C04-139`: self-performance vs. a duty to bind/control a third party's conduct splits into two items even when the two verbs share an object phrase and a sentence subject, because the two performances do not share an actor. **v0.36 amends §4.2** — the resulting byte-identical spans (`C04-139`'s shared trailing object leaves neither item's minimal span shorter than the other's) break IoU's ability to discriminate between the two gold items, so a content-based tie-break on `action_accept_set` membership is added, falling through to ascending `item_id` when the tie-break itself is inconclusive. **v0.37 adds a
+**Version:** v0.57 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**. **v0.33 puts §9's dual denominator IN FORCE** on two independent grounds, adds §5 clause 5's number rule, §3.4's bounded freeze-pass exception, and the forward authoring rules §3.6 / §3.8.2 / §3.5.1 — **no annotation rule changed, no item restamped, no cassette stale**. **v0.34 records two MEASUREMENT corrections and changes no rule either** — §8.9's `on`/`until` rows and §15.3's loud-versus-silent class placement, both falsified by real model output from the compile-stage bottleneck investigation. **v0.35 adds §4.3.2** — a third splitting shape distinct from both existing §4.3 worked examples, reviewer-ruled at batch 3's `C04-139`: self-performance vs. a duty to bind/control a third party's conduct splits into two items even when the two verbs share an object phrase and a sentence subject, because the two performances do not share an actor. **v0.36 amends §4.2** — the resulting byte-identical spans (`C04-139`'s shared trailing object leaves neither item's minimal span shorter than the other's) break IoU's ability to discriminate between the two gold items, so a content-based tie-break on `action_accept_set` membership is added, falling through to ascending `item_id` when the tie-break itself is inconclusive. **v0.37 adds a
 recommended `object_class` naming convention to §4.3.2** — `self_` / `third_party_` prefixes over
 a shared root, so future flow-down splits land on visibly parallel labels rather than an
 unrelated pair invented fresh each time. **v0.38 adds §3.2.1** — present-tense self-executing
@@ -155,7 +155,7 @@ segment count (153/1,547), and `C14-028` was drawn as the **twelfth** standard-q
 not the eleventh as originally written — both fixed in place per this document's own
 corrections-are-new-text discipline, not silently edited.
 **Created:** 2026-08-17
-**Status:** **32 items locked; ONE restamped at v0.52** (`C17-02`, §8.6.1/§10.1 F13 — `temporal` `null` → the `WITHIN` form; `C17-066`'s three cassettes are consequently **STALE**, re-record **deferred to §10's freeze pass** by reviewer ruling, so the item is known-stale and honestly labelled, the same footing §22.1 gives `C14-02`). **`C11-01`'s `annotator_notes` were corrected record-only at v0.52 with its stamp deliberately UNCHANGED** — the note contradicted the item's own §15.5-correct data, and restamping it would have staled three cassettes for nothing. ~~**TWO SPANS ARE NOW `PENDING_ANNOTATION` and are NOT yet items** — `C11-094` #3 and `C04-117` #1, ruled eligible by §10.2 (Decision 3); each owes its own §14.4 drafting session, with §8.8's taxonomy question flagged in its segment file.~~ **SUPERSEDED v0.53 — BOTH SPANS ARE NOW DRAFTED ITEMS, so the set stands at 34, not 32.** **SUPERSEDED AGAIN, v0.56 — THE SET STANDS AT 35.** `C11-03` was ruled at v0.55 (`C11-094`'s last escalated span) and this line was not updated then, which is the fourth logged instance of exactly the drift §10's own close-out process note exists to catch — corrected in place here, per that note's rule that live status statements are corrected rather than struck. **v0.56 adds no item**: §8.8.4 rules `C14-076` candidate 1 `NOT_OBLIGATION_BEARING`, so the set stays at 35 and no published figure moves. `C11-02` and `C04-06` — **both REVIEWER-APPROVED at v0.54** (`adjudicated_by: reviewer`; eligibility was `RULED_BY_REVIEWER` at v0.52, the field-level drafting approved as drafted, with the singleton accept-set kept, the sibling `object_class` divergence accepted as temporary, and `conditions: []` confirmed and generalised into §3.8). **Both keep `guideline_version: v0.53`** — the v0.54 rule confirms rather than changes their treatment, so restamping is refused per §22.1. §8.8's flagged taxonomy question is **ruled in §8.8.3, with the two verbs landing on opposite sides**: `purchase` → `PROCURE` is defensibly mappable (`C11-02` carries **no** tag and `known_gaps: []`), `defer` is a genuine gap (`C04-06` carries `action_not_in_taxonomy`). **Both are cassette-unscoreable today** — stamped `v0.53` against `v0.28`/`v0.48` cassettes, disclosed by G8, backdating rejected per §22.1 — so **no published figure moves: in-force criterion 2 stays `3/9 = 33.3%`, all-items `5/15`, `K` `14/32`**, confirmed by a real run. `C11-02` queues the in-force denominator to go **9 → 10** at §10's freeze-pass re-record (§9.2.1). **§10.1 F16 RESOLVED 2026-09-16 (commit `94a2daa`, CI run 35087036051 green) — `run_scoring.run()` now executes end to end against the committed gold set; see the F16 table row for the fix and the real-run confirmation.** *(Superseded text, left as written: "BLOCKING: `run_scoring.run()` cannot execute against the committed gold set at any single `guideline_version` (§10.1 F16), so no figure below can currently be confirmed by a run.")* — no item restamped at v0.45 (§5.1 governs annotator comparison only and touches no annotation rule) — batch 1 complete (10), batch 2 at 8 of 10 with two
+**Status:** **32 items locked; ONE restamped at v0.52** (`C17-02`, §8.6.1/§10.1 F13 — `temporal` `null` → the `WITHIN` form; `C17-066`'s three cassettes are consequently **STALE**, re-record **deferred to §10's freeze pass** by reviewer ruling, so the item is known-stale and honestly labelled, the same footing §22.1 gives `C14-02`). **`C11-01`'s `annotator_notes` were corrected record-only at v0.52 with its stamp deliberately UNCHANGED** — the note contradicted the item's own §15.5-correct data, and restamping it would have staled three cassettes for nothing. ~~**TWO SPANS ARE NOW `PENDING_ANNOTATION` and are NOT yet items** — `C11-094` #3 and `C04-117` #1, ruled eligible by §10.2 (Decision 3); each owes its own §14.4 drafting session, with §8.8's taxonomy question flagged in its segment file.~~ **SUPERSEDED v0.53 — BOTH SPANS ARE NOW DRAFTED ITEMS, so the set stands at 34, not 32.** **SUPERSEDED AGAIN, v0.56 — THE SET STANDS AT 35.** `C11-03` was ruled at v0.55 (`C11-094`'s last escalated span) and this line was not updated then, which is the fourth logged instance of exactly the drift §10's own close-out process note exists to catch — corrected in place here, per that note's rule that live status statements are corrected rather than struck. **v0.56 adds no item**: §8.8.4 rules `C14-076` candidate 1 `NOT_OBLIGATION_BEARING`, so the set stays at 35 and no published figure moves. **SUPERSEDED v0.57 — THE SET STANDS AT 36.** `C14-076`'s band escalation is ruled: candidate 2 yields one item, `C14-06`, from verb 2 only; the segment reconciles at 3 clauses, at the band ceiling and eligible, and `C14-01`/`C14-02` stay locked. Still no published figure moves — `C14-06` is cassette-unscoreable at `v0.57`. `C11-02` and `C04-06` — **both REVIEWER-APPROVED at v0.54** (`adjudicated_by: reviewer`; eligibility was `RULED_BY_REVIEWER` at v0.52, the field-level drafting approved as drafted, with the singleton accept-set kept, the sibling `object_class` divergence accepted as temporary, and `conditions: []` confirmed and generalised into §3.8). **Both keep `guideline_version: v0.53`** — the v0.54 rule confirms rather than changes their treatment, so restamping is refused per §22.1. §8.8's flagged taxonomy question is **ruled in §8.8.3, with the two verbs landing on opposite sides**: `purchase` → `PROCURE` is defensibly mappable (`C11-02` carries **no** tag and `known_gaps: []`), `defer` is a genuine gap (`C04-06` carries `action_not_in_taxonomy`). **Both are cassette-unscoreable today** — stamped `v0.53` against `v0.28`/`v0.48` cassettes, disclosed by G8, backdating rejected per §22.1 — so **no published figure moves: in-force criterion 2 stays `3/9 = 33.3%`, all-items `5/15`, `K` `14/32`**, confirmed by a real run. `C11-02` queues the in-force denominator to go **9 → 10** at §10's freeze-pass re-record (§9.2.1). **§10.1 F16 RESOLVED 2026-09-16 (commit `94a2daa`, CI run 35087036051 green) — `run_scoring.run()` now executes end to end against the committed gold set; see the F16 table row for the fix and the real-run confirmation.** *(Superseded text, left as written: "BLOCKING: `run_scoring.run()` cannot execute against the committed gold set at any single `guideline_version` (§10.1 F16), so no figure below can currently be confirmed by a run.")* — no item restamped at v0.45 (§5.1 governs annotator comparison only and touches no annotation rule) — batch 1 complete (10), batch 2 at 8 of 10 with two
 items still undrawn, **batch 3's draw target is FULLY MET: 10 of 10 segments locked**
 (3 hard + 7 standard, per `draw.json`'s own `"count": 10, "hard": 3` — 14 items total, since
 `C13-017` is this batch's only two-item segment; `C14-044` originally yielded three drafted
@@ -1042,6 +1042,66 @@ removes a candidate that was never an item, so it is not §3.4's prohibited dire
 **against-interest disclosure is that excluding candidate 1 does NOT rescue the band**: candidate
 2 alone still takes `C14-076` to 4. **Candidate 2 stays `AMBIGUOUS`, the segment stays
 `ESCALATED_BAND_RISK`, and `C14-01`/`C14-02`'s locked status is untouched and still undecided.**
+
+**v0.57 change: `C14-076`'s BAND-ELIGIBILITY ESCALATION IS RULED — candidate 2 yields ONE item,
+`C14-06`, from VERB 2 ONLY. The segment sits at 3 obligation-bearing clauses, AT §2's band
+ceiling and ELIGIBLE; `C14-01`/`C14-02` STAY LOCKED and are no longer at band risk.** The set
+moves **35 → 36**. **No rule is added or changed** — this applies §3.1, §3.2, §3.5.3, §4.3, §8.3.1
+and §2 as they stand. **No published figure moves: in-force criterion 2 stays `3/9 = 33.3%`,
+all-items `5/15`, `K` `14/32`** — confirmed by a real `run_scoring.run()`, which reports 36 items,
+15 scored and cassette-unscoreable 20 → 21 (exactly `C14-06`, stamped `v0.57` against `C14-076`'s
+`v0.28` cassettes, disclosed by G8).
+
+**Verb 1 — *"Israel value added tax shall be added, if applicable, to all amounts payable
+hereunder"* — is NOT obligation-bearing.** It is a **stative pricing / gross-up statement**, not a
+commanded act: its object is an **amount**, and its work is to say the sums stated elsewhere are
+VAT-exclusive. **Verb 2 — *"and will be paid against submission of appropriate tax invoices"* — is
+the genuine duty**: `MUST` (§3.2's `will`-as-undertaking), `PAY`, `obligor: ABSENT` and
+`obligee: ABSENT` (§3.5.3, the same treatment as `C04-06`/`C11-03`), conditioned on invoice
+submission.
+
+**THIS IS NOT RESOLVED BY ADJUDICATED PRECEDENT, BECAUSE NONE EXISTS — stated plainly rather than
+implied.** A full census (`band_risk/tax_treatment.py`; nine shapes cross-referenced against locked
+items, committed dispositions and all three exclusion logs) finds **9 tax-treatment sentences in 8
+segments across 8 documents, of which EXACTLY ONE had ever been classified — this sentence, as
+`AMBIGUOUS`.** The class is ordinary; the gold set had simply never drawn another. *(An earlier
+claim that the construction was "unique pool-wide" was a narrow-regex artifact and is corrected at
+`C14_076_INVESTIGATION.md` §10.4.)* The ruling rests on two things, **each disclosed as what it is
+and neither oversold**:
+
+- **(a) `C02-044`'s real but SINGULAR structural twin** — *"Such VAT and taxes, if any, **will be
+  payable in addition to** the Transfer Price"* — which the corpus itself treats as the
+  **non-obligation half** of the same two-job split, writing the payment half separately and
+  **with an explicit by-agent** (*"will be paid **by AMAG** to Antares"*), using the very same
+  modal. **Suggestive corpus evidence, one instance — not binding precedent.** Supporting but not
+  controlling: 6 of 6 comparable tax-payment duties in this corpus name the payer and candidate 2
+  alone does not, and the agentless-`will be paid` cell holds exactly two members corpus-wide, the
+  other being `C04-115`'s payment-**schedule** term. **Against interest:** §3.5.3 exists to admit
+  agentless obligations and two locked items (`C04-03`, `C14-05`) are thing-subject agentless
+  passives, so the naming convention is a **tendency, not a rule**.
+- **(b) The model's own reasoning traces — model behaviour, not precedent and not authority.** On
+  all three recorded runs the model reaches the sentence, calls it an obligation (**two of three
+  say "Two obligations"**, reaching the split independently), and drops it for **one reason only**:
+  it cannot fill `obligor_alias`. Run 2: *"No party. So we cannot extract obligor_alias because not
+  present. Must be literal within span_text. So we cannot include because obligor missing. So
+  skip."* That is the known, **unrelated** §10.1 F14 obligor-schema gap — **not any judgment that
+  the clause states no duty.** The 0-of-3 emission rate must not be read as evidence for excluding
+  the clause; `C14_076_INVESTIGATION.md` §10.6 records that its own first version characterised
+  this backwards, and corrects it.
+
+**§4's arithmetic is corrected in passing.** *"Candidate 2 ALONE puts the segment at 4"* held only
+under a reading in which **both** verbs are obligation-bearing, a premise §4 never stated. What §4
+established is narrower and stands: the two verbs cannot be **one item covering both**.
+
+**Span — §8.3.1's option 4, for the same structural reason.** §3.1 asks for the minimal contiguous
+substring stating the **complete** obligation; *"will be paid against submission…"* alone does not
+say **what** is paid and would put `object_raw_text` outside the span, which is §8.3.1's option 3,
+marked *"`NESTED_FIELD_NOT_IN_SPAN` — unreachable by the pipeline"*. The span therefore runs from
+the shared subject, `[420:570]`, and unavoidably contains verb 1 — **not an inconsistency with verb
+1's own exclusion**, since `C14-02`'s span `[12:253]` already contains a `NOT_OBLIGATION_BEARING`
+connective in this same segment. Tagged `shared_subject_split`, **with one difference recorded
+rather than conflated**: for `C14-02` the preceding clause is a sibling **item**, here it is a
+**non-obligation**, so the spans are not nested against another item and §4.1 cannot collide.
 
 ## 1. What a gold item is
 

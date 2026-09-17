@@ -119,7 +119,7 @@ def test_the_real_gold_set_has_consistent_segments_and_a_refused_mixed_stamp():
     is F16's per-item check doing its job rather than a defect; the mixed-stamp
     refusal this test's name is about is unchanged and still fires."""
     items = rs.load_gold_items()
-    assert len(items) == 35
+    assert len(items) == 36
     assert len(rs.segments_from_items(items)) == 22
     with pytest.raises(ValueError, match="conforming pass"):
         rs.guideline_version_from_items(items)

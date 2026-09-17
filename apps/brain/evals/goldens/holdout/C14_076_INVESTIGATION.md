@@ -997,3 +997,74 @@ not.**
 precisely to admit agentless obligations, and **two locked items are thing-subject agentless
 passives** (`C04-03`, `C14-05`). The corpus's naming convention is a tendency, not a rule, and this
 project has already ruled that an unnamed obligor is `ABSENT` rather than disqualifying.
+
+---
+
+## 11. RULED 2026-09-18 — verb 2 only. `C14-06`. The escalation is CLOSED and the segment is ELIGIBLE
+
+**Reviewer ruling, guideline v0.57.** Of §10.3's three branches, the **middle** one:
+
+> **Verb 1 is not obligation-bearing; verb 2 is.** Candidate 2 yields **one** item. The segment
+> holds **3** obligation-bearing clauses — `C14-01`, `C14-02`, `C14-06` — which is **at §2's 1-3
+> band ceiling and therefore ELIGIBLE**, consistent with `C11-094` and `C17-021`, which the v0.50
+> ruling records as *"NOT §2 band violations — both sit exactly at the 1-3 band's ceiling at 3 and
+> were correctly eligible."* **`C14-01` and `C14-02` stay locked and are no longer at band risk.**
+
+### 11.1 The reasoning, as ruled
+
+**Verb 1 — *"shall be added … to all amounts payable"* — is a STATIVE PRICING / GROSS-UP
+STATEMENT, not a commanded act.** Its object is an **amount**; its work is to say that the sums
+stated elsewhere are VAT-exclusive. This is **supported by `C02-044`'s structurally near-identical
+twin** — *"Such VAT and taxes, if any, **will be payable in addition to** the Transfer Price"* —
+**which the corpus itself treats as the non-obligation half of the same two-job split**, writing
+the payment half separately and with an explicit by-agent (*"will be paid **by AMAG** to
+Antares"*), using the very same modal.
+
+**Verb 2 — *"and will be paid against submission of appropriate tax invoices"* — is the genuine
+duty:** `MUST`, `PAY`, `obligor: ABSENT`, `obligee: ABSENT` — the same treatment as `C04-06` and
+`C11-03` — **conditioned on invoice submission**.
+
+### 11.2 Stated explicitly: this is NOT resolved by adjudicated precedent, because none exists
+
+§10.9's census settles that. Of **9 tax-treatment sentences in 8 segments across 8 documents**,
+**exactly one had ever been classified — this sentence, as `AMBIGUOUS`.** There is no adjudicated
+instance in either direction. The ruling rests on **two things, each disclosed as what it is**:
+
+| | what it is | what it is **not** |
+| :--- | :--- | :--- |
+| **(a)** `C02-044`'s structural twin | **real, but SINGULAR** corpus evidence — one instance, in another document | **not binding precedent.** Supporting only: 6 of 6 comparable tax-payment duties name the payer and candidate 2 alone does not; the agentless-`will be paid` cell holds exactly 2 members corpus-wide, the other a payment-**schedule** term |
+| **(b)** the model's reasoning traces | **model behaviour.** It reached the sentence as an obligation on **every** run (2 of 3 saying *"Two obligations"*) and failed **only** on the known, unrelated **§10.1 F14** obligor-schema gap | **not authority, and not a judgment that the clause states no duty.** The 0-of-3 emission rate must not be cited for excluding the clause — §10.6 records that its own first version characterised it backwards |
+
+**Neither is oversold.** (a) is one sentence; the convention it evidences is a **tendency, not a
+rule**, and §3.5.3 plus two locked thing-subject agentless passives (`C04-03`, `C14-05`) cut the
+other way. (b) is an extraction model's scratchpad, and its failure mode is a **prompt-schema**
+defect this project already has on its own books.
+
+### 11.3 What was recorded, and the real-run confirmation
+
+- **`C14-06`** — `batch02/items/C14-06.json`, span `[420:570]` (§8.3.1 option 4: §3.1 needs the
+  complete obligation, and the bare predicate does not say *what* is paid), `conditions`
+  `["if applicable", "against submission of appropriate tax invoices"]`, `known_gaps`
+  `["shared_subject_split"]`, stamped **`v0.57`**.
+- **The segment file** now disposes candidate 2 at **clause** granularity — four spans, mirroring
+  this segment's own `C14-01`/`C14-02` treatment: verb 1 excluded, `" and "` excluded, verb 2
+  `ANNOTATED` → `C14-06`, trailing `"."` excluded. `status` `ESCALATED_BAND_RISK` → **`RECONCILED`**;
+  `obligation_bearing_clauses` `INDETERMINATE` → **3**; `items_annotated` 2 → **3**.
+- **Real `run_scoring.run()`, not hand arithmetic:** 36 items, **15 scored**, cassette-unscoreable
+  **20 → 21** — exactly `C14-06`, `v0.57` against `v0.28` cassettes, disclosed by G8. **In-force
+  criterion 2 `3/9 = 33.3%`, all-items `5/15`, `K` `14/32` — all unmoved.** `known_gaps` is
+  non-empty, so it is outside §9.1's in-force denominator by construction in any event.
+
+### 11.4 Status — every open thread on this segment
+
+| | |
+| :--- | :--- |
+| Candidate 1 | **CLOSED** v0.56 — `NOT_OBLIGATION_BEARING`, §8.8.4 |
+| Candidate 2 | **CLOSED** v0.57 — verb 1 excluded, verb 2 → `C14-06` |
+| `C14-076` band eligibility | **RESOLVED — ELIGIBLE at 3 clauses**, at the ceiling |
+| `C14-01` / `C14-02` | **STAY LOCKED**, no longer at band risk, **not restamped** |
+| Segment reconciliation | **`RECONCILED`** — no `AMBIGUOUS` or `PENDING_ANNOTATION` span remains |
+| `C11-094` item 1 (`C11-01`) | **UNTOUCHED**, as the ruling directs |
+| Published figures | **UNMOVED**, confirmed by a real run |
+
+**No `AMBIGUOUS` or `PENDING_ANNOTATION` span now remains anywhere in the gold set.**

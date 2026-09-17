@@ -4,10 +4,10 @@
   "schema": "§2.7 (v0.50) -- complete per-sentence segment disposition, superseding §21 R6's not_annotatable-only shape. `not_annotatable` (R6's original array, the only key run_scoring.load_not_annotatable() reads) is preserved for scoring and holds every NOT_OBLIGATION_BEARING / NOT_ANNOTATABLE / EXCLUDED span. `dispositions` is the full per-sentence record §2.7 requires, covering ANNOTATED and AMBIGUOUS spans too, which `not_annotatable` deliberately excludes -- an AMBIGUOUS span is an open reviewer question, not a settled non-item, and including it in the scoring array would resolve it silently.",
   "reconciliation": {
     "sentences_total": 4,
-    "obligation_bearing_clauses": "INDETERMINATE: 2, 3 or 4 pending the candidate-2 ruling",
-    "items_annotated": 2,
-    "status": "ESCALATED_BAND_RISK",
-    "note": "AMENDED 2026-09-17 (b) -- obligation_bearing_clauses was left as the integer 3 by this same day's §8.8.4 amendment, which SILENTLY ENCODED ONE OF THE THREE LIVE READINGS of candidate 2 (namely that it yields exactly one item). Corrected to an explicit indeterminate. See holdout/C14_076_INVESTIGATION.md §10.3: with candidate 1 excluded the segment stands at 2 (C14-01 + C14-02), and candidate 2 adds 0, 1 or 2 -- giving 2, 3 or 4. ONLY THE 4 BRANCH BREACHES §2's 1-3 BAND; 3 sits at the ceiling and is eligible by settled precedent (the v0.50 ruling: 'C11-094 and C17-021 are NOT §2 band violations -- both sit exactly at the 1-3 band's ceiling at 3'). §4's 'candidate 2 ALONE puts the segment at 4' is therefore CORRECTED: it holds only if BOTH of candidate 2's verbs are obligation-bearing, a premise §4 never stated. PREVIOUS NOTE FOLLOWS, left as written per the corrections-are-new-text discipline: AMENDED 2026-09-17 (guideline v0.56) -- CANDIDATE 1 IS RULED NOT_OBLIGATION_BEARING under the new §8.8.4 (ABSORB complement: a burden absorbed, not a performance rendered). obligation_bearing_clauses 4 -> 3. THE SEGMENT STAYS ESCALATED_BAND_RISK AND ITS STATUS IS UNCHANGED: candidate 2 alone takes the segment to 4 over §2's 1-3 band (its two verbs carry DIFFERENT OBLIGORS and one item has one obligor slot), so candidate 1 was never what decided eligibility -- investigation §4's correction (1), restated here because ruling candidate 1 makes it tempting to read the band risk as reduced. It is not. items_annotated stays 2 against 3 obligation-bearing clauses; the gap is candidate 2, still AMBIGUOUS and owed its own §14.4 session on the §5/§5.1 both-ABSENT question. C14-01/C14-02 are NOT in question. PREVIOUS NOTE FOLLOWS, left as written per the corrections-are-new-text discipline: AMENDED 2026-09-05 -- see holdout/C14_076_INVESTIGATION.md. TWO CORRECTIONS TO THE NOTE BELOW. (1) THE BAND RISK IS NOT CONJUNCTIVE. Candidate 2 carries two verbs with DIFFERENT OBLIGORS (the payee adds VAT to its invoice; the payer pays it), and one item has one obligor slot, so it cannot be one item however section 4.3 is read. CANDIDATE 2 ALONE puts the segment at 4 and over section 2's 1-3 band, whatever candidate 1 turns out to be -- so candidate 2, not candidate 1, is what decides C14-01/C14-02's locked status, and it is the more urgent of the two escalations. (2) THE 'NEITHER ANNOTATOR RECORDED WHY' PREMISE IS FALSE -- the cold annotator disposed of both sentences with rules cited; candidate 1's disposition is sound, candidate 2's is contaminated by backwards reasoning from band eligibility. Both dispositions' full text and standing are in each reading below. Section 2.5 is also the wrong rule for candidate 1 (its trigger is unreviewable discretion); the governing family is section 8.8, in a cell holding 15 instances across 9 documents and no adjudicated precedent. ORIGINAL NOTE FOLLOWS, left as written per the corrections-are-new-text discipline: 4 obligation-bearing clauses vs 2 items_annotated. 2 clauses are AMBIGUOUS -- logged as a NEW TRACKED FINDING in CLAUDE.md (2026-09-04), deliberately NOT folded into SPLITTING_EXCLUSION_INVESTIGATION.md decisions 2-4 since it is a new discovery, not a known open question resurfacing. Checked directly rather than taken on citation: the precedent C02-04 cites (\"C14-139's Q1\") is forward guidance in a logged exclusion entry, never tested against a locked item -- neither candidate here matches either real precedent cleanly. Two real sub-questions scoped in CLAUDE.md: (a) does bare cost-allocation with no act-verb clear section 2.5's monitorable-stakes bar, (b) how does section 3.5.3 handle a fully agentless, partyless sentence with no worked precedent. IF BOTH CLAUSES ARE GENUINE, the segment totals 4 -- OVER section 2's 1-3 eligibility band, threatening C14-01/C14-02's own locked status. Scheduled as its own dedicated session, same tier as decisions 2-4 -- can wait alongside them, no urgency before batches 4-10 resume. C14-01/C14-02 are NOT themselves in question, only whether the segment is under-annotated."
+    "obligation_bearing_clauses": 3,
+    "items_annotated": 3,
+    "status": "RECONCILED",
+    "note": "RESOLVED 2026-09-18 (reviewer ruling, guideline v0.57). THE BAND-ELIGIBILITY ESCALATION OPEN SINCE 2026-09-04 IS CLOSED. Candidate 2 yields ONE item, not two and not zero: verb 1 ('shall be added ... to all amounts payable') is a stative pricing/gross-up statement and is NOT obligation-bearing; verb 2 ('will be paid against submission of appropriate tax invoices') is the genuine duty and is now locked item C14-06. The segment therefore holds 3 obligation-bearing clauses -- C14-01, C14-02, C14-06 -- AT §2's 1-3 band ceiling and ELIGIBLE, consistent with C11-094 and C17-021, which the v0.50 ruling records as 'NOT §2 band violations ... both sit exactly at the 1-3 band's ceiling at 3'. C14-01 and C14-02 STAY LOCKED and are NO LONGER AT BAND RISK. status ESCALATED_BAND_RISK -> RECONCILED; obligation_bearing_clauses INDETERMINATE -> 3; items_annotated 2 -> 3. Reasoning in full at holdout/C14_076_INVESTIGATION.md §10 and in C14-06's annotator_notes -- including that this is NOT resolved by adjudicated precedent, since a full census found none in either direction. PREVIOUS NOTE FOLLOWS, left as written per the corrections-are-new-text discipline: AMENDED 2026-09-17 (b) -- obligation_bearing_clauses was left as the integer 3 by this same day's §8.8.4 amendment, which SILENTLY ENCODED ONE OF THE THREE LIVE READINGS of candidate 2 (namely that it yields exactly one item). Corrected to an explicit indeterminate. See holdout/C14_076_INVESTIGATION.md §10.3: with candidate 1 excluded the segment stands at 2 (C14-01 + C14-02), and candidate 2 adds 0, 1 or 2 -- giving 2, 3 or 4. ONLY THE 4 BRANCH BREACHES §2's 1-3 BAND; 3 sits at the ceiling and is eligible by settled precedent (the v0.50 ruling: 'C11-094 and C17-021 are NOT §2 band violations -- both sit exactly at the 1-3 band's ceiling at 3'). §4's 'candidate 2 ALONE puts the segment at 4' is therefore CORRECTED: it holds only if BOTH of candidate 2's verbs are obligation-bearing, a premise §4 never stated. PREVIOUS NOTE FOLLOWS, left as written per the corrections-are-new-text discipline: AMENDED 2026-09-17 (guideline v0.56) -- CANDIDATE 1 IS RULED NOT_OBLIGATION_BEARING under the new §8.8.4 (ABSORB complement: a burden absorbed, not a performance rendered). obligation_bearing_clauses 4 -> 3. THE SEGMENT STAYS ESCALATED_BAND_RISK AND ITS STATUS IS UNCHANGED: candidate 2 alone takes the segment to 4 over §2's 1-3 band (its two verbs carry DIFFERENT OBLIGORS and one item has one obligor slot), so candidate 1 was never what decided eligibility -- investigation §4's correction (1), restated here because ruling candidate 1 makes it tempting to read the band risk as reduced. It is not. items_annotated stays 2 against 3 obligation-bearing clauses; the gap is candidate 2, still AMBIGUOUS and owed its own §14.4 session on the §5/§5.1 both-ABSENT question. C14-01/C14-02 are NOT in question. PREVIOUS NOTE FOLLOWS, left as written per the corrections-are-new-text discipline: AMENDED 2026-09-05 -- see holdout/C14_076_INVESTIGATION.md. TWO CORRECTIONS TO THE NOTE BELOW. (1) THE BAND RISK IS NOT CONJUNCTIVE. Candidate 2 carries two verbs with DIFFERENT OBLIGORS (the payee adds VAT to its invoice; the payer pays it), and one item has one obligor slot, so it cannot be one item however section 4.3 is read. CANDIDATE 2 ALONE puts the segment at 4 and over section 2's 1-3 band, whatever candidate 1 turns out to be -- so candidate 2, not candidate 1, is what decides C14-01/C14-02's locked status, and it is the more urgent of the two escalations. (2) THE 'NEITHER ANNOTATOR RECORDED WHY' PREMISE IS FALSE -- the cold annotator disposed of both sentences with rules cited; candidate 1's disposition is sound, candidate 2's is contaminated by backwards reasoning from band eligibility. Both dispositions' full text and standing are in each reading below. Section 2.5 is also the wrong rule for candidate 1 (its trigger is unreviewable discretion); the governing family is section 8.8, in a cell holding 15 instances across 9 documents and no adjudicated precedent. ORIGINAL NOTE FOLLOWS, left as written per the corrections-are-new-text discipline: 4 obligation-bearing clauses vs 2 items_annotated. 2 clauses are AMBIGUOUS -- logged as a NEW TRACKED FINDING in CLAUDE.md (2026-09-04), deliberately NOT folded into SPLITTING_EXCLUSION_INVESTIGATION.md decisions 2-4 since it is a new discovery, not a known open question resurfacing. Checked directly rather than taken on citation: the precedent C02-04 cites (\"C14-139's Q1\") is forward guidance in a logged exclusion entry, never tested against a locked item -- neither candidate here matches either real precedent cleanly. Two real sub-questions scoped in CLAUDE.md: (a) does bare cost-allocation with no act-verb clear section 2.5's monitorable-stakes bar, (b) how does section 3.5.3 handle a fully agentless, partyless sentence with no worked precedent. IF BOTH CLAUSES ARE GENUINE, the segment totals 4 -- OVER section 2's 1-3 eligibility band, threatening C14-01/C14-02's own locked status. Scheduled as its own dedicated session, same tier as decisions 2-4 -- can wait alongside them, no urgency before batches 4-10 resume. C14-01/C14-02 are NOT themselves in question, only whether the segment is under-annotated."
   },
   "dispositions": [
     {
@@ -28,6 +28,14 @@
       "item_id": "C14-01"
     },
     {
+      "span_char_start": 178,
+      "span_char_end": 184,
+      "span_text": ", and ",
+      "disposition": "NOT_OBLIGATION_BEARING",
+      "rule": "§2.6",
+      "reason": "Leading list/section-number marker or inter-clause connective (', and ' connecting the two split-span duties, §8.3.1) -- no clause content of its own; closes full sentence coverage alongside the adjacent ANNOTATED item(s)."
+    },
+    {
       "span_char_start": 184,
       "span_char_end": 253,
       "span_text": "shall promptly furnish such other party with appropriate tax receipts",
@@ -35,6 +43,14 @@
       "rule": "-",
       "reason": "Covers locked item C14-02 (§8.3.1 split-span case, disjoint from C14-01 within the same sentence).",
       "item_id": "C14-02"
+    },
+    {
+      "span_char_start": 253,
+      "span_char_end": 254,
+      "span_text": ".",
+      "disposition": "NOT_OBLIGATION_BEARING",
+      "rule": "§2.6",
+      "reason": "Leading list/section-number marker or inter-clause connective (trailing '.') -- no clause content of its own; closes full sentence coverage alongside the adjacent ANNOTATED item(s)."
     },
     {
       "span_char_start": 255,
@@ -57,38 +73,36 @@
     },
     {
       "span_char_start": 420,
-      "span_char_end": 571,
-      "span_text": "Israel value added tax shall be added, if applicable, to all amounts payable hereunder and will be paid against submission of appropriate tax invoices.",
-      "disposition": "AMBIGUOUS",
-      "rule": "no identifiable exclusion rule -- NEW FINDING, not in the investigation's original 9",
-      "reason": "'Israel value added tax shall be added ... and will be paid against submission of appropriate tax invoices' -- an agentless passive MUST clause (no party named at all, so §3.5.3's obligor/obligee-ABSENT treatment would apply if annotated). CONSEQUENTIAL: same band-risk note as the preceding sentence -- together these two would put the segment at 4 obligation-bearing clauses, over the 1-3 ceiling that governed this segment's own eligibility at draft time.",
-      "readings": [
-        {
-          "reading": "Genuine MUST item (best attempt)",
-          "detail": "§3.5.3 agentless-passive treatment: obligor ABSENT (no agent stated), obligee ABSENT (no party named at all), underspecified=true. No rule excludes it as written. AMENDED 2026-09-05, checked against section 3.5.3's actual rule text rather than its worked cases: the rule ANTICIPATES this shape in terms -- 'Where no party is named at all, or more than one candidate is equally available, obligee = ABSENT' -- so field assignment is decidable by citation and is NOT the open question. The genuinely novel part is downstream: NO locked item among the 32 has BOTH slots ABSENT (the only two obligor-ABSENT items, C04-03 and C14-05, each carry an in-span obligee), so under section 5's 'ABSENT matches ABSENT' this would be the first item where two of eight scored clauses pass on a vacuous match -- a section 5/5.1 question, never asked. SPLITTING: the two verbs have DIFFERENT OBLIGORS (the payee adds VAT to its invoice; the payer pays it) and one item has one obligor slot, so this is TWO clauses independent of section 4.3's judgment call. Measured recurrence: 62 fully-partyless agentless performance passives (3.1% of modal sentences) across the 10 registry-backed documents."
-        },
-        {
-          "reading": "Excluded by the cold annotator (CORRECTED 2026-09-05 — this reading previously asserted that neither annotator flagged the sentence)",
-          "detail": "CORRECTION: the previous text read 'Same as the preceding sentence: neither annotator flagged it, but neither recorded a reason.' FALSE. The cold annotator disposed of this sentence at length AND wrote out the competing section 3.5.3 reading in full, including obligor ABSENT / obligee ABSENT, the two-verb split, and 'if applicable' as a conditions entry. BUT THIS DISPOSITION IS CONTAMINATED AND MUST NOT BE RELIED ON: cold's second stated ground is 'admitting it would take the segment to 3-4 obligation-bearing clauses, pressing section 2's 1-3 band for no gain' -- reasoning backwards from the eligibility outcome, which is exactly what C14-139's process fix forbids ('eligibility is decided before content is adjudicated'). Cold's first ground (a tax-treatment rule rather than a commanded act) survives; its second does not. Source: holdout/cold/17_C14-076.json's segment_notes; audited across all 22 retrofitted segments by holdout/band_risk/cold_dispositions.py"
-        }
-      ],
-      "escalation_ref": "CLAUDE.md carried-forward debt list, \"NEW TRACKED FINDING, 2026-09-04\" -- its own scoped, unresolved finding, deliberately kept separate from SPLITTING_EXCLUSION_INVESTIGATION.md decisions 2-4. Precedent checked directly and found not to hold cleanly for either candidate (see that entry's full text)."
+      "span_char_end": 506,
+      "span_text": "Israel value added tax shall be added, if applicable, to all amounts payable hereunder",
+      "disposition": "NOT_OBLIGATION_BEARING",
+      "rule": "§3.2 / §2 -- stative pricing (gross-up) statement, not a commanded act",
+      "reason": "RULED 2026-09-18 (reviewer, guideline v0.57; full record holdout/C14_076_INVESTIGATION.md §10, item C14-06's annotator_notes). A STATIVE PRICING / GROSS-UP STATEMENT, not a commanded act: its object is an AMOUNT, and its work is to say the sums stated elsewhere are VAT-exclusive. Supported by C02-044's structurally near-identical twin in another document -- 'Such VAT and taxes, if any, will be payable in addition to the Transfer Price' -- which the corpus itself treats as the NON-OBLIGATION half of the same two-job split, writing the payment half separately and WITH an explicit by-agent ('will be paid BY AMAG to Antares'), same modal. NOT resolved by adjudicated precedent, because none exists: of 9 tax-treatment sentences in 8 documents, exactly one had ever been classified and it was this sentence, as AMBIGUOUS. PRIOR AMBIGUOUS REASON FOLLOWS, left as written per the corrections-are-new-text discipline: 'Israel value added tax shall be added ... and will be paid against submission of appropriate tax invoices' -- an agentless passive MUST clause (no party named at all, so §3.5.3's obligor/obligee-ABSENT treatment would apply if annotated). CONSEQUENTIAL: same band-risk note as the preceding sentence -- together these two would put the segment at 4 obligation-bearing clauses, over the 1-3 ceiling that governed this segment's own eligibility at draft time."
     },
     {
-      "span_char_start": 178,
-      "span_char_end": 184,
-      "span_text": ", and ",
+      "span_char_start": 506,
+      "span_char_end": 511,
+      "span_text": " and ",
       "disposition": "NOT_OBLIGATION_BEARING",
       "rule": "§2.6",
-      "reason": "Leading list/section-number marker or inter-clause connective (', and ' connecting the two split-span duties, §8.3.1) -- no clause content of its own; closes full sentence coverage alongside the adjacent ANNOTATED item(s)."
+      "reason": "Inter-clause connective (' and ') joining the excluded gross-up clause to the annotated payment duty -- no clause content of its own. Same treatment as this segment's own ', and ' at [178:184]."
     },
     {
-      "span_char_start": 253,
-      "span_char_end": 254,
+      "span_char_start": 511,
+      "span_char_end": 570,
+      "span_text": "will be paid against submission of appropriate tax invoices",
+      "disposition": "ANNOTATED",
+      "rule": "-",
+      "item_id": "C14-06",
+      "reason": "Covers locked item C14-06 -- the genuine duty: MUST, PAY, obligor ABSENT, obligee ABSENT (§3.5.3, same treatment as C04-06/C11-03), conditioned on invoice submission. NOTE the item's own span_text is [420:570], NOT this clause alone: §3.1 requires the minimal contiguous substring stating the COMPLETE obligation, and the bare predicate does not say what is paid (§8.3.1 option 3, 'unreachable by the pipeline'). The disposition is per-CLAUSE, the span is per-ITEM, and this segment already carries that shape -- C14-02's span [12:253] likewise contains a NOT_OBLIGATION_BEARING connective."
+    },
+    {
+      "span_char_start": 570,
+      "span_char_end": 571,
       "span_text": ".",
       "disposition": "NOT_OBLIGATION_BEARING",
       "rule": "§2.6",
-      "reason": "Leading list/section-number marker or inter-clause connective (trailing '.') -- no clause content of its own; closes full sentence coverage alongside the adjacent ANNOTATED item(s)."
+      "reason": "Trailing '.' -- no clause content of its own; closes full sentence coverage. Same treatment as this segment's own '.' at [253:254]."
     }
   ],
   "not_annotatable": [
@@ -115,6 +129,12 @@
       "span_char_end": 419,
       "span_text": "Each party will be solely responsible for any and all taxes imposed thereon, including, without limitation, all income taxes, sales taxes, goods and services taxes.",
       "reason": "RULED 2026-09-17 (guideline v0.56, §14.4 §10 amendment session; full record in holdout/C14_076_INVESTIGATION.md §9). §8.8.4: in `be`/`remain responsible`/`liable for X` THE COMPLEMENT DECIDES, NOT THE CONSTRUCTION. This complement — 'any and all taxes imposed thereon' — names a BURDEN THE OBLIGOR MUST ABSORB, not a performance it must render or procure: the clause answers 'whose pocket?', not 'who must act?', and commands no conduct, which is §8.8.1's own removal test. THE PRIOR AMBIGUOUS REASON'S CITATION IS FALSIFIED AND IS THE REASON THE RULE IS ABOUT THE COMPLEMENT: it read C02-045 as 'almost identical \"shall be solely responsible for\" language', but C02-045 is 'responsible for THE TIMELY PAYMENT OF all such VAT and taxes TO THE APPLICABLE GOVERNMENTAL AUTHORITY' — an act, a payee and a standard, RENDER, locked as C02-04 action PAY. Near-identical construction, opposite complement. Measured over the 1,547-segment pool: 121 sentences, 106 segments; of 99 affirmative, RENDER 72 (17 docs) vs ABSORB 24 (11 docs). Discriminator 1 — the corpus writes 64 EXPLICIT pay/bear-the-cost duties across 17 documents, including all 9 of the 9 that also carry a cost-allocation instance, so allocation and payment are separately drafted. BAND CONSEQUENCE, STATED AGAINST INTEREST: this exclusion does NOT rescue the segment. Candidate 2 ALONE takes it to 4 obligation-bearing clauses (its two verbs have different obligors — investigation §4), so the segment stays ESCALATED_BAND_RISK and C14-01/C14-02's locked status is still undecided. ORIGINAL AMBIGUOUS REASON FOLLOWS, left as written per the corrections-are-new-text discipline: 'Each party will be solely responsible for any and all taxes imposed thereon ...' -- a plain 'each party'-subject MUST clause (same distributive-obligor shape as this segment's own C14-01/C14-02) with real precedent for annotatability: C02-045's locked item uses almost identical 'shall be solely responsible for' language. CONSEQUENTIAL: see this segment's reconciliation note -- if this and the next sentence are both genuine obligation-bearing clauses, the segment holds 4, over §2's 1-3 band."
+    },
+    {
+      "span_char_start": 420,
+      "span_char_end": 506,
+      "span_text": "Israel value added tax shall be added, if applicable, to all amounts payable hereunder",
+      "reason": "RULED 2026-09-18 (reviewer, guideline v0.57; full record holdout/C14_076_INVESTIGATION.md §10, item C14-06's annotator_notes). A STATIVE PRICING / GROSS-UP STATEMENT, not a commanded act: its object is an AMOUNT, and its work is to say the sums stated elsewhere are VAT-exclusive. Supported by C02-044's structurally near-identical twin in another document -- 'Such VAT and taxes, if any, will be payable in addition to the Transfer Price' -- which the corpus itself treats as the NON-OBLIGATION half of the same two-job split, writing the payment half separately and WITH an explicit by-agent ('will be paid BY AMAG to Antares'), same modal. NOT resolved by adjudicated precedent, because none exists: of 9 tax-treatment sentences in 8 documents, exactly one had ever been classified and it was this sentence, as AMBIGUOUS. PRIOR AMBIGUOUS REASON FOLLOWS, left as written per the corrections-are-new-text discipline: 'Israel value added tax shall be added ... and will be paid against submission of appropriate tax invoices' -- an agentless passive MUST clause (no party named at all, so §3.5.3's obligor/obligee-ABSENT treatment would apply if annotated). CONSEQUENTIAL: same band-risk note as the preceding sentence -- together these two would put the segment at 4 obligation-bearing clauses, over the 1-3 ceiling that governed this segment's own eligibility at draft time."
     }
   ]
 }

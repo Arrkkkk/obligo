@@ -374,19 +374,28 @@ def test_new_items_are_outside_the_published_run_and_would_have_moved_K(cold):
          PAIRS, and an unscoped reproduction would have silently recomputed a
          published K over gold the run never saw.
 
-    A future §7 re-run is a different measurement over the current 34-item set
+    A future §7 re-run is a different measurement over the current 36-item set
     and SHOULD include them. It must not reuse `published_population()`.
+
+    v0.57 UPDATE, and it splits fact 2 in two. `C14-06` is the fourth addition
+    and the FIRST WITH NO COLD COUNTERPART: cold EXCLUDED `C14-076`'s VAT
+    sentence in prose rather than annotating it, so there is no cold item at
+    that span. That is not a weaker version of the same fact, it is the
+    opposite one, and it matters -- the other three COULD have moved a
+    published K had the reproduction not been scoped, whereas `C14-06` could
+    not have moved it even in principle. Both facts are asserted separately so
+    neither is read as covering the other.
     """
     published = published_population()
     live = {i["item_id"] for items in _load_gold().values() for i in items}
 
     added = live - published
-    assert added == {"C11-02", "C04-06", "C11-03"}, added
+    assert added == {"C11-02", "C04-06", "C11-03", "C14-06"}, added
     assert len(published) == 32
-    assert len(live) == 35
+    assert len(live) == 36
 
-    # Fact 2: each new item pairs against a real cold item at the same span,
-    # so excluding them is a deliberate scope decision, not a no-op.
+    # Fact 2a: three of the four pair against a real cold item at the same
+    # span, so excluding them is a deliberate scope decision, not a no-op.
     for item_id, segment_id, char_start in [("C11-02", "C11-094", 1093),
                                             ("C04-06", "C04-117", 1442),
                                             ("C11-03", "C11-094", 822)]:
@@ -396,6 +405,16 @@ def test_new_items_are_outside_the_published_run_and_would_have_moved_K(cold):
         cold_spans = [c["span_text"] for c in cold[segment_id]]
         assert any(c in gold_item["span_text"] for c in cold_spans), (
             f"{item_id} has no cold counterpart; the premise of this test is wrong")
+
+    # Fact 2b: C14-06 has NO cold counterpart -- cold disposed of the sentence
+    # in `segment_notes` prose instead of annotating it. Pinned positively so a
+    # future §7 re-run does not assume every added item brings a pair with it.
+    c1406 = next(i for items in _load_gold().values() for i in items
+                 if i["item_id"] == "C14-06")
+    assert c1406["span_char_start"] == 420
+    assert not any(c["span_text"] in c1406["span_text"] for c in cold["C14-076"]), (
+        "C14-06 now has a cold counterpart; fact 2b is stale and the v0.57 "
+        "reasoning that it could not have moved K needs re-checking")
 
 
 def test_published_scope_fails_loudly_if_a_published_item_vanishes():

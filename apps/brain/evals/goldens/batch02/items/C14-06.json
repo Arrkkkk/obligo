@@ -1,0 +1,67 @@
+{
+ "item_id": "C14-06",
+ "doc_id": "C14",
+ "segment_id": "C14-076",
+ "stratum": "standard",
+ "segment_text": "8.5. TAXES. Each party shall deduct such taxes from the payments due to the other party hereunder as required by law including withholding taxes (unless an exemption is provided), and shall promptly furnish such other party with appropriate tax receipts. Each party will be solely responsible for any and all taxes imposed thereon, including, without limitation, all income taxes, sales taxes, goods and services taxes. Israel value added tax shall be added, if applicable, to all amounts payable hereunder and will be paid against submission of appropriate tax invoices.",
+ "span_char_start": 420,
+ "span_char_end": 570,
+ "span_text": "Israel value added tax shall be added, if applicable, to all amounts payable hereunder and will be paid against submission of appropriate tax invoices",
+ "modality": "MUST",
+ "action": "PAY",
+ "action_accept_set": [
+  "PAY"
+ ],
+ "obligor": "ABSENT",
+ "obligor_accept_set": [],
+ "obligee": "ABSENT",
+ "object_class": "israel_vat",
+ "object_class_accept_set": [
+  "israel_vat",
+  "value_added_tax",
+  "vat",
+  "taxes",
+  "tax"
+ ],
+ "temporal": null,
+ "conditions": [
+  "if applicable",
+  "against submission of appropriate tax invoices"
+ ],
+ "underspecified": true,
+ "missing_fields": [
+  "obligor",
+  "obligee"
+ ],
+ "vague_temporal_phrase": null,
+ "redacted_phrase": null,
+ "known_gaps": [
+  "shared_subject_split"
+ ],
+ "annotator_confidence": "CONFIDENT",
+ "annotated_at": "2026-09-18T00:00:00+00:00",
+ "rules_cited": [
+  "2",
+  "2.7",
+  "3.1",
+  "3.2",
+  "3.4",
+  "3.5",
+  "3.5.3",
+  "3.6",
+  "3.7",
+  "3.8",
+  "3.8.2",
+  "3.9",
+  "4.3",
+  "8",
+  "8.3.1",
+  "10.2",
+  "17.1",
+  "21"
+ ],
+ "guideline_version": "v0.57",
+ "reviewer_status": "APPROVED",
+ "adjudicated_by": "reviewer",
+ "annotator_notes": "REVIEWER RULING, 2026-09-18 (guideline v0.57). C14-076 candidate 2's §14.4 band-eligibility escalation, open since 2026-09-04. Full investigation: holdout/C14_076_INVESTIGATION.md §10. RULED: VERB 2 ONLY. The sentence yields ONE item, not two and not zero, so the segment stands at 3 obligation-bearing clauses -- AT §2's 1-3 band ceiling and therefore ELIGIBLE, consistent with C11-094 and C17-021, which the v0.50 ruling records as 'NOT §2 band violations -- both sit exactly at the 1-3 band's ceiling at 3 and were correctly eligible'. C14-01/C14-02 stay locked and are no longer at band risk.\n\nVERB 1 -- 'Israel value added tax shall be added, if applicable, to all amounts payable hereunder' -- IS NOT OBLIGATION-BEARING. It is a STATIVE PRICING / GROSS-UP STATEMENT, not a commanded act: its object is an AMOUNT, and its work is to say that the sums stated elsewhere are VAT-exclusive. Supported by C02-044's structurally near-identical twin in another document, 'Such VAT and taxes, if any, will be payable in addition to the Transfer Price' -- which the corpus itself treats as the NON-OBLIGATION half of the same two-job split, writing the payment half separately and WITH an explicit by-agent ('will be paid BY AMAG to Antares'), using the very same modal. Disposed at [420:506] as NOT_OBLIGATION_BEARING in this segment's own record.\n\nVERB 2 -- 'and will be paid against submission of appropriate tax invoices' -- IS THE GENUINE DUTY. modality MUST (§3.2: 'will' is MUST when it states an undertaking); action PAY; obligor ABSENT and obligee ABSENT, the same treatment as C04-06 and C11-03, and admitted by §3.5.3, which exists precisely to annotate agentless obligations -- two locked items, C04-03 and C14-05, are thing-subject agentless passives. Conditioned on invoice submission.\n\nTHIS IS NOT RESOLVED BY ADJUDICATED PRECEDENT, BECAUSE NONE EXISTS, AND THAT IS STATED RATHER THAN PAPERED OVER. A full census (band_risk/tax_treatment.py, 9 shapes cross-referenced against locked items, committed dispositions and all three exclusion logs) finds 9 tax-treatment sentences in 8 segments across 8 documents, of which EXACTLY ONE has ever been classified -- this sentence, and its classification was AMBIGUOUS. The class is ordinary; the gold set has simply never drawn another. (An earlier claim that the construction was 'unique pool-wide' was a narrow-regex artifact and is corrected at investigation §10.4.) The ruling therefore rests on two things, each disclosed as what it is and NEITHER oversold as binding:\n  (a) C02-044's REAL BUT SINGULAR structural twin -- suggestive corpus evidence, one instance. Supporting but not controlling: 6 of 6 comparable tax-payment duties in this corpus name the payer and candidate 2 alone does not, and the agentless-'will be paid' cell holds exactly two members corpus-wide, the other being C04-115's payment-SCHEDULE term. Against interest, §3.5.3 and the two locked agentless passives above cut the other way, so the convention is a tendency, not a rule.\n  (b) THE MODEL'S OWN REASONING TRACES -- model behaviour, not precedent and not authority. On all three recorded runs the model reaches this sentence, calls it an obligation (two of three say 'Two obligations', reaching the split independently), and drops it for ONE reason only: it cannot fill obligor_alias. Run 2: 'No party. So we cannot extract obligor_alias because not present. Must be literal within span_text. So we cannot include because obligor missing. So skip.' That is the KNOWN, UNRELATED §10.1 F14 obligor-schema gap (the prompt never states an empty alias is permitted; obligor_alias is empty on 0 of 81 candidates), NOT any judgment that the clause states no duty. The 0-of-3 emission rate must not be read as evidence for excluding the clause -- see investigation §10.6, where the first version of that disclosure characterised it backwards and is corrected.\n\nSPAN -- §3.1 requires the MINIMAL CONTIGUOUS substring that states the COMPLETE obligation. 'will be paid against submission of appropriate tax invoices' alone does not say WHAT is paid, and its object_raw_text would sit outside the span, which is §8.3.1's option 3 -- the one that table marks 'NESTED_FIELD_NOT_IN_SPAN -- unreachable by the pipeline'. The span therefore runs from the shared subject through the end of verb 2's phrase, [420:570], exactly §8.3.1's adopted option 4, and unavoidably contains verb 1. That is not an inconsistency with verb 1's own NOT_OBLIGATION_BEARING disposition: this segment ALREADY has that shape, since C14-02's span [12:253] contains the connective at [178:184] disposed NOT_OBLIGATION_BEARING. Tagged shared_subject_split, whose v0.31 meaning is exactly 'the span runs contiguously from the shared subject through the end of its own verb phrase'. ONE DIFFERENCE IS RECORDED RATHER THAN CONFLATED: for C14-02 the preceding clause is a SIBLING ITEM, here it is a NON-OBLIGATION, so the spans are not nested against another item and §4.1 cannot collide.\n\nCONDITIONS -- two entries. 'against submission of appropriate tax invoices' is the reviewer's stated gating condition (a condition, not a temporal: 'against' is not one of §3.7's five frozen forms). 'if applicable' is included because if no VAT is applicable there is none to pay, so it gates this duty too, and it is in-span. FLAGGED: entry count here is exactly the §3.8.2 convention that §7's REDESIGN response lists as still unvalidated, so this is a defensible call under the current rule text and not a settled one.\n\nNO PUBLISHED FIGURE MOVES. This item is stamped v0.57 against C14-076's v0.28 cassettes, so F16's per-item check makes it cassette-unscoreable and report.py's G8 discloses it -- the same position C11-02 and C04-06 are in. Backdating the stamp to force a cassette match is refused per §22.1. known_gaps is non-empty, so it is outside §9.1's in-force denominator by construction in any event."
+}
