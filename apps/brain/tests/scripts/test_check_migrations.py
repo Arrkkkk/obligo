@@ -17,10 +17,21 @@ from __future__ import annotations
 
 import json
 import os
+from pathlib import Path
 
 import pytest
 
 from obligo_brain.scripts import check_migrations
+
+# check_migrations.MIGRATIONS_DIR is deliberately RELATIVE TO CWD, to match
+# ci-brain.yml's own "-locations=filesystem:..." string rather than compute an
+# absolute path from __file__. That module comment asserts "every caller (the
+# Makefile target, ci-brain.yml, pytest) already runs from the repo root" --
+# true of the first two, and true of pytest only when pytest is invoked from
+# the repo root, which is an invocation convention rather than anything pytest
+# guarantees. `cd apps/brain && pytest` is an ordinary way to run this suite
+# and it silently broke the live test below.
+REPO_ROOT = Path(__file__).resolve().parents[4]
 
 _CLEAN_FIXTURE = json.dumps(
     {
@@ -88,5 +99,33 @@ def test_find_drifted_flags_every_non_success_state_not_only_pending():
     ),
     reason="DATABASE_URL/APP_DB_PASSWORD/BRAIN_DB_PASSWORD not set -- skipping real check",
 )
-def test_main_finds_no_drift_against_the_real_dev_branch():
+def test_main_finds_no_drift_against_the_real_dev_branch(monkeypatch):
+    monkeypatch.chdir(REPO_ROOT)
     assert check_migrations.main() == 0
+
+
+@pytest.mark.skipif(
+    not (
+        os.environ.get("DATABASE_URL")
+        and os.environ.get("APP_DB_PASSWORD")
+        and os.environ.get("BRAIN_DB_PASSWORD")
+    ),
+    reason="DATABASE_URL/APP_DB_PASSWORD/BRAIN_DB_PASSWORD not set -- skipping real check",
+)
+def test_main_reports_drift_from_the_wrong_cwd_even_on_a_fully_migrated_database(
+    monkeypatch, tmp_path
+):
+    """The cause of the test above's chdir, pinned so it cannot silently return.
+
+    Run from anywhere but the repo root, `-locations=filesystem:<relative>`
+    resolves to a directory that does not exist, Flyway resolves ZERO local
+    migrations, and every row already in flyway_schema_history comes back
+    `Future` -- which reads as "not applied yet" and is in fact the opposite:
+    applied in the database, unresolvable on disk.
+
+    This is the Standing Principle 7 shape on a detector whose wrong answer is
+    not merely wrong but INVERTED, and it is why a red `main()` is evidence
+    about a path before it is evidence about a database.
+    """
+    monkeypatch.chdir(tmp_path)
+    assert check_migrations.main() == 1
