@@ -188,6 +188,13 @@ imposed on it by any Governmental Authority."*
 
 ### 2.4 Status: ESCALATED as §10 amendment territory, NOT ruled
 
+> **CLOSED 2026-09-17 — see §9. This subsection is a DATED RECORD, not live status.** The
+> amendment is guideline **§8.8.4** (v0.56) and candidate 1 is ruled `NOT_OBLIGATION_BEARING`.
+> **The starting point proposed below does not survive**: it has no cell for `C03-024` at all, so
+> it could not be "drafted against" it as written — §9.1. The governing axis is the complement
+> (RENDER vs ABSORB), and the class is **24 instances across 11 documents, not 15 across 9**
+> (§9.3). Left unedited per the corrections-are-new-text discipline.
+
 Under §14.4 — *"repeated uncertainty is a missing rule, and converting it into one is the
 entire point of the pre-freeze period"* — 15 instances across 9 documents is a guideline
 amendment, not a per-item adjudication.
@@ -613,3 +620,139 @@ It rules neither F14 nor F15; it does not restamp any item; it does not touch a 
 `guideline_version` changes, so `Cassette.verify()` is unaffected and §22's conforming blocker is
 not engaged); it does not change any published figure, including criterion 2's `3/9 = 33.3%`; and
 it does not rule `C14-076`'s band eligibility, which remains escalated on its own merits.
+
+---
+
+## 9. Addendum (2026-09-17) — candidate 1's escalation is CLOSED by a §10 amendment, guideline §8.8.4 / v0.56
+
+§2.4 escalated candidate 1 as **§10 amendment territory, not a per-item adjudication**, and
+required the rule be drafted against `C03-024` rather than against `C14-076` alone. That has now
+been done. The rule is **guideline §8.8.4**; this section records what the drafting found, in
+particular the three things that did **not** survive contact with the full instance set.
+
+### 9.1 The starting point could not classify the case it was to be drafted against
+
+§2.4's proposed binary — *"act-nominalisation complement → obligation-bearing; bare-burden
+complement → §8.8 status class"* — was offered explicitly as a starting point. **It has no cell
+for `C03-024`.** *"such Affiliate's **failure** to satisfy its obligations hereunder"* carries no
+cost word and no act nominalisation, so `responsible_for.py` files it in `OTHER`, not in the
+bare-burden cell the escalation was written about.
+
+This is worth stating plainly because §2.4's own framing understated it: it said the binary *"must
+be drafted against `C03-024`"* and that *"the line is sharp for cost allocation and fuzzy for
+accountability allocation."* The line is not fuzzy there — **it is absent**. Drafting against
+`C14-076` alone would have shipped a rule with a hole exactly where the instruction pointed, and
+the hole would not have been visible from `C14-076`, whose complement the binary classifies fine.
+
+### 9.2 What replaced it: the complement, on §8.8.1's own removal test
+
+> Does the complement name a **performance** the obligor must render or procure (**RENDER** →
+> obligation-bearing), or a **burden** it must absorb (**ABSORB** → §8.8's copular status class)?
+
+`C03-024` is **ABSORB**, on the limb the binary lacked — *another person's breach or failure*. Its
+contrast pair is in the same document, and that pair, not `C14-076`, is what §8.8.4 is drafted
+against:
+
+| | | |
+| :--- | :--- | :--- |
+| `C03-016` | *"AT&T Mobility LLC shall be responsible for any and all **obligations** of any such Affiliate"* | **RENDER** |
+| `C03-024` | *"AT&T Mobility LLC shall remain liable for such Affiliate's **failure** to satisfy its obligations"* | **ABSORB** |
+
+Same document, same obligor, same Affiliate-accountability subject, opposite complements.
+Accountability for a third party therefore **splits 4–3** rather than falling to one side. `C03-024`
+carries an independent second ground: it is a `so long as` proviso **conditioning a permitted
+assignment**, not a standalone undertaking.
+
+### 9.3 Three corrections to §2's own record
+
+1. **The class is LARGER than §2.3 reported — 24 instances across 11 documents, not 15 across 9.**
+   §2.3's cell counted only the cost sub-shape, with a head test that required the head noun to
+   follow a fixed determiner prefix. The class §8.8.4 governs also holds *risk* allocation (4:
+   `C14-118`, `C17-028`, `E08-022`, `C11-070`) and *another's fault* (3: `C03-024`, `C04-151`,
+   `C13-008`). **`C03-024`'s own limb is the smallest at 3** — which is exactly why it needed
+   drafting rather than discovering later.
+2. **§2.1's reading of `C04-163` is confirmed and sharpened.** §2.2 correctly found that `C04-163`
+   was excluded on **polarity**, not complement type. §8.8.4 makes that structural: polarity is a
+   **prior filter**, and the complement axis does not answer for it. The classifier's first
+   known-answer block asserted `C04-163`'s affirmative class and **correctly FAILED** — the
+   detector refusing to let one axis stand in for the other.
+3. **A citation in a committed artifact is falsified.** `C14-076` candidate 1's `AMBIGUOUS`
+   disposition rested on *"`C02-045`'s locked item uses almost identical 'shall be solely
+   responsible for' language."* `C02-045` is *"responsible for **the timely payment of** all such
+   VAT and taxes **to the applicable Governmental Authority**"* — act, payee, standard; RENDER;
+   locked as `C02-04`, `action: PAY`. `C14-076` is *"responsible for **any and all taxes imposed
+   thereon**"*. **Near-identical construction, opposite complement — which is the whole reason
+   §8.8.4 is about the complement and not the construction.**
+
+### 9.4 Exposure against locked segments: measured, and it is one
+
+Against all **22** locked gold segments the construction appears in four. Three need nothing:
+`C02-045` is RENDER and already annotated consistently; `C04-117` and `E07-010` are removed by
+prior filters (not-the-main-predicate and non-party subject respectively) and were **already**
+disposed of that way in their own committed files. `C04-117` is the instructive one — its
+*"negotiate … **which Party(ies) is/are responsible for** payment"* sits **inside locked item
+`C04-02`'s own span**, as the content of a negotiation rather than an allocation.
+
+The single ABSORB hit is **`C14-076` candidate 1**, the span that raised the question. **No locked
+item is touched and nothing is restamped.**
+
+### 9.5 Against interest, and it is the point of §4
+
+**Ruling candidate 1 does NOT rescue `C14-076`'s band**, and §4's correction (1) is restated here
+because settling candidate 1 makes it tempting to read the risk as reduced. Candidate 2 **alone**
+takes the segment to 4 obligation-bearing clauses — its two verbs carry different obligors — so the
+segment stays `ESCALATED_BAND_RISK`, candidate 2 stays `AMBIGUOUS`, and `C14-01`/`C14-02`'s locked
+status stays undecided. The ruling that would most help the segment is the one this amendment
+declines to make.
+
+**A second against-interest measurement, found by running the scorer rather than reasoned about:**
+the model **does** emit a candidate at candidate 1's span, on run 1 of 3. Before this ruling it was
+counted as an UNEXPECTED prediction; it is now set aside as `not_annotatable`. That the extractor
+reads the clause as obligation-bearing is real and is disclosed — it is not authority (the
+extractor over-extracts by design, and §8.8's whole excluded class is populated with clauses that
+look like obligations), but it is the kind of fact that should be on the record rather than left
+for someone else to find.
+
+### 9.6 The detector faults, and one escalation trigger
+
+Four of 99 affirmative sentences (**4.0%**) need reading to override the head-noun proxy; all four
+are enumerated with reasons in `band_risk/responsible_for_rule.py`'s `READING_OVERRIDES`, which
+prints raw and read-corrected counts side by side so the rate stays visible. Two are singleton
+structural faults (a coordinated predicate at `C05-057`; subject negation at `C15-052`, which
+§8.8.1's worked cases do not cover). One is an embedded clause (`C11-070`) that would have been
+counted ABSORB — the right answer for the wrong reason.
+
+**The fourth is not an error but a genuinely third shape, and §8.8.4 names it as an escalation
+trigger rather than forcing it:** `C03-107`'s *"AT&T shall be responsible for such
+**determinations**"*, where the same sentence has AT&T already making and notifying them. A
+nominalisation of a **completed act of the obligor's own** is neither rendering a performance nor
+absorbing an allocated burden. `determination` is deliberately in **neither** vocabulary.
+
+Two further faults were found and kept in the script's own docstring, both by known-answer checks
+rather than by re-reading patterns: a skip-the-adjectives head extractor that silently returned
+adjectives as heads on 15 instances, and — after replacing it — a gerund test that classified
+*"all travel and **living** expenses"* as RENDER on a deverbal **adjective**.
+
+### 9.7 Status
+
+| | |
+| :--- | :--- |
+| Candidate 1 (`C14-076`) | **CLOSED** — `NOT_OBLIGATION_BEARING` under §8.8.4; escalation discharged |
+| `C03-024` | **RULED ABSORB**, and is the case the rule is drafted against |
+| The rule | **guideline §8.8.4**, v0.56 |
+| Candidate 2 (`C14-076`) | **STILL ESCALATED** — unaffected; §8.0's non-dependence still holds |
+| `C14-076` band eligibility | **STILL OPEN** — candidate 2 alone decides it |
+| `C14-01` / `C14-02` | **NOT in question**, as §4 and §8.7 already recorded |
+| Published figures | **UNMOVED** — in-force criterion 2 `3/9 = 33.3%`, all-items `5/15`, `K` `14/32`, confirmed by a real `run_scoring.run()` |
+| Items restamped / cassettes staled | **none / none** |
+
+### 9.8 What this section deliberately does not do
+
+It does not rule candidate 2, and does not touch `C14-076`'s band eligibility. It rules nothing
+about `action` mappings and changes no accept-set. It does not resolve §10.1 F14 or F15, which
+§8.0 already established are not prerequisites for the band question either. And it does not act
+on the functional-domain sub-shape §8.8.4 names as a forward note (*"all matters relating to
+compensation and benefits"*, *"the logistics"*, *"all regulatory activities"*) — those are
+obligation-bearing and unspecific, likely §8.8 genuine-gap on `action` and hard for §3.6 on
+`object_class`, and are recorded so the next annotator recognises the shape rather than
+rediscovering it.

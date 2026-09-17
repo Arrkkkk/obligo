@@ -1,6 +1,6 @@
 # Obligo Tier-2 Gold Set — Annotation Guideline
 
-**Version:** v0.55 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**. **v0.33 puts §9's dual denominator IN FORCE** on two independent grounds, adds §5 clause 5's number rule, §3.4's bounded freeze-pass exception, and the forward authoring rules §3.6 / §3.8.2 / §3.5.1 — **no annotation rule changed, no item restamped, no cassette stale**. **v0.34 records two MEASUREMENT corrections and changes no rule either** — §8.9's `on`/`until` rows and §15.3's loud-versus-silent class placement, both falsified by real model output from the compile-stage bottleneck investigation. **v0.35 adds §4.3.2** — a third splitting shape distinct from both existing §4.3 worked examples, reviewer-ruled at batch 3's `C04-139`: self-performance vs. a duty to bind/control a third party's conduct splits into two items even when the two verbs share an object phrase and a sentence subject, because the two performances do not share an actor. **v0.36 amends §4.2** — the resulting byte-identical spans (`C04-139`'s shared trailing object leaves neither item's minimal span shorter than the other's) break IoU's ability to discriminate between the two gold items, so a content-based tie-break on `action_accept_set` membership is added, falling through to ascending `item_id` when the tie-break itself is inconclusive. **v0.37 adds a
+**Version:** v0.56 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**. **v0.33 puts §9's dual denominator IN FORCE** on two independent grounds, adds §5 clause 5's number rule, §3.4's bounded freeze-pass exception, and the forward authoring rules §3.6 / §3.8.2 / §3.5.1 — **no annotation rule changed, no item restamped, no cassette stale**. **v0.34 records two MEASUREMENT corrections and changes no rule either** — §8.9's `on`/`until` rows and §15.3's loud-versus-silent class placement, both falsified by real model output from the compile-stage bottleneck investigation. **v0.35 adds §4.3.2** — a third splitting shape distinct from both existing §4.3 worked examples, reviewer-ruled at batch 3's `C04-139`: self-performance vs. a duty to bind/control a third party's conduct splits into two items even when the two verbs share an object phrase and a sentence subject, because the two performances do not share an actor. **v0.36 amends §4.2** — the resulting byte-identical spans (`C04-139`'s shared trailing object leaves neither item's minimal span shorter than the other's) break IoU's ability to discriminate between the two gold items, so a content-based tie-break on `action_accept_set` membership is added, falling through to ascending `item_id` when the tie-break itself is inconclusive. **v0.37 adds a
 recommended `object_class` naming convention to §4.3.2** — `self_` / `third_party_` prefixes over
 a shared root, so future flow-down splits land on visibly parallel labels rather than an
 unrelated pair invented fresh each time. **v0.38 adds §3.2.1** — present-tense self-executing
@@ -155,7 +155,7 @@ segment count (153/1,547), and `C14-028` was drawn as the **twelfth** standard-q
 not the eleventh as originally written — both fixed in place per this document's own
 corrections-are-new-text discipline, not silently edited.
 **Created:** 2026-08-17
-**Status:** **32 items locked; ONE restamped at v0.52** (`C17-02`, §8.6.1/§10.1 F13 — `temporal` `null` → the `WITHIN` form; `C17-066`'s three cassettes are consequently **STALE**, re-record **deferred to §10's freeze pass** by reviewer ruling, so the item is known-stale and honestly labelled, the same footing §22.1 gives `C14-02`). **`C11-01`'s `annotator_notes` were corrected record-only at v0.52 with its stamp deliberately UNCHANGED** — the note contradicted the item's own §15.5-correct data, and restamping it would have staled three cassettes for nothing. ~~**TWO SPANS ARE NOW `PENDING_ANNOTATION` and are NOT yet items** — `C11-094` #3 and `C04-117` #1, ruled eligible by §10.2 (Decision 3); each owes its own §14.4 drafting session, with §8.8's taxonomy question flagged in its segment file.~~ **SUPERSEDED v0.53 — BOTH SPANS ARE NOW DRAFTED ITEMS, so the set stands at 34, not 32.** `C11-02` and `C04-06` — **both REVIEWER-APPROVED at v0.54** (`adjudicated_by: reviewer`; eligibility was `RULED_BY_REVIEWER` at v0.52, the field-level drafting approved as drafted, with the singleton accept-set kept, the sibling `object_class` divergence accepted as temporary, and `conditions: []` confirmed and generalised into §3.8). **Both keep `guideline_version: v0.53`** — the v0.54 rule confirms rather than changes their treatment, so restamping is refused per §22.1. §8.8's flagged taxonomy question is **ruled in §8.8.3, with the two verbs landing on opposite sides**: `purchase` → `PROCURE` is defensibly mappable (`C11-02` carries **no** tag and `known_gaps: []`), `defer` is a genuine gap (`C04-06` carries `action_not_in_taxonomy`). **Both are cassette-unscoreable today** — stamped `v0.53` against `v0.28`/`v0.48` cassettes, disclosed by G8, backdating rejected per §22.1 — so **no published figure moves: in-force criterion 2 stays `3/9 = 33.3%`, all-items `5/15`, `K` `14/32`**, confirmed by a real run. `C11-02` queues the in-force denominator to go **9 → 10** at §10's freeze-pass re-record (§9.2.1). **§10.1 F16 RESOLVED 2026-09-16 (commit `94a2daa`, CI run 35087036051 green) — `run_scoring.run()` now executes end to end against the committed gold set; see the F16 table row for the fix and the real-run confirmation.** *(Superseded text, left as written: "BLOCKING: `run_scoring.run()` cannot execute against the committed gold set at any single `guideline_version` (§10.1 F16), so no figure below can currently be confirmed by a run.")* — no item restamped at v0.45 (§5.1 governs annotator comparison only and touches no annotation rule) — batch 1 complete (10), batch 2 at 8 of 10 with two
+**Status:** **32 items locked; ONE restamped at v0.52** (`C17-02`, §8.6.1/§10.1 F13 — `temporal` `null` → the `WITHIN` form; `C17-066`'s three cassettes are consequently **STALE**, re-record **deferred to §10's freeze pass** by reviewer ruling, so the item is known-stale and honestly labelled, the same footing §22.1 gives `C14-02`). **`C11-01`'s `annotator_notes` were corrected record-only at v0.52 with its stamp deliberately UNCHANGED** — the note contradicted the item's own §15.5-correct data, and restamping it would have staled three cassettes for nothing. ~~**TWO SPANS ARE NOW `PENDING_ANNOTATION` and are NOT yet items** — `C11-094` #3 and `C04-117` #1, ruled eligible by §10.2 (Decision 3); each owes its own §14.4 drafting session, with §8.8's taxonomy question flagged in its segment file.~~ **SUPERSEDED v0.53 — BOTH SPANS ARE NOW DRAFTED ITEMS, so the set stands at 34, not 32.** **SUPERSEDED AGAIN, v0.56 — THE SET STANDS AT 35.** `C11-03` was ruled at v0.55 (`C11-094`'s last escalated span) and this line was not updated then, which is the fourth logged instance of exactly the drift §10's own close-out process note exists to catch — corrected in place here, per that note's rule that live status statements are corrected rather than struck. **v0.56 adds no item**: §8.8.4 rules `C14-076` candidate 1 `NOT_OBLIGATION_BEARING`, so the set stays at 35 and no published figure moves. `C11-02` and `C04-06` — **both REVIEWER-APPROVED at v0.54** (`adjudicated_by: reviewer`; eligibility was `RULED_BY_REVIEWER` at v0.52, the field-level drafting approved as drafted, with the singleton accept-set kept, the sibling `object_class` divergence accepted as temporary, and `conditions: []` confirmed and generalised into §3.8). **Both keep `guideline_version: v0.53`** — the v0.54 rule confirms rather than changes their treatment, so restamping is refused per §22.1. §8.8's flagged taxonomy question is **ruled in §8.8.3, with the two verbs landing on opposite sides**: `purchase` → `PROCURE` is defensibly mappable (`C11-02` carries **no** tag and `known_gaps: []`), `defer` is a genuine gap (`C04-06` carries `action_not_in_taxonomy`). **Both are cassette-unscoreable today** — stamped `v0.53` against `v0.28`/`v0.48` cassettes, disclosed by G8, backdating rejected per §22.1 — so **no published figure moves: in-force criterion 2 stays `3/9 = 33.3%`, all-items `5/15`, `K` `14/32`**, confirmed by a real run. `C11-02` queues the in-force denominator to go **9 → 10** at §10's freeze-pass re-record (§9.2.1). **§10.1 F16 RESOLVED 2026-09-16 (commit `94a2daa`, CI run 35087036051 green) — `run_scoring.run()` now executes end to end against the committed gold set; see the F16 table row for the fix and the real-run confirmation.** *(Superseded text, left as written: "BLOCKING: `run_scoring.run()` cannot execute against the committed gold set at any single `guideline_version` (§10.1 F16), so no figure below can currently be confirmed by a run.")* — no item restamped at v0.45 (§5.1 governs annotator comparison only and touches no annotation rule) — batch 1 complete (10), batch 2 at 8 of 10 with two
 items still undrawn, **batch 3's draw target is FULLY MET: 10 of 10 segments locked**
 (3 hard + 7 standard, per `draw.json`'s own `"count": 10, "hard": 3` — 14 items total, since
 `C13-017` is this batch's only two-item segment; `C14-044` originally yielded three drafted
@@ -966,6 +966,78 @@ corrections-are-new-text discipline with the correction recorded beside it. Wort
 pattern rather than a one-off: **a superseded rule quoted inside a segment file outlives the
 amendment that superseded it**, because §10's retroactive sweeps screen *items*, not the prose
 of segment notes.
+
+**v0.56 change: §10 AMENDMENT — §8.8.4 rules the `be`/`remain responsible`/`liable for X`
+construction, resolving `C14-076` candidate 1's §14.4 escalation. THE COMPLEMENT DECIDES, NOT THE
+CONSTRUCTION.** A complement naming a **performance** the obligor must render or procure is
+obligation-bearing; one naming a **burden** it must absorb — a cost, a risk, or **another person's
+breach or failure** — falls in §8.8's copular status class and is `NOT_OBLIGATION_BEARING`. **No
+locked item is touched, no accept-set moves, nothing is restamped, no cassette is staled, and no
+published figure moves: in-force criterion 2 stays `3/9 = 33.3%`, all-items `5/15`, `K` `14/32`** —
+confirmed by a real `run_scoring.run()`, not by hand. The set stays at **35** items.
+
+**The finding that set the section's shape: the starting point could not classify the case it was
+required to be drafted against.** `C14_076_INVESTIGATION.md` §2.4's proposed binary
+(act-nominalisation → obligation-bearing, bare-burden → status class) has **no cell for
+`C03-024`** — *"remain liable for such Affiliate's **failure** to satisfy its obligations"* carries
+neither a cost word nor an act nominalisation. The binary was not merely untested against the edge
+case, it was structurally unable to reach it, and drafting against `C14-076` alone would have
+shipped the hole.
+
+**`C03-024` is ruled ABSORB, and its contrast pair is in the same document** — `C03-016`'s
+*"responsible for any and all **obligations** of any such Affiliate"* is RENDER, against
+`C03-024`'s *"liable for such Affiliate's **failure** to satisfy its obligations"*. Same obligor,
+same Affiliate-accountability subject, opposite complements: accountability for a third party
+therefore splits **4–3** rather than falling to one side. `C04-088` repeats the pair inside one
+segment (*"all **arrangements** regarding loading, shipment"* then *"all of the following **costs
+and charges**"*, same obligor, adjacent sentences).
+
+**A CITATION ON THE RECORD IS FALSIFIED.** `C14-076` candidate 1's `AMBIGUOUS` disposition rests on
+*"`C02-045`'s locked item uses almost identical 'shall be solely responsible for' language."* The
+two differ by exactly the deciding thing — `C02-045` is *"responsible for **the timely payment of**
+all such VAT and taxes **to the applicable Governmental Authority**"* (act, payee, standard; locked
+as `C02-04`, `PAY`), `C14-076` is *"responsible for **any and all taxes imposed thereon**"*. Near
+-identical construction, opposite complement. That near-miss is why the rule is about the
+complement.
+
+**Measured over the same 1,547-segment pool, both §8.8.2 discriminators applied.** 121 sentences
+across 106 segments (6.9%); polarity removes 22; of the 99 affirmative, **RENDER 72** (17
+documents) against **ABSORB 24** (11 documents) — 17 cost, 4 risk, 3 another's fault. **The class
+is LARGER than the investigation reported and the correction is stated rather than absorbed: 24
+across 11 documents, not 15 across 9**, because the earlier cell counted only the cost sub-shape.
+Discriminator 1: **64 explicit pay/bear-the-cost duties across 17 documents, including all 9 of
+the 9** documents that also carry a cost-allocation instance — and two sentences carry the contrast
+internally (`C02-048`'s *"Subject to Antares' **obligation to cover the costs** set forth in
+Section 5.3(b), AMAG shall be **responsible for** all costs…"*; `E08-041`'s *"**shall share
+equally** … **but shall otherwise be responsible for** …"*), the same evidence shape as §8.8.2's
+*"failed to defend or indemnify"*. Discriminator 2: a rendering clause carries act, recipient and
+standard; an absorbing one carries none, so mapping it to `PAY` requires supplying a verb the text
+does not contain — §9.1 ground 2's overstating direction.
+
+**Three PRIOR filters are named because two of them already fire on LOCKED segments** — polarity
+(§8.8.1, now including subject negation, `C15-052`), non-party subject (§3.5, `E07-010`), and
+not-the-main-predicate (§3.2, `C04-117`, whose *"negotiate … **which Party(ies) is/are responsible
+for** payment"* sits **inside locked item `C04-02`'s own span** as the content of a negotiation
+rather than an allocation). **`C04-163` is the two-axis proof**: its complement reads RENDER while
+polarity excludes it, and the detector's first known-answer block asserted the affirmative class
+for it and correctly **FAILED**.
+
+**The proxy's error rate is published, not hidden: 4 of 99 = 4.0%**, all four enumerated with
+reasons in `responsible_for_rule.py`'s `READING_OVERRIDES`, which reports raw and read-corrected
+counts side by side. One of the four is an **escalation trigger** rather than an error —
+`C03-107`'s *"responsible for such **determinations**"*, where the determinations are already made
+earlier in the same sentence, is a nominalisation of a **completed act of the obligor's own**: a
+third shape that is neither rendering nor absorbing. `determination` is deliberately in **neither**
+vocabulary; escalate under §14.4.
+
+**§10.2 applied explicitly.** Part 1 — a clarification of §8.8's existing copular class, so it
+reaches back. Part 2 — the conforming cost is **one locked segment**, `C14-076` candidate 1;
+the other three locked hits need nothing (`C02-045` already annotated consistently, `C04-117` and
+`E07-010` already excluded by prior filters in their own committed files). Part 3 — the ruling
+removes a candidate that was never an item, so it is not §3.4's prohibited direction, and the
+**against-interest disclosure is that excluding candidate 1 does NOT rescue the band**: candidate
+2 alone still takes `C14-076` to 4. **Candidate 2 stays `AMBIGUOUS`, the segment stays
+`ESCALATED_BAND_RISK`, and `C14-01`/`C14-02`'s locked status is untouched and still undecided.**
 
 ## 1. What a gold item is
 
@@ -3929,6 +4001,219 @@ same-performance test actually needs.
 **Neither addition restates the 23% rate**, for the reason §8.8.2 already gave: that figure is a
 seeded 40-clause sample, neither verb appeared in it, and adjudicated verbs from outside a sample
 do not move a sample-based rate. It stands at 23%, 95% Wilson CI [11%, 42%].
+
+#### 8.8.4 `be`/`remain` + `responsible`/`liable` **for** X — THE COMPLEMENT DECIDES, NOT THE CONSTRUCTION (v0.56 — §10 amendment, from `C14-076` candidate 1 and `C03-024`)
+
+**Why this is an amendment and not a per-item call.** The construction runs to **121 sentences
+across 106 of the 1,547-segment pool (6.9%)**, and `C14_076_INVESTIGATION.md` §2.3 established
+that one whole cell of it — affirmative polarity, bare-burden complement — had **no adjudicated
+instance anywhere in the gold set**, at 15 instances across 9 documents. §14.4's standing rule
+applies: *"repeated uncertainty is a missing rule, and converting it into one is the entire point
+of the pre-freeze period."*
+
+**THE STARTING POINT COULD NOT CLASSIFY THE CASE IT WAS TO BE DRAFTED AGAINST, and that is the
+finding that set this section's shape.** `C14_076_INVESTIGATION.md` §2.4 proposed, explicitly as a
+starting point and not a ruling, *"act-nominalisation complement → obligation-bearing; bare-burden
+complement → §8.8 status class"*, and required it be drafted against `C03-024` —
+*"AT&T Mobility LLC shall **remain liable for** such Affiliate's **failure** to satisfy its
+obligations hereunder"*. **`C03-024` is in neither cell.** Its complement carries no cost word and
+no act nominalisation, so the census files it in `OTHER`: the proposed binary is not merely
+untested against the edge case, it is **structurally unable to reach it**. Drafting against
+`C14-076` alone would have shipped a rule with a hole exactly where the instruction said to look.
+
+##### The rule
+
+**Precondition — this section governs COPULAR predication only.** It applies where a clause
+predicates `be`/`remain` + `responsible`/`liable` **for** X of a party. An **active-verb**
+allocation is an ordinary obligation and is outside this section entirely: *"Antares shall **bear
+the cost** of disposition"* (`C02-049`) and *"Each Party shall **bear its own costs**"* (`E03-027`)
+are annotated normally. That is not an arbitrary line — §8.8's excluded class has been the
+**copular** one since it was named (*"copular 'shall not be liable/entitled', non-party subject,
+Agreement-as-subject"*), and §8.8.1 extended it to `shall have no right` while keeping the
+stative-predication core intact.
+
+**Three PRIOR filters, applied before the complement is looked at.** All three are existing rules;
+none is created here. They are listed because each has a real worked instance in this construction
+and because two of them fire on **locked** segments.
+
+1. **Polarity (§8.8.1).** `C04-163` — *"shall **not** be responsible for payments"* — is excluded
+   here even though its complement is an act nominalisation that would otherwise read RENDER.
+   **The two axes are independent and neither answers for the other.** Includes **subject**
+   negation, which §8.8.1's worked cases do not show: `C15-052`'s *"**NO PARTY** SHALL BE LIABLE
+   FOR CONSEQUENTIAL… DAMAGES"* is the same disclaimer with the negator on the subject.
+2. **Non-party subject (§3.5).** `E07-010` — *"**These personnel** shall also be responsible for
+   the installation of new TIBCO software releases"* — is already excluded in a **locked** segment.
+   Its complement is a clean act nominalisation, so the exclusion is on an **orthogonal** ground
+   and neither confirms nor falsifies anything about this section.
+3. **Not the main predicate (§3.2/§3.2.1).** Where the construction is the **content** of another
+   predicate it states nothing about anyone's duty. `C04-117`, inside **locked item `C04-02`'s own
+   span**: *"the Parties will negotiate in good faith **which Party(ies) is/are responsible for
+   payment** of such Third Party royalties"* — the obligation is `NEGOTIATE`; the responsibility is
+   what the negotiation is *about*, and is not yet allocated to anyone. Likewise `C11-070`'s
+   *"nor upon **a claim that** BKC is responsible for Franchisee's act or omissions"*.
+
+**Then the complement test, which is §8.8.1's own removal test asked of the complement:**
+
+> **Does the complement name a PERFORMANCE the obligor must render or procure — or a BURDEN the
+> obligor must absorb?**
+>
+> - **RENDER → obligation-bearing.** Annotate normally. The clause commands conduct.
+> - **ABSORB → §8.8's copular status class. `NOT_OBLIGATION_BEARING`.** The clause answers
+>   *"whose pocket?"*, not *"who must act?"* Nobody is told to do, or to refrain from, anything.
+
+**A head-noun proxy, offered as a census aid and NOT as the rule.** The head noun of the
+complement — the first noun, before its post-modifiers — classifies:
+
+| | head noun | worked instances |
+| :-- | :--- | :--- |
+| **RENDER** | a gerund, or an act nominalisation (`payment`, `performance`, `delivery`, `provision`, `installation`, `procurement`, `ordering`, `obtaining`…); also `obligations` / `duties` / `work`, and a functional domain the obligor must run | `C02-045`, `C14-139`, `C14-028`, `C03-016`, `E01-024`, `E03-004` |
+| **ABSORB** | (a) a **cost**: `cost`, `expense`, `tax`, `fee`, `charge`, `surcharge`, `value`; (b) a **risk**: `loss`, `damage`, `liability`, `penalty`, `deficiency`; (c) **another person's fault**: `breach`, `failure`, `default`, `act`/`omission`, `negligence` | `C14-076`, `C15-050`, `C10-021`; `C14-118`, `C17-028`, `E08-022`; **`C03-024`**, `C04-151`, `C13-008` |
+
+##### `C03-024` is decided by limb (c) — and its contrast pair is in the SAME DOCUMENT
+
+This is what the rule is drafted against, and it is `C03`'s own words rather than a distinction
+imported into the corpus:
+
+- **`C03-016` — RENDER:** *"provided that **AT&T Mobility LLC shall be responsible for any and all
+  obligations of any such Affiliate** under this Agreement."*
+- **`C03-024` — ABSORB:** *"so long as **AT&T Mobility LLC shall remain liable for such
+  Affiliate's failure to satisfy its obligations** hereunder."*
+
+**Same document, same obligor, same Affiliate-accountability subject — and the drafter chose
+different complements.** One puts AT&T Mobility on the hook to see that the obligations are
+*performed*; the other allocates the *consequence* of their non-performance. Nothing is commanded
+of AT&T Mobility by the second: it is told what its legal position is if someone else fails.
+`C03-024` carries an independent second ground besides — the clause is a `so long as` proviso
+**conditioning a permitted assignment**, not a standalone undertaking.
+
+The same pair recurs inside one segment and one obligor at **`C04-088`**: *"Bellicum shall be
+responsible for all **arrangements** regarding loading, shipment, insurance…"* (RENDER, make the
+arrangements) immediately followed by *"Bellicum also shall be responsible for all of the
+following **costs and charges**…"* (ABSORB, pay for them).
+
+**Accountability for a third party therefore splits 4–3 rather than falling to one side**: RENDER
+where the complement is the third party's *performance*, *obligations* or *work* (`C14-139`,
+`C03-016`, `E01-024`, `E03-004` — the last saying so in terms, *"to the same extent it would if it
+had done such work itself"*); ABSORB where it is the third party's *failure*, *breach* or *acts and
+omissions* (`C03-024`, `C04-151`, `C13-008`).
+
+##### A CITATION THIS RULING FALSIFIES, and it is on the record in a committed artifact
+
+`C14-076` candidate 1's `AMBIGUOUS` disposition justifies itself with *"`C02-045`'s locked item
+uses almost identical **'shall be solely responsible for'** language."* The two clauses differ by
+exactly the one thing that decides them:
+
+- `C02-045` → **RENDER**: *"solely responsible for **the timely payment of** all such VAT and taxes
+  **to the applicable Governmental Authority**"* — an act, a payee, and a standard. Locked as
+  `C02-04`, `action: PAY`.
+- `C14-076` → **ABSORB**: *"solely responsible for **any and all taxes imposed thereon**"* — a tax,
+  and nothing else.
+
+Near-identical on the construction, opposite on the complement. **That is the whole reason this
+section is about the complement and not the construction**, and it is why the near-miss citation
+survived in the record for as long as it did.
+
+##### Measured — the two §8.8.2 discriminators, over the same 1,547-segment pool
+
+Every count from `evals/goldens/holdout/band_risk/responsible_for_rule.py`; the pool rebuild
+reproduces 1,547 exactly (its own known-answer gate), and the classifier is checked against **11**
+cases whose disposition is already on record — both sides of the line, plus `C03-024` — before any
+total is read off it (Standing Principle 7).
+
+| | sentences | documents |
+| :--- | --: | --: |
+| construction, pool-wide | **121** | 106 segments (6.9%) |
+| removed by the prior polarity filter | 22 | — |
+| **RENDER** | **72** | 17 |
+| **ABSORB** | **24** | 11 |
+| — of which cost / tax / expense | 17 | 9 |
+| — of which loss / damage / liability | 4 | 4 |
+| — of which **another person's fault** | 3 | 3 |
+| escalated (§14.4), embedded, polarity-missed | 1 + 1 + 1 | — |
+
+**The class is LARGER than the investigation reported, and the correction is stated rather than
+absorbed: 24 instances across 11 documents, not 15 across 9.** The earlier figure counted the
+cost-only sub-shape with a determiner-prefix head test; limbs (b) and (c) — risk allocation and
+another person's fault — are in the same class and were not in that cell. `C03-024`'s own cell,
+limb (c), is the smallest at 3, which is precisely why it needed drafting rather than discovering.
+
+**Discriminator 1 — does the corpus treat allocation and payment as separately failable? YES.**
+**64 explicit pay/bear-the-cost duties across 17 documents** (*"shall reimburse Antares for any
+costs"*, *"shall pay as an Expense"*, *"shall bear its own costs"*), and they appear in **all 9 of
+the 9 documents** that also carry a cost-allocation ABSORB instance. Drafters who thought
+*"responsible for the cost"* **was** the payment duty would not separately write 64 payment duties
+alongside it. **Two sentences carry the contrast internally**, which is the strongest form of this
+evidence and the same shape as §8.8.2's *"failed to defend or indemnify"*:
+
+- **`C02-048`:** *"**Subject to Antares' obligation to cover the costs set forth in Section
+  5.3(b)**, AMAG shall be responsible for all costs incurred due to the Recall…"* — the sentence
+  cross-references the **duty** as something that lives elsewhere, and states only the allocation.
+- **`E08-041`:** *"The Parties **shall share equally** any applicable arbitration fees … **but
+  shall otherwise be responsible for** their respective costs and expenses…"* — one sentence, an
+  **active duty verb** for the duty and the **copular** form for the allocation.
+
+**Discriminator 2 — distinct machinery? YES.** A rendering clause carries act, recipient and
+standard (`C02-045`: *the timely payment … to the applicable Governmental Authority*). An absorbing
+clause carries none of them, and the corpus supplies the mechanics separately, in its invoicing and
+reimbursement provisions. Mapping an absorbing clause to `PAY` requires the annotator to **supply a
+verb the text does not contain**, and to invent the payee and the timing — asserting a duty
+stronger and more specific than the contract's, the overstating direction §9.1 ground 2 and §8.2
+both name as a validity failure.
+
+##### The proxy's own error rate, stated rather than hidden
+
+The head-noun proxy is wrong on **4 of the 99 affirmative sentences (4.0%)**. All four are
+enumerated in `responsible_for_rule.py`'s `READING_OVERRIDES` with reasons, and the script reports
+raw and read-corrected counts side by side so the rate stays visible:
+
+1. **`C05-057` — coordinated predicate.** *"responsible for **and bear the expense of** any filing,
+   prosecution, maintenance and enforcement"* — the proxy took its head from the second verb
+   phrase. The shared complement is RENDER. Sole instance pool-wide.
+2. **`C15-052` — subject negation** (prior filter 1 above). Sole instance pool-wide.
+3. **`C11-070` — embedded** (prior filter 3 above). Would have been counted ABSORB, i.e. the right
+   answer for the wrong reason.
+4. **`C03-107` — genuinely undecided, and recorded as an ESCALATION rather than forced.**
+
+**The escalation trigger, named so it is not rediscovered as a defect.** *"AT&T shall be
+responsible for such **determinations**"*, where the same sentence has AT&T already making and
+notifying those determinations. A nominalisation of a **completed act of the obligor's own** is a
+third shape: `responsible for` there means *answerable for its correctness*, which is neither
+rendering a performance nor absorbing an allocated burden. `determination` is deliberately in
+**neither** vocabulary. Escalate under §14.4 rather than reading the head noun.
+
+##### Retroactivity and its measured cost — §10.2
+
+**Part 1 — this is a CLARIFICATION and reaches back.** It says what §8.8's copular
+"not an obligation clause at all" class already meant, applied to one construction; §8.8.1 did the
+same for negated entitlement. No new criterion is layered on.
+
+**Part 2 — the conforming cost is ONE locked segment, measured rather than assumed.** Against all
+**22** locked gold segments the construction appears in exactly four, and three need nothing:
+`C02-045` is RENDER and is **already annotated consistently** (`C02-04`, `PAY`); `C04-117` and
+`E07-010` are removed by prior filters 3 and 2, both **already** disposed of that way in their
+committed segment files. The only ABSORB hit is **`C14-076` candidate 1** — the span that raised
+the question. **No locked ITEM is touched, no accept-set moves, and nothing is restamped.**
+
+**Part 3 — direction.** The ruling **removes a candidate**, which is the conservative direction
+here rather than §3.4's prohibited one: §3.4's prohibition is on narrowing an accept-set or
+removing a **locked item** to manufacture agreement with a prediction already seen, and this
+removes neither — candidate 1 has never been an item. **Against-interest disclosure, per §10.2
+Part 3's standing requirement: excluding candidate 1 does NOT rescue `C14-076`'s band.** Candidate
+2 alone takes the segment to 4 (`C14_076_INVESTIGATION.md` §4 — its two verbs have different
+obligors), so the ruling that would most help the segment's locked status is the one this section
+declines to make.
+
+##### What this section does NOT decide
+
+- **`C14-076`'s band eligibility.** Candidate 2 alone decides it and remains `AMBIGUOUS` and
+  escalated. The segment stays `ESCALATED_BAND_RISK`.
+- **Any `action` mapping.** Nothing here widens or narrows `ACTIONS`, and no accept-set changes.
+- **A forward note, not a finding.** The RENDER side contains a **functional-domain** sub-shape —
+  *"all matters relating to compensation and benefits"* (`C03-128`, `C03-180`), *"the logistics
+  associated with its marketing efforts"* (`C05-025`, `C05-032`), *"all regulatory activities"*
+  (`C04-054`, `C04-055`). These command conduct and are obligation-bearing, but unspecifically, so
+  they are likely §8.8 genuine-gap on `action` and hard for §3.6 on `object_class`. Named here so
+  the next annotator to meet one recognises it rather than rediscovering it.
 
 #### 8.8.1 Negated entitlement is the same copular class as affirmative entitlement (v0.41 — REVIEWER-RULED)
 

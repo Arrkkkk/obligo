@@ -64,3 +64,50 @@ venv. All four resolve paths relative to the file and run from anywhere:
 ```
 /Users/rajitagrawal/obligo/.venv/bin/python holdout/band_risk/party_alias_check.py
 ```
+
+---
+
+## Third tranche (2026-09-17) — the §10 amendment for `be`/`remain responsible`/`liable for X`
+
+Added when candidate 1's §14.4 escalation was discharged as guideline **§8.8.4** (v0.56). Same
+preservation rule as the two tranches above.
+
+| file | what it produces | known-answer check |
+| :-- | :-- | :-- |
+| `responsible_for_rule.py` | §8.8.4's evidence — the **complement** axis (RENDER vs ABSORB) over the same 121 sentences, its cost/risk/another's-fault split, the read-corrected counts against the raw proxy, and the exposure against all 22 locked gold segments | pins **11** cases whose disposition is already on record — both sides of the line plus `C03-024` — and **`C04-163` is pinned on the NEGATIVE side with a RENDER complement**, which is the two-axis proof. Withholds all totals on failure |
+
+**Why a second script rather than an edit to `responsible_for.py`.** That script answered the
+question §2 actually asked (*"does the affirmative bare-burden cell have an adjudicated
+precedent?"* — no) and its known-answer block is a dated record of what was checked then. The
+amendment needed a different question: *what is the rule, and does it decide `C03-024`?*
+
+**The finding that forced the different shape: `C03-024` is not in the `BARE_BURDEN` cell at all.**
+Its complement (*"such Affiliate's **failure** to satisfy its obligations"*) carries no cost word
+and no act nominalisation, so the 2×2 files it in `OTHER`. §2.4's proposed binary was not merely
+untested against the edge case — it was **structurally unable to reach it**.
+
+**Two more detector faults, both caught by known-answer checks and both living in the file.** They
+are the fourth and fifth in this directory, and the second is the more instructive:
+
+1. A **skip-the-determiners-and-adjectives** head extractor needs an adjective list that is
+   complete — it is not, and the failures were silent: *"all **regulatory** activities"*, *"the
+   direct, **personal** supervision"*, *"all **supplementary** costs"* all returned adjectives as
+   heads, leaving 15 instances `UNCLASSIFIED`. Replaced by a left-to-right scan for the first token
+   in **either** vocabulary, which needs no adjective list to be complete.
+2. That scan then introduced its own: `-ing` is the RENDER vocabulary's gerund test, so *"all
+   travel and **living** expenses"* (`C11-041`) classified RENDER on a deverbal **adjective**. A
+   gerund test cannot tell an adjective from an act nominalisation by shape alone. `ADJ_ING` is the
+   enumerated correction and is stated as a known limitation rather than as general.
+
+**The proxy's residual error rate is published rather than patched away: 4 of 99 affirmative
+sentences (4.0%)**, enumerated in `READING_OVERRIDES` with reasons, and the script prints raw and
+read-corrected counts side by side. One of the four is not an error but a third shape —
+`C03-107`'s *"responsible for such **determinations**"*, a nominalisation of a **completed act of
+the obligor's own** — which §8.8.4 names as a §14.4 escalation trigger, with `determination`
+deliberately in **neither** vocabulary.
+
+Needs only the repo venv; paths resolve relative to the file.
+
+```
+/Users/rajitagrawal/obligo/.venv/bin/python holdout/band_risk/responsible_for_rule.py
+```
