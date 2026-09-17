@@ -686,12 +686,25 @@ assignment**, not a standalone undertaking.
 
 ### 9.4 Exposure against locked segments: measured, and it is one
 
-Against all **22** locked gold segments the construction appears in four. Three need nothing:
-`C02-045` is RENDER and already annotated consistently; `C04-117` and `E07-010` are removed by
-prior filters (not-the-main-predicate and non-party subject respectively) and were **already**
-disposed of that way in their own committed files. `C04-117` is the instructive one — its
-*"negotiate … **which Party(ies) is/are responsible for** payment"* sits **inside locked item
-`C04-02`'s own span**, as the content of a negotiation rather than an allocation.
+Against all **22** locked gold segments the construction appears in four. Three need nothing, and
+their committed dispositions are **not** all the same shape — stated individually because
+"no locked item is touched" is the load-bearing claim:
+
+| segment | committed disposition | why nothing changes |
+| :--- | :--- | :--- |
+| `C02-045` | `ANNOTATED` → `C02-04` (`PAY`) | RENDER, already consistent |
+| `C04-117` | `ANNOTATED` → `C04-02` (`NEGOTIATE`) | prior filter 3; the item keeps its `NEGOTIATE` reading |
+| `E07-010` | `NOT_OBLIGATION_BEARING` (§3.5) | prior filter 2, already excluded |
+
+**A CORRECTION TO THIS SECTION'S OWN FIRST DRAFT, made when the four files were pulled directly
+rather than read off this summary.** It originally said `C04-117` and `E07-010` were both
+*"removed by prior filters … already disposed of that way in their own committed files."* True of
+`E07-010`; **false of `C04-117`**, whose span is `ANNOTATED` as a gold item. What prior filter 3
+actually does there is prevent the construction from yielding a **second** item: the sentence's
+obligation is to *negotiate*, and *"negotiate … **which Party(ies) is/are responsible for**
+payment"* is the **content** of that negotiation, not an allocation. The conclusion is unchanged —
+`C04-02` is untouched — but the route to it is different, and "excluded" and "annotated as
+something else" are not interchangeable.
 
 The single ABSORB hit is **`C14-076` candidate 1**, the span that raised the question. **No locked
 item is touched and nothing is restamped.**

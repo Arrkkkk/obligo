@@ -4188,11 +4188,28 @@ rendering a performance nor absorbing an allocated burden. `determination` is de
 same for negated entitlement. No new criterion is layered on.
 
 **Part 2 — the conforming cost is ONE locked segment, measured rather than assumed.** Against all
-**22** locked gold segments the construction appears in exactly four, and three need nothing:
-`C02-045` is RENDER and is **already annotated consistently** (`C02-04`, `PAY`); `C04-117` and
-`E07-010` are removed by prior filters 3 and 2, both **already** disposed of that way in their
-committed segment files. The only ABSORB hit is **`C14-076` candidate 1** — the span that raised
-the question. **No locked ITEM is touched, no accept-set moves, and nothing is restamped.**
+**22** locked gold segments the construction appears in exactly four, and three need nothing. The
+committed disposition of each is stated here rather than summarised, because "no locked item is
+touched" is what the whole retroactivity argument rests on and the three are **not** all the same
+shape:
+
+| segment | committed disposition | why §8.8.4 changes nothing |
+| :--- | :--- | :--- |
+| `C02-045` | **`ANNOTATED`** → locked item `C02-04` (`PAY`) | RENDER. Already annotated consistently with this section |
+| `C04-117` | **`ANNOTATED`** → locked item `C04-02` (`NEGOTIATE`) | Prior filter 3. The sentence **is** a gold item, but its obligation is to *negotiate*; the construction inside it is the **content of that negotiation**, so §8.8.4 yields no second item and `C04-02` is untouched |
+| `E07-010` | **`NOT_OBLIGATION_BEARING`** (§3.5), in `not_annotatable` | Prior filter 2, non-party subject. Already excluded, on an orthogonal ground |
+| `C14-076` | candidate 1 — the ABSORB hit | The one span this ruling moves; never an item |
+
+**`C04-117` is the one to read carefully, and an earlier draft of this paragraph got it wrong.**
+It said `C04-117` and `E07-010` were both *"removed by prior filters… already disposed of that way
+in their committed segment files."* That is true of `E07-010` and **false of `C04-117`**, whose
+span is `ANNOTATED`, not excluded. The correct statement is the narrower one in the table: a
+locked item exists there and **keeps** its existing `NEGOTIATE` reading, because prior filter 3
+prevents the construction from yielding an item of its own — not because the sentence was thrown
+out. Corrected in place rather than struck, per §10's live-rule-statement rule; it was caught by
+pulling the four committed files directly instead of trusting this paragraph's own summary.
+
+**No locked ITEM is touched, no accept-set moves, and nothing is restamped.**
 
 **Part 3 — direction.** The ruling **removes a candidate**, which is the conservative direction
 here rather than §3.4's prohibited one: §3.4's prohibition is on narrowing an accept-set or
