@@ -2099,6 +2099,14 @@ own test**, so that what changed is legible in the diff and countable later.
 **CORRECTED v0.58: F5 is RULED and it REDUCES this scope back to F1's three items rather than
 expanding it** — no systematic retroactive pass, plus a forward-only head-only rule for batch 4
 onward. See §3.6's v0.58 breadth ruling.
+**Count note, v0.58 — this paragraph says TWO and F1 is THREE, and both are right.** The two
+named below are the `object_class_accept_set` widenings, which is what this paragraph is about.
+F1's third item is **`C02-01`**, an **`obligor_accept_set`** widening (*"Antares or its
+Subcontractor"*, §3.5.1's coordinated-phrase rider) — inside this exception by the sentence
+directly above, which extends it to `obligor_accept_set`, but not an `object_class` case.
+Recorded because F5's v0.58 ruling leans on *"F1's three items"* and, measured, **`C02-01` is one
+of the only two of the three that moves criterion 2 at all**.
+
 **Two locked items are queued under this exception** — `C02-03`
 (`invoice_costs`, a compound of two of its own accept-set members) and `C11-01`
 (`principal_interest`, the possessor-anchored reading of *"the Principal's interest in
