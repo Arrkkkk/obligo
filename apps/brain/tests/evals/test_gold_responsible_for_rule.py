@@ -112,9 +112,17 @@ def test_candidate_2_is_not_in_not_annotatable(segment):
     assert (d["span_char_start"], d["span_char_end"]) not in spans
 
 
-def test_the_clause_count_dropped_by_exactly_one_and_the_items_did_not_move(segment):
+def test_the_clause_count_is_explicitly_indeterminate_not_a_number(segment):
+    """UPDATED the same day it was written, and the reason is the point. This first asserted
+    `== 3`, which is what the §8.8.4 amendment left in the file -- and 3 SILENTLY ENCODES ONE
+    OF THE THREE LIVE READINGS of candidate 2 (that it yields exactly one item). With
+    candidate 1 excluded the segment stands at 2 and candidate 2 adds 0, 1 or 2, so the count
+    is 2, 3 or 4 and ONLY the 4 branch breaches §2's band. A plain integer there would have
+    quietly pre-decided the very question the segment is escalated on, and a test asserting
+    that integer would have locked the pre-decision in. See INVESTIGATION §10.3."""
     r = segment["reconciliation"]
-    assert r["obligation_bearing_clauses"] == 3   # was 4; candidate 1 removed
+    assert isinstance(r["obligation_bearing_clauses"], str)
+    assert "INDETERMINATE" in r["obligation_bearing_clauses"]
     assert r["items_annotated"] == 2              # C14-01, C14-02 -- untouched
 
 

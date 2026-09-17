@@ -769,3 +769,128 @@ compensation and benefits"*, *"the logistics"*, *"all regulatory activities"*) �
 obligation-bearing and unspecific, likely §8.8 genuine-gap on `action` and hard for §3.6 on
 `object_class`, and are recorded so the next annotator recognises the shape rather than
 rediscovering it.
+
+---
+
+## 10. Candidate 2 — the band-eligibility investigation (2026-09-17). NOT RULED; the question is REFRAMED and one of its premises is corrected
+
+> *"Israel value added tax shall be added, if applicable, to all amounts payable hereunder and
+> will be paid against submission of appropriate tax invoices."*
+
+**Nothing is ruled in this section.** Eligibility is reviewer-ruled throughout this project, and
+`C14-139`'s own process fix requires that it be decided *before* content is adjudicated and
+without letting sunk analysis bias the call. What this section does is establish which of cold's
+grounds survive, correct §4's arithmetic, and lay out a decision that is **three-way, not binary**.
+
+### 10.1 Cold's disposition: one ground was already known contaminated, one FAILS, one survives
+
+Cold gave three grounds. §1.4 already established the third is contaminated.
+
+| # | cold's ground | standing |
+| :-- | :--- | :--- |
+| (a) | *"non-party subject"* | **FAILS** — see §10.2 |
+| (b) | *"read as a tax-treatment/pricing rule rather than a commanded act: it states what happens to amounts payable, not what a party must do"* | **SURVIVES** — this is the whole question |
+| (c) | *"admitting it would take the segment to 3-4 obligation-bearing clauses, pressing §2's 1-3 band for no gain"* | **CONTAMINATED** (§1.4), reasoning backwards from eligibility |
+
+### 10.2 Ground (a) fails against two locked items
+
+*"Non-party subject"* is §8.8's excluded class, and it does not reach a **passive**. In an active
+clause the subject is the agent, so a non-party subject means no party is commanded — that is what
+excludes `E07-010`'s *"**These personnel** shall also be responsible for…"*. In a passive the
+subject is the **patient**, so a thing-subject is grammatically expected and carries no
+information about whether anyone must act. §3.5.3 exists precisely to admit those, and **two
+locked items are thing-subject agentless passives**:
+
+- `C04-03` — *"**Each quantity of Miltenyi Product(s)** … shall be delivered …"*, `obligor: ABSENT`
+- `C14-05` — *"**All such rescheduling** shall be performed by sending Contractor a written
+  request …"*, `obligor: ABSENT`
+
+Candidate 2's *"Israel value added tax"* is the patient of both its verbs. Ground (a) would, if
+applied consistently, retract `C04-03` and `C14-05`.
+
+### 10.3 §4's ARITHMETIC IS CORRECTED: the choice is three-way and only ONE branch breaks the band
+
+§4's correction (1) says *"CANDIDATE 2 ALONE puts the segment at 4 and over §2's 1-3 band."* That
+is true **only under a reading in which both of its verbs are obligation-bearing**, and §4 never
+states that premise. What §4 actually established is narrower and still stands: the two verbs
+cannot be **one item covering both**, because they have different implied obligors and an item has
+one obligor slot. *Cannot be one item covering both* is not *must be two items*.
+
+With candidate 1 now excluded (§9), the segment stands at `C14-01` + `C14-02` = **2**, and:
+
+| reading of candidate 2 | clauses | §2 band | consequence |
+| :--- | --: | :--- | :--- |
+| neither verb obligation-bearing (cold's) | **2** | within | segment eligible; `C14-01`/`C14-02` safe |
+| **verb 2 only** (*"will be paid…"*) | **3** | **at the ceiling — eligible** | segment eligible; `C14-01`/`C14-02` safe |
+| both verbs | **4** | **OVER** | segment ineligible; `C14-01`/`C14-02`'s locked status in question |
+
+**Three is eligible, and that is settled precedent rather than a reading of the band's wording:**
+the v0.50 ruling records *"`C11-094` and `C17-021` are **NOT** §2 band violations — both sit
+exactly at the 1-3 band's ceiling at 3 obligation-bearing clauses and were correctly eligible."*
+
+**Two of the three branches keep the segment eligible.** The escalation has been carried since
+2026-09-04 as though candidate 2 being genuine were itself the band break; it is not.
+
+**A consequence for this segment's own committed file, flagged rather than left:** its
+`reconciliation.obligation_bearing_clauses` currently reads **3**, which silently encodes the
+middle branch. It should be read as **indeterminate (2, 3 or 4)** until this is ruled.
+
+### 10.4 The construction is UNIQUE pool-wide — stated against interest, since it removes the discriminator §8.8.4 relied on
+
+A detector for a tax term plus `shall/will be added|charged|invoiced|billed` returns **exactly one
+sentence in the 1,547-segment pool — candidate 2 itself**. There is **no base rate**, and no
+§8.8.2-style "does the corpus enumerate these separately" discriminator is available. Same posture
+§8.8.3 took for `defer`, which also occurs exactly once.
+
+What *can* be measured is the **second verb's** family. `shall/will be paid` occurs in **23
+sentences across 11 documents**, of which **9 are agentless** — and several are unmistakable
+duties: `C17-030` *"Amounts not so disputed … shall be paid … within the period set forth in
+Section 5"*, `C06-010` *"shall be paid over to Purchaser immediately"*, `C06-034` *"shall be paid
+directly to the applicable claimants"*. **This corpus does use the agentless `be paid` passive to
+state real payment obligations**, which cuts against reading the whole sentence as pricing prose.
+
+### 10.5 The two verbs are not obviously alike, which is what makes the middle branch live
+
+- **Verb 1 — *"shall be added … to all amounts payable hereunder"*.** Its object is an **amount**,
+  not a deliverable: the clause's work is to say that the sums stated elsewhere are VAT-exclusive.
+  `ACTIONS` has no member denoting it (`ADD`/`CHARGE`/`INVOICE` are all absent), and the document
+  already creates the payment duty at §8.4.3 (*"Payment by Contractor is due current thirty (30)
+  Days from the date of receipt of the invoice"*). This is the strongest case for cold's ground (b).
+- **Verb 2 — *"and will be paid against submission of appropriate tax invoices"*.** Paying is a
+  performance, the corpus writes exactly this shape as a duty elsewhere (§10.4), and *"against
+  submission of appropriate tax invoices"* is a gating condition. The live doubt is **modality**:
+  §3.2 makes `will` `MUST` when it states an undertaking and **not an obligation at all** when it
+  states a future fact.
+
+### 10.6 REQUIRED DISCLOSURE (§10.2 Part 3): the model emits NOTHING at candidate 2's span, on 0 of 3 runs
+
+Measured directly from `evals/cassettes/gold/C14-076/run{1,2,3}.json`. Across all three runs the
+model emits at the `C14-01`/`C14-02` sentence every time and at **candidate 1's** span once (run 1,
+with `"action":"RESPONSIBLE"` — a verb it invented outside the taxonomy). **At candidate 2's span
+it emits nothing, ever.**
+
+**So annotating candidate 2 — as one item or as two — adds items that score modal `MISSED` (§6)
+and LOWERS criterion 2 on both denominators.** Under the in-force denominator the effect depends on
+`known_gaps`, which is drafting-stage work not done here. The direction is stated before the
+ruling, as §10.2 Part 3 requires.
+
+### 10.7 The bias this decision is exposed to, named before the ruling rather than after
+
+**The reading that is most convenient is the middle one**, because it keeps the segment eligible
+*and* admits an item, and two of three branches rescue `C14-01`/`C14-02`. `C14-139`'s process fix
+exists for exactly this: eligibility decided before content, and sunk analysis not permitted to
+bias it. Recorded so that whichever way this is ruled, the ruling is visibly not the one that fell
+out of wanting the locked items kept.
+
+### 10.8 Status
+
+| | |
+| :--- | :--- |
+| Cold ground (a) | **FAILS** — would retract `C04-03` and `C14-05` |
+| Cold ground (b) | **SURVIVES** — the live question, strongest on verb 1 |
+| Cold ground (c) | **CONTAMINATED** (§1.4) |
+| §4's *"candidate 2 alone puts the segment at 4"* | **CORRECTED** — true only if BOTH verbs are obligation-bearing |
+| The decision | **THREE-WAY**; only the both-verbs branch breaks the band |
+| Model predictions at the span | **0 of 3 runs** — annotating LOWERS criterion 2 |
+| Ruling | **NOT MADE HERE.** Reviewer call, per every prior eligibility ruling in this set |
+| `C14-01` / `C14-02` | still locked; at risk **only** on the both-verbs branch |

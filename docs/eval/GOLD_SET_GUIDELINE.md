@@ -1032,8 +1032,12 @@ vocabulary; escalate under §14.4.
 
 **§10.2 applied explicitly.** Part 1 — a clarification of §8.8's existing copular class, so it
 reaches back. Part 2 — the conforming cost is **one locked segment**, `C14-076` candidate 1;
-the other three locked hits need nothing (`C02-045` already annotated consistently, `C04-117` and
-`E07-010` already excluded by prior filters in their own committed files). Part 3 — the ruling
+the other three locked hits need nothing — **and they are not the same shape: `C02-045` is
+`ANNOTATED` (`C02-04`, `PAY`) and already consistent; `E07-010` is `NOT_OBLIGATION_BEARING`
+(§3.5); `C04-117` is `ANNOTATED` as `C04-02` (`NEGOTIATE`), NOT excluded — prior filter 3 stops
+the construction inside it yielding a SECOND item. This sentence originally read "`C04-117` and
+`E07-010` already excluded by prior filters in their own committed files", which is false of
+`C04-117`; corrected here and in §8.8.4 Part 2 after pulling the four committed files directly.** Part 3 — the ruling
 removes a candidate that was never an item, so it is not §3.4's prohibited direction, and the
 **against-interest disclosure is that excluding candidate 1 does NOT rescue the band**: candidate
 2 alone still takes `C14-076` to 4. **Candidate 2 stays `AMBIGUOUS`, the segment stays
