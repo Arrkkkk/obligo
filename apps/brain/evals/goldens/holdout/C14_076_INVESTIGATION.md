@@ -835,12 +835,27 @@ exactly at the 1-3 band's ceiling at 3 obligation-bearing clauses and were corre
 `reconciliation.obligation_bearing_clauses` currently reads **3**, which silently encodes the
 middle branch. It should be read as **indeterminate (2, 3 or 4)** until this is ruled.
 
-### 10.4 The construction is UNIQUE pool-wide — stated against interest, since it removes the discriminator §8.8.4 relied on
+### 10.4 ~~The construction is UNIQUE pool-wide~~ — **WRONG, AND CORRECTED IN §10.9. It was a narrow-regex artifact**
 
-A detector for a tax term plus `shall/will be added|charged|invoiced|billed` returns **exactly one
-sentence in the 1,547-segment pool — candidate 2 itself**. There is **no base rate**, and no
-§8.8.2-style "does the corpus enumerate these separately" discriminator is available. Same posture
-§8.8.3 took for `defer`, which also occurs exactly once.
+> **CORRECTED 2026-09-17, same session.** This subsection claimed the construction is *"unique
+> pool-wide"* on the strength of **one** regex (a tax term plus `shall/will be
+> added|charged|invoiced|billed`). That is one pattern's opinion, not a census, and *"no
+> precedent exists"* is precisely the negative claim a too-narrow detector hands you for free.
+> A proper census (`band_risk/tax_treatment.py`, §10.9) finds **9 sentences across 8 segments
+> and 8 documents**. The class is not unique. What IS true — and is the reviewer's actual
+> question — is that **only one of the nine has ever been adjudicated, and it is candidate 2
+> itself**. Left as written per the corrections-are-new-text discipline.
+
+The original claim, and the part of it that survives: there is no base rate for **this exact
+wording**, and §8.8.3 took the same posture for `defer`. What does not survive is the inference
+that nothing comparable exists.
+
+What *can* be measured is the **second verb's** family. `shall/will be paid` occurs in **23
+sentences across 11 documents**, of which **9 are agentless** — and several are unmistakable
+duties: `C17-030` *"Amounts not so disputed … shall be paid … within the period set forth in
+Section 5"*, `C06-010` *"shall be paid over to Purchaser immediately"*, `C06-034` *"shall be paid
+directly to the applicable claimants"*. **This corpus does use the agentless `be paid` passive to
+state real payment obligations**, which cuts against reading the whole sentence as pricing prose.
 
 What *can* be measured is the **second verb's** family. `shall/will be paid` occurs in **23
 sentences across 11 documents**, of which **9 are agentless** — and several are unmistakable
@@ -862,17 +877,36 @@ state real payment obligations**, which cuts against reading the whole sentence 
   §3.2 makes `will` `MUST` when it states an undertaking and **not an obligation at all** when it
   states a future fact.
 
-### 10.6 REQUIRED DISCLOSURE (§10.2 Part 3): the model emits NOTHING at candidate 2's span, on 0 of 3 runs
+### 10.6 REQUIRED DISCLOSURE (§10.2 Part 3) — and the first version of this subsection CHARACTERISED IT BACKWARDS
 
-Measured directly from `evals/cassettes/gold/C14-076/run{1,2,3}.json`. Across all three runs the
-model emits at the `C14-01`/`C14-02` sentence every time and at **candidate 1's** span once (run 1,
-with `"action":"RESPONSIBLE"` — a verb it invented outside the taxonomy). **At candidate 2's span
-it emits nothing, ever.**
+**The arithmetic is unchanged: the model emits nothing at candidate 2's span on 0 of 3 runs**
+(7 model calls across the three cassettes), so annotating candidate 2 — as one item or as two —
+adds items that score modal `MISSED` (§6) and **LOWERS criterion 2**. That is the disclosure
+§10.2 Part 3 requires and it stands.
 
-**So annotating candidate 2 — as one item or as two — adds items that score modal `MISSED` (§6)
-and LOWERS criterion 2 on both denominators.** Under the in-force denominator the effect depends on
-`known_gaps`, which is drafting-stage work not done here. The direction is stated before the
-ruling, as §10.2 Part 3 requires.
+> **CORRECTION, same session.** The first version stopped at *"emits nothing, ever"*, which reads
+> as *the model does not consider this an obligation*. **The reasoning traces say the opposite,
+> on all three runs.** The model reaches the sentence every time, calls it an obligation — **two
+> of three runs say "Two obligations", independently reaching the SPLIT** — and then drops it for
+> one reason only: it cannot fill `obligor_alias`.
+>
+> - run 1: *"Obligation: 'Israel value added tax shall be added…'. **Obligor? Not clear who
+>   adds.** … Might skip due to unclear obligor."*
+> - run 2: *"**Two obligations** … The clause says 'shall be added'. No party. So **we cannot
+>   extract obligor_alias because not present. Must be literal within span_text. So we cannot
+>   include because obligor missing. So skip.**"*
+> - run 3: *"**Two obligations** … **Might be considered an obligation of the payer to add VAT.**
+>   … Given requirement that obligor_alias must be literal substring within span_text. If
+>   ambiguous, better to not include."*
+>
+> **That is §10.1 F14 biting, not a judgment about obligation-bearingness.** F14 records that the
+> prompt never states an empty alias is permitted and that `obligor_alias` is empty on **0 of 81**
+> candidates; run 2's trace is close to a verbatim statement of it. The 0/3 is therefore **no
+> evidence at all for cold's reading**, and such weak signal as it carries points the other way —
+> toward the both-verbs branch, which the model reached on its own twice.
+
+**Net: the 0/3 lowers criterion 2 whichever way this is ruled, and must not be cited as support
+for excluding candidate 2.**
 
 ### 10.7 The bias this decision is exposed to, named before the ruling rather than after
 
@@ -894,3 +928,72 @@ out of wanting the locked items kept.
 | Model predictions at the span | **0 of 3 runs** — annotating LOWERS criterion 2 |
 | Ruling | **NOT MADE HERE.** Reviewer call, per every prior eligibility ruling in this set |
 | `C14-01` / `C14-02` | still locked; at risk **only** on the both-verbs branch |
+
+### 10.9 The precedent census — asked properly, and the answer is "none either way"
+
+`band_risk/tax_treatment.py`. Eight shapes covering every way this corpus could put tax **on top
+of**, **inside**, or **outside** an amount payable (`ADDED_TO`, `ADD_ACTIVE`, `EXCLUSIVE_OF`,
+`INCLUSIVE_OF`, `PLUS_TAX`, `TAX_ON_TOP`, `GROSS_UP`, `AMOUNTS_PAYABLE`, `BORNE_BY`), then every
+hit cross-referenced against **everything that has actually been classified** — locked gold items,
+committed per-sentence dispositions, and all three exclusion logs.
+
+**Result: 9 sentences, 8 segments, 8 documents. Exactly ONE carries a classification — candidate 2
+itself, and its classification is `AMBIGUOUS`.** The other eight sit in segments that were never
+drawn into the gold set, so no annotator has ever ruled on any of them.
+
+> **This is the direct answer to the question: there is NO adjudicated precedent for a tax-inclusion
+> clause, in either direction.** Not "the construction is unique" (§10.4 was wrong about that) —
+> the class is ordinary, with members in 8 of 28 documents. It is that **the gold set has never
+> drawn one**, so the reviewer is not choosing against precedent; there is none to be against.
+
+**Two detector faults, both caught by the known-answer gate rather than by re-reading patterns.**
+
+1. **The overlap test had no length floor**, so `C14-076`'s two connective dispositions —
+   `span_text` `"."` and `", and"`, both legitimately `NOT_OBLIGATION_BEARING` under §2.6 — are
+   substrings of every sentence in the segment and matched everything. **The case in question came
+   back classified `NOT_OBLIGATION_BEARING`**: the script would have asserted the very answer it
+   exists to avoid asserting. Same fault class `band_risk/README.md` already records for
+   `cold_dispositions.py`, fixed the same way (`MIN_SPAN = 40`).
+2. **`PLUS_TAX` required the tax term AFTER the marker**, so `C02-044`'s *"Such VAT and taxes … will
+   be payable **in addition to** the Transfer Price"* — the single most on-point comparison in the
+   corpus — was invisible to a census whose whole purpose is to find it. Added as `TAX_ON_TOP`.
+
+**And two known answers were mis-specified, which is its own finding.** The gate originally required
+`C14-076` candidate 1 and `C02-045` to be flagged. Both failed, and they were right to: those are
+**allocation** and **payment-duty** clauses, not statements about tax being added to an amount.
+"Tax clause" and "tax-treatment clause" are different classes, and both are now pinned as
+**precision** gates — must NOT be flagged — which is what stops this census widening into "every
+sentence mentioning tax", where the precedent question becomes unanswerable.
+
+#### What the eight unadjudicated instances show — evidence, explicitly not precedent
+
+| segment | how it writes the TAX-ON-TOP half | how it writes the PAYMENT half |
+| :--- | :--- | :--- |
+| `C02-044` | *"The Transfer Price **includes** all taxes except…"*; *"Such VAT and taxes … **will be payable in addition to** the Transfer Price"* — agentless / copular | *"will be paid **by AMAG** to Antares"* — **by-agent supplied** |
+| `C20-003` | *"All amounts payable hereunder **are exclusive of** any and all taxes"* — copular | *"and **Customer** is responsible for payment of such taxes"* — party named |
+| `E07-021` | — | *"**Client** shall … pay all sales and other taxes"* — party named |
+| `C11-072` | — | *"**The Franchisee** shall pay when due all taxes … including any value added tax"* — party named |
+| `E01-018` | *"… an amount equal to the aggregate Cost of Services … **plus any Taxes**"* — a component **inside** a billing duty | *"**The Service Recipient** shall pay such amount"* — party named |
+| `C10-010` | *"for the full amount of the cost or expense, **including any GST** on that amount"* — a component **inside** a reimbursement duty | *"that **first party** shall reimburse or indemnify"* — party named |
+
+**`C02-044` is a near-twin of candidate 2 in another document and it splits the two jobs exactly
+the way the rest of the corpus does:** the tax-on-top half agentless and stative, the payment half
+**with an explicit by-agent** — *using the very same modal*, `will be paid`. **Six of six comparable
+instances that impose a tax-payment duty name the payer. Candidate 2 is the only one that does
+not.**
+
+**The modal × agent grid for `be paid`, which locates candidate 2's verb 2 precisely:**
+
+| | by-agent | agentless |
+| :--- | --: | --: |
+| `shall be paid` | 11 | 7 |
+| `will be paid` | 3 | **2** |
+
+**The agentless-`will` cell has exactly two members corpus-wide**: candidate 2, and `C04-115`'s
+*"The Upfront Fee will be paid in installments, as follows: (a) a first installment of…"* — a
+**payment-schedule term**, not a commanded act with an actor. Neither is adjudicated.
+
+**Stated against interest, because it is the strongest thing on the other side:** §3.5.3 exists
+precisely to admit agentless obligations, and **two locked items are thing-subject agentless
+passives** (`C04-03`, `C14-05`). The corpus's naming convention is a tendency, not a rule, and this
+project has already ruled that an unnamed obligor is `ABSENT` rather than disqualifying.
