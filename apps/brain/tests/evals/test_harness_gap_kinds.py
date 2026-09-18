@@ -18,6 +18,7 @@ import pytest
 
 from evals.harness.gap_kinds import (
     DENOMINATOR_EXCLUDING_KINDS,
+    DIRECTION_BEARING_KINDS,
     GAP_DIRECTION,
     GAP_KIND,
     UNCLASSIFIED_KIND,
@@ -51,13 +52,32 @@ def test_every_tag_the_committed_gold_set_uses_has_a_ruled_kind(gold_items):
     assert unruled == [], f"tags in live use with no §8.10 kind: {unruled}"
 
 
-def test_direction_is_defined_for_exactly_the_representational_tags():
+def test_direction_is_defined_for_exactly_the_direction_bearing_tags():
     """F10's resolution, stated as an invariant rather than as a comment: a tag
-    of any other kind has no direction BY RULING. If someone adds a direction
-    for a REACHABILITY or CORPUS_DEFECT tag, that is the masquerade F10 was
-    filed separately to prevent, and it fails here."""
-    representational = {t for t, k in GAP_KIND.items() if k == "REPRESENTATIONAL"}
-    assert set(GAP_DIRECTION) == representational
+    of a kind where gold does NOT depart from the document has no direction BY
+    RULING. If someone adds a direction for a REACHABILITY or CORPUS_DEFECT tag,
+    that is the masquerade F10 was filed separately to prevent, and it fails
+    here.
+
+    v0.60 (F18) widens the set from REPRESENTATIONAL alone to
+    DIRECTION_BEARING_KINDS. The assertion is deliberately written against that
+    constant rather than against a literal pair of kind names: the v0.59 version
+    of this test hardcoded "REPRESENTATIONAL", which is exactly the shape
+    CLAUDE.md's debt list calls "a test pinning the very thing the mechanism
+    exists to vary"."""
+    bearing = {t for t, k in GAP_KIND.items() if k in DIRECTION_BEARING_KINDS}
+    assert set(GAP_DIRECTION) == bearing
+
+
+def test_withheld_value_is_direction_bearing_because_gold_departs_from_the_document():
+    """§8.10.1's principle, pinned: direction is assignable wherever gold departs
+    from the document -- REPRESENTATIONAL (the IR has no form) and
+    WITHHELD_VALUE (§8.1 rules the field null though the IR HAS the form). The
+    other three kinds must stay direction-free."""
+    assert DIRECTION_BEARING_KINDS == {"REPRESENTATIONAL", "WITHHELD_VALUE"}
+    assert direction_of("redacted_value") == "INCOMPLETENESS"
+    for kind in ("REACHABILITY", "CORPUS_DEFECT", "ANNOTATION_CONVENTION"):
+        assert kind not in DIRECTION_BEARING_KINDS
 
 
 @pytest.mark.parametrize("tag,expected", [
@@ -68,9 +88,11 @@ def test_direction_is_defined_for_exactly_the_representational_tags():
     ("relative_trigger_preposition", None),
     ("corpus_artifact_in_span", None),
     ("shared_subject_split", None),
-    ("redacted_value", None),
+    # v0.60 (F18): was None, now ruled INCOMPLETENESS -- §8.1 sets the field null
+    # for a clause the document states IS constrained, so the IR claims less.
+    ("redacted_value", "INCOMPLETENESS"),
 ])
-def test_f10s_five_tags_resolve_to_no_direction_and_the_other_five_keep_theirs(tag, expected):
+def test_f10s_tags_resolve_to_no_direction_and_the_direction_bearing_ones_keep_theirs(tag, expected):
     assert direction_of(tag) == expected
 
 
@@ -79,7 +101,7 @@ def test_None_and_UNCLASSIFIED_are_different_answers_and_do_not_collapse():
     decision is owed". Collapsing them would let a genuinely unruled tag hide
     among the deliberately direction-free ones."""
     assert direction_of("corpus_artifact_in_span") is None       # ruled: no direction
-    assert direction_of("some_future_tag") is None               # unruled kind -> not representational
+    assert direction_of("some_future_tag") is None               # unruled kind -> not direction-bearing
     assert kind_of("some_future_tag") == UNCLASSIFIED_KIND       # ...but the KIND is owed
     assert kind_of("corpus_artifact_in_span") != UNCLASSIFIED_KIND
 
@@ -92,7 +114,7 @@ def test_None_and_UNCLASSIFIED_are_different_answers_and_do_not_collapse():
     (["shared_subject_split"], True, "ANNOTATION_CONVENTION enters"),
     (["mutual_obligation"], False, "REPRESENTATIONAL excluded (ground 2)"),
     (["within_preposition"], False, "REACHABILITY excluded (guaranteed failure)"),
-    (["redacted_value"], False, "WITHHELD_VALUE held excluded pending its direction ruling"),
+    (["redacted_value"], False, "WITHHELD_VALUE RULED excluded v0.60 (F18) on ground 2"),
     (["some_future_tag"], False, "an unruled kind must NEVER enter silently"),
     (["mutual_obligation", "shared_subject_split"], False,
      "C14-02's real shape: one excluding tag is enough"),
@@ -122,15 +144,34 @@ def test_the_whole_set_denominators_move_17_to_20(gold_items):
     assert sorted(set(kinded) - set(legacy)) == ["C04-01", "C04-03", "C14-06"]
 
 
-def test_E03_01_stays_excluded_because_WITHHELD_VALUE_is_deliberately_held(gold_items):
-    """Sub-choice 2, pinned so it cannot be quietly flipped: `redacted_value` is
-    its own kind AND stays out of the denominator until its direction question
-    is ruled. If someone admits it, the in-force figure moves 3/10 -> 3/11 and
-    this test is the thing that says so."""
+def test_E03_01_stays_excluded_and_v060_made_that_a_RULING_not_a_hold(gold_items):
+    """Pinned so it cannot be quietly flipped: `redacted_value` is its own kind
+    AND stays out of the denominator. If someone admits it, the in-force figure
+    moves 3/10 -> 3/11 and this test is the thing that says so.
+
+    v0.60 (F18) changes the REASON without changing the membership: the kind is
+    now excluded by ruling, on §9.1 ground 2, because it carries a direction.
+    Both halves are asserted, because "excluded" alone would still pass if the
+    direction were silently reverted to None -- and that revert is precisely what
+    would reopen the question this ruling closed."""
     e03 = next(i for i in gold_items if i["item_id"] == "E03-01")
     assert e03["known_gaps"] == ["redacted_value"]
     assert GAP_KIND["redacted_value"] == "WITHHELD_VALUE"
+    assert direction_of("redacted_value") == "INCOMPLETENESS"
     assert in_force_scope(e03["known_gaps"]) is False
+
+
+def test_E03_01_gold_asserts_a_null_temporal_which_is_what_the_ruling_turns_on(gold_items):
+    """§8.10.1's factual premise, pinned against the committed item rather than
+    restated in prose: §8.1 sets the field null and names it in `missing_fields`,
+    and `redacted_phrase` holds the literal withheld text. The ruling is that the
+    first of those three is all §5's predicate can see -- so if a future edit
+    moved `temporal` off null, the ground-2 argument would no longer apply and
+    this test should be revisited rather than deleted."""
+    e03 = next(i for i in gold_items if i["item_id"] == "E03-01")
+    assert e03["temporal"] is None
+    assert "temporal" in e03["missing_fields"]
+    assert e03["redacted_phrase"].startswith("At least ** before the **")
 
 
 def test_C14_02_is_excluded_by_its_representational_tag_not_its_convention_tag(gold_items):
@@ -159,6 +200,47 @@ def test_G6_discloses_a_non_representational_tag_by_KIND_with_no_direction():
     assert "CORPUS_DEFECT: A-01 (corpus_artifact_in_span)" in out
     assert "OVERSTATING: A-01" not in out
     assert "INCOMPLETENESS: A-01" not in out
+
+
+def test_G6_buckets_a_redacted_value_item_under_INCOMPLETENESS_not_under_its_kind():
+    """v0.60 (F18): the one live WITHHELD_VALUE tag now carries a direction, so a
+    numerator item carrying it surfaces as a DIRECTION, alongside the
+    representational incompleteness cases rather than in a kind-named bucket."""
+    rep = _report([("A-01", Outcome.FULLY_CORRECT, ["redacted_value"])])
+    out = rep.render()
+    assert "INCOMPLETENESS: A-01 (redacted_value)" in out
+    assert "WITHHELD_VALUE: A-01" not in out
+
+
+def test_the_WITHHELD_VALUE_bucket_is_unreachable_and_an_unruled_one_routes_to_UNCLASSIFIED():
+    """The consequence of the v0.60 ruling that was found BY EXECUTION rather
+    than reasoned about, and that an earlier draft of the amendment got wrong in
+    prose before this test existed.
+
+    For any tag of a direction-bearing kind, `direction_of` returns a direction
+    or UNCLASSIFIED and NEVER None -- so report.py's `else kind_of(tag)` branch
+    cannot fire for it and the WITHHELD_VALUE bucket is dead. That is why the
+    bucket was removed from `order` rather than left standing: a bucket kept
+    after it can no longer be reached reads as "no such items" when it actually
+    means "no such path".
+
+    The routing that replaces it is the CORRECT one and is pinned here: a future
+    withheld-value tag with no ruled direction lands in UNCLASSIFIED, which is
+    exactly "a decision is owed" and the same treatment a new REPRESENTATIONAL
+    tag already gets."""
+    GAP_KIND["hypothetical_withheld"] = "WITHHELD_VALUE"
+    try:
+        assert direction_of("hypothetical_withheld") == UNCLASSIFIED_KIND
+        assert direction_of("hypothetical_withheld") is not None
+        rep = _report([("A-01", Outcome.FULLY_CORRECT, ["hypothetical_withheld"])])
+        out = rep.render()
+        assert f"{UNCLASSIFIED_KIND}: A-01 (hypothetical_withheld)" in out
+        assert "WITHHELD_VALUE: A-01" not in out
+        # ...and it still excludes from the denominator, by KIND, with no
+        # direction ruled -- the loud default is not weakened by the routing.
+        assert in_force_scope(["hypothetical_withheld"]) is False
+    finally:
+        del GAP_KIND["hypothetical_withheld"]
 
 
 def test_G6_still_forces_a_decision_on_a_tag_with_no_ruled_kind():

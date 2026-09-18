@@ -41,11 +41,16 @@ INCOMPLETENESS gaps (compound_action, mutual_obligation: the IR claims LESS --
 a monitor misses a real breach). Not a footnote: the same on-the-spot rule
 section 6.1 already imposes on a short run, for the same reason.
 
-G6 AT v0.59: direction is disclosed for REPRESENTATIONAL tags only. A tag of any
-other kind is disclosed BY ITS KIND with no direction, because gold is faithful
-for those kinds and nothing departs from the contract -- see gap_kinds. The
-UNCLASSIFIED bucket survives and now means "a tag whose KIND was never ruled on",
-which is the decision a new tag must force.
+G6 AT v0.60: direction is disclosed for tags of a kind where GOLD DEPARTS FROM
+THE DOCUMENT -- REPRESENTATIONAL and, since v0.60 (F18), WITHHELD_VALUE. A tag of
+any other kind is disclosed BY ITS KIND with no direction, because gold is
+faithful for those kinds and nothing departs from the contract -- see gap_kinds.
+The UNCLASSIFIED bucket survives and now means "a tag whose KIND was never ruled
+on", which is the decision a new tag must force.
+
+(v0.59 said REPRESENTATIONAL alone. That was a PROXY for the test above -- correct
+on the tags then live, wrong in general -- and F18 replaced it with the test
+itself once `redacted_value` turned out to depart from the document too.)
 
 Not hypothetical. The first scoring run's all-items numerator already held two
 incompleteness items (C03-02, C04-02), and C14-01 -- an OVERSTATING item,
@@ -99,12 +104,18 @@ from evals.harness.gap_agreement import GapAgreementResult
 from evals.harness.score import Outcome
 
 # G6's gap taxonomy. RULED AT v0.59 (section 8.10, F9/F10): the vocabulary carries
-# TWO axes, and `kind` is the first one -- `direction` applies only where the kind is
-# REPRESENTATIONAL. The five tags that were UNCLASSIFIED through v0.58 are resolved by
-# KIND, not by finally assigning each a direction: for REACHABILITY, CORPUS_DEFECT,
-# ANNOTATION_CONVENTION and WITHHELD_VALUE gold is FAITHFUL, so nothing departs from
+# TWO axes, and `kind` is the first one -- `direction` applies only where GOLD
+# DEPARTS FROM THE DOCUMENT. The five tags that were UNCLASSIFIED through v0.58 are
+# resolved by KIND, not by finally assigning each a direction: for REACHABILITY,
+# CORPUS_DEFECT and ANNOTATION_CONVENTION gold is FAITHFUL, so nothing departs from
 # the contract and there is no direction to assign. Both maps and the denominator
 # predicate live in one module so they cannot drift apart.
+#
+# AMENDED v0.60 (section 8.10.1, F18): WITHHELD_VALUE was in that faithful list and
+# is NOT -- section 8.1 rules the field null for a clause the document states IS
+# constrained, so `redacted_value` carries INCOMPLETENESS. It stays EXCLUDED from
+# the denominator either way, now by ruling rather than pending one, so no published
+# figure moved.
 #
 # Re-exported rather than moved outright: GAP_DIRECTION is the name every prior session
 # record and test refers to, and a rename would make this ruling look like a bigger
@@ -241,14 +252,29 @@ class Report:
         later must show up here unclassified and force a decision, never fall
         silently into whichever bucket a default picked.
 
-        v0.59 (F9/F10): direction is asked only of a REPRESENTATIONAL tag. A tag
-        of another kind is disclosed under its KIND with no direction, because
-        gold is faithful for those kinds -- there is no departure from the
-        contract to give a direction to. UNCLASSIFIED now means the tag's KIND
-        was never ruled on, which is the decision a new tag must still force.
+        v0.59 (F9/F10): direction is asked only of a tag whose kind departs from
+        the document. A tag of any other kind is disclosed under its KIND with no
+        direction, because gold is faithful for those kinds -- there is no
+        departure from the contract to give a direction to. UNCLASSIFIED now
+        means the tag's KIND was never ruled on, which is the decision a new tag
+        must still force.
+
+        v0.60 (F18): that set is REPRESENTATIONAL *and* WITHHELD_VALUE, not
+        REPRESENTATIONAL alone -- see gap_kinds.DIRECTION_BEARING_KINDS. So a
+        `redacted_value` item in a numerator now surfaces under INCOMPLETENESS
+        rather than under its kind, and the WITHHELD_VALUE bucket is REMOVED from
+        `order` because it became unreachable by construction, not because the
+        kind went away. Verified by execution rather than reasoned about: for any
+        tag of a direction-bearing kind `direction_of` returns a direction or
+        UNCLASSIFIED and never None, so the `else kind_of(tag)` branch cannot fire
+        for it -- a future withheld-value tag with no ruled direction routes to
+        UNCLASSIFIED, which is the correct report (a decision is owed) and the
+        same treatment a new REPRESENTATIONAL tag already gets. A bucket kept
+        after it can no longer be reached would read as "no such items" when it
+        in fact means "no such path"; a test pins the unreachability instead.
         """
         order = ("OVERSTATING", "INCOMPLETENESS", "REACHABILITY", "CORPUS_DEFECT",
-                 "ANNOTATION_CONVENTION", "WITHHELD_VALUE", UNCLASSIFIED_KIND)
+                 "ANNOTATION_CONVENTION", UNCLASSIFIED_KIND)
         buckets: dict[str, list[str]] = {k: [] for k in order}
         for i in self.items:
             if i.modal is not Outcome.FULLY_CORRECT or not i.known_gaps:
@@ -363,6 +389,10 @@ class Report:
             "      WITHHELD_VALUE and UNCLASSIFIED tags exclude; CORPUS_DEFECT and",
             "      ANNOTATION_CONVENTION do NOT -- neither the IR nor the annotation departs",
             "      from the contract, which is §9.1 ground 1's own test.",
+            "      WITHHELD_VALUE is RULED excluded as of v0.60 (F18), no longer held pending",
+            "      one: §8.1's null discards a constraint the document states, and §5 cannot",
+            "      see the channel §8.1 makes it recoverable through. Membership is unchanged,",
+            "      so the figure does NOT move -- only the reason it is excluded.",
             f"Reported alongside, over ALL items:                {pct(fc_all, n_all)}",
             "    ^ NOT the criterion (§9.1). Its numerator can contain IRs that are knowingly",
             "      not faithful representations -- see the disclosure directly below.",
@@ -378,11 +408,15 @@ class Report:
                 "      breach the contract exempts). INCOMPLETENESS = it claims LESS (a monitor",
                 "      misses a real breach). Both are REPRESENTATIONAL, counted FULLY_CORRECT",
                 "      in the all-items figure above and excluded from the in-force criterion.",
+                "    Both are kinds where GOLD DEPARTS FROM THE DOCUMENT (§8.10 as amended",
+                "      v0.60, F18): REPRESENTATIONAL because the IR has no form for the clause,",
+                "      WITHHELD_VALUE because §8.1 rules the field null though the IR HAS the",
+                "      form. Both are excluded from the in-force criterion.",
                 "    A bucket named for a KIND rather than a direction (REACHABILITY,",
-                "      CORPUS_DEFECT, ANNOTATION_CONVENTION, WITHHELD_VALUE) carries NO",
-                "      direction by ruling, not by omission: gold is faithful for those kinds,",
-                "      so nothing departs from the contract (§8.10, F10). UNCLASSIFIED means",
-                "      the tag's KIND was never ruled on and a decision is owed.",
+                "      CORPUS_DEFECT, ANNOTATION_CONVENTION) carries NO direction by ruling,",
+                "      not by omission: gold is faithful for those kinds, so nothing departs",
+                "      from the contract (§8.10, F10). UNCLASSIFIED means the tag's KIND was",
+                "      never ruled on and a decision is owed.",
             ]
         else:
             lines.append("    None -- every item in either numerator carries a known gap.")
