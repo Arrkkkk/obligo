@@ -153,11 +153,20 @@ def test_E03_01_stays_excluded_and_v060_made_that_a_RULING_not_a_hold(gold_items
     now excluded by ruling, on §9.1 ground 2, because it carries a direction.
     Both halves are asserted, because "excluded" alone would still pass if the
     direction were silently reverted to None -- and that revert is precisely what
-    would reopen the question this ruling closed."""
+    would reopen the question this ruling closed.
+
+    EXTENDED v0.61 (F19), NOT relaxed. The item now carries a SECOND excluding
+    tag, so `in_force_scope(e03["known_gaps"]) is False` would pass even if
+    v0.60's ruling were reverted -- the assertion would go vacuous exactly
+    where it is load-bearing. The fix is to test `redacted_value` ALONE for the
+    v0.60 half, so this test keeps failing if that ruling is undone, and to
+    assert the item's full tag set separately for the F19 half."""
     e03 = next(i for i in gold_items if i["item_id"] == "E03-01")
-    assert e03["known_gaps"] == ["redacted_value"]
+    assert sorted(e03["known_gaps"]) == ["lead_time_unrepresentable", "redacted_value"]
     assert GAP_KIND["redacted_value"] == "WITHHELD_VALUE"
     assert direction_of("redacted_value") == "INCOMPLETENESS"
+    # v0.60's ruling, checked on its own tag so F19's tag cannot carry it.
+    assert in_force_scope(["redacted_value"]) is False
     assert in_force_scope(e03["known_gaps"]) is False
 
 
@@ -275,3 +284,121 @@ def test_the_legacy_denominator_is_still_computable_and_differs(gold_items):
     rep = _report(rows)
     assert rep.legacy_no_known_gaps_denominator == 17
     assert rep.criterion2_no_known_gaps[1] == 20
+
+
+# --- v0.61 (F19): lead_time_unrepresentable --------------------------------
+#
+# These tests check the RULING'S OWN FACTUAL CLAIMS against the production IR,
+# not just the bookkeeping. Section 8.11 argues from what the five temporal
+# forms can hold; if that ever stops being true the ruling is wrong and these
+# must fail rather than the prose quietly going stale.
+
+def test_lead_time_tag_is_representational_and_incompleteness():
+    assert GAP_KIND["lead_time_unrepresentable"] == "REPRESENTATIONAL"
+    assert direction_of("lead_time_unrepresentable") == "INCOMPLETENESS"
+    assert in_force_scope(["lead_time_unrepresentable"]) is False
+
+
+def test_no_v1_temporal_form_pairs_a_duration_with_a_direction():
+    """Section 8.11's DECISIVE claim, and the reason the gap is single-form
+    rather than compositional: composition joins whole forms, so if no form
+    holds {duration, direction} then no composition of forms can express a
+    lead time either. Asserted against the real dataclasses."""
+    import dataclasses
+    from obligo_brain.compiler import ast
+
+    forms = [ast.ByTemporal, ast.WithinTemporal, ast.EveryTemporal,
+             ast.DuringTemporal, ast.RelativeToTriggerTemporal]
+    slots = {f.__name__: {x.name for x in dataclasses.fields(f)} for f in forms}
+
+    assert not [n for n, s in slots.items() if {"duration", "direction"} <= s]
+    assert not [n for n, s in slots.items() if {"duration", "direction", "trigger"} <= s]
+    # The two halves exist, just never together -- which is what makes this an
+    # expressiveness gap rather than a missing feature nobody noticed.
+    assert {n for n, s in slots.items() if "duration" in s} == {
+        "WithinTemporal", "EveryTemporal"}
+    assert {n for n, s in slots.items() if "direction" in s} == {
+        "RelativeToTriggerTemporal"}
+
+
+def test_a_lead_time_phrase_does_not_classify_but_its_stripped_form_does():
+    """The gap is the DURATION, pinned by difference rather than asserted: the
+    same phrase classifies once the lead time is removed, which is exactly the
+    content the IR loses and why the direction is INCOMPLETENESS."""
+    from obligo_brain.compiler.ir_compile import _classify_temporal as classify
+
+    assert classify("at least 30 days before the first day of each Calendar Quarter") is None
+    assert classify("30 days before the first day of each Calendar Quarter") is None
+    assert classify("before the first day of each Calendar Quarter") == (
+        'BEFORE "the first day of each Calendar Quarter"')
+
+
+def test_E03_01s_temporal_fails_even_unredacted():
+    """F19's conclusion, which SURVIVED the mechanism correction. Checked on a
+    plausible unredacted phrase as well as the redacted one, because the whole
+    question was whether the redaction is doing the work. It is not."""
+    from obligo_brain.compiler.ir_compile import _classify_temporal as classify
+
+    assert classify(
+        "At least ** before the ** of each Calendar Quarter "
+        "during the Term of this Supply Agreement") is None
+    assert classify(
+        "At least thirty (30) days before the first day of each Calendar Quarter "
+        "during the Term of this Supply Agreement") is None
+
+
+def test_the_recurrence_operand_the_annotator_claimed_is_not_available_either():
+    """Section 8.11 ground (a). `EVERY` is only reachable for this clause via a
+    paraphrase gold never performed -- `Duration` has no UNRESOLVED variant, so
+    a recurrence named by a defined term has no form."""
+    import dataclasses
+    from obligo_brain.compiler import ast
+    from obligo_brain.compiler.ir_compile import _classify_temporal as classify
+
+    assert classify("each Calendar Quarter") is None
+    assert classify("every Calendar Quarter") is None
+    assert classify("every 3 months") == "EVERY 3mo"  # the paraphrase, for contrast
+    assert {f.name for f in dataclasses.fields(ast.Duration)} == {"amount", "unit"}
+
+
+def test_EVERY_plus_DURING_is_unmappable_on_the_extraction_path():
+    """The guideline's corrected section 8 row, and the FOURTH tracked instance
+    of a grammar-layer guarantee the extraction path bypasses. Both halves are
+    asserted together, because the row was wrong precisely by stating one and
+    being read as the other."""
+    import warnings
+    from obligo_brain.compiler.ir_compile import _classify_temporal as classify
+    from obligo_brain.compiler.parser import parse
+
+    # extraction path: no form matches at all
+    assert classify("every 30 days during 2026-01-01 .. 2026-12-31") is None
+    assert classify("every 30 days during the Term") is None
+
+    # grammar path: the warn-and-degrade guarantee is REAL, just unreachable
+    dsl = ('MUST "A" PROVIDE "B" rep "r" EVERY 30d DURING 2026-01-01 .. 2026-12-31 '
+           "11111111-1111-1111-1111-111111111111 0 5 0.9")
+    with warnings.catch_warnings(record=True) as caught:
+        warnings.simplefilter("always")
+        obligation = parse(dsl)
+    assert obligation.temporal.duration.amount == 30
+    assert any("cannot represent" in str(w.message) for w in caught)
+
+
+def test_every_ruled_kind_is_a_tag_section_8_recognises():
+    """The two hand-maintained copies of §8's vocabulary must not drift apart.
+
+    Found the hard way at v0.61: adding `lead_time_unrepresentable` to GAP_KIND
+    alone left `annotator_agreement.SECTION_8_TAGS` stale, which marked E03-01
+    NON_CONFORMING and moved `A` -- a failure in a DIFFERENT instrument from the
+    one the tag was added for, and one no test in this file would have caught.
+
+    The invariant is the SUBSET direction, not equality: SECTION_8_TAGS is
+    deliberately wider, holding tags §8 defines but no item uses yet."""
+    from evals.harness.annotator_agreement import SECTION_8_TAGS
+
+    unrecognised = sorted(set(GAP_KIND) - SECTION_8_TAGS)
+    assert unrecognised == [], (
+        f"tags with a ruled §8.10 kind that SECTION_8_TAGS does not recognise: "
+        f"{unrecognised}. Add them there too, or gold items carrying them are "
+        "silently NON_CONFORMING."
+    )

@@ -75,6 +75,13 @@ GAP_KIND = {
     "compound_action": "REPRESENTATIONAL",
     "mutual_obligation": "REPRESENTATIONAL",
     "action_not_in_taxonomy": "REPRESENTATIONAL",
+    # v0.61 (F19): no v1 temporal form carries a DURATION and a DIRECTION
+    # together, so a lead-time deadline ("at least 30 days before X") has no
+    # form at all. REPRESENTATIONAL rather than REACHABILITY on section 8.6.1's
+    # own test: this is not a surface pattern rejecting input the IR could hold
+    # -- the IR cannot hold it. Verified mechanically over all five forms, not
+    # read off the regexes (see GOLD_SET_GUIDELINE.md section 8.11).
+    "lead_time_unrepresentable": "REPRESENTATIONAL",
     "within_preposition": "REACHABILITY",
     "relative_trigger_preposition": "REACHABILITY",
     "corpus_artifact_in_span": "CORPUS_DEFECT",
@@ -106,6 +113,18 @@ GAP_DIRECTION = {
     # compound_action -- section 8.8 puts the NEAREST taxonomy verb in `action`
     # and the real verb is lost, so the IR claims less than the document says.
     "action_not_in_taxonomy": "INCOMPLETENESS",
+    # v0.61 (F19, RULED): INCOMPLETENESS, and reached INDEPENDENTLY rather than
+    # inherited from E03-01's own annotator note. The IR drops the lead-time
+    # DURATION and keeps at most the bare direction (the repaired narrowing on
+    # E03-005 runs 2-3 classifies as BEFORE "the ** of each Calendar Quarter"),
+    # so a monitor built on it never checks the advance-notice period and
+    # misses a real breach -- the IR claims LESS than the document. The
+    # OVERSTATING alternative was considered and rejected on the semantics: the
+    # nearest composable v1 approximation, WITHIN 30d OF X, denotes X-30d <= t
+    # < X, which is the COMPLEMENT of "at least 30 days before X" (t <= X-30d)
+    # -- so it would be a misstatement rather than an overstatement, and v1
+    # cannot build it anyway (no form pairs duration with direction).
+    "lead_time_unrepresentable": "INCOMPLETENESS",
     # v0.60 (F18, RULED): INCOMPLETENESS. Section 8.1 sets the affected field to
     # `null` for a clause the document states IS constrained, so the IR claims
     # LESS than the document -- a monitor built on E03-01 never checks the

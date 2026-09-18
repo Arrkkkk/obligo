@@ -85,6 +85,16 @@ PRE_RESTAMP = {
     "C17-02": {
         "temporal": None,
     },
+    # v0.61 (F19). `known_gaps` is not one of §5's eight clauses, so these four
+    # entries are invisible to K and to `A` -- they exist for the ONE test in
+    # this file that computes G, which reads tags directly. Sealed values
+    # measured at commit 628f67c, not reconstructed from the rulings' prose.
+    # Kept here rather than in a second map so there is one answer to "what did
+    # gold look like on 2026-08-29", whichever instrument is asking.
+    "C04-02": {"known_gaps": ["mutual_obligation"]},                      # F7
+    "C10-01": {"known_gaps": ["compound_action", "exception_unsupported"]},  # F11
+    "E01-01": {"known_gaps": ["exception_unsupported"]},                  # F8
+    "E03-01": {"known_gaps": ["redacted_value"]},                         # F19
 }
 
 # The published run's clause names, in section 5's numbering.
@@ -330,7 +340,18 @@ def test_gap_agreement_recomputed_over_conforming_pairs_only(gold, cold):
     the all-pairs band is still (16,17), the five non-conforming pairs are
     still excluded rather than resolved, and F9's kind-axis question is
     untouched. Neither verdict changed (REDESIGN / DIAGNOSE both hold), so
-    this is a real but bounded movement, stated at its size."""
+    this is a real but bounded movement, stated at its size.
+
+    v0.61 (F19) FIX, not an update. This test asserts the PUBLISHED G and was
+    computing it from LIVE `known_gaps`, so every post-seal ruling that touched
+    a tag silently re-baselined it -- four have. It now reads gold through
+    `PRE_RESTAMP`, the same mechanism the clause-level restamps already use, so
+    the figures below are the 2026-08-29 run's own again rather than whatever
+    today's tags happen to produce. The all-pairs numbers consequently revert
+    to the genuinely published `(31, 6, 2)` / band `(15,17)`: the v0.48 note
+    above was describing LIVE drift, correctly, but under a name that claimed
+    it was the published measurement."""
+    gold = _load_gold(pre_restamp=True, scope=published_population())
     nc = {i.item_id for i in compute(gold, cold).non_conforming}
     all_pairs, conforming = [], []
     for segment_id, gold_items in sorted(gold.items()):
@@ -346,15 +367,58 @@ def test_gap_agreement_recomputed_over_conforming_pairs_only(gold, cold):
                 conforming.append(pair)
 
     published = compute_gap_agreement(all_pairs)
-    assert (published.n, published.g_count, published.g_swing_count) == (31, 6, 1)
-    assert published.d_band == (16, 17)
+    # v0.61: the ACTUAL published figures, reachable again now that gold is read
+    # pre-restamp. Was asserting (31, 6, 1) / (16, 17) -- live drift, not the run.
+    assert (published.n, published.g_count, published.g_swing_count) == (31, 6, 2)
+    assert published.d_band == (15, 17)
     assert published.g_overall_verdict == "REDESIGN"
 
     corrected = compute_gap_agreement(conforming)
-    assert (corrected.n, corrected.g_count, corrected.g_swing_count) == (26, 4, 0)
-    assert corrected.d_band == (15, 15)
+    assert (corrected.n, corrected.g_count, corrected.g_swing_count) == (26, 4, 1)
+    assert corrected.d_band == (14, 15)
     assert corrected.g_overall_verdict == "DIAGNOSE"
     assert corrected.disjoint_items == ()      # GAP_AGREEMENT_DESIGN section 6's only instance
+
+
+def test_the_LIVE_conforming_G_has_crossed_its_REDESIGN_anchor_since_the_run(gold, cold):
+    """THE LIVE COUNTERPART, and it is disclosed rather than left to be found.
+
+    The test above is now genuinely historical. This one is the current set, and
+    it does NOT merely drift -- at v0.61 it changes a VERDICT. F19's second tag
+    on E03-01 takes the conforming-only G from 4/26 to 5/26, which clears the
+    REDESIGN anchor. So the v0.48 framing that restricting G to conforming pairs
+    "moves it off its own REDESIGN trigger" is TRUE of the published run and
+    FALSE of the current set.
+
+    Stated against interest: F19 was priced as verdict-neutral because the
+    ALL-PAIRS G stays REDESIGN either way (6/31 -> 7/31). That is correct and
+    incomplete -- the conforming-scoped G is a second instrument with its own
+    n, and there the tag is what tips it. No headline figure moves (criterion 2
+    and K are untouched, confirmed by a real run), but "no verdict moves" would
+    have been wrong.
+
+    The v0.48 note's substantive finding survives in the part that was really
+    about scoreability: G_swing on conforming pairs is 0 and the band is the
+    POINT (15,15) -- the two annotators still do not disagree about which
+    conforming items are scoreable. What moved is G_overall, which counts ANY
+    set inequality, including the superset F19 creates."""
+    nc = {i.item_id for i in compute(gold, cold).non_conforming}
+    conforming = []
+    for segment_id, gold_items in sorted(gold.items()):
+        gs = sorted(gold_items, key=lambda d: (d["span_char_start"], d["item_id"]))
+        others = cold.get(segment_id, [])
+        pairs, _, _ = pair_items(gs, others)
+        for gi, oi, _ in pairs:
+            if gs[gi]["item_id"] in nc:
+                continue
+            conforming.append(GapPair(gs[gi]["item_id"],
+                                      frozenset(gs[gi].get("known_gaps") or ()),
+                                      frozenset(others[oi].get("known_gaps") or ())))
+
+    live = compute_gap_agreement(conforming)
+    assert (live.n, live.g_count, live.g_swing_count) == (26, 5, 0)
+    assert live.d_band == (15, 15), "the SCOREABILITY agreement is unchanged"
+    assert live.g_overall_verdict == "REDESIGN", "was DIAGNOSE at the published run"
 
 
 # --------------------------------------------------------------------------

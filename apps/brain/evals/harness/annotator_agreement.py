@@ -108,7 +108,17 @@ SECTION_8_TAGS = frozenset({
     "exception_unsupported", "unless_unsupported", "action_not_in_taxonomy",
     "within_preposition", "relative_trigger_preposition", "corpus_artifact_in_span",
     "shared_subject_split",
+    "lead_time_unrepresentable",  # v0.61, §8.11 (F19)
 })
+# This is the SECOND hand-maintained copy of section 8's vocabulary, alongside
+# `gap_kinds.GAP_KIND`, and they are deliberately NOT the same set: this one is
+# a SUPERSET, holding tags section 8 defines but no item has used yet
+# (`redacted_clause`). The invariant that keeps them from drifting apart is the
+# subset direction -- every tag with a ruled KIND must be a tag section 8
+# recognises -- and it is pinned by a test rather than left to whoever adds the
+# next tag to remember both files. Adding a tag to `GAP_KIND` alone previously
+# marked every item carrying it NON_CONFORMING, silently, in a DIFFERENT
+# instrument (`A`) from the one the tag was added for.
 
 
 class Agreement(str, Enum):

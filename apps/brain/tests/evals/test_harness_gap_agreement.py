@@ -198,21 +198,66 @@ def test_pair_matched_items_excludes_unmatched_and_uses_iou_alignment():
 
 # --- real-data reproduction: the 2026-08-29 §7 cold-annotator run ----------
 
-_HOLDOUT_ITEM_IDS = [
-    "C02-01", "C02-02", "C02-03", "C02-04", "C03-01", "C03-02", "C03-03",
-    "C04-01", "C04-02", "C04-03", "C04-04", "C04-05", "C05-01", "C06-01",
-    "C10-01", "C10-02", "C11-01", "C13-01", "C13-02", "C13-03", "C14-01",
-    "C14-02", "C14-04", "C14-05", "C17-01", "C17-02", "C22-01", "C22-02",
-    "E01-01", "E03-01", "E07-01", "E08-01",
-]
+def published_population() -> frozenset[str]:
+    """The 32 gold items the published 2026-08-29 run actually compared, read
+    off the SEALED artifact rather than transcribed as a list.
+
+    ADDED v0.61 (F19), the same fix `test_harness_annotator_agreement`'s own
+    `published_population()` applied to K at v0.53, and for the same reason one
+    level down. A transcribed id list does not drift when an item is ADDED --
+    that much it got right -- but it cannot tell a missing published item from
+    an edited one, and it states the population by assertion where the sealed
+    artifact states it as fact. Deriving it keeps the pin correct for every
+    future addition automatically and fails LOUDLY when a published item goes
+    missing from disk (see `_load_holdout_pairs`' own guard).
+    """
+    raw = json.loads((HOLDOUT_DIR / "comparison.json").read_text())
+    return frozenset(r["item"] for r in raw["rows"])
 
 
-def _load_holdout_pairs() -> list[GapPair]:
+# The 2026-08-29 run's OWN `known_gaps`, for the four items whose tags have
+# been edited by a later ruling. Same discipline and same shape as
+# `test_harness_annotator_agreement.PRE_RESTAMP`: the reproduction is EXTENDED
+# to keep reproducing, never relaxed to keep passing.
+#
+# WHY THIS MAP IS NEEDED AT ALL, and it is the finding that motivated it.
+# `comparison.json` seals the population and K's per-clause fails; it does NOT
+# seal `known_gaps`, because G did not exist when it was written. So the
+# historical G was only ever recoverable from the gold files as they stood --
+# and four have since moved (F7 emptied C04-02, F11 added to C10-01, F8 added
+# to E01-01, F19 added to E03-01). Measured at the seal commit
+# 628f67c7563f237884e54fc1a7198539d941d034 rather than reconstructed from the
+# rulings' prose.
+#
+# THE PUBLISHED G=6/31 HELD ACROSS THE FIRST THREE OF THOSE DRIFTS BY
+# COINCIDENCE, NOT BY STABILITY: C04-02 leaving `swing` and C10-01 joining
+# `superset` cancelled exactly. F19 breaks the coincidence (7/31). A live-set
+# G that happens to equal the published one is not a reproduction of it, and
+# until this map existed nothing in the suite could tell those two apart.
+PRE_TAG = {
+    "C04-02": ["mutual_obligation"],
+    "C10-01": ["compound_action", "exception_unsupported"],
+    "E01-01": ["exception_unsupported"],
+    "E03-01": ["redacted_value"],
+}
+
+
+def _load_holdout_pairs(pre_tag: bool = False) -> list[GapPair]:
+    """`pre_tag=True` reproduces the 2026-08-29 run's own `known_gaps`;
+    `False` computes G over the CURRENT gold set. Two different measurements
+    over one population -- never averaged, never reported as one number."""
     gold_by_seg: dict[str, list[dict]] = {}
-    for item_id in _HOLDOUT_ITEM_IDS:
+    for item_id in sorted(published_population()):
         matches = glob.glob(str(GOLD_DIR / "batch*" / "items" / f"{item_id}.json"))
-        assert matches, f"gold item {item_id} not found under any batch"
+        assert matches, (
+            f"gold item {item_id} is in the SEALED published population but is not "
+            "on disk under any batch -- the published run can no longer be "
+            "reproduced. This is a loud failure on purpose: it is exactly the "
+            "case a transcribed id list could not distinguish from an addition."
+        )
         gold = json.loads(Path(matches[0]).read_text())
+        if pre_tag and item_id in PRE_TAG:
+            gold = {**gold, "known_gaps": PRE_TAG[item_id]}
         gold_by_seg.setdefault(gold["segment_id"], []).append(gold)
 
     cold_by_seg: dict[str, list[dict]] = {}
@@ -251,19 +296,31 @@ def test_reproduces_the_holdout_run_against_the_CURRENT_gold_set():
         at all, so gold's tag set becomes a strict superset there.
       * F8 added two tags to E01-01, which was already a superset item.
 
-    NOT moved: n, G itself, and the REDESIGN verdict. This is the same
+    NOT moved by v0.48: n, G itself, and the REDESIGN verdict. This is the same
     disclosure shape §3.6.1's v0.45 correction established for a retroactive
     slot edit -- state the effect at its true size, do not freeze the
     computation and do not inflate it.
+
+    v0.61 (F19) adds a FOURTH delta, and it is the one that breaks the pattern
+    above: `lead_time_unrepresentable` on E03-01, which cold does not carry, so
+    gold becomes a strict superset there and G moves 6 -> 7 (Wilson lower
+    9.19% -> 11.40%; verdict still REDESIGN). G had survived the first three
+    drifts only because C04-02 leaving `swing` and C10-01 joining `superset`
+    cancelled -- see `test_the_live_G_is_not_the_published_G_...`. The band and
+    D_gold are UNMOVED, because `redacted_value` already excluded E03-01 on
+    both sides and membership is by ANY excluding tag: F19 is exclusion-neutral
+    for F17 exactly as that entry predicted, and NOT neutral for G.
     """
     pairs = _load_holdout_pairs()
     result = compute_gap_agreement(pairs)
 
     assert result.n == 31, "design §2: n=31 matched items (32 items, 1 unmatched -- C14-02)"
-    assert result.g_count == 6, "unchanged by v0.48 -- the REDESIGN trigger still holds"
+    assert result.g_count == 7, "was 6; F19 added a second tag to E03-01 (§8.11)"
     assert result.g_swing_count == 1, "was 2; F7 moved C04-02 onto cold"
     assert set(result.swing_items) == {"C10-02"}
-    assert set(result.superset_items) == {"C04-03", "C10-01", "C14-01", "E01-01"}
+    assert set(result.superset_items) == {
+        "C04-03", "C10-01", "C14-01", "E01-01", "E03-01",
+    }
     assert set(result.disjoint_items) == {"C14-04"}
 
     assert result.d_gold == 16, "was 15; C04-02's known_gaps is now empty (§9.2)"
@@ -273,6 +330,71 @@ def test_reproduces_the_holdout_run_against_the_CURRENT_gold_set():
 
     assert result.g_swing_verdict == GSWING_BANDED
     assert result.g_overall_verdict == G_REDESIGN
+
+
+def test_reproduces_the_2026_08_29_holdout_run_at_its_OWN_known_gaps():
+    """THE HISTORICAL reproduction, restored at v0.61 (F19). The test above
+    computes G over the CURRENT gold set and says so in its name; this one
+    pins the PUBLISHED, DATED measurement, which nothing in the suite had been
+    able to check since the first post-seal ruling edited a tag.
+
+    RESULTS.md / GAP_AGREEMENT_DESIGN.md's own published figures:
+        n=31  G=6  G_swing=2  swing={C04-02, C10-02}
+        superset={C04-03, C14-01, E01-01}  disjoint={C14-04}
+        D_gold=15  D_int=15  D_uni=17  band=(15,17)
+
+    Note what separates this from the live test and why both must exist:
+    G_swing and the D band differ (2 vs 1, (15,17) vs (16,17)) while G itself
+    is 6 in both -- and that equality is a COINCIDENCE of two cancelling
+    drifts, not evidence of stability. F19 breaks it on the live side."""
+    result = compute_gap_agreement(_load_holdout_pairs(pre_tag=True))
+
+    assert result.n == 31
+    assert result.g_count == 6
+    assert result.g_swing_count == 2
+    assert set(result.swing_items) == {"C04-02", "C10-02"}
+    assert set(result.superset_items) == {"C04-03", "C14-01", "E01-01"}
+    assert set(result.disjoint_items) == {"C14-04"}
+
+    assert (result.d_gold, result.d_int, result.d_uni) == (15, 15, 17)
+    assert result.d_band == (15, 17)
+    assert result.g_swing_verdict == GSWING_BANDED
+    assert result.g_overall_verdict == G_REDESIGN
+
+
+def test_the_live_G_is_not_the_published_G_and_the_suite_can_tell_them_apart():
+    """The point of PRE_TAG, asserted positively rather than left implicit.
+
+    Before v0.61 the only real-data G test read `known_gaps` live, so a ruling
+    that edited a tag silently re-baselined a published figure. It is not
+    hypothetical: four items have drifted since the seal, and the live and
+    historical runs now disagree on G, G_swing and the band at once."""
+    live = compute_gap_agreement(_load_holdout_pairs())
+    published = compute_gap_agreement(_load_holdout_pairs(pre_tag=True))
+
+    assert live.n == published.n == 31, "the POPULATION is pinned; only tags differ"
+    assert (live.g_count, live.g_swing_count, live.d_band) != (
+        published.g_count, published.g_swing_count, published.d_band
+    ), "if these ever coincide again, it is coincidence -- do not read it as stability"
+    assert live.g_overall_verdict == published.g_overall_verdict == G_REDESIGN
+
+
+def test_pre_tag_map_matches_the_items_that_actually_drifted():
+    """PRE_TAG must hold an override for EXACTLY the drifted items -- no more
+    (a stale entry would silently rewrite an item that never moved) and no
+    fewer (a missing one puts live data in the historical run)."""
+    overridden_and_equal = []
+    for item_id, sealed in PRE_TAG.items():
+        matches = glob.glob(str(GOLD_DIR / "batch*" / "items" / f"{item_id}.json"))
+        current = json.loads(Path(matches[0]).read_text())["known_gaps"]
+        if sorted(current) == sorted(sealed):
+            overridden_and_equal.append(item_id)
+    assert not overridden_and_equal, (
+        "PRE_TAG entries that no longer override anything (the item's live tags "
+        f"already equal its sealed ones): {overridden_and_equal}. Remove them -- a "
+        "no-op override hides the fact that the item is back in agreement."
+    )
+    assert set(PRE_TAG) <= published_population()
 
 
 def test_holdout_reproduction_also_matches_comparisonjson_matched_count():
@@ -366,7 +488,9 @@ def test_render_end_to_end_with_the_real_holdout_gap_agreement():
     ga = compute_gap_agreement(pairs)
     # v0.48: was (31, 6, 2) / (15, 15, 17). See the rename note above --
     # F7's restamp of C04-02 moved D_gold and G_swing; both verdicts hold.
-    assert (ga.n, ga.g_count, ga.g_swing_count) == (31, 6, 1)
+    # v0.61 (F19): g_count 6 -> 7, E03-01's second tag. D_* unmoved -- it was
+    # already excluded on both sides, so the band is untouched (F17-neutral).
+    assert (ga.n, ga.g_count, ga.g_swing_count) == (31, 7, 1)
     assert (ga.d_gold, ga.d_int, ga.d_uni) == (16, 16, 17)
     assert ga.g_swing_verdict == GSWING_BANDED
     assert ga.g_overall_verdict == G_REDESIGN
@@ -399,5 +523,5 @@ def test_render_end_to_end_with_the_real_holdout_gap_agreement():
     assert "[band 58.8%–62.5%]" in text
     assert "over D=16 [16–17]" in text
     assert "G_swing=1/31 → BANDED" in text
-    assert "G (overall known_gaps disagreement) = 6/31 → REDESIGN (Wilson95 lower 9.2%)" in text
+    assert "G (overall known_gaps disagreement) = 7/31 → REDESIGN (Wilson95 lower 11.4%)" in text
     assert "ILLUSTRATIVE -- outcomes are a placeholder pattern" in text
