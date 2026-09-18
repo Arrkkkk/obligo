@@ -214,7 +214,7 @@ def test_the_in_force_criterion_is_the_no_known_gaps_denominator() -> None:
     out = rep.render()
     assert rep.criterion2_no_known_gaps == (1, 2)
     assert rep.criterion2_all_items == (2, 3)
-    assert "CRITERION 2 (IN FORCE" in out and "len(known_gaps)==0" in out
+    assert "CRITERION 2 (IN FORCE" in out and "kind-scoped, §8.10" in out
     # The all-items figure must still be published, and must NOT be the criterion.
     assert "Reported alongside, over ALL items" in out
     assert "NOT the criterion" in out

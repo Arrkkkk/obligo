@@ -13,9 +13,18 @@ count carries the real signal either way.
 
 G3 -- CRITERION 2's DUAL DENOMINATOR IS IN FORCE (section 9.1, v0.33). Approved
 after being carried as "RECOMMENDED, NOT YET APPROVED" since v0.26. The PRIMARY
-figure is now len(known_gaps)==0 -- items IR v1 can represent faithfully -- and
-all-items is reported ALONGSIDE it, never as the criterion. Both are still
-always emitted and always labelled; what changed is which one is the criterion.
+figure is items IR v1 can represent faithfully, and all-items is reported
+ALONGSIDE it, never as the criterion. Both are still always emitted and always
+labelled; what changed is which one is the criterion.
+
+G3's PREDICATE CHANGED AT v0.59 (section 8.10 / section 10.1 F9) and the figure
+MOVED: the in-force denominator is no longer `len(known_gaps) == 0` but
+`gap_kinds.in_force_scope()`, which excludes by the tag's KIND. Measured by a
+real run at the time it landed, 3/9 = 33.3% -> 3/10 = 30.0%: `corpus_artifact_in_span`
+and `shared_subject_split` no longer exclude, because section 9.1 ground 1's own
+text ("items IR v1 can represent faithfully") describes them exactly. The
+numerator did not move, so this LOWERS the figure -- the safe direction for
+section 3.6's monotone-widening hazard, unlike an accept-set widening.
 
 Two independent grounds, recorded because they fail differently: (1)
 reachability -- the all-items ceiling is ~39-61% at the measured gap rate, so
@@ -31,6 +40,12 @@ MORE than the contract -- a monitor flags a breach the contract exempts) and
 INCOMPLETENESS gaps (compound_action, mutual_obligation: the IR claims LESS --
 a monitor misses a real breach). Not a footnote: the same on-the-spot rule
 section 6.1 already imposes on a short run, for the same reason.
+
+G6 AT v0.59: direction is disclosed for REPRESENTATIONAL tags only. A tag of any
+other kind is disclosed BY ITS KIND with no direction, because gold is faithful
+for those kinds and nothing departs from the contract -- see gap_kinds. The
+UNCLASSIFIED bucket survives and now means "a tag whose KIND was never ruled on",
+which is the decision a new tag must force.
 
 Not hypothetical. The first scoring run's all-items numerator already held two
 incompleteness items (C03-02, C04-02), and C14-01 -- an OVERSTATING item,
@@ -83,41 +98,27 @@ from typing import Iterable, Sequence
 from evals.harness.gap_agreement import GapAgreementResult
 from evals.harness.score import Outcome
 
-# G6's gap taxonomy (section 9.1). Direction of the IR's departure from the
-# contract, NOT severity: OVERSTATING claims more than the document does,
-# INCOMPLETENESS claims less. A tag absent from this map is reported as
-# UNCLASSIFIED rather than defaulted -- adding a tag must force a decision.
-GAP_DIRECTION = {
-    "exception_unsupported": "OVERSTATING",
-    "unless_unsupported": "OVERSTATING",
-    "compound_action": "INCOMPLETENESS",
-    "mutual_obligation": "INCOMPLETENESS",
-    # v0.48 (section 10.1 F10, scoped): action_not_in_taxonomy is INCOMPLETENESS on
-    # the identical ground as compound_action -- section 8.8 puts the NEAREST taxonomy
-    # verb in `action` and the real verb is lost, so the IR claims less than the
-    # document says. Added in the same batch as the F8/F11 rulings that apply this tag
-    # to E01-01 and C10-01, deliberately: those two rulings would otherwise have
-    # doubled the set's exposure to an UNCLASSIFIED tag while claiming to close a
-    # taxonomy gap, which is the reporting-layer half of the same disclosure.
-    "action_not_in_taxonomy": "INCOMPLETENESS",
-}
+# G6's gap taxonomy. RULED AT v0.59 (section 8.10, F9/F10): the vocabulary carries
+# TWO axes, and `kind` is the first one -- `direction` applies only where the kind is
+# REPRESENTATIONAL. The five tags that were UNCLASSIFIED through v0.58 are resolved by
+# KIND, not by finally assigning each a direction: for REACHABILITY, CORPUS_DEFECT,
+# ANNOTATION_CONVENTION and WITHHELD_VALUE gold is FAITHFUL, so nothing departs from
+# the contract and there is no direction to assign. Both maps and the denominator
+# predicate live in one module so they cannot drift apart.
+#
+# Re-exported rather than moved outright: GAP_DIRECTION is the name every prior session
+# record and test refers to, and a rename would make this ruling look like a bigger
+# code change than it is.
+from evals.harness.gap_kinds import (
+    GAP_DIRECTION,
+    GAP_KIND,
+    UNCLASSIFIED_KIND,
+    direction_of,
+    in_force_scope,
+    kind_of,
+)
 
-# STILL UNCLASSIFIED, DELIBERATELY -- and this list is the honest scope of F10's
-# remaining gap rather than an oversight. Five tags are in live use with no direction:
-#   corpus_artifact_in_span  -- section 8's own table calls it "not a v1 compiler gap";
-#                               it is a corpus-TEXT defect, so an IR direction may not
-#                               exist to assign rather than merely be missing.
-#   shared_subject_split     -- an annotation-CONVENTION exception, same objection.
-#   redacted_value           -- a SCOREABILITY removal (section 8.1), same objection.
-#   within_preposition       -- section 8.6; a compile-side regex gap whose direction is
-#   relative_trigger_preposition  genuinely two-sided (the temporal is annotated in full
-#                               and the loss is downstream), so assigning one here would
-#                               be a ruling, not a classification.
-# All five turn on section 10.1 F9's open question -- whether the vocabulary needs a
-# `kind` axis before it gains more tags -- which is NOT decided in this batch. Assigning
-# a direction to any of them now would let a report.py edit masquerade as the taxonomy
-# ruling F9 exists to make, the exact inversion the reviewer filed F10 separately to
-# prevent.
+__all__ = ["GAP_DIRECTION", "GAP_KIND", "ItemReport", "Report", "build"]
 
 # Worst-first severity. Used only for the no-unique-mode tie-break (G2).
 SEVERITY = {Outcome.UNEXPECTED: 3, Outcome.MISSED: 2, Outcome.PARTIAL: 1, Outcome.FULLY_CORRECT: 0}
@@ -202,8 +203,28 @@ class Report:
 
     @property
     def criterion2_no_known_gaps(self) -> tuple[int, int]:
-        scope = [i for i in self.items if not i.known_gaps]
+        """Section 9.1's IN-FORCE criterion. Scoped by tag KIND since v0.59 (F9).
+
+        The property name is deliberately unchanged: it is what every prior
+        session record, CLAUDE.md entry and test refers to, and renaming it would
+        make a predicate ruling look like an API change. What it computes is now
+        `in_force_scope` -- excluding by kind -- rather than `len(known_gaps)==0`.
+        """
+        scope = [i for i in self.items if in_force_scope(i.known_gaps)]
         return sum(1 for i in scope if i.modal is Outcome.FULLY_CORRECT), len(scope)
+
+    @property
+    def legacy_no_known_gaps_denominator(self) -> int:
+        """The pre-v0.59 `len(known_gaps)==0` scope size.
+
+        Retained for ONE purpose: `gap_agreement`'s d_gold/d_int/d_uni are still
+        computed on that scope, so render()'s coherence check must compare like
+        with like. Aligning the two is filed as F17, WITH the numbers already
+        measured -- it moves a published band, which is its own decision and not
+        this ruling's to take. Keeping the legacy figure computable is what makes
+        that check honest instead of silently comparing two different scopes.
+        """
+        return sum(1 for i in self.items if not i.known_gaps)
 
     @property
     def numerator_gap_disclosure(self) -> list[str]:
@@ -219,19 +240,32 @@ class Report:
         An UNCLASSIFIED bucket is deliberate rather than defensive: a tag added
         later must show up here unclassified and force a decision, never fall
         silently into whichever bucket a default picked.
+
+        v0.59 (F9/F10): direction is asked only of a REPRESENTATIONAL tag. A tag
+        of another kind is disclosed under its KIND with no direction, because
+        gold is faithful for those kinds -- there is no departure from the
+        contract to give a direction to. UNCLASSIFIED now means the tag's KIND
+        was never ruled on, which is the decision a new tag must still force.
         """
-        buckets: dict[str, list[str]] = {"OVERSTATING": [], "INCOMPLETENESS": [],
-                                         "UNCLASSIFIED": []}
+        order = ("OVERSTATING", "INCOMPLETENESS", "REACHABILITY", "CORPUS_DEFECT",
+                 "ANNOTATION_CONVENTION", "WITHHELD_VALUE", UNCLASSIFIED_KIND)
+        buckets: dict[str, list[str]] = {k: [] for k in order}
         for i in self.items:
             if i.modal is not Outcome.FULLY_CORRECT or not i.known_gaps:
                 continue
             for tag in sorted(set(i.known_gaps)):
-                kind = GAP_DIRECTION.get(tag, "UNCLASSIFIED")
-                buckets[kind].append(f"{i.item_id} ({tag})")
+                # A REPRESENTATIONAL tag is bucketed by its DIRECTION; any other
+                # kind by the kind itself. direction_of() returns None for the
+                # latter and UNCLASSIFIED only for a representational tag with no
+                # direction ruled -- the two must not collapse, or a genuinely
+                # undecided tag would hide among the deliberately direction-free.
+                direction = direction_of(tag)
+                bucket = direction if direction is not None else kind_of(tag)
+                buckets[bucket].append(f"{i.item_id} ({tag})")
         lines = []
-        for kind in ("OVERSTATING", "INCOMPLETENESS", "UNCLASSIFIED"):
-            if buckets[kind]:
-                lines.append(f"    {kind}: {', '.join(buckets[kind])}")
+        for bucket in order:
+            if buckets[bucket]:
+                lines.append(f"    {bucket}: {', '.join(buckets[bucket])}")
         return lines
 
     @property
@@ -266,7 +300,7 @@ class Report:
         lines = [
             "GOLD-SET TIER-2 SCORING REPORT",
             "",
-            f"CRITERION 2 (IN FORCE, §9.1 — len(known_gaps)==0): {pct(fc_ng, n_ng)}",
+            f"CRITERION 2 (IN FORCE, §9.1 — kind-scoped, §8.10): {pct(fc_ng, n_ng)}",
         ]
         ga = self.gap_agreement
         if ga is not None:
@@ -280,11 +314,23 @@ class Report:
             # item) would silently print an incoherent D=X [Y-Z] line, the
             # exact class of unhandled-input failure Standing Principle 7
             # names -- so this is checked before trusting it, not assumed.
-            if ga.d_gold != n_ng:
+            # v0.59 (F9): this report's in-force denominator is now KIND-scoped
+            # while gap_agreement's d_gold/d_int/d_uni are still computed on the
+            # legacy len(known_gaps)==0 scope. Comparing the two directly would be
+            # comparing different questions and would fire on every real run, so
+            # the check is made against the legacy figure EXPLICITLY -- the
+            # population coherence it was written to guarantee is unchanged, only
+            # the scope it is stated in. Aligning gap_agreement to the kind axis
+            # moves a published band (measured: all-pairs (16,17) -> (17,19),
+            # conforming (15,15) -> (16,17)) and is filed as F17, not taken here.
+            if ga.d_gold != self.legacy_no_known_gaps_denominator:
                 raise ValueError(
                     f"gap_agreement.d_gold ({ga.d_gold}) does not match this report's own "
-                    f"len(known_gaps)==0 denominator ({n_ng}). gap_agreement must be computed "
-                    "over the exact same item population this report scores -- see G7."
+                    f"legacy len(known_gaps)==0 denominator "
+                    f"({self.legacy_no_known_gaps_denominator}). gap_agreement must be "
+                    "computed over the exact same item population this report scores -- "
+                    "see G7. NOTE (F9, v0.59): the in-force criterion is kind-scoped "
+                    f"({n_ng}); the band below is still legacy-scoped -- see F17."
                 )
             # G7 -- mandatory display rule (GAP_AGREEMENT_DESIGN.md §5): the
             # point figure is NEVER printed without the band. Band %'s hold
@@ -294,15 +340,29 @@ class Report:
             d_lo, d_hi = ga.d_band
             lines.append(
                 f"    [band {lo_pct * 100:.1f}%–{hi_pct * 100:.1f}%]   "
-                f"over D={n_ng} [{d_lo}–{d_hi}]   "
+                f"over D={ga.d_gold} [{d_lo}–{d_hi}]   "
                 f"G_swing={ga.g_swing_count}/{ga.n} → {ga.g_swing_verdict}"
             )
+            # Stated, not left for a reader to notice: the band's D is the LEGACY
+            # len(known_gaps)==0 scope and the criterion above it is kind-scoped,
+            # so the two are not the same denominator until F17 lands. Printing
+            # them adjacent without saying so is exactly the silent-mismatch class
+            # Standing Principle 7 is about.
+            if ga.d_gold != n_ng:
+                lines.append(
+                    f"    ^ BAND IS LEGACY-SCOPED (len(known_gaps)==0, D={ga.d_gold}); the "
+                    f"criterion above is kind-scoped (D={n_ng}). Not comparable -- see F17."
+                )
             lines.append(
                 f"    G (overall known_gaps disagreement) = {ga.g_count}/{ga.n} "
                 f"→ {ga.g_overall_verdict} (Wilson95 lower {ga.g_overall_wilson_lower * 100:.1f}%)"
             )
         lines += [
             "    ^ THE criterion as of guideline v0.33. Items IR v1 can represent faithfully.",
+            "      Scope is by TAG KIND since v0.59 (§8.10 F9): REPRESENTATIONAL, REACHABILITY,",
+            "      WITHHELD_VALUE and UNCLASSIFIED tags exclude; CORPUS_DEFECT and",
+            "      ANNOTATION_CONVENTION do NOT -- neither the IR nor the annotation departs",
+            "      from the contract, which is §9.1 ground 1's own test.",
             f"Reported alongside, over ALL items:                {pct(fc_all, n_all)}",
             "    ^ NOT the criterion (§9.1). Its numerator can contain IRs that are knowingly",
             "      not faithful representations -- see the disclosure directly below.",
@@ -316,11 +376,16 @@ class Report:
             lines += [
                 "    OVERSTATING = the IR claims MORE than the contract (a monitor flags a",
                 "      breach the contract exempts). INCOMPLETENESS = it claims LESS (a monitor",
-                "      misses a real breach). Both are counted FULLY_CORRECT in the all-items",
-                "      figure above and excluded from the in-force criterion.",
+                "      misses a real breach). Both are REPRESENTATIONAL, counted FULLY_CORRECT",
+                "      in the all-items figure above and excluded from the in-force criterion.",
+                "    A bucket named for a KIND rather than a direction (REACHABILITY,",
+                "      CORPUS_DEFECT, ANNOTATION_CONVENTION, WITHHELD_VALUE) carries NO",
+                "      direction by ruling, not by omission: gold is faithful for those kinds,",
+                "      so nothing departs from the contract (§8.10, F10). UNCLASSIFIED means",
+                "      the tag's KIND was never ruled on and a decision is owed.",
             ]
         else:
-            lines.append("    None -- every item in either numerator has known_gaps == [].")
+            lines.append("    None -- every item in either numerator carries a known gap.")
         lines += [
             "",
             "NO PREDICTED CEILING IS STATED (§9's 'ceiling in advance').",

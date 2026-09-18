@@ -235,7 +235,7 @@ def test_both_denominators_are_rendered_and_the_in_force_one_is_no_known_gaps():
     runs = {"A-01": [Outcome.FULLY_CORRECT], "B-01": [Outcome.PARTIAL]}
     gold = {"A-01": {"known_gaps": []}, "B-01": {"known_gaps": ["mutual_obligation"]}}
     rendered = report_mod.build(runs, gold).render()
-    assert "CRITERION 2 (IN FORCE, \u00a79.1 \u2014 len(known_gaps)==0)" in rendered
+    assert "CRITERION 2 (IN FORCE, \u00a79.1 \u2014 kind-scoped, \u00a78.10)" in rendered
     assert "Reported alongside, over ALL items" in rendered
     assert "RECOMMENDED, NOT IN FORCE" not in rendered
 

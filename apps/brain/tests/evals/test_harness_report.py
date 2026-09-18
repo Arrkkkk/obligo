@@ -95,7 +95,7 @@ def test_the_in_force_criterion_is_the_no_known_gaps_figure_in_the_render():
     silent flip back would still be caught."""
     r = build({"A": [FC]}, {"A": _gold("A")})
     text = r.render()
-    assert "CRITERION 2 (IN FORCE, \u00a79.1 \u2014 len(known_gaps)==0)" in text
+    assert "CRITERION 2 (IN FORCE, \u00a79.1 \u2014 kind-scoped, \u00a78.10)" in text
     assert "Reported alongside, over ALL items" in text
     assert "NOT the criterion" in text
     # The superseded labelling must be gone, not merely joined by the new one.

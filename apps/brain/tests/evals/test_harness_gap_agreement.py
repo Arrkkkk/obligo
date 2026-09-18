@@ -313,7 +313,7 @@ def test_render_never_prints_a_bare_point_estimate_when_gap_agreement_is_present
     r = build({"A": [O.FULLY_CORRECT], "B": [O.PARTIAL]}, gold, gap_agreement=ga)
     text = r.render()
 
-    assert "CRITERION 2 (IN FORCE, §9.1 — len(known_gaps)==0): 1/2 = 50.0%" in text
+    assert "CRITERION 2 (IN FORCE, §9.1 — kind-scoped, §8.10): 1/2 = 50.0%" in text
     # numerator fixed at 1 (only A is FULLY_CORRECT); band = [1/3, 1/2] = [33.3%, 50.0%]
     assert "[band 33.3%–50.0%]" in text
     assert "over D=2 [2–3]" in text
@@ -395,7 +395,7 @@ def test_render_end_to_end_with_the_real_holdout_gap_agreement():
     # (F7's C04-02 restamp) and the fixed placeholder pattern now covers one more
     # item. These are RENDER-FORMAT assertions over an explicitly illustrative
     # numerator -- see this test's own docstring -- not a republished measurement.
-    assert "CRITERION 2 (IN FORCE, §9.1 — len(known_gaps)==0): 10/16 = 62.5%" in text
+    assert "CRITERION 2 (IN FORCE, §9.1 — kind-scoped, §8.10): 10/16 = 62.5%" in text
     assert "[band 58.8%–62.5%]" in text
     assert "over D=16 [16–17]" in text
     assert "G_swing=1/31 → BANDED" in text

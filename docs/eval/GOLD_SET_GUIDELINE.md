@@ -1,6 +1,6 @@
 # Obligo Tier-2 Gold Set — Annotation Guideline
 
-**Version:** v0.58 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**. **v0.33 puts §9's dual denominator IN FORCE** on two independent grounds, adds §5 clause 5's number rule, §3.4's bounded freeze-pass exception, and the forward authoring rules §3.6 / §3.8.2 / §3.5.1 — **no annotation rule changed, no item restamped, no cassette stale**. **v0.34 records two MEASUREMENT corrections and changes no rule either** — §8.9's `on`/`until` rows and §15.3's loud-versus-silent class placement, both falsified by real model output from the compile-stage bottleneck investigation. **v0.35 adds §4.3.2** — a third splitting shape distinct from both existing §4.3 worked examples, reviewer-ruled at batch 3's `C04-139`: self-performance vs. a duty to bind/control a third party's conduct splits into two items even when the two verbs share an object phrase and a sentence subject, because the two performances do not share an actor. **v0.36 amends §4.2** — the resulting byte-identical spans (`C04-139`'s shared trailing object leaves neither item's minimal span shorter than the other's) break IoU's ability to discriminate between the two gold items, so a content-based tie-break on `action_accept_set` membership is added, falling through to ascending `item_id` when the tie-break itself is inconclusive. **v0.37 adds a
+**Version:** v0.59 (DRAFT — not yet frozen; all 16 v0.28 proposals are ruled and adopted into live rule sections — see §20's status line and §20.4's adjudication log. **v0.29 added §6.1**, the two-run exception; **v0.30 reconciled §6.1's tie rule with `report.py`'s G2**; **v0.31 amends §8.3.1** — its v0.23 default is unreachable by the pipeline — and opens **§22**, the conforming blocker, **decided at v0.32 as a deliberate deferral**. **v0.33 puts §9's dual denominator IN FORCE** on two independent grounds, adds §5 clause 5's number rule, §3.4's bounded freeze-pass exception, and the forward authoring rules §3.6 / §3.8.2 / §3.5.1 — **no annotation rule changed, no item restamped, no cassette stale**. **v0.34 records two MEASUREMENT corrections and changes no rule either** — §8.9's `on`/`until` rows and §15.3's loud-versus-silent class placement, both falsified by real model output from the compile-stage bottleneck investigation. **v0.35 adds §4.3.2** — a third splitting shape distinct from both existing §4.3 worked examples, reviewer-ruled at batch 3's `C04-139`: self-performance vs. a duty to bind/control a third party's conduct splits into two items even when the two verbs share an object phrase and a sentence subject, because the two performances do not share an actor. **v0.36 amends §4.2** — the resulting byte-identical spans (`C04-139`'s shared trailing object leaves neither item's minimal span shorter than the other's) break IoU's ability to discriminate between the two gold items, so a content-based tie-break on `action_accept_set` membership is added, falling through to ascending `item_id` when the tie-break itself is inconclusive. **v0.37 adds a
 recommended `object_class` naming convention to §4.3.2** — `self_` / `third_party_` prefixes over
 a shared root, so future flow-down splits land on visibly parallel labels rather than an
 unrelated pair invented fresh each time. **v0.38 adds §3.2.1** — present-tense self-executing
@@ -155,7 +155,7 @@ segment count (153/1,547), and `C14-028` was drawn as the **twelfth** standard-q
 not the eleventh as originally written — both fixed in place per this document's own
 corrections-are-new-text discipline, not silently edited.
 **Created:** 2026-08-17
-**Status:** **32 items locked; ONE restamped at v0.52** (`C17-02`, §8.6.1/§10.1 F13 — `temporal` `null` → the `WITHIN` form; `C17-066`'s three cassettes are consequently **STALE**, re-record **deferred to §10's freeze pass** by reviewer ruling, so the item is known-stale and honestly labelled, the same footing §22.1 gives `C14-02`). **`C11-01`'s `annotator_notes` were corrected record-only at v0.52 with its stamp deliberately UNCHANGED** — the note contradicted the item's own §15.5-correct data, and restamping it would have staled three cassettes for nothing. ~~**TWO SPANS ARE NOW `PENDING_ANNOTATION` and are NOT yet items** — `C11-094` #3 and `C04-117` #1, ruled eligible by §10.2 (Decision 3); each owes its own §14.4 drafting session, with §8.8's taxonomy question flagged in its segment file.~~ **SUPERSEDED v0.53 — BOTH SPANS ARE NOW DRAFTED ITEMS, so the set stands at 34, not 32.** **SUPERSEDED AGAIN, v0.56 — THE SET STANDS AT 35.** `C11-03` was ruled at v0.55 (`C11-094`'s last escalated span) and this line was not updated then, which is the fourth logged instance of exactly the drift §10's own close-out process note exists to catch — corrected in place here, per that note's rule that live status statements are corrected rather than struck. **v0.56 adds no item**: §8.8.4 rules `C14-076` candidate 1 `NOT_OBLIGATION_BEARING`, so the set stays at 35 and no published figure moves. **SUPERSEDED v0.57 — THE SET STANDS AT 36.** `C14-076`'s band escalation is ruled: candidate 2 yields one item, `C14-06`, from verb 2 only; the segment reconciles at 3 clauses, at the band ceiling and eligible, and `C14-01`/`C14-02` stay locked. Still no published figure moves — `C14-06` is cassette-unscoreable at `v0.57`. **v0.58 ADDS NO ITEM and the set stays at 36** — §10.1 **F5** and **F12** are ruled together: §3.6.1's scope extends to the whole `action_accept_set` (§3.6.2, retroactive, widening-only, **zero cost — 35 of 36 items already conform**), `C22-01` is adjudicated explicitly under carve-out 1 with its cognate-object co-variance **accepted as irreducible**, and the breadth audit is **REDUCED to F1's three items** plus a forward head-only rule for batch 4 onward. **No item restamped, no cassette staled, no member removed, no published figure moved** — `3/9 = 33.3%`, `5/15`, `K` `14/32`, confirmed by a real run before and after. **F1's own value is now MEASURED rather than hand-computed — `3/9 → 5/9 = 55.6%`, movers `C02-01` and `C02-03`, with `C11-01` worth ZERO** — and its execution stays queued as one atomic freeze-pass event. `C11-02` and `C04-06` — **both REVIEWER-APPROVED at v0.54** (`adjudicated_by: reviewer`; eligibility was `RULED_BY_REVIEWER` at v0.52, the field-level drafting approved as drafted, with the singleton accept-set kept, the sibling `object_class` divergence accepted as temporary, and `conditions: []` confirmed and generalised into §3.8). **Both keep `guideline_version: v0.53`** — the v0.54 rule confirms rather than changes their treatment, so restamping is refused per §22.1. §8.8's flagged taxonomy question is **ruled in §8.8.3, with the two verbs landing on opposite sides**: `purchase` → `PROCURE` is defensibly mappable (`C11-02` carries **no** tag and `known_gaps: []`), `defer` is a genuine gap (`C04-06` carries `action_not_in_taxonomy`). **Both are cassette-unscoreable today** — stamped `v0.53` against `v0.28`/`v0.48` cassettes, disclosed by G8, backdating rejected per §22.1 — so **no published figure moves: in-force criterion 2 stays `3/9 = 33.3%`, all-items `5/15`, `K` `14/32`**, confirmed by a real run. `C11-02` queues the in-force denominator to go **9 → 10** at §10's freeze-pass re-record (§9.2.1). **§10.1 F16 RESOLVED 2026-09-16 (commit `94a2daa`, CI run 35087036051 green) — `run_scoring.run()` now executes end to end against the committed gold set; see the F16 table row for the fix and the real-run confirmation.** *(Superseded text, left as written: "BLOCKING: `run_scoring.run()` cannot execute against the committed gold set at any single `guideline_version` (§10.1 F16), so no figure below can currently be confirmed by a run.")* — no item restamped at v0.45 (§5.1 governs annotator comparison only and touches no annotation rule) — batch 1 complete (10), batch 2 at 8 of 10 with two
+**Status:** **32 items locked; ONE restamped at v0.52** (`C17-02`, §8.6.1/§10.1 F13 — `temporal` `null` → the `WITHIN` form; `C17-066`'s three cassettes are consequently **STALE**, re-record **deferred to §10's freeze pass** by reviewer ruling, so the item is known-stale and honestly labelled, the same footing §22.1 gives `C14-02`). **`C11-01`'s `annotator_notes` were corrected record-only at v0.52 with its stamp deliberately UNCHANGED** — the note contradicted the item's own §15.5-correct data, and restamping it would have staled three cassettes for nothing. ~~**TWO SPANS ARE NOW `PENDING_ANNOTATION` and are NOT yet items** — `C11-094` #3 and `C04-117` #1, ruled eligible by §10.2 (Decision 3); each owes its own §14.4 drafting session, with §8.8's taxonomy question flagged in its segment file.~~ **SUPERSEDED v0.53 — BOTH SPANS ARE NOW DRAFTED ITEMS, so the set stands at 34, not 32.** **SUPERSEDED AGAIN, v0.56 — THE SET STANDS AT 35.** `C11-03` was ruled at v0.55 (`C11-094`'s last escalated span) and this line was not updated then, which is the fourth logged instance of exactly the drift §10's own close-out process note exists to catch — corrected in place here, per that note's rule that live status statements are corrected rather than struck. **v0.56 adds no item**: §8.8.4 rules `C14-076` candidate 1 `NOT_OBLIGATION_BEARING`, so the set stays at 35 and no published figure moves. **SUPERSEDED v0.57 — THE SET STANDS AT 36.** `C14-076`'s band escalation is ruled: candidate 2 yields one item, `C14-06`, from verb 2 only; the segment reconciles at 3 clauses, at the band ceiling and eligible, and `C14-01`/`C14-02` stay locked. Still no published figure moves — `C14-06` is cassette-unscoreable at `v0.57`. **v0.58 ADDS NO ITEM and the set stays at 36** — §10.1 **F5** and **F12** are ruled together: §3.6.1's scope extends to the whole `action_accept_set` (§3.6.2, retroactive, widening-only, **zero cost — 35 of 36 items already conform**), `C22-01` is adjudicated explicitly under carve-out 1 with its cognate-object co-variance **accepted as irreducible**, and the breadth audit is **REDUCED to F1's three items** plus a forward head-only rule for batch 4 onward. **No item restamped, no cassette staled, no member removed, no published figure moved** — `3/9 = 33.3%`, `5/15`, `K` `14/32`, confirmed by a real run before and after. **F1's own value is now MEASURED rather than hand-computed — `3/9 → 5/9 = 55.6%`, movers `C02-01` and `C02-03`, with `C11-01` worth ZERO** — and its execution stays queued as one atomic freeze-pass event. **v0.59 ADDS NO ITEM and the set stays at 36, BUT — unlike v0.54 through v0.58 — IT MOVES A PUBLISHED FIGURE, and DOWNWARD: §10.1 F9 is ruled, §8 gains a `kind` axis (§8.10), and §9.1's in-force denominator is kind-scoped, so criterion 2 reads `3/10 = 30.0%`, NOT `3/9 = 33.3%`.** Whole set 17/36 → 20/36; movers `C04-01`, `C04-03` (`corpus_artifact_in_span`) and `C14-06` (`shared_subject_split`), of which only `C04-03` is cassette-scoreable today. **The numerator does not move, so the ruling can only lower the figure.** All-items `5/15` and `K` `14/32` are untouched; **no item added, restamped or re-authored, no cassette staled, no annotation rule changed** — measured by a real `run_scoring.run()` before and after. **F10 is resolved under the same axis** (its five tags carry no direction because gold is faithful for their kinds, not because a direction was finally assigned), and **two new entries are opened rather than hidden: F17** (the G7 band is still legacy-scoped, and kind-aware it moves `(15,15)` → `(16,17)` on the conforming pairs — the point estimate v0.48 called "the substantive result" stops being a point) **and F18** (`redacted_value`'s contested direction, which is why `WITHHELD_VALUE` is held excluded; admitting it would read `3/11 = 27.3%`). `C11-02` and `C04-06` — **both REVIEWER-APPROVED at v0.54** (`adjudicated_by: reviewer`; eligibility was `RULED_BY_REVIEWER` at v0.52, the field-level drafting approved as drafted, with the singleton accept-set kept, the sibling `object_class` divergence accepted as temporary, and `conditions: []` confirmed and generalised into §3.8). **Both keep `guideline_version: v0.53`** — the v0.54 rule confirms rather than changes their treatment, so restamping is refused per §22.1. §8.8's flagged taxonomy question is **ruled in §8.8.3, with the two verbs landing on opposite sides**: `purchase` → `PROCURE` is defensibly mappable (`C11-02` carries **no** tag and `known_gaps: []`), `defer` is a genuine gap (`C04-06` carries `action_not_in_taxonomy`). **Both are cassette-unscoreable today** — stamped `v0.53` against `v0.28`/`v0.48` cassettes, disclosed by G8, backdating rejected per §22.1 — so **no published figure moves: in-force criterion 2 stays `3/9 = 33.3%`, all-items `5/15`, `K` `14/32`**, confirmed by a real run. `C11-02` queues the in-force denominator to go **9 → 10** at §10's freeze-pass re-record (§9.2.1). **§10.1 F16 RESOLVED 2026-09-16 (commit `94a2daa`, CI run 35087036051 green) — `run_scoring.run()` now executes end to end against the committed gold set; see the F16 table row for the fix and the real-run confirmation.** *(Superseded text, left as written: "BLOCKING: `run_scoring.run()` cannot execute against the committed gold set at any single `guideline_version` (§10.1 F16), so no figure below can currently be confirmed by a run.")* — no item restamped at v0.45 (§5.1 governs annotator comparison only and touches no annotation rule) — batch 1 complete (10), batch 2 at 8 of 10 with two
 items still undrawn, **batch 3's draw target is FULLY MET: 10 of 10 segments locked**
 (3 hard + 7 standard, per `draw.json`'s own `"count": 10, "hard": 3` — 14 items total, since
 `C13-017` is this batch's only two-item segment; `C14-044` originally yielded three drafted
@@ -1200,6 +1200,78 @@ is writable while F6 is not: §9.4's missing-anchor blocker defeats a *depth con
 slot*, but 1-token-ness and span-presence are both mechanically checkable, so a head-only
 **member** requirement is auditable across the locked set — with the residual *"which noun is
 the head"* judgment stated as unsolved rather than claimed away.
+
+**v0.59 change: §10.1 F9 RULED — §8's tag vocabulary gains a `kind` axis (§8.10), and F10's five
+formerly-`UNCLASSIFIED` tags are resolved by it. NO ITEM IS ADDED, RESTAMPED OR RE-AUTHORED; NO
+CASSETTE IS STALED; NO ANNOTATION RULE CHANGES. THE IN-FORCE FIGURE MOVES, AND DOWNWARD: criterion
+2 goes `3/9 = 33.3%` → `3/10 = 30.0%`, measured by a real `run_scoring.run()` before and after
+rather than hand-computed.** The set stands at **36**. All-items is untouched at `5/15` and `K` at
+`14/32`.
+
+**(1) THE FINDING THAT MADE THE RULING NARROW: direction was never the first axis, and a `kind`
+filter had already been operating unnamed.** `report.py`'s `GAP_DIRECTION` classified by the
+direction of the IR's departure from the contract, and the five tags it classified are **exactly**
+the five where IR v1 has no form for what the document says. The five that resisted classification
+are exactly the five where **the IR is not the thing at fault**. So F10's five tags were never
+five missing decisions — they were one wrong question asked five times. `kind` is the first axis;
+`direction` is a sub-axis of `REPRESENTATIONAL` alone.
+
+**(2) THE LINE BETWEEN THE FIRST TWO KINDS IS NOT INVENTED HERE — it is §8.6.1's own principle
+promoted into the vocabulary:** *"`temporal: null` marks what the IR cannot REPRESENT, never what
+the classifier cannot REACH."* §8.10's `REPRESENTATIONAL` / `REACHABILITY` split is that sentence,
+given a name and applied to tags rather than to one field. Recorded because it is the ruling's main
+claim to not being a fresh taxonomy imposed on settled rules: four of the five kinds are quoted out
+of the sections that already define the tags (§8.6.1, §8.7's *"not a v1 compiler gap"*, §8.3.1
+v0.31's *"spans are nested"*, §8.1), not authored for F9.
+
+**(3) THE DENOMINATOR IS KIND-SCOPED AND NOT UNIFORMLY SO (§9.1, amended).** `REPRESENTATIONAL`
+excludes on **ground 2** (the item is a knowing unfaithfulness). `REACHABILITY` excludes on
+**neither** ground — gold is faithful — but on a third, stated separately rather than smuggled into
+ground 2: it is a **structurally guaranteed failure**, rejected at compile on every run, so
+admitting it would seat unwinnable items in the headline denominator and corrupt what the figure
+means. `CORPUS_DEFECT` and `ANNOTATION_CONVENTION` **enter**, because §9.1 ground 1's own text —
+*"items IR v1 can represent faithfully"* — describes them exactly, and ground 2 does not bite when
+gold is faithful.
+
+**(4) `WITHHELD_VALUE` IS ITS OWN FIFTH KIND AND IS HELD EXCLUDED, and the asymmetry is
+principled rather than a hedge.** It is not representational (no IR change helps) and not a corpus
+defect (nothing is wrong with the text — the value is absent from the world the contract
+describes). Its **direction** is genuinely contested: gold asserts `null` for a field the contract
+does populate, which reads as INCOMPLETENESS, yet the loss is not the IR's. Membership cannot be
+settled on ground 2 while ground 2's own input is open, so the status quo stands and the direction
+question is queued as **F18**. Had it been admitted the figure would read `3/11 = 27.3%` — measured,
+not projected.
+
+**(5) AN UNRULED TAG EXCLUDES, LOUDLY.** `UNCLASSIFIED` is in the excluding set, so a tag added
+without a §8.10 kind ruling can never drift into this phase's headline denominator; it fails a test
+named for that, and G6 names it in the report. The `UNCLASSIFIED` bucket survives the ruling with
+its meaning **changed**: it now means *"this tag's KIND was never ruled on"*, which is the decision
+a new tag must force. `direction_of()` returns `None` for a ruled non-representational tag and
+`UNCLASSIFIED` for an unruled one — **two different answers that must not collapse**, or a
+genuinely undecided tag would hide among the deliberately direction-free ones.
+
+**(6) MEASURED COST, AND WHICH ITEMS MOVE.** Whole set, the denominator goes **17/36 → 20/36**;
+the three movers are `C04-01` and `C04-03` (`corpus_artifact_in_span`) and `C14-06`
+(`shared_subject_split`). Of those only `C04-03` is cassette-scoreable today, which is why the
+scored figure moves by one rather than three — the other two land at the freeze pass. **`C14-02`
+correctly does NOT move**: it carries `mutual_obligation` alongside `shared_subject_split`, and
+membership is by kind but exclusion is by **any** excluding tag, unchanged from §9's v0.22
+rule. **The numerator does not move at all**, so the ruling can only lower the figure — the safe
+direction for §3.6's monotone-widening hazard, and the opposite of F1's `+2`.
+
+**(7) AGAINST INTEREST, AND IT IS THE PART THAT WAS NOT ASKED FOR: the kind axis RE-OPENS a
+disagreement the legacy scope had collapsed to zero, and that is filed rather than buried.**
+`gap_agreement`'s `d_gold`/`d_int`/`d_uni` are still computed on the legacy `len(known_gaps) == 0`
+scope. Recomputed kind-aware they move — all-pairs band `(16,17)` → `(17,19)`, conforming
+`(15,15)` → `(16,17)` — so **the conforming band stops being a point**. v0.48's own test docstring
+called that point *"the substantive result… the two annotators no longer disagree at all about
+which items are scoreable"*; under the kind axis they disagree again, because agreeing that an item
+is tagged is not the same as agreeing on what KIND of thing the tag is. That bears directly on
+CLAUDE.md's highest-priority REDESIGN item. **It is NOT taken here** — it moves a published,
+dated band, which is its own decision — and is filed as **F17 with the numbers already measured**,
+so the future entry is not hand-wavy. Until it lands, `render()` compares the coherence check
+against the **legacy** denominator explicitly and prints a line saying the band and the criterion
+are not the same scope, rather than printing them adjacent and letting a reader assume they are.
 
 ## 1. What a gold item is
 
@@ -5100,6 +5172,68 @@ compiler-friendly prepositions; here). Revisit only once paired criterion-1b num
 Changing the classifier first would tune the compiler to the corpus it is about to be graded
 on and destroy the baseline that makes the widening's value measurable.
 
+---
+
+### 8.10 The tag vocabulary's `kind` axis (v0.59 — REVIEWER-RULED, §10.1 F9; F10 resolved under it)
+
+**The question F9 asked.** §8's `known_gaps` vocabulary was one flat set, and §9's denominator
+treated every tag in it identically, although the tags plainly record different **kinds** of
+thing — an IR that cannot express the clause, a regex that cannot reach it, a defect in the
+corpus text, an exception forced by the gold set's own span rules, a value withheld from the
+filing. F10 filed the visible symptom separately: five tags in live use with no direction
+assigned, each of which resisted classification for the same reason.
+
+**The finding, and it is why this ruling is narrow rather than a fresh taxonomy.** Direction was
+never the first axis. The five tags `report.py` **could** classify are exactly the five where IR
+v1 has no form for what the document says; the five it could not are exactly the five where **the
+IR is not the thing at fault**. A `kind` filter had been operating unnamed, as the precondition
+for direction being answerable at all. F10's five tags were never five missing decisions — they
+were one wrong question asked five times.
+
+**The rule. The vocabulary carries two axes. `kind` is the first; `direction` applies only where
+`kind` is `REPRESENTATIONAL`.**
+
+| kind | what the tag records | direction? | is gold faithful? | live tags |
+| :--- | :--- | :--- | :--- | :--- |
+| **`REPRESENTATIONAL`** | IR v1 has **no form** for what the document says; the loss is baked into the gold item itself | **required** | **no** — knowingly unfaithful | `exception_unsupported`, `unless_unsupported`, `compound_action`, `mutual_obligation`, `action_not_in_taxonomy` |
+| **`REACHABILITY`** | The IR **can** express the form; a production surface pattern rejects the input | none | yes | `within_preposition` (§8.6), `relative_trigger_preposition` (§8.9) |
+| **`CORPUS_DEFECT`** | The source **text** is defective — §8's own table: *"not a v1 compiler gap… no grammar change fixes it"* | none | yes (carries the defect verbatim, by rule) | `corpus_artifact_in_span` (§8.7) |
+| **`ANNOTATION_CONVENTION`** | Neither the IR nor the corpus is at fault — the gold set's **own** span/alignment rules force an exception | none | yes | `shared_subject_split` (§8.3.1 v0.31) |
+| **`WITHHELD_VALUE`** | The operative value does not exist to **any** party; it was withheld in the filing | **contested — F18** | contested | `redacted_value` (§8.1) |
+| **`UNCLASSIFIED`** | A tag whose kind has **not been ruled** | n/a | n/a | — (none, and a test enforces that) |
+
+**The `REPRESENTATIONAL` / `REACHABILITY` line is NOT invented here.** It is §8.6.1's own
+principle — *"`temporal: null` marks what the IR cannot REPRESENT, never what the classifier
+cannot REACH"* — given a name and applied to tags rather than to one field. The same is true of
+the other three: each is quoted out of the section that already defines its tag. That is the
+ruling's claim to legitimacy. A taxonomy authored fresh, with the failure list visible, would be
+open to the objection §3.4's justification test makes about accept-set widenings.
+
+**F10 is resolved, and not by finally assigning five directions.** For `REACHABILITY`,
+`CORPUS_DEFECT` and `ANNOTATION_CONVENTION`, **gold is faithful** — the annotation states exactly
+what the document says — so nothing departs from the contract and **there is no direction to
+assign**. `report.py` records this as `None`, which is a **ruling**, distinct from
+`UNCLASSIFIED`, which remains *"a decision is owed"*. The two must not collapse: if they did, a
+genuinely unruled tag would hide among the deliberately direction-free ones, which is the exact
+inversion F10 was filed separately to prevent.
+
+**What a new tag must now do.** State its **kind** first. If and only if that kind is
+`REPRESENTATIONAL`, state its **direction** as well. An unruled tag is `UNCLASSIFIED`, is
+**excluded** from the in-force denominator, and is named in G6 — the loud, conservative default,
+so a vocabulary addition can never quietly move this phase's headline acceptance figure.
+`tests/evals/test_harness_gap_kinds.py` fails on any tag the committed gold set uses without a
+kind here.
+
+**Where it is implemented.** `evals/harness/gap_kinds.py` — `GAP_KIND`, `GAP_DIRECTION`,
+`DENOMINATOR_EXCLUDING_KINDS` and `in_force_scope()` in **one module**, deliberately, because
+§9.1's denominator and G6's disclosure must move together by construction. CLAUDE.md's debt list
+records three instances of an indirection that was only as real as the tests that bypassed it; a
+second call site re-deriving this predicate by hand would be a fourth.
+
+**What this does NOT do.** It changes **no annotation rule**, restamps **no item**, stales **no
+cassette** and adds **no tag**. It changes one predicate — which denominator an item is reported
+in — and the reporting layer that discloses it.
+
 
 ## 9. The two criteria have different denominators
 
@@ -5142,8 +5276,29 @@ reasoning below is what is operative.**
 
 | denominator | scope | standing |
 | :--- | :--- | :--- |
-| `len(known_gaps) == 0` | items IR v1 can represent faithfully | **PRIMARY** — this is criterion 2 |
+| `gap_kinds.in_force_scope()` | items IR v1 can represent faithfully | **PRIMARY** — this is criterion 2 |
 | all items | every locked item, tagged or not | **reported alongside**, never as the criterion |
+
+**THE PRIMARY DENOMINATOR'S PREDICATE CHANGED AT v0.59 (§8.10, §10.1 F9), and the figure moved.**
+Through v0.58 it was `len(known_gaps) == 0`. It is now **by tag KIND**, because the two grounds
+below do not apply to every kind and applying them as though they did was excluding items this
+section's own ground 1 describes as in scope. **Measured by a real `run_scoring.run()` at the
+moment the ruling landed: `3/9 = 33.3%` → `3/10 = 30.0%`.** The numerator does not move, so this
+LOWERS the figure — the safe direction, and the opposite of an accept-set widening.
+
+| kind | in the in-force denominator? | on what ground |
+| :--- | :--- | :--- |
+| `REPRESENTATIONAL` | **excluded** | **ground 2** — the item is a knowing unfaithfulness, so certifying it `FULLY_CORRECT` certifies an IR that misstates the contract |
+| `REACHABILITY` | **excluded** | **neither ground** — gold is faithful. A **third** ground, stated separately rather than smuggled into ground 2: it is a **structurally guaranteed failure**, rejected at compile on every run, so admitting it seats unwinnable items in the headline denominator and corrupts what the figure means |
+| `CORPUS_DEFECT` | **enters** | **ground 1's own text** — *"items IR v1 can represent faithfully"* — describes it exactly. Ground 2 does not bite: gold is faithful |
+| `ANNOTATION_CONVENTION` | **enters** | same as `CORPUS_DEFECT` |
+| `WITHHELD_VALUE` | **excluded, pending F18** | **held, not ruled.** Ground 2 bites only if the item is a knowing unfaithfulness, and that is precisely the contested direction question for this kind (gold asserts `null` for a field the contract does populate). Membership cannot be settled on a ground whose own input is open, so the status quo stands. Admitting it would read `3/11 = 27.3%` — measured, not projected |
+| `UNCLASSIFIED` | **excluded** | a tag whose kind was never ruled must never enter this phase's headline denominator silently. Excluding is the loud default, and G6 names it |
+
+**Exclusion is still by MEMBERSHIP, never by count — §9's v0.22 rule is untouched, only the
+predicate it applies.** An item is excluded if **any** of its tags is of an excluding kind. That
+is why `C14-02` (`mutual_obligation` + `shared_subject_split`) stays excluded on the strength of
+the representational tag alone even though its convention tag now admits.
 
 This is the treatment §11 already gave criterion 1b, applied to criterion 2. The split is
 computed mechanically from `known_gaps`, by membership never by count (see the v0.22 rule
@@ -5202,6 +5357,16 @@ reason — a reader who does not reach the methods section still gets the caveat
 `report.py` G6.
 
 ### 9.2 The v0.48 freeze-pass batch MOVES THE IN-FORCE DENOMINATOR: 8 → 9 (§10.1 F7)
+
+> **SUPERSEDED AS A LIVE FIGURE AT v0.59 — `3/9 = 33.3%` IS A DATED RECORD FROM HERE ON AND MUST
+> NOT BE QUOTED AS THE CURRENT CRITERION.** §10.1 F9's ruling (§8.10) makes §9.1's denominator
+> **kind-scoped**, and `corpus_artifact_in_span` no longer excludes, so `C04-03` enters:
+> **in-force criterion 2 is `3/10 = 30.0%`**, confirmed by a real `run_scoring.run()`. Everything
+> below remains correct **as the record of what F7 did to the denominator under the predicate then
+> in force** — 8 → 9 by `C04-02`'s empty `known_gaps` — and that arithmetic is untouched by F9,
+> which changes the predicate rather than any item's tags. This section is left as written per
+> this document's corrections-are-new-text discipline; the correction is this block, §9.1's
+> per-kind table, and the v0.59 changelog entry.
 
 **Stated at the top of §9 rather than in a note, because it changes this phase's own headline
 acceptance figure.** F7's ruling (§8.4.2) removes `mutual_obligation` from `C04-02`, leaving its
@@ -5390,8 +5555,11 @@ freeze pass is added here, or it is not deferred, it is dropped.**
 | **F6** | `C06-01`, `C13-01`, `C14-01` | the **depth convention** (§3.6, v0.45) — annotator-predicate scope only, **and blocked on a precondition**: §9.4's missing anchor field means any depth rule is unverifiable after authoring. Decide the precondition before the rule | no | §3.6, Ruling 4 |
 | **F7** | `C04-02` | **EXECUTED v0.48, RE-RECORDED AND SCORED v0.49.** Ruled v0.47 (§8.4.2); restamp applied at v0.48. `C04-02` loses `mutual_obligation` (obligee `ABSENT`, so the discrimination is undecidable at span scope). **MOVES §9's IN-FORCE DENOMINATOR 8 → 9** — its `known_gaps` is now empty, so it enters the criterion-2 denominator; see **§9.2**. `C04-117` re-recorded live at v0.49 (3 runs, 4 calls) and scored: `C04-02` modal `MISSED` (`PARTIAL`/`MISSED`/`MISSED`), never `FULLY_CORRECT`. **Numerator resolved at 3 — criterion 2 is `3/9 = 33.3%`. DONE, fully closed.** | **yes** (`C04-117`, 3 runs — re-recorded v0.49, now stale against `C04-01` instead; see §22.3) | §8.4.2; v0.46 §8 review |
 | **F8** | `E01-01` | **EXECUTED v0.48.** Ruled v0.47 (§8.3.2); restamp applied here. **The row as originally written understated the work: `E01-01` carried only `exception_unsupported` — `compound_action` had never been applied to it either — so the restamp adds TWO tags, not one**, reaching the three §8.3.2 requires. **DONE** | **yes** (`E01-047`, 3 runs — now stale) | §8.3.2; v0.46 §8 review |
-| **F9** | whole set | **§8's tag vocabulary carries at least three different KINDS of thing under one flat set** — IR-representational gaps, corpus-text defects (`corpus_artifact_in_span`, which §8's own table says is *"not a v1 compiler gap"*), annotation-convention exceptions (`shared_subject_split`) and scoreability removals (`redacted_clause`) — and §9's `len(known_gaps) == 0` denominator treats all of them identically. Decide whether the vocabulary needs a `kind` axis before it gains more tags | mixed | v0.46 §8 tag-vocabulary review |
-| **F10** | n/a — reporting layer | **PARTIALLY EXECUTED v0.48, scoped deliberately.** `action_not_in_taxonomy` is now classified **INCOMPLETENESS** — added in this batch *because* F8 and F11 apply that tag, so shipping them alone would have widened the gap while claiming to close a taxonomy one. **The remaining five live-use tags stay `UNCLASSIFIED` and `report.py` now names each and says why** (`corpus_artifact_in_span`, `shared_subject_split`, `redacted_value`, `within_preposition`, `relative_trigger_preposition`): each turns on **F9**'s `kind`-axis question, and assigning a direction now would be the very masquerade the reviewer filed F10 separately to prevent. **STILL OPEN for those five** | no | v0.46; §9.1, `report.py` G6 |
+| **F9** | whole set | **RULED v0.59 — §8.10 ADDS A `kind` AXIS; `direction` BECOMES A SUB-AXIS OF `REPRESENTATIONAL` ALONE, AND §9.1'S DENOMINATOR IS KIND-SCOPED.** The finding that made the ruling narrow: **direction was never the first axis** — the five tags `report.py` could classify are exactly the five where IR v1 has no form for the clause, and the five it could not are exactly the five where the IR is not at fault, so a `kind` filter had been operating unnamed as direction's own precondition. **The `REPRESENTATIONAL`/`REACHABILITY` line is §8.6.1's own principle promoted into the vocabulary** (*"`temporal: null` marks what the IR cannot REPRESENT, never what the classifier cannot REACH"*), and each of the other three kinds is quoted out of the section that already defines its tag — the taxonomy is **promoted, not authored with the failure list visible**. **Denominator, per kind, NOT uniformly:** `REPRESENTATIONAL` excludes on ground 2; `REACHABILITY` excludes on a **third** ground stated separately (a structurally guaranteed compile failure, not an unfaithfulness); `CORPUS_DEFECT` and `ANNOTATION_CONVENTION` **enter**, because ground 1's own text describes them; `WITHHELD_VALUE` is **held excluded pending F18**; `UNCLASSIFIED` excludes loudly, so a new tag can never drift into the headline figure. **COST MEASURED BY A REAL RUN, BEFORE AND AFTER: `3/9 = 33.3%` → `3/10 = 30.0%`; whole set 17/36 → 20/36, movers `C04-01`, `C04-03`, `C14-06`. The numerator does not move, so the ruling can only LOWER the figure** — the safe direction, unlike F1's `+2`. `C14-02` correctly does not move (its `mutual_obligation` still excludes). No item added, restamped or re-authored; no cassette staled; no annotation rule changed; all-items `5/15` and `K` `14/32` untouched. **AGAINST INTEREST, and filed rather than buried: the kind axis RE-OPENS an annotator disagreement the legacy scope had collapsed to zero** — recomputed kind-aware, `gap_agreement`'s conforming band stops being a point, `(15,15)` → `(16,17)` — **queued as F17 with the numbers already measured**, because it moves a published band. **DONE** | mixed | v0.46 §8 tag-vocabulary review |
+| **F17** | whole set — reporting/instrument layer | **`gap_agreement`'s `d_gold`/`d_int`/`d_uni` are still LEGACY-scoped (`len(known_gaps)==0`) while §9.1's criterion is now KIND-scoped (F9, v0.59), so the G7 band and the figure it brackets are not the same denominator.** Measured at the time F9 landed, not projected: kind-aware recomputation moves the all-pairs band **(16,17) → (17,19)** and the conforming band **(15,15) → (16,17)**. **The substantive part is the conforming one: v0.48's own test docstring called `(15,15)` "the substantive result… the two annotators no longer disagree at all about which items are scoreable", and under the kind axis they disagree again** — because agreeing that an item is *tagged* is not agreeing on what KIND of thing the tag is. That bears directly on CLAUDE.md's highest-priority REDESIGN item (`known_gaps` disagreement invisible to `K`). **NOT taken at v0.59 on purpose: it moves a published, dated band, which is its own decision, and F9 was already moving the headline figure.** Until it lands, `render()` compares its coherence check against the legacy denominator **explicitly** and prints a line saying band and criterion are different scopes, rather than printing them adjacent and letting a reader assume otherwise | yes (the published `K`/`G` run) | v0.59 F9 ruling; `report.py` G7 |
+| **F18** | `E03-01` today; the `WITHHELD_VALUE` kind generally | **DOES `redacted_value` CARRY A `GAP_DIRECTION`, AND THEREFORE DOES ITS KIND ENTER §9.1'S DENOMINATOR?** §8.10 rules the kind distinct — not representational (no IR change helps) and not a corpus defect (nothing is wrong with the text; the value is absent from the world the contract describes) — and **deliberately does not rule its direction**. The two-sidedness is real: gold asserts `null` for a field the contract **does** populate, which reads as `INCOMPLETENESS`, yet the loss is not the IR's, which is the whole reason the kind exists. **v0.59 holds it EXCLUDED — the status quo — on the ground that membership cannot be settled on ground 2 while ground 2's own input (is this a knowing unfaithfulness?) is open.** Measured, admitting it reads **`3/11 = 27.3%`** against the ruled `3/10 = 30.0%`. Decide the direction first; membership follows from it | yes (`E03-005`, 3 runs) | v0.59 §8.10 ruling; §8.1, §9.1 |
+| ~~**F9 (original entry, left as written)**~~ | whole set | **§8's tag vocabulary carries at least three different KINDS of thing under one flat set** — IR-representational gaps, corpus-text defects (`corpus_artifact_in_span`, which §8's own table says is *"not a v1 compiler gap"*), annotation-convention exceptions (`shared_subject_split`) and scoreability removals (`redacted_clause`) — and §9's `len(known_gaps) == 0` denominator treats all of them identically. Decide whether the vocabulary needs a `kind` axis before it gains more tags | mixed | v0.46 §8 tag-vocabulary review |
+| **F10** | n/a — reporting layer | **RESOLVED v0.59 UNDER F9's `kind` AXIS — and NOT by finally assigning five directions.** For `REACHABILITY`, `CORPUS_DEFECT` and `ANNOTATION_CONVENTION`, **gold is faithful**: the annotation states exactly what the document says, so nothing departs from the contract and **there is no direction to assign**. `report.py` now records that as `None` — a **ruling** — and discloses those tags in G6 **by their KIND** instead. `redacted_value` (`WITHHELD_VALUE`) is the one tag whose direction is genuinely contested rather than inapplicable, and it is filed as **F18** rather than forced. **`UNCLASSIFIED` survives with its meaning CHANGED**: it now means *"this tag's KIND was never ruled on"*, is excluded from the denominator, and is named in the report — so the forcing function this row was created to protect is intact, aimed at the question that actually needs deciding. `direction_of()` returning `None` (ruled, no direction) and `UNCLASSIFIED` (a decision is owed) are **two different answers that must not collapse**, and a test pins that. **DONE** *(original entry follows, left as written)* **PARTIALLY EXECUTED v0.48, scoped deliberately.** `action_not_in_taxonomy` is now classified **INCOMPLETENESS** — added in this batch *because* F8 and F11 apply that tag, so shipping them alone would have widened the gap while claiming to close a taxonomy one. **The remaining five live-use tags stay `UNCLASSIFIED` and `report.py` now names each and says why** (`corpus_artifact_in_span`, `shared_subject_split`, `redacted_value`, `within_preposition`, `relative_trigger_preposition`): each turns on **F9**'s `kind`-axis question, and assigning a direction now would be the very masquerade the reviewer filed F10 separately to prevent. **STILL OPEN for those five** | no | v0.46; §9.1, `report.py` G6 |
 | **F12** | whole set | **§3.6.1 tests the `action` SLOT VALUE only, not `action_accept_set`** — its v0.44 screen swept `action`, `obligor`, `obligee` and `obligor_accept_set`, and the action accept-set was never in it. The co-variance argument that makes §3.6.1 a *correction* runs through the accept-sets, since §5 clause 2 tests **membership**, not slot equality. **Measured at v0.48: exactly ONE instance across the 32, and it is the same item before and after F3** — `C04-04`'s old slot `self_compliant_use` restated its accept-set member `COMPLY` (via `compliant`) just as its new slot does (via `compliance`), so exposure was **1 → 1** and F3 inherited the hazard rather than creating it. **A first pass reported zero; that was a stemmer miss (`complyance` ≠ `compliance`), the third nominalisation miss by that screen in one session.** **RULED v0.58 — §3.6.1 DOES EXTEND, widening-only, at §3.6.2. Retroactive, and COST IS ZERO: 35 of 36 items already satisfy the extended set rule, no item restamped, no cassette staled, no member removed, no published figure moved (`3/9 = 33.3%` before and after, by a real run).** The extension is the coherent scope, because clause 2 tests membership and the co-variance argument that makes §3.6.1 a *correction* therefore runs through the accept-set. **Exposure is THREE items, not one — the row's "exactly ONE" was scope-correct but incomplete**: it filled the slot × accept-set-verb cell (`C04-04`, which reproduces exactly) and the member × accept-set-verb cell had never been measured — `C04-01`'s `royalty_payment` and `C14-01`'s `payment_deduction` both restate `PAY`. **A FOURTH nominalisation miss surfaced and is recorded rather than folded in: `C22-01`'s slot `notice` restates its own `action = NOTIFY`, inside the v0.44 screen's own scope, and `notify → notice` is SUPPLETIVE — a different family from the three `y`/`e`-boundary misses, which no stemmer reaches.** It is adjudicated explicitly at §3.6.2 and **clears under carve-out 1** (the span names the thing *"notice"* twice). **The cognate-object co-variance it exposes is ACCEPTED as irreducible, not designed around** — §3.6.1 bounds the defect, it does not eliminate it. **DONE** | mixed | v0.48 F3 ruling; §3.6.1 |
 | **F11** | `C10-01` | **EXECUTED v0.48 — §8.8.2.** `defend` is ruled **NOT** defensibly mappable to `INDEMNIFY`, on corpus evidence: 33 sentences use it with no `indemnify`; `C03` disjoins *"failed to defend or indemnify"*; `C03` §(c) owes the defence *"whether or not … the allegations are meritorious"*; `C11` converts a failed defence duty into a payment duty. Branch 3 fires; `C10-01` restamped to three tags. `hold harmless`→`INDEMNIFY` untouched — **the two non-member verbs of one triplet land on opposite sides of the limb**, which is the first real exercise of §8.3's v0.47 non-mappability test. **DONE** | **NO — see the cassette correction below** | §8.3.2's re-check |
 | **F13** | whole set (1 locked item today: `C17-02`) | **RESOLVED v0.52 — §8.9's treatment governs; §8.6 is amended at §8.6.1, RETROACTIVE, and `C17-02` is restamped to the `WITHIN` form.** Ruled on the *representable-vs-reachable* principle rather than by counting sections: `temporal: null` marks what the IR cannot REPRESENT (a bare vague qualifier, §15.2), never what the classifier cannot REACH. Two further sections were found siding against §8.6 beyond the two first filed — **§11 decision 1 (v0.8), on `_WITHIN_RE` itself**, and **§15.5 (v0.28)**, whose existing `C11-01` treatment is CONFIRMED rather than changed. §10 re-check logged: a screen validated on a known answer plus a loose sweep for any `within` in any locked span finds **exactly 2 hits**, of which one (`C11-01`) already conforms — **exposure is 1 item**. **Criterion 2 unmoved on both denominators (`3/9 = 33.3%`)**, measured: the model quotes the rejected preposition on 3/3 runs and no candidate survives compile. `K` unchanged at 14/32; the published clause profile moves `6_temporal` **2 → 3 of 23** (§3.6.1's dual-predicate disclosure). **Under the IN-FORCE predicate the effect is ZERO** — §5.1 A1 marks `C17-02` `NON_CONFORMING` (cold's `action` slot `OBTAIN` is off-taxonomy), so it sits outside both `A`'s numerator and denominator and **`A` holds at `7/27`**; the `14/32` movement is to the *legacy* pre-§5.1 published run, which `tests/evals/test_harness_annotator_agreement.py` still reproduces exactly via its `PRE_RESTAMP` map, **extended by this ruling rather than relaxed**. `C17-066`'s 3 cassettes go stale; **the re-record is DEFERRED to the freeze pass** — zero criterion-2 effect either way, so it rides along rather than earning its own live-spend session. **DONE.** *Original entry follows, left as written:* **§8.6 and §8.9 give OPPOSITE instructions for the same structural problem, and §3.7's general rule sides against §8.6.** Both gaps are *a preposition the production regex does not accept* — §8.6 is `_WITHIN_RE` wanting `of`, §8.9 is `_RELATIVE_RE` wanting `before`/`after` — yet §8.6 rules **`temporal: null`** while §8.9 rules **annotate the form + trigger verbatim**, and §3.7 says *"Known-gap forms (§8) are annotated **normally**. Do not avoid them."* §8.6 is the outlier against both. It also makes gold assert `temporal: null` where the text plainly carries a timing phrase, which §3.7 permits *"only when the obligation genuinely carries no timing phrase"*. **The inconsistency is in the GUIDELINE, not in the annotation** — measured, both annotators follow each section literally and consistently: `within_preposition` → `null` (gold `C17-02`; cold `C17-066`, `C11-094`) and `relative_trigger_preposition` → the form (gold `C13-03`, `C22-02`; cold ×5). §8.9 (v0.28) was written explicitly as §8.6's sibling (*"Why its own tag rather than §8.6's"*) and never reconciled it. **Exposure: §8.6's own measurement — the word after `within N <unit>` is `of` 40 vs `after` 34 / `from` 17 / `following` 8, so 59 pool-wide occurrences sit on the rejected side.** Decide which treatment governs; if §8.9's, §8.6's rule line and `C17-02` both move. **NOT a prerequisite for any escalation** — surfaced by the cold annotator, who flagged the tension in `C11-094` item 2's notes, resolved it per §8.6 as literally written, and applied that resolution to `C17-066` too for consistency | yes (`C17-066`, `C11-094` both cassette-covered) | 2026-09-05 escalation re-read; `holdout/C14_076_INVESTIGATION.md` §7.4 |
@@ -5414,6 +5582,14 @@ using exactly the capability F16 restored**: F12's zero-cost claim and F5's `3/9
 confirmed by a real `run_scoring.run()` rather than computed by hand, which is the first time a
 queue ruling's cost has been measured rather than argued. **Three genuine design questions
 remain open: F6, F9, F10.**
+
+**F9 AND F10 RULED 2026-09-18 (v0.59, §8.10) — of the five design questions that stood open at
+v0.52, ONE remains: F6.** F9's cost was likewise confirmed by a real `run_scoring.run()` before
+and after (`3/9 = 33.3%` → `3/10 = 30.0%`), so every queue ruling since F16's fix has been
+measured rather than argued. **The queue did not shrink by two, though, and saying so plainly
+matters more than the tally: F9 opened F17 and F18**, both of them real and both filed with
+their numbers already measured rather than as vague follow-ups. F6 stays blocked on §9.4's
+missing anchor field, which is unchanged by this ruling.
 
 **F16 RESOLVED 2026-09-16 (see the F16 row above for the fix and the real-run confirmation).**
 Every other entry in this table can now be measured by running the harness rather than computed
