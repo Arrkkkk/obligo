@@ -19,7 +19,8 @@
   "object_class_accept_set": [
     "franchise_interest",
     "equity_interest",
-    "ownership_interest"
+    "ownership_interest",
+    "principal_interest"
   ],
   "temporal": {
     "form": "RELATIVE_TO_TRIGGER",

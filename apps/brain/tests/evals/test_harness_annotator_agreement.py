@@ -15,6 +15,7 @@ aggregate while carrying two errors that cancelled.
 
 from __future__ import annotations
 
+import ast
 import copy
 import glob
 import json
@@ -68,11 +69,40 @@ HOLDOUT_DIR = GOLD_DIR / "holdout"
 # does is hold the inputs it was computed from, so a later retroactive ruling
 # cannot quietly erase the record it is supposed to be checked against.
 PRE_RESTAMP = {
+    # v0.62 (F1). `C10-01` HELD TWO SEPARATE ENTRIES UNDER ONE KEY AND PYTHON
+    # KEPT ONLY THE SECOND. The v0.44 slot correction below was written here at
+    # v0.45 and then SILENTLY OVERWRITTEN at v0.61, when F19's `known_gaps`
+    # block reused the same key further down the literal -- so from v0.61 until
+    # now `PRE_RESTAMP["C10-01"]` held `known_gaps` ALONE and the sealed
+    # `object_class` values were dead. Merged into one entry here.
+    #
+    # It was INERT, and that is stated rather than glossed: measured both ways
+    # against the sealed artifact, `C10-01` fails `5_object` either way, so K
+    # reproduced at 14/32 with the correct per-clause profile throughout and no
+    # published figure was ever wrong. What was lost is the GUARD -- had
+    # `C10-01`'s live `object_class_accept_set` ever been widened (exactly what
+    # this commit does to three other items), the reproduction would have
+    # drifted with nothing holding its inputs. `test_pre_restamp_has_no_duplicate
+    # _keys` below reads this file's own source so the class cannot recur.
     "C10-01": {
         "object_class": "product_liability_indemnification",
         "object_class_accept_set": [
             "product_liability_indemnification", "distributor_liability_indemnification",
             "design_defect_liability", "relevant_claim_indemnification",
+        ],
+        "known_gaps": ["compound_action", "exception_unsupported"],  # F11
+    },
+    # v0.62 (F1). The accept-set widening is invisible to the PIPELINE's
+    # criterion-2 baseline (§5 clause 5 reads gold's SET, and widening it is the
+    # whole point) but VISIBLE to `A`, which compares slots by mutual
+    # membership -- so without this entry the published legacy profile would
+    # drift `5_object` 6 -> 5. `K` itself is unmoved at 14/32 either way:
+    # `C11-01` disagrees on `obligee` and `obligor` independently. Same
+    # mechanism as the two restamps above, applied to a widening rather than a
+    # restamp -- the item is NOT restamped (see §3.4's v0.62 execution note).
+    "C11-01": {
+        "object_class_accept_set": [
+            "franchise_interest", "equity_interest", "ownership_interest",
         ],
     },
     "C10-02": {
@@ -92,7 +122,8 @@ PRE_RESTAMP = {
     # Kept here rather than in a second map so there is one answer to "what did
     # gold look like on 2026-08-29", whichever instrument is asking.
     "C04-02": {"known_gaps": ["mutual_obligation"]},                      # F7
-    "C10-01": {"known_gaps": ["compound_action", "exception_unsupported"]},  # F11
+    # F11's `C10-01` entry is MERGED INTO THE `C10-01` ENTRY ABOVE at v0.62 --
+    # repeating the key here is what silently killed the v0.44 slot correction.
     "E01-01": {"known_gaps": ["exception_unsupported"]},                  # F8
     "E03-01": {"known_gaps": ["redacted_value"]},                         # F19
 }
@@ -183,6 +214,53 @@ def published_rows():
 # Known-answer reproduction. Nothing below this line is trustworthy until
 # these two pass.
 # --------------------------------------------------------------------------
+
+def test_pre_restamp_has_no_duplicate_keys():
+    """A key written twice in `PRE_RESTAMP` keeps only the LAST entry, and
+    Python reports nothing -- so a sealed override can die with every test in
+    this file still green.
+
+    THIS IS NOT HYPOTHETICAL. It happened: `C10-01`'s v0.44 slot correction was
+    written at v0.45 and silently overwritten at v0.61 by an F19 `known_gaps`
+    block reusing the key. It cost nothing only because the two readings
+    happened to fail the same clause; the GUARD was dead for two rulings.
+
+    It has to be caught by reading this module's SOURCE, because the evaluated
+    dict is already collapsed -- by the time any assertion can see
+    `PRE_RESTAMP`, the evidence of the duplicate is gone. Same shape as this
+    project's tracked "a versioned-artifact indirection is only as real as the
+    tests that don't bypass it": the override map exists to hold historical
+    inputs, and a duplicate key silently stops it holding them.
+    """
+    tree = ast.parse(Path(__file__).read_text())
+    literals = [
+        node.value for node in ast.walk(tree)
+        if isinstance(node, ast.Assign)
+        and any(getattr(t, "id", None) == "PRE_RESTAMP" for t in node.targets)
+    ]
+    assert len(literals) == 1, "expected exactly one PRE_RESTAMP assignment"
+    keys = [k.value for k in literals[0].keys]
+    dupes = sorted({k for k in keys if keys.count(k) > 1})
+    assert not dupes, (
+        f"PRE_RESTAMP keys written more than once, so only the last survives: {dupes}. "
+        "Merge them into a single entry."
+    )
+    # And the collapsed dict must still hold every key the source writes -- the
+    # positive half, so the guard cannot pass on an empty or renamed literal.
+    assert set(keys) == set(PRE_RESTAMP) and len(keys) == len(PRE_RESTAMP)
+
+
+def test_c10_01s_merged_entry_still_holds_both_rulings_overrides():
+    """The specific loss the test above now prevents, pinned by content.
+
+    `C10-01` is overridden by TWO rulings at once -- F11's v0.44 slot correction
+    and F19's sealed `known_gaps` -- and they must both survive in one entry.
+    """
+    entry = PRE_RESTAMP["C10-01"]
+    assert entry["object_class"] == "product_liability_indemnification"
+    assert "relevant_claim_indemnification" in entry["object_class_accept_set"]
+    assert entry["known_gaps"] == ["compound_action", "exception_unsupported"]
+
 
 def test_legacy_mode_reproduces_the_published_run_item_by_item(published_rows, cold):
     """K = 14/32, AND every per-item clause-failure list, exactly."""

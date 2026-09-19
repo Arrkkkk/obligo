@@ -233,16 +233,58 @@ def test_c17_01_is_not_treated_as_a_breadth_case(items):
     assert c17["object_class"] == "virus_prevention"
 
 
-def test_f1s_three_queued_widenings_have_not_silently_landed(items):
-    """F5's ruling AUTHORISES and SIZES F1; it does not execute it.
+def test_f1s_three_widenings_have_landed_together(items):
+    """F1 EXECUTED v0.62, as ONE atomic event -- the sequencing F5 made binding.
 
-    F1 is worth a measured +2 on a 9-item denominator (`3/9` -> `5/9`), which is large
-    enough that landing it outside one atomic freeze-pass event would make the next
+    This test previously asserted the opposite (`..._have_not_silently_landed`), because
+    F5's ruling authorised and SIZED F1 without executing it. F1 is worth a measured +2,
+    large enough that landing it across two published baselines would make the next
     criterion-2 delta uninterpretable -- pipeline improvement and a loosened bar become
-    indistinguishable. So the widenings must still be ABSENT here, and this test is the
-    guard on that sequencing rather than a statement about their merit.
+    indistinguishable. The guard is therefore ALL-THREE-OR-NONE in both directions: it
+    fails if any one is missing, which is what "atomic" has to mean once they are in.
+
+    Values, not just presence, because a member is only the widening it was authorised as
+    if it is the exact string §3.5.1/§3.6 named.
     """
     by_id = {i["item_id"]: i for i in items}
-    assert "invoice_costs" not in by_id["C02-03"]["object_class_accept_set"]
-    assert "principal_interest" not in by_id["C11-01"]["object_class_accept_set"]
-    assert "Antares or its Subcontractor" not in (by_id["C02-01"].get("obligor_accept_set") or [])
+    assert "invoice_costs" in by_id["C02-03"]["object_class_accept_set"]
+    assert "principal_interest" in by_id["C11-01"]["object_class_accept_set"]
+    assert "Antares or its Subcontractor" in (by_id["C02-01"].get("obligor_accept_set") or [])
+
+
+def test_f1_widened_monotonically_and_restamped_nothing(items):
+    """Two bounds §3.4 puts on the exception, both mechanically checkable.
+
+    (1) WIDENING-ONLY: every member each set held before F1 is still there. A freeze-pass
+        widening that quietly dropped a member would be §3.4's forbidden direction.
+    (2) NOT RESTAMPED, and this is measured rather than stylistic: restamping the three
+        stales their cassettes and reads `3/7 = 42.9%` -- the numerator does not move at
+        all, both movers drop out of the denominator, and the figure "improves" purely by
+        shrinking. That is the shape F19 refused ("a published figure improving for no
+        improvement"), so the stamps are held at `v0.28`.
+    """
+    by_id = {i["item_id"]: i for i in items}
+    assert set(by_id["C02-03"]["object_class_accept_set"]) >= {
+        "retention_costs", "invoice", "costs", "service_costs"}
+    assert set(by_id["C11-01"]["object_class_accept_set"]) >= {
+        "franchise_interest", "equity_interest", "ownership_interest"}
+    assert set(by_id["C02-01"]["obligor_accept_set"]) >= {"Antares", "its Subcontractor"}
+    for iid in ("C02-01", "C02-03", "C11-01"):
+        assert by_id[iid]["guideline_version"] == "v0.28", (
+            f"{iid} was restamped; F1 holds every stamp -- see §3.4's v0.62 execution note")
+
+
+def test_c11_01_is_the_widening_worth_zero_on_criterion_2(items):
+    """Stated as a test rather than only in prose, because it is the F1 finding most
+    likely to be misremembered: the item this project cites most often as breadth's
+    motivating case is the one widening that moves criterion 2 by NOTHING.
+
+    `C11-01` fails `conditions` and `obligee` independently of `object_class`, so removing
+    one of three failing clauses leaves its modal outcome `PARTIAL`. The measured movers
+    are `C02-01` and `C02-03`, each of which had `object_class`/`obligor` as its ONLY
+    failing clause.
+    """
+    c11 = next(i for i in items if i["item_id"] == "C11-01")
+    assert c11["obligee"] == "ABSENT"
+    assert len(c11["conditions"]) == 2
+    assert "principal_interest" in c11["object_class_accept_set"]

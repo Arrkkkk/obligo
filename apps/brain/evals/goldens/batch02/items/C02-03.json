@@ -16,7 +16,8 @@
     "retention_costs",
     "invoice",
     "costs",
-    "service_costs"
+    "service_costs",
+    "invoice_costs"
   ],
   "underspecified": false,
   "missing_fields": [],

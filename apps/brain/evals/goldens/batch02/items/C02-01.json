@@ -12,7 +12,8 @@
   "obligor": "Antares",
   "obligor_accept_set": [
     "Antares",
-    "its Subcontractor"
+    "its Subcontractor",
+    "Antares or its Subcontractor"
   ],
   "obligee": "ABSENT",
   "object_class": "retained_sample",
