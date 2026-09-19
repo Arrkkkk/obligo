@@ -5702,7 +5702,35 @@ mappable** to `PROCURE`, so no `action_not_in_taxonomy` fires — and §9.1's in
 numerator**, `3/9 = 33.3%` → `3/10 = 30.0%` **in isolation**.
 
 > **CORRECTED v0.62 — THE "FIGURE TO QUOTE TODAY" IN THE PARAGRAPH DIRECTLY BELOW IS TWICE
-> SUPERSEDED, AND IT IS A FIFTH LOGGED INSTANCE OF §10's OWN CLOSE-OUT DRIFT.** It reads
+> SUPERSEDED. IT IS *NOT* AN INSTANCE OF §10's CLOSE-OUT DRIFT, AND AN EARLIER DRAFT OF THIS
+> CORRECTION CALLED IT "A FIFTH LOGGED INSTANCE" OF EXACTLY THAT — WRONG TWICE OVER, ON THE
+> ORDINAL AND ON THE CLASS.** *(Recorded rather than quietly fixed: the number was obtained by
+> INCREMENTING the previous claim instead of counting the list, which is the specific habit this
+> project has been wrong about before.)*
+>
+> **On the class, which is the substantive half. §10's check reads exactly three places** — the
+> `**Version:**` line, the `**Status:**` line, and the newest changelog entry. **§9.2.1 is body
+> prose and is none of the three, so the check would never have caught this and its scope is not
+> at fault.** The *mechanism* is identical (wording accurate when written, falsified by a later
+> ruling, and nothing in the normal editing flow revisits it), but the *class* is the *body-text*
+> analogue — the same gap §10's retroactive sweeps already have against segment-note prose (v0.55,
+> `C11-094`'s stale §8.6 citation, which outlived §8.6.1 inside a committed artifact). **That is a
+> real and so-far-unclosed scope gap in the check, and it is the finding here — not a tally mark.**
+> A live figure quoted in a body section is exactly as quotable as one in the Status line, and
+> nothing screens it.
+>
+> **On the ordinal, stated so the collision is visible rather than silently renumbered. The
+> document keeps a RUNNING tally with explicit ordinals, and it already stood at four before
+> v0.56:** (1) the header's *"no items have been annotated"* and (2) the v0.15/v0.17 changelog
+> pair, both corrected at v0.26 and cited by §10 as *"the first two"*; (3) v0.28's own header and
+> changelog still reading *"no v0.28 rule is adopted"*, labelled **THIRD** in v0.28's changelog
+> entry; (4) the Status line's *"consolidation pass in progress"*, labelled **FOURTH** at v0.29
+> and the first the check caught itself. **§20's v0.56 note therefore labels its Status-line drift
+> *"the fourth logged instance"* when four was already taken — it is the FIFTH of that running
+> tally.** That note is a dated record and is **left as written**; this is the correction.
+> *(§19.3's local heading "four false claims corrected" counts the v0.15 and v0.17 entries
+> separately and is not a rival tally — its own closing parenthetical reconciles it to the running
+> count in terms: "the count in §10's own prose — 'three times' — is now four.")* It reads
 > `3/9 = 33.3%`; v0.59's kind-scoping moved that to `3/10 = 30.0%` and **v0.62's execution of F1
 > moves it to `5/10 = 50.0%`**. Neither ruling revisited this sentence, because nothing in the
 > normal editing flow does — which is exactly the failure mode §10's process note names. The
