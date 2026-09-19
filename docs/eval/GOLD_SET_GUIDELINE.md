@@ -5701,6 +5701,16 @@ mappable** to `PROCURE`, so no `action_not_in_taxonomy` fires — and §9.1's in
 `len(known_gaps) == 0`, so the item belongs in it. Marginal effect: **+1 denominator, +0
 numerator**, `3/9 = 33.3%` → `3/10 = 30.0%` **in isolation**.
 
+> **CORRECTED v0.62 — THE "FIGURE TO QUOTE TODAY" IN THE PARAGRAPH DIRECTLY BELOW IS TWICE
+> SUPERSEDED, AND IT IS A FIFTH LOGGED INSTANCE OF §10's OWN CLOSE-OUT DRIFT.** It reads
+> `3/9 = 33.3%`; v0.59's kind-scoping moved that to `3/10 = 30.0%` and **v0.62's execution of F1
+> moves it to `5/10 = 50.0%`**. Neither ruling revisited this sentence, because nothing in the
+> normal editing flow does — which is exactly the failure mode §10's process note names. The
+> paragraph is left as written per the corrections-are-new-text discipline; **the figure to quote
+> today is `5/10 = 50.0%`.** *`C11-02`'s own marginal arithmetic below is UNAFFECTED and still
+> correct as stated* — it is a `+1 denominator, +0 numerator` claim, which holds against any
+> baseline; only the baseline it was expressed against has moved.
+
 **It is NOT realised yet, and the figure to quote today is still `3/9 = 33.3%`.** `C11-02` is
 stamped `v0.53` against `C11-094`'s `v0.28` cassettes, so F16's per-item staleness check makes it
 **cassette-unscoreable** and `report.py`'s G8 discloses it by id and reason. Confirmed by a real
