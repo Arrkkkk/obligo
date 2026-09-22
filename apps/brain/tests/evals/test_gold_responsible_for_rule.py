@@ -156,10 +156,14 @@ def test_no_item_was_restamped_by_this_ruling():
     assert items["C14-02"]["guideline_version"] == "v0.28"
 
 
-def test_the_set_is_36_items_over_22_segments():
+def test_the_set_is_48_items_over_28_segments():
+    # v0.62: batch 4 adds 12 items over 6 new segments. §8.8.4's own measured
+    # cost -- one locked SEGMENT, zero locked ITEMS -- is unaffected by an
+    # addition and is asserted by the test above this one, which names the
+    # items rather than counting them.
     items = rs.load_gold_items(GOLDENS)
-    assert len(items) == 36
-    assert len(rs.segments_from_items(items)) == 22
+    assert len(items) == 48
+    assert len(rs.segments_from_items(items)) == 28
 
 
 # --- (3) the evidence the rule rests on --------------------------------------

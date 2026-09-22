@@ -1,0 +1,66 @@
+{
+ "item_id": "E03-03",
+ "doc_id": "E03",
+ "segment_id": "E03-057",
+ "stratum": "hard",
+ "segment_text": "11.6Performance by Affiliates. Each Party may discharge any obligations and exercise any right hereunder through any of its Affiliates. Each Party hereby guarantees the performance by its Affiliates of such Party’s obligations under this Supply Agreement, and shall cause its Affiliates to comply with the provisions of this Supply Agreement in connection with such performance. Any breach by a Party’s Affiliate of any of such Party’s obligations under this Supply Agreement shall be deemed a breach by such Party, and the other Party may proceed directly against such Party without any obligation to first proceed against such Party’s Affiliate.",
+ "span_char_start": 136,
+ "span_char_end": 254,
+ "span_text": "Each Party hereby guarantees the performance by its Affiliates of such Party’s obligations under this Supply Agreement",
+ "modality": "MUST",
+ "action": "ENSURE",
+ "action_accept_set": [
+  "ENSURE"
+ ],
+ "obligor": "Each Party",
+ "obligor_accept_set": [],
+ "obligee": "ABSENT",
+ "object_class": "affiliate_performance",
+ "object_class_accept_set": [
+  "affiliate_performance",
+  "performance",
+  "third_party_performance",
+  "affiliate_obligations",
+  "obligation_performance"
+ ],
+ "temporal": null,
+ "conditions": [],
+ "underspecified": true,
+ "missing_fields": [
+  "obligor",
+  "obligee"
+ ],
+ "vague_temporal_phrase": null,
+ "redacted_phrase": null,
+ "known_gaps": [
+  "action_not_in_taxonomy"
+ ],
+ "annotator_confidence": "CONFIDENT",
+ "annotated_at": "2026-09-20T00:00:00+00:00",
+ "rules_cited": [
+  "2",
+  "2.7",
+  "3.1",
+  "3.2",
+  "3.2.1",
+  "3.3",
+  "3.4",
+  "3.5",
+  "3.5.1",
+  "3.6",
+  "3.6.1",
+  "3.6.2",
+  "3.7",
+  "3.8",
+  "3.9",
+  "8.8",
+  "8.8.2",
+  "8.4.2",
+  "14.3",
+  "14.4"
+ ],
+ "guideline_version": "v0.62",
+ "reviewer_status": "RULED_BY_REVIEWER",
+ "adjudicated_by": "reviewer",
+ "annotator_notes": "S2a of E03-057. ESCALATED under §14.4 as AMBIGUOUS and RULED BY THE REVIEWER 2026-09-20 (escalation 1 of the batch's <=2 budget). The real verb is 'hereby guarantees', recorded verbatim here per §8.8.\n\nTHE ESCALATION. Two defensible readings yielding DIFFERENT GOLD VALUES -- an item that exists or does not -- and the ambiguity is not in an accept-set field, so §14.3 routed it to §14.4 rather than to a widening. READING A (rejected): excluded under §3.2.1 as a present-tense self-executing performative, on C22-02's structural precedent ('the Seller hereby grants (and will cause each other Seller Party to grant...)' -- hereby half excluded, coordinated future half annotated as one item). READING B (RULED): obligation-bearing.\n\nTHE REVIEWER'S GROUND, recorded because it is what generalises. §3.2.1's enumerated class -- grants / assigns / appoints / releases / waives -- is closed for a SPECIFIC REASON: nothing survives execution to monitor. 'Guarantees' FAILS THAT RATIONALE ON ITS OWN TERMS: it creates a standing, contingent exposure to the Affiliates' FUTURE non-performance, which is precisely what S3i's deeming provision ('Any breach by a Party's Affiliate ... shall be deemed a breach by such Party') exists to make checkable. C22-02's 'hereby grants' does not transfer -- a grant is genuinely one-shot in a way a guarantee is not. Every member of §3.2.1's list is a one-shot dispositive act; a suretyship is a continuing undertaking.\n\nGUARANTEE IS A GENUINE GAP, NOT DEFENSIBLY INDEMNIFY -- reviewer-ruled on §8.8.2's same-performance test. A guarantor's performance is CONDITIONAL AND CONTINGENT, triggered only by the Affiliate's failure; INDEMNIFY's ordinary use in this taxonomy is an UNCONDITIONAL bear-the-cost duty. Mapping one onto the other would supply a performance shape the text does not have -- the same category error §8.8.2 identified when it ruled 'defend' distinct from 'indemnify'. So known_gaps gains action_not_in_taxonomy (REPRESENTATIONAL, §8.10), and this item is OUTSIDE §9.1's in-force denominator -- the same treatment C10-01 received.\n\nTHE SLOT HOLDS ENSURE EVEN THOUGH ENSURE IS NOT THE MAPPING, which is §8.8's own shape and not an inconsistency. §8.8 requires action to hold the NEAREST taxonomy verb and action_accept_set to hold THAT VERB ALONE, no widening, precisely because no correct answer exists. C10-01 is the worked precedent: 'defend' is a ruled genuine gap and its slot still reads INDEMNIFY with ['INDEMNIFY'] alone. GUARANTEE, WARRANT and ASSURE are all absent from ACTIONS, verified by execution against the real 34-verb list. ENSURE is taken as nearest because it is the verb that takes 'the performance' as its object; INDEMNIFY is excluded by the ruling above. PER §8.8.3, THE SINGLETON ACCEPT-SET MUST NOT BE READ BACKWARDS -- here it IS mandated by the tag, but the inference does not run the other way.\n\nMODALITY MUST, AND §3.2's TABLE DOES NOT LITERALLY COVER THE CONSTRUCTION -- flagged, not escalated. Every row of §3.2 is a modal verb or a modal-equivalent phrase (agrees to, is required to); 'hereby guarantees' is a present-tense performative and matches none. §3.3 forbids an accept-set for modality, so one value must be chosen, and MUST is the only defensible one: the clause creates a binding undertaking and 'agrees to -> MUST' is the nearest row in spirit. Unlike the item's existence question, only one value survives contact with the text, so this did not warrant the second escalation. SEE THE SEGMENT FILE'S `observations` -- logged as INSTANCE ONE of a possible §3.2 coverage gap so a second present-tense-performative case is recognised rather than re-derived.\n\nSPAN [136:254] is minimal and contiguous per §3.1 and carries its own obligor in-span. It ends BEFORE the clause-separating comma at 254, consistent with gold's practice on trailing commas (C14-01, C22-01 both exclude a following comma) and distinct from the trailing-PERIOD convention this batch follows.\n\nNESTING IS BELOW §4.1's THRESHOLD, which is cleaner than the existing nested pair and was computed rather than assumed: E03-03 [136:254] inside E03-02 [136:378] gives IoU 118/242 = 0.4876, UNDER 0.5, so the two items cannot compete for the same prediction at all. Compare C14-01/C14-02 at 0.689, where §8.3.1 had to accept that a single emitted span makes the pairing genuinely ambiguous. Only E03-02 carries shared_subject_split -- the EXTENDED item carries it, matching C14-02's treatment, while C14-01, the minimal one, does not.\n\nOBLIGEE ABSENT. No counterparty is named in this span; 'the other Party' appears only in S3, and §3.5 forbids inferring a party from outside the span. §8.4.2 therefore does not fire: (a) MUST and (b) 'Each Party' both pass, (c) FAILS on obligee ABSENT -- C04-02's F7 disposition.\n\nOBJECT_CLASS carries the head-only member 'performance' (§3.6 v0.58). §3.6.2 checked against the whole action_accept_set (['ENSURE']): no member restates it, and 'affiliate_' names the THIRD PARTY rather than this item's obligor or obligee, which is §3.6.1 carve-out 2. KNOWN OVERLAP, disclosed rather than fixed: E03-02's accept-set also holds 'affiliate_performance'. Reviewer ruled 2026-09-20 to leave it -- IoU-based alignment already handles it, since an exact match to either span pairs at 1.000 against its own item."
+}

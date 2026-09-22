@@ -1,0 +1,78 @@
+{
+ "segment_id": "C04-051",
+ "doc_id": "C04",
+ "schema": "§2.7 (v0.50) -- complete per-sentence segment disposition, superseding §21 R6's not_annotatable-only shape. `not_annotatable` (R6's original array, the only key run_scoring.load_not_annotatable() reads) is preserved for scoring and holds every NOT_OBLIGATION_BEARING / NOT_ANNOTATABLE / EXCLUDED span. `dispositions` is the full per-sentence record §2.7 requires, covering ANNOTATED and AMBIGUOUS spans too, which `not_annotatable` deliberately excludes -- an AMBIGUOUS span is an open reviewer question, not a settled non-item, and including it in the scoring array would resolve it silently.",
+ "reconciliation": {
+  "sentences_total": 3,
+  "obligation_bearing_clauses": 2,
+  "items_annotated": 1,
+  "status": "PASS",
+  "note": "items_annotated is one short of obligation_bearing_clauses, and the shortfall is fully explained by the EXCLUDED disposition at [63:445] (exclusion_log_id C04-051#continue-supply, §2 cross-reference-dependent). §2's 1-3 band is satisfied at 2. Reviewer-confirmed 2026-09-20."
+ },
+ "dispositions": [
+  {
+   "span_char_start": 0,
+   "span_char_end": 62,
+   "disposition": "NOT_OBLIGATION_BEARING",
+   "rule": "2.7",
+   "reason": "List marker '(h)' plus an ordering clause ('Notwithstanding the provisions of subsections (e) and (g)'). §2.7 bulk disposition class; commands no conduct.",
+   "span_text": "(h) Notwithstanding the provisions of subsections (e) and (g),"
+  },
+  {
+   "span_char_start": 63,
+   "span_char_end": 445,
+   "disposition": "EXCLUDED",
+   "rule": "2",
+   "exclusion_log_id": "C04-051#continue-supply",
+   "reason": "Obligation-bearing (MUST, Miltenyi, continue to supply) but cross-reference-dependent: 'after expiry of THE SAID 6-MONTH PERIOD' is a sectionless backward anaphor with no antecedent in the segment, and it supplies the operative start bound of a scored field (clause 6, temporal). C15-046's reviewer-confirmed shape. FIRST USE OF THE EXCLUDED DISPOSITION AT SUB-SENTENCE GRANULARITY -- a defined §2.7 value, not a new category; reviewer-approved 2026-09-20 as a minimal extension of the sub-sentence disposition precedent already committed at C14-076 [420:506]. Full reasons, precedent calibration and two recorded observations: exclusions.json.",
+   "span_text": "in the event that Bellicum reasonably determines to reject a proposed Material Change (including a Miltenyi-Requested Change), Miltenyi will continue to supply the applicable Miltenyi Product without such change after expiry of the said 6-month period and during the Term of this Agreement, or until Bellicum has secured an alternate source of supply from a Third Party manufacturer"
+  },
+  {
+   "span_char_start": 471,
+   "span_char_end": 1006,
+   "disposition": "ANNOTATED",
+   "rule": "-",
+   "reason": "Covers locked item C04-07.",
+   "item_id": "C04-07",
+   "span_text": "the Parties will discuss in good faith, reflecting the change in circumstances contemplated by this Section 3.2(h), and agree in writing upon commercially reasonable terms to be set forth in an amendment to this Agreement to reflect any demonstrable increased cost and effort (if any) resulting from the manufacture of unchanged Miltenyi Product solely for Bellicum, including (as an example) any applicable adjustments to Forecasts, Lead Times, production cycles, batch sizes, Delivery Dates, Product Prices, or other relevant issues."
+  },
+  {
+   "span_char_start": 1007,
+   "span_char_end": 1670,
+   "disposition": "NOT_OBLIGATION_BEARING",
+   "rule": "3.8.1",
+   "reason": "Two clauses, neither obligation-bearing. (i) 'any obligations of Bellicum ... will not apply' has a non-party subject -- §3.8.1's named not-branch-1 savings class. (ii) 'Miltenyi shall be relieved from any obligations to supply' is copular status under §8.8/§8.8.1: it removes a duty, commanding no conduct.",
+   "span_text": "If the Parties cannot reach agreement regarding such amendment, any obligations of Bellicum in relation to a Forecast for the affected Miltentyi Product in months 7-12 of the applicable Monthly Forecast, and any limitations regarding forecast variances, as each of these are set forth in Article 5, will not apply to a Miltenyi Product produced after implementation of such Material Change (i.e., one that replaces such affected (unchanged) Miltenyi Product), and Miltenyi shall be relieved from any obligations to supply such affected (unchanged) Miltenyi Product under this Agreement after the period described in the first sentence of this subsection (h) ends."
+  },
+  {
+   "span_char_start": 1671,
+   "span_char_end": 1826,
+   "disposition": "NOT_OBLIGATION_BEARING",
+   "rule": "8.8.1",
+   "reason": "'in no event shall Miltenyi be required to manufacture, supply or sell' negates a REQUIREMENT; it does not create a prohibition. §8.8.1's negated-entitlement class -- 'shall not be required to X' is not MUST_NOT X.",
+   "span_text": "For clarity, in no event shall Miltenyi be required to manufacture, supply or sell an existing Miltenyi Product to which a Required Change must be applied."
+  }
+ ],
+ "not_annotatable": [
+  {
+   "span_char_start": 0,
+   "span_char_end": 62,
+   "reason": "List marker '(h)' plus an ordering clause ('Notwithstanding the provisions of subsections (e) and (g)'). §2.7 bulk disposition class; commands no conduct."
+  },
+  {
+   "span_char_start": 63,
+   "span_char_end": 445,
+   "reason": "Obligation-bearing (MUST, Miltenyi, continue to supply) but cross-reference-dependent: 'after expiry of THE SAID 6-MONTH PERIOD' is a sectionless backward anaphor with no antecedent in the segment, and it supplies the operative start bound of a scored field (clause 6, temporal). C15-046's reviewer-confirmed shape. FIRST USE OF THE EXCLUDED DISPOSITION AT SUB-SENTENCE GRANULARITY -- a defined §2.7 value, not a new category; reviewer-approved 2026-09-20 as a minimal extension of the sub-sentence disposition precedent already committed at C14-076 [420:506]. Full reasons, precedent calibration and two recorded observations: exclusions.json."
+  },
+  {
+   "span_char_start": 1007,
+   "span_char_end": 1670,
+   "reason": "Two clauses, neither obligation-bearing. (i) 'any obligations of Bellicum ... will not apply' has a non-party subject -- §3.8.1's named not-branch-1 savings class. (ii) 'Miltenyi shall be relieved from any obligations to supply' is copular status under §8.8/§8.8.1: it removes a duty, commanding no conduct."
+  },
+  {
+   "span_char_start": 1671,
+   "span_char_end": 1826,
+   "reason": "'in no event shall Miltenyi be required to manufacture, supply or sell' negates a REQUIREMENT; it does not create a prohibition. §8.8.1's negated-entitlement class -- 'shall not be required to X' is not MUST_NOT X."
+  }
+ ]
+}

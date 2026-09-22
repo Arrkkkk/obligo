@@ -1,0 +1,61 @@
+{
+ "item_id": "C02-05",
+ "span_char_start": 71,
+ "span_char_end": 305,
+ "modality": "MUST",
+ "action": "MAINTAIN",
+ "action_accept_set": [
+  "MAINTAIN",
+  "RETAIN"
+ ],
+ "obligor": "Antares",
+ "obligor_accept_set": [
+  "Antares",
+  "AMAG",
+  "Antares and AMAG"
+ ],
+ "obligee": "ABSENT",
+ "object_class": "records",
+ "object_class_accept_set": [
+  "records",
+  "recall_records",
+  "compliance_records",
+  "product_records"
+ ],
+ "temporal": null,
+ "underspecified": true,
+ "missing_fields": [
+  "obligee"
+ ],
+ "known_gaps": [],
+ "rules_cited": [
+  "2",
+  "2.7",
+  "3.1",
+  "3.2",
+  "3.4",
+  "3.5",
+  "3.5.1",
+  "3.6",
+  "3.6.1",
+  "3.7",
+  "3.8",
+  "3.8.2",
+  "3.9",
+  "8.4.2"
+ ],
+ "annotator_notes": "S1 of C02-047. Reviewer-confirmed 2026-09-20. ENTERS §9.1's in-force denominator (known_gaps empty) -- one of only four batch-4 items that do.\n\nSPAN STARTS AT 'Antares', not at 'In addition to the requirements of Section 6.2,'. §3.1 asks for the minimal substring stating the COMPLETE obligation, including a leading clause that establishes TIMING, CONDITION or SCOPE -- and this prefix establishes none of the three. It ADDS a duty alongside another section's, which is why the cross-reference also does not exclude the segment (§2, as applied): no scored field depends on resolving Section 6.2. C03-01 item 4's reviewer-confirmed 'scope detail only' side of the line, not C15-046's operative-content side.\n\n§3.5.1 STEP 1 BRANCH 1 -- the span names the parties individually ('Antares and AMAG shall each maintain'), so the slot holds the FIRST-NAMED party and obligor_accept_set carries every co-obligor verbatim PLUS the whole coordinated phrase per the v0.33 rider (the rule authored because the model stably emitted the whole coordination on C02-01 -- same document).\n\n§8.4.2 DOES NOT FIRE -- it fails at (c). (a) MUST passes; (b) passes, read from the SPAN per (b)'s own instruction for the named-conjunction form; (c) FAILS -- no obligee is stated anywhere in the span, so the co-obligor-is-also-the-obligee discrimination is undecidable at span scope. C04-02's F7 disposition. The duty runs to regulators and the recall process, not to the co-party.\n\nCONDITIONS EMPTY. 'as is reasonably necessary to permit a Recall of any Products...' fails §3.8.2's removal test as a condition: delete it and the duty to maintain records is unchanged; only the SET OF RECORDS covered narrows. That is OBJECT SCOPE, the E05-P1 row of §3.8.2's own table. 'in compliance with Applicable Laws' is likewise a standard on the records, not a circumstance gating the duty.\n\nOBJECT_CLASS head-only member 'records' present (§3.6 v0.58 forward rule). §3.6.2 checked against the whole action_accept_set (['MAINTAIN','RETAIN']): no member restates either verb, and none names a party -- 'recall_records' names the purpose, not the obligor or obligee.",
+ "doc_id": "C02",
+ "segment_id": "C02-047",
+ "stratum": "standard",
+ "segment_text": "(a) Records and Notice. In addition to the requirements of Section 6.2, Antares and AMAG shall each maintain such records in compliance with Applicable Laws as is reasonably necessary to permit a Recall of any Products, sample Products and Trainers delivered to AMAG, AMAG's designee or customers of AMAG. Each Party shall promptly (but no later than [***] of receipt of such information) notify the other by telephone (to be confirmed in writing) of any information which might affect the marketability, safety, or effectiveness of the Products, sample Products or Trainers and/or which might result in the Recall or seizure of the Products, sample Products, or Trainers. Upon receiving any such notice or upon any such discovery, each Party shall cease and desist from further shipments of such Products, sample Products or Trainers in its possession or control until a decision by AMAG has been made whether a Recall or some other corrective action is necessary.",
+ "annotated_at": "2026-09-20T00:00:00+00:00",
+ "guideline_version": "v0.62",
+ "adjudicated_by": "reviewer",
+ "reviewer_status": "APPROVED",
+ "conditions": [],
+ "vague_temporal_phrase": null,
+ "redacted_phrase": null,
+ "annotator_confidence": "CONFIDENT",
+ "span_text": " Antares and AMAG shall each maintain such records in compliance with Applicable Laws as is reasonably necessary to permit a Recall of any Products, sample Products and Trainers delivered to AMAG, AMAG's designee or customers of AMAG."
+}

@@ -532,9 +532,29 @@ def test_new_items_are_outside_the_published_run_and_would_have_moved_K(cold):
     live = {i["item_id"] for items in _load_gold().values() for i in items}
 
     added = live - published
-    assert added == {"C11-02", "C04-06", "C11-03", "C14-06"}, added
+    # v0.62: batch 4's 12 items join the four §14.4 additions. `published` does
+    # NOT move -- it is derived from the sealed `comparison.json`, which is the
+    # whole point of the v0.53 fix and the reason this assertion is safe to keep
+    # as an equality while the live set grows.
+    batch4 = {"E01-02", "E01-03", "C04-07", "C04-08", "E03-02", "E03-03",
+              "E08-02", "E08-03", "E08-04", "C02-05", "C02-06", "C02-07"}
+    assert added == {"C11-02", "C04-06", "C11-03", "C14-06"} | batch4, added
     assert len(published) == 32
-    assert len(live) == 36
+    assert len(live) == 48
+
+    # Batch 4 is the first ADDITION WITH NO COLD COUNTERPART AT ALL, and that is
+    # a stronger fact than `C14-06`'s. The 2026-08-29 cold run annotated the 22
+    # segments then drawn; batch 4 draws SIX NEW SEGMENTS the cold annotator
+    # never saw, so none of its 12 items could pair even in principle. A future
+    # §7 re-run over the current 48-item set must therefore re-annotate cold
+    # rather than reusing that output.
+    cold_segments = set(_load_cold())  # keyed BY segment_id; items carry none
+    batch4_segments = {i["segment_id"] for items in _load_gold().values()
+                       for i in items if i["item_id"] in batch4}
+    assert not (batch4_segments & cold_segments), (
+        f"batch 4 segments must be outside the cold run: "
+        f"{sorted(batch4_segments & cold_segments)}"
+    )
 
     # Fact 2a: three of the four pair against a real cold item at the same
     # span, so excluding them is a deliberate scope decision, not a no-op.

@@ -1,0 +1,66 @@
+{
+ "item_id": "E03-02",
+ "doc_id": "E03",
+ "segment_id": "E03-057",
+ "stratum": "hard",
+ "segment_text": "11.6Performance by Affiliates. Each Party may discharge any obligations and exercise any right hereunder through any of its Affiliates. Each Party hereby guarantees the performance by its Affiliates of such Party’s obligations under this Supply Agreement, and shall cause its Affiliates to comply with the provisions of this Supply Agreement in connection with such performance. Any breach by a Party’s Affiliate of any of such Party’s obligations under this Supply Agreement shall be deemed a breach by such Party, and the other Party may proceed directly against such Party without any obligation to first proceed against such Party’s Affiliate.",
+ "span_char_start": 136,
+ "span_char_end": 378,
+ "span_text": "Each Party hereby guarantees the performance by its Affiliates of such Party’s obligations under this Supply Agreement, and shall cause its Affiliates to comply with the provisions of this Supply Agreement in connection with such performance.",
+ "modality": "MUST",
+ "action": "ENSURE",
+ "action_accept_set": [
+  "ENSURE",
+  "PROCURE"
+ ],
+ "obligor": "Each Party",
+ "obligor_accept_set": [],
+ "obligee": "ABSENT",
+ "object_class": "affiliate_compliance",
+ "object_class_accept_set": [
+  "affiliate_compliance",
+  "compliance",
+  "third_party_compliance",
+  "affiliate_performance",
+  "agreement_compliance"
+ ],
+ "temporal": null,
+ "conditions": [],
+ "underspecified": true,
+ "missing_fields": [
+  "obligor",
+  "obligee"
+ ],
+ "vague_temporal_phrase": null,
+ "redacted_phrase": null,
+ "known_gaps": [
+  "shared_subject_split"
+ ],
+ "annotator_confidence": "CONFIDENT",
+ "annotated_at": "2026-09-20T00:00:00+00:00",
+ "rules_cited": [
+  "2",
+  "2.5",
+  "2.7",
+  "3.1",
+  "3.2",
+  "3.4",
+  "3.5",
+  "3.5.1",
+  "3.6",
+  "3.6.1",
+  "3.6.2",
+  "3.7",
+  "3.8",
+  "3.8.2",
+  "3.9",
+  "4.3",
+  "4.3.2",
+  "8.3.1",
+  "8.4.2"
+ ],
+ "guideline_version": "v0.62",
+ "reviewer_status": "APPROVED",
+ "adjudicated_by": "reviewer",
+ "annotator_notes": "S2b of E03-057 ('and shall cause its Affiliates to comply with the provisions of this Supply Agreement in connection with such performance'). Reviewer-confirmed 2026-09-20.\n\nSPAN IS §8.3.1's OPTION 4, AND THE ALTERNATIVE IS MECHANICALLY UNREACHABLE. The obligor 'Each Party' sits at the head of S2, shared with S2a. A span of S2b alone puts the obligor OUTSIDE span_text -- NESTED_FIELD_NOT_IN_SPAN, which is the v0.31 amendment's own option 3, 'unreachable by the pipeline'. So the span runs contiguously from the shared subject through the end of its own verb phrase, unavoidably containing S2a, and is tagged shared_subject_split. C14-06 is the direct precedent for a span containing a clause that is not this item. The extended span also earns its keep: 'in connection with such PERFORMANCE' is anaphoric to S2a's 'the performance by its Affiliates', which option 4 keeps in-span.\n\nONLY THIS ITEM CARRIES shared_subject_split, not its sibling E03-03 -- the EXTENDED item carries it, matching C14-02's treatment, while the minimal one (C14-01, here E03-03) does not. Nesting IoU is 118/242 = 0.4876, BELOW §4.1's 0.5 threshold, computed rather than assumed, so the two items cannot compete for the same prediction. Cleaner than C14-01/C14-02's 0.689.\n\nshared_subject_split is ANNOTATION_CONVENTION under §8.10, so THIS ITEM ENTERS §9.1's IN-FORCE DENOMINATOR -- unlike E01-02 (mutual_obligation), C04-07 (compound_action) and E03-03 (action_not_in_taxonomy), all REPRESENTATIONAL and all excluded.\n\nENSURE FOR 'cause X to comply', KEPT CONSISTENT RATHER THAN RE-DERIVED. C04-05 ('cause X to use') and C22-02 ('cause X to grant') both map to ENSURE with PROCURE as the accept-set alternate. Per §4.3.2 item 2 the obligor remains the named party bearing the flow-down duty, never the third party. NOTE this is NOT a §4.3.2 SPLIT: §4.3.2's shape needs one verb for the obligor's own conduct and one for a third party's, and here BOTH S2a and S2b concern the Affiliates' conduct. The two are separate items under plain §4.3 (independently breachable: a Party can fail to cause compliance yet honour its guarantee, or the reverse), so §4.3.2's self_/third_party_ naming convention is not engaged and no shared root is owed.\n\nMUTUAL_OBLIGATION DOES NOT FIRE. §8.4.2 (a) MUST passes, (b) 'Each Party' distributive passes, (c) FAILS -- obligee is ABSENT, so the discrimination is undecidable at span scope. C04-02's F7 disposition.\n\n'compliance' AS A LABEL IS CLEARED, NOT ASSUMED. §3.6.2 reads restatement against the whole action_accept_set, which is ['ENSURE','PROCURE'] -- COMPLY is deliberately NOT in it, because the obligor does not comply, it CAUSES compliance. C04-05's approved third_party_regulatory_compliance against action = ENSURE is the direct precedent. 'affiliate_' is cleared by §3.6.1 carve-out 2: it names the third party, not this item's obligor or obligee. Head-only member 'compliance' present per §3.6's v0.58 forward rule.\n\nCONDITIONS EMPTY. 'in connection with such performance' fails §3.8.2's removal test as a condition: deleting it leaves the duty (cause to comply) unchanged and only broadens the set of compliance covered, which is OBJECT SCOPE, not a circumstance the duty depends on.\n\nKNOWN ACCEPT-SET OVERLAP, disclosed: this set holds 'affiliate_performance', which is sibling item E03-03's slot value. Reviewer ruled 2026-09-20 to leave it -- IoU-based alignment handles it, since an exact match to either span pairs at 1.000 against its own item."
+}

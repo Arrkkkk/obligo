@@ -1,0 +1,57 @@
+{
+ "item_id": "E08-02",
+ "span_char_start": 0,
+ "span_char_end": 80,
+ "modality": "MUST",
+ "action": "PAY",
+ "action_accept_set": [
+  "PAY"
+ ],
+ "obligor": "KIRKLAND’S",
+ "obligee": "ABSENT",
+ "object_class": "undisputed_amounts",
+ "object_class_accept_set": [
+  "undisputed_amounts",
+  "amounts",
+  "invoiced_amounts",
+  "undisputed_invoiced_amounts",
+  "invoice_amounts"
+ ],
+ "temporal": null,
+ "underspecified": true,
+ "missing_fields": [
+  "obligee"
+ ],
+ "known_gaps": [],
+ "rules_cited": [
+  "2",
+  "2.7",
+  "3.1",
+  "3.2",
+  "3.4",
+  "3.5",
+  "3.6",
+  "3.6.1",
+  "3.7",
+  "3.8",
+  "3.8.2",
+  "3.9",
+  "8.4.2",
+  "21"
+ ],
+ "annotator_notes": "S1 of E08-016. Reviewer-confirmed 2026-09-20. ENTERS §9.1's in-force denominator (known_gaps empty).\n\nTHE CROSS-REFERENCE IS KEPT, ON C03-01's SIDE OF THE LINE. 'as provided in Section 6.2' most naturally modifies 'invoiced' (WHICH amounts), making it OBJECT SCOPE. Even on the competing reading -- that it modifies 'pay' -- NO SCORED FIELD becomes undeterminable: action is PAY, the object is stated in-span, obligor is named, obligee is ABSENT, and temporal is null either way because the span carries no timing phrase of its own. That is C03-01 item 4's reviewer-confirmed 'scope detail only' disposition, NOT C15-046's, where the operative METHOD of the duty was unreadable at segment scope. Both readings recorded per §14.3.\n\nMISSING_FIELDS ['obligee'] ONLY, FOLLOWING E08-01 EXACTLY. Document E08 has NO committed §21 R3 registry (ten documents do; E08 is not among them), and E08-01 -- the only other E08 item -- treats its named obligor 'NFI' as resolvable rather than listing it. Gold annotates against the registry §21 R3 REQUIRES, not against the fixture's current gaps; F16's registry_backed_items() discloses the item as cassette/registry-unscoreable until that registry exists, which is a harness fact and not an annotation one.\n\nSINGLETON action_accept_set WITH NO TAG. Per §8.8.3 this must NOT be read backwards as evidence of a genuine gap: PAY is simply the only taxonomy verb a competent annotator could defend for 'shall pay ... amounts invoiced'. C11-02 is the precedent for a legitimate singleton.\n\nOBJECT_CLASS carries the head-only member 'amounts' (§3.6 v0.58). §3.6.2 checked against the whole action_accept_set (['PAY']): 'invoiced_amounts' does NOT restate it -- §3.6.1's own note that 'invoice there names a DOCUMENT, not the act' governs, the same clearance §3.6 gives its own enum-2 example invoice_costs.",
+ "stratum": "standard",
+ "doc_id": "E08",
+ "segment_id": "E08-016",
+ "segment_text": "KIRKLAND’S shall pay all undisputed amounts invoiced as provided in Section 6.2. KIRKLAND’S shall only dispute amounts in reasonable good faith and shall provide NFI with written notice of the basis for disputing any amounts on an invoice within 30 days of KIRKLAND’S’s receipt of NFI’s invoice. Payments not received by NFI within fifteen (15) days of KIRKLAND’S’s receipt of written notice that such payment is overdue will be subject to a service charge of 1% per month on the unpaid balance.",
+ "span_text": "KIRKLAND’S shall pay all undisputed amounts invoiced as provided in Section 6.2.",
+ "obligor_accept_set": [],
+ "conditions": [],
+ "vague_temporal_phrase": null,
+ "redacted_phrase": null,
+ "annotator_confidence": "CONFIDENT",
+ "annotated_at": "2026-09-20T00:00:00+00:00",
+ "guideline_version": "v0.62",
+ "adjudicated_by": "reviewer",
+ "reviewer_status": "APPROVED"
+}

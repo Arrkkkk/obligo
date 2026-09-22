@@ -1,0 +1,82 @@
+{
+ "segment_id": "E03-057",
+ "doc_id": "E03",
+ "schema": "§2.7 (v0.50) -- complete per-sentence segment disposition, superseding §21 R6's not_annotatable-only shape. `not_annotatable` (R6's original array, the only key run_scoring.load_not_annotatable() reads) is preserved for scoring and holds every NOT_OBLIGATION_BEARING / NOT_ANNOTATABLE / EXCLUDED span. `dispositions` is the full per-sentence record §2.7 requires, covering ANNOTATED and AMBIGUOUS spans too, which `not_annotatable` deliberately excludes -- an AMBIGUOUS span is an open reviewer question, not a settled non-item, and including it in the scoring array would resolve it silently.",
+ "reconciliation": {
+  "sentences_total": 4,
+  "obligation_bearing_clauses": 2,
+  "items_annotated": 2,
+  "status": "PASS",
+  "note": "All sentences accounted for. The count survived two eligibility calls that each could have moved it: S1's §2.5 exclusion (without which the segment reaches 4 and fails §2's band) and S2a's §14.4 escalation, ruled obligation-bearing. Reviewer-confirmed 2026-09-20."
+ },
+ "dispositions": [
+  {
+   "span_char_start": 0,
+   "span_char_end": 30,
+   "disposition": "NOT_OBLIGATION_BEARING",
+   "rule": "2.7",
+   "reason": "Section heading '11.6Performance by Affiliates.'. §2.7 bulk class.",
+   "span_text": "11.6Performance by Affiliates."
+  },
+  {
+   "span_char_start": 31,
+   "span_char_end": 135,
+   "disposition": "NOT_OBLIGATION_BEARING",
+   "rule": "2.5",
+   "reason": "'Each Party may discharge any obligations and exercise any right hereunder through any of its Affiliates.' -- a broad permission with NO correlative party, NO deadline and NO gating condition. It cannot be exercised wrongly or left unexercised in any way a monitor could observe. §2.5's combination test, C04-026's shape. LOAD-BEARING FOR ELIGIBILITY: had this clause counted, the segment would reach 4 obligation-bearing clauses and exclude whole under §2's 1-3 band.",
+   "span_text": "Each Party may discharge any obligations and exercise any right hereunder through any of its Affiliates."
+  },
+  {
+   "span_char_start": 136,
+   "span_char_end": 254,
+   "disposition": "ANNOTATED",
+   "rule": "-",
+   "reason": "Covers locked item E03-03. Was AMBIGUOUS and escalated under §14.4; RULED obligation-bearing by the reviewer 2026-09-20 (Reading B).",
+   "item_id": "E03-03",
+   "span_text": "Each Party hereby guarantees the performance by its Affiliates of such Party’s obligations under this Supply Agreement"
+  },
+  {
+   "span_char_start": 136,
+   "span_char_end": 378,
+   "disposition": "ANNOTATED",
+   "rule": "-",
+   "reason": "Covers locked item E03-02, whose span runs from the shared subject through the end of its own verb phrase per §8.3.1 option 4 and therefore contains E03-03's span. Nesting IoU 0.4876, below §4.1's 0.5 threshold.",
+   "item_id": "E03-02",
+   "span_text": "Each Party hereby guarantees the performance by its Affiliates of such Party’s obligations under this Supply Agreement, and shall cause its Affiliates to comply with the provisions of this Supply Agreement in connection with such performance."
+  },
+  {
+   "span_char_start": 379,
+   "span_char_end": 647,
+   "disposition": "NOT_OBLIGATION_BEARING",
+   "rule": "8.8, 2.5.1",
+   "reason": "Two clauses, neither obligation-bearing. (i) 'Any breach by a Party's Affiliate ... SHALL BE DEEMED a breach by such Party' -- copular legal-fiction statement whose subject is an EVENT, E08-046's 'shall be deemed' precedent. (ii) 'and the other Party may proceed directly against such Party without any obligation to first proceed against such Party's Affiliate' -- a remedies reservation with no standard, no deadline and no required act toward anyone; its only procedural content is a NEGATED precondition. §2.5.1's negative worked example (C14-044 S1, retracted after locking) governs: scope restriction is not monitorable stakes. NOT C13-03, which was annotated because it carries BOTH an explicit gating condition (insolvency) AND a required act toward the counterparty (written notice).",
+   "span_text": "Any breach by a Party’s Affiliate of any of such Party’s obligations under this Supply Agreement shall be deemed a breach by such Party, and the other Party may proceed directly against such Party without any obligation to first proceed against such Party’s Affiliate."
+  }
+ ],
+ "not_annotatable": [
+  {
+   "span_char_start": 0,
+   "span_char_end": 30,
+   "reason": "Section heading '11.6Performance by Affiliates.'. §2.7 bulk class."
+  },
+  {
+   "span_char_start": 31,
+   "span_char_end": 135,
+   "reason": "'Each Party may discharge any obligations and exercise any right hereunder through any of its Affiliates.' -- a broad permission with NO correlative party, NO deadline and NO gating condition. It cannot be exercised wrongly or left unexercised in any way a monitor could observe. §2.5's combination test, C04-026's shape. LOAD-BEARING FOR ELIGIBILITY: had this clause counted, the segment would reach 4 obligation-bearing clauses and exclude whole under §2's 1-3 band."
+  },
+  {
+   "span_char_start": 379,
+   "span_char_end": 647,
+   "reason": "Two clauses, neither obligation-bearing. (i) 'Any breach by a Party's Affiliate ... SHALL BE DEEMED a breach by such Party' -- copular legal-fiction statement whose subject is an EVENT, E08-046's 'shall be deemed' precedent. (ii) 'and the other Party may proceed directly against such Party without any obligation to first proceed against such Party's Affiliate' -- a remedies reservation with no standard, no deadline and no required act toward anyone; its only procedural content is a NEGATED precondition. §2.5.1's negative worked example (C14-044 S1, retracted after locking) governs: scope restriction is not monitorable stakes. NOT C13-03, which was annotated because it carries BOTH an explicit gating condition (insolvency) AND a required act toward the counterparty (written notice)."
+  }
+ ],
+ "observations": [
+  {
+   "id": "E03-057#performative-modality",
+   "label": "INSTANCE ONE -- §3.2's modality table does not cover a present-tense performative ruled obligation-bearing",
+   "status": "RECORDED, NOT AMENDED. Reviewer-flagged 2026-09-20.",
+   "cross_reference": "item E03-03; §3.2, §3.2.1, §3.3",
+   "note": "INSTANCE ONE of a possible §3.2 coverage gap: a PRESENT-TENSE PERFORMATIVE that IS obligation-bearing has no row in §3.2's modality table.\n\nWHAT HAPPENED. The reviewer ruled 2026-09-20 that 'Each Party hereby guarantees...' is obligation-bearing (Reading B; see item E03-03's notes for the full ground). That ruling creates a construction §3.2 does not enumerate. Every row of §3.2's table is a modal verb (shall, must, will, may, should) or a modal-equivalent phrase (agrees to, is required to). 'Hereby guarantees' is neither. §3.2.1's own text calls the table 'exhaustive of what maps to each of the four values'.\n\nWHY IT DID NOT ESCALATE. §3.3 forbids an accept-set for modality, so exactly one value must be chosen, and only MUST is defensible -- the clause creates a binding undertaking and 'agrees to -> MUST' is the nearest row in spirit. MAY, SHOULD and MUST_NOT are all clearly wrong. Unlike the item's EXISTENCE question, which had two defensible answers and did escalate, this has one.\n\nWHY IT IS WORTH A NOTE ANYWAY. Until this ruling, every present-tense performative in the gold set was EXCLUDED by §3.2.1, so the table's silence never mattered -- the question could not arise. Reading B opens the class: a performative that survives §3.2.1's rationale is obligation-bearing and must be assigned a modality by a table that does not describe it. The candidate amendment is a small one -- a §3.2 row or a §3.2.1 cross-reference stating that a performative ruled obligation-bearing takes MUST -- and it is deliberately NOT proposed on one instance, the same discipline §22.1 applies to ruling a kind on a sample of one and the same posture taken for the temporal_composition gap at C04-051 / C04-072.\n\nFOR THE FUTURE SESSION: cite this as INSTANCE ONE. A second present-tense-performative clause ruled obligation-bearing is the forcing function. SEARCH KEY: present-tense performative, hereby guarantees, §3.2 modality table coverage, E03-057, E03-03."
+  }
+ ]
+}

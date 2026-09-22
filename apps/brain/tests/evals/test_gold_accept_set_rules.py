@@ -65,6 +65,49 @@ def items():
     return screen_mod.load_items()
 
 
+# --- the v0.58 population, pinned so a later batch cannot re-baseline it -----
+#
+# §3.6.2's "35 of 36" and §3.6/F5's "13/36" are DATED published figures from the
+# v0.58 rulings. Batch 4 (v0.62) adds 12 items, and letting these assertions
+# read the live tree would silently recompute a published measurement over gold
+# the ruling never saw -- the exact defect v0.53 fixed for `K` by deriving its
+# population from the sealed `comparison.json`, and the one F19 found in `G`,
+# where a published figure survived three drifts BY COINCIDENCE.
+#
+# There is no sealed artifact for these two, so the population is frozen here by
+# stamp instead: every item annotated at or before v0.57. A NEW batch is outside
+# it by construction, and `test_the_v058_population_is_exactly_the_36` fails
+# loudly if an item ever leaves it.
+# Derived from the committed tree, not from memory: an INCLUDE-list, so a future
+# batch's stamp is outside it automatically rather than needing this line edited.
+V058_STAMPS = frozenset({"v0.28", "v0.38", "v0.41", "v0.44", "v0.48", "v0.52",
+                         "v0.53", "v0.55", "v0.57"})
+
+
+def _v058_population(items):
+    """The 36 items §3.6.2's and §3.6's v0.58 figures were measured over."""
+    return [i for i in items if i["guideline_version"] in V058_STAMPS]
+
+
+def test_the_v058_population_is_exactly_the_36_the_rulings_measured(items):
+    """The guard that makes the two scoped figures below trustworthy.
+
+    A population that silently grew or shrank would make them reproduce a
+    DIFFERENT measurement while still printing the published number -- which is
+    precisely how `G` stayed at 6/31 through four item drifts without anyone
+    noticing (§10.1 F20).
+    """
+    pop = _v058_population(items)
+    assert len(pop) == 36, (
+        f"the v0.58 population must stay at the 36 items those rulings measured; "
+        f"got {len(pop)}. If an item was legitimately restamped, this frozen set "
+        f"needs a reasoned update, not a bumped number."
+    )
+    assert len(items) > len(pop), (
+        "this scoping is pointless if the live set has not grown past it"
+    )
+
+
 # --------------------------------------------------------------------------
 # (3) the screen's own gate
 # --------------------------------------------------------------------------
@@ -122,13 +165,18 @@ def test_f12_extension_costs_nothing_every_item_but_c22_01_already_conforms(item
     This is what makes the extension retroactive at zero cost -- no restamp, no
     stale cassette, no member removed.
     """
+    # The offenders assertion is a LIVE invariant and stays live on purpose: a
+    # new offender in ANY batch is a new adjudication owed, which is what this
+    # message says and what makes the test worth having.
     offenders = screen_mod.items_without_a_clean_member(items)
     assert offenders == ["C22-01"], (
         "§3.6.2 asserts exactly one item lacks a clean member, adjudicated under "
         f"carve-out 1. Got {offenders!r}. A NEW offender is a new adjudication owed, "
         "not something this rule absorbs silently."
     )
-    assert len(items) - len(offenders) == 35
+    # The COUNT is the dated v0.58 headline and is scoped to its own population.
+    pop = _v058_population(items)
+    assert len(pop) - len([o for o in offenders if o in {i["item_id"] for i in pop}]) == 35
 
 
 def test_c22_01_clears_because_its_span_names_the_thing_notice(items):
@@ -148,13 +196,40 @@ def test_c22_01_clears_because_its_span_names_the_thing_notice(items):
 def test_f12_scope_exposure_is_three_items_not_one(items):
     """The queue row's "exactly ONE" filled the slot x accept-set-verb cell. The
     member x accept-set-verb cell had never been measured, and holds two more."""
-    hits = screen_mod.screen(items)
+    hits = screen_mod.screen(_v058_population(items))
     assert {h[0] for h in hits["accept_set_verb"]} == {"C04-01", "C04-04", "C14-01"}
     # C04-04 reproduces the recorded slot-side instance exactly.
     slot_side = [h for h in hits["accept_set_verb"] if h[1] == "SLOT"]
     assert [(h[0], h[2], h[3]) for h in slot_side] == [
         ("C04-04", "self_regulatory_compliance", "COMPLY")
     ]
+
+
+def test_e08_03_is_a_new_accept_set_verb_hit_and_clears_under_carve_out_1(items):
+    """Batch 4 adds ONE accept-set-verb hit, and it is disclosed rather than
+    absorbed into F12's dated three.
+
+    `E08-03`'s `dispute_notice` restates `NOTIFY`, which sits in its own
+    `action_accept_set` -- exactly the cell F12 measured. It CLEARS under
+    §3.6.2's carve-out 1 on the same ground as `C22-01`: the span reads "written
+    NOTICE", the document's own word for the thing, so the label names the object
+    rather than restating the duty. The item is NOT a §3.6.2 offender -- its set
+    carries clean members -- so the set rule holds and no adjudication is owed.
+
+    This is §3.6.2's accepted cognate-object residue, which that section rules is
+    irreducible rather than a defect to design around: for NOTIFY/notice, clauses
+    2 and 5 co-vary because the object of the duty simply IS the action's nominal.
+    """
+    hits = screen_mod.screen(items)
+    live = {h[0] for h in hits["accept_set_verb"]}
+    dated = {h[0] for h in screen_mod.screen(_v058_population(items))["accept_set_verb"]}
+    assert live - dated == {"E08-03"}, (
+        f"batch 4 should add exactly one accept-set-verb hit; got {sorted(live - dated)}"
+    )
+    assert "E08-03" not in screen_mod.items_without_a_clean_member(items)
+    e08 = next(i for i in items if i["item_id"] == "E08-03")
+    assert screen_mod.restates("dispute_notice", "NOTIFY") == ["notice"]
+    assert "notice" in e08["span_text"], "carve-out 1 needs the span to name the thing"
 
 
 def test_the_widening_only_rule_still_holds_no_member_was_removed(items):
@@ -175,8 +250,29 @@ def test_head_only_coverage_reproduces_the_anchor_at_n36(items):
     """§3.6/Ruling 3's v0.45 anchor was measured at n=32 (12/32 = 38%). Four items
     have been added since, so the figure is re-measured rather than assumed to
     survive: 13/36 = 36%, against the model emitting head-only 28% of the time."""
-    carried, total = census_mod.head_only_coverage(items)
+    carried, total = census_mod.head_only_coverage(_v058_population(items))
     assert (carried, total) == (13, 36)
+
+
+def test_the_forward_head_only_rule_is_satisfied_by_every_batch_4_item(items):
+    """§3.6's v0.58 rule binds batch 4 onward, and this is the first batch it
+    reaches -- so it is checked by execution rather than assumed from the notes.
+
+    The dated 13/36 anchor above says what the rule found when it was written;
+    this says whether it is actually being followed. Both are needed: a forward
+    rule nobody verifies is the "indirection only as real as the tests that
+    don't bypass it" shape CLAUDE.md's debt list already records three times.
+    """
+    new = [i for i in items if i["guideline_version"] not in V058_STAMPS]
+    assert len(new) == 12, f"expected batch 4's 12 items, got {len(new)}"
+    without = [i["item_id"] for i in new if not census_mod.has_head_only_member(i)]
+    assert without == [], (
+        f"§3.6's forward head-only rule is mandatory from batch 4: {without} carry no "
+        f"head-only member. The only permitted exemption is §3.6.2's cognate-object "
+        f"case, which must be argued per item, not defaulted."
+    )
+    carried, total = census_mod.head_only_coverage(items)
+    assert (carried, total) == (25, 48)
 
 
 def test_the_head_only_rule_is_forward_only_and_restamped_nothing(items):

@@ -1,0 +1,66 @@
+{
+ "item_id": "E01-02",
+ "doc_id": "E01",
+ "segment_id": "E01-042",
+ "stratum": "hard",
+ "segment_text": "SECTION 8.08. Assignability. Neither this Agreement nor any of the rights, interests or obligations under this Agreement shall be assigned, in whole or in part, by operation of law or otherwise by either Party without the prior written consent of the other Party. Any purported assignment without such consent shall be void. Subject to the preceding sentences, this Agreement will be binding upon, inure to the benefit of, and be enforceable by, the Parties and their respective successors and assigns. Notwithstanding the foregoing, either Party may assign this Agreement without consent in connection with (a) a merger transaction in which such Party is not the surviving entity and the surviving entity acquires or assumes all or substantially all of such Party’s assets or (b) the sale of all or substantially all of such Party’s assets; provided, however, that the assignee expressly assumes in writing all of the obligations of the assigning Party under this Agreement, and the assigning Party provides written notice and evidence of such assignment and assumption to the non-assigning Party. No assignment permitted by this Section 8.08 shall release the assigning Party from liability for the full performance of its obligations under this Agreement. Nothing in this Section 8.08 shall affect or impair a Service Provider’s ability to delegate any or all of its obligations under this Agreement to one or more members of its Group or Sub-Contractors pursuant to Section 2.01(e).",
+ "span_char_start": 29,
+ "span_char_end": 263,
+ "span_text": "Neither this Agreement nor any of the rights, interests or obligations under this Agreement shall be assigned, in whole or in part, by operation of law or otherwise by either Party without the prior written consent of the other Party.",
+ "modality": "MUST_NOT",
+ "action": "ASSIGN",
+ "action_accept_set": [
+  "ASSIGN",
+  "TRANSFER"
+ ],
+ "obligor": "either Party",
+ "obligor_accept_set": [],
+ "obligee": "the other Party",
+ "object_class": "agreement_rights",
+ "object_class_accept_set": [
+  "agreement_rights",
+  "agreement",
+  "rights",
+  "contract_rights",
+  "rights_and_obligations"
+ ],
+ "temporal": null,
+ "conditions": [
+  "without the prior written consent of the other Party"
+ ],
+ "underspecified": true,
+ "missing_fields": [
+  "obligor",
+  "obligee"
+ ],
+ "vague_temporal_phrase": null,
+ "redacted_phrase": null,
+ "known_gaps": [
+  "mutual_obligation"
+ ],
+ "annotator_confidence": "CONFIDENT",
+ "annotated_at": "2026-09-20T00:00:00+00:00",
+ "rules_cited": [
+  "2",
+  "2.6",
+  "2.7",
+  "3.1",
+  "3.2",
+  "3.4",
+  "3.5",
+  "3.5.1",
+  "3.5.4",
+  "3.6",
+  "3.6.1",
+  "3.7",
+  "3.8",
+  "3.8.1",
+  "3.9",
+  "8.4",
+  "8.4.2"
+ ],
+ "guideline_version": "v0.62",
+ "reviewer_status": "APPROVED",
+ "adjudicated_by": "reviewer",
+ "annotator_notes": "S1 of E01-042. Reviewer-confirmed 2026-09-20.\n\nMUTUAL_OBLIGATION FIRES -- §8.4.2's three tests in order, and the item is therefore OUTSIDE §9.1's in-force criterion-2 denominator (kind REPRESENTATIONAL, §8.10). (a) MUST_NOT is duty-bearing. (b) binds two or more parties: 'either Party' is the distributive form, read from the obligor slot per (b)'s own instruction. (c) the obligee is that same counterparty: 'the other Party' is a reciprocal reference. Structurally identical to C14-01. It is NOT C13-03, which fails only on (a) because it is MAY -- and its own sibling in this segment, E01-03, fails on (a) for exactly that reason, so one sentence-pair puts two items on opposite sides of the denominator.\n\nOBLIGEE = 'the other Party' -- promoted under §3.5.4/§3.5, and the competing reading is recorded rather than dropped. The party is named in-span only as the POSSESSOR OF THE CONSENT, not as a dative recipient of the performance. Taken because §3.5.4 makes obligee assignment positional and modality-independent, and the duty not to assign plainly runs to the party whose consent protects it -- the same promotion C13-03 makes for 'written notice TO THE OTHER PARTY'. COMPETING READING, recorded per §14.3: ABSENT, on the ground that a possessor inside a condition phrase is not a recipient, the way §3.5.3 refuses 'Miltenyi's' as a possessive on a location. Reviewer approved the promotion and directed that it NOT consume §14.4 escalation budget: decidable.\n\nCONDITION IS BRANCH 2, NOT BRANCH 3 (§3.8.1). 'without the prior written consent of the other Party' states the circumstance under which the prohibition APPLIES; it does not subtract from an already-stated duty the way C14-01's '(unless an exemption is provided)' does. The duty is never stated without it -- 'shall not be assigned without consent' is one integrated prohibition. No exception_unsupported tag.\n\nTEMPORAL null. 'prior' in 'prior written consent' times the CONSENT relative to the assignment, not the obligation; none of §3.7's five forms applies to the duty's own timing.\n\nSPAN includes the sentence-final period. §3.1 does not fix trailing punctuation and gold's own practice is split 24 inclusive / 9 exclusive BY BATCH (batch01 and batch03 inclusive, batch02 exclusive); this follows the dominant convention. Costless for alignment (IoU ~0.99). This is the 19-0 gold-vs-cold disagreement CLAUDE.md already tracks as unsettled by §3.1.\n\nOBJECT_CLASS carries the head-only member 'agreement' per §3.6's v0.58 forward rule, new at batch 4. §3.6.1 checked: no member restates ASSIGN/TRANSFER or either party value."
+}

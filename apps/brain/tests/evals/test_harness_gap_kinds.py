@@ -38,8 +38,24 @@ def gold_items():
     # A known-answer gate before any count below is read off this fixture
     # (Standing Principle 7): an empty or short load would make every
     # denominator assertion in this file pass vacuously.
-    assert len(items) == 36, f"expected the 36 locked items, loaded {len(items)}"
+    # A FLOOR, not an equality: this gate exists to catch an empty or short
+    # load, and pinning it to an exact count would make every future batch look
+    # like a defect. The DATED figures below scope their own population instead.
+    assert len(items) >= 36, f"expected at least the 36 locked items, loaded {len(items)}"
     return items
+
+
+# §8.10/F9's cost was measured at v0.59 over the 36 items then locked. Batch 4
+# (v0.62) is outside that population by construction -- see
+# test_gold_accept_set_rules.V058_STAMPS for the same mechanism and the reason:
+# a published figure recomputed over gold the ruling never saw is not a
+# reproduction of it (v0.53's K fix, F20's G finding).
+F9_STAMPS = frozenset({"v0.28", "v0.38", "v0.41", "v0.44", "v0.48", "v0.52",
+                       "v0.53", "v0.55", "v0.57"})
+
+
+def _f9_population(items):
+    return [i for i in items if i["guideline_version"] in F9_STAMPS]
 
 
 # --- the vocabulary itself --------------------------------------------------
@@ -137,11 +153,34 @@ def test_an_unruled_tag_excludes_conservatively_rather_than_defaulting_in():
 def test_the_whole_set_denominators_move_17_to_20(gold_items):
     """The ruling's whole-set cost, pinned. Three items move; the rest is the
     cassette-unscoreable population, which this predicate does not touch."""
-    legacy = [i["item_id"] for i in gold_items if not i["known_gaps"]]
-    kinded = [i["item_id"] for i in gold_items if in_force_scope(i["known_gaps"])]
+    pop = _f9_population(gold_items)
+    assert len(pop) == 36, f"F9's population must stay at 36; got {len(pop)}"
+    legacy = [i["item_id"] for i in pop if not i["known_gaps"]]
+    kinded = [i["item_id"] for i in pop if in_force_scope(i["known_gaps"])]
     assert len(legacy) == 17
     assert len(kinded) == 20
     assert sorted(set(kinded) - set(legacy)) == ["C04-01", "C04-03", "C14-06"]
+
+
+def test_batch_4_adds_five_in_force_items_and_the_kind_axis_decides_which(gold_items):
+    """The live counterpart to the dated figure above, and the reason both exist.
+
+    Batch 4's 12 items split 5 in-force / 7 excluded, and the split is NOT
+    "has tags / has none": `E03-02` and `E08-03` both carry `shared_subject_split`
+    and both ENTER, because §8.10 rules ANNOTATION_CONVENTION an admitting kind.
+    That is exactly the distinction the kind axis was introduced to draw, so it
+    is asserted on real data rather than trusted from the ruling's prose.
+    """
+    new = [i for i in gold_items if i["guideline_version"] not in F9_STAMPS]
+    assert len(new) == 12
+    in_force = sorted(i["item_id"] for i in new if in_force_scope(i["known_gaps"]))
+    assert in_force == ["C02-05", "E01-03", "E03-02", "E08-02", "E08-03"]
+    tagged_but_in_force = [i["item_id"] for i in new
+                           if i["known_gaps"] and in_force_scope(i["known_gaps"])]
+    assert sorted(tagged_but_in_force) == ["E03-02", "E08-03"]
+    for i in new:
+        if i["item_id"] in tagged_but_in_force:
+            assert [kind_of(t) for t in i["known_gaps"]] == ["ANNOTATION_CONVENTION"]
 
 
 def test_E03_01_stays_excluded_and_v060_made_that_a_RULING_not_a_hold(gold_items):
@@ -280,10 +319,20 @@ def test_the_legacy_denominator_is_still_computable_and_differs(gold_items):
     """F17's precondition. `gap_agreement`'s d_gold is still legacy-scoped, so
     render() must be able to compare like with like rather than silently
     comparing two different questions."""
-    rows = [(i["item_id"], Outcome.PARTIAL, i["known_gaps"]) for i in gold_items]
+    rows = [(i["item_id"], Outcome.PARTIAL, i["known_gaps"])
+            for i in _f9_population(gold_items)]
     rep = _report(rows)
     assert rep.legacy_no_known_gaps_denominator == 17
     assert rep.criterion2_no_known_gaps[1] == 20
+
+    # The same two predicates over the LIVE set, so the gap F17 exists to close
+    # stays visible as the set grows rather than being frozen at its v0.59 size.
+    live = _report([(i["item_id"], Outcome.PARTIAL, i["known_gaps"]) for i in gold_items])
+    assert live.legacy_no_known_gaps_denominator == 20
+    assert live.criterion2_no_known_gaps[1] == 25
+    assert live.criterion2_no_known_gaps[1] > live.legacy_no_known_gaps_denominator, (
+        "the two scopes must still differ -- that difference IS F17"
+    )
 
 
 # --- v0.61 (F19): lead_time_unrepresentable --------------------------------

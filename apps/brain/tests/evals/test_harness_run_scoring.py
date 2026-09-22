@@ -119,8 +119,13 @@ def test_the_real_gold_set_has_consistent_segments_and_a_refused_mixed_stamp():
     is F16's per-item check doing its job rather than a defect; the mixed-stamp
     refusal this test's name is about is unchanged and still fires."""
     items = rs.load_gold_items()
-    assert len(items) == 36
-    assert len(rs.segments_from_items(items)) == 22
+    # v0.62 UPDATE: 48 items over 28 segments. Batch 4 adds 12 items across 6
+    # NEW segments, so unlike v0.53/v0.55 both counts move. Batch 4 has no
+    # cassettes, so all 12 are cassette-unscoreable under F16's per-item check
+    # and the mixed-stamp refusal this test is named for still fires -- now with
+    # v0.62 in the mix as well.
+    assert len(items) == 48
+    assert len(rs.segments_from_items(items)) == 28
     with pytest.raises(ValueError, match="conforming pass"):
         rs.guideline_version_from_items(items)
 

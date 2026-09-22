@@ -1,0 +1,68 @@
+{
+ "item_id": "E01-03",
+ "doc_id": "E01",
+ "segment_id": "E01-042",
+ "stratum": "hard",
+ "segment_text": "SECTION 8.08. Assignability. Neither this Agreement nor any of the rights, interests or obligations under this Agreement shall be assigned, in whole or in part, by operation of law or otherwise by either Party without the prior written consent of the other Party. Any purported assignment without such consent shall be void. Subject to the preceding sentences, this Agreement will be binding upon, inure to the benefit of, and be enforceable by, the Parties and their respective successors and assigns. Notwithstanding the foregoing, either Party may assign this Agreement without consent in connection with (a) a merger transaction in which such Party is not the surviving entity and the surviving entity acquires or assumes all or substantially all of such Party’s assets or (b) the sale of all or substantially all of such Party’s assets; provided, however, that the assignee expressly assumes in writing all of the obligations of the assigning Party under this Agreement, and the assigning Party provides written notice and evidence of such assignment and assumption to the non-assigning Party. No assignment permitted by this Section 8.08 shall release the assigning Party from liability for the full performance of its obligations under this Agreement. Nothing in this Section 8.08 shall affect or impair a Service Provider’s ability to delegate any or all of its obligations under this Agreement to one or more members of its Group or Sub-Contractors pursuant to Section 2.01(e).",
+ "span_char_start": 534,
+ "span_char_end": 1098,
+ "span_text": "either Party may assign this Agreement without consent in connection with (a) a merger transaction in which such Party is not the surviving entity and the surviving entity acquires or assumes all or substantially all of such Party’s assets or (b) the sale of all or substantially all of such Party’s assets; provided, however, that the assignee expressly assumes in writing all of the obligations of the assigning Party under this Agreement, and the assigning Party provides written notice and evidence of such assignment and assumption to the non-assigning Party.",
+ "modality": "MAY",
+ "action": "ASSIGN",
+ "action_accept_set": [
+  "ASSIGN",
+  "TRANSFER"
+ ],
+ "obligor": "either Party",
+ "obligor_accept_set": [],
+ "obligee": "the non-assigning Party",
+ "object_class": "agreement",
+ "object_class_accept_set": [
+  "agreement",
+  "contract",
+  "agreement_rights",
+  "agreement_obligations"
+ ],
+ "temporal": null,
+ "conditions": [
+  "in connection with (a) a merger transaction in which such Party is not the surviving entity and the surviving entity acquires or assumes all or substantially all of such Party’s assets or (b) the sale of all or substantially all of such Party’s assets",
+  "provided, however, that the assignee expressly assumes in writing all of the obligations of the assigning Party under this Agreement, and the assigning Party provides written notice and evidence of such assignment and assumption to the non-assigning Party"
+ ],
+ "underspecified": true,
+ "missing_fields": [
+  "obligor",
+  "obligee"
+ ],
+ "vague_temporal_phrase": null,
+ "redacted_phrase": null,
+ "known_gaps": [],
+ "annotator_confidence": "CONFIDENT",
+ "annotated_at": "2026-09-20T00:00:00+00:00",
+ "rules_cited": [
+  "2",
+  "2.5",
+  "2.5.1",
+  "2.6",
+  "2.7",
+  "3.1",
+  "3.2",
+  "3.4",
+  "3.5",
+  "3.5.1",
+  "3.5.4",
+  "3.6",
+  "3.6.1",
+  "3.7",
+  "3.8",
+  "3.8.1",
+  "3.8.2",
+  "3.9",
+  "8.4.2",
+  "17.1",
+  "17.2"
+ ],
+ "guideline_version": "v0.62",
+ "reviewer_status": "APPROVED",
+ "adjudicated_by": "reviewer",
+ "annotator_notes": "S4 of E01-042. Reviewer-confirmed 2026-09-20.\n\nENTERS §9.1's IN-FORCE DENOMINATOR -- known_gaps is empty, and that is a checked result, not an omission. §8.4.2 stops at test (a): MAY is never duty-bearing, so mutual_obligation cannot fire even though (b) and (c) both pass on the same slot shapes that fire for its sibling E01-02. C13-03's disposition exactly. Two items off one segment land on opposite sides of the denominator.\n\n§2.5/§2.5.1 CLEARS IT, AND NOT ON GRAMMAR. A MAY clause excludes only for want of monitorable stakes. This one has gating conditions (merger or sale), a correlative party (the non-assigning Party), and an observable pre-condition (written notice and evidence). C04-026's opposite, not its shape.\n\nTWO CONDITIONS, NOT THREE, and the boundary is §17.1's diagnostic rather than §3.8.2 Rule B. The proviso carries two acts joined by 'and' but ONE scoping marker ('provided ... that') governs both, so it is one entry with its internal boolean left unparsed (§17.2). Rule B splits separately-marked ADJACENT phrases (C11-094's 'If ..., upon ...'); it does not reach a single marker over a coordinated pair.\n\nA RULE A BOUNDARY THAT RULE A DOES NOT COVER, flagged rather than silently resolved. §3.8.2 Rule A says quote from the qualifier's own marker exclusive of an attaching adverb, and all its examples (further, and, also, moreover) are LEADING. Here the adverb is MEDIAL: 'provided, HOWEVER, that'. Excising it would break §3.8's verbatim requirement, so conditions[1] keeps it. Rule A is silent on interpolated adverbs. Deliberately NOT proposed as an amendment on one instance (§22.1's discipline); 'provided, however, that' is common drafting, so a second instance should be expected.\n\n'without consent' IS NOT A THIRD CONDITION. Removal test: delete it and the permission still applies in exactly the same circumstances (merger or sale). It states what the permission RELIEVES, not what gates it, so it belongs to neither conditions nor the object.\n\nSPAN STARTS AT 'either Party', not at 'Notwithstanding the foregoing,'. §3.1 asks for the minimal substring stating the COMPLETE obligation, including a leading clause establishing TIMING, CONDITION or SCOPE. 'Notwithstanding the foregoing' establishes none of the three -- it orders this sentence against S1/S2, and the permission is complete without it. COMPETING READING, recorded: it is scope-establishing, since the permission exists only as an exception to S1.\n\nOBJECT_CLASS carries the head-only member 'agreement' (§3.6 v0.58). FOUR members rather than six is deliberate: a two-word object phrase ('this Agreement') does not support six honest labels, and padding a set is what §5's number rule and §3.6 both refuse. §3.6.2 checked against the whole action_accept_set: no member restates ASSIGN or TRANSFER."
+}

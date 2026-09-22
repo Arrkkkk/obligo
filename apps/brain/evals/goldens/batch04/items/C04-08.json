@@ -1,0 +1,69 @@
+{
+ "item_id": "C04-08",
+ "doc_id": "C04",
+ "segment_id": "C04-072",
+ "stratum": "hard",
+ "segment_text": "(c) Long-Term Forecast. In addition, Bellicum (or Bellicum's designee on behalf of Bellicum) shall within [...***...] days of the Effective Date, and thereafter by [...***...] of each Calendar Year during the Term, submit a non-binding annual rolling Forecast of Bellicum's anticipated quantity requirements for Miltenyi Products for each of the next three (3) consecutive Calendar Years, commencing with the Calendar Year in which such Forecast is submitted (each, a \"Long-Term Forecast\") for the purposes of assisting Miltenyi with its capacity and production planning for Miltenyi Products during such period. Each Long-Term Forecast shall show anticipated quantity requirements on an annual basis. (For clarity, the initial Long-Term Forecast will cover the Calendar Years 3 to 5; the following Long-Term Forecast will cover the Calendar Years period following the previous Calendar Year 3 of the previous Long-Term Forecast, i.e. Calendar Years 4-5.) A Long Term Forecast provided by Bellicum will not be binding upon both Parties and shall serve to assess future capacity planning at Miltenyi.",
+ "span_char_start": 37,
+ "span_char_end": 612,
+ "span_text": "Bellicum (or Bellicum's designee on behalf of Bellicum) shall within [...***...] days of the Effective Date, and thereafter by [...***...] of each Calendar Year during the Term, submit a non-binding annual rolling Forecast of Bellicum's anticipated quantity requirements for Miltenyi Products for each of the next three (3) consecutive Calendar Years, commencing with the Calendar Year in which such Forecast is submitted (each, a \"Long-Term Forecast\") for the purposes of assisting Miltenyi with its capacity and production planning for Miltenyi Products during such period.",
+ "modality": "MUST",
+ "action": "PROVIDE",
+ "action_accept_set": [
+  "PROVIDE",
+  "REPORT",
+  "DELIVER"
+ ],
+ "obligor": "Bellicum",
+ "obligor_accept_set": [
+  "Bellicum",
+  "Bellicum's designee on behalf of Bellicum",
+  "Bellicum (or Bellicum's designee on behalf of Bellicum)"
+ ],
+ "obligee": "Miltenyi",
+ "object_class": "long_term_forecast",
+ "object_class_accept_set": [
+  "long_term_forecast",
+  "forecast",
+  "annual_forecast",
+  "rolling_forecast",
+  "quantity_forecast",
+  "quantity_requirements"
+ ],
+ "temporal": null,
+ "conditions": [],
+ "underspecified": false,
+ "missing_fields": [
+  "temporal"
+ ],
+ "vague_temporal_phrase": null,
+ "redacted_phrase": "within [...***...] days of the Effective Date, and thereafter by [...***...] of each Calendar Year during the Term",
+ "known_gaps": [
+  "redacted_value"
+ ],
+ "annotator_confidence": "CONFIDENT",
+ "annotated_at": "2026-09-20T00:00:00+00:00",
+ "rules_cited": [
+  "2",
+  "2.7",
+  "3.1",
+  "3.2",
+  "3.4",
+  "3.5",
+  "3.5.1",
+  "3.5.2",
+  "3.6",
+  "3.6.1",
+  "3.7",
+  "3.7.1",
+  "3.8",
+  "3.9",
+  "8",
+  "8.1",
+  "8.8"
+ ],
+ "guideline_version": "v0.62",
+ "reviewer_status": "APPROVED",
+ "adjudicated_by": "reviewer",
+ "annotator_notes": "S1 of C04-072. Reviewer-confirmed 2026-09-20.\n\nANNOTATED AGAINST E03-01, a near-exact structural sibling: rolling forecast, redacted temporal, PROVIDE with ['PROVIDE','DELIVER','REPORT'], temporal null, underspecified false, missing_fields ['temporal']. Same shape, same disposition.\n\nREDACTED_VALUE, NOT REDACTED_CLAUSE (§3.7.1). Obligor, action and object all survive; only the operative deadline VALUES are withheld, which is the distinction that tag pair exists to keep.\n\nUNDERSPECIFIED FALSE. §3.9's trigger list is closed: both parties resolve in the committed C04 registry (canonical 'Miltenyi Biotec GmbH'/alias 'Miltenyi'; 'Bellicum Pharmaceuticals, Inc.'/alias 'Bellicum'), temporal null is never a trigger (§3.9, §15.3), and no bd duration appears. §8.1's v0.28 struck clause forbids the redaction from setting it. missing_fields carries 'temporal' per §8.1 and is excluded from §5's predicate.\n\nOBLIGEE = 'Miltenyi' VIA §3.5.2, its narrow carve-in and not a general purpose-clause read. No dative names a recipient anywhere in the sentence -- 'submit a ... Forecast', full stop -- so condition 1 holds, and 'for the purposes of assisting Miltenyi with its capacity and production planning' is the 'to enable X to' shape §3.5.2's own table marks obligee-supplying WHEN condition 1 holds. The span runs to the end of the sentence to carry the alias in-span (§3.5's positional test). COMPETING READING, recorded per §14.3: the clause explains MOTIVATION rather than naming a beneficiary, which would make obligee ABSENT.\n\n'ON BEHALF OF' IS OBLIGOR-SIDE -- §3.5.2's explicit carve-out, and the inversion it exists to prevent. \"Bellicum's designee ON BEHALF OF Bellicum\" identifies whose agent performs. Slot holds the first-named party (§3.5.1 step 1); the accept-set carries each alternative AND the whole coordinated phrase per §3.5.1's v0.33 rider, the rule authored because the model stably emitted the whole disjunction on C02-01.\n\nNO ACTION_NOT_IN_TAXONOMY. 'submit' is defensibly PROVIDE -- same performance -- and §3.4's own motivating example is literally 'submit a compliance report' with PROVIDE and REPORT both defensible. §8.8's genuine-gap class does not fire.\n\nBOTH §3.6 ENUMERATIONS SATISFIED. The object phrase has TWO nominal anchors, 'Forecast' and 'quantity requirements', so enum 1 requires both (forecast, quantity_requirements); enum 2's compound-from-existing-members gives quantity_forecast; §3.6's v0.58 head-only rule is met by 'forecast'. 'forecast_submission' was deliberately NOT authored -- it would restate PROVIDE under §3.6.1/§3.6.2.\n\nCONDITIONS EMPTY. 'commencing with the Calendar Year in which such Forecast is submitted' fails the §3.8.2 removal test -- delete it and the duty applies in the same circumstances; only the set of years the forecast COVERS changes, which is object scope. The purpose clause is not a condition either; it supplies the obligee (above).\n\nSEE THE SEGMENT FILE'S `observations` FOR INSTANCE TWO OF THE TEMPORAL COMPOSITION GAP. This item's temporal would fail even unredacted, and under F19's precedent it owes a second tag that does not yet exist. Locked with redacted_value ALONE by reviewer decision (option (a), 2026-09-20); the temporal_composition amendment is its own scoped §10 ruling."
+}

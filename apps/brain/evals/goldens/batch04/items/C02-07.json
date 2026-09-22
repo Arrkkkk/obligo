@@ -1,0 +1,73 @@
+{
+ "item_id": "C02-07",
+ "span_char_start": 673,
+ "span_char_end": 965,
+ "modality": "MUST",
+ "action": "PROCESS",
+ "action_accept_set": [
+  "PROCESS"
+ ],
+ "obligor": "each Party",
+ "obligee": "ABSENT",
+ "object_class": "product_shipments",
+ "object_class_accept_set": [
+  "product_shipments",
+  "shipments",
+  "further_shipments",
+  "product_delivery"
+ ],
+ "temporal": {
+  "form": "RELATIVE_TO_TRIGGER",
+  "direction": "after",
+  "trigger": "receiving any such notice or upon any such discovery"
+ },
+ "underspecified": true,
+ "missing_fields": [
+  "obligor",
+  "obligee",
+  "temporal.trigger"
+ ],
+ "known_gaps": [
+  "action_not_in_taxonomy",
+  "relative_trigger_preposition"
+ ],
+ "rules_cited": [
+  "2",
+  "2.7",
+  "3.1",
+  "3.2",
+  "3.4",
+  "3.5",
+  "3.5.1",
+  "3.6",
+  "3.6.1",
+  "3.6.2",
+  "3.7",
+  "3.8",
+  "3.8.2",
+  "3.9",
+  "4.3",
+  "8.3",
+  "8.8",
+  "8.8.2",
+  "8.9",
+  "8.4.2",
+  "14.4",
+  "17.2"
+ ],
+ "annotator_notes": "S3 of C02-047. Reviewer-confirmed 2026-09-20. The real verb is 'cease and desist', recorded verbatim here per §8.8. OUTSIDE §9.1's in-force denominator (action_not_in_taxonomy is REPRESENTATIONAL; relative_trigger_preposition is REACHABILITY -- either alone excludes).\n\nDECIDED BY CITATION, NOT BY A THIRD ESCALATION, and that is deliberate: the batch's §14.4 budget (<=2) was exhausted at E03-03 and E08-04, and §14.4's own remedy for repeated uncertainty is a rule, not a third adjudication. Two existing rules settle it without fresh judgment. FIRST, §8.8's genuine-gap class ALREADY NAMES 'discontinue' -- 'cease and desist from further shipments' IS that verb, so membership in the class is given rather than argued. SECOND, C04-06 is the direct precedent for the slot shape: 'defer' ruled a genuine gap at §8.8.3, slot holds the nearest verb, singleton accept-set, no widening.\n\nWHY NOT WITHHOLD, MEASURED RATHER THAN ARGUED. §8.8.2's discriminator 1 was run over the full 1,547-segment pool (rebuilt from evals/corpus.py -- the rebuild reproduces 1,547 exactly, its own known-answer gate): the cease/desist family (cease|desist|discontinue|stop|halt|suspend) appears in 45 sentences, the withhold family in 25, and THE TWO CO-OCCUR IN ZERO. So the corpus supplies no separately-failable evidence in either direction -- the discriminator is silent here, unlike §8.8.3's 'withheld, conditioned or delayed' formula. WITHHOLD still fails the same-performance test on §8.8.3's own reasoning: every withhold instance keeps back something OWED, DUE or REQUESTED, whereas ceasing shipments stops an activity already under way that nobody is owed. PROCESS taken as nearest-honest per C14-04's precedent that a generic honest verb beats a wrong specific one.\n\nNOT compound_action. 'cease and desist' is a LEGAL DOUBLET whose two verbs map to the same taxonomy verb, which is §8.3 BRANCH 2 -- 'do not tag', the same disposition §8.3 gives 'indemnify and hold harmless'. Tagging it would assert a v1 limitation that does not exist and would remove a scoreable item from a denominator for nothing. The item is excluded from the in-force denominator anyway on its other two tags, but the tag would be wrong on its own terms.\n\nTEMPORAL: 'Upon receiving any such notice or upon any such discovery' -> RELATIVE_TO_TRIGGER, direction 'after' per §8.9's mapping ('upon' -> after), trigger verbatim. known_gaps gains relative_trigger_preposition; _RELATIVE_RE accepts only 'before'/'after' so the expected v1 outcome is UNMAPPABLE_TEMPORAL, a LOUD failure visible in criterion 1b. The internal 'or' is kept unparsed (§17.2 / §8.9's trigger-verbatim rule). missing_fields uses 'temporal.trigger' -- the RelativeToTriggerTemporal branch's real path, per C13-03 and C04-06, NOT 'temporal.of'.\n\nTHE TRAILING 'until a decision by AMAG has been made...' IS A SECOND TEMPORAL ELEMENT AND IS DELIBERATELY NOT TAGGED AS A THIRD COMPOSITION INSTANCE. Verified: it classifies to None on its own. But the MECHANISM DIFFERS from C04-051/C04-072, and padding an instance count with a superficially similar case would corrupt the forcing function those instances exist to trigger: there, the surplus bounds are SWALLOWED INTO the annotated phrase by a greedy '(.+)$' capture and compile SILENTLY; here the terminal bound sits OUTSIDE the annotated temporal phrase entirely, so nothing is swallowed and nothing silently misstates the window -- the duration is simply unrepresented. Logged as a NEAR-MISS in this segment's observations, explicitly not counted. Reviewer-confirmed 2026-09-20.\n\n§8.4.2 fails at (c): obligee ABSENT. 'AMAG' appears in the span only as the decision-maker inside the terminal clause, not as the party the cessation duty runs to; §3.5 forbids promoting it.\n\nOBJECT_CLASS head-only member 'shipments' present (§3.6 v0.58). §3.6.2 checked against the whole action_accept_set (['PROCESS']): no member restates it. Per §3.6.1's own Standing-Principle-7 note the screen is blind to items carrying action_not_in_taxonomy, so the check against the REAL verb was run by hand: no member restates 'cease' or 'desist' either.",
+ "doc_id": "C02",
+ "segment_id": "C02-047",
+ "stratum": "standard",
+ "segment_text": "(a) Records and Notice. In addition to the requirements of Section 6.2, Antares and AMAG shall each maintain such records in compliance with Applicable Laws as is reasonably necessary to permit a Recall of any Products, sample Products and Trainers delivered to AMAG, AMAG's designee or customers of AMAG. Each Party shall promptly (but no later than [***] of receipt of such information) notify the other by telephone (to be confirmed in writing) of any information which might affect the marketability, safety, or effectiveness of the Products, sample Products or Trainers and/or which might result in the Recall or seizure of the Products, sample Products, or Trainers. Upon receiving any such notice or upon any such discovery, each Party shall cease and desist from further shipments of such Products, sample Products or Trainers in its possession or control until a decision by AMAG has been made whether a Recall or some other corrective action is necessary.",
+ "annotated_at": "2026-09-20T00:00:00+00:00",
+ "guideline_version": "v0.62",
+ "adjudicated_by": "reviewer",
+ "reviewer_status": "APPROVED",
+ "obligor_accept_set": [],
+ "conditions": [],
+ "vague_temporal_phrase": null,
+ "redacted_phrase": null,
+ "annotator_confidence": "CONFIDENT",
+ "span_text": "Upon receiving any such notice or upon any such discovery, each Party shall cease and desist from further shipments of such Products, sample Products or Trainers in its possession or control until a decision by AMAG has been made whether a Recall or some other corrective action is necessary."
+}

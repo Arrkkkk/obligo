@@ -1,0 +1,99 @@
+{
+ "segment_id": "E01-042",
+ "doc_id": "E01",
+ "schema": "§2.7 (v0.50) -- complete per-sentence segment disposition, superseding §21 R6's not_annotatable-only shape. `not_annotatable` (R6's original array, the only key run_scoring.load_not_annotatable() reads) is preserved for scoring and holds every NOT_OBLIGATION_BEARING / NOT_ANNOTATABLE / EXCLUDED span. `dispositions` is the full per-sentence record §2.7 requires, covering ANNOTATED and AMBIGUOUS spans too, which `not_annotatable` deliberately excludes -- an AMBIGUOUS span is an open reviewer question, not a settled non-item, and including it in the scoring array would resolve it silently.",
+ "reconciliation": {
+  "sentences_total": 7,
+  "obligation_bearing_clauses": 2,
+  "items_annotated": 2,
+  "status": "PASS",
+  "note": "All sentences accounted for; obligation-bearing clause count matches items_annotated exactly. The count turned on one call, recorded so it is auditable: S4's proviso carries two acts ('the assignee expressly assumes in writing...', 'the assigning Party provides written notice...'). Under §3.8.1 branch 1 those would be separate items and the segment would reach FOUR obligation-bearing clauses, over §2's 1-3 band and excluded whole. Branch 1 fails because §3.2's modality table is exhaustive and NEITHER verb carries a modal -- both are present-indicative inside a 'provided that' proviso, the conditional-present §3.8.1 already declines. So branch 2, one conditions entry, and the segment is eligible at 2. Reviewer-confirmed 2026-09-20."
+ },
+ "dispositions": [
+  {
+   "span_char_start": 0,
+   "span_char_end": 29,
+   "disposition": "NOT_OBLIGATION_BEARING",
+   "rule": "2.7",
+   "reason": "Section heading. §2.7 bulk disposition class.",
+   "span_text": "SECTION 8.08. Assignability. "
+  },
+  {
+   "span_char_start": 29,
+   "span_char_end": 263,
+   "disposition": "ANNOTATED",
+   "rule": "-",
+   "reason": "Covers locked item E01-02.",
+   "item_id": "E01-02",
+   "span_text": "Neither this Agreement nor any of the rights, interests or obligations under this Agreement shall be assigned, in whole or in part, by operation of law or otherwise by either Party without the prior written consent of the other Party."
+  },
+  {
+   "span_char_start": 264,
+   "span_char_end": 324,
+   "disposition": "NOT_OBLIGATION_BEARING",
+   "rule": "8.8",
+   "reason": "Copular status clause with a non-party subject -- 'Any purported assignment without such consent shall be void' states a legal consequence, commanding no conduct of any party.",
+   "span_text": "Any purported assignment without such consent shall be void."
+  },
+  {
+   "span_char_start": 325,
+   "span_char_end": 502,
+   "disposition": "NOT_OBLIGATION_BEARING",
+   "rule": "3.2",
+   "reason": "Agreement-as-subject future fact -- 'this Agreement will be binding upon, inure to the benefit of, and be enforceable by' states what the Agreement does, not a party's undertaking. §3.2's will-future-fact rule and §8.8's Agreement-as-subject class.",
+   "span_text": "Subject to the preceding sentences, this Agreement will be binding upon, inure to the benefit of, and be enforceable by, the Parties and their respective successors and assigns."
+  },
+  {
+   "span_char_start": 503,
+   "span_char_end": 1098,
+   "disposition": "ANNOTATED",
+   "rule": "-",
+   "reason": "Covers locked item E01-03.",
+   "item_id": "E01-03",
+   "span_text": "Notwithstanding the foregoing, either Party may assign this Agreement without consent in connection with (a) a merger transaction in which such Party is not the surviving entity and the surviving entity acquires or assumes all or substantially all of such Party’s assets or (b) the sale of all or substantially all of such Party’s assets; provided, however, that the assignee expressly assumes in writing all of the obligations of the assigning Party under this Agreement, and the assigning Party provides written notice and evidence of such assignment and assumption to the non-assigning Party."
+  },
+  {
+   "span_char_start": 1099,
+   "span_char_end": 1258,
+   "disposition": "NOT_OBLIGATION_BEARING",
+   "rule": "3.8.1",
+   "reason": "Savings provision with a non-party subject ('No assignment permitted by this Section 8.08 shall release...'), §3.8.1's own named not-branch-1 class.",
+   "span_text": "No assignment permitted by this Section 8.08 shall release the assigning Party from liability for the full performance of its obligations under this Agreement."
+  },
+  {
+   "span_char_start": 1259,
+   "span_char_end": 1486,
+   "disposition": "NOT_OBLIGATION_BEARING",
+   "rule": "3.8.1",
+   "reason": "Savings provision -- 'Nothing in this Section 8.08 shall affect or impair...', verbatim the example §3.8.1 names for this class.",
+   "span_text": "Nothing in this Section 8.08 shall affect or impair a Service Provider’s ability to delegate any or all of its obligations under this Agreement to one or more members of its Group or Sub-Contractors pursuant to Section 2.01(e)."
+  }
+ ],
+ "not_annotatable": [
+  {
+   "span_char_start": 0,
+   "span_char_end": 29,
+   "reason": "Section heading. §2.7 bulk disposition class."
+  },
+  {
+   "span_char_start": 264,
+   "span_char_end": 324,
+   "reason": "Copular status clause with a non-party subject -- 'Any purported assignment without such consent shall be void' states a legal consequence, commanding no conduct of any party."
+  },
+  {
+   "span_char_start": 325,
+   "span_char_end": 502,
+   "reason": "Agreement-as-subject future fact -- 'this Agreement will be binding upon, inure to the benefit of, and be enforceable by' states what the Agreement does, not a party's undertaking. §3.2's will-future-fact rule and §8.8's Agreement-as-subject class."
+  },
+  {
+   "span_char_start": 1099,
+   "span_char_end": 1258,
+   "reason": "Savings provision with a non-party subject ('No assignment permitted by this Section 8.08 shall release...'), §3.8.1's own named not-branch-1 class."
+  },
+  {
+   "span_char_start": 1259,
+   "span_char_end": 1486,
+   "reason": "Savings provision -- 'Nothing in this Section 8.08 shall affect or impair...', verbatim the example §3.8.1 names for this class."
+  }
+ ]
+}

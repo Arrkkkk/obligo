@@ -1,0 +1,65 @@
+{
+ "segment_id": "C02-047",
+ "doc_id": "C02",
+ "schema": "§2.7 (v0.50) -- complete per-sentence segment disposition, superseding §21 R6's not_annotatable-only shape. `not_annotatable` (R6's original array, the only key run_scoring.load_not_annotatable() reads) is preserved for scoring and holds every NOT_OBLIGATION_BEARING / NOT_ANNOTATABLE / EXCLUDED span. `dispositions` is the full per-sentence record §2.7 requires, covering ANNOTATED and AMBIGUOUS spans too, which `not_annotatable` deliberately excludes -- an AMBIGUOUS span is an open reviewer question, not a settled non-item, and including it in the scoring array would resolve it silently.",
+ "reconciliation": {
+  "sentences_total": 4,
+  "obligation_bearing_clauses": 3,
+  "items_annotated": 3,
+  "status": "PASS",
+  "note": "Three obligation-bearing clauses, one per sentence, exactly at §2's 1-3 band ceiling -- eligible, the position §2.7's v0.50 note records for C11-094 and C17-021. The only non-item span is the subsection heading. Reviewer-confirmed 2026-09-20."
+ },
+ "dispositions": [
+  {
+   "span_char_start": 0,
+   "span_char_end": 23,
+   "disposition": "NOT_OBLIGATION_BEARING",
+   "rule": "2.7",
+   "reason": "Subsection marker and heading '(a) Records and Notice.'. §2.7 bulk class.",
+   "span_text": "(a) Records and Notice."
+  },
+  {
+   "span_char_start": 24,
+   "span_char_end": 305,
+   "disposition": "ANNOTATED",
+   "rule": "-",
+   "reason": "Covers locked item C02-05, whose span begins at 'Antares' ([71:305]); the leading 'In addition to the requirements of Section 6.2,' establishes no timing, condition or scope and is outside the minimal span per §3.1.",
+   "item_id": "C02-05",
+   "span_text": "In addition to the requirements of Section 6.2, Antares and AMAG shall each maintain such records in compliance with Applicable Laws as is reasonably necessary to permit a Recall of any Products, sample Products and Trainers delivered to AMAG, AMAG's designee or customers of AMAG."
+  },
+  {
+   "span_char_start": 306,
+   "span_char_end": 672,
+   "disposition": "ANNOTATED",
+   "rule": "-",
+   "reason": "Covers locked item C02-06.",
+   "item_id": "C02-06",
+   "span_text": "Each Party shall promptly (but no later than [***] of receipt of such information) notify the other by telephone (to be confirmed in writing) of any information which might affect the marketability, safety, or effectiveness of the Products, sample Products or Trainers and/or which might result in the Recall or seizure of the Products, sample Products, or Trainers."
+  },
+  {
+   "span_char_start": 673,
+   "span_char_end": 965,
+   "disposition": "ANNOTATED",
+   "rule": "-",
+   "reason": "Covers locked item C02-07.",
+   "item_id": "C02-07",
+   "span_text": "Upon receiving any such notice or upon any such discovery, each Party shall cease and desist from further shipments of such Products, sample Products or Trainers in its possession or control until a decision by AMAG has been made whether a Recall or some other corrective action is necessary."
+  }
+ ],
+ "not_annotatable": [
+  {
+   "span_char_start": 0,
+   "span_char_end": 23,
+   "reason": "Subsection marker and heading '(a) Records and Notice.'. §2.7 bulk class."
+  }
+ ],
+ "observations": [
+  {
+   "id": "C02-047#composition-near-miss",
+   "label": "NEAR-MISS -- second temporal element, NOT counted as composition instance three",
+   "status": "LOGGED AND EXCLUDED FROM THE INSTANCE COUNT. Reviewer-confirmed 2026-09-20.",
+   "cross_reference": "C04-051#temporal-composition (instance one), C04-072#temporal-composition (instance two); item C02-07",
+   "note": "NEAR-MISS, DELIBERATELY NOT COUNTED as instance three of the multi-element temporal composition finding (instances one and two: C04-051#temporal-composition, C04-072#temporal-composition).\n\nWHAT IS SIMILAR. Item C02-07's sentence carries TWO temporal elements: the annotated 'Upon receiving any such notice or upon any such discovery' (RELATIVE_TO_TRIGGER) and a terminal bound, 'until a decision by AMAG has been made whether a Recall or some other corrective action is necessary', which classifies to None on its own (verified by execution). IR v1 holds one temporal, so the terminal bound is unrepresented.\n\nWHY THE MECHANISM IS DIFFERENT, which is the whole reason it is not counted. In instances one and two the surplus bounds sit INSIDE the phrase the model quotes and are SWALLOWED by a greedy '(.+)$' capture, so the candidate COMPILES SILENTLY with a trigger string asserting a wrong window -- that silent misstatement is the finding. Here the terminal bound sits OUTSIDE the annotated temporal phrase entirely: nothing is swallowed, nothing silently misstates the window, and the duration is simply absent from the IR. That is ordinary single-temporal-slot loss, not the greedy-capture defect.\n\nWHY IT IS LOGGED ANYWAY. Padding an instance count with a superficially similar but mechanistically different case would corrupt the very forcing function those instances exist to trigger -- a future ruling session counting three would be reasoning from a contaminated sample. Recorded so the case is FINDABLE and its exclusion is auditable, rather than invisible. Reviewer-confirmed 2026-09-20.\n\nSEARCH KEY: temporal composition near-miss, not-an-instance, terminal bound outside the phrase, C02-047, C02-07."
+  }
+ ]
+}

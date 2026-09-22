@@ -1,0 +1,65 @@
+{
+ "segment_id": "E08-016",
+ "doc_id": "E08",
+ "schema": "§2.7 (v0.50) -- complete per-sentence segment disposition, superseding §21 R6's not_annotatable-only shape. `not_annotatable` (R6's original array, the only key run_scoring.load_not_annotatable() reads) is preserved for scoring and holds every NOT_OBLIGATION_BEARING / NOT_ANNOTATABLE / EXCLUDED span. `dispositions` is the full per-sentence record §2.7 requires, covering ANNOTATED and AMBIGUOUS spans too, which `not_annotatable` deliberately excludes -- an AMBIGUOUS span is an open reviewer question, not a settled non-item, and including it in the scoring array would resolve it silently.",
+ "reconciliation": {
+  "sentences_total": 3,
+  "obligation_bearing_clauses": 3,
+  "items_annotated": 3,
+  "status": "PASS",
+  "note": "Three obligation-bearing clauses across three sentences -- exactly at §2's 1-3 band ceiling, eligible, the same position §2.7's v0.50 note records for C11-094 and C17-021 ('NOT band violations -- both sit exactly at the ceiling and were correctly eligible'). S2 carries two of them (§4.3: independently breachable). Reviewer-confirmed 2026-09-20."
+ },
+ "dispositions": [
+  {
+   "span_char_start": 0,
+   "span_char_end": 80,
+   "disposition": "ANNOTATED",
+   "rule": "-",
+   "reason": "Covers locked item E08-02.",
+   "item_id": "E08-02",
+   "span_text": "KIRKLAND’S shall pay all undisputed amounts invoiced as provided in Section 6.2."
+  },
+  {
+   "span_char_start": 81,
+   "span_char_end": 144,
+   "disposition": "ANNOTATED",
+   "rule": "-",
+   "reason": "Covers locked item E08-04. Was escalated under §14.4 on its `action`; ruled PROVISIONALLY by the reviewer 2026-09-20 (PROCESS + action_not_in_taxonomy) pending the §8.8 sub-choice ruling recorded in this file's observations.",
+   "item_id": "E08-04",
+   "span_text": "KIRKLAND’S shall only dispute amounts in reasonable good faith "
+  },
+  {
+   "span_char_start": 81,
+   "span_char_end": 295,
+   "disposition": "ANNOTATED",
+   "rule": "-",
+   "reason": "Covers locked item E08-03, whose span runs from the shared subject through the end of its own verb phrase per §8.3.1 option 4 and therefore contains E08-04's span. Nesting IoU 0.2944, well below §4.1's 0.5 threshold.",
+   "item_id": "E08-03",
+   "span_text": "KIRKLAND’S shall only dispute amounts in reasonable good faith and shall provide NFI with written notice of the basis for disputing any amounts on an invoice within 30 days of KIRKLAND’S’s receipt of NFI’s invoice."
+  },
+  {
+   "span_char_start": 296,
+   "span_char_end": 495,
+   "disposition": "NOT_OBLIGATION_BEARING",
+   "rule": "8.8",
+   "reason": "'Payments not received by NFI within fifteen (15) days ... will be subject to a service charge of 1% per month on the unpaid balance.' -- subject is a THING ('Payments not received') and the predicate states a CONSEQUENCE, not a commanded act. §8.8's non-party-subject / legal-effect class, C10-029 and E08-046's shape. Recorded but immaterial: its 'within fifteen (15) days' is a parenthetical numeral _WITHIN_RE rejects (verified by execution, returns None), which would have been §8's parenthetical gap had the clause yielded an item.",
+   "span_text": "Payments not received by NFI within fifteen (15) days of KIRKLAND’S’s receipt of written notice that such payment is overdue will be subject to a service charge of 1% per month on the unpaid balance."
+  }
+ ],
+ "not_annotatable": [
+  {
+   "span_char_start": 296,
+   "span_char_end": 495,
+   "reason": "'Payments not received by NFI within fifteen (15) days ... will be subject to a service charge of 1% per month on the unpaid balance.' -- subject is a THING ('Payments not received') and the predicate states a CONSEQUENCE, not a commanded act. §8.8's non-party-subject / legal-effect class, C10-029 and E08-046's shape. Recorded but immaterial: its 'within fifteen (15) days' is a parenthetical numeral _WITHIN_RE rejects (verified by execution, returns None), which would have been §8's parenthetical gap had the clause yielded an item."
+  }
+ ],
+ "observations": [
+  {
+   "id": "E08-016#genuine-gap-widening",
+   "label": "INSTANCE THREE -- §8.8's sub-choice (single-verb accept-set) vs §14.3's widening; READY FOR A SCOPED §10 RULING",
+   "status": "FORCING FUNCTION MET. E08-04 ruled PROVISIONALLY pending it.",
+   "cross_reference": "C10-02, C14-04 (both batch 3); item E08-04; §8.8 SUB-CHOICE, §14.3, §3.4",
+   "note": "INSTANCE THREE of §8.8's own SUB-CHOICE forcing function -- and the reviewer has ruled (2026-09-20) that three is the threshold at which this stops being a per-item judgment call and becomes a §10 question. PRIOR INSTANCES: C10-02 (real verb 'add' -> ESTABLISH, batch 3) and C14-04 (real verb 'perform ... to complete' -> PROCESS, batch 3). THIS INSTANCE: E08-04, real verb 'dispute', no near member at all.\n\nWHAT §8.8 ITSELF SAYS, which is why this is a forcing function rather than a complaint. Its SUB-CHOICE paragraph is marked 'v0.24 default, pending confirmation' and states the problem in its own words: 'The single-verb accept-set means an extractor scores clause 2 correct only by picking the SAME near-miss the annotator picked; §14.4's objection to defaults partly applies.' It names the alternative -- an EMPTY action_accept_set, making every such item an automatic PARTIAL, 'more honest that no correct answer exists' but converting a measurement question into a guaranteed failure for roughly one item in four -- and says: 'Revisit once batch 3 supplies a second rate.' Batch 3 supplied two. This is the third.\n\nTHE EXACT TENSION, STATED PRECISELY because it is a conflict between two live rules and not a gap in either. §14.3 routes an ambiguity in an ACCEPT-SET field to the cheap resolution: 'If the ambiguity falls in an accept-set field (action §3.4, object_class §3.6): WIDEN THE ACCEPT-SET to cover every defensible reading. This is what accept-sets exist for, and it is the correct, cheap resolution.' §8.8's genuine-gap branch FORBIDS EXACTLY THAT: 'action_accept_set holds THAT VERB ALONE, no widening.' So the one cheap resolution the guideline offers is unavailable precisely where the annotator is least certain. C14-04's own annotator_notes record the collision hitting a real item and being resolved against §14.3: 'widening to include DELIVER was considered and rejected -- §8.8's sub-choice rule does not permit both tagging AND widening.' CITED BY NAME so the ruling session does not have to find it.\n\nTHE QUESTION FOR THE RULING, as the reviewer framed it: SHOULD A GENUINE-GAP TAG EVER COEXIST WITH A WIDENED ACCEPT-SET -- or is there a NARROWER FIX, e.g. permitting widening only among near-synonyms of the nearest verb rather than across the full accept-set? The narrow fix is worth stating as a distinct option because it preserves §8.8's real purpose (clause 2 must still measure whether extraction identified the action at all -- §8.8's 'why not generous accept-sets' paragraph) while removing the part §14.3 objects to.\n\nWHY IT MATTERS MORE THAN THREE ITEMS. §8.8 measured the genuine-gap class at 23% of annotatable clauses, 95% Wilson CI [11%, 42%] -- 'about one gold item in four'. The sub-choice rule therefore governs the clause-2 outcome of roughly a quarter of the eventual 100-item set, and today it makes every one of them winnable only by coincidence of near-miss choice.\n\nTODAY'S DISPOSITION IS PROVISIONAL AND SAYS SO. E08-04 is ruled PROCESS + action_not_in_taxonomy as an INTERIM answer (option (a)) so the batch is not blocked, explicitly pending this ruling -- the same discipline applied to the temporal_composition instances at C04-051/C04-072, which were logged as 'instance N' rather than resolved inside an annotation pass. If the ruling changes the sub-choice rule, E08-04 is revisited then. RESTAMPING WOULD BE FREE: no batch-4 segment has a cassette, so §22's conforming blocker does not attach.\n\nREADY FOR ITS OWN SCOPED RULING WHENEVER THERE IS APPETITE. SEARCH KEY: §8.8 sub-choice, single-verb accept-set, genuine gap widening, §14.3 vs §8.8, C10-02, C14-04, E08-04."
+  }
+ ]
+}

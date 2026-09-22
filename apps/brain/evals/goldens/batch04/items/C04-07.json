@@ -1,0 +1,65 @@
+{
+ "item_id": "C04-07",
+ "doc_id": "C04",
+ "segment_id": "C04-051",
+ "stratum": "hard",
+ "segment_text": "(h) Notwithstanding the provisions of subsections (e) and (g), in the event that Bellicum reasonably determines to reject a proposed Material Change (including a Miltenyi-Requested Change), Miltenyi will continue to supply the applicable Miltenyi Product without such change after expiry of the said 6-month period and during the Term of this Agreement, or until Bellicum has secured an alternate source of supply from a Third Party manufacturer; provided, however, that the Parties will discuss in good faith, reflecting the change in circumstances contemplated by this Section 3.2(h), and agree in writing upon commercially reasonable terms to be set forth in an amendment to this Agreement to reflect any demonstrable increased cost and effort (if any) resulting from the manufacture of unchanged Miltenyi Product solely for Bellicum, including (as an example) any applicable adjustments to Forecasts, Lead Times, production cycles, batch sizes, Delivery Dates, Product Prices, or other relevant issues. If the Parties cannot reach agreement regarding such amendment, any obligations of Bellicum in relation to a Forecast for the affected Miltentyi Product in months 7-12 of the applicable Monthly Forecast, and any limitations regarding forecast variances, as each of these are set forth in Article 5, will not apply to a Miltenyi Product produced after implementation of such Material Change (i.e., one that replaces such affected (unchanged) Miltenyi Product), and Miltenyi shall be relieved from any obligations to supply such affected (unchanged) Miltenyi Product under this Agreement after the period described in the first sentence of this subsection (h) ends. For clarity, in no event shall Miltenyi be required to manufacture, supply or sell an existing Miltenyi Product to which a Required Change must be applied.",
+ "span_char_start": 471,
+ "span_char_end": 1006,
+ "span_text": "the Parties will discuss in good faith, reflecting the change in circumstances contemplated by this Section 3.2(h), and agree in writing upon commercially reasonable terms to be set forth in an amendment to this Agreement to reflect any demonstrable increased cost and effort (if any) resulting from the manufacture of unchanged Miltenyi Product solely for Bellicum, including (as an example) any applicable adjustments to Forecasts, Lead Times, production cycles, batch sizes, Delivery Dates, Product Prices, or other relevant issues.",
+ "modality": "MUST",
+ "action": "NEGOTIATE",
+ "action_accept_set": [
+  "NEGOTIATE",
+  "CONSULT",
+  "FINALIZE"
+ ],
+ "obligor": "the Parties",
+ "obligor_accept_set": [],
+ "obligee": "ABSENT",
+ "object_class": "amendment_terms",
+ "object_class_accept_set": [
+  "amendment_terms",
+  "terms",
+  "amendment",
+  "contract_amendment",
+  "commercial_terms"
+ ],
+ "temporal": null,
+ "conditions": [],
+ "underspecified": true,
+ "missing_fields": [
+  "obligor",
+  "obligee"
+ ],
+ "vague_temporal_phrase": null,
+ "redacted_phrase": null,
+ "known_gaps": [
+  "compound_action"
+ ],
+ "annotator_confidence": "CONFIDENT",
+ "annotated_at": "2026-09-20T00:00:00+00:00",
+ "rules_cited": [
+  "2",
+  "2.6",
+  "2.7",
+  "3.1",
+  "3.2",
+  "3.4",
+  "3.5",
+  "3.5.1",
+  "3.6",
+  "3.6.1",
+  "3.7",
+  "3.8",
+  "3.8.1",
+  "3.9",
+  "4.3",
+  "8.3",
+  "8.4.2"
+ ],
+ "guideline_version": "v0.62",
+ "reviewer_status": "APPROVED",
+ "adjudicated_by": "reviewer",
+ "annotator_notes": "The proviso of C04-051's first sentence. Reviewer-confirmed 2026-09-20. The segment's other obligation-bearing clause (the 'Miltenyi will continue to supply' main clause, [63:445]) is EXCLUDED under §2 as cross-reference-dependent -- see exclusions.json entry C04-051#continue-supply. The segment is KEPT and this item stands; excluding the segment whole over one clause's isolated defect is the difficulty dodge §2.1 step 4 exists to expose.\n\nBRANCH 1 WHERE E01-042's PROVISO WAS BRANCH 2, and the contrast is the clean one. §3.8.1 branch 1 asks whether the qualifier would stand alone as obligation-bearing under §2 and §3.2. E01-042's proviso has NO MODAL (present-indicative 'assumes', 'provides') so it cannot, and routes to branch 2 as one conditions entry. This one reads 'the Parties WILL discuss ... and agree' -- a modal plus a party subject, §3.2's will-as-undertaking row -- so it is a separate obligation. Same marker word, opposite branch, which is §3.8.1's own point that 'marker words do not decide the destination.'\n\nA DUTY TO NEGOTIATE IS ANNOTATABLE; AN AGREEMENT-TO-AGREE IS NOT. C05-043 and C04-101 were excluded because a PRIMARY DUTY's content was unreadable until a future agreement existed. Here the negotiation IS the duty, and C04-02 is the locked precedent ('the Parties will negotiate in good faith which Party(ies) is/are responsible for payment' -> NEGOTIATE).\n\nMUTUAL_OBLIGATION DOES NOT FIRE, on the same test that removed it from C04-02 at §10.1 F7. §8.4.2 (a) MUST passes, (b) 'the Parties' collective passes, (c) FAILS -- obligee is ABSENT, so the discrimination is undecidable at span scope. (c) is a failure, not a deferral.\n\nCOMPOUND_ACTION FIRES, and it costs the item §9.1's in-force denominator (REPRESENTATIONAL, §8.10). ONE item under §4.3: discussing and agreeing upon terms is one negotiation over one object, C03-02's 'provide ... and keep current' shape rather than 'notify and remedy'. But the dropped verb 'agree' maps to a DIFFERENT taxonomy verb (FINALIZE) than action holds, which is §8.3 branch 1. Branch 2 ('both map to the same verb, nothing is lost') does not hold, and the contract says so itself: the next sentence opens 'If the Parties cannot reach agreement', treating agreement as separately failable -- §8.8.2's discriminator-1 evidence shape. Full verb phrase recorded verbatim per §8.3: 'will discuss in good faith ... and agree in writing upon commercially reasonable terms'.\n\nCONDITIONS EMPTY, and two candidates were tested rather than skipped. 'in good faith' is a reviewable-standard phrase, excluded by §3.8's v0.54 rule (C04-06's 'acting reasonably'). 'reflecting the change in circumstances contemplated by this Section 3.2(h)' fails the §3.8.2 removal test -- delete it and the duty applies in exactly the same circumstances; it describes the discussion's framing, not a gate.\n\nTHE GOVERNING CONDITION IS DELIBERATELY NOT ANNOTATED, and the reason is mechanical rather than stylistic. The excluded clause's fronted 'in the event that Bellicum reasonably determines to reject a proposed Material Change (including a Miltenyi-Requested Change)' [63:189] does govern this duty, but it is not contiguous with this span. §3.1 asks for the MINIMAL CONTIGUOUS substring, and graphs/extraction.py grounds EVERY condition_raws entry against the span as a nested field -- so a gold condition outside span_text is NESTED_FIELD_NOT_IN_SPAN, unreachable by the pipeline by construction. That is the identical argument §8.3.1's v0.31 amendment used to kill its own option 3. Recorded here verbatim, not scored and not dropped.\n\nOBJECT_CLASS carries the head-only member 'terms' (§3.6 v0.58). §3.6.2 checked against the whole action_accept_set: 'amendment_terms' restates none of NEGOTIATE/CONSULT/FINALIZE, nor either party."
+}

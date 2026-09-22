@@ -1,0 +1,86 @@
+{
+ "segment_id": "C04-072",
+ "doc_id": "C04",
+ "schema": "§2.7 (v0.50) -- complete per-sentence segment disposition, superseding §21 R6's not_annotatable-only shape. `not_annotatable` (R6's original array, the only key run_scoring.load_not_annotatable() reads) is preserved for scoring and holds every NOT_OBLIGATION_BEARING / NOT_ANNOTATABLE / EXCLUDED span. `dispositions` is the full per-sentence record §2.7 requires, covering ANNOTATED and AMBIGUOUS spans too, which `not_annotatable` deliberately excludes -- an AMBIGUOUS span is an open reviewer question, not a settled non-item, and including it in the scoring array would resolve it silently.",
+ "reconciliation": {
+  "sentences_total": 5,
+  "obligation_bearing_clauses": 1,
+  "items_annotated": 1,
+  "status": "PASS",
+  "note": "All sentences accounted for. Three of the four non-heading sentences have a THING as their subject (a Long-Term Forecast), which is §8.8's non-party-subject class. Reviewer-confirmed 2026-09-20."
+ },
+ "dispositions": [
+  {
+   "span_char_start": 0,
+   "span_char_end": 23,
+   "disposition": "NOT_OBLIGATION_BEARING",
+   "rule": "2.7",
+   "reason": "Subsection marker and heading '(c) Long-Term Forecast.'. §2.7 bulk class.",
+   "span_text": "(c) Long-Term Forecast."
+  },
+  {
+   "span_char_start": 37,
+   "span_char_end": 612,
+   "disposition": "ANNOTATED",
+   "rule": "-",
+   "reason": "Covers locked item C04-08.",
+   "item_id": "C04-08",
+   "span_text": "Bellicum (or Bellicum's designee on behalf of Bellicum) shall within [...***...] days of the Effective Date, and thereafter by [...***...] of each Calendar Year during the Term, submit a non-binding annual rolling Forecast of Bellicum's anticipated quantity requirements for Miltenyi Products for each of the next three (3) consecutive Calendar Years, commencing with the Calendar Year in which such Forecast is submitted (each, a \"Long-Term Forecast\") for the purposes of assisting Miltenyi with its capacity and production planning for Miltenyi Products during such period."
+  },
+  {
+   "span_char_start": 613,
+   "span_char_end": 701,
+   "disposition": "NOT_OBLIGATION_BEARING",
+   "rule": "8.8",
+   "reason": "'Each Long-Term Forecast shall show anticipated quantity requirements' -- subject is a DOCUMENT, not a party. §8.8's non-party-subject class; §3.5 forbids inferring the party from elsewhere. A content requirement on a deliverable, not a commanded act of a named actor.",
+   "span_text": "Each Long-Term Forecast shall show anticipated quantity requirements on an annual basis."
+  },
+  {
+   "span_char_start": 702,
+   "span_char_end": 955,
+   "disposition": "NOT_OBLIGATION_BEARING",
+   "rule": "3.2",
+   "reason": "'(For clarity, the initial Long-Term Forecast WILL COVER ...)' -- an explanatory gloss; subject is a document and 'will cover' states a future fact about it, §3.2's will-future-fact rule. Not a §4.3.1 restatement either: it restates no obligation, it explains coverage.",
+   "span_text": "(For clarity, the initial Long-Term Forecast will cover the Calendar Years 3 to 5; the following Long-Term Forecast will cover the Calendar Years period following the previous Calendar Year 3 of the previous Long-Term Forecast, i.e. Calendar Years 4-5.)"
+  },
+  {
+   "span_char_start": 956,
+   "span_char_end": 1099,
+   "disposition": "NOT_OBLIGATION_BEARING",
+   "rule": "8.8",
+   "reason": "'A Long Term Forecast ... will not be binding upon both Parties and shall serve to assess future capacity planning' -- subject is a document; both predicates are status statements. §8.8's copular / non-party-subject class.",
+   "span_text": "A Long Term Forecast provided by Bellicum will not be binding upon both Parties and shall serve to assess future capacity planning at Miltenyi."
+  }
+ ],
+ "not_annotatable": [
+  {
+   "span_char_start": 0,
+   "span_char_end": 23,
+   "reason": "Subsection marker and heading '(c) Long-Term Forecast.'. §2.7 bulk class."
+  },
+  {
+   "span_char_start": 613,
+   "span_char_end": 701,
+   "reason": "'Each Long-Term Forecast shall show anticipated quantity requirements' -- subject is a DOCUMENT, not a party. §8.8's non-party-subject class; §3.5 forbids inferring the party from elsewhere. A content requirement on a deliverable, not a commanded act of a named actor."
+  },
+  {
+   "span_char_start": 702,
+   "span_char_end": 955,
+   "reason": "'(For clarity, the initial Long-Term Forecast WILL COVER ...)' -- an explanatory gloss; subject is a document and 'will cover' states a future fact about it, §3.2's will-future-fact rule. Not a §4.3.1 restatement either: it restates no obligation, it explains coverage."
+  },
+  {
+   "span_char_start": 956,
+   "span_char_end": 1099,
+   "reason": "'A Long Term Forecast ... will not be binding upon both Parties and shall serve to assess future capacity planning' -- subject is a document; both predicates are status statements. §8.8's copular / non-party-subject class."
+  }
+ ],
+ "observations": [
+  {
+   "id": "C04-072#temporal-composition",
+   "label": "INSTANCE TWO -- multi-element temporal composition, no §8 tag exists",
+   "status": "RECORDED, NOT TAGGED. Reviewer decision 2026-09-20, option (a).",
+   "cross_reference": "C04-051#temporal-composition (INSTANCE ONE), exclusions.json",
+   "note": "INSTANCE TWO of the multi-element temporal composition gap. INSTANCE ONE is C04-051, logged at exclusions.json entry C04-051#continue-supply, observation id C04-051#temporal-composition. Read them together; the eventual ruling session should not have to rediscover the connection.\n\nTHIS ITEM'S TEMPORAL IS COMPOSED OF THREE ELEMENTS: 'within [...***...] days of the Effective Date' AND 'thereafter by [...***...] of each Calendar Year' AND 'during the Term'. One verb ('submit'), one performance, one item -- so §4.3 is not engaged; what is composed is the TIMING, not the duty.\n\nWHY IT IS THE SAME GAP AS INSTANCE ONE AND NOT §8.11's. §8.11's decisive test for lead_time_unrepresentable was that 'granting free composition of all five v1 forms does NOT rescue the clause', because no form pairs a duration with a direction. BOTH INSTANCES COME OUT THE OTHER WAY: each element here has a v1 form of its own, verified by execution against the production classifier -- 'within 30 days of the Effective Date' -> WITHIN 30d OF \"the Effective Date\"; 'by 31 December of each Calendar Year' -> BY \"31 December of each Calendar Year\". Free composition WOULD rescue the clause. What IR v1 lacks is not a form for any element but THE ABILITY TO HOLD MORE THAN ONE TEMPORAL AT ALL -- ast.Obligation carries a single temporal field.\n\nTHE TWO INSTANCES FAIL THROUGH DIFFERENT REGEXES, AND THAT IS WHY THE PAIR IS WORTH MORE THAN EITHER ALONE. Instance one is greedy _RELATIVE_RE ('^(before|after)\\s+(.+)$'); instance two is greedy _WITHIN_RE. BOTH SILENTLY COMPILE, swallowing the surplus bounds into the trigger string rather than raising UNMAPPABLE_TEMPORAL:\n  instance one: 'after expiry of the said 6-month period and during the Term of this Agreement, or until Bellicum has secured...' -> AFTER \"expiry of the said 6-month period and during the Term of this Agreement, or until Bellicum has secured...\"\n  instance two (unredacted paraphrase): 'within 30 days of the Effective Date, and thereafter by 31 December of each Calendar Year during the Term' -> WITHIN 30d OF \"the Effective Date, and thereafter by 31 December of each Calendar Year during the Term\"\nTHE SHARED CAUSE IS THE TRAILING '(.+)$' CAPTURE both patterns end with. So the silent-swallow is a property of the classifier's SHAPE, not a quirk of one pattern, and a fix aimed at one regex would leave the other.\n\nWHY THIS ITEM IS NOT TAGGED FOR IT TODAY. Reviewer-approved 2026-09-20, option (a): the item locks with known_gaps ['redacted_value'] alone, and the temporal_composition amendment is taken as its OWN scoped §10 ruling rather than inside an annotation pass. Under F19's precedent this item does owe a second tag -- F19 ruled E03-01 owes lead_time_unrepresentable even though its temporal is already null from redaction and known_gaps is not one of §5's eight scored clauses.\n\nCOST OF THE EVENTUAL AMENDMENT, measured rather than estimated. MEMBERSHIP DOES NOT MOVE: this item is already outside §9.1's in-force denominator on redacted_value (WITHHELD_VALUE, an excluding kind), so adding a second excluding tag is EXCLUSION-NEUTRAL -- F19's own situation. RESTAMPING IS FREE: no batch-4 segment has a cassette (all 12 recorded segments are batch 1/2), so §22's conforming blocker does not attach to either instance.\n\nDIRECTION IS DELIBERATELY NOT PRE-SELECTED, per the reviewer's instruction. INCOMPLETENESS is the obvious read, but the greedy swallow yields a trigger string asserting a WRONG window rather than a missing one, which is closer to a misstatement -- the same distinction F19 weighed before rejecting OVERSTATING on semantics. Decide it in the ruling session, on the mechanism, not here.\n\nSEARCH KEY: temporal composition, instance two, greedy (.+)$ capture, _WITHIN_RE, _RELATIVE_RE, C04-051, C04-072."
+  }
+ ]
+}
