@@ -17,8 +17,10 @@ import json
 import pytest
 
 from evals.harness.gap_kinds import (
+    DEFERRED_DIRECTION,
     DENOMINATOR_EXCLUDING_KINDS,
     DIRECTION_BEARING_KINDS,
+    DIRECTION_DEFERRED,
     GAP_DIRECTION,
     GAP_KIND,
     UNCLASSIFIED_KIND,
@@ -80,9 +82,21 @@ def test_direction_is_defined_for_exactly_the_direction_bearing_tags():
     constant rather than against a literal pair of kind names: the v0.59 version
     of this test hardcoded "REPRESENTATIONAL", which is exactly the shape
     CLAUDE.md's debt list calls "a test pinning the very thing the mechanism
-    exists to vary"."""
+    exists to vary".
+
+    v0.63 (F21) introduces a THIRD state and the invariant is widened to carry it
+    EXPLICITLY rather than loosened: a direction-bearing tag may be absent from
+    GAP_DIRECTION only if it is named in DIRECTION_DEFERRED, i.e. only if the
+    deferral was ruled. A tag that is merely forgotten still fails here, which is
+    the whole point -- "ruled open" and "nobody looked" must not be the same
+    spelling (§8.12)."""
     bearing = {t for t, k in GAP_KIND.items() if k in DIRECTION_BEARING_KINDS}
-    assert set(GAP_DIRECTION) == bearing
+    assert set(GAP_DIRECTION) == bearing - DIRECTION_DEFERRED
+    assert DIRECTION_DEFERRED <= bearing, (
+        "a deferred tag must be of a direction-bearing kind; deferring a kind "
+        "that carries no direction anyway would be meaningless")
+    assert not (set(GAP_DIRECTION) & DIRECTION_DEFERRED), (
+        "a tag cannot be both ruled and deferred")
 
 
 def test_withheld_value_is_direction_bearing_because_gold_departs_from_the_document():
@@ -199,9 +213,15 @@ def test_E03_01_stays_excluded_and_v060_made_that_a_RULING_not_a_hold(gold_items
     v0.60's ruling were reverted -- the assertion would go vacuous exactly
     where it is load-bearing. The fix is to test `redacted_value` ALONE for the
     v0.60 half, so this test keeps failing if that ruling is undone, and to
-    assert the item's full tag set separately for the F19 half."""
+    assert the item's full tag set separately for the F19 half.
+
+    EXTENDED AGAIN v0.63 (F21), on the same discipline: the item gains a THIRD
+    excluding tag, `temporal_composition`, swept in by §8.12 from §8.11's own
+    observation that F19's note omitted `during the Term`. The per-tag halves
+    above are what keep this test load-bearing as the set grows."""
     e03 = next(i for i in gold_items if i["item_id"] == "E03-01")
-    assert sorted(e03["known_gaps"]) == ["lead_time_unrepresentable", "redacted_value"]
+    assert sorted(e03["known_gaps"]) == [
+        "lead_time_unrepresentable", "redacted_value", "temporal_composition"]
     assert GAP_KIND["redacted_value"] == "WITHHELD_VALUE"
     assert direction_of("redacted_value") == "INCOMPLETENESS"
     # v0.60's ruling, checked on its own tag so F19's tag cannot carry it.

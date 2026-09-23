@@ -82,6 +82,12 @@ GAP_KIND = {
     # -- the IR cannot hold it. Verified mechanically over all five forms, not
     # read off the regexes (see GOLD_SET_GUIDELINE.md section 8.11).
     "lead_time_unrepresentable": "REPRESENTATIONAL",
+    # v0.63 (F21): the IR holds ONE temporal; the source states several, each
+    # constraining the duty differently. REPRESENTATIONAL because no v1 form
+    # holds a composed timing -- NOT because any single element is unreachable
+    # (two of instance two's three elements classify fine on their own, verified
+    # by execution). Deliberately carries NO direction: see DIRECTION_DEFERRED.
+    "temporal_composition": "REPRESENTATIONAL",
     "within_preposition": "REACHABILITY",
     "relative_trigger_preposition": "REACHABILITY",
     "corpus_artifact_in_span": "CORPUS_DEFECT",
@@ -104,6 +110,31 @@ UNCLASSIFIED_KIND = "UNCLASSIFIED"
 # assign. Their former UNCLASSIFIED status was never a missing decision -- it was
 # the wrong question.
 DIRECTION_BEARING_KINDS = frozenset({"REPRESENTATIONAL", "WITHHELD_VALUE"})
+
+# --- axis 2, third state: DEFERRED BY RULING, not by omission ---------------
+#
+# A tag of a direction-bearing kind whose direction is a REAL OPEN QUESTION
+# rather than an unanswered one. v0.63 (section 8.12, F21) is the first case:
+# `temporal_composition`'s direction VARIES BY INSTANCE -- a dropped NARROWING
+# bound (`during the Term`, `until an alternate source is secured`) leaves the
+# IR claiming MORE than the contract, while a dropped ADDITIVE deadline
+# (`thereafter by 31 December of each Calendar Year`) leaves it claiming LESS,
+# and C04-08 drops one of each WITHIN ONE ITEM. Assigning either value at the
+# tag level would certify a direction that does not describe what is actually
+# wrong with a specific item -- the failure section 9.1 ground 2 exists to
+# prevent -- so the vocabulary records the deferral EXPLICITLY and F21 asks the
+# general question (is direction per-TAG or per-ITEM?).
+#
+# This must NOT be spelled as a missing GAP_DIRECTION entry. An absence is
+# indistinguishable from "someone forgot", which is the exact inversion section
+# 8.10 keeps None and UNCLASSIFIED apart to prevent -- one level down. So there
+# are now THREE answers, not two: a direction, DIRECTION_DEFERRED (ruled open),
+# and UNCLASSIFIED (nobody has ruled). The denominator does not read any of
+# them: the kind excludes on its own (REPRESENTATIONAL), which is why deferring
+# costs nothing today.
+DEFERRED_DIRECTION = "DIRECTION_DEFERRED"
+DIRECTION_DEFERRED = frozenset({"temporal_composition"})
+
 GAP_DIRECTION = {
     "exception_unsupported": "OVERSTATING",
     "unless_unsupported": "OVERSTATING",
@@ -194,9 +225,15 @@ def direction_of(tag: str) -> str | None:
     them: None means "this kind has no direction to assign" (F10's resolution),
     UNCLASSIFIED means "a decision is owed". Returning None for both would let a
     new, unruled tag hide in the bucket F10 exists to keep visible.
+
+    v0.63 adds a THIRD answer, DIRECTION_DEFERRED, for the same reason one level
+    down: "ruled open, and here is the question" (F21) must not read as "nobody
+    has looked". All three are distinct and none may be collapsed into another.
     """
     if kind_of(tag) not in DIRECTION_BEARING_KINDS:
         return None
+    if tag in DIRECTION_DEFERRED:
+        return DEFERRED_DIRECTION
     return GAP_DIRECTION.get(tag, UNCLASSIFIED_KIND)
 
 

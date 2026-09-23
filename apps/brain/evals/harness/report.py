@@ -123,6 +123,7 @@ from evals.harness.score import Outcome
 from evals.harness.gap_kinds import (
     GAP_DIRECTION,
     GAP_KIND,
+    DEFERRED_DIRECTION,
     UNCLASSIFIED_KIND,
     direction_of,
     in_force_scope,
@@ -272,9 +273,16 @@ class Report:
         same treatment a new REPRESENTATIONAL tag already gets. A bucket kept
         after it can no longer be reached would read as "no such items" when it
         in fact means "no such path"; a test pins the unreachability instead.
+
+        v0.63 (F21): a THIRD bucket, DIRECTION_DEFERRED, for a direction-bearing
+        tag whose direction is RULED OPEN rather than unruled. It is kept apart
+        from UNCLASSIFIED for exactly the reason UNCLASSIFIED is kept apart from
+        None one level up: "we asked and the answer varies by item" and "nobody
+        has ruled" are different reports, and collapsing them would let a
+        genuinely unruled tag hide behind a deliberate deferral.
         """
-        order = ("OVERSTATING", "INCOMPLETENESS", "REACHABILITY", "CORPUS_DEFECT",
-                 "ANNOTATION_CONVENTION", UNCLASSIFIED_KIND)
+        order = ("OVERSTATING", "INCOMPLETENESS", DEFERRED_DIRECTION, "REACHABILITY",
+                 "CORPUS_DEFECT", "ANNOTATION_CONVENTION", UNCLASSIFIED_KIND)
         buckets: dict[str, list[str]] = {k: [] for k in order}
         for i in self.items:
             if i.modal is not Outcome.FULLY_CORRECT or not i.known_gaps:
@@ -415,7 +423,9 @@ class Report:
                 "    A bucket named for a KIND rather than a direction (REACHABILITY,",
                 "      CORPUS_DEFECT, ANNOTATION_CONVENTION) carries NO direction by ruling,",
                 "      not by omission: gold is faithful for those kinds, so nothing departs",
-                "      from the contract (§8.10, F10). UNCLASSIFIED means the tag's KIND was",
+                "      from the contract (§8.10, F10). DIRECTION_DEFERRED means the tag's kind",
+                "      departs but its DIRECTION is RULED OPEN (§8.12, F21 — it varies by item).",
+                "      UNCLASSIFIED means the tag's KIND was",
                 "      never ruled on and a decision is owed.",
             ]
         else:

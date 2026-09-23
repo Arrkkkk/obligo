@@ -109,6 +109,7 @@ SECTION_8_TAGS = frozenset({
     "within_preposition", "relative_trigger_preposition", "corpus_artifact_in_span",
     "shared_subject_split",
     "lead_time_unrepresentable",  # v0.61, §8.11 (F19)
+    "temporal_composition",  # v0.63, §8.12 (F21)
 })
 # This is the SECOND hand-maintained copy of section 8's vocabulary, alongside
 # `gap_kinds.GAP_KIND`, and they are deliberately NOT the same set: this one is
