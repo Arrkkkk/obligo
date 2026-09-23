@@ -5645,6 +5645,12 @@ none of this can change how an item scores; `E03-01` keeps `v0.28` and the batch
 `E03-005`'s three and drop a scored `PARTIAL` item out of the all-items denominator — a figure
 improving for no improvement.
 
+**CLOSED 2026-09-23** — commit `142fd98`, CI run
+[35857252335](https://github.com/Arrkkkk/obligo/actions/runs/35857252335) green on
+`workflow_dispatch`: `654 passed, 10 skipped`, zero `FAILED`/`ERROR` lines, `headSha` confirmed,
+all 14 steps `success`. The count reconciles against the branch's actual last green run
+(`1d9eab1`, `639 passed, 10 skipped`) at `+15` — the new test file in full.
+
 
 ## 9. The two criteria have different denominators
 
