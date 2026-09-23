@@ -92,6 +92,26 @@ the `G_swing` verdict inline, per the design's mandatory display rule. Absent
 a `GapAgreementResult` (no cold-annotator comparison exists for this run),
 the point figure alone is still all that is computable, which is why this
 stays an opt-in field rather than a hard requirement on every render().
+
+G9 -- CLAUSE 2 ON A GENUINE-GAP ITEM IS A FORCED-CHOICE AGREEMENT CHECK, NOT AN
+ACTION-IDENTIFICATION MEASUREMENT (section 8.8.5, v0.64, F22). Where the real
+verb is outside the closed 34-verb taxonomy, section 8.8 puts the NEAREST verb
+in `action` and THAT VERB ALONE in `action_accept_set`. That rule was CONFIRMED
+at v0.64 -- but section 8.8's own SUB-CHOICE paragraph states the cost in its
+own words: "an extractor scores clause 2 correct only by picking the SAME
+near-miss the annotator picked". So on such an item clause 2 answers "did the
+model settle on the same near-miss?" and NOT "did extraction identify the
+action?", because no correct answer exists to identify. Confirming the rule
+without saying so wherever the number appears would bank the complaint and
+publish the figure anyway, which is the same failure section 9.1's ground 2
+describes for tags generally -- the convention was sound, the reporting layer
+was not keeping its half of the bargain. G9 is the reporting half.
+
+The empty-set alternative (an empty `action_accept_set`, making every such item
+an automatic PARTIAL) was re-priced at v0.64 and rejected: both figures are
+recoverable from the committed data either way, since `action` holds the nearest
+verb whichever the set is. So this is a DISCLOSURE, deliberately, and not a data
+change.
 """
 
 from __future__ import annotations
@@ -237,6 +257,24 @@ class Report:
         that check honest instead of silently comparing two different scopes.
         """
         return sum(1 for i in self.items if not i.known_gaps)
+
+    @property
+    def forced_choice_action_items(self) -> list[str]:
+        """G9 (section 8.8.5, v0.64, F22): scored items whose clause-2 outcome is
+        a forced-choice agreement check rather than an action-identification
+        measurement.
+
+        Keyed on the TAG and not on a singleton accept-set, deliberately. A
+        singleton set is neither necessary nor sufficient: an untagged item can
+        legitimately carry one verb (nothing else is defensible), and the thing
+        that makes clause 2 a forced choice is the ruled fact that NO taxonomy
+        member denotes the performance -- which is exactly what the tag asserts.
+        Reading the set instead would silently sweep in ordinary confident items.
+        """
+        return sorted(
+            i.item_id for i in self.items
+            if "action_not_in_taxonomy" in (i.known_gaps or ())
+        )
 
     @property
     def numerator_gap_disclosure(self) -> list[str]:
@@ -430,6 +468,34 @@ class Report:
             ]
         else:
             lines.append("    None -- every item in either numerator carries a known gap.")
+
+        # G9 -- section 8.8.5 (v0.64, F22). Printed adjacent to the criterion-2
+        # figures rather than in a methods section, for section 6.1's own reason:
+        # a reader who does not reach the methods section still gets the caveat.
+        fc = self.forced_choice_action_items
+        lines += [
+            "",
+            "CLAUSE 2 ON A GENUINE-GAP ITEM IS A FORCED-CHOICE AGREEMENT CHECK (§8.8.5 G9):",
+        ]
+        if fc:
+            lines.append(f"    {len(fc)} scored item(s): " + ", ".join(fc))
+            lines += [
+                "    §8.8 puts the NEAREST taxonomy verb in `action` and THAT VERB ALONE in",
+                "      `action_accept_set`, because NO member denotes the performance. So on",
+                "      these items clause 2 answers 'did the model settle on the same",
+                "      near-miss?' and NOT 'did extraction identify the action?' -- there is",
+                "      no correct answer to identify. Do not read their clause-2 outcome as",
+                "      an action-identification result in either direction.",
+                "    The rule was CONFIRMED at v0.64, not merely left standing; the empty-set",
+                "      alternative was re-priced and rejected. This line is the reporting half",
+                "      of that confirmation, not a hedge about it.",
+            ]
+        else:
+            lines += [
+                "    None among SCORED items. The class is not empty -- it is cassette-",
+                "      unscoreable (G8 below names each one), so no clause-2 outcome of this",
+                "      kind reached either criterion-2 figure in this run.",
+            ]
         lines += [
             "",
             "NO PREDICTED CEILING IS STATED (§9's 'ceiling in advance').",
