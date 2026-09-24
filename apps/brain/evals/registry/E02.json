@@ -1,0 +1,22 @@
+{
+  "doc_id": "E02",
+  "authored": "2026-09-24",
+  "rule": "guideline §21 R3 — every party the source document's own preamble defines, proper names and defined roles alike; never collectives, distributives, relational references, or unnamed third parties",
+  "casing_warning": "§21 R2 — resolve_party() matches `aliases` CASE-SENSITIVELY (`:alias = ANY(aliases)`) and `canonical_name` case-insensitively. Alias entries MUST carry the exact casing as it appears in a span.",
+  "status": "DRAFT — pending reviewer adjudication",
+  "parties": [
+    {
+      "canonical_name": "MedQuist Transcriptions, Ltd.",
+      "aliases": [
+        "MedQuist"
+      ]
+    },
+    {
+      "canonical_name": "CBay Systems & Services, Inc.",
+      "aliases": [
+        "CBay"
+      ]
+    }
+  ],
+  "annotator_notes": "Authored 2026-09-24 for batch 5's E02-006, the first gold item drawn from this document. Read from the document's own preamble in the verified corpus (`.corpus/edgar/E02.htm`, extracted via `evals/corpus.py::extract_text`), not inferred from any span: 'This Amendment No. 1 (\"Amendment\") is entered into by and between MedQuist Transcriptions, Ltd. (\"MedQuist\") and CBay Systems & Services, Inc. (\"CBay\").' E02 is AMENDMENT No. 1 to a Transcription Services Subcontracting Agreement; the amendment instrument is the corpus document, and its own preamble is the one §21 R3 points at.\n\nCASING CHECKED AGAINST THE WHOLE DOCUMENT, not against one span (§21 R2's trap). Across the full extracted text the two tokens occur in exactly ONE casing each — `MedQuist` 52 times, `CBay` 54 times, zero variants — so the single-alias entries above cannot silently fail to resolve against a span. Measured, not assumed.\n\n`Client Facility` IS DELIBERATELY NOT REGISTERED, and this is the one judgment call in the file. It is a defined term of this document, but §21 R3 excludes 'unnamed third parties' in terms, and E02 defines it as exactly that: 'Client Facility means the departments and facilities of the CBay customer that originates dictation and work types pursuant to an agreement between the CBay customer and CBay.' The Client Facility is neither a party to this Amendment nor a named entity — it is a class of third-party facility belonging to an unnamed CBay customer. CONSEQUENCE, STATED SO IT IS NOT LATER READ AS A FIXTURE DEFECT: any gold item whose obligor or obligee is `Client Facility` will not resolve, and §3.9 trigger 1 will correctly fire on it. That is a faithful record of the contract, not a registry gap — contrast C17's `Provider`/`Recipient`, which ARE registered because that document's preamble defines them as role designations the CONTRACTING parties occupy.\n\nCONTRADICTS A MEASURED EXAMPLE IN §21 R1, WHICH IS REPORTED RATHER THAN SILENTLY WORKED AROUND. R1 states that '`Client` is a defined party role in both E02 and E07', offered as one of three motivating collisions for the one-registry-per-document rule. E02 defines no bare `Client` role at all: all 22 occurrences of the token in this document are inside `Client Facility`, and that term denotes a third party R3 excludes. So this registry could never have contained a `Client` entry, and the E02 half of that collision cannot arise. The RULE is untouched and this file follows it; only its cited evidence is affected. See the batch-5 session record for the full measurement, including the same check run against R1's other two cited collisions."
+}

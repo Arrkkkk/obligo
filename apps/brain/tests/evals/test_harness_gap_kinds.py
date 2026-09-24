@@ -185,7 +185,11 @@ def test_batch_4_adds_five_in_force_items_and_the_kind_axis_decides_which(gold_i
     That is exactly the distinction the kind axis was introduced to draw, so it
     is asserted on real data rather than trusted from the ruling's prose.
     """
-    new = [i for i in gold_items if i["guideline_version"] not in F9_STAMPS]
+    # v0.65: this is a DATED figure about BATCH 4, so its population is scoped
+    # to batch 4's own stamp rather than to "everything after F9" -- batch 5
+    # arrives with v0.65 and would otherwise silently re-baseline a claim the
+    # v0.62 ruling made. Same mechanism as `published_population()` for K.
+    new = [i for i in gold_items if i["guideline_version"] == "v0.62"]
     assert len(new) == 12
     in_force = sorted(i["item_id"] for i in new if in_force_scope(i["known_gaps"]))
     assert in_force == ["C02-05", "E01-03", "E03-02", "E08-02", "E08-03"]
@@ -347,9 +351,13 @@ def test_the_legacy_denominator_is_still_computable_and_differs(gold_items):
 
     # The same two predicates over the LIVE set, so the gap F17 exists to close
     # stays visible as the set grows rather than being frozen at its v0.59 size.
+    # LIVE and expected to move: v0.59 measured 17/20 over its own population,
+    # v0.62 read 20/25 live, v0.65 reads 21/26. E02-01 carries no tag so it
+    # enters BOTH scopes; E02-02 carries `within_parenthetical`, a REACHABILITY
+    # tag, so it enters NEITHER -- which is the kind axis doing its job.
     live = _report([(i["item_id"], Outcome.PARTIAL, i["known_gaps"]) for i in gold_items])
-    assert live.legacy_no_known_gaps_denominator == 20
-    assert live.criterion2_no_known_gaps[1] == 25
+    assert live.legacy_no_known_gaps_denominator == 21
+    assert live.criterion2_no_known_gaps[1] == 26
     assert live.criterion2_no_known_gaps[1] > live.legacy_no_known_gaps_denominator, (
         "the two scopes must still differ -- that difference IS F17"
     )

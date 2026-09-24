@@ -1,0 +1,42 @@
+{
+ "segment_id": "E02-006",
+ "doc_id": "E02",
+ "schema": "§2.7 (v0.50) -- complete per-sentence segment disposition, superseding §21 R6's not_annotatable-only shape. `not_annotatable` (R6's original array, the only key run_scoring.load_not_annotatable() reads) is preserved for scoring and holds every NOT_OBLIGATION_BEARING / NOT_ANNOTATABLE / EXCLUDED span. `dispositions` is the full per-sentence record §2.7 requires, covering ANNOTATED and AMBIGUOUS spans too, which `not_annotatable` deliberately excludes -- an AMBIGUOUS span is an open reviewer question, not a settled non-item, and including it in the scoring array would resolve it silently.",
+ "reconciliation": {
+  "sentences_total": 2,
+  "obligation_bearing_clauses": 2,
+  "items_annotated": 2,
+  "status": "PASS",
+  "note": "Both sentences are obligation-bearing and both are annotated; nothing is left undisposed. The leading 'b) ' subsection marker is not a sentence and is absorbed into S1's disposition rather than logged as a §2.7 bulk class of its own, since it carries no span of its own outside the annotated one. Segment clause count 2, comfortably within §2's 1-3 band."
+ },
+ "dispositions": [
+  {
+   "span_char_start": 3,
+   "span_char_end": 172,
+   "disposition": "ANNOTATED",
+   "rule": "-",
+   "reason": "Covers locked item E02-01.",
+   "item_id": "E02-01",
+   "span_text": "MedQuist shall provide CBay with the billing data necessary for CBay to generate an invoice for the work performed by MedQuist to a Client Facility under this Agreement."
+  },
+  {
+   "span_char_start": 173,
+   "span_char_end": 353,
+   "disposition": "ANNOTATED",
+   "rule": "-",
+   "reason": "Covers locked item E02-02.",
+   "item_id": "E02-02",
+   "span_text": "CBay will in turn generate an invoice to Client Facility consistent with the billing data from MedQuist within three (3) calendar days of receipt of the billing data from MedQuist."
+  }
+ ],
+ "not_annotatable": [],
+ "observations": [
+  {
+   "id": "E02-006#calendar-days-unit-gap",
+   "label": "A THIRD _WITHIN_RE reachability gap -- the UNIT alternation -- RULED NOT TO BE A TAG",
+   "status": "RECORDED, NOT TAGGED. Reviewer ruling 2026-09-24 (guideline v0.65, §8.13). Queued as §10.1 F23.",
+   "cross_reference": "§8.13 (within_parenthetical); §8.6 (within_preposition); §11 decision 1; §10.1 F23",
+   "note": "THE SECOND OF TWO REACHABILITY GAPS IN E02-02's TEMPORAL, RULED NOT TO BE A TAG (v0.65, section 8.13; queued as section 10.1 F23). Recorded here rather than resolved inside an annotation pass, the same way C04-051#temporal-composition and C04-072#temporal-composition were logged before F21 ruled them.\n\nTHE MECHANISM, VERIFIED BY EXECUTION AND MECHANISTICALLY DISTINCT FROM THE NUMERAL GAP. ir_compile._UNIT_ALTERNATION is 'business\\s+days?|days?|hours?|weeks?|months?|years?|bd|h|d|w|mo|y' and has no entry for 'calendar days'. That is a DIFFERENT sub-pattern of _WITHIN_RE from the numeral group the section 8.13 tag records, and it has a different fix -- a one-word alternation widening ('(?:calendar|continuous|consecutive)\\s+'?) against genuine numeral parsing. Each gap alone rejects this phrase: 'within 3 calendar days of receipt' -> None with the numeral already bare, and 'within three (3) days of receipt' -> None with the unit already accepted.\n\nWHY IT IS NOT MINTED AS A TAG, MEASURED RATHER THAN ASSERTED. Swept over every WITHIN deadline in a modal sentence across all 28 documents -- 179 in total, with the sweep gated on six named known answers AND on reconciling exactly with corpus.py's own published bare/parenthetical split (20/159) before any count was read off it:\n  accepted (compiles)        8   4.5%   4 docs\n  numeral only              48  26.8%  20 docs\n  numeral + preposition    103  57.5%  21 docs\n  preposition only          12   6.7%   8 docs\n  numeral + unit             2   1.1%   2 docs\n  numeral + unit + prep      6   3.4%   4 docs\nTHE UNIT GAP HAS EIGHT INSTANCES ACROSS 6 DOCUMENTS ('calendar days' x7, 'continuous months' x1) AND ZERO OF THEM OCCUR WITHOUT THE NUMERAL GAP. There is no 'unit' or 'unit+prep' cell at all. So a separate tag could never fire alone on any evidence that exists, and repairing the unit alternation alone would fix ZERO phrases in this corpus. Section 22.1's discipline applies directly: a kind is not ruled on a sample of one, and E02-02 would be that sample.\n\nFORCING FUNCTION, stated precisely so the next session does not have to re-derive it: a SECOND independent instance, or -- far more informative -- an instance where the unit gap occurs WITHOUT the numeral gap, which has never happened in 179 deadlines and is the only evidence that would give a separate tag discriminating power.\n\nA MEASUREMENT DEFECT FOUND ON THE WAY AND REPORTED, NOT FIXED. corpus.py's published `within_parenthetical` statistic SILENTLY ABSORBS this class: classify_within() reconstructs a probe 'within {blob} {unit} of X' and buckets any rejection as parenthetical, so all 8 unit instances are counted as numeral ones. The inflation is 8 of 159 (5.0%), and section 11's still-open scope decision on widening _WITHIN_RE is made against that number. This is exactly the objection section 8.6 itself raised against folding its preposition gap into section 8's parenthetical row: 'filing them together would inflate the parenthetical gap's measured size with cases that are trivially fixable'.\n\nSEARCH KEY: within_parenthetical, calendar days, _UNIT_ALTERNATION, _WITHIN_RE, unit modifier, F23, E02-006, E02-02. Preserved screen: evals/goldens/holdout/within_parenthetical/screen.py."
+  }
+ ]
+}

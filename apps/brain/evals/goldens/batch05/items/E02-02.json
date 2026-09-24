@@ -1,0 +1,74 @@
+{
+ "item_id": "E02-02",
+ "doc_id": "E02",
+ "segment_id": "E02-006",
+ "stratum": "hard",
+ "segment_text": "b) MedQuist shall provide CBay with the billing data necessary for CBay to generate an invoice for the work performed by MedQuist to a Client Facility under this Agreement. CBay will in turn generate an invoice to Client Facility consistent with the billing data from MedQuist within three (3) calendar days of receipt of the billing data from MedQuist.",
+ "span_char_start": 173,
+ "span_char_end": 353,
+ "span_text": "CBay will in turn generate an invoice to Client Facility consistent with the billing data from MedQuist within three (3) calendar days of receipt of the billing data from MedQuist.",
+ "modality": "MUST",
+ "action": "PROVIDE",
+ "action_accept_set": [
+  "PROVIDE",
+  "DELIVER"
+ ],
+ "obligor": "CBay",
+ "obligor_accept_set": [],
+ "obligee": "Client Facility",
+ "object_class": "invoice",
+ "object_class_accept_set": [
+  "invoice",
+  "billing_invoice",
+  "invoice_document",
+  "services_invoice"
+ ],
+ "temporal": {
+  "form": "WITHIN",
+  "amount": 3,
+  "unit": "d",
+  "trigger": "receipt of the billing data from MedQuist"
+ },
+ "conditions": [],
+ "underspecified": true,
+ "missing_fields": [
+  "obligee",
+  "temporal.of"
+ ],
+ "vague_temporal_phrase": null,
+ "redacted_phrase": null,
+ "known_gaps": [
+  "within_parenthetical"
+ ],
+ "annotator_confidence": "CONFIDENT",
+ "annotated_at": "2026-09-24T00:00:00+00:00",
+ "rules_cited": [
+  "2",
+  "2.7",
+  "3.1",
+  "3.2",
+  "3.4",
+  "3.5",
+  "3.5.1",
+  "3.5.4",
+  "3.6",
+  "3.6.1",
+  "3.6.2",
+  "3.7",
+  "3.8",
+  "3.8.2",
+  "3.9",
+  "4.3",
+  "8",
+  "8.6.1",
+  "8.8.2",
+  "8.10",
+  "8.13",
+  "11",
+  "21"
+ ],
+ "guideline_version": "v0.65",
+ "reviewer_status": "APPROVED",
+ "adjudicated_by": "reviewer",
+ "annotator_notes": "S2 of E02-006. THE GOLD SET'S FIRST CARRIER OF `within_parenthetical` (section 8.13, v0.65), and the item that forced that tag to be minted after sitting unimplemented in section 11 decision 1 since v0.8.\n\nTWO INDEPENDENT REACHABILITY GAPS IN ONE PHRASE, ISOLATED BY EXECUTION AGAINST THE PRODUCTION CLASSIFIER RATHER THAN READ OFF THE REGEX. 'within three (3) calendar days of receipt ...' -> None. Repair the numeral only ('within 3 calendar days of receipt') -> STILL None. Repair the unit only ('within three (3) days of receipt') -> STILL None. Repair both ('within 3 days of receipt') -> WITHIN 3d OF \"receipt of the billing data from MedQuist\". So the parenthetical numeral and the unit modifier 'calendar' each reject the phrase on their own, through DIFFERENT sub-patterns of _WITHIN_RE: the numeral group (\\d+(?:\\.\\d+)?) and the unit alternation.\n\nONLY ONE TAG IS FILED, AND THAT FOLLOWS SECTION 8.6's EXISTING 'two gaps, one tag' PRACTICE RATHER THAN A NEW RULE. The calendar-days unit gap is deliberately NOT tagged -- it is recorded as an observation on this segment and queued as section 10.1 F23. Measured over all 179 WITHIN deadlines in the corpus's modal sentences: the unit gap has EIGHT instances across 6 documents and ZERO of them occur without the numeral gap, so a separate tag could not fire alone on any evidence that exists. Section 22.1's discipline applies -- a kind is not ruled on a sample of one.\n\nTEMPORAL: ANNOTATED, NOT NULLED. Section 8.6.1's principle governs -- `temporal: null` marks what the IR cannot REPRESENT, never what the classifier cannot REACH -- and section 11 decision 1 says the same thing for this very regex: parenthetical-form WITHIN items are 'annotated honestly, exactly as the document writes them', and UNMAPPABLE_TEMPORAL is 'a measurement, not an annotation error'. CONFIRMED BY EXECUTION THROUGH BOTH CANONICALISATION FUNCTIONS, the step section 8.6.1 ran for C17-02: score._canonical_gold_temporal() on this dict and score._canonical_temporal() on a real parse of WITHIN 3d OF \"receipt of the billing data from MedQuist\" both return {'form': 'WITHIN', 'amount': 3.0, 'unit': 'd', 'trigger': 'receipt of the billing data from MedQuist'}. NOTE `unit` is the AST's 'd', NOT the document's 'calendar days' -- clause 6 compares canonical forms and a 'calendar days' stamp would fail against every correct prediction (C17-02's restamp note).\n\nEXPECTED v1 OUTCOME: UNMAPPABLE_TEMPORAL, a LOUD failure visible in criterion 1b -- section 8.9's side of section 15.3's line, and the same expected outcome section 8.6.1 and section 11 both state for their own gaps.\n\nACTION: 'generate' -> PROVIDE IS RULED DEFENSIBLY MAPPABLE, so NO action_not_in_taxonomy FIRES. Section 8.8.2's test is 'does a taxonomy member denote the SAME PERFORMANCE?', not 'close enough?'. The span reads 'generate an invoice TO Client Facility' -- with a stated recipient the performance is issuing the invoice to that party, which is what PROVIDE denotes. Nothing of the act is lost: unlike `defend` (section 8.8.2), `generate` carries no machinery the member lacks, and unlike `defer` (section 8.8.3) the mapping asserts nothing STRONGER than the contract. STATED AGAINST INTEREST, on section 8.8.3's own discipline: 'generate*' occurs in only 11 of the 1,547 pool segments across 8 documents and THIS SENTENCE PAIR IS THE ONLY OBLIGATION-BEARING USE, so there is NO base rate for the verb and none is claimed -- the same posture section 8.8.3 took for `defer`, which occurs exactly once. The 2 measured co-occurrences with provide/deliver/issue are this segment's own S1 and one unrelated confidentiality sentence, which is too thin to run discriminator 1 on and is reported as such rather than leaned on. DELIVER is the second defensible member; REPORT was CONSIDERED AND DECLINED -- an invoice is not a report.\n\nOBLIGEE = 'Client Facility', POSITIONAL AND NOT REGISTRY-CONDITIONED. Section 3.5's test is whether the alias is in the span, and section 3.5.1's branch 1 admits non-registry-resolvable values explicitly ('its Subcontractor', 'the other party'). MedQuist is also in-span but as the SOURCE of the billing data, not as the recipient of the invoice, so exactly one party occupies the recipient role. Section 3.5.4 is cited because obligee assignment does not turn on modality.\n\nUNDERSPECIFIED TRUE ON TWO INDEPENDENT TRIGGERS, and the first is now PROVABLE against a committed fixture rather than asserted: trigger 1 -- 'Client Facility' does not resolve in evals/registry/E02.json, by design, because E02 defines it as 'the departments and facilities of the CBay customer', an unnamed third party section 21 R3 excludes (verified by execution: resolve() returns None). Trigger 3 -- symbols.resolve_trigger() returns None throughout v1, so the WITHIN trigger is unresolvable regardless. missing_fields carries 'temporal.of', the WithinTemporal branch's REAL path and NOT 'temporal.trigger'; C11-03 is the precedent.\n\nCONDITIONS EMPTY. 'consistent with the billing data from MedQuist' fails section 3.8.2's removal test: delete it and the duty to invoice applies in exactly the same circumstances -- what changes is the CONTENT the invoice must match, which is a manner/scope constraint on the object. 'in turn' is a discourse connective, not a circumstance.\n\nOBJECT_CLASS. Head noun of the object phrase ('an invoice') is 'invoice', which is both the slot and the head-only member section 3.6's v0.58 forward rule requires. This is NOT section 3.6.2's cognate-object residue -- 'invoice' is not the nominal of PROVIDE, so clauses 2 and 5 stay independent here in a way they cannot for C22-01's NOTIFY/notice. 'client_invoice' was DELIBERATELY NOT AUTHORED: 'client_' would reproduce this item's own obligee, which section 3.6.1 forbids the way 'distributor_' did in C10-02.\n\nSEGMENT NOW RECONCILES at 2 sentences / 2 obligation-bearing clauses / 2 items -- see segments/E02-006.json.\n\nREVIEWER-APPROVED 2026-09-24, as drafted. No field changed at approval. The one call put to the reviewer explicitly rather than approved by silence was the ACTION MAPPING: 'generate' -> PROVIDE is ruled DEFENSIBLY MAPPABLE under section 8.8.2's same-performance test, so no action_not_in_taxonomy fires and the accept-set is not a section 8.8 singleton. The against-interest base-rate disclosure above (11 of 1,547 pool segments, this sentence pair the only obligation-bearing use, NO base rate claimed) was confirmed present in these notes before approval. Recorded here because a mapping ruled on a verb with no base rate is exactly the kind of call a later session should be able to find and reopen, not have to reconstruct."
+}

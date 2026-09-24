@@ -161,9 +161,12 @@ def test_the_set_is_48_items_over_28_segments():
     # cost -- one locked SEGMENT, zero locked ITEMS -- is unaffected by an
     # addition and is asserted by the test above this one, which names the
     # items rather than counting them.
+    # v0.65: batch 5 adds E02-01/E02-02 over one new segment (E02-006), so the
+    # set is 50 items over 29 segments. §8.8.4's measured cost is unaffected by
+    # an addition, for the reason the comment above gives.
     items = rs.load_gold_items(GOLDENS)
-    assert len(items) == 48
-    assert len(rs.segments_from_items(items)) == 28
+    assert len(items) == 50
+    assert len(rs.segments_from_items(items)) == 29
 
 
 # --- (3) the evidence the rule rests on --------------------------------------

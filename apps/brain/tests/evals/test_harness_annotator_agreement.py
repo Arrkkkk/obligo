@@ -538,9 +538,15 @@ def test_new_items_are_outside_the_published_run_and_would_have_moved_K(cold):
     # as an equality while the live set grows.
     batch4 = {"E01-02", "E01-03", "C04-07", "C04-08", "E03-02", "E03-03",
               "E08-02", "E08-03", "E08-04", "C02-05", "C02-06", "C02-07"}
-    assert added == {"C11-02", "C04-06", "C11-03", "C14-06"} | batch4, added
+    # v0.65: batch 5 adds E02-01/E02-02 on a segment (E02-006) the cold run
+    # never saw, so they fall in batch 4's category rather than the four §14.4
+    # additions': OUTSIDE the published population AND unable to pair even in
+    # principle. `published` still does not move -- it is derived from the
+    # sealed comparison.json, which is what makes this equality safe to keep.
+    batch5 = {"E02-01", "E02-02"}
+    assert added == {"C11-02", "C04-06", "C11-03", "C14-06"} | batch4 | batch5, added
     assert len(published) == 32
-    assert len(live) == 48
+    assert len(live) == 50
 
     # Batch 4 is the first ADDITION WITH NO COLD COUNTERPART AT ALL, and that is
     # a stronger fact than `C14-06`'s. The 2026-08-29 cold run annotated the 22
@@ -549,11 +555,11 @@ def test_new_items_are_outside_the_published_run_and_would_have_moved_K(cold):
     # §7 re-run over the current 48-item set must therefore re-annotate cold
     # rather than reusing that output.
     cold_segments = set(_load_cold())  # keyed BY segment_id; items carry none
-    batch4_segments = {i["segment_id"] for items in _load_gold().values()
-                       for i in items if i["item_id"] in batch4}
-    assert not (batch4_segments & cold_segments), (
-        f"batch 4 segments must be outside the cold run: "
-        f"{sorted(batch4_segments & cold_segments)}"
+    new_segments = {i["segment_id"] for items in _load_gold().values()
+                    for i in items if i["item_id"] in batch4 | batch5}
+    assert not (new_segments & cold_segments), (
+        f"batch 4/5 segments must be outside the cold run: "
+        f"{sorted(new_segments & cold_segments)}"
     )
 
     # Fact 2a: three of the four pair against a real cold item at the same

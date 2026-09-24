@@ -110,6 +110,7 @@ SECTION_8_TAGS = frozenset({
     "shared_subject_split",
     "lead_time_unrepresentable",  # v0.61, §8.11 (F19)
     "temporal_composition",  # v0.63, §8.12 (F21)
+    "within_parenthetical",  # v0.65, §8.13 -- §11 decision 1's tag, finally minted
 })
 # This is the SECOND hand-maintained copy of section 8's vocabulary, alongside
 # `gap_kinds.GAP_KIND`, and they are deliberately NOT the same set: this one is

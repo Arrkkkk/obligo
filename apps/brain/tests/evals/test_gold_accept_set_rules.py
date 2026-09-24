@@ -263,16 +263,25 @@ def test_the_forward_head_only_rule_is_satisfied_by_every_batch_4_item(items):
     rule nobody verifies is the "indirection only as real as the tests that
     don't bypass it" shape CLAUDE.md's debt list already records three times.
     """
+    # v0.65: the rule binds batch 4 ONWARD, so this population is every
+    # post-v0.58 item and GROWS with each batch. An equality here would make
+    # every future batch look like a defect -- the same population-pinning
+    # hazard v0.53's K fix and F20's `G` finding both record. A floor keeps the
+    # vacuity gate (an empty `new` would pass the real assertion below).
     new = [i for i in items if i["guideline_version"] not in V058_STAMPS]
-    assert len(new) == 12, f"expected batch 4's 12 items, got {len(new)}"
+    assert len(new) >= 12, f"expected at least batch 4's 12 items, got {len(new)}"
     without = [i["item_id"] for i in new if not census_mod.has_head_only_member(i)]
     assert without == [], (
         f"§3.6's forward head-only rule is mandatory from batch 4: {without} carry no "
         f"head-only member. The only permitted exemption is §3.6.2's cognate-object "
         f"case, which must be argued per item, not defaulted."
     )
+    # LIVE by design, unlike the dated `_v058_population` anchor above it: this
+    # moves with every batch and is re-measured, never carried forward.
+    # v0.62: 25/48. v0.65: 27/50 -- batch 5's E02-01 ("data") and E02-02
+    # ("invoice") each carry a head-only member.
     carried, total = census_mod.head_only_coverage(items)
-    assert (carried, total) == (25, 48)
+    assert (carried, total) == (27, 50)
 
 
 def test_the_head_only_rule_is_forward_only_and_restamped_nothing(items):

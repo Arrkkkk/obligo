@@ -9,6 +9,32 @@ shared registry would resolve those aliases to nothing and flip locked items
 E07-01 and C17-01 to underspecified -- a scoring failure caused entirely by
 harness setup and attributed to extraction.
 
+CORRECTION IN PLACE (v0.65) -- THE RULE ABOVE STANDS AND THIS MODULE IMPLEMENTS
+IT UNCHANGED; THE EXAMPLES IN THE PARAGRAPH ABOVE DO NOT SURVIVE CHECKING. This
+is a SECOND hand-maintained copy of a claim that also lives in guideline section
+21 R1 and in CLAUDE.md's debt list -- the same duplicate-copy hazard v0.61
+recorded for the tag vocabulary -- and all three are corrected together. Measured
+against the corpus while authoring registry/E02.json for batch 5:
+
+  * E02 defines NO bare `Client`. All 22 occurrences of the token are inside
+    `Client Facility`, which E02 defines as "the departments and facilities of
+    the CBay customer" -- an unnamed third party R3 excludes, so E02's registry
+    could never have carried the entry.
+  * E01 defines `Service Provider` / `Service Recipient` (78 and 57
+    occurrences), never the bare `Provider` / `Recipient` C17 defines.
+
+And the stated CONSEQUENCE was tested by execution rather than argued: a single
+registry merged from all committed ones resolves `Client`, `Provider` and
+`Recipient` each UNIQUELY, so E07-01 and C17-01 would not flip.
+
+WHY THE RULE IS UNTOUCHED ANYWAY. resolve_party()'s len(rows) != 1 behaviour is
+real, this module reproduces it deliberately, and `Provider` against E01's
+`Service Provider` is a genuine NEAR-MISS that a different document -- or a
+registry authored with E01's own role terms in it -- could turn into an actual
+collision. What is falsified is the measurement offered in support, not the
+design; same footing as section 8.9's on/until rows and section 2.4's
+"6 segments, contained" claim.
+
 Resolution here MIRRORS the production query deliberately, including its
 asymmetry (section 21 R2):
 

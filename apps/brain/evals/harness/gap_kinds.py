@@ -89,6 +89,16 @@ GAP_KIND = {
     # by execution). Deliberately carries NO direction: see DIRECTION_DEFERRED.
     "temporal_composition": "REPRESENTATIONAL",
     "within_preposition": "REACHABILITY",
+    # v0.65 (section 8.13): `_WITHIN_RE`'s numeral sub-pattern is
+    # `(\d+(?:\.\d+)?)`, which cannot read the parenthetical form real
+    # contracts overwhelmingly use ("thirty (30) days"). REACHABILITY on
+    # section 8.6.1's test, verified by execution and not read off the
+    # regex: `within 3 days of X` -> WITHIN 3d OF "X", so the IR HAS the
+    # form and only the surface pattern rejects the input. Named in
+    # section 11 decision 1 since v0.8 and, until now, present in NEITHER
+    # vocabulary copy -- a paper tag no item could carry without failing
+    # this module's own test.
+    "within_parenthetical": "REACHABILITY",
     "relative_trigger_preposition": "REACHABILITY",
     "corpus_artifact_in_span": "CORPUS_DEFECT",
     "shared_subject_split": "ANNOTATION_CONVENTION",
