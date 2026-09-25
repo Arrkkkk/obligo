@@ -356,8 +356,27 @@ def test_the_legacy_denominator_is_still_computable_and_differs(gold_items):
     # enters BOTH scopes; E02-02 carries `within_parenthetical`, a REACHABILITY
     # tag, so it enters NEITHER -- which is the kind axis doing its job.
     live = _report([(i["item_id"], Outcome.PARTIAL, i["known_gaps"]) for i in gold_items])
-    assert live.legacy_no_known_gaps_denominator == 21
-    assert live.criterion2_no_known_gaps[1] == 26
+    # v0.65+ (batch 5, 2026-09-25): 22. The +1 is EXACTLY `C10-03`, verified
+    # by execution rather than inferred: it is the only one of batch 5's four
+    # new items with an EMPTY `known_gaps`, because the event-bounded-interval
+    # temporal gap it carries has no §8 tag (§10.1 F25 -- deliberately not
+    # minted on a sample of one). This assertion moving is therefore the
+    # documented COST of F25 being measured rather than a bookkeeping bump:
+    # an untagged gap makes an item scoreable. C04-09, E03-04 and E03-05 all
+    # carry tags and do NOT move this number.
+    assert live.legacy_no_known_gaps_denominator == 22
+    # v0.65+ (batch 5, 2026-09-25): 27. BOTH scopes move by exactly +1 and the
+    # +1 is `C10-03` in both -- it carries no tag at all, so nothing excludes it
+    # from either. THE OTHER THREE ARE THE INTERESTING HALF, and they are the
+    # first items where an ENTERING kind is overridden by a co-occurring
+    # excluding one: `E03-04` carries `corpus_artifact_in_span` (CORPUS_DEFECT,
+    # which §9.1 ADMITS) and `E03-05` carries `shared_subject_split`
+    # (ANNOTATION_CONVENTION, likewise admitted) -- yet both are excluded, because
+    # each ALSO carries `action_not_in_taxonomy` (REPRESENTATIONAL) and §9's
+    # membership rule excludes by ANY excluding tag. That is the v0.22 rule the
+    # kind axis left untouched, doing its job on a new combination; `C14-02` is
+    # the precedent (excluded by `mutual_obligation` despite `shared_subject_split`).
+    assert live.criterion2_no_known_gaps[1] == 27
     assert live.criterion2_no_known_gaps[1] > live.legacy_no_known_gaps_denominator, (
         "the two scopes must still differ -- that difference IS F17"
     )

@@ -164,9 +164,13 @@ def test_the_set_is_48_items_over_28_segments():
     # v0.65: batch 5 adds E02-01/E02-02 over one new segment (E02-006), so the
     # set is 50 items over 29 segments. §8.8.4's measured cost is unaffected by
     # an addition, for the reason the comment above gives.
+    # v0.65+ (batch 5, 2026-09-25): 54 items over 32 segments. Batch 5's
+    # remaining four items land on THREE new segments (C04-174, C10-025,
+    # E03-022), so both counts move. §8.8.4's measured cost is unaffected by
+    # an addition, for the reason the comment above gives.
     items = rs.load_gold_items(GOLDENS)
-    assert len(items) == 50
-    assert len(rs.segments_from_items(items)) == 29
+    assert len(items) == 54
+    assert len(rs.segments_from_items(items)) == 32
 
 
 # --- (3) the evidence the rule rests on --------------------------------------

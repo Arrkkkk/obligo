@@ -543,10 +543,13 @@ def test_new_items_are_outside_the_published_run_and_would_have_moved_K(cold):
     # additions': OUTSIDE the published population AND unable to pair even in
     # principle. `published` still does not move -- it is derived from the
     # sealed comparison.json, which is what makes this equality safe to keep.
-    batch5 = {"E02-01", "E02-02"}
+    # v0.65+ (2026-09-25): batch 5's remaining four items land on three
+    # further NEW segments (C04-174, C10-025, E03-022) the cold run never
+    # saw, so they join the same category. `published` STILL does not move.
+    batch5 = {"E02-01", "E02-02", "C04-09", "C10-03", "E03-04", "E03-05"}
     assert added == {"C11-02", "C04-06", "C11-03", "C14-06"} | batch4 | batch5, added
     assert len(published) == 32
-    assert len(live) == 50
+    assert len(live) == 54
 
     # Batch 4 is the first ADDITION WITH NO COLD COUNTERPART AT ALL, and that is
     # a stronger fact than `C14-06`'s. The 2026-08-29 cold run annotated the 22

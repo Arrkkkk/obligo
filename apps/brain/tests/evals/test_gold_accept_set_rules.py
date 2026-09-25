@@ -281,7 +281,13 @@ def test_the_forward_head_only_rule_is_satisfied_by_every_batch_4_item(items):
     # v0.62: 25/48. v0.65: 27/50 -- batch 5's E02-01 ("data") and E02-02
     # ("invoice") each carry a head-only member.
     carried, total = census_mod.head_only_coverage(items)
-    assert (carried, total) == (27, 50)
+    # v0.65+ (batch 5, 2026-09-25): 31/54. ALL FOUR of batch 5's remaining
+    # items (C04-09, C10-03, E03-04, E03-05) carry a head-only member, so
+    # carried and total move together (+4/+4). The substantive assertion is
+    # `without == []` above; this census pin exists to make a silent drop in
+    # COVERAGE visible, and it only moves in lockstep when every new item
+    # conforms -- which is what the +4/+4 records.
+    assert (carried, total) == (31, 54)
 
 
 def test_the_head_only_rule_is_forward_only_and_restamped_nothing(items):

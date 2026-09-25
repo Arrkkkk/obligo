@@ -1,0 +1,73 @@
+{
+ "item_id": "C10-03",
+ "doc_id": "C10",
+ "segment_id": "C10-025",
+ "stratum": "hard",
+ "segment_text": "(b) as may be required by law, court order or any governmental or regulatory authority; provided, however, that the other party reserves the right to challenge such disclosure under applicable law. If such party elects to challenge the disclosure, no confidential information shall be disclosed during the pendency of such challenge.",
+ "span_char_start": 198,
+ "span_char_end": 333,
+ "span_text": "If such party elects to challenge the disclosure, no confidential information shall be disclosed during the pendency of such challenge.",
+ "modality": "MUST_NOT",
+ "action": "DISCLOSE",
+ "action_accept_set": [
+  "DISCLOSE"
+ ],
+ "obligor": "ABSENT",
+ "obligor_accept_set": [],
+ "obligee": "ABSENT",
+ "object_class": "confidential_information",
+ "object_class_accept_set": [
+  "confidential_information",
+  "information",
+  "confidential_info",
+  "protected_information"
+ ],
+ "temporal": null,
+ "conditions": [
+  "If such party elects to challenge the disclosure"
+ ],
+ "underspecified": true,
+ "missing_fields": [
+  "obligor",
+  "obligee"
+ ],
+ "vague_temporal_phrase": null,
+ "redacted_phrase": null,
+ "known_gaps": [],
+ "annotator_confidence": "CONFIDENT",
+ "annotated_at": "2026-09-24T00:00:00+00:00",
+ "rules_cited": [
+  "2",
+  "2.1",
+  "2.6",
+  "2.7",
+  "3.1",
+  "3.2",
+  "3.3",
+  "3.4",
+  "3.5",
+  "3.5.3",
+  "3.6",
+  "3.6.1",
+  "3.6.2",
+  "3.7",
+  "3.8",
+  "3.8.2",
+  "3.9",
+  "4.3",
+  "8",
+  "8.6.1",
+  "8.8.1",
+  "8.8.4",
+  "8.10",
+  "8.11",
+  "8.12",
+  "9.1",
+  "15.3",
+  "21"
+ ],
+ "guideline_version": "v0.65",
+ "reviewer_status": "APPROVED",
+ "adjudicated_by": "reviewer",
+ "annotator_notes": "S2 of C10-025, the segment's ONLY item. Batch 5, seed 20260919 hard queue, position 10. C10's THIRD locked item (after C10-01/C10-02, both from C10-016).\n\nSEGMENT SHAPE, because the item cannot be read without it. Three spans: S1a [0:87] an ORPHAN LIST FRAGMENT, S1b [88:197] a savings/reservation proviso EXCLUDED (see exclusions.json, C10-025#savings-proviso), and S2 [198:333], this item. Section 2.6 governs: self-containment is checked at SENTENCE granularity, so the orphan fragment does not disqualify the segment wholesale, and C13-017's precedent (an orphan enumeration wrapping self-contained sentences) is the controlling one. BOTH of S2's anaphors resolve IN-SEGMENT -- 'such party' to S1b's 'the other party', 'the disclosure' to S1a's (b) -- which is what makes S2 readable at segment scope; C13-017's own 'such a situation' resolved the same way.\n\nMODALITY MUST_NOT, AND THE NEGATED-SUBJECT SHAPE IS DISTINGUISHED RATHER THAN ASSUMED. 'no confidential information shall be disclosed' carries its negation on the SUBJECT, which is the shape section 8.8.4's prior filter 1 names for the COPULAR class (C15-052's 'NO PARTY SHALL BE LIABLE FOR CONSEQUENTIAL DAMAGES'). It is NOT that class. The distinction is the predicate: 'liable' is an adjective asserting a legal STATUS, while 'disclosed' is the past participle of an action verb in a passive -- it forbids CONDUCT. Section 8.8.1's own carve-out states the same boundary from the other side ('does not exclude a genuine MUST_NOT-on-conduct clause that happens to use \"have\"'): what decides the class is what the clause asserts, not where the negation sits. A monitor can observe this being breached; nobody can breach 'shall not be liable'.\n\nACTION DISCLOSE, a literal taxonomy member (verified against ast.py's real ACTIONS, not from memory). SINGLETON ACCEPT-SET, and NOT on section 8.8's ground -- no action_not_in_taxonomy is owed here, because DISCLOSE is the verb the sentence actually uses. The set is a singleton for the ordinary section 3.4 reason that no other taxonomy verb is defensible for a prohibition on disclosure specifically: PROVIDE, DELIVER and REPORT all denote furnishing a deliverable, which is not what is forbidden. C13-03's ['TERMINATE'] is the precedent for a non-gap singleton.\n\nOBLIGOR = ABSENT. Agentless passive with no by-agent (section 3.5.3). The duty-bearer is the party facing the legal compulsion in (b), and the sentence never names it.\n\nOBLIGEE = ABSENT, AND THIS IS THE ITEM'S CLOSEST CALL -- RECORDED WITH THE COMPETING READING RATHER THAN ASSERTED. Section 3.5.3's rule is that obligee is 'the party named inside the span THAT THE PERFORMANCE RUNS TO, where exactly one such party exists', and 'where no party is named at all, or more than one candidate is equally available, obligee = ABSENT'. 'such party' IS inside the span, so the competing reading -- promote it, as C04-087 promoted Bellicum and C13-03 promoted 'the other party' -- is available on its face and is why this is flagged. IT IS DECLINED on section 3.5.3's own structural test: 'such party' is the AGENT OF A DIFFERENT VERB ('elects to challenge') INSIDE THE CONDITION CLAUSE, which is precisely the configuration section 3.5.3 refuses for C04-087's 'Bellicum' ('the agent of a DIFFERENT verb (ordered) inside a relative clause'). Where C04-087 promoted Bellicum it did so because a separate structure -- the possessive on the designated recipient -- positioned it as the party the performance RAN TO. Nothing here positions 'such party' as a recipient: a forbearance runs to nobody in that sense, and being the beneficiary in interest is not the same as occupying the recipient slot. So no party is named as the one the performance runs to, and ABSENT follows from the rule's own second sentence. THE DRAFTER'S DISSENT RECORDED AT SECTION 3.5.3 IS RELEVANT AND IS NAMED: it argued exactly that promoting one slot while taking ABSENT for the other is asymmetric, and section 3.5.3 itself says that if section 7's held-out check ever shows disagreement clustering on obligee in passive clauses, that section is 'the first place to look'. This item is a candidate for that cluster and is flagged as one.\n\nCONDITIONS -- ONE ENTRY, MARKER INCLUDED. 'If such party elects to challenge the disclosure' passes section 3.8.2's removal test cleanly: delete it and the prohibition applies unconditionally, which is a DIFFERENT duty, so it is a genuine gate rather than object scope. The 'If' marker is included, matching C10-01's own 'Subject to the Distributor fulfilling...' and C13-03's 'in the event...'. Section 3.8.3 does not fire (no restatement) and section 3.8.4 does not (no non-condition-shaped anchor elsewhere restating it).\n\nTEMPORAL NULL -- AND THE LOSS IS REAL, UNTAGGED, AND QUEUED AS SECTION 10.1 F25. 'during the pendency of such challenge' is an EVENT-BOUNDED INTERVAL. Verified by execution against the production _classify_temporal(), with the classifier gated first on a known accept and a known reject: it returns None. THIS IS A REPRESENTATIONAL GAP, NOT A REACHABILITY ONE, and that was established by reading ast.py rather than the regex: DuringTemporal is {start: DateRef, end: DateRef}, a DATE PAIR, and an interval bounded by the pendency of an event has no slot in it at any surface form. Section 8.6.1's test therefore puts temporal: null -- null marks what the IR cannot REPRESENT, which this is. It is distinct from both existing temporal gap tags: NOT temporal_composition (section 8.12 -- that is several elements against one slot; here there is exactly one element) and NOT lead_time_unrepresentable (section 8.11 -- that is a duration paired with a direction; here there is neither).\n\n  KNOWN_GAPS IS EMPTY, WHICH IS A COST AND IS STATED AS ONE RATHER THAN LEFT TO BE DISCOVERED. No section 8 tag exists for this class -- checked in BOTH hand-maintained copies of the vocabulary, gap_kinds.GAP_KIND and annotator_agreement.SECTION_8_TAGS, neither of which has an entry. A tag is deliberately NOT minted on a single instance (section 22.1's discipline; F23's direct precedent, where the calendar-days unit gap was recorded and not minted). CONSEQUENCE: with known_gaps empty this item ENTERS section 9.1's in-force criterion-2 denominator while carrying a temporal IR v1 cannot represent, so it is likely a guaranteed failure there -- the extractor that quotes the phrase into temporal_raw gets UNMAPPABLE_TEMPORAL and the whole candidate is rejected, section 15.3's LOUD side. That is the strongest argument for eventually minting the tag, and it is recorded here so the next instance arrives with the cost already priced rather than re-argued. Latent today: C10-025 has no cassette, so the item is cassette-unscoreable and report.py's G8 discloses it.\n\nUNDERSPECIFIED TRUE on section 3.9 trigger 1, twice over -- both party slots are ABSENT. NOT registry-conditioned, which matters because C10 has NO committed registry (see CLAUDE.md's debt list, filed 2026-09-24): this item's underspecified would be true against any registry whatsoever, so nothing here depends on that gap being closed. Stated explicitly because C10-01 and C10-02 both assert underspecified: false, a claim that IS registry-conditioned and is currently unverifiable.\n\nOBJECT_CLASS. Head noun of the object phrase ('no confidential information') is 'information', carried as the head-only member section 3.6's v0.58 forward rule requires. SECTION 3.6.1 AND 3.6.2 BOTH CLEAR: no member restates the action or a party, and 'information' is not the nominal of DISCLOSE -- 'disclosure' is, which is exactly why 'disclosure_information' and 'disclosed_information' were DELIBERATELY NOT AUTHORED; they would be section 3.6.2's cognate-object residue and would collapse clauses 2 and 5 into each other.\n\nSPAN INCLUDES THE TRAILING PERIOD, per the measured gold convention (section 7.1's fourth finding).\n\nPROVENANCE. Segment text reproduces byte-for-byte against both the live corpus pool rebuild (1,547 segments, the pool's own known-answer gate) and batch04/draw.json. Sentence split produced by corpus.split_sentences(), gated against locked segment E02-006's committed section 2.7 offsets (Standing Principle 7).\n\nREVIEWER-APPROVED 2026-09-24. Two calls put explicitly: (1) S1b's exclusion as a savings/reservation provision, ruled on its own merits with the action_not_in_taxonomy problem confirmed as consistent with but NOT the cause (see the exclusion entry); (2) the temporal gap recorded as an observation and queued as F25 rather than minted or measured pool-wide."
+}

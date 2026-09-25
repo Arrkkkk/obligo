@@ -1,0 +1,64 @@
+{
+ "segment_id": "C10-025",
+ "doc_id": "C10",
+ "schema": "§2.7 (v0.50) -- complete per-sentence segment disposition, superseding §21 R6's not_annotatable-only shape. `not_annotatable` (R6's original array, the only key run_scoring.load_not_annotatable() reads) is preserved for scoring and holds every NOT_OBLIGATION_BEARING / NOT_ANNOTATABLE / EXCLUDED span. `dispositions` is the full per-sentence record §2.7 requires.",
+ "reconciliation": {
+  "sentences_total": 2,
+  "obligation_bearing_clauses": 1,
+  "items_annotated": 1,
+  "status": "PASS",
+  "note": "Dispositioned at SUB-SENTENCE granularity because S1 holds two structurally different spans. S1a is an orphan list fragment (§2.6 / C04-024's shape); S1b is a savings/reservation proviso excluded on its own ground (exclusions.json, C10-025#savings-proviso); S2 is the only obligation-bearing clause and yields C10-03. §2.6 is what keeps the segment eligible at all -- self-containment is checked per sentence, and C13-017's precedent governs an orphan enumeration wrapping self-contained content. Segment clause count 1, within §2's 1-3 band."
+ },
+ "dispositions": [
+  {
+   "span_char_start": 0,
+   "span_char_end": 87,
+   "disposition": "NOT_ANNOTATABLE",
+   "rule": "§2 / §2.6",
+   "reason": "Orphan list fragment. Opens mid-enumeration at '(b)'; the governing stem ('Confidential Information may be disclosed except...') is outside the segment, and the span has no subject and no verb of its own. C04-024 / C22-025's shape. Does NOT disqualify the segment, per §2.6's sentence-granularity rule and C13-017's precedent.",
+   "span_text": "(b) as may be required by law, court order or any governmental or regulatory authority;"
+  },
+  {
+   "span_char_start": 88,
+   "span_char_end": 197,
+   "disposition": "EXCLUDED",
+   "rule": "§2 (savings/reservation provision -- no obligation-bearing clause)",
+   "reason": "Savings/reservation proviso: it names a right applicable law already confers rather than creating a contractual entitlement. Same class as C02-062, C03-102, C12-017. Full ground, including why §2.5's monitorable stakes are NOT the basis and why the action_not_in_taxonomy problem was set aside as consistent-with but not the cause, in exclusions.json entry C10-025#savings-proviso.",
+   "span_text": "provided, however, that the other party reserves the right to challenge such disclosure under applicable law."
+  },
+  {
+   "span_char_start": 198,
+   "span_char_end": 333,
+   "disposition": "ANNOTATED",
+   "rule": "-",
+   "reason": "Covers locked item C10-03.",
+   "item_id": "C10-03",
+   "span_text": "If such party elects to challenge the disclosure, no confidential information shall be disclosed during the pendency of such challenge."
+  }
+ ],
+ "not_annotatable": [
+  {
+   "span_char_start": 0,
+   "span_char_end": 87,
+   "rule": "§2 / §2.6",
+   "reason": "Orphan list fragment -- opens mid-enumeration, governing stem outside the segment.",
+   "span_text": "(b) as may be required by law, court order or any governmental or regulatory authority;"
+  },
+  {
+   "span_char_start": 88,
+   "span_char_end": 197,
+   "rule": "§2 (savings/reservation provision)",
+   "reason": "Names a right applicable law already confers; creates no contractual entitlement.",
+   "span_text": "provided, however, that the other party reserves the right to challenge such disclosure under applicable law."
+  }
+ ],
+ "observations": [
+  {
+   "id": "C10-025#event-bounded-interval",
+   "label": "A FOURTH temporal gap class -- an EVENT-BOUNDED INTERVAL has no v1 form, and no §8 tag exists for it",
+   "status": "RECORDED, NOT TAGGED, NOT MEASURED. Reviewer ruling 2026-09-24. Queued as §10.1 F25.",
+   "cross_reference": "§8.11 (lead_time_unrepresentable -- nearest sibling); §8.12 (temporal_composition -- distinct); §8.6.1; §8.10; §9.1; §15.3; §10.1 F25; §22.1",
+   "note": "AN EVENT-BOUNDED INTERVAL HAS NO v1 TEMPORAL FORM, AND NO SECTION 8 TAG EXISTS FOR IT. Recorded here rather than resolved inside an annotation pass, the same way E02-006#calendar-days-unit-gap was logged before F23 and C04-051#temporal-composition / C04-072#temporal-composition were logged before F21. Carried by locked item C10-03.\n\nTHE PHRASE: 'during the pendency of such challenge' (inside C10-03's span).\n\nTHE MECHANISM, NAMED PRECISELY SO A FUTURE SESSION DOES NOT RE-DERIVE IT, AND ESTABLISHED BY READING ast.py RATHER THAN THE REGEX. DuringTemporal is {start: DateRef, end: DateRef} -- A DATE PAIR. The interval here is bounded not by two dates but by the PENDENCY OF AN EVENT: it begins when a challenge is filed and ends when that challenge is resolved, and neither bound is a date the contract states or that any surface rewriting could supply. There is NO SLOT for an event-bounded interval in the form at all. Confirmed by execution through the production _classify_temporal(), gated first on a known accept ('within 3 days of receipt of the data' -> WITHIN 3d OF \"...\") and a known reject, per Standing Principle 7: 'during the pendency of such challenge' -> None, and so is 'during the pendency of the challenge' and the bare 'during the Term'.\n\nTHEREFORE REPRESENTATIONAL, NOT REACHABILITY -- section 8.6.1's test, applied rather than assumed. This is NOT a surface pattern rejecting input the IR could hold (which is what within_parenthetical and within_preposition are, and why section 8.13 and section 8.6 annotate the FORM). The IR cannot hold it. So section 8.6.1's principle puts `temporal: null` here, and that is the null it licenses -- 'null marks what the IR cannot REPRESENT, never what the classifier cannot REACH'.\n\nDISTINCT FROM BOTH EXISTING TEMPORAL GAP TAGS, checked against each rather than assumed novel:\n  NOT `temporal_composition` (section 8.12, F21) -- that gap is a SLOT gap, several temporal elements against ast.Obligation's single `temporal` field. HERE THERE IS EXACTLY ONE ELEMENT. It is a FORM gap, not a slot gap.\n  NOT `lead_time_unrepresentable` (section 8.11, F19) -- that gap is a DURATION paired with a DIRECTION ('at least 30 days before X'), which no v1 form pairs. HERE THERE IS NEITHER a duration nor a direction.\n  Its nearest structural sibling is section 8.11 (both are single-form expressiveness failures), not section 8.12.\n\nDELIBERATELY NOT MINTED, AND DELIBERATELY NOT MEASURED POOL-WIDE HERE. Section 22.1's discipline: a kind is not ruled on a sample of one. F23 is the direct precedent -- the calendar-days unit gap was recorded and left untagged on exactly this reasoning. A corpus-wide sweep of the class is real section 10 investigation work and belongs in its own session if and when a second instance appears; running it inside an annotation pass would bundle a measurement decision into an item's drafting. REVIEWER-RULED 2026-09-24. Queued as section 10.1 F25.\n\nTHE COST IS REAL AND IS STATED RATHER THAN LEFT LATENT, because it runs the OPPOSITE way to most untagged gaps. With `known_gaps` EMPTY, C10-03 ENTERS section 9.1's kind-scoped in-force criterion-2 denominator -- an untagged item is a scoreable item -- while carrying a temporal IR v1 provably cannot represent. It is therefore likely a GUARANTEED failure in the headline denominator: an extractor that quotes the phrase into `temporal_raw` gets UNMAPPABLE_TEMPORAL and the WHOLE candidate is rejected, which is section 15.3's LOUD side (the placement section 15.3 itself got wrong and v0.34 corrected). Latent today only because C10-025 has no cassette, so report.py's G8 discloses the item as cassette-unscoreable. This is the strongest argument for minting the tag at a second instance, and it is priced here so the next session does not re-argue it.\n\nFORCING FUNCTION: a second independent instance of an event-bounded interval. Most informative would be one in a segment that IS cassette-backed, since that would convert the cost above from latent to measured.\n\nSEARCH KEY: event-bounded interval, pendency, DuringTemporal, DateRef pair, temporal form gap, F25, C10-025, C10-03, section 8.11, section 8.12."
+  }
+ ]
+}
