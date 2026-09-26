@@ -168,9 +168,10 @@ def test_the_set_is_48_items_over_28_segments():
     # remaining four items land on THREE new segments (C04-174, C10-025,
     # E03-022), so both counts move. §8.8.4's measured cost is unaffected by
     # an addition, for the reason the comment above gives.
+    # v0.65+ (E01-004, 2026-09-25): 56 items over 33 segments.
     items = rs.load_gold_items(GOLDENS)
-    assert len(items) == 54
-    assert len(rs.segments_from_items(items)) == 32
+    assert len(items) == 56
+    assert len(rs.segments_from_items(items)) == 33
 
 
 # --- (3) the evidence the rule rests on --------------------------------------

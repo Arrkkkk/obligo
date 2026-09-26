@@ -132,8 +132,11 @@ def test_the_real_gold_set_has_consistent_segments_and_a_refused_mixed_stamp():
     # remaining four batch-5 items add THREE new segments, none of which has
     # a cassette, so all four are cassette-unscoreable under F16's per-item
     # check and the mixed-stamp refusal this test is named for still fires.
-    assert len(items) == 54
-    assert len(rs.segments_from_items(items)) == 32
+    # v0.65+ UPDATE (E01-004, 2026-09-25): 56 items over 33 segments. E01-004
+    # has no cassette, so both new items are cassette-unscoreable under F16's
+    # per-item check and the mixed-stamp refusal this test is named for fires.
+    assert len(items) == 56
+    assert len(rs.segments_from_items(items)) == 33
     with pytest.raises(ValueError, match="conforming pass"):
         rs.guideline_version_from_items(items)
 

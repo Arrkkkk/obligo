@@ -287,7 +287,9 @@ def test_the_forward_head_only_rule_is_satisfied_by_every_batch_4_item(items):
     # `without == []` above; this census pin exists to make a silent drop in
     # COVERAGE visible, and it only moves in lockstep when every new item
     # conforms -- which is what the +4/+4 records.
-    assert (carried, total) == (31, 54)
+    # v0.65+ (E01-004, 2026-09-25): 33/56, +2/+2 again in LOCKSTEP -- both
+    # E01-04 ('performance') and E01-05 ('employee') carry a head-only member.
+    assert (carried, total) == (33, 56)
 
 
 def test_the_head_only_rule_is_forward_only_and_restamped_nothing(items):

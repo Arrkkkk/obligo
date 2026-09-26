@@ -1,0 +1,49 @@
+{
+ "segment_id": "E01-004",
+ "doc_id": "E01",
+ "schema": "§2.7 (v0.50) -- complete per-sentence segment disposition. `not_annotatable` (§21 R6's original array, the only key run_scoring.load_not_annotatable() reads) is preserved for scoring; `dispositions` is the full per-sentence record §2.7 requires.",
+ "reconciliation": {
+  "sentences_total": 3,
+  "obligation_bearing_clauses": 2,
+  "items_annotated": 2,
+  "status": "PASS",
+  "note": "All three sentences are modal-bearing but only two are obligation-bearing. S3's exclusion is settled by E01's OWN DEFINITIONAL TEXT, not by inference: 'Service Manager' is defined inside S2 as an EMPLOYEE, so S3's subject is not a contracting party (E07-010's ground, which fires on a locked segment). The leading '(c) ' subsection marker is absorbed into S1's disposition rather than logged separately, as locked E02-006 does with its 'b) '. Segment clause count 2, within §2's 1-3 band."
+ },
+ "dispositions": [
+  {
+   "span_char_start": 0,
+   "span_char_end": 170,
+   "disposition": "ANNOTATED",
+   "rule": "-",
+   "reason": "Covers locked item E01-04. The '(c) ' marker is inside this span's leading characters and is not dispositioned separately.",
+   "item_id": "E01-04",
+   "span_text": "(c) Each Service Recipient and its respective Service Provider shall cooperate in good faith with each other in connection with the performance of the Services hereunder."
+  },
+  {
+   "span_char_start": 171,
+   "span_char_end": 548,
+   "disposition": "ANNOTATED",
+   "rule": "-",
+   "reason": "Covers locked item E01-05.",
+   "item_id": "E01-05",
+   "span_text": "Each of TWX and Time, in its capacity as a Service Provider, agrees to appoint one of its respective employees (each such employee, a “Service Manager”) who will have overall responsibility for managing and coordinating the delivery of Services, including making available the services of appropriately qualified employees and resources to enable the provision of the Services."
+  },
+  {
+   "span_char_start": 549,
+   "span_char_end": 650,
+   "disposition": "NOT_OBLIGATION_BEARING",
+   "rule": "§3.5 / §8.8 (non-party subject)",
+   "reason": "'The Service Managers will consult and coordinate with each other regarding the provision of Services.' The subject is a set of EMPLOYEES, not contracting parties -- E01 defines 'Service Manager' INSIDE S2 ('appoint one of its respective employees (each such employee, a \\u201cService Manager\\u201d)'), and its definitions list routes the term to Section 2.01(c), this very sentence. §8.8's named non-party-subject class; E07-010 ('These personnel shall also be responsible for...') is the locked precedent. CONSEQUENCE WORTH RECORDING: because this is not an item, the fact that 'coordinate' has NO taxonomy member (verified) never arises, and no compound_action / action_not_in_taxonomy question is reached.",
+   "span_text": "The Service Managers will consult and coordinate with each other regarding the provision of Services."
+  }
+ ],
+ "not_annotatable": [
+  {
+   "span_char_start": 549,
+   "span_char_end": 650,
+   "rule": "§3.5 / §8.8 (non-party subject)",
+   "reason": "Subject is a set of employees ('Service Managers'), not contracting parties. E07-010's ground.",
+   "span_text": "The Service Managers will consult and coordinate with each other regarding the provision of Services."
+  }
+ ]
+}

@@ -1,0 +1,71 @@
+{
+ "doc_id": "E01",
+ "segment_id": "E01-004",
+ "stratum": "hard",
+ "segment_text": "(c) Each Service Recipient and its respective Service Provider shall cooperate in good faith with each other in connection with the performance of the Services hereunder. Each of TWX and Time, in its capacity as a Service Provider, agrees to appoint one of its respective employees (each such employee, a “Service Manager”) who will have overall responsibility for managing and coordinating the delivery of Services, including making available the services of appropriately qualified employees and resources to enable the provision of the Services. The Service Managers will consult and coordinate with each other regarding the provision of Services.",
+ "temporal": null,
+ "conditions": [],
+ "underspecified": true,
+ "missing_fields": [
+  "obligor",
+  "obligee"
+ ],
+ "vague_temporal_phrase": null,
+ "redacted_phrase": null,
+ "annotator_confidence": "CONFIDENT",
+ "annotated_at": "2026-09-25T00:00:00+00:00",
+ "rules_cited": [
+  "2",
+  "2.1",
+  "2.7",
+  "3.1",
+  "3.2",
+  "3.4",
+  "3.5",
+  "3.5.1",
+  "3.5.4",
+  "3.6",
+  "3.6.1",
+  "3.6.2",
+  "3.7",
+  "3.8",
+  "3.8.2",
+  "3.9",
+  "4.3",
+  "8",
+  "8.4",
+  "8.4.2",
+  "8.8",
+  "8.8.4",
+  "9.1",
+  "15",
+  "16",
+  "21"
+ ],
+ "guideline_version": "v0.65",
+ "reviewer_status": "APPROVED",
+ "adjudicated_by": "reviewer",
+ "item_id": "E01-04",
+ "span_char_start": 0,
+ "span_char_end": 170,
+ "span_text": "(c) Each Service Recipient and its respective Service Provider shall cooperate in good faith with each other in connection with the performance of the Services hereunder.",
+ "modality": "MUST",
+ "action": "COOPERATE",
+ "action_accept_set": [
+  "COOPERATE"
+ ],
+ "obligor": "Each Service Recipient and its respective Service Provider",
+ "obligor_accept_set": [],
+ "obligee": "each other",
+ "object_class": "service_performance",
+ "object_class_accept_set": [
+  "service_performance",
+  "performance",
+  "service_delivery",
+  "performance_of_services"
+ ],
+ "known_gaps": [
+  "mutual_obligation"
+ ],
+ "annotator_notes": "S1 of E01-004 -- the FIRST of the segment's two items. Batch 5, seed 20260919 hard queue, position 12.\n\nSEGMENT SHAPE. E01-004, 3 sentences, all three modal-bearing, 2 obligation-bearing clauses -- within section 2's 1-3 band. S1 [0:170] and S2 [171:548] are the two items. S3 [549:650] is NOT_OBLIGATION_BEARING, and that is settled by the DOCUMENT'S OWN DEFINITIONAL TEXT rather than by inference: E01 defines \"Service Manager\" INSIDE S2 -- 'appoint one of its respective EMPLOYEES (each such employee, a \"Service Manager\")' -- so S3's subject 'The Service Managers' is a set of EMPLOYEES, not contracting parties. That is section 3.5 / section 8.8's non-party-subject class, and E07-010's exact ground ('These personnel shall also be responsible for the installation of new TIBCO software releases'), which already fires on a LOCKED segment. Verified by reading E01's own definitions list, which routes \"Service Manager\" to Section 2.01(c) -- this very sentence. Because S3 is not an item, the fact that 'coordinate' has no taxonomy member never arises.\n\nA REGISTRY-COMPLETENESS GAP FOUND IN PASSING, NOT LOAD-BEARING HERE AND RECORDED SO IT IS NOT REDISCOVERED. E01 defines \"Service Provider\" (78 occurrences) and \"Service Recipient\" (57) as QUOTED, DEFINED ROLES, and section 21 R3 requires a registry to carry 'every party the source document's own preamble defines, PROPER NAMES AND DEFINED ROLES ALIKE'. evals/registry/E01.json carries only TWX -> Time Warner Inc. and Time -> Time Inc. NOTHING IN THIS SEGMENT TURNS ON IT: both items are underspecified on section 3.9 trigger 1 regardless, because both obligor values are distributive/collective references that resolve_party() could not match whatever the registry held. Belongs with CLAUDE.md's registry debt bullet (filed 2026-09-24).\n\nMUTUAL_OBLIGATION FIRES -- THE FIFTH LOCKED CARRIER, after C17-01, C14-01, C14-02 and E01-02. Worked through section 8.4.2's three-part procedure IN ORDER rather than read off the marker word, which is the specific error that section's marker-regex paragraph warns about (a bare grep for its five reciprocity markers fires wrongly on C04-02, where 'mutually' attaches to the trigger rather than the duty, and MISSES C17-01 entirely, whose reciprocity is a named conjunction with no marker at all). (a) modality is duty-bearing: MUST. PASSES. (b) the obligation binds two or more parties: the obligor slot carries a distributive naming two roles, 'Each Service Recipient and its respective Service Provider'. PASSES. (c) the obligee is that same counterparty: 'with each other' is the reciprocal form (c) recognises. PASSES. All three hold, so the tag fires and the lost second duty is countable.\n\n  CONTRAST WITH ITS OWN SIBLING, stated because the two come out OPPOSITE and that could read as inconsistency. E01-05, in this same segment with the same two parties, does NOT carry the tag -- its (c) fails on an ABSENT obligee. That is the procedure DISCRIMINATING, not the segment being annotated two ways: S1 says 'with each other' and S2 says nothing. Section 8.4.2 exists precisely so this turns on a stated obligee rather than on the surface plurality of the subject.\n\nACTION COOPERATE, a literal taxonomy member (verified against ast.py's real ACTIONS). SINGLETON ACCEPT-SET on ordinary section 3.4 grounds and NOT on section 8.8's -- no action_not_in_taxonomy is owed, because COOPERATE is the verb the sentence uses; the set is a singleton because no other member is defensible for a duty to cooperate. C13-03's ['TERMINATE'] is the precedent for a non-gap singleton.\n\nOBJECT_CLASS 'service_performance', head-only member 'performance' -- AND THIS ITEM SETS A GENERAL PRINCIPLE, REVIEWER-RULED 2026-09-25, BECAUSE IT IS THE SET'S FIRST COOPERATE ITEM AND ITS FIRST INTRANSITIVE-VERB CASE.\n\n  THE PROBLEM. 'cooperate' takes NO DIRECT OBJECT. What the parties cooperate ABOUT arrives only as an adjunct -- 'in connection with the performance of the Services hereunder' -- so section 3.6's head-noun rule has no direct object to apply to, a configuration no locked item had reached.\n\n  THE RULE: WHERE THE VERB TAKES NO DIRECT OBJECT AND THE \"OBJECT\" EXISTS ONLY AS AN `in connection with` / `with respect to` ADJUNCT, SECTION 3.6's HEAD-NOUN RULE STILL APPLIES -- TO THAT ADJUNCT PHRASE'S OWN HEAD. Do NOT substitute a more semantically salient noun from further inside the phrase merely because it feels like the \"real\" object. Here the adjunct phrase is 'the performance of the Services hereunder', whose head is 'performance', so the head-only member is 'performance' and NOT 'services'.\n\n  WHY, AND IT IS NOT A NEW DISCIPLINE: this is exactly what C04-03's counter-example already establishes for DIRECT objects, extended to the adjunct case for the first time. C04-03 carries 'goods' -- 1 token AND genuinely present in its span -- while the object phrase is 'Each quantity of Miltenyi Product(s)' and the real head is 'product'; the bound exists to stop a label being picked because it is a salient 1-token noun in the span rather than because it is the head. 'services' here would fail on the identical ground.\n\n  SECTION 3.6.1 AND 3.6.2 BOTH CLEAR: no member restates the action or either party, and 'performance' is NOT the nominal of COOPERATE -- 'cooperation' is, which is exactly why it was DELIBERATELY NOT AUTHORED; it would be section 3.6.2's cognate-object residue and would collapse clauses 2 and 5 into each other.\n\nCONDITIONS EMPTY -- 'in good faith' IS A REVIEWABLE-STANDARD PHRASE AND IS NOT A CONDITIONS ENTRY. Section 3.8's v0.54 rule, whose first instance was C04-06's 'acting reasonably'; this is the SECOND. The phrase governs HOW the duty is performed, not WHETHER it applies, and section 2.5.1's cross-reference there is the reason the same phrase can do eligibility work while staying out of `conditions` -- the two sections ask different questions. Section 16 is cited for completeness: an efforts/good-faith qualifier does not soften the modality either, so MUST rather than SHOULD.\n\nTEMPORAL NULL. The span carries no timing phrase at all -- not a vague qualifier (section 15 does not apply) and not an unrepresentable form. Section 3.9's own note applies: 'temporal: null is never a trigger' for underspecified.\n\nUNDERSPECIFIED TRUE on section 3.9 trigger 1, twice. 'Each Service Recipient and its respective Service Provider' is a DISTRIBUTIVE reference over two defined ROLES, and 'each other' is a RELATIONAL reference -- both named explicitly by that trigger, and neither could match resolve_party() whatever the registry held.\n\nSPAN INCLUDES THE LEADING '(c) '? NO -- it does not. The span starts at the sentence's own subject, and the '(c)' subsection marker is absorbed into the disposition rather than the span, the same treatment locked segment E02-006 gives its 'b) ' and E03-037/E03-046 give their headings. The trailing period IS included, per the measured gold convention (section 7.1's fourth finding).\n\nPROVENANCE. Segment text reproduces byte-for-byte against both the live corpus pool rebuild (1,547 segments, the pool's own known-answer gate) and batch04/draw.json. Sentence split produced by corpus.split_sentences(), gated against locked segment E02-006's committed section 2.7 offsets (Standing Principle 7).\n\nREVIEWER-APPROVED 2026-09-25. The one call put explicitly was the object_class head-noun question above, ruled as a general principle rather than for this item alone."
+}

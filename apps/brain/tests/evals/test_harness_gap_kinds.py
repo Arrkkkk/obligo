@@ -364,7 +364,11 @@ def test_the_legacy_denominator_is_still_computable_and_differs(gold_items):
     # documented COST of F25 being measured rather than a bookkeeping bump:
     # an untagged gap makes an item scoreable. C04-09, E03-04 and E03-05 all
     # carry tags and do NOT move this number.
-    assert live.legacy_no_known_gaps_denominator == 22
+    # v0.65+ (E01-004, 2026-09-25): 23. The +1 is `E01-05` alone. Its sibling
+    # E01-04 carries `mutual_obligation` (REPRESENTATIONAL), so it is excluded
+    # from BOTH scopes on its own tag -- a simpler exclusion than E03-04/E03-05's,
+    # where an ADMITTING kind was overridden by a co-occurring excluding one.
+    assert live.legacy_no_known_gaps_denominator == 23
     # v0.65+ (batch 5, 2026-09-25): 27. BOTH scopes move by exactly +1 and the
     # +1 is `C10-03` in both -- it carries no tag at all, so nothing excludes it
     # from either. THE OTHER THREE ARE THE INTERESTING HALF, and they are the
@@ -376,7 +380,9 @@ def test_the_legacy_denominator_is_still_computable_and_differs(gold_items):
     # membership rule excludes by ANY excluding tag. That is the v0.22 rule the
     # kind axis left untouched, doing its job on a new combination; `C14-02` is
     # the precedent (excluded by `mutual_obligation` despite `shared_subject_split`).
-    assert live.criterion2_no_known_gaps[1] == 27
+    # v0.65+ (E01-004, 2026-09-25): 28. Same +1, same single item (`E01-05`):
+    # it carries no tag at all, so nothing excludes it from either scope.
+    assert live.criterion2_no_known_gaps[1] == 28
     assert live.criterion2_no_known_gaps[1] > live.legacy_no_known_gaps_denominator, (
         "the two scopes must still differ -- that difference IS F17"
     )
