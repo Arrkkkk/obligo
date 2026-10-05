@@ -170,9 +170,14 @@ def test_the_set_is_48_items_over_28_segments():
     # an addition, for the reason the comment above gives.
     # v0.65+ (E01-004, 2026-09-25): 56 items over 33 segments.
     # v0.65+ (C04-144, 2026-10-04): 58 items over 34 segments.
+    # v0.65+ (C04-033, 2026-10-05): 60 items over 35 segments. C04-033 is also the
+    # FIRST LOCKED INSTANCE of one §8.8.4 predicate carrying BOTH limbs across a
+    # coordinated complement -- C04-13 is the RENDER half; the ABSORB half is
+    # NOT_OBLIGATION_BEARING in the segment file. §8.8.4's measured cost is
+    # unaffected: no locked item it names is touched.
     items = rs.load_gold_items(GOLDENS)
-    assert len(items) == 58
-    assert len(rs.segments_from_items(items)) == 34
+    assert len(items) == 60
+    assert len(rs.segments_from_items(items)) == 35
 
 
 # --- (3) the evidence the rule rests on --------------------------------------

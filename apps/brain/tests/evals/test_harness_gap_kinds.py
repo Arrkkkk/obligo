@@ -372,7 +372,11 @@ def test_the_legacy_denominator_is_still_computable_and_differs(gold_items):
     # gap (F28) and its efforts-standard redaction (F29) are both carried UNTAGGED
     # by ruling, so nothing excludes it. Its sibling C04-11 carries
     # action_not_in_taxonomy and does not move either denominator.
-    assert live.legacy_no_known_gaps_denominator == 24
+    # v0.65+ (C04-033, 2026-10-05): 25. THE TWO DENOMINATORS MOVE BY DIFFERENT
+    # AMOUNTS HERE FOR THE FIRST TIME IN BATCH 5, and that is the kind axis doing
+    # exactly what F9 built it for. LEGACY moves +1, `C04-13` alone, because legacy
+    # keys on `known_gaps` being EMPTY and C04-12 carries one tag.
+    assert live.legacy_no_known_gaps_denominator == 25
     # v0.65+ (batch 5, 2026-09-25): 27. BOTH scopes move by exactly +1 and the
     # +1 is `C10-03` in both -- it carries no tag at all, so nothing excludes it
     # from either. THE OTHER THREE ARE THE INTERESTING HALF, and they are the
@@ -391,7 +395,14 @@ def test_the_legacy_denominator_is_still_computable_and_differs(gold_items):
     # co-occurring excluding one -- corpus_artifact_in_span is CORPUS_DEFECT, which
     # §9.1 admits, but action_not_in_taxonomy (REPRESENTATIONAL) excludes it anyway
     # under §9's any-excluding-tag rule. E03-04/E03-05 are the precedent.
-    assert live.criterion2_no_known_gaps[1] == 29
+    # v0.65+ (C04-033, 2026-10-05): 31 -- KIND-SCOPED moves +2, BOTH new items.
+    # C04-12's only tag is `corpus_artifact_in_span`, a CORPUS_DEFECT kind §9.1
+    # ADMITS, so it enters the kind-scoped denominator while staying out of the
+    # legacy one. This is the MIRROR of C04-11, where an ADMITTING kind
+    # (corpus_artifact_in_span again) was OVERRIDDEN by a co-occurring
+    # REPRESENTATIONAL tag -- same tag, opposite outcome, decided by what else the
+    # item carries.
+    assert live.criterion2_no_known_gaps[1] == 31
     assert live.criterion2_no_known_gaps[1] > live.legacy_no_known_gaps_denominator, (
         "the two scopes must still differ -- that difference IS F17"
     )

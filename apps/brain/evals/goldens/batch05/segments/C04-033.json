@@ -1,0 +1,79 @@
+{
+ "segment_id": "C04-033",
+ "doc_id": "C04",
+ "schema": "§2.7 (v0.50) -- complete per-sentence segment disposition. `not_annotatable` (§21 R6's array, the only key run_scoring.load_not_annotatable() reads) is preserved for scoring; `dispositions` is the full record §2.7 requires, at SUB-SENTENCE granularity because the segment's single operative sentence holds five structurally distinct spans.",
+ "reconciliation": {
+  "sentences_total": 2,
+  "obligation_bearing_clauses": 2,
+  "items_annotated": 2,
+  "status": "PASS",
+  "note": "BOTH GUARDS RUN BEFORE ANNOTATION. F27 (splitter over-split): CLEAN -- zero redaction-induced splits, zero abbreviations, so the splitter's 2 fragments are both real. §8.7 (page furniture): the 74-char running header IS present at [840:914] with page-number prefix 8, as the 43-page measurement predicted; it falls inside C04-12's span, so the tag attaches to that item. Dispositioned at SUB-SENTENCE granularity: 2 sentences but 5 distinct spans. The count of 2 rests on two rulings -- (i) is STATUS not conduct (so it is a condition on C04-12, not a third clause) and (ii)'s ABSORB complement is not a clause -- and had either gone the other way the segment would have reached 4 and failed §2's band. Each was ruled on its own rule, not on the count."
+ },
+ "dispositions": [
+  {
+   "span_char_start": 0,
+   "span_char_end": 34,
+   "disposition": "NOT_OBLIGATION_BEARING",
+   "rule": "§2.6 / §2.7",
+   "reason": "Section heading fragment -- no modal, no finite verb, no subject+predicate.",
+   "span_text": "2.8 Transfer of Miltenyi Products."
+  },
+  {
+   "span_char_start": 35,
+   "span_char_end": 971,
+   "disposition": "ANNOTATED",
+   "rule": "-",
+   "reason": "Covers locked item C04-12, the main MAY right. Carries corpus_artifact_in_span (the page-8 running header at [840:914], inside this span) and three conditions entries, the third of which is sub-clause (i) below.",
+   "item_id": "C04-12",
+   "span_text": "Bellicum shall have the right to transfer Miltenyi Product(s) purchased hereunder, or to request from Miltenyi, by notice in writing, that Miltenyi Deliver any Miltenyi Product(s) purchased hereunder to an Affiliate of Bellicum or a Subcontractor or Licensee of Bellicum Product designated by Bellicum, solely for the purpose of the Permitted Use, subject to the payment to Miltenyi of all additional expenses (if any) incurred by Miltenyi in connection with such provision and transfer of Miltenyi Product(s) to Bellicum's designee; and provided that in each case: (i) each Subcontractor or Licensee of Bellicum to whom Miltenyi Products are transferred shall be bound in writing by limitations and obligations that are consistent with the corresponding limitations and obligations imposed on Bellicum 8 Miltenyi Biotec-Bellicum Supply Agreement (Execution Copy, March 27, 2019) hereunder and under the Quality Agreement, as applicable"
+  },
+  {
+   "span_char_start": 601,
+   "span_char_end": 971,
+   "disposition": "NOT_OBLIGATION_BEARING",
+   "rule": "§8.8 (copular/stative status class) / §3.5 (non-party subject); §3.8.1 branch 2",
+   "reason": "Sub-clause (i): \"each Subcontractor or Licensee of Bellicum to whom Miltenyi Products are transferred shall be bound in writing by limitations and obligations that are consistent with the corresponding limitations and obligations imposed on Bellicum <PAGE-8 RUNNING HEADER> hereunder and under the Quality Agreement, as applicable.\"\n\nNOT_OBLIGATION_BEARING AS A STANDALONE CLAUSE, REVIEWER-RULED, ON THE STATIVE-VERSUS-EVENT TEST ALONE. \"shall be bound\" is a STATIVE PASSIVE: the Subcontractor COMES TO BE under obligation; it describes a legal STATUS rather than commanding conduct. That is section 8.8's copular class, and the subject is additionally a NON-PARTY (a Subcontractor or Licensee, an unnamed third party section 21 R3 excludes). A modal IS present -- \"shall\" -- verified by execution, so section 3.8.1 branch 2 is reached on its merits rather than by default; the modal is what makes this a real question instead of an orphan fragment.\n\nDECIDED ON STATIVE-VERSUS-EVENT ALONE, NOT ON THE TAXONOMY GAP IT WOULD HAVE RAISED -- the same discipline the C10-025 S1b savings-provision exclusion was ruled under. HAD it been ruled conduct, a section 8.8 question would have followed immediately: BIND is NOT in ast.py's ACTIONS (verified by execution), ENSURE and PROCURE were the candidates, and the likely outcome was a genuine gap with action_not_in_taxonomy. THAT QUESTION IS DELIBERATELY NOT REACHED AND NO MAPPING IS RECORDED: an eligibility question must not be answered by reference to how awkward the downstream annotation would be, which is the motivated-reasoning shape this project has corrected before.\n\nTHE COUNTER-READING, RECORDED AS FORWARD GUIDANCE RATHER THAN DISMISSED: \"bound IN WRITING\" implies an ACT -- someone must execute a written instrument -- so the clause can be read as conduct with the agent suppressed, which would make it an item (obligor ABSENT per section 3.5.3) carrying action_not_in_taxonomy. THE COST OF THE RULING AS MADE IS STATED PLAINLY: a real flow-down requirement -- that transferees be contractually bound on terms mirroring Bellicum's -- is recorded as a CONDITION on C04-12's right rather than as an obligation in its own right, so nothing in the gold set asserts that anyone must bring that binding about. That is a genuine loss of a monitorable duty, accepted because the clause as written assigns a status and names no actor. No queue row; a second instance should be decided by citing this one.\n\nCONSEQUENCE FOR THE COUNT AND THE SPAN. Because branch 1 fails (it is not a standalone duty), section 3.8.1 branch 2 makes (i) a VERBATIM CONDITION on the main right -- C04-12's third conditions entry -- so this span sits INSIDE an annotated span while itself being non-obligation-bearing. That is C14-02's shape, where an annotated span likewise contains a NOT_OBLIGATION_BEARING clause, and it is not an inconsistency: the span is drawn by section 3.1's minimal-complete-obligation test, which requires the proviso the right is subject to.",
+   "span_text": "(i) each Subcontractor or Licensee of Bellicum to whom Miltenyi Products are transferred shall be bound in writing by limitations and obligations that are consistent with the corresponding limitations and obligations imposed on Bellicum 8 Miltenyi Biotec-Bellicum Supply Agreement (Execution Copy, March 27, 2019) hereunder and under the Quality Agreement, as applicable"
+  },
+  {
+   "span_char_start": 982,
+   "span_char_end": 1189,
+   "disposition": "ANNOTATED",
+   "rule": "-",
+   "reason": "Covers locked item C04-13, sub-clause (ii)'s RENDER half (§8.8.4). Span deliberately ends at 'for payment of the Product Price', excluding the ABSORB complement below.",
+   "item_id": "C04-13",
+   "span_text": "notwithstanding the transfer of any Miltenyi Product purchased hereunder, Bellicum will nevertheless continue to remain fully and primarily responsible and liable to Miltenyi for payment of the Product Price"
+  },
+  {
+   "span_char_start": 1190,
+   "span_char_end": 1306,
+   "disposition": "NOT_OBLIGATION_BEARING",
+   "rule": "§8.8.4 ABSORB limb (c) -- another person's conduct",
+   "reason": "Sub-clause (ii)'s SECOND complement: \"and for the use of the Miltenyi Product by any Subcontractor and Licensee to whom a Miltenyi Product is transferred.\"\n\nNOT_OBLIGATION_BEARING under section 8.8.4's ABSORB limb (c) -- ANOTHER PERSON'S CONDUCT. The governing predicate is \"Bellicum will nevertheless continue to remain fully and primarily responsible and liable to Miltenyi\", and section 8.8.4's holding is that THE COMPLEMENT DECIDES, NOT THE CONSTRUCTION: a complement naming a burden the obligor must ABSORB -- a cost, a risk, or another person's breach or failure -- is the copular status class. Allocating liability for a Subcontractor's use is C03-024's shape (\"liable for such Affiliate's FAILURE to satisfy its obligations\"), not C03-016's (\"responsible for any and all OBLIGATIONS of any such Affiliate\").\n\nTHIS SEGMENT IS THE FIRST LOCKED INSTANCE OF ONE section 8.8.4 PREDICATE CARRYING BOTH LIMBS ACROSS A COORDINATED COMPLEMENT -- the RENDER half (\"for payment of the Product Price\") is locked item C04-13, this ABSORB half is not an item. Section 8.8.4 anticipated the configuration and named C04-088 as repeating the C03-016/C03-024 pair inside one segment, but C04-088 is NOT a locked item (checked, not assumed), so no adjudicated instance existed. Ruled as CASE-LAW with NO AMENDMENT: section 8.8.4's existing test decides it unaided.\n\nAN ABSORB HALF IS NOT A CLAUSE, which is why the segment counts 2 obligation-bearing clauses and not 3. Counting it would have put the segment at 4 and over section 2's band -- so the reading was checked against that consequence and rejected on the rule rather than on the count, the C14-139 discipline.",
+   "span_text": "and for the use of the Miltenyi Product by any Subcontractor and Licensee to whom a Miltenyi Product is transferred."
+  }
+ ],
+ "not_annotatable": [
+  {
+   "span_char_start": 0,
+   "span_char_end": 34,
+   "rule": "§2.6 / §2.7",
+   "reason": "Heading fragment.",
+   "span_text": "2.8 Transfer of Miltenyi Products."
+  },
+  {
+   "span_char_start": 601,
+   "span_char_end": 971,
+   "rule": "§8.8 / §3.5",
+   "reason": "Stative passive assigning a status to a non-party subject; carried as a condition on C04-12 rather than as an item.",
+   "span_text": "(i) each Subcontractor or Licensee of Bellicum to whom Miltenyi Products are transferred shall be bound in writing by limitations and obligations that are consistent with the corresponding limitations and obligations imposed on Bellicum 8 Miltenyi Biotec-Bellicum Supply Agreement (Execution Copy, March 27, 2019) hereunder and under the Quality Agreement, as applicable"
+  },
+  {
+   "span_char_start": 1190,
+   "span_char_end": 1306,
+   "rule": "§8.8.4 ABSORB limb (c)",
+   "reason": "Another person's conduct -- the copular status class, not a clause.",
+   "span_text": "and for the use of the Miltenyi Product by any Subcontractor and Licensee to whom a Miltenyi Product is transferred."
+  }
+ ]
+}
