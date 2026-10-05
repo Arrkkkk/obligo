@@ -1,0 +1,49 @@
+{
+ "segment_id": "C04-144",
+ "doc_id": "C04",
+ "schema": "§2.7 (v0.50) -- complete per-sentence segment disposition. `not_annotatable` (§21 R6's array, the only key run_scoring.load_not_annotatable() reads) is preserved for scoring; `dispositions` is the full per-sentence record §2.7 requires.",
+ "reconciliation": {
+  "sentences_total": 3,
+  "obligation_bearing_clauses": 2,
+  "items_annotated": 2,
+  "status": "PASS",
+  "note": "SENTENCES_TOTAL IS 3, NOT THE 5 `corpus.split_sentences()` RETURNS -- see §10.1 F27. The splitter breaks at `[...***...]` redaction marks, so sentence A is returned as two fragments ([0:301]+[302:604]) and sentence C as two ([1518:1624]+[1625:1787]). Offsets here are the REAL sentence boundaries. The leading '(b) ' subsection marker is absorbed into A's span start (4) rather than logged as a class of its own, as locked E02-006 does with its 'b) '. Segment clause count 2, within §2's 1-3 band."
+ },
+ "dispositions": [
+  {
+   "span_char_start": 4,
+   "span_char_end": 604,
+   "disposition": "ANNOTATED",
+   "rule": "-",
+   "reason": "Covers locked item C04-10 (sentence A). Carries the disjunctive-obligation gap (F28) and the efforts-standard redaction (F29), both untagged by ruling.",
+   "item_id": "C04-10",
+   "span_text": "In the event of breach of Miltenyi's warranties in Section 11.2 due to an actual or alleged infringement of a Third Party's Intellectual Property Rights due to Miltenyi's manufacture or sale, or Bellicum's import, export or use of any Miltenyi Product, Miltenyi shall at its option use [...***...] to either promptly and diligently negotiate a license from such Third Party at its own expense (including the payment due to the Third Party for such license) or modify the relevant Miltenyi Product(s) so that the supplied Miltenyi Product(s) are no longer infringing but have equivalent functionality."
+  },
+  {
+   "span_char_start": 605,
+   "span_char_end": 1517,
+   "disposition": "ANNOTATED",
+   "rule": "-",
+   "reason": "Covers locked item C04-11 (sentence B). Carries corpus_artifact_in_span (the 74-char running header at [1314:1391]) and action_not_in_taxonomy ('offset').",
+   "item_id": "C04-11",
+   "span_text": "If Miltenyi fails to negotiate such license or modify the applicable Miltenyi Product, and to the extent Bellicum reasonably determines, following consultation with Miltenyi, that it is obligated to take a royalty-bearing license under any Third Party Intellectual Property Rights in order to avoid infringement of such Third Party Intellectual Property Rights with respect to the use of the applicable Miltenyi Product, then Bellicum shall have the right to offset any payment actually made to the Third Party for such license in any Contract Year against any Product Price payable to Miltenyi for the applicable Miltenyi Product in the same 33 Miltenyi Biotec-Bellicum Supply Agreement (Execution Copy, March 27, 2019) Contract Year (on a Miltenyi Product-by-Miltenyi Product basis), under the proviso that Bellicum provides Miltenyi with reasonably satisfactory evidence of such Third Party royalties payment."
+  },
+  {
+   "span_char_start": 1518,
+   "span_char_end": 1787,
+   "disposition": "NOT_OBLIGATION_BEARING",
+   "rule": "§2 / §3.2 / §8.8 (non-party subject; cap/limit statement)",
+   "reason": "'The total amount of any reduction(s) pursuant to this Section 11.5(b) shall in no event exceed [...***...] percent ([...***...]%) of the Product Price ... (with the right to carry forward any unused offset).' THE SUBJECT IS 'The total amount' -- a quantity, not a party -- and 'shall in no event exceed' states a CAP on the offset right C04-11 annotates, not conduct required of anyone. §8.8's named non-party-subject class; same ground as C17-038's 'shall survive' and C02-062's event-subject savings clause, and the same shape as C04-180's 'all such counterparts ... shall constitute one and the same agreement'. NOBODY IS TOLD TO DO OR REFRAIN FROM ANYTHING: the sentence bounds how large a permitted offset may be. The trailing parenthetical '(with the right to carry forward any unused offset)' is a further grant of the same right C04-11 already carries, not a separate duty, and is absorbed here rather than dispositioned separately -- it has no subject or modal of its own. NOTE: this sentence carries two of the segment's three redactions ([1613:1624] and [1634:1645]); because it is not an item, no §8.1 question is reached for either.",
+   "span_text": "The total amount of any reduction(s) pursuant to this Section 11.5(b) shall in no event exceed [...***...] percent ([...***...]%) of the Product Price payable for the applicable Miltenyi Product in that Contract Year (with the right to carry forward any unused offset)."
+  }
+ ],
+ "not_annotatable": [
+  {
+   "span_char_start": 1518,
+   "span_char_end": 1787,
+   "rule": "§2 / §3.2 / §8.8 (non-party subject; cap/limit statement)",
+   "reason": "Subject is 'The total amount' (a quantity); 'shall in no event exceed' caps the offset right rather than commanding conduct.",
+   "span_text": "The total amount of any reduction(s) pursuant to this Section 11.5(b) shall in no event exceed [...***...] percent ([...***...]%) of the Product Price payable for the applicable Miltenyi Product in that Contract Year (with the right to carry forward any unused offset)."
+  }
+ ]
+}

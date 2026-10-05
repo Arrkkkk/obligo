@@ -368,7 +368,11 @@ def test_the_legacy_denominator_is_still_computable_and_differs(gold_items):
     # E01-04 carries `mutual_obligation` (REPRESENTATIONAL), so it is excluded
     # from BOTH scopes on its own tag -- a simpler exclusion than E03-04/E03-05's,
     # where an ADMITTING kind was overridden by a co-occurring excluding one.
-    assert live.legacy_no_known_gaps_denominator == 23
+    # v0.65+ (C04-144, 2026-10-04): 24. The +1 is `C04-10` alone -- its disjunctive
+    # gap (F28) and its efforts-standard redaction (F29) are both carried UNTAGGED
+    # by ruling, so nothing excludes it. Its sibling C04-11 carries
+    # action_not_in_taxonomy and does not move either denominator.
+    assert live.legacy_no_known_gaps_denominator == 24
     # v0.65+ (batch 5, 2026-09-25): 27. BOTH scopes move by exactly +1 and the
     # +1 is `C10-03` in both -- it carries no tag at all, so nothing excludes it
     # from either. THE OTHER THREE ARE THE INTERESTING HALF, and they are the
@@ -382,7 +386,12 @@ def test_the_legacy_denominator_is_still_computable_and_differs(gold_items):
     # the precedent (excluded by `mutual_obligation` despite `shared_subject_split`).
     # v0.65+ (E01-004, 2026-09-25): 28. Same +1, same single item (`E01-05`):
     # it carries no tag at all, so nothing excludes it from either scope.
-    assert live.criterion2_no_known_gaps[1] == 28
+    # v0.65+ (C04-144, 2026-10-04): 29. Same +1, same single item (`C04-10`).
+    # C04-11 is the batch's second item where an ADMITTING kind is overridden by a
+    # co-occurring excluding one -- corpus_artifact_in_span is CORPUS_DEFECT, which
+    # §9.1 admits, but action_not_in_taxonomy (REPRESENTATIONAL) excludes it anyway
+    # under §9's any-excluding-tag rule. E03-04/E03-05 are the precedent.
+    assert live.criterion2_no_known_gaps[1] == 29
     assert live.criterion2_no_known_gaps[1] > live.legacy_no_known_gaps_denominator, (
         "the two scopes must still differ -- that difference IS F17"
     )

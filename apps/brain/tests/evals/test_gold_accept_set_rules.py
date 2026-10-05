@@ -289,7 +289,9 @@ def test_the_forward_head_only_rule_is_satisfied_by_every_batch_4_item(items):
     # conforms -- which is what the +4/+4 records.
     # v0.65+ (E01-004, 2026-09-25): 33/56, +2/+2 again in LOCKSTEP -- both
     # E01-04 ('performance') and E01-05 ('employee') carry a head-only member.
-    assert (carried, total) == (33, 56)
+    # v0.65+ (C04-144, 2026-10-04): 35/58, +2/+2 in LOCKSTEP again -- C04-10
+    # ('license') and C04-11 ('payment') both carry a head-only member.
+    assert (carried, total) == (35, 58)
 
 
 def test_the_head_only_rule_is_forward_only_and_restamped_nothing(items):

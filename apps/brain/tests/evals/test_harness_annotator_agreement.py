@@ -548,11 +548,13 @@ def test_new_items_are_outside_the_published_run_and_would_have_moved_K(cold):
     # saw, so they join the same category. `published` STILL does not move.
     # v0.65+ (2026-09-25): E01-04/E01-05 land on E01-004, another segment the
     # cold run never saw. `published` STILL does not move.
+    # v0.65+ (2026-10-04): C04-10/C04-11 land on C04-144, another segment the
+    # cold run never saw. `published` STILL does not move.
     batch5 = {"E02-01", "E02-02", "C04-09", "C10-03", "E03-04", "E03-05",
-              "E01-04", "E01-05"}
+              "E01-04", "E01-05", "C04-10", "C04-11"}
     assert added == {"C11-02", "C04-06", "C11-03", "C14-06"} | batch4 | batch5, added
     assert len(published) == 32
-    assert len(live) == 56
+    assert len(live) == 58
 
     # Batch 4 is the first ADDITION WITH NO COLD COUNTERPART AT ALL, and that is
     # a stronger fact than `C14-06`'s. The 2026-08-29 cold run annotated the 22

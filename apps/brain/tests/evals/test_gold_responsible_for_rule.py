@@ -169,9 +169,10 @@ def test_the_set_is_48_items_over_28_segments():
     # E03-022), so both counts move. §8.8.4's measured cost is unaffected by
     # an addition, for the reason the comment above gives.
     # v0.65+ (E01-004, 2026-09-25): 56 items over 33 segments.
+    # v0.65+ (C04-144, 2026-10-04): 58 items over 34 segments.
     items = rs.load_gold_items(GOLDENS)
-    assert len(items) == 56
-    assert len(rs.segments_from_items(items)) == 33
+    assert len(items) == 58
+    assert len(rs.segments_from_items(items)) == 34
 
 
 # --- (3) the evidence the rule rests on --------------------------------------

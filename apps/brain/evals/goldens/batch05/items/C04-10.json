@@ -1,0 +1,73 @@
+{
+ "item_id": "C04-10",
+ "doc_id": "C04",
+ "segment_id": "C04-144",
+ "stratum": "hard",
+ "segment_text": "(b) In the event of breach of Miltenyi's warranties in Section 11.2 due to an actual or alleged infringement of a Third Party's Intellectual Property Rights due to Miltenyi's manufacture or sale, or Bellicum's import, export or use of any Miltenyi Product, Miltenyi shall at its option use [...***...] to either promptly and diligently negotiate a license from such Third Party at its own expense (including the payment due to the Third Party for such license) or modify the relevant Miltenyi Product(s) so that the supplied Miltenyi Product(s) are no longer infringing but have equivalent functionality. If Miltenyi fails to negotiate such license or modify the applicable Miltenyi Product, and to the extent Bellicum reasonably determines, following consultation with Miltenyi, that it is obligated to take a royalty-bearing license under any Third Party Intellectual Property Rights in order to avoid infringement of such Third Party Intellectual Property Rights with respect to the use of the applicable Miltenyi Product, then Bellicum shall have the right to offset any payment actually made to the Third Party for such license in any Contract Year against any Product Price payable to Miltenyi for the applicable Miltenyi Product in the same 33 Miltenyi Biotec-Bellicum Supply Agreement (Execution Copy, March 27, 2019) Contract Year (on a Miltenyi Product-by-Miltenyi Product basis), under the proviso that Bellicum provides Miltenyi with reasonably satisfactory evidence of such Third Party royalties payment. The total amount of any reduction(s) pursuant to this Section 11.5(b) shall in no event exceed [...***...] percent ([...***...]%) of the Product Price payable for the applicable Miltenyi Product in that Contract Year (with the right to carry forward any unused offset).",
+ "span_char_start": 4,
+ "span_char_end": 604,
+ "span_text": "In the event of breach of Miltenyi's warranties in Section 11.2 due to an actual or alleged infringement of a Third Party's Intellectual Property Rights due to Miltenyi's manufacture or sale, or Bellicum's import, export or use of any Miltenyi Product, Miltenyi shall at its option use [...***...] to either promptly and diligently negotiate a license from such Third Party at its own expense (including the payment due to the Third Party for such license) or modify the relevant Miltenyi Product(s) so that the supplied Miltenyi Product(s) are no longer infringing but have equivalent functionality.",
+ "modality": "MUST",
+ "action": "NEGOTIATE",
+ "action_accept_set": [
+  "NEGOTIATE"
+ ],
+ "obligor": "Miltenyi",
+ "obligor_accept_set": [],
+ "obligee": "ABSENT",
+ "object_class": "license",
+ "object_class_accept_set": [
+  "license",
+  "third_party_license",
+  "patent_license",
+  "ip_license"
+ ],
+ "temporal": null,
+ "conditions": [
+  "In the event of breach of Miltenyi's warranties in Section 11.2 due to an actual or alleged infringement of a Third Party's Intellectual Property Rights due to Miltenyi's manufacture or sale, or Bellicum's import, export or use of any Miltenyi Product"
+ ],
+ "underspecified": true,
+ "missing_fields": [
+  "obligee"
+ ],
+ "vague_temporal_phrase": "promptly",
+ "redacted_phrase": null,
+ "known_gaps": [],
+ "annotator_confidence": "CONFIDENT",
+ "annotated_at": "2026-10-04T00:00:00+00:00",
+ "rules_cited": [
+  "2",
+  "2.1",
+  "2.7",
+  "3.1",
+  "3.2",
+  "3.4",
+  "3.5",
+  "3.5.3",
+  "3.6",
+  "3.6.1",
+  "3.6.2",
+  "3.7",
+  "3.8",
+  "3.8.2",
+  "3.9",
+  "4.3",
+  "8",
+  "8.1",
+  "8.3",
+  "8.8",
+  "8.8.2",
+  "8.10",
+  "8.10.1",
+  "9.1",
+  "15",
+  "15.2",
+  "15.5",
+  "16",
+  "21"
+ ],
+ "guideline_version": "v0.65",
+ "reviewer_status": "APPROVED",
+ "adjudicated_by": "reviewer",
+ "annotator_notes": "Sentence A of C04-144 (the SEGMENT'S FIRST ITEM; sentences B and C are separate questions). Batch 5, seed 20260919 hard queue, position 13.\n\nTHE SEGMENT HAS 3 SENTENCES, NOT 5, AND THE SPLITTER SAYS 5 -- see section 10.1 F27. `corpus.split_sentences()` breaks at `[...***...]` redaction marks (the mark ends in \".\" followed by \"]\"), so sentence A is returned as two fragments and so is sentence C. MEASURED: 32 of 35 redaction-bearing pool segments split this way, 91.4%, all in C04; the defect also has a second, independent cause (an abbreviation break after \"i.e.\", found on C04-072). NO LOCKED ARTIFACT IS WRONG -- C04-072's committed disposition records the correct 5 where the splitter yields 8 -- and corpus.py is deliberately NOT touched, because build_pool()'s 1,547 count is the known-answer gate every section 8 corpus measurement asserts before reading any figure off itself. This item's offsets are computed from the REAL sentence boundary, not the splitter's.\n\nSPAN STARTS AFTER THE \"(b) \" LIST MARKER, the same convention locked E02-006 applies to its \"b) \" and E03-037/E03-046 to their headings. Trailing period included (section 7.1's measured gold convention).\n\nACTION: THE NEGOTIATE LIMB IS ANNOTATED, AND THE GROUND IS TEXTUAL, NOT TAXONOMIC. REVIEWER-RULED. The sentence is a DISJUNCTIVE obligation -- \"shall at its option use [...***...] to EITHER promptly and diligently negotiate a license ... OR modify the relevant Miltenyi Product(s)\" -- one duty, two alternative performances, the obligor choosing. The limb chosen is the one the contract's own qualifying language marks as PRIMARY: \"promptly and diligently\" attaches to NEGOTIATE and the modify limb carries NO performance standard at all. VERIFIED BY EXECUTION rather than by eye: both adverbs sit BEFORE the \"or modify\" split.\n\n  THE PRINCIPLE IS RECORDED SEPARATELY FROM THE TAXONOMY OBSERVATION, DELIBERATELY. It happens to be true that NEGOTIATE is a taxonomy member while the modify limb has NONE -- MODIFY, AMEND, ALTER, CHANGE and ADAPT are all absent from ast.py's closed 34-verb ACTIONS, verified by execution, and REPAIR/CURE/PROCESS are appearance-matches that fail section 8.8.2's same-performance test (the Product is not defective, so nothing is repaired; no breach is being cured; redesigning is not processing). THAT ALIGNMENT IS COINCIDENTAL AND IS NOT THE REASONING. Stated this way on reviewer instruction, precisely so that a future disjunctive obligation whose TEXTUALLY PRIMARY limb is the OFF-TAXONOMY one tests whether the principle holds independently of convenience -- which is exactly what section 10.1 F28's forcing function now asks for. Had the primacy signal pointed at the modify limb, this item would carry action_not_in_taxonomy and sit outside section 9.1's in-force denominator.\n\nTHE DISJUNCTION ITSELF IS AN UNTAGGED STRUCTURAL GAP -- section 10.1 F28. ast.Obligation has ONE action field and no alternation, so annotating either limb asserts a duty the contract does not impose: Miltenyi is obliged neither to negotiate nor to modify, only to do ONE of them. Direction OVERSTATING on section 8.10.1's test, the same shape as exception_unsupported -- dropping the alternative narrows the obligor's lawful options exactly as dropping a carve-out does. CHECKED AGAINST EACH EXISTING RULE AND COVERED BY NONE: not section 8.3 (its one-item branch is for verbs that are aspects of one indivisible performance; these are alternatives, and its two-item branch is for verbs BOTH owed); not section 4.3 (which splits on INDEPENDENT BREACHABILITY -- failing to negotiate is no breach if Miltenyi modified instead); not section 8.8 (nothing is missing from ACTIONS because of the disjunction). NO TAG IS MINTED on a sample of one, per section 22.1 and F23/F25's precedent. CONSEQUENCE, stated rather than left latent: with known_gaps empty this item ENTERS section 9.1's in-force criterion-2 denominator while carrying a structure v1 cannot represent -- the same cost shape F25 carries, and the strongest argument for minting at a second instance.\n\nTHE REDACTION IS RECORDED HERE AND IS DELIBERATELY NOT TAGGED redacted_value -- section 10.1 F29, REVIEWER-RULED. LOCATION AND CONTENT: `[...***...]` at span offset 286 (segment offset 290) -- verified by execution rather than estimated; a first draft of this note said 275/279 and was wrong, occupying the slot where an EFFORTS/PERFORMANCE STANDARD belongs -- \"shall at its option use [...***...] to either ...\" -- almost certainly \"commercially reasonable efforts\" or \"reasonable efforts\".\n\n  WHY NO TAG: IT WOULD MISREPRESENT THE MECHANISM. Section 8.1's procedure nulls A SCORED FIELD'S VALUE and names that field in missing_fields. Here NO scored field's value is missing, because IR v1 HAS NO FIELD FOR A PERFORMANCE STANDARD AT ALL -- redacted or legible. There is nothing to null and nothing legitimate to name (section 3.9/typecheck.py paths are checked against real IR paths; the temporal.of-versus-temporal.trigger litigation is the precedent for not inventing one). Tagging would assert a withheld VALUE where the real gap is a missing FIELD TYPE. Recording the redaction in these notes -- unscored -- preserves the provenance without borrowing a tag whose semantics do not fit.\n\n  SECTION 16 IS WHY NOTHING SCOREABLE IS LOST: every efforts variant maps to MUST, so modality is MUST whichever standard was redacted. The redaction cannot move any of section 5's eight clauses.\n\n  F29 IS A SIBLING OF F25 AND F28 AND DISTINCT FROM BOTH, which is why all three are queued separately: F25 is an unrepresentable INTERVAL (a temporal FORM gap), F28 is a missing ACTION ALTERNATIVE (an action SLOT gap), F29 is a MISSING FIELD TYPE -- the IR has no place for the concept whatsoever, so unlike the other two there is no slot to annotate badly.\n\nCONDITIONS -- ONE ENTRY, AND ITS CROSS-REFERENCE IS A CLOSE CALL ON F24's OWN AXIS RATHER THAN A CLEAN INSTANCE. REVIEWER-RULED KEEP. The entry is the verbatim fronted gate, which contains \"in Section 11.2\".\n\n  F24's DISCRIMINATOR (opened 2026-09-25 at E03-046): does the out-of-corpus reference define a term the condition's TRUTH VALUE depends on, or does it merely supply identification / procedural mechanics? Applied here: the sentence STATES THE TRIGGERING CIRCUMSTANCE IN FULL -- an actual or alleged third-party IP infringement arising from Miltenyi's manufacture or sale, or Bellicum's import, export or use -- so a monitor can observe whether such an infringement has arisen without leaving the span. \"Section 11.2\" identifies WHICH warranties are meant; it does not supply the circumstance. KEEP.\n\n  MY OWN COUNTER-READING, RECORDED BECAUSE IT IS NOT NEGLIGIBLE AND THE REVIEWER REQUIRED IT BE STATED: \"breach of Miltenyi's warranties\" is strictly a LEGAL CONCLUSION that DOES depend on section 11.2's text -- you cannot know a warranty was breached without knowing what it warranted. The narrower defence is that the trailing \"due to ...\" clause supplies the operative circumstance independently, so section 11.2 is identifying rather than constitutive. THAT IS A REAL TENSION AND THIS ITEM SITS CLOSER TO THE LINE THAN THE CLEANER KEEPING-SIDE REFERENCE, C03-01 ITEM 4's \"as set forth in the terms of the Maintenance Addendum\", which was reviewer-confirmed as qualifying SCOPE DETAIL ONLY and which carries no legal-conclusion term at all.\n\n  SO F24's FORCING FUNCTION IS PARTIALLY MET, NOT MET. F24 asked for a second instance \"most informatively one on the KEEPING side\". This is a keeping-side instance, which is what the axis lacked -- but it is a CLOSE CALL, so it supplies a weaker second cell than a clean case would. C03-01 item 4 remains the cleaner reference for the keeping side; a future clean keeping-side instance would still be worth having. Recorded this way rather than as \"met\" so a future session does not over-read the axis as settled on two points, one of which is contested.\n\n  Section 3.8.2's removal test is satisfied independently: delete the gate and the duty applies unconditionally, which is a different duty -- a genuine circumstance, not object scope. Section 3.8.3 does not fire (no restatement) and section 3.8.4 does not (no non-condition-shaped anchor restating it).\n\nTEMPORAL NULL, with \"promptly\" in vague_temporal_phrase. Section 15.5's LAST bullet governs, not its third: the vague qualifier is NOT followed by a named triggering event (\"promptly and diligently negotiate ...\" -- no \"after X\"), so there is no trigger for RELATIVE_TO_TRIGGER to take and section 15.2 applies as written. The fronted \"In the event of breach ...\" is a CONDITION, not a temporal trigger, and is filed as one. \"diligently\" is a MANNER adverb and is deliberately not in the field, which takes the temporal qualifier only; both words are quoted above.\n\nOBLIGOR \"Miltenyi\", which RESOLVES in evals/registry/C04.json (Miltenyi Biotec GmbH), verified by reading it.\n\nOBLIGEE ABSENT. The license is negotiated FROM \"such Third Party\" -- an unnamed third party section 21 R3 excludes from any registry, and not the party owed the duty. \"Bellicum\" IS in-span but only inside the fronted condition, as the agent of a DIFFERENT verb (\"Bellicum's import, export or use\"), which is the configuration section 3.5.3 refuses for C04-087's own \"Bellicum\" and which C10-03 applied to \"such party\" in its condition clause. No party occupies the recipient slot.\n\nUNDERSPECIFIED TRUE on section 3.9 trigger 1, once: obligee is ABSENT. The obligor resolves, and temporal: null is never a trigger (section 3.9's own note). missing_fields carries \"obligee\" alone.\n\nOBJECT_CLASS \"license\". Head noun of the object phrase (\"a license from such Third Party\") is \"license\", which is both the slot and the head-only member section 3.6's v0.58 forward rule requires. SECTION 3.6.1 AND 3.6.2 BOTH CLEAR: no member restates the action (NEGOTIATE) or either party, and \"license\" is not the nominal of NEGOTIATE -- \"negotiation\" is, and was deliberately not authored.\n\nPROVENANCE. Segment text reproduces byte-for-byte against both the live corpus pool rebuild (1,547 segments, the pool's own known-answer gate) and batch04/draw.json. Offsets computed from the real sentence boundary rather than the splitter's, for the F27 reason above.\n\nREVIEWER-APPROVED. Three calls were put explicitly: (1) the NEGOTIATE limb on a textual-primacy ground stated separately from the taxonomy observation; (2) no redacted_value tag, with the redaction recorded here and the structural gap queued as F29; (3) the Section 11.2 cross-reference KEPT, recorded as a CLOSE CALL with the counter-reading above and F24's forcing function marked PARTIALLY met."
+}
