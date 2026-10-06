@@ -65,16 +65,46 @@ def attribution():
 
 # --- (1) the arithmetic that does not need the corpus ------------------------
 
-def test_the_queue_holds_exactly_32_live_rows_not_f31s_34(attribution):
-    """F31(3) says "34". §10.3.3 corrects it to 32 by COUNTING, and the count is
-    pinned so the next session does not inherit a third figure."""
+def test_the_measured_population_is_32_rows_not_f31s_34(attribution):
+    """F31(3) says "34". §10.3.3 corrects it to 32 by COUNTING, and what is pinned
+    is the MEASURED POPULATION, not the live total.
+
+    A first version asserted the LIVE queue held 33 rows, and the very next row
+    added to §10.1 -- F34, opened by the F31(1) probe -- broke this test and two
+    others in CI. A live total grows with the queue; the dated figure does not.
+    """
+    assert attribution.MEASURED_ROWS == frozenset(f"F{n}" for n in range(1, 33))
+    assert len(attribution.MEASURED_ROWS) == 32
     rows = attribution.live_queue_rows()
-    assert len(rows) == 33, (
-        "§10.3.3 counts 32 live rows F1-F32 plus F33, opened at v0.66. "
-        f"Got {len(rows)}: {rows}"
+    # Every measured row must still be in the queue, or the dated figures cannot
+    # be reproduced over the population they were computed on.
+    assert attribution.MEASURED_ROWS <= set(rows), (
+        f"measured rows missing from §10.1: "
+        f"{sorted(attribution.MEASURED_ROWS - set(rows))}"
     )
     nums = sorted(int(r[1:]) for r in rows)
-    assert nums == list(range(1, 34)), f"the queue has a gap or a duplicate: {nums}"
+    assert nums == list(range(1, max(nums) + 1)), (
+        f"the live queue has a gap or a duplicate: {nums}"
+    )
+
+
+def test_rows_opened_after_the_measurement_are_out_of_population(attribution):
+    """They must be excluded by DERIVATION, never by enumeration -- otherwise
+    every future session has to edit a hardcoded set, which is how F34 broke
+    this file. Also pinned: the later rows are a contiguous suffix, so a row
+    cannot be quietly dropped out of the middle of the population."""
+    rows = attribution.live_queue_rows()
+    later = attribution.opened_after_the_measurement(rows)
+    assert later, "expected at least F33 to be out of population"
+    assert all(int(r[1:]) > 32 for r in later), later
+    nums = [int(r[1:]) for r in later]
+    assert nums == list(range(33, 33 + len(nums))), (
+        f"rows after the measurement are not a contiguous suffix: {later}"
+    )
+    # and none of them is in the attribution table
+    assert not (set(later) & set(attribution.TABLE)), (
+        "a post-measurement row has been classified into the measured population"
+    )
 
 
 def test_the_struck_through_superseded_f9_duplicate_is_not_counted():
@@ -90,9 +120,9 @@ def test_the_struck_through_superseded_f9_duplicate_is_not_counted():
 
 def test_attribution_table_covers_exactly_the_live_queue(attribution):
     rows = attribution.live_queue_rows()
-    measured = [r for r in rows if r not in attribution.OPENED_BY_THIS_PASS]
+    measured = [r for r in rows if r in attribution.MEASURED_ROWS]
     assert set(attribution.TABLE) == set(measured)
-    assert attribution.OPENED_BY_THIS_PASS == {"F33"}
+    assert len(measured) == 32
 
 
 def test_f31s_own_three_named_unattributable_rows_are_unattributable(attribution):
@@ -372,7 +402,7 @@ def test_section_10_3_2s_hand_table_matches_the_script_row_for_row(attribution):
 
     measured = {
         r for r in attribution.live_queue_rows()
-        if r not in attribution.OPENED_BY_THIS_PASS
+        if r in attribution.MEASURED_ROWS
     }
     assert set(doc) == measured, (
         f"§10.3.2 covers {sorted(set(doc) ^ measured)} differently from the measured population"

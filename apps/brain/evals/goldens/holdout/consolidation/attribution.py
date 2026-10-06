@@ -57,12 +57,26 @@ F31_NAMED_UNATTRIBUTABLE = {"F17", "F20", "F21"}
 F31_BATCH5_OPENED = {"F24", "F25", "F26", "F27", "F28", "F29", "F30"}
 # F31(c)'s bands, as shares of attributable rows.
 BAND_HOLDS, BAND_SUGGESTIVE = 0.10, 0.20
-# Rows THIS PASS opened. They are excluded from the measured population, not
-# classified into it: counting a pass's own output in its own denominator is
-# circular, and F31(d)'s "numerator and denominator must share scope" is the
-# same discipline one level up. The measured population is the queue AS IT
-# STOOD when the pass ran -- F1-F32.
-OPENED_BY_THIS_PASS = {"F33"}
+# THE MEASURED POPULATION IS FROZEN: the queue exactly as it stood when the pass
+# ran. Anything added to section 10.1 afterwards is OUT OF POPULATION, not
+# unclassified -- counting a row opened after the measurement in that
+# measurement's own denominator is circular, and F31(d)'s "numerator and
+# denominator must share scope" is the same discipline one level up.
+#
+# IT IS PINNED AS A SET, NOT AS A COUNT, AND THAT MATTERS. A first version
+# declared `OPENED_BY_THIS_PASS = {"F33"}` and a test asserted the LIVE queue
+# held 33 rows -- so the very next row added to section 10.1 (F34, opened by the
+# F31(1) probe) broke three tests in CI. Both halves were landmines: an
+# enumeration of later rows has to be edited by every future session, and a
+# live-total assertion grows with the queue. Deriving the exclusion from a frozen
+# population removes both, while still failing LOUDLY if a measured row ever
+# disappears from the queue.
+MEASURED_ROWS = frozenset(f"F{n}" for n in range(1, 33))   # F1-F32, dated
+
+
+def opened_after_the_measurement(live_rows) -> list[str]:
+    """Live queue rows outside the frozen measured population."""
+    return sorted(set(live_rows) - MEASURED_ROWS, key=lambda r: int(r[1:]))
 
 
 def _corpus():
@@ -306,17 +320,21 @@ def run() -> dict:
           f"H0 {hall:.3f}  PASS")
 
     # --- GATE: the table covers exactly the live queue ---------------------
-    measured = [r for r in rows if r not in OPENED_BY_THIS_PASS]
+    measured = [r for r in rows if r in MEASURED_ROWS]
+    later = opened_after_the_measurement(rows)
     assert set(TABLE) == set(measured), (
         f"TABLE GATE FAILED: missing {sorted(set(measured) - set(TABLE))}, "
         f"extra {sorted(set(TABLE) - set(measured))}"
     )
-    assert OPENED_BY_THIS_PASS <= set(rows), (
-        f"COVERAGE GATE FAILED: {sorted(OPENED_BY_THIS_PASS - set(rows))} is declared as "
-        "opened by this pass but is not in the queue"
+    assert MEASURED_ROWS <= set(rows), (
+        f"COVERAGE GATE FAILED: measured row(s) {sorted(MEASURED_ROWS - set(rows))} have "
+        "VANISHED from section 10.1. The dated figures were computed over them, so the "
+        "population can no longer be reproduced."
     )
-    print(f"coverage gate: {len(rows)} live queue rows, {len(measured)} measured, "
-          f"{sorted(OPENED_BY_THIS_PASS)} excluded as THIS PASS's own output  PASS")
+    print(f"coverage gate: {len(rows)} live queue rows, {len(measured)} in the frozen "
+          f"measured population (F1-F32)"
+          + (f", {later} opened AFTER the measurement and out of population" if later else "")
+          + "  PASS")
 
     # --- resolve both rules ------------------------------------------------
     res = {}
