@@ -1,0 +1,131 @@
+{
+  "segment_id": "C11-094",
+  "run": 1,
+  "recorded_at": "2026-10-06T11:44:25+00:00",
+  "model_id": "openai/gpt-oss-120b",
+  "prompt_version": "v4",
+  "segment_sha256": "660150b0a17d90ee0544a5c54593fc20572686c00d8047e5732220234faf06f1",
+  "guideline_version": "v0.66",
+  "responses": [
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-125d48f3-b46e-4ef7-acf1-77b8315905bb",
+        "object": "chat.completion",
+        "created": 1791286948,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"obligations\":[{\"span_text\":\"If the Principal is a natural person, upon the death or mental incapacity of a Principal, the executor, administrator, or personal representative of such Principal shall transfer the Principal's interest in Franchisee to a third party approved by BKC within a reasonable time after the Principal's death or mental incapacity.\",\"modality\":\"MUST\",\"obligor_alias\":\"the executor, administrator, or personal representative of such Principal\",\"obligee_alias\":\"\",\"action\":\"TRANSFER\",\"object_class\":\"principal_interest\",\"object_raw_text\":\"the Principal's interest in Franchisee\",\"temporal_raw\":\"within a reasonable time after the Principal's death or mental incapacity\",\"condition_raws\":[\"If the Principal is a natural person\",\"upon the death or mental incapacity of a Principal\"],\"confidence\":0.9},{\"span_text\":\"In the case of transfer by devise or inheritance, if the heir is not approved or there is no heir, the executor shall use best efforts to transfer the Principal's interest to another party approved by BKC within twelve (12) months from the date of the Principal's death.\",\"modality\":\"MUST\",\"obligor_alias\":\"the executor\",\"obligee_alias\":\"\",\"action\":\"TRANSFER\",\"object_class\":\"principal_interest\",\"object_raw_text\":\"the Principal's interest\",\"temporal_raw\":\"within twelve (12) months from the date of the Principal's death\",\"condition_raws\":[\"In the case of transfer by devise or inheritance\",\"if the heir is not approved or there is no heir\"],\"confidence\":0.9},{\"span_text\":\"If the conveyance of the Principal's interest to a party acceptable to BKC has not taken place within the twelve (12) month period, BKC shall have the option, to purchase the Principal's interest at fair market value.\",\"modality\":\"MAY\",\"obligor_alias\":\"BKC\",\"obligee_alias\":\"\",\"action\":\"PURCHASE\",\"object_class\":\"principal_interest\",\"object_raw_text\":\"the Principal's interest\",\"temporal_raw\":null,\"condition_raws\":[\"If the conveyance of the Principal's interest to a party acceptable to BKC has not taken place within the twelve (12) month period\"],\"confidence\":0.9}]}",
+              "reasoning": "We need to extract obligations. Read segment.\n\nSegment text:\n\n\"15.7 DEATH OR MENTAL INCAPACITY OF PRINCIPAL. If the Principal is a natural person, upon the death or mental incapacity of a Principal, the executor, administrator, or personal representative of such Principal shall transfer the Principal's interest in Franchisee to a third party approved by BKC within a reasonable time after the Principal's death or mental incapacity. Transfers ...\"\n\nWe need to find sentences that impose duty, prohibition, permission, expectation.\n\nLet's parse sentences:\n\n1. \"If the Principal is a natural person, upon the death or mental incapacity of a Principal, the executor, administrator, or personal representative of such Principal shall transfer the Principal's interest in Franchisee to a third party approved by BKC within a reasonable time after the Principal's death or mental incapacity.\"\n\nObligation: executor etc shall transfer interest to third party approved by BKC within reasonable time after death/incapacity.\n\nModality: MUST (shall). Obligor: \"the executor, administrator, or personal representative of such Principal\". Obligee: maybe BKC? Actually the clause says \"to a third party approved by BKC\". The obligation is to transfer to a third party approved by BKC. The obligee is not explicit; it's a duty to do something, not necessarily owed to a party. But we need obligee_alias: the party the obligation is owed to, exactly as appears. The clause does not say \"to BKC\". It says \"to a third party approved by BKC\". So maybe no obligee. In examples, they sometimes leave obligee empty string. So we can set obligee_alias to \"\".\n\nAction: TRANSFER. Object_class: maybe \"principal_interest\". object_raw_text: \"the Principal's interest in Franchisee\". Temporal_raw: \"within a reasonable time after the Principal's death or mental incapacity\". Condition_raws: we have leading condition: \"If the Principal is a natural person\" and \"upon the death or mental incapacity of a Principal\". Both are conditions. Also \"upon the death or mental incapacity of a Principal\" is a circumstance. So condition_raws list: [\"If the Principal is a natural person\", \"upon the death or mental incapacity of a Principal\"].\n\nCheck that these substrings appear in span_text. Yes.\n\nNeed to include leading clause in span_text: The sentence starts with \"If the Principal is a natural person, upon the death or mental incapacity of a Principal, the executor, administrator, or personal representative of such Principal shall transfer the Principal's interest in Franchisee to a third party approved by BKC within a reasonable time after the Principal's death or mental incapacity.\"\n\nMake sure we include entire sentence up to period.\n\n2. Next sentence: \"Transfers by devise or inheritance shall not be subject to BKC's right of first refusal under Paragraph 15.4 above, but shall be subject to the same conditions imposed on any INTER VIVOS transfer under Paragraph 15.5 above.\"\n\nObligation? It's a statement about transfers; \"shall not be subject to\" is a prohibition on subjecting transfers to BKC's right. The obligor? \"Transfers by devise or inheritance\" is not a party. This is a rule about transfers, not a party's duty. Might not be an obligation because no party is performing action. Could be considered a prohibition on BKC? Actually \"shall not be subject to BKC's right of first refusal\". That is about the transfers themselves, not a party's duty. Probably not an obligation.\n\n3. Next: \"All other transfers shall be subject to BKC's right of first refusal under Paragraph 15.4 above, or if such right is not exercised, the same conditions as may be imposed on any INTER VIVOS transfer under Paragraph 15.5 above.\"\n\nAgain not a party.\n\n4. Next: \"In the case of transfer by devise or inheritance, if the heir is not approved or there is no heir, the executor shall use best efforts to transfer the Principal's interest to another party approved by BKC within twelve (12) months from the date of the Principal's death.\"\n\nObligation: executor shall use best efforts to transfer interest to another party approved by BKC within twelve months. Modality: SHOULD? \"shall use best efforts\" is a duty, but \"best efforts\" is a standard, still \"shall\". So modality MUST? Usually \"shall use best efforts\" is a requirement, so MUST. Obligor: \"the executor\". Obligee: maybe BKC? Not explicit. Could be empty. Action: TRANSFER (or USE BEST EFFORTS TO TRANSFER). We'll pick TRANSFER. Object_class: \"principal_interest\". object_raw_text: \"the Principal's interest\". Temporal_raw: \"within twelve (12) months from the date of the Principal's death\". Condition_raws: \"In the case of transfer by devise or inheritance\", \"if the heir is not approved or there is no heir\". Both are conditions. Need to ensure substrings.\n\nSpan_text includes leading clause: \"In the case of transfer by devise or inheritance, if the heir is not approved or there is no heir, the executor shall use best efforts to transfer the Principal's interest to another party approved by BKC within twelve (12) months from the date of the Principal's death.\"\n\n5. Next: \"If the conveyance of the Principal's interest to a party acceptable to BKC has not taken place within the twelve (12) month period, BKC shall have the option, to purchase the Principal's interest at fair market value.\"\n\nObligation? BKC shall have the option to purchase. That's a permission (may). Actually \"shall have the option, to purchase\" is granting BKC an option, not a duty. It's a right, not an obligation. Could be considered a permission (MAY). But the clause says \"shall have the option\". That's a right, not a duty. The modality is maybe \"MAY\" (permission). Obligor: \"BKC\". Obligee: maybe none. Action: PURCHASE. Object_class: \"principal_interest\". object_raw_text: \"the Principal's interest\". Temporal_raw: \"within the twelve (12) month period\". Condition_raws: \"If the conveyance of the Principal's interest to a party acceptable to BKC has not taken place within the twelve (12) month period\". That's a condition.\n\nBut note that the condition includes the temporal phrase; we also have temporal_raw separate. The condition phrase includes \"within the twelve (12) month period\". The temporal_raw we might set to same phrase? The clause includes \"within the twelve (12) month period\" as part of condition. The action is \"purchase\". The clause does not specify a deadline for purchase, just that BKC shall have the option. So temporal_raw maybe null. Condition_raws includes the whole \"If the conveyance ... has not taken place within the twelve (12) month period\". That's a condition.\n\nWe need to ensure condition_raw is literal substring of span_text. Yes.\n\nNow produce JSON with obligations list.\n\nWe need confidence values; we can assign 0.9 each.\n\nCheck each field is literal substring.\n\nFirst obligation:\n\nspan_text: \"If the Principal is a natural person, upon the death or mental incapacity of a Principal, the executor, administrator, or personal representative of such Principal shall transfer the Principal's interest in Franchisee to a third party approved by BKC within a reasonable time after the Principal's death or mental incapacity.\"\n\nmodality: \"MUST\" (since \"shall\").\n\nobligor_alias: \"the executor, administrator, or personal representative of such Principal\"\n\nobligee_alias: \"\" (empty string)\n\naction: \"TRANSFER\"\n\nobject_class: maybe \"principal_interest\". Use \"principal_interest\". object_raw_text: \"the Principal's interest in Franchisee\". temporal_raw: \"within a reasonable time after the Principal's death or mental incapacity\". condition_raws: [\"If the Principal is a natural person\", \"upon the death or mental incapacity of a Principal\"].\n\nCheck that temporal_raw substring appears exactly: yes.\n\nSecond obligation:\n\nspan_text: \"In the case of transfer by devise or inheritance, if the heir is not approved or there is no heir, the executor shall use best efforts to transfer the Principal's interest to another party approved by BKC within twelve (12) months from the date of the Principal's death.\"\n\nmodality: \"MUST\" (shall). obligor_alias: \"the executor\". obligee_alias: \"\".\n\naction: \"TRANSFER\". object_class: \"principal_interest\". object_raw_text: \"the Principal's interest\". temporal_raw: \"within twelve (12) months from the date of the Principal's death\". condition_raws: [\"In the case of transfer by devise or inheritance\", \"if the heir is not approved or there is no heir\"].\n\nThird obligation:\n\nspan_text: \"If the conveyance of the Principal's interest to a party acceptable to BKC has not taken place within the twelve (12) month period, BKC shall have the option, to purchase the Principal's interest at fair market value.\"\n\nmodality: \"MAY\"? The clause says \"shall have the option, to purchase\". That's a permission. The modality could be \"MAY\". We'll set \"MAY\". obligor_alias: \"BKC\". obligee_alias: \"\".\n\naction: \"PURCHASE\". object_class: \"principal_interest\". object_raw_text: \"the Principal's interest\". temporal_raw: null. condition_raws: [\"If the conveyance of the Principal's interest to a party acceptable to BKC has not taken place within the twelve (12) month period\"].\n\nCheck condition substring includes the temporal phrase; that's okay.\n\nNow produce JSON.\n\nMake sure compact JSON, no extra spaces beyond needed.\n\n"
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.31818595,
+          "prompt_tokens": 2038,
+          "prompt_time": 0.111222645,
+          "completion_tokens": 2497,
+          "completion_time": 5.236100658,
+          "total_tokens": 4535,
+          "total_time": 5.347323303,
+          "completion_tokens_details": {
+            "reasoning_tokens": 2035
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_96d96a151c",
+        "x_groq": {
+          "id": "req_01m48gb6z1easbs5f5ayts4zdd",
+          "seed": 497810622
+        },
+        "service_tier": "on_demand"
+      }
+    },
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-2e506ec9-70e6-446d-8b90-2b8444d94f8b",
+        "object": "chat.completion",
+        "created": 1791287006,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"repairs\":[{\"index\":0,\"temporal_raw\":\"after the Principal's death or mental incapacity\"},{\"index\":2,\"action\":\"PROCURE\"}]}",
+              "reasoning": "We need to produce JSON repairs for each candidate where we can correct the specified field.\n\nWe have three candidates:\n\nIndex 0: need to correct temporal_raw. The span_text is:\n\n\"If the Principal is a natural person, upon the death or mental incapacity of a Principal, the executor, administrator, or personal representative of such Principal shall transfer the Principal's interest in Franchisee to a third party approved by BKC within a reasonable time after the Principal's death or mental incapacity.\"\n\nWe need a shorter contiguous substring of span_text that is the timing phrase on its own, matching one of the supported shapes? Actually the instruction: \"If a SHORTER contiguous substring of span_text is the timing phrase on its own, return exactly that substring, copied character for character. Do not rewrite it into one of those shapes.\" So we need to find a substring that is a timing phrase. The original temporal_raw is \"within a reasonable time after the Principal's death or mental incapacity\". That's not matching shapes. Is there a shorter substring that is a timing phrase? Possibly \"within a reasonable time\". That's a phrase but still not matching shapes. The shapes are: 'within <N> <unit> of <trigger>', 'by <YYYY-MM-DD>', 'every <N> <unit>', 'during <YYYY-MM-DD>..<YYYY-MM-DD>', or 'before <trigger>' / 'after <trigger>'. \"within a reasonable time\" does not match because no number. \"after the Principal's death or mental incapacity\" maybe matches 'after <trigger>'? The shape 'after <trigger>' expects after something, but the phrase \"after the Principal's death or mental incapacity\" is after a trigger. That could be considered a timing phrase: \"after the Principal's death or mental incapacity\". That's a contiguous substring: \"after the Principal's death or mental incapacity\". That matches shape 'after <trigger>' (trigger is \"the Principal's death or mental incapacity\"). So we can use that substring.\n\nThus temporal_raw = \"after the Principal's death or mental incapacity\". Must be exactly as appears in span_text. Let's verify: In span_text, phrase appears: \"...within a reasonable time after the Principal's death or mental incapacity.\" So substring \"after the Principal's death or mental incapacity\" is present. Good.\n\nIndex 1: need to correct temporal_raw. Span_text: \"In the case of transfer by devise or inheritance, if the heir is not approved or there is no heir, the executor shall use best efforts to transfer the Principal's interest to another party approved by BKC within twelve (12) months from the date of the Principal's death.\"\n\nWe need a shorter contiguous substring that is a timing phrase. The phrase \"within twelve (12) months from the date of the Principal's death\" is the original. Does it match shape? 'within <N> <unit> of <trigger>' expects \"within 12 months of ...\" but we have \"from the date of\". Not matching. Could we extract \"within twelve (12) months\" as a timing phrase? That matches 'within <N> <unit>' but shape requires \"of <trigger>\" after. Not required? The shape list includes 'within <N> <unit> of <trigger>'. So must have \"of\". So \"within twelve (12) months\" alone not matching. Could we extract \"twelve (12) months\" maybe not. Could we extract \"within twelve (12) months from the date of the Principal's death\"? Not matching shape. Could we extract \"twelve (12) months from the date of the Principal's death\"? Not matching shape.\n\nBut we could extract \"within twelve (12) months\". Not shape but maybe acceptable? The rule: \"If a SHORTER contiguous substring of span_text is the timing phrase on its own, return exactly that substring\". It doesn't require matching shape? The failure reason says unmappable temporal because does not match shapes. But we are to provide a shorter substring that is the timing phrase on its own. However the system later will still check if it matches shapes? The instruction earlier: \"If no shorter verbatim substring of span_text is a clean timing phrase on its own, omit that candidate\". So we need a substring that qualifies as a clean timing phrase. The allowed shapes are those five. So we need a substring that matches one of those shapes. Does any substring match? Maybe \"within twelve (12) months\" does not have \"of\". Could we use \"within twelve (12) months from the date of the Principal's death\"? Not shape. Could we use \"by <date>\"? Not present. Could we use \"after the Principal's death\"? Not present exactly; we have \"from the date of the Principal's death\". Not shape.\n\nThus maybe there is no acceptable substring. In that case we must omit candidate 1 entirely (i.e., not include a repair). The instruction: \"If no shorter verbatim substring of span_text is a clean timing phrase on its own, omit that candidate from your response entirely.\" So we will not include index 1.\n\nIndex 2: need to correct action. Action currently \"PURCHASE\" not in taxonomy. Need to map to closest verb from list. The clause: \"BKC shall have the option, to purchase the Principal's interest at fair market value.\" The governing verb is \"purchase\". Among allowed verbs, maybe \"PROCURE\" is closest (to obtain). Or \"TRANSFER\"? Not. \"PURCHASE\" is akin to \"PROCURE\". So we can set action to \"PROCURE\". Modality is \"MAY\" already correct. So we will output repair for index 2 with action \"PROCURE\". No other fields.\n\nThus final JSON repairs array includes index 0 with temporal_raw corrected, index 2 with action corrected. Ensure we include only fields being corrected. For index 0, we correct temporal_raw. Provide \"temporal_raw\": \"after the Principal's death or mental incapacity\". For index 2, \"action\": \"PROCURE\". Also need to include index numbers.\n\nMake sure JSON compact, no extra spaces? It's okay.\n\nReturn:\n\n{\"repairs\":[{\"index\":0,\"temporal_raw\":\"after the Principal's death or mental incapacity\"},{\"index\":2,\"action\":\"PROCURE\"}]}\n\nCheck that we didn't need to include modality etc. Only corrected fields.\n\nYes.\n\n"
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.40571955,
+          "prompt_tokens": 2771,
+          "prompt_time": 0.176017683,
+          "completion_tokens": 1362,
+          "completion_time": 2.817755755,
+          "total_tokens": 4133,
+          "total_time": 2.993773438,
+          "completion_tokens_details": {
+            "reasoning_tokens": 1320
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_bb691ea66b",
+        "x_groq": {
+          "id": "req_01m48gd1hye4098nmw6m0gwyzp",
+          "seed": 925249957
+        },
+        "service_tier": "on_demand"
+      }
+    },
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-26263942-48f1-4612-a11a-0d6a26c46d68",
+        "object": "chat.completion",
+        "created": 1791287064,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"repairs\": []}",
+              "reasoning": "We need to produce JSON with repairs array. There's one failure, index 1, field temporal_raw needs correction. We must provide a shorter contiguous substring of span_text that is the timing phrase on its own, matching the supported shapes. The original temporal_raw is \"within twelve (12) months from the date of the Principal's death\". The span_text includes that phrase at the end: \"... within twelve (12) months from the date of the Principal's death.\"\n\nWe need a shorter substring that is the timing phrase itself. The supported shapes include 'within <N> <unit> of <trigger>'. Our phrase is \"within twelve (12) months from the date of the Principal's death\". That is \"within twelve (12) months from the date of the Principal's death\". The shape expects \"within <N> <unit> of <trigger>\", but we have \"from\". However shape also includes \"within <N> <unit> of <trigger>\" not \"from\". So maybe we need to extract \"within twelve (12) months\". That's a contiguous substring: \"within twelve (12) months\". That matches shape 'within <N> <unit> of <trigger>'? Actually missing \"of\". But maybe shape 'within <N> <unit> of <trigger>' requires \"of\". Our substring \"within twelve (12) months\" is just \"within N unit\". Not matching shape. Another shape: maybe \"within twelve (12) months from the date of the Principal's death\" could be considered \"within <N> <unit> from <trigger>\" but not listed. The allowed shapes: \n1. 'within <N> <unit> of <trigger>'\n2. 'by <YYYY-MM-DD>'\n3. 'every <N> <unit>'\n4. 'during <YYYY-MM-DD>..<YYYY-MM-DD>'\n5. 'before <trigger>' / 'after <trigger>'\n\nOur phrase doesn't match any shape. We need to find a shorter substring that matches one of those shapes. Could we extract \"within twelve (12) months\"? That still doesn't match shape because missing \"of\". Could we extract \"within twelve (12) months of the date of the Principal's death\"? The span_text has \"within twelve (12) months from the date of the Principal's death\". It uses \"from\", not \"of\". So we cannot get \"of\". Could we extract \"by the date of the Principal's death\"? Not present. Could we extract \"before the date of the Principal's death\"? Not present. Could we extract \"after the date of the Principal's death\"? Not present. Could we extract \"within twelve (12) months\"? Not matching shape but maybe acceptable? The rule says must match one of five supported shapes. \"within twelve (12) months\" is not one of them because missing \"of\". So maybe we cannot produce a valid temporal_raw. In that case we should omit the candidate entirely? The instruction: \"If no shorter verbatim substring of span_text is a clean timing phrase on its own, omit that candidate from your response entirely.\" So we can omit this candidate. Since we cannot correct temporal_raw to a valid shape, we should not include any repair for this candidate. Then output {\"repairs\": []}.\n\nCheck: Could we extract \"within twelve (12) months from the date of the Principal's death\" and treat it as acceptable? The shape list doesn't include \"from\". So it's invalid. So we must omit.\n\nThus final JSON: {\"repairs\": []}."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.3508419,
+          "prompt_tokens": 1976,
+          "prompt_time": 0.09971783,
+          "completion_tokens": 742,
+          "completion_time": 1.561775605,
+          "total_tokens": 2718,
+          "total_time": 1.6614934350000001,
+          "completion_tokens_details": {
+            "reasoning_tokens": 727
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_02b0d31eca",
+        "x_groq": {
+          "id": "req_01m48gew3dexzv7a30d4vs5ezz",
+          "seed": 986923247
+        },
+        "service_tier": "on_demand"
+      }
+    }
+  ]
+}

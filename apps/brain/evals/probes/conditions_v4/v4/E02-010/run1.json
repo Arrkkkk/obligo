@@ -1,0 +1,94 @@
+{
+  "segment_id": "E02-010",
+  "run": 1,
+  "recorded_at": "2026-10-06T11:58:00+00:00",
+  "model_id": "openai/gpt-oss-120b",
+  "prompt_version": "v4",
+  "segment_sha256": "4be9feeb2410789c9cc3f88cb11e11ed9af0135af3b9fe7c40d930693c0dffa6",
+  "guideline_version": "v0.66",
+  "responses": [
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-b1cff6bd-b59e-4570-929e-ade055a2651b",
+        "object": "chat.completion",
+        "created": 1791287825,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"obligations\":[{\"span_text\":\"MedQuist reserves the right to charge interest at the lesser of one and one half percent (11/2 %) per month or the maximum allowable rate under applicable law on any overdue amounts until paid in full.\",\"modality\":\"MAY\",\"obligor_alias\":\"MedQuist\",\"obligee_alias\":\"\",\"action\":\"CHARGE\",\"object_class\":\"interest\",\"object_raw_text\":\"interest at the lesser of one and one half percent (11/2 %) per month or the maximum allowable rate under applicable law\",\"temporal_raw\":\"until paid in full\",\"condition_raws\":[],\"confidence\":0.9},{\"span_text\":\"In addition, if payment is not received in full when due, upon ten (10) days prior written 3 notice from MedQuist to CBay, MedQuist may suspend provision of Services until such time as payment is received.\",\"modality\":\"MAY\",\"obligor_alias\":\"MedQuist\",\"obligee_alias\":\"CBay\",\"action\":\"SUSPEND\",\"object_class\":\"services\",\"object_raw_text\":\"provision of Services\",\"temporal_raw\":\"until such time as payment is received\",\"condition_raws\":[\"if payment is not received in full when due\",\"upon ten (10) days prior written 3 notice from MedQuist to CBay\"],\"confidence\":0.9}]}",
+              "reasoning": "We need to extract obligations from the segment.\n\nSegment text:\n\n\"Payment shall be by either check, ACH debit or wire transfer only to MedQuist. MedQuist reserves the right to charge interest at the lesser of one and one half percent (11/2 %) per month or the maximum allowable rate under applicable law on any overdue amounts until paid in full. In addition, if payment is not received in full when due, upon ten (10) days prior written 3 notice from MedQuist to CBay, MedQuist may suspend provision of Services until such time as payment is received.\"\n\nWe need to find obligations (duty, prohibition, permission, expectation). Let's parse sentences.\n\n1. \"Payment shall be by either check, ACH debit or wire transfer only to MedQuist.\"\n\nObligation: Payment shall be by ... to MedQuist. Obligor? Likely the payer (not named). The clause doesn't specify party; it's a requirement on the payer (maybe CBay). But the text doesn't mention who must pay. The phrase \"Payment shall be by ...\" is a requirement on the party making payment, but not explicitly named. According to rules, obligor_alias must be exactly as appears in span_text. Since no party name appears, we cannot extract obligor_alias. The rule says obligor_alias must be a literal substring of span_text. If not present, we cannot include? The spec expects we provide obligor_alias; if not present, maybe empty string? In example, they left obligee_alias empty sometimes. But obligor_alias likely required. Could we set obligor_alias as \"\"? Not sure. The spec says \"obligor_alias: the party who owes the obligation, exactly as it literally appears within span_text\". If not present, maybe we cannot extract this obligation because we cannot identify obligor. But we could still include with empty string? The example shows obligee_alias empty, but obligor present. Not sure about obligor empty. Probably we should only include obligations where we can identify both parties. However, we could treat \"Payment shall be by ...\" as an obligation of the payer, but not named. Might be ambiguous. Safer to skip.\n\n2. \"MedQuist reserves the right to charge interest at the lesser of one and one half percent (11/2 %) per month or the maximum allowable rate under applicable law on any overdue amounts until paid in full.\"\n\nThis is a permission? \"Reserves the right to charge interest\" indicates MedQuist may charge interest. That's a permission (MAY). Obligor: MedQuist (the party who may charge). Obligee: not explicitly named; maybe the payer. Not present. Could be \"any overdue amounts\" but not a party. Might be considered an obligation to charge interest? It's a permission to charge interest, not an obligation. The instruction says obligations include duty, prohibition, permission, expectation. So permission qualifies. Obligor: MedQuist. Obligee: maybe none. Could leave empty. But object: \"interest ... on any overdue amounts\". object_class maybe \"interest\". object_raw_text: \"interest at the lesser of one and one half percent (11/2 %) per month or the maximum allowable rate under applicable law\". temporal_raw: maybe \"until paid in full\". That's a timing phrase. Condition: none.\n\nWe need to ensure all fields are substrings of span_text. \"until paid in full\" appears. Good.\n\n3. \"In addition, if payment is not received in full when due, upon ten (10) days prior written 3 notice ... MedQuist may suspend provision of Services until such time as payment is received.\"\n\nThis contains condition: \"if payment is not received in full when due\" and also \"upon ten (10) days prior written 3 notice from MedQuist to CBay\". Two distinct circumstances. So condition_raws list should have both strings exactly as appear.\n\nObligation: MedQuist may suspend provision of Services until such time as payment is received. Modality: MAY (permission). Obligor: MedQuist. Obligee: maybe CBay? The clause says \"MedQuist may suspend provision of Services\". The suspension is directed at CBay (the recipient of services). Not explicitly \"to CBay\". But we could consider obligee as \"CBay\". The phrase \"to CBay\" appears earlier in the condition phrase: \"notice from MedQuist to CBay\". The obligation itself doesn't mention CBay, but we can still set obligee_alias as \"CBay\"? The rule says obligee_alias must be a literal substring of span_text. \"CBay\" appears in span_text, so okay. But is it the party to whom the obligation is owed? The suspension affects CBay, so plausible.\n\nAction: SUSPEND. object_class: services. object_raw_text: \"provision of Services\". temporal_raw: \"until such time as payment is received\". Condition_raws: [\"if payment is not received in full when due\", \"upon ten (10) days prior written 3 notice from MedQuist to CBay\"].\n\nCheck that these substrings exist exactly.\n\nNow we need to produce JSON with obligations list.\n\nWe have at least two obligations: the interest charging permission, and the suspension permission.\n\nPotentially also the payment method requirement, but lacking obligor. Could still include with obligor empty? Might be okay. But better to include only those with clear parties.\n\nLet's construct each.\n\nFirst obligation (interest charging):\n\nspan_text: \"MedQuist reserves the right to charge interest at the lesser of one and one half percent (11/2 %) per month or the maximum allowable rate under applicable law on any overdue amounts until paid in full.\"\n\nmodality: MAY (since \"reserves the right to charge\" implies may). Could also be \"MUST\"? No, it's permission. So MAY.\n\nobligor_alias: \"MedQuist\"\n\nobligee_alias: maybe empty string \"\" because not specified. The spec allows empty? Example had empty for obligee. So we can set \"\".\n\naction: CHARGE (verb). Upper case.\n\nobject_class: interest (or \"interest_charge\"). Use \"interest\". object_raw_text: \"interest at the lesser of one and one half percent (11/2 %) per month or the maximum allowable rate under applicable law\". Must be substring. Yes.\n\ntemporal_raw: \"until paid in full\". substring present.\n\ncondition_raws: [] (none).\n\nSecond obligation (suspend services):\n\nspan_text: \"In addition, if payment is not received in full when due, upon ten (10) days prior written 3 notice from MedQuist to CBay, MedQuist may suspend provision of Services until such time as payment is received.\"\n\nMake sure we include leading clause \"In addition, if payment is not received in full when due, upon ten (10) days prior written 3 notice from MedQuist to CBay,\" as part of span_text because conditions are included. The rule says include leading clause that establishes conditions. So span_text includes entire sentence.\n\nmodality: MAY\n\nobligor_alias: \"MedQuist\"\n\nobligee_alias: \"CBay\" (present in span_text). Good.\n\naction: SUSPEND\n\nobject_class: services\n\nobject_raw_text: \"provision of Services\"\n\ntemporal_raw: \"until such time as payment is received\"\n\ncondition_raws: two entries as above.\n\nCheck substrings:\n\n- \"if payment is not received in full when due\" appears exactly? In text: \"if payment is not received in full when due,\" yes.\n\n- \"upon ten (10) days prior written 3 notice from MedQuist to CBay\" appears exactly? The text: \"upon ten (10) days prior written 3 notice from MedQuist to CBay,\" includes \"3\" maybe a typo. We'll copy exactly.\n\nNow produce JSON with confidence values. Provide confidence maybe 0.9 each.\n\nMake sure JSON compact, no extra spaces beyond needed.\n\nLet's craft.\n\n"
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.211491419,
+          "prompt_tokens": 1867,
+          "prompt_time": 2.644138524,
+          "completion_tokens": 1944,
+          "completion_time": 4.267299812,
+          "total_tokens": 3811,
+          "total_time": 6.911438336,
+          "prompt_tokens_details": {
+            "cached_tokens": 512
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 1657
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_a655021f7d",
+        "x_groq": {
+          "id": "req_01m48h5y4fe56vw3xy30ergkw4",
+          "seed": 1801559656
+        },
+        "service_tier": "on_demand"
+      }
+    },
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-08e456a9-85b2-4b33-89b5-65e75f6aa7d9",
+        "object": "chat.completion",
+        "created": 1791287880,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"repairs\": []}",
+              "reasoning": "We need to produce JSON repairs for each candidate where we can correct the temporal_raw field.\n\nThe rule: temporal_raw must be a shorter contiguous substring of span_text that is the timing phrase on its own, matching one of the supported shapes? Actually the diagnostic says the timing phrase does not match any of the five supported shapes. The instruction: If a shorter contiguous substring of span_text is the timing phrase on its own, return exactly that substring, copied character for character. Do not rewrite it into one of those shapes.\n\nThus we need to find a substring within span_text that is a timing phrase, presumably \"until paid in full\" is the phrase. But is there a shorter substring that qualifies? The supported shapes are: 'within <N> <unit> of <trigger>', 'by <YYYY-MM-DD>', 'every <N> <unit>', 'during <YYYY-MM-DD>..<YYYY-MM-DD>', or 'before <trigger>' / 'after <trigger>'. The phrase \"until paid in full\" does not match any shape. Could we extract \"until paid in full\" is not allowed. Maybe we can find \"until paid in full\" is not a supported shape, but maybe we can extract \"until paid in full\" is not allowed, so we need to find a shorter substring that is a timing phrase on its own. Could be \"until paid\" or \"paid in full\"? Those still not matching shapes. The shapes require \"within\", \"by\", \"every\", \"during\", \"before\", \"after\". The phrase \"until\" is not allowed. So maybe there is no acceptable substring. In that case we must omit the candidate entirely (i.e., not include a repair). The instruction: If no shorter verbatim substring of span_text is a clean timing phrase on its own, omit that candidate from your response entirely.\n\nThus for both candidates, likely no acceptable substring. Let's examine second: \"until such time as payment is received\". Not matching shapes. Could we extract \"until such time as payment is received\"? Not allowed. Could we extract \"payment is received\"? Not matching shapes. Could we extract \"upon ten (10) days prior written 3 notice\"? That is a condition, not temporal. The shape \"within <N> <unit> of <trigger>\" maybe \"within ten (10) days prior written notice\"? Not exactly. The phrase \"ten (10) days prior\" could be \"within ten days\". But the span_text includes \"upon ten (10) days prior written 3 notice\". That's messy. The phrase \"ten (10) days prior\" maybe qualifies as \"within ten days of\". But not exact substring. The phrase \"ten (10) days prior\" is not exactly \"within ten days\". So likely no acceptable substring.\n\nThus we cannot fix temporal_raw for either. So we output empty repairs list.\n\nBut need to ensure we follow format: {\"repairs\": []}\n\nYes.\n\n"
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.347492613,
+          "prompt_tokens": 2116,
+          "prompt_time": 0.125320173,
+          "completion_tokens": 615,
+          "completion_time": 1.270102648,
+          "total_tokens": 2731,
+          "total_time": 1.395422821,
+          "completion_tokens_details": {
+            "reasoning_tokens": 600
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_8ea50c0161",
+        "x_groq": {
+          "id": "req_01m48h7rpmegtbp42dww4e6qtv",
+          "seed": 1014568873
+        },
+        "service_tier": "on_demand"
+      }
+    }
+  ]
+}

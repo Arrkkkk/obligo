@@ -46,7 +46,33 @@ phrase, even when juxtaposed with only a comma and no conjunction.
 | # | segment | role | why |
 | :-- | :--- | :--- | :--- |
 | 1 | **`C11-094`** | the known-failing case | §3.8.2's own motivating failure. Carries **TWO** Rule-B pairs **and one single-condition control**, so it is two-sided within one segment. |
-| 2 | **`C13-010`** | **HOLD-OUT** | Same construction with the **order reversed** (`Upon …, if …` against `C11-094`'s `If …, upon …`). Outside the gold set, not used to draft `v4`, and no `v4` wording imitates its surface form. |
+| 2 | **`E02-010`** | **HOLD-OUT** | Clean Rule-B pair, outside the gold set, not used to draft `v4`, and not imitated by `v4`'s worked example. |
+
+**AMENDMENT, made BEFORE any `v4` call was sent and recorded rather than silently applied.** The
+hold-out was first specified as **`C13-010`**, which is the *better* case: it reverses the phrase
+order (`Upon …, if …` against `C11-094`'s `If …, upon …`), so it tests the rule rather than a
+surface pattern. **A dry run with a mock transport — zero spend — rejected it: `_seed_document()`
+requires a committed §21 R3 scoring registry per document, and `evals/registry/C13.json` does not
+exist.** `C13` is one of the five documents CLAUDE.md's proactive sweep already names as
+registry-less. Authoring one mid-probe is scope creep with a figure-moving risk that would need its
+own verification, so the hold-out moved to a registry-backed document.
+
+**The cost of that substitution is stated rather than glossed: `E02-010` shares `C11-094`'s phrase
+order (`if …, upon …`), so it is a WEAKER generalisation test than `C13-010` would have been.** It
+still tests different documents, different parties, a different duty and a different modality, and
+the `v4` worked example imitates neither. `C13-010` remains the better hold-out and is blocked only
+on an authoring task.
+
+**A second disclosure, because it could have produced an uninterpretable result: `E02-010`'s
+second phrase contains an OCR artifact — `upon ten (10) days prior written 3 notice from MedQuist
+to CBay`, with a stray page number mid-phrase.** If the model silently normalised it the entry
+would not be a verbatim substring, the grounding gate would discard the candidate, and a
+corpus defect would be indistinguishable from a Rule-B failure. **The risk is judged acceptable on
+committed evidence rather than on hope:** at `C04-117` run 2 this same model and prompt family
+quoted the page-header artifact *"27 Miltenyi Biotec-Bellicum Supply Agreement (Execution Copy,
+March 27, 2019)"* **verbatim, mid-phrase, inside a `condition_raws` entry**. The model copies
+corpus noise rather than cleaning it. The predicate below nonetheless **records the exact emitted
+string**, so a normalisation failure stays distinguishable from a merge or a drop.
 
 `E07-010`, named in the originally-approved three, is **dropped with a reason**: replayed from its
 committed cassettes it emits `condition_raws: []` on **3 of 3** runs across all candidates, so it
@@ -62,8 +88,8 @@ all. That is a different question from entry *count* and does not belong in this
 - **`C11-094` control** (`C11-02`, v0.53) — `["If the conveyance of the Principal's interest to a
   party acceptable to BKC has not taken place within the twelve (12) month period"]`, a **single**
   entry. Splitting it is a FALSE POSITIVE.
-- **`C13-010` hold-out pair** — `Upon termination or expiration of this Agreement` /
-  `if specifically requested by MBRK`. **No gold item exists for this segment and none is being
+- **`E02-010` hold-out pair** — `if payment is not received in full when due` /
+  `upon ten (10) days prior written 3 notice from MedQuist to CBay`. **No gold item exists for this segment and none is being
   created**; the pair is read off the sentence, and the expected annotation under Rule B is two
   entries.
 
@@ -97,7 +123,7 @@ Reviewer-stated and adopted verbatim: **a pass shows ACHIEVABILITY on known-fail
 
 - `C11-094` is selected *because it fails today*, so conforming there shows the convention is
   **reachable by wording** — not that it generalises.
-- **`C13-010` is the only generalisation evidence, and it is ONE segment.** A pass there is a
+- **The hold-out is the only generalisation evidence, and it is ONE segment.** A pass there is a
   single data point, not a rate, and must not be quoted as one.
 - A pass **does not** license a registry flip. That is **Tier C**: `prompt_version` is a
   `Cassette.verify()` staleness dimension, so activating `v4` stales **all 35** gold cassettes at
@@ -122,7 +148,7 @@ Pair 2's `v3` failure is a **DROP**, not a merge: runs 1 and 3 emit only
 *"In the case of transfer by devise or inheritance"* entirely. §3.8.2 records the 2:1 instability
 but not that the two pairs fail by **different mechanisms** — noted here before `v4` runs.
 
-**`C13-010` has no cassette, so its `v3` baseline must be RECORDED LIVE.** Without it a `v4` pass
+**The hold-out has no cassette, so its `v3` baseline must be RECORDED LIVE.** Without it a `v4` pass
 on the hold-out is uninterpretable — the model might conform there under `v3` anyway. The baseline
 is therefore part of the arm, not an optional extra.
 
@@ -137,8 +163,8 @@ is therefore part of the arm, not an optional extra.
   count against the cap.
 - **Execution order is chosen so an early halt still yields an interpretable result:**
   1. `v4` × `C11-094` × 3 — the achievability answer
-  2. `v3` × `C13-010` × 3 — the hold-out baseline
-  3. `v4` × `C13-010` × 3 — generalisation
+  2. `v3` × `E02-010` × 3 — the hold-out baseline
+  3. `v4` × `E02-010` × 3 — generalisation
 - **On cap exhaustion: HARD HALT.** Everything written stays; the run does not resume without
   explicit reviewer approval.
 
