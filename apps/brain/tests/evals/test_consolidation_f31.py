@@ -345,3 +345,42 @@ def test_the_queue_parser_refuses_a_duplicate_row_instead_of_deduplicating(attri
     finally:
         attribution.GUIDELINE = original
         tmp.unlink(missing_ok=True)
+
+
+def test_section_10_3_2s_hand_table_matches_the_script_row_for_row(attribution):
+    """§10.3.2 transcribes the attribution by hand so a single row can be
+    falsified without re-deriving the rest -- which makes it a HAND-MAINTAINED
+    DUPLICATE of the script's table, the drift hazard this project already
+    tracks for the §8 tag vocabulary (three copies) and for `registry.py`'s
+    docstring. Neither copy is derived from the other, so only a test keeps
+    them honest. Corpus-free: resolves the table directly rather than through
+    `run()`, so this guard runs in CI."""
+    items, strata = attribution.load_items(), attribution.doc_strata()
+    text = GUIDELINE.read_text()
+    start = text.index("#### 10.3.2 Per-row attribution")
+    end = text.index("#### 10.3.3", start)
+
+    def norm(cell: str):
+        cell = cell.strip()
+        return None if cell in {"—", "-", ""} else cell
+
+    doc = {}
+    for line in text[start:end].splitlines():
+        m = re.match(r"^\| (F\d+) \| ([^|]*)\| ([^|]*)\|", line)
+        if m:
+            doc[m.group(1)] = (norm(m.group(2)), norm(m.group(3)))
+
+    measured = {
+        r for r in attribution.live_queue_rows()
+        if r not in attribution.OPENED_BY_THIS_PASS
+    }
+    assert set(doc) == measured, (
+        f"§10.3.2 covers {sorted(set(doc) ^ measured)} differently from the measured population"
+    )
+    for row, (doc_locus, doc_strict) in sorted(doc.items()):
+        a = attribution.TABLE[row]
+        _, locus = attribution._stratum_of_locus(a.locus, items, strata)
+        strict = strata[a.opener.split("-")[0]] if a.opener else None
+        assert (doc_locus, doc_strict) == (locus, strict), (
+            f"{row}: §10.3.2 says {doc_locus}/{doc_strict}, the script resolves {locus}/{strict}"
+        )
