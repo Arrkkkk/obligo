@@ -6800,6 +6800,19 @@ ratio for the next seed is set deliberately by the reviewer, and this pass suppl
 inherit.** What it does supply is the forward record-keeping change that would make the question
 answerable next time.
 
+**CLOSED 2026-10-06 — commit `7a9e6e7`, CI run
+[37397030044](https://github.com/Arrkkkk/obligo/actions/runs/37397030044) green on
+`workflow_dispatch`: real pytest summary `689 passed, 16 skipped`, zero `FAILED`/`ERROR` lines
+in the whole log, `headSha` confirmed `7a9e6e77804005dd76325878b38435e1bca480cd`, and all 14
+steps `success` with the Flyway-apply, migration-drift and "Run tests" steps all genuinely
+EXECUTED rather than `skipped`. The count reconciles exactly against the chain's baseline of
+`679 passed, 10 skipped` — `679 + 10 = 689` and `10 + 6 = 16` — and was predicted BEFORE the run
+from a collected-ID diff across worktrees, which is what makes it evidence rather than a
+reading. **So a green CI verifies this pass's arithmetic, its attribution coverage, F31's own
+reviewer-supplied answers, and both the `until` and F29 findings against committed gold — but
+NOT its 1,547-segment corpus measurements**, which are `skipif`-gated out on the runner and were
+checked locally. Same shape as §8.8.4's own close-out note.
+
 ---
 
 ## 11. Decisions (formerly open questions)
