@@ -2997,7 +2997,9 @@ against segments `E07-010`, `C11-094` and `C04-117`. Until that probe runs, thes
 > `workflow_dispatch`: real pytest summary `711 passed, 16 skipped`, zero `FAILED`/`ERROR` lines,
 > zero non-`success` steps, `headSha` confirmed `812ad459f51d32d2f9923a0d9482a90e3c44db28`. The
 > count reconciles `692 + 18 + 1 = 711` against the chain's own baseline and was forecast before
-> the run. The probe's own results commit (`da2b3db`) is red on a defect of this session's making
+> the run, and the chain record itself (`7bd9e6c`) is green at the identical `711 passed, 16
+> skipped` on run [37465776645](https://github.com/Arrkkkk/obligo/actions/runs/37465776645). The
+> probe's own results commit (`da2b3db`) is red on a defect of this session's making
 > — a consolidation test pinning the queue's live total broke when F34 was added — recorded as red
 > in CLAUDE.md rather than folded into "covered".
 >
