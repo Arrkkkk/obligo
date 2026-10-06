@@ -120,20 +120,39 @@ def touched_segments() -> dict[str, set[str]]:
 
 
 def live_queue_rows() -> list[str]:
-    """Parses §10.1's queue. The struck-through superseded F9 duplicate is
-    excluded by construction -- its cell is `~~**F9 (original entry...)**~~`,
-    which the anchored pattern below does not match."""
-    rows, seen = [], set()
-    for line in GUIDELINE.read_text().splitlines():
-        m = re.match(r"^\| \*\*(F\d+)\*\* \| ", line)
-        if not m:
-            continue
-        # §10.1's queue is the first table carrying these rows; a later
-        # 5-column audit sub-table repeats four of them.
-        if m.group(1) in seen:
-            continue
-        seen.add(m.group(1))
-        rows.append(m.group(1))
+    """Parses §10.1's queue, SCOPED TO THAT TABLE.
+
+    An earlier draft matched `^| **Fn** | ` anywhere in the document and
+    deduplicated by first occurrence. That was RIGHT ONLY BY DOCUMENT ORDER:
+    §10.1 happens to precede both the 5-column audit sub-table that repeats
+    four row labels and §10.3.4's own size table, which carries rows labelled
+    `**F25**`/`**F28**`/`**F29**` and would otherwise be read as queue rows.
+    A parse that is correct because of where a section sits is one edit away
+    from being wrong, so the scan now starts at §10.1's heading and stops at
+    the blank line that ends its table -- Standing Principle 7's shape applied
+    to a document parser.
+
+    The struck-through superseded F9 duplicate is excluded by construction:
+    its cell reads `~~**F9 (original entry...)**~~`, which the anchored
+    pattern does not match.
+    """
+    lines = GUIDELINE.read_text().splitlines()
+    start = next(
+        (i for i, l in enumerate(lines) if l.startswith("### 10.1 The freeze-pass queue")),
+        None,
+    )
+    if start is None:
+        raise RuntimeError("§10.1's heading not found; the queue parser needs re-anchoring")
+    rows, in_table = [], False
+    for line in lines[start:]:
+        if re.match(r"^\| \*\*F\d+\*\* \| ", line):
+            in_table = True
+            rows.append(re.match(r"^\| \*\*(F\d+)\*\* \| ", line).group(1))
+        elif in_table and not line.startswith("|"):
+            break  # the blank line after the last row ends §10.1's table
+    if len(rows) != len(set(rows)):
+        dupes = sorted({r for r in rows if rows.count(r) > 1})
+        raise RuntimeError(f"§10.1's queue has duplicate rows: {dupes}")
     if len(rows) < 32:
         raise RuntimeError(f"parsed only {len(rows)} queue rows; expected >= 32")
     return rows

@@ -304,3 +304,44 @@ def test_no_new_tag_was_minted_by_this_pass():
     ):
         assert minted not in GAP_KIND, minted
         assert minted not in SECTION_8_TAGS, minted
+
+
+# --- (6) the queue parser's scoping, which was right only by document order --
+
+def test_the_queue_parser_is_scoped_and_not_merely_order_lucky(attribution):
+    """§10.3.4's own size table carries rows labelled `**F25**`/`**F28**`/`**F29**`,
+    and the 5-column audit sub-table repeats four more. An unscoped scan that
+    deduplicates by first occurrence returns the right answer ONLY because §10.1
+    precedes both. This asserts the scoping is doing real work: the labels occur
+    more than once in the document, and the parser still returns each once."""
+    text = GUIDELINE.read_text()
+    rows = attribution.live_queue_rows()
+    assert len(rows) == len(set(rows)), f"parser returned duplicates: {rows}"
+    for label in ("F25", "F28", "F29", "F3", "F7"):
+        assert text.count(f"| **{label}** | ") > 1, (
+            f"{label} no longer appears outside §10.1's table, so this test has "
+            "gone vacuous and the scoping is no longer being exercised"
+        )
+        assert rows.count(label) == 1
+
+
+def test_the_queue_parser_refuses_a_duplicate_row_instead_of_deduplicating(attribution):
+    """Silently deduplicating is how an unscoped parse hid the problem above. A
+    genuine duplicate in §10.1 is a document defect and must fail loudly."""
+    import re as _re
+
+    original = attribution.GUIDELINE
+    text = original.read_text()
+    marker = "| **F32** | "
+    i = text.index(marker)
+    end = text.index("\n", i) + 1
+    planted = text[:end] + text[i:end] + text[end:]  # F32 twice, in §10.1
+    tmp = original.parent / "_planted_duplicate_guideline.md"
+    try:
+        tmp.write_text(planted)
+        attribution.GUIDELINE = tmp
+        with pytest.raises(RuntimeError, match="duplicate rows"):
+            attribution.live_queue_rows()
+    finally:
+        attribution.GUIDELINE = original
+        tmp.unlink(missing_ok=True)
