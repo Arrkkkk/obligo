@@ -554,9 +554,14 @@ def test_new_items_are_outside_the_published_run_and_would_have_moved_K(cold):
     # run never saw. `published` STILL does not move.
     batch5 = {"E02-01", "E02-02", "C04-09", "C10-03", "E03-04", "E03-05",
               "E01-04", "E01-05", "C04-10", "C04-11", "C04-12", "C04-13"}
-    assert added == {"C11-02", "C04-06", "C11-03", "C14-06"} | batch4 | batch5, added
+    # v0.68 (2026-10-07): C04-14 lands on C04-017, a segment the cold run never
+    # saw, so it joins batch 4/5's category -- outside the published population
+    # AND unable to pair even in principle. `published` STILL does not move.
+    batch6 = {"C04-14"}
+    assert added == ({"C11-02", "C04-06", "C11-03", "C14-06"}
+                     | batch4 | batch5 | batch6), added
     assert len(published) == 32
-    assert len(live) == 60
+    assert len(live) == 61
 
     # Batch 4 is the first ADDITION WITH NO COLD COUNTERPART AT ALL, and that is
     # a stronger fact than `C14-06`'s. The 2026-08-29 cold run annotated the 22
@@ -566,9 +571,9 @@ def test_new_items_are_outside_the_published_run_and_would_have_moved_K(cold):
     # rather than reusing that output.
     cold_segments = set(_load_cold())  # keyed BY segment_id; items carry none
     new_segments = {i["segment_id"] for items in _load_gold().values()
-                    for i in items if i["item_id"] in batch4 | batch5}
+                    for i in items if i["item_id"] in batch4 | batch5 | batch6}
     assert not (new_segments & cold_segments), (
-        f"batch 4/5 segments must be outside the cold run: "
+        f"batch 4/5/6 segments must be outside the cold run: "
         f"{sorted(new_segments & cold_segments)}"
     )
 

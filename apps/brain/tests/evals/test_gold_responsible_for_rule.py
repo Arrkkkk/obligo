@@ -176,8 +176,10 @@ def test_the_set_is_48_items_over_28_segments():
     # NOT_OBLIGATION_BEARING in the segment file. §8.8.4's measured cost is
     # unaffected: no locked item it names is touched.
     items = rs.load_gold_items(GOLDENS)
-    assert len(items) == 60
-    assert len(rs.segments_from_items(items)) == 35
+    # v0.68 (C04-017, 2026-10-07): 61 items over 36 segments. §8.8.4's measured
+    # cost is unaffected -- the construction does not occur in C04-017 at all.
+    assert len(items) == 61
+    assert len(rs.segments_from_items(items)) == 36
 
 
 # --- (3) the evidence the rule rests on --------------------------------------

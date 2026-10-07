@@ -1,0 +1,59 @@
+{
+ "segment_id": "C04-017",
+ "doc_id": "C04",
+ "schema": "\u00a72.7 (v0.50) -- complete per-sentence segment disposition. `not_annotatable` is \u00a721 R6's array, the only key run_scoring.load_not_annotatable() reads; `dispositions` is the full per-sentence record \u00a72.7 requires.",
+ "reconciliation": {
+  "sentences_total": 4,
+  "obligation_bearing_clauses": 2,
+  "items_annotated": 1,
+  "status": "PENDING",
+  "note": "IN BAND AT 2 CLAUSES, both inside S2 [23:363], which states a supply duty on Miltenyi and a purchase duty on Bellicum. TWO DIFFERENT OBLIGORS, so one item cannot hold both (\u00a74.3) -- C04-14 is the supply half and the purchase half is PENDING_ANNOTATION, drafted and awaiting reviewer ruling. status is PENDING rather than PASS for exactly that reason: \u00a72.7's own reconciliation cannot pass while a settled-eligibility clause has no item, which is the state PENDING_ANNOTATION exists to express (v0.52, the sixth disposition value). F27 GUARD RUN BEFORE ANNOTATION AND CLEAN: zero redactions in this segment, so none of the splitter's 4 fragments is redaction-induced. \u00a78.7 (page furniture): the 77-char running header IS present at [391:468] with page-number prefix 5 -- it falls inside S3, which is NOT_OBLIGATION_BEARING, so NO item carries corpus_artifact_in_span. Verified by offsets against C04-14's span [23:363]: no containment, no overlap."
+ },
+ "dispositions": [
+  {
+   "span_char_start": 0,
+   "span_char_end": 22,
+   "disposition": "NOT_OBLIGATION_BEARING",
+   "rule": "\u00a72.6 / \u00a72.7",
+   "reason": "Section heading -- no modal, no finite verb, no subject+predicate.",
+   "span_text": "2.1 Supply of Product."
+  },
+  {
+   "span_char_start": 23,
+   "span_char_end": 363,
+   "disposition": "ANNOTATED",
+   "rule": "\u00a73.2 (will = MUST, a party's undertaking); \u00a74.3 (two obligors, two items); \u00a74.2 (identical spans, content tie-break)",
+   "reason": "TWO obligation-bearing clauses in one sentence. Supply half -> item C04-14 (Miltenyi -> Bellicum, PROVIDE, compound_action). Purchase half -> PENDING_ANNOTATION below; both items' minimal spans are byte-identical [23:363] because the shared object phrase sits at [277:343], after both verb phrases.",
+   "items": [
+    "C04-14"
+   ],
+   "span_text": "During the Term of this Agreement, and subject to the terms and conditions hereof, Miltenyi will non-exclusively supply and sell to Bellicum or its Licensees or Subcontractors, and Bellicum or its Licensees or Subcontractors will purchase from Miltenyi, Miltenyi Products listed on Exhibit B solely for the Permitted Use (as defined below)."
+  },
+  {
+   "span_char_start": 23,
+   "span_char_end": 363,
+   "disposition": "PENDING_ANNOTATION",
+   "rule": "\u00a72.7's sixth disposition value (v0.52); \u00a74.3",
+   "reason": "THE PURCHASE HALF of S2: 'Bellicum or its Licensees or Subcontractors will purchase from Miltenyi, Miltenyi Products listed on Exhibit B solely for the Permitted Use'. Eligibility is SETTLED -- it is a party-subject `will` undertaking under \u00a73.2 with a different obligor from C04-14's, so \u00a74.3 requires it to be its own item -- and the item is drafted but NOT YET REVIEWER-RULED. Recorded as PENDING_ANNOTATION rather than omitted so this segment's reconciliation fails loudly rather than silently reading as complete at one item.",
+   "span_text": "During the Term of this Agreement, and subject to the terms and conditions hereof, Miltenyi will non-exclusively supply and sell to Bellicum or its Licensees or Subcontractors, and Bellicum or its Licensees or Subcontractors will purchase from Miltenyi, Miltenyi Products listed on Exhibit B solely for the Permitted Use (as defined below)."
+  },
+  {
+   "span_char_start": 364,
+   "span_char_end": 690,
+   "disposition": "NOT_OBLIGATION_BEARING",
+   "rule": "\u00a73.5 (non-party subject); \u00a78.8 (copular status); C04-163 clause (3), C22-045",
+   "reason": "'Each Purchase Order placed [running header] under this Agreement shall be exclusively governed by the terms and conditions of this Agreement and the Quality Agreement' -- subject is 'Each Purchase Order', a thing, and 'shall be governed by' is a status/legal-effect statement rather than commanded conduct. Same class as C04-163 clause (3) ('All amounts paid shall be non-refundable', a future-fact/status statement on a thing-subject). This sentence is also where the segment's page artifact sits, at [391:468].",
+   "span_text": "Each Purchase Order placed 5 Miltenyi Biotec-Bellicum Supply Agreement (Execution Copy, March 27, 2019) under this Agreement shall be exclusively governed by the terms and conditions of this Agreement and the Quality Agreement, as amended from time to time, unless specifically otherwise agreed between the Parties in writing."
+  },
+  {
+   "span_char_start": 691,
+   "span_char_end": 944,
+   "disposition": "NOT_OBLIGATION_BEARING",
+   "rule": "\u00a73.5 (non-party subject); \u00a78.8 (copular status); \u00a73.2.1 (hereby-performative)",
+   "reason": "'Any terms and conditions of any Purchase Order ... shall have no effect and such terms and conditions are hereby excluded and rejected' -- TWO grounds, either sufficient: the subject is 'Any terms and conditions', a thing, and 'shall have no effect' is a status assertion; and 'are hereby excluded and rejected' is \u00a73.2.1's present-tense self-executing performative, which takes full effect at execution leaving no future state to monitor.",
+   "span_text": "Any terms and conditions of any Purchase Order or acknowledgement given or received which are additional to or inconsistent with this Agreement or the Quality Agreement shall have no effect and such terms and conditions are hereby excluded and rejected."
+  }
+ ],
+ "not_annotatable": [],
+ "logged_at": "2026-10-07T16:12:43+00:00"
+}
