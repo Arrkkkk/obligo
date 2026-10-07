@@ -376,7 +376,14 @@ def test_the_legacy_denominator_is_still_computable_and_differs(gold_items):
     # AMOUNTS HERE FOR THE FIRST TIME IN BATCH 5, and that is the kind axis doing
     # exactly what F9 built it for. LEGACY moves +1, `C04-13` alone, because legacy
     # keys on `known_gaps` being EMPTY and C04-12 carries one tag.
-    assert live.legacy_no_known_gaps_denominator == 25
+    # v0.68 (C04-017, 2026-10-07): 26. The +1 is `C04-15` ALONE, verified against the
+    # real Report rather than inferred: its `known_gaps` is EMPTY, while its sibling
+    # C04-14 carries `compound_action` and is excluded from BOTH scopes on that tag.
+    # C04-15 is therefore the first batch-6 item seated in a criterion-2 denominator,
+    # AND it carries a temporal v1 provably cannot represent (§8's `during the Term`
+    # row; F25 unminted so no tag is available) -- the same cost F25 prices for
+    # C10-03, latent only because C04-017 has no cassette.
+    assert live.legacy_no_known_gaps_denominator == 26
     # v0.65+ (batch 5, 2026-09-25): 27. BOTH scopes move by exactly +1 and the
     # +1 is `C10-03` in both -- it carries no tag at all, so nothing excludes it
     # from either. THE OTHER THREE ARE THE INTERESTING HALF, and they are the
@@ -402,7 +409,11 @@ def test_the_legacy_denominator_is_still_computable_and_differs(gold_items):
     # (corpus_artifact_in_span again) was OVERRIDDEN by a co-occurring
     # REPRESENTATIONAL tag -- same tag, opposite outcome, decided by what else the
     # item carries.
-    assert live.criterion2_no_known_gaps[1] == 31
+    # v0.68 (C04-017, 2026-10-07): 32 -- BOTH scopes move +1 and by the SAME single
+    # item, C04-15, which is the simple case: it carries no tag, so nothing excludes
+    # it from either. C04-14's `compound_action` is REPRESENTATIONAL and excludes it
+    # from both, so the two denominators move in lockstep here.
+    assert live.criterion2_no_known_gaps[1] == 32
     assert live.criterion2_no_known_gaps[1] > live.legacy_no_known_gaps_denominator, (
         "the two scopes must still differ -- that difference IS F17"
     )

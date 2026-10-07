@@ -178,7 +178,9 @@ def test_the_set_is_48_items_over_28_segments():
     items = rs.load_gold_items(GOLDENS)
     # v0.68 (C04-017, 2026-10-07): 61 items over 36 segments. §8.8.4's measured
     # cost is unaffected -- the construction does not occur in C04-017 at all.
-    assert len(items) == 61
+    # v0.68 (C04-15, 2026-10-07): 62 items over 36 segments -- the SEGMENT count does
+    # NOT move, because C04-15 is C04-017's second item rather than a new segment.
+    assert len(items) == 62
     assert len(rs.segments_from_items(items)) == 36
 
 

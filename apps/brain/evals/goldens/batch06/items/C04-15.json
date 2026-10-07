@@ -1,0 +1,61 @@
+{
+ "item_id": "C04-15",
+ "segment_id": "C04-017",
+ "doc_id": "C04",
+ "stratum": "hard",
+ "span_char_start": 23,
+ "span_char_end": 363,
+ "span_text": "During the Term of this Agreement, and subject to the terms and conditions hereof, Miltenyi will non-exclusively supply and sell to Bellicum or its Licensees or Subcontractors, and Bellicum or its Licensees or Subcontractors will purchase from Miltenyi, Miltenyi Products listed on Exhibit B solely for the Permitted Use (as defined below).",
+ "segment_text": "2.1 Supply of Product. During the Term of this Agreement, and subject to the terms and conditions hereof, Miltenyi will non-exclusively supply and sell to Bellicum or its Licensees or Subcontractors, and Bellicum or its Licensees or Subcontractors will purchase from Miltenyi, Miltenyi Products listed on Exhibit B solely for the Permitted Use (as defined below). Each Purchase Order placed 5 Miltenyi Biotec-Bellicum Supply Agreement (Execution Copy, March 27, 2019) under this Agreement shall be exclusively governed by the terms and conditions of this Agreement and the Quality Agreement, as amended from time to time, unless specifically otherwise agreed between the Parties in writing. Any terms and conditions of any Purchase Order or acknowledgement given or received which are additional to or inconsistent with this Agreement or the Quality Agreement shall have no effect and such terms and conditions are hereby excluded and rejected.",
+ "modality": "MUST",
+ "action": "PROCURE",
+ "action_accept_set": [
+  "PROCURE"
+ ],
+ "object_class": "product",
+ "object_class_accept_set": [
+  "product",
+  "supplied_product",
+  "miltenyi_product",
+  "goods"
+ ],
+ "obligor": "Bellicum",
+ "obligor_accept_set": [
+  "Bellicum",
+  "its Licensees",
+  "its Subcontractors",
+  "Bellicum or its Licensees or Subcontractors"
+ ],
+ "obligee": "Miltenyi",
+ "temporal": null,
+ "vague_temporal_phrase": null,
+ "conditions": [
+  "solely for the Permitted Use"
+ ],
+ "known_gaps": [],
+ "underspecified": false,
+ "missing_fields": [],
+ "rules_cited": [
+  "2",
+  "3.1",
+  "3.2",
+  "3.4",
+  "3.5",
+  "3.5.1",
+  "3.6",
+  "3.6.1",
+  "3.6.2",
+  "3.8",
+  "3.9",
+  "4.2",
+  "4.3",
+  "8.6.1",
+  "8.8.3"
+ ],
+ "annotator_confidence": "CONFIDENT",
+ "reviewer_status": "APPROVED",
+ "adjudicated_by": "reviewer",
+ "guideline_version": "v0.68",
+ "annotated_at": "2026-10-07T17:21:13+00:00",
+ "annotator_notes": "Batch 6, hard-queue position 3 of seed 6102026. C04-017 S2 [23:363], the SECOND of TWO items from this sentence; C04-14 is the supply half. The segment now reconciles at 2 clauses / 2 items and its PENDING_ANNOTATION disposition is discharged.\n\nTHE DUTY. 'Bellicum or its Licensees or Subcontractors will purchase from Miltenyi, Miltenyi Products listed on Exhibit B solely for the Permitted Use'. Split from C04-14 on section 4.3: DIFFERENT OBLIGORS (Bellicum here, Miltenyi there) and different performances (purchase vs supply), and one item has one obligor slot. NOT section 8.4's mutual_obligation -- that class is ONE duty imposed identically on both parties (C17-021's 'shall each use'); here the two duties differ in both obligor and action. NOT section 4.3.2 either, whose shape is self-performance against a duty to bind a third party, with the SAME obligor on both halves.\n\nACTION -- `purchase` -> PROCURE, DEFENSIBLY MAPPABLE, so NO `action_not_in_taxonomy` tag and `known_gaps` is EMPTY. This is section 8.8.3's own v0.53 ruling, which adjudicated exactly this verb: 10 of the 12 `procure` sentences in this corpus use the obtain-a-thing sense including outright buying, both section 8.8.2 discriminators come back negative, and section 8.8's own accepted arrange->PROCURE is a LOOSER fit. DIRECT PRECEDENT, read from its JSON rather than cited from memory: C11-02 carries action PROCURE, action_accept_set ['PROCURE'], known_gaps [] at guideline v0.53. This item's accept-set is byte-identical to it.\nONE DIFFERENCE FROM THAT PRECEDENT, RECORDED RATHER THAN GLOSSED: C11-02 is MAY -- an OPTION to purchase ('BKC shall have the option, to purchase') -- where this item is MUST, a purchase UNDERTAKING. The precedent transfers because it is about the VERB MAPPING, and section 3.3 makes modality a separate exact-match field determined by the text; but the two items are not the same shape and that is said here rather than left for a reader to assume.\nTHE SINGLETON IS NOT SECTION 8.8.5's FORCED-CHOICE KIND, which matters because it looks identical on disk. Section 8.8.5's singletons sit on `action_not_in_taxonomy` items where NO member denotes the performance, and `report.py`'s G9 discloses clause 2 on those as a forced-choice agreement check. Here PROCURE genuinely denotes the performance, so the item is OUTSIDE G9's class and clause 2 is a real action-identification measurement. The set is a singleton because the sentence admits one taxonomy verb, not because the taxonomy forced a near-miss -- section 8.8.5's own stated distinction.\n\nPARTIES -- AND THIS ITEM IS THE OTHER HALF OF AN ASYMMETRY WORTH RECORDING. obligor `Bellicum`, FIRST-NAMED of 'Bellicum or its Licensees or Subcontractors' [155:198], with `obligor_accept_set` carrying each alternative verbatim AND the whole coordinated phrase per section 3.5.1's v0.33 rider -- four entries for three alternatives. C02-01's committed set is the shape precedent, read from its JSON: ['Antares', 'its Subcontractor', 'Antares or its Subcontractor'], i.e. two alternatives yielding three entries. obligee `Miltenyi`, from 'purchase FROM Miltenyi'.\nTHE SAME COORDINATED PHRASE IS C04-14's OBLIGEE AND THIS ITEM's OBLIGOR, which makes one sentence a live demonstration of section 20.4 F4's asymmetry: the rider applies HERE (an obligor slot, accept-set required) and has NO COUNTERPART at C04-14's obligee slot, because section 3.5.1 gives the obligee slot no accept-set field at all -- measured at joint 0 / disjunctive 3 of 1,547 pool segments and 0 of the then-18 locked items. Confirmed against data: `obligee_accept_set` appears on 0 of the 61 items and `obligor_accept_set` on all of them, and C02-01's own obligee_accept_set key is ABSENT. So a model emitting the whole disjunction scores clause 3 CORRECT here and clause 4 WRONG at C04-14, for the identical string in the identical sentence.\n\nTEMPORAL -- `null`, untagged, on the identical ruling C04-14 carries: 'During the Term of this Agreement' is UNREPRESENTABLE ON SLOT ARITY, established at the grammar layer by execution (an alias-bounded `DURING \"X\"..\"Y\"` PARSES, so the slots are not ISO-only; a single-slot `DURING \"the Term\"` is REJECTED because `interval` makes both bounds mandatory; and same-alias-twice parses but asserts the period's start equals its end, refused as section 9.1 ground 2's knowing unfaithfulness). No faithful DSL string exists, which rules out representable-but-unreachable. NOT F25 instance two -- F25 is scoped to EVENT-BOUNDED intervals and 'the Term' is a defined-term period, section 8's own separate row. F25 is unminted, so no tag is available. See C04-14's notes for the full execution record.\nAND HERE THE UNTAGGED TEMPORAL IS NOT COST-FREE, WHICH IS THE DIFFERENCE FROM C04-14 AND IS DISCLOSED RATHER THAN LEFT TO BE FOUND. C04-14 carries `compound_action`, a REPRESENTATIONAL tag, so section 9.1 excludes it from the in-force denominator regardless. THIS item's `known_gaps` is EMPTY, so it ENTERS that denominator -- the first batch-6 item that is denominator-relevant -- while carrying a temporal v1 provably cannot represent. That is exactly the cost F25's row prices for C10-03, and it is LATENT ONLY because C04-017 has no cassette: the item is cassette-unscoreable today, so no published figure moves. Should C04-017 ever be recorded, an extractor quoting the phrase into `temporal_raw` gets UNMAPPABLE_TEMPORAL and the whole candidate is rejected (section 15.3's LOUD side), making this a likely guaranteed failure seated in the headline denominator.\n\nCONDITIONS -- ['solely for the Permitted Use'], the same entry C04-14 carries, because the phrase gates BOTH performances: it restricts the purpose of the whole supply-and-purchase arrangement, not one side of it. Section 3.8's removal test: delete it and Bellicum's purchase duty extends to purposes beyond the Permitted Use, so the circumstances in which the duty applies change while the set of THINGS is untouched. Direct citation, read from JSON: C04-12 (same document, locked v0.65) carries 'solely for the purpose of the Permitted Use' as a conditions entry with object_class plain `product`.\n'subject to the terms and conditions hereof' is NOT an entry here either, on section 10.1 F36's ruling (vacuous self-reference: deleting it changes nothing, because the duty is subject to the agreement's terms regardless). 'non-exclusively' is MANNER and belongs to C04-14's verb phrase rather than to this duty at all. 'listed on Exhibit B' is OBJECT SCOPE and disqualifies nothing -- F24's discriminator (F30: out-of-segment references only) returns 'which instances' rather than anything a scored value's truth depends on, and `object_class` is `product` from the span's own head noun with the exhibit unresolved.\n\nSPAN -- BYTE-IDENTICAL TO C04-14's [23:363], which is C04-04/C04-05's established situation rather than a defect: the shared object phrase sits at [277:343], AFTER both verb phrases, so neither item's minimal span (section 3.1) is shorter than the other's. C04-04/C04-05 are locked with identical spans [4,207] and known_gaps [], so identical spans earn no tag.\nTHE TIE-BREAK IS CONFIRMED DISJOINT AND CONFIRMED PARTIAL, and the second half is section 10.1 F37. Accept-sets {PROVIDE, TRANSFER, DELIVER} against {PROCURE}: intersection EMPTY, all four members real ACTIONS verbs, and swept over all 34 taxonomy verbs as a hypothetical paired `action` -- 4 decide, 0 ambiguous, 30 fall through to item_id. So section 4.2's v0.36 content-based tie-break is CONCLUSIVE wherever it runs. IT DOES NOT RUN IN THE PIPELINE SCORER: `align()` sorts on (-iou, gold_id, pred_start) and its signature takes NO item content at all, so with two byte-identical gold spans a lone candidate pairs with C04-14 purely because 'C04-14' < 'C04-15' lexicographically -- meaning a purchase candidate would be scored against the supply item and BOTH items penalised. The rule is implemented only in `annotator_agreement.py`. Latent today because C04-017 has no cassette; see F37.\n\nMODALITY `will` -> MUST (section 3.2: 'will' is MUST when it states a party's undertaking). UNDERSPECIFIED false / missing_fields [] -- both aliases resolve in the committed C04 registry (exact-cased `Bellicum`, `Miltenyi`) and `temporal` is null, F15's zero-mismatch predicate."
+}

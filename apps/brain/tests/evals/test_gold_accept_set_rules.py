@@ -295,7 +295,9 @@ def test_the_forward_head_only_rule_is_satisfied_by_every_batch_4_item(items):
     # and C04-13 ('price') both carry a head-only member.
     # v0.68 (C04-017, 2026-10-07): 38/61, +1/+1 in LOCKSTEP -- C04-14 carries
     # 'product' and 'goods', both head-only, so the forward rule is satisfied.
-    assert (carried, total) == (38, 61)
+    # v0.68 (C04-015, 2026-10-07): 39/62, +1/+1 in LOCKSTEP -- C04-15 carries
+    # 'product' and 'goods' head-only, the same members as its sibling C04-14.
+    assert (carried, total) == (39, 62)
 
 
 def test_the_head_only_rule_is_forward_only_and_restamped_nothing(items):
