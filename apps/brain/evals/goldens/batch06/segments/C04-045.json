@@ -1,0 +1,43 @@
+{
+ "segment_id": "C04-045",
+ "doc_id": "C04",
+ "schema": "\u00a72.7 (v0.50) -- complete per-sentence segment disposition. Dispositions are stated at TRUE sentence granularity, i.e. against the F27-rejoined sentence rather than against split_sentences()' four fragments.",
+ "reconciliation": {
+  "sentences_total": 3,
+  "obligation_bearing_clauses": 1,
+  "items_annotated": 1,
+  "status": "PASS",
+  "note": "F27 GUARD FIRED AND IS THE REASON THE COUNT IS 3 RATHER THAN 4. split_sentences() breaks at the [...***...] redaction at offset 34, so its fragments 2 and 3 are one sentence; the item's span [23:435] is the rejoin, asserted by execution (span == frags[1] + ' ' + frags[2]) rather than by eye. Zero abbreviation dots, so no other fragment is an artifact. \u00a78.7 PAGE FURNITURE: MEASURED NEGATIVE -- zero running-header occurrences and a looser sweep for 'N Miltenyi' / 'Execution Copy' / 'Page N' returns nothing, so no item carries corpus_artifact_in_span, which is unusual for C04 and is recorded rather than passed over."
+ },
+ "dispositions": [
+  {
+   "span_char_start": 0,
+   "span_char_end": 22,
+   "disposition": "NOT_OBLIGATION_BEARING",
+   "rule": "\u00a72.6 / \u00a72.7",
+   "reason": "Section heading -- no modal, no finite verb, no subject+predicate.",
+   "span_text": "(e) Quality Agreement."
+  },
+  {
+   "span_char_start": 23,
+   "span_char_end": 435,
+   "disposition": "ANNOTATED",
+   "rule": "\u00a73.2 (shall = MUST); \u00a73.5.1 branch 2 (collective obligor verbatim); \u00a78.1 + \u00a78.12 (redacted_value, temporal_composition); \u00a78.6's one-tag rule (within_preposition NOT filed)",
+   "reason": "The F27-REJOINED sentence, and the segment's only obligation: 'the Parties shall enter into an agreement ... (the \"Quality Agreement\")', with a redacted primary deadline, a relaxation and a backstop. -> item C04-16.",
+   "items": [
+    "C04-16"
+   ],
+   "span_text": "Within [...***...] days from the Effective Date (or such longer period as agreed by the Parties in writing, but in any event prior to the first delivery of Clinical Grade Product to Bellicum), the Parties shall enter into an agreement on mutually acceptable, commercially reasonable terms that details the quality assurance obligations of each Party relating to Clinical Grade Products (the \"Quality Agreement\")."
+  },
+  {
+   "span_char_start": 436,
+   "span_char_end": 674,
+   "disposition": "NOT_OBLIGATION_BEARING",
+   "rule": "\u00a73.5 (non-party subject); \u00a73.2 (future-fact / precedence statement); C22-045, C04-163",
+   "reason": "'In the event of a conflict ..., the provisions of this Agreement shall govern; provided, however, that the Quality Agreement shall govern in respect of quality issues.' TWO `shall govern` clauses, BOTH with THING subjects ('the provisions of this Agreement', 'the Quality Agreement'), stating precedence between documents rather than commanding conduct by any party. Same class as C22-045 clause (3) ('the provisions of this IP Agreement will control') and C04-163.",
+   "span_text": "In the event of a conflict between the terms of the Quality Agreement and the terms of this Agreement, the provisions of this Agreement shall govern; provided, however, that the Quality Agreement shall govern in respect of quality issues."
+  }
+ ],
+ "not_annotatable": [],
+ "logged_at": "2026-10-07T17:44:39+00:00"
+}

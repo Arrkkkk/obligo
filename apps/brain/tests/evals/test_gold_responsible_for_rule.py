@@ -180,8 +180,10 @@ def test_the_set_is_48_items_over_28_segments():
     # cost is unaffected -- the construction does not occur in C04-017 at all.
     # v0.68 (C04-15, 2026-10-07): 62 items over 36 segments -- the SEGMENT count does
     # NOT move, because C04-15 is C04-017's second item rather than a new segment.
-    assert len(items) == 62
-    assert len(rs.segments_from_items(items)) == 36
+    # v0.68 (C04-045, 2026-10-07): 63 items over 37 segments -- the segment count DOES
+    # move here, C04-045 being a new segment, unlike C04-15's second item on C04-017.
+    assert len(items) == 63
+    assert len(rs.segments_from_items(items)) == 37
 
 
 # --- (3) the evidence the rule rests on --------------------------------------

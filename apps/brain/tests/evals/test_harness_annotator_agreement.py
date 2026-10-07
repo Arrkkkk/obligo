@@ -558,11 +558,13 @@ def test_new_items_are_outside_the_published_run_and_would_have_moved_K(cold):
     # saw, so it joins batch 4/5's category -- outside the published population
     # AND unable to pair even in principle. `published` STILL does not move.
     # v0.68 (2026-10-07): C04-15 is C04-017's second item, same never-seen segment.
-    batch6 = {"C04-14", "C04-15"}
+    # v0.68 (2026-10-07): C04-16 lands on C04-045, a THIRD segment the cold run never
+    # saw, so it joins the same no-cold-counterpart category.
+    batch6 = {"C04-14", "C04-15", "C04-16"}
     assert added == ({"C11-02", "C04-06", "C11-03", "C14-06"}
                      | batch4 | batch5 | batch6), added
     assert len(published) == 32
-    assert len(live) == 62
+    assert len(live) == 63
 
     # Batch 4 is the first ADDITION WITH NO COLD COUNTERPART AT ALL, and that is
     # a stronger fact than `C14-06`'s. The 2026-08-29 cold run annotated the 22

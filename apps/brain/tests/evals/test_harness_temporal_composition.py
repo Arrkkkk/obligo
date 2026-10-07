@@ -35,7 +35,16 @@ GOLDENS = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                        "..", "..", "evals", "goldens")
 
 TAG = "temporal_composition"
-TAGGED = {"E03-01", "C02-07", "C04-08"}
+# The v0.63 ruling's own MEASURED population, frozen as a SET and dated. It is
+# what §8.12's preserved screen swept and what "exposure is exactly three items"
+# was a statement about; it must not drift as the gold set grows.
+V063_TAGGED = {"E03-01", "C02-07", "C04-08"}
+# Items tagged AFTER that measurement are DERIVED, never enumerated -- the
+# lesson the §10.1 F34 landmine taught: a test pinning the live total of
+# something whose purpose is to grow is a landmine every future session must
+# edit. v0.68 adds C04-16 (C04-045, batch 6) as the FIRST new instance since
+# the tag was minted.
+TAGGED = V063_TAGGED
 
 
 @pytest.fixture(scope="module")
@@ -103,7 +112,28 @@ def test_the_near_miss_surplus_bound_classifies_to_None_on_its_own():
 # --- 2. the scope -----------------------------------------------------------
 
 def test_exactly_three_items_carry_the_tag(gold_items):
-    assert {i["item_id"] for i in gold_items if TAG in i["known_gaps"]} == TAGGED
+    """The v0.63 population is pinned as a SET, so it cannot drift as the gold
+    set grows, and a MEASURED item losing the tag fails LOUDLY and by name --
+    the failure a bumped count cannot distinguish from an addition. Verified
+    two-sided: planting a lost tag on C02-07 fails with "v0.63-measured item(s)
+    lost the tag: ['C02-07']".
+
+    STATED PRECISELY, because the obvious stronger claim is FALSE and an earlier
+    draft of this docstring made it: later instances are ENUMERATED, not derived,
+    so a future session that tags a new item DOES have to edit the line below.
+    That is deliberate here and is the opposite of §10.1 F34's landmine, which
+    pinned the live total of a queue whose growth is pure bookkeeping. Tagging an
+    item `temporal_composition` is NOT bookkeeping -- it is an EXCLUDING
+    REPRESENTATIONAL kind, so it removes the item from both criterion-2
+    denominators. A silent addition would move a published figure's population
+    with nothing asserting it, so the edit is the point."""
+    live = {i["item_id"] for i in gold_items if TAG in i["known_gaps"]}
+    assert V063_TAGGED <= live, (
+        f"v0.63-measured item(s) lost the tag: {sorted(V063_TAGGED - live)}"
+    )
+    later = live - V063_TAGGED
+    # v0.68: C04-16 is the first instance tagged since the ruling.
+    assert later == {"C04-16"}, later
 
 
 def test_C02_07_is_in_scope_which_is_what_SLOT_LIMIT_scoping_decides(gold_items):
@@ -142,7 +172,12 @@ def test_no_tagged_item_was_restamped(gold_items):
     """F19's precedent: `known_gaps` is not one of §5's eight scored clauses, so
     a tag is added without conforming the item."""
     stamps = {i["item_id"]: i["guideline_version"] for i in gold_items if TAG in i["known_gaps"]}
-    assert stamps == {"E03-01": "v0.28", "C02-07": "v0.62", "C04-08": "v0.62"}
+    # The MEASURED three keep their original stamps -- that is F19's point.
+    assert {k: v for k, v in stamps.items() if k in V063_TAGGED} == {
+        "E03-01": "v0.28", "C02-07": "v0.62", "C04-08": "v0.62"}
+    # v0.68: C04-16 was AUTHORED at v0.68 carrying the tag, not restamped into
+    # it, which is the same invariant reached from the other direction.
+    assert stamps.get("C04-16") == "v0.68"
 
 
 # --- 3. the deferral, as a ruling -------------------------------------------

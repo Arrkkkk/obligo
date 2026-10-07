@@ -1,0 +1,63 @@
+{
+ "item_id": "C04-16",
+ "segment_id": "C04-045",
+ "doc_id": "C04",
+ "stratum": "hard",
+ "span_char_start": 23,
+ "span_char_end": 435,
+ "span_text": "Within [...***...] days from the Effective Date (or such longer period as agreed by the Parties in writing, but in any event prior to the first delivery of Clinical Grade Product to Bellicum), the Parties shall enter into an agreement on mutually acceptable, commercially reasonable terms that details the quality assurance obligations of each Party relating to Clinical Grade Products (the \"Quality Agreement\").",
+ "segment_text": "(e) Quality Agreement. Within [...***...] days from the Effective Date (or such longer period as agreed by the Parties in writing, but in any event prior to the first delivery of Clinical Grade Product to Bellicum), the Parties shall enter into an agreement on mutually acceptable, commercially reasonable terms that details the quality assurance obligations of each Party relating to Clinical Grade Products (the \"Quality Agreement\"). In the event of a conflict between the terms of the Quality Agreement and the terms of this Agreement, the provisions of this Agreement shall govern; provided, however, that the Quality Agreement shall govern in respect of quality issues.",
+ "modality": "MUST",
+ "action": "EXECUTE",
+ "action_accept_set": [
+  "EXECUTE",
+  "FINALIZE"
+ ],
+ "object_class": "quality_agreement",
+ "object_class_accept_set": [
+  "quality_agreement",
+  "agreement",
+  "written_agreement",
+  "quality_assurance_agreement"
+ ],
+ "obligor": "the Parties",
+ "obligor_accept_set": [],
+ "obligee": "ABSENT",
+ "temporal": null,
+ "vague_temporal_phrase": null,
+ "redacted_phrase": "Within [...***...] days from the Effective Date",
+ "conditions": [],
+ "known_gaps": [
+  "redacted_value",
+  "temporal_composition"
+ ],
+ "underspecified": true,
+ "missing_fields": [
+  "obligor",
+  "obligee"
+ ],
+ "rules_cited": [
+  "2",
+  "2.7",
+  "3.1",
+  "3.2",
+  "3.4",
+  "3.5",
+  "3.5.1",
+  "3.6",
+  "3.6.1",
+  "3.6.2",
+  "3.8",
+  "3.9",
+  "8.1",
+  "8.6",
+  "8.8.2",
+  "8.12"
+ ],
+ "annotator_confidence": "CONFIDENT",
+ "reviewer_status": "APPROVED",
+ "adjudicated_by": "reviewer",
+ "guideline_version": "v0.68",
+ "annotated_at": "2026-10-07T17:44:39+00:00",
+ "annotator_notes": "Batch 6, hard-queue position 5 of seed 6102026 (position 4, C04-117, is already annotated). C04-045's only item. Reviewer-ruled field by field.\n\nTHE F27 SPLITTER GUARD FIRED, AND THIS SPAN IS THE REJOINED SENTENCE -- had the guard not been run first, the span would have started at 'days from the Effective Date' and lost both the modal's deadline and the redaction. `split_sentences()` returns FOUR fragments because it breaks at the `[...***...]` redaction: '(e) Quality Agreement.' / 'Within [...***...]' / 'days from the Effective Date ... (the \"Quality Agreement\").' / the precedence sentence. Fragments 2 and 3 are ONE sentence. Asserted at write time rather than eyeballed: span == frags[1] + ' ' + frags[2]. Redaction marker measured at offset 34; ZERO abbreviation dots, so no other fragment is a split artifact. This is F27's measured class in C04 (its 32-of-35 finding), not a new mechanism -- so the TRUE sentence count is 3, not 4.\n\nPAGE FURNITURE: MEASURED NEGATIVE, re-verified at write time. Zero running-header occurrences and a looser sweep for 'N Miltenyi' / 'Execution Copy' / 'Page N' returns nothing. So NO `corpus_artifact_in_span`, which is unusual for C04 and is recorded as a measured negative rather than passed over in silence.\n\nBAND: ONE obligation-bearing clause, so section 2's 1-3 band is satisfied comfortably. S1 [0:22] is a heading. S3 [436:674] is NOT_OBLIGATION_BEARING: 'the provisions of this Agreement shall govern; provided, however, that the Quality Agreement shall govern in respect of quality issues' -- BOTH `shall govern` clauses have THING subjects and state precedence between documents rather than commanding conduct, the C22-045 class ('the provisions of this IP Agreement will control', excluded as section 3.2's future-fact pattern) and C04-163's.\n\nACTION -- `EXECUTE`, accept-set [EXECUTE, FINALIZE], NO `action_not_in_taxonomy`. 'enter into an agreement' is the act of CONCLUDING a contract, which passes section 8.8.2's same-performance test against EXECUTE: executing an agreement IS entering into it. C04-09 already uses EXECUTE for a literal execution ('will execute, acknowledge and deliver such further instruments').\nTHE E03-04 DISTINCTION, RECORDED BECAUSE E03-04 IS A NEAR-TWIN AND WENT THE OTHER WAY. E03-04 is 'the Parties shall AGREE TO THE TERMS AND CONDITIONS OF (a) the Quality Agreement' -> FINALIZE, singleton accept-set, `action_not_in_taxonomy`. Same document family, same 'Quality Agreement' object, same 'the Parties' obligor. The distinction is the LITERAL VERB: E03-04's 'agree to the terms' rests on BILATERAL ASSENT -- reaching agreement on content -- which no taxonomy verb denotes, whereas this clause's 'enter into' is the act of concluding the contract, which EXECUTE denotes. A party can agree terms without entering into, and can enter into without the terms being newly agreed; they are different performances, which is why one is a gap and the other is not.\nFLIP RISK, STATED SO IT IS NOT DISCOVERED LATER: if a later ruling treats 'enter into' as a gap case -- i.e. decides EXECUTE does NOT denote concluding a contract -- THIS ITEM BECOMES TAGGED `action_not_in_taxonomy`. That tag is REPRESENTATIONAL, so the item is ALREADY outside both criterion-2 denominators on its existing tags and the flip would move no published figure; what it would change is clause 2's accept-set and the item's membership in `report.py`'s G9 forced-choice disclosure class.\n\nTEMPORAL -- `null`, with `redacted_phrase` carrying the literal primary deadline, per the established treatment across ALL THREE redacted-temporal items, each read from its JSON: C04-08 (`redacted_phrase` 'within [...***...] days of the Effective Date, and thereafter by [...***...] of each Calendar Year during the Term', gaps redacted_value + temporal_composition), C02-06 ('no later than [***] of receipt of such information') and E03-01 ('At least ** before the ** of each Calendar Quarter'). All three carry temporal null.\nTHE WHOLE PHRASE THROUGH THE PRODUCTION CLASSIFIER, gated on a known accept AND a known non-temporal reject first: `_classify_temporal(` the full 191-char phrase `)` returns NONE. Each element separately also returns None -- the redacted primary deadline, the relaxation, and the backstop -- so the composition is shown rather than asserted.\n`within_preposition` IS NOT FILED, on section 8.6's one-tag rule: THE REDACTION IS THE LEAST-REPAIRABLE OBSTACLE, so `redacted_value` governs. THE EXECUTION RESULT IS RECORDED HERE SO THE FACT SURVIVES WITHOUT A TAG: 'within 30 days FROM the Effective Date' -> None, while 'within 30 days OF the Effective Date' -> WITHIN 30d OF \"the Effective Date\". So this clause's preposition IS the one `_WITHIN_RE` rejects, and that is a real property of the text that simply does not earn a second tag -- the same posture C11-03 took when its phrase tripped both the preposition gap and the parenthetical-numeral gap and `known_gaps` was `within_preposition` ALONE. Note C04-08's phrase uses the ACCEPTED `of`, so that precedent could not have settled this either way; the ruling is section 8.6's rule, not C04-08's data.\n`temporal_composition` IS FILED (section 8.12). THREE elements constrain the duty DIFFERENTLY against IR v1's ONE temporal field, which is that section's slot-gap shape: (1) a PRIMARY DEADLINE, 'Within [...***...] days from the Effective Date'; (2) a RELAXATION, 'or such longer period as agreed by the Parties in writing', which can only EXTEND (1); and (3) a BACKSTOP, 'but in any event prior to the first delivery of Clinical Grade Product to Bellicum', which CAPS whatever (1) and (2) produce. They are not restatements of one another: (2) loosens, (3) tightens, and dropping either changes which future states satisfy the duty. DIRECTION stays `DIRECTION_DEFERRED` per section 8.12 -- and this item is a clean illustration of WHY that deferral was ruled rather than a direction assigned, since dropping (2) UNDERSTATES the permitted window while dropping (3) OVERSTATES it, in one item.\n\nKNOWN_GAPS = ['redacted_value', 'temporal_composition']. Both are EXCLUDING kinds -- WITHHELD_VALUE and REPRESENTATIONAL respectively, verified against the live `gap_kinds.GAP_KIND` vocabulary rather than assumed -- so the item stays OUT of both criterion-2 denominators under section 9's any-excluding-tag membership rule. It is also cassette-unscoreable, C04-045 having never been recorded.\n\nPARTIES -- obligor `the Parties` VERBATIM (section 3.5.1 branch 2: no individuals are named for this slot, a collective subject IS stated, so the slot holds the reference and `obligor_accept_set` is []; `ABSENT` would be factually false). obligee `ABSENT` -- no correlative party is named. NO `mutual_obligation`: section 8.4's tag fires where a DISTINCT counterparty is named, which this clause does not do. Settled by four committed precedents, all read from JSON: C04-02, C04-07, E03-04 and E03-05 each carry obligor 'the Parties' / obligee ABSENT / underspecified true / missing_fields ['obligor','obligee'], and NONE carries `mutual_obligation`; the items that do carry it all name a counterparty (C14-01/C14-02 'the other party', E01-04 'each other', C02-06 'the other').\nUNDERSPECIFIED true, missing_fields ['obligor','obligee'] -- `the Parties` is NAMED but not registry-resolvable (the committed C04 registry holds Miltenyi and Bellicum, not a collective), which is section 3.9 trigger 1, and the obligee is absent. Byte-identical to the four precedents above.\n\nCONDITIONS -- []. TWO phrases were tested and both excluded, each on its own rule. 'on mutually acceptable, commercially reasonable terms' is a REVIEWABLE STANDARD, excluded by section 3.8's v0.54 rule (such a phrase governs HOW the duty is performed, not WHETHER it applies) -- the same ground `C04-06`'s 'acting reasonably' was ruled on. The parenthetical '(or such longer period ... prior to the first delivery ...)' is TEMPORAL CONTENT rather than a condition: section 3.8's removal test asks whether the DUTY now applies in circumstances it previously did not, and deleting the parenthetical changes the TIMING while leaving the circumstances untouched -- which is why it is filed under `temporal_composition` above instead."
+}
