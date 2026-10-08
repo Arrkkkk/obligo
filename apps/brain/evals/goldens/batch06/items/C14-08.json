@@ -1,0 +1,61 @@
+{
+ "item_id": "C14-08",
+ "segment_id": "C14-095",
+ "doc_id": "C14",
+ "stratum": "standard",
+ "span_char_start": 596,
+ "span_char_end": 799,
+ "span_text": "(2) upon notice of no less than five (5) Days from NICE, provide NICE and its designees with reasonable access to such records and documentation for the purpose of conducting NICE' business and reporting",
+ "segment_text": "10.6. CONTRACTOR RECORD RETENTION AND ACCESS. As part of the Manufacturing Outsourcing Services, Contractor shall (1) retain records and supporting documentation detailed in Section 10.2 above if and to the extent such record retention is required by tax or similar authorities, and/or exists in the ERP system, and/or is common practice in the industry, including but not limited to - production files for the following periods: 7 years for records required by tax or similar authorities and ERP data, 3 years for production files, otherwise as required by law or as is the common practice, and (2) upon notice of no less than five (5) Days from NICE, provide NICE and its designees with reasonable access to such records and documentation for the purpose of conducting NICE' business and reporting. Such access shall only be provided to audit personnel who have signed towards Contractor a non-disclosure undertaking incorporating terms which are substantially the same as those in APPENDIX E.",
+ "modality": "MUST",
+ "action": "PROVIDE",
+ "action_accept_set": [
+  "PROVIDE",
+  "DISCLOSE"
+ ],
+ "object_class": "record_access",
+ "object_class_accept_set": [
+  "record_access",
+  "access",
+  "records",
+  "documentation"
+ ],
+ "obligor": "Contractor",
+ "obligor_accept_set": [],
+ "obligee": "NICE",
+ "temporal": {
+  "form": "RELATIVE_TO_TRIGGER",
+  "direction": "after",
+  "trigger": "notice of no less than five (5) Days from NICE"
+ },
+ "vague_temporal_phrase": null,
+ "conditions": [],
+ "known_gaps": [
+  "relative_trigger_preposition"
+ ],
+ "underspecified": true,
+ "missing_fields": [
+  "temporal.trigger"
+ ],
+ "rules_cited": [
+  "2",
+  "2.7",
+  "3.1",
+  "3.2",
+  "3.4",
+  "3.5",
+  "3.5.1",
+  "3.6",
+  "3.6.1",
+  "3.8",
+  "3.9",
+  "4.3",
+  "8.9"
+ ],
+ "annotator_confidence": "CONFIDENT",
+ "reviewer_status": "APPROVED",
+ "adjudicated_by": "reviewer",
+ "guideline_version": "v0.68",
+ "annotated_at": "2026-10-08T16:43:20+00:00",
+ "annotator_notes": "Batch 6, STANDARD-queue position 6 of seed 6102026. C14-095 yields THREE items -- the most any segment in this batch has produced -- and all three are below. F27 GUARD CLEAN (zero redactions, zero abbreviation dots, three real fragments). PAGE FURNITURE: NONE, measured document-agnostically by RECURRENCE over C14's 153 pool segments with C04's header gated as a known answer, so NO item carries corpus_artifact_in_span. PARTIES RE-RESOLVED BY EXACT MATCH AT WRITE TIME against evals/registry/C14.json, whose aliases are ['CONTRACTOR', 'Contractor', 'NICE', 'Nice']: both `Contractor` and `NICE` match EXACTLY -- unlike C17-03's bare `Company`, which did not, and which R5's self-check caught.\n\nTHE (1)/(2) SPLIT IS SECTION 4.3's, and the connective was READ rather than assumed: '...otherwise as required by law or as is the common practice, AND (2) upon notice...' -- CONJUNCTIVE, asserted by regex at write time. Both limbs are owed and independently breachable (Contractor can retain records and still refuse access, or grant access having failed to retain), and the clause NUMBERS them itself. Contrast C17-006 one segment earlier, where the connective was OR and the correct answer was ONE item -- the two segments together are the clearest statement in this batch that the connective decides the count.\n\nSECTION 10.2 AND APPENDIX E ARE OBJECT SCOPE, not exclusion grounds. Both are out-of-segment, so F30 routes them to F24's discriminator, and each supplies WHICH records or WHICH NDA terms rather than anything a scored value's truth depends on: `object_class` is determinable from each span's own head noun with both unresolved. Section 2's cross-reference row tests SCORED-FIELD DEPENDENCE and is not met.\n\nITEM (2) of the enumerated pair: '(2) upon notice of no less than five (5) Days from NICE, provide NICE and its designees with reasonable access to such records and documentation...'. obligor `Contractor` (carried from the shared subject at [97:107], resolves exactly).\n\nTEMPORAL -- THE FORM IS ANNOTATED, NOT NULLED, and section 8.11 was CHECKED FIRST AND DOES NOT APPLY. That is the whole temporal ruling and it turned on one execution. Section 8.11's gap is that 'no v1 form pairs a `duration` with a `direction`', so a lead time has nowhere to go. Here the lead time does NOT need its own slot, because `trigger_ref` is FREE_TEXT and the whole phrase fits inside it: `_classify_temporal('after notice of no less than five (5) Days from NICE')` returns AFTER \"notice of no less than five (5) Days from NICE\", and the grammar parses `AFTER \"...\"` to RelativeToTriggerTemporal(direction='AFTER', trigger=UnresolvedTrigger(...)). Gated on a known accept and a known non-temporal reject before either output was read.\nSO THERE IS EXACTLY ONE GAP AND SECTION 8.6's ONE-TAG RULE IS NOT EVEN NEEDED. `upon` is the only obstacle -- `_RELATIVE_RE` is ^(before|after)\\s+(.+)$ -- which is a REACHABILITY defect, section 8.9's `relative_trigger_preposition`. AND THE PARENTHETICAL NUMERAL IS NOT A SECOND GAP HERE: 'five (5)' sits inside FREE TEXT, where there is no numeral parsing to fail, so section 11's `within_parenthetical` -- scoped to `_WITHIN_RE`'s duration -- does not arise. C11-03's two-gaps-one-tag situation therefore does NOT recur, which is worth stating because the surface text (a parenthetical numeral inside a rejected-preposition temporal) looks exactly like it.\nDIRECTION `after` IS SECTION 8.9's OWN MAPPING, verified in its rule text rather than inferred: 'Annotate RELATIVE_TO_TRIGGER with the direction the preposition expresses (`upon` / `following` / `on` -> `after`; `prior to` -> `before`) and the trigger verbatim.' Trigger quoted VERBATIM at [605:651]. `missing_fields` carries `temporal.trigger` per section 3.9 trigger 3 (`resolve_trigger()` returns None throughout v1) -- byte-identical to C13-03, C22-02 and C04-06, the three locked items of this class, all read from JSON.\n\nOBLIGEE `NICE`, FIRST-NAMED of 'NICE and its designees' [661:683]. THE COORDINATION IS CONJUNCTIVE, and section 3.5.1 is explicit that this changes nothing about the annotation: 'Conjunctive (`and`) and disjunctive (`or`) are annotated IDENTICALLY; record which in annotator_notes.' Recorded: conjunctive. THE ALTERNATIVES, VERBATIM, since the obligee slot has NO accept-set field: 'NICE', 'its designees', and the whole phrase 'NICE and its designees'. This is the THIRD coordinated obligee in the set after C04-14 and C17-03 and the FIRST CONJUNCTIVE one -- so section 3.5.1's F4 measurement, which justified the slot having no accept-set on 'joint 0 / disjunctive 3 of 1,547 pool segments and 0 of the 18 locked items', is now contradicted on BOTH limbs at the locked-item level: joint is no longer 0 and disjunctive is no longer 0.\n\nCONDITIONS []. 'for the purpose of conducting NICE' business and reporting' [741:799] is a PURPOSE clause, not a condition: section 3.8's removal test leaves the duty applying in the identical circumstances, and it restricts what the access may be USED for rather than whether access is owed. 'reasonable' in 'reasonable access' is a REVIEWABLE STANDARD excluded by section 3.8's v0.54 rule, the same ground C04-06's 'acting reasonably' was ruled on."
+}

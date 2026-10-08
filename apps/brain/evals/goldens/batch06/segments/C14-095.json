@@ -1,0 +1,57 @@
+{
+ "segment_id": "C14-095",
+ "doc_id": "C14",
+ "schema": "\u00a72.7 (v0.50) -- complete per-sentence segment disposition, at SUB-SENTENCE granularity because S2 carries TWO enumerated obligations.",
+ "reconciliation": {
+  "sentences_total": 3,
+  "obligation_bearing_clauses": 3,
+  "items_annotated": 3,
+  "status": "PASS",
+  "note": "THREE clauses, THREE items -- the most any segment in batch 6 produced, and in band at \u00a72's upper bound. S2 holds TWO, split on \u00a74.3 with the connective READ rather than assumed ('...common practice, AND (2) upon notice...'), asserted by regex at write time; the clause numbers them itself. S3 is the third, a both-ABSENT thing-subject agentless passive. F27 GUARD CLEAN: zero redactions, zero abbreviation dots. \u00a78.7 PAGE FURNITURE: NONE, by recurrence over C14's 153 pool segments with C04's header gated -- so no item carries corpus_artifact_in_span."
+ },
+ "dispositions": [
+  {
+   "span_char_start": 0,
+   "span_char_end": 45,
+   "disposition": "NOT_OBLIGATION_BEARING",
+   "rule": "\u00a72.6 / \u00a72.7",
+   "reason": "Section heading -- no modal, no finite verb.",
+   "span_text": "10.6. CONTRACTOR RECORD RETENTION AND ACCESS."
+  },
+  {
+   "span_char_start": 46,
+   "span_char_end": 595,
+   "disposition": "ANNOTATED",
+   "rule": "\u00a73.2 (shall = MUST); \u00a74.3 (conjunctive AND, two owed limbs); \u00a78.12 (temporal_composition); \u00a717.2 (internal and/or stays one entry)",
+   "reason": "Enumerated limb (1): retain records and supporting documentation. -> item C14-07.",
+   "items": [
+    "C14-07"
+   ],
+   "span_text": "As part of the Manufacturing Outsourcing Services, Contractor shall (1) retain records and supporting documentation detailed in Section 10.2 above if and to the extent such record retention is required by tax or similar authorities, and/or exists in the ERP system, and/or is common practice in the industry, including but not limited to - production files for the following periods: 7 years for records required by tax or similar authorities and ERP data, 3 years for production files, otherwise as required by law or as is the common practice, and"
+  },
+  {
+   "span_char_start": 596,
+   "span_char_end": 799,
+   "disposition": "ANNOTATED",
+   "rule": "\u00a73.2; \u00a74.3; \u00a78.9 (relative_trigger_preposition, upon -> after, trigger verbatim in FREE_TEXT)",
+   "reason": "Enumerated limb (2): provide NICE and its designees with access, upon 5 Days' notice. -> item C14-08.",
+   "items": [
+    "C14-08"
+   ],
+   "span_text": "(2) upon notice of no less than five (5) Days from NICE, provide NICE and its designees with reasonable access to such records and documentation for the purpose of conducting NICE' business and reporting"
+  },
+  {
+   "span_char_start": 801,
+   "span_char_end": 995,
+   "disposition": "ANNOTATED",
+   "rule": "\u00a73.2 (shall = MUST; no restrictive-'only' rule exists); \u00a73.5.3 (agentless passive, BOTH slots ABSENT); \u00a73.8 removal test (the signing requirement is a condition)",
+   "reason": "'Such access shall only be provided to audit personnel who have signed ...' -- a thing-subject agentless passive. Second both-ABSENT item in the set after C14-06; C14-05 deliberately NOT copied because its obligee resolves and this one's does not. -> item C14-09.",
+   "items": [
+    "C14-09"
+   ],
+   "span_text": "Such access shall only be provided to audit personnel who have signed towards Contractor a non-disclosure undertaking incorporating terms which are substantially the same as those in APPENDIX E."
+  }
+ ],
+ "not_annotatable": [],
+ "logged_at": "2026-10-08T16:43:47+00:00"
+}

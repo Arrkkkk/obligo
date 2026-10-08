@@ -188,8 +188,10 @@ def test_the_set_is_48_items_over_28_segments():
     # not a gold item), annotated NORMALLY as an active-verb allocation. §8.8.4's
     # measured cost is unaffected: no locked item it names is touched.
     # v0.68 (C17-006, 2026-10-08): 65 items over 39 segments.
-    assert len(items) == 65
-    assert len(rs.segments_from_items(items)) == 39
+    # v0.68 (C14-095, 2026-10-08): 68 items over 40 segments -- ONE segment yielding
+    # THREE items, the most in batch 6.
+    assert len(items) == 68
+    assert len(rs.segments_from_items(items)) == 40
 
 
 # --- (3) the evidence the rule rests on --------------------------------------

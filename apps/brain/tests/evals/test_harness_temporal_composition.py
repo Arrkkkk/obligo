@@ -132,8 +132,11 @@ def test_exactly_three_items_carry_the_tag(gold_items):
         f"v0.63-measured item(s) lost the tag: {sorted(V063_TAGGED - live)}"
     )
     later = live - V063_TAGGED
-    # v0.68: C04-16 is the first instance tagged since the ruling.
-    assert later == {"C04-16"}, later
+    # v0.68: C04-16 (C04-045) then C14-07 (C14-095, limb (1)) -- the first two
+    # instances tagged since the ruling. C14-07 is also the first item ANYWHERE
+    # that this tag excludes from the in-force denominator on its own; see
+    # test_no_item_gained_the_tag_as_its_ONLY_excluding_tag.
+    assert later == {"C04-16", "C14-07"}, later
 
 
 def test_C02_07_is_in_scope_which_is_what_SLOT_LIMIT_scoping_decides(gold_items):
@@ -157,15 +160,37 @@ def test_E03_01_carries_BOTH_temporal_tags_and_neither_subsumes_the_other(gold_i
 
 
 def test_no_item_gained_the_tag_as_its_ONLY_excluding_tag(gold_items):
-    """The exclusion-neutrality claim, asserted on data rather than trusted from
-    the ruling's prose: every tagged item was ALREADY out of the in-force
-    denominator, so the amendment cannot have moved criterion 2."""
+    """v0.63's exclusion-neutrality claim, SCOPED TO THE POPULATION IT WAS MADE
+    OVER -- which is what it always was, and the scoping is forced by data rather
+    than chosen. The claim was "every tagged item was ALREADY out of the in-force
+    denominator, so THE AMENDMENT cannot have moved criterion 2", a statement
+    about the three items the amendment touched. It is NOT a standing invariant
+    that no future item may be excluded by this tag alone, and reading it as one
+    would have frozen the tag out of exactly the cases it exists for.
+
+    v0.68 FALSIFIES THE UNSCOPED READING: `C14-07` (C14-095, limb (1)) carries
+    `temporal_composition` as its ONLY tag, so it IS excluded from the in-force
+    denominator by this tag alone -- the FIRST such item. The v0.63 amendment
+    stays exclusion-neutral over its own three; the TAG does not stay
+    exclusion-neutral over the set, and §8.12 never claimed it would."""
     for i in gold_items:
-        if TAG in i["known_gaps"]:
+        if TAG in i["known_gaps"] and i["item_id"] in V063_TAGGED:
             others = [t for t in i["known_gaps"] if t != TAG]
             assert excluding_tags(others), (
-                f"{i['item_id']} would be newly excluded BY THIS TAG ALONE; the "
-                f"ruling's exclusion-neutrality claim no longer holds")
+                f"{i['item_id']} is one of v0.63's MEASURED three and would be "
+                f"excluded BY THIS TAG ALONE; that amendment's own "
+                f"exclusion-neutrality claim no longer holds")
+
+    # And the new fact is pinned positively rather than left as the absence of a
+    # failure, so a future session cannot read silence as continued neutrality.
+    solo = sorted(i["item_id"] for i in gold_items
+                  if TAG in i["known_gaps"]
+                  and not excluding_tags([t for t in i["known_gaps"] if t != TAG]))
+    assert solo == ["C14-07"], (
+        f"items excluded by {TAG} ALONE changed: {solo}. This is a real cost "
+        f"change, not bookkeeping -- each such item is one §8.12 removes from "
+        f"§9.1's in-force denominator on its own."
+    )
 
 
 def test_no_tagged_item_was_restamped(gold_items):

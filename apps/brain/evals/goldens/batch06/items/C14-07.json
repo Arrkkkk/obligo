@@ -1,0 +1,61 @@
+{
+ "item_id": "C14-07",
+ "segment_id": "C14-095",
+ "doc_id": "C14",
+ "stratum": "standard",
+ "span_char_start": 46,
+ "span_char_end": 595,
+ "span_text": "As part of the Manufacturing Outsourcing Services, Contractor shall (1) retain records and supporting documentation detailed in Section 10.2 above if and to the extent such record retention is required by tax or similar authorities, and/or exists in the ERP system, and/or is common practice in the industry, including but not limited to - production files for the following periods: 7 years for records required by tax or similar authorities and ERP data, 3 years for production files, otherwise as required by law or as is the common practice, and",
+ "segment_text": "10.6. CONTRACTOR RECORD RETENTION AND ACCESS. As part of the Manufacturing Outsourcing Services, Contractor shall (1) retain records and supporting documentation detailed in Section 10.2 above if and to the extent such record retention is required by tax or similar authorities, and/or exists in the ERP system, and/or is common practice in the industry, including but not limited to - production files for the following periods: 7 years for records required by tax or similar authorities and ERP data, 3 years for production files, otherwise as required by law or as is the common practice, and (2) upon notice of no less than five (5) Days from NICE, provide NICE and its designees with reasonable access to such records and documentation for the purpose of conducting NICE' business and reporting. Such access shall only be provided to audit personnel who have signed towards Contractor a non-disclosure undertaking incorporating terms which are substantially the same as those in APPENDIX E.",
+ "modality": "MUST",
+ "action": "RETAIN",
+ "action_accept_set": [
+  "RETAIN",
+  "MAINTAIN"
+ ],
+ "object_class": "records",
+ "object_class_accept_set": [
+  "records",
+  "record",
+  "documentation",
+  "production_files"
+ ],
+ "obligor": "Contractor",
+ "obligor_accept_set": [],
+ "obligee": "ABSENT",
+ "temporal": null,
+ "vague_temporal_phrase": null,
+ "conditions": [
+  "if and to the extent such record retention is required by tax or similar authorities, and/or exists in the ERP system, and/or is common practice in the industry"
+ ],
+ "known_gaps": [
+  "temporal_composition"
+ ],
+ "underspecified": true,
+ "missing_fields": [
+  "obligee"
+ ],
+ "rules_cited": [
+  "2",
+  "2.7",
+  "3.1",
+  "3.2",
+  "3.4",
+  "3.5",
+  "3.5.1",
+  "3.6",
+  "3.6.1",
+  "3.8",
+  "3.8.2",
+  "3.9",
+  "4.3",
+  "8.12",
+  "17.2"
+ ],
+ "annotator_confidence": "CONFIDENT",
+ "reviewer_status": "APPROVED",
+ "adjudicated_by": "reviewer",
+ "guideline_version": "v0.68",
+ "annotated_at": "2026-10-08T16:43:20+00:00",
+ "annotator_notes": "Batch 6, STANDARD-queue position 6 of seed 6102026. C14-095 yields THREE items -- the most any segment in this batch has produced -- and all three are below. F27 GUARD CLEAN (zero redactions, zero abbreviation dots, three real fragments). PAGE FURNITURE: NONE, measured document-agnostically by RECURRENCE over C14's 153 pool segments with C04's header gated as a known answer, so NO item carries corpus_artifact_in_span. PARTIES RE-RESOLVED BY EXACT MATCH AT WRITE TIME against evals/registry/C14.json, whose aliases are ['CONTRACTOR', 'Contractor', 'NICE', 'Nice']: both `Contractor` and `NICE` match EXACTLY -- unlike C17-03's bare `Company`, which did not, and which R5's self-check caught.\n\nTHE (1)/(2) SPLIT IS SECTION 4.3's, and the connective was READ rather than assumed: '...otherwise as required by law or as is the common practice, AND (2) upon notice...' -- CONJUNCTIVE, asserted by regex at write time. Both limbs are owed and independently breachable (Contractor can retain records and still refuse access, or grant access having failed to retain), and the clause NUMBERS them itself. Contrast C17-006 one segment earlier, where the connective was OR and the correct answer was ONE item -- the two segments together are the clearest statement in this batch that the connective decides the count.\n\nSECTION 10.2 AND APPENDIX E ARE OBJECT SCOPE, not exclusion grounds. Both are out-of-segment, so F30 routes them to F24's discriminator, and each supplies WHICH records or WHICH NDA terms rather than anything a scored value's truth depends on: `object_class` is determinable from each span's own head noun with both unresolved. Section 2's cross-reference row tests SCORED-FIELD DEPENDENCE and is not met.\n\nITEM (1) of the enumerated pair: 'Contractor shall (1) retain records and supporting documentation detailed in Section 10.2 above ...'. obligor `Contractor` (resolves exactly); obligee `ABSENT` -- a retention duty runs to no party named in the span, and section 3.5 forbids inferring one from elsewhere.\n\nTEMPORAL null WITH `temporal_composition` FILED, and section 8.12's FIRING TEST was quoted and applied rather than the tag being assumed: it 'fires when a span states TWO OR MORE temporal elements that constrain the duty DIFFERENTLY and IR v1's single `temporal` field can hold at most one', and does NOT fire on 'a redundant restatement of the same bound'. The span states THREE, each keyed to a different record subtype and so constraining differently rather than restating: (a) '7 years for records required by tax or similar authorities and ERP data', (b) '3 years for production files', (c) the open-ended 'otherwise as required by law or as is the common practice'. Deleting any one changes which records must be kept how long, so none is redundant.\nAND NO FORM HOLDS EVEN ONE OF THEM, verified through the production `_classify_temporal()` (gated on a known accept first): '7 years', 'for 7 years', 'during 7 years' and '7y' all return None. A RETENTION DURATION is a duration of CONTINUING performance, and v1's five forms hold a deadline measured from a trigger (`WithinTemporal` {duration, of}), a recurrence (`EveryTemporal`), a date pair (`DuringTemporal`), a single date (`ByTemporal`) or a direction+trigger (`RelativeToTriggerTemporal`) -- none of which is 'keep this for N years'.\nDELIBERATELY NOT COUNTED TOWARD F25, on the reviewer's instruction and correctly on the merits: F25 is the EVENT-BOUNDED INTERVAL class and these are retention durations, a different shape again from both that class and from C04-15's defined-term period.\n\nCONDITIONS -- ONE entry beginning at 'if and to the extent' [193:353], offsets asserted at write time. SECTION 17.2 GOVERNS THE INTERNAL BOOLEANS: 'A single `Condition` whose text contains and/or/not is THE CORRECT GOLD ANSWER. It is not a PARTIAL on clause 7 ... and it is not a defect to be recorded as a known gap.' So the 'and/or ... and/or' chain stays inside one entry and earns no tag. Section 3.8.2 Rule B does not reach it either -- Rule B splits ADJACENT DISTINCT phrases, and this is one phrase with internal connectives.\nRULE A's QUOTE EXTENT IS AWKWARD HERE AND IS RECORDED AS SUCH RATHER THAN GLOSSED. Rule A says the quote begins at the qualifier's own introducing marker, exclusive of a coordinating adverb or conjunction that merely attaches it to the previous clause -- its worked examples being bare `if` and `provided that`. This marker is the COMPOUND 'if and to the extent', where the `and` is INTERNAL to the marker rather than attaching the qualifier to a neighbour, so Rule A's exclusion does not bite and the quote begins at `if`. Recorded because Rule A's own v0.67 correction notes it was written against a symmetric ambiguity and has never been validated against a compound marker.\nSECTION 3.8.3's `conditions_accept_set` WAS READ BEFORE BEING CONSIDERED, AND DOES NOT APPLY. That field exists for BELT-AND-SUSPENDERS RESTATEMENTS -- one real-world circumstance stated TWICE, NON-ADJACENTLY, where 'the removal test applied to EACH occurrence independently must find the OTHER(S) redundant'. Here there is one occurrence with internal booleans, so the applicability gate is not met and the field is correctly absent. It is carried by only 2 of the 65 locked items (C13-01, C06-01), both genuine restatement cases."
+}

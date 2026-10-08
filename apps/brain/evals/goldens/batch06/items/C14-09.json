@@ -1,0 +1,54 @@
+{
+ "item_id": "C14-09",
+ "segment_id": "C14-095",
+ "doc_id": "C14",
+ "stratum": "standard",
+ "span_char_start": 801,
+ "span_char_end": 995,
+ "span_text": "Such access shall only be provided to audit personnel who have signed towards Contractor a non-disclosure undertaking incorporating terms which are substantially the same as those in APPENDIX E.",
+ "segment_text": "10.6. CONTRACTOR RECORD RETENTION AND ACCESS. As part of the Manufacturing Outsourcing Services, Contractor shall (1) retain records and supporting documentation detailed in Section 10.2 above if and to the extent such record retention is required by tax or similar authorities, and/or exists in the ERP system, and/or is common practice in the industry, including but not limited to - production files for the following periods: 7 years for records required by tax or similar authorities and ERP data, 3 years for production files, otherwise as required by law or as is the common practice, and (2) upon notice of no less than five (5) Days from NICE, provide NICE and its designees with reasonable access to such records and documentation for the purpose of conducting NICE' business and reporting. Such access shall only be provided to audit personnel who have signed towards Contractor a non-disclosure undertaking incorporating terms which are substantially the same as those in APPENDIX E.",
+ "modality": "MUST",
+ "action": "PROVIDE",
+ "action_accept_set": [
+  "PROVIDE",
+  "DISCLOSE"
+ ],
+ "object_class": "record_access",
+ "object_class_accept_set": [
+  "record_access",
+  "access"
+ ],
+ "obligor": "ABSENT",
+ "obligor_accept_set": [],
+ "obligee": "ABSENT",
+ "temporal": null,
+ "vague_temporal_phrase": null,
+ "conditions": [
+  "who have signed towards Contractor a non-disclosure undertaking incorporating terms which are substantially the same as those in APPENDIX E"
+ ],
+ "known_gaps": [],
+ "underspecified": true,
+ "missing_fields": [
+  "obligor",
+  "obligee"
+ ],
+ "rules_cited": [
+  "2",
+  "2.7",
+  "3.1",
+  "3.2",
+  "3.3",
+  "3.4",
+  "3.5",
+  "3.5.3",
+  "3.6",
+  "3.8",
+  "3.9"
+ ],
+ "annotator_confidence": "CONFIDENT",
+ "reviewer_status": "APPROVED",
+ "adjudicated_by": "reviewer",
+ "guideline_version": "v0.68",
+ "annotated_at": "2026-10-08T16:43:20+00:00",
+ "annotator_notes": "Batch 6, STANDARD-queue position 6 of seed 6102026. C14-095 yields THREE items -- the most any segment in this batch has produced -- and all three are below. F27 GUARD CLEAN (zero redactions, zero abbreviation dots, three real fragments). PAGE FURNITURE: NONE, measured document-agnostically by RECURRENCE over C14's 153 pool segments with C04's header gated as a known answer, so NO item carries corpus_artifact_in_span. PARTIES RE-RESOLVED BY EXACT MATCH AT WRITE TIME against evals/registry/C14.json, whose aliases are ['CONTRACTOR', 'Contractor', 'NICE', 'Nice']: both `Contractor` and `NICE` match EXACTLY -- unlike C17-03's bare `Company`, which did not, and which R5's self-check caught.\n\nTHE (1)/(2) SPLIT IS SECTION 4.3's, and the connective was READ rather than assumed: '...otherwise as required by law or as is the common practice, AND (2) upon notice...' -- CONJUNCTIVE, asserted by regex at write time. Both limbs are owed and independently breachable (Contractor can retain records and still refuse access, or grant access having failed to retain), and the clause NUMBERS them itself. Contrast C17-006 one segment earlier, where the connective was OR and the correct answer was ONE item -- the two segments together are the clearest statement in this batch that the connective decides the count.\n\nSECTION 10.2 AND APPENDIX E ARE OBJECT SCOPE, not exclusion grounds. Both are out-of-segment, so F30 routes them to F24's discriminator, and each supplies WHICH records or WHICH NDA terms rather than anything a scored value's truth depends on: `object_class` is determinable from each span's own head noun with both unresolved. Section 2's cross-reference row tests SCORED-FIELD DEPENDENCE and is not met.\n\nS3, THE SEGMENT'S THIRD ITEM: 'Such access shall only be provided to audit personnel who have signed towards Contractor a non-disclosure undertaking incorporating terms which are substantially the same as those in APPENDIX E.'\n\nBOTH PARTY SLOTS ARE `ABSENT`, and C14-05 was DELIBERATELY NOT COPIED even though it is the nearest thing-subject agentless passive. C14-05 is obligor ABSENT / obligee `Contractor` / missing_fields ['obligor'], and its obligee resolves because the performance there RUNS TO Contractor ('by sending Contractor a written request'). HERE IT DOES NOT: the performance is PROVIDING ACCESS, and it runs to `audit personnel`, which is not a contracting party; `Contractor` appears in the span only as the object of 'signed TOWARDS Contractor', i.e. the NDA's beneficiary, and on the natural reading Contractor is the IMPLIED PROVIDER -- the obligor -- not the recipient. Section 3.5.3 rules that 'where no party is named at all, or more than one candidate is equally available, obligee = ABSENT'. Copying C14-05's missing_fields would have asserted an obligee that resolves when none does.\nSHAPE COPIED FROM C14-06 INSTEAD, read from its JSON: obligor ABSENT, obligor_accept_set [], obligee ABSENT, no `obligee_accept_set` key, underspecified true, missing_fields ['obligor','obligee']. THIS IS THE SECOND BOTH-ABSENT ITEM IN THE SET after C14-06 -- and both are in C14, which is coincidence rather than a document property. Section 5's clause 8 is VACUOUS on such an item by section 10.1 F15's proof (no substring of a partyless span can resolve, so `underspecified` is True for ANY prediction whatever); that is a disclosed property of the instrument, not a defect in this item.\n\nMODALITY `MUST`, AND THE COMPETING `MUST_NOT` READING IS RECORDED RATHER THAN DISMISSED. NO RESTRICTIVE-`only` RULE EXISTS ANYWHERE IN THE GUIDELINE -- searched before deciding: section 3.2 has no `only` row, section 3.3 says the four modality values are 'determined by the text', and the string 'shall only' appears in no rule section. Section 3.2's table maps `shall` -> MUST and `shall not` -> MUST_NOT; this clause carries `shall`, with `only` a RESTRICTIVE ADVERB rather than a negation of the modal, so the text is NOT silent and MUST follows directly.\nTHE COMPETING READING, stated so it is not rediscovered: 'shall only be provided to X' could be read as 'shall NOT be provided to anyone other than X' -> MUST_NOT with the recipient class as a carve-out. It is REJECTED because it requires PARAPHRASING the text into a negative the drafter did not write, which section 3.3's 'determined by the text' forbids. The two readings differ on clause 1, a SCORED field, so the choice is consequential and is recorded as a choice. Nearest neighbour in the rules is section 8.8.1's `shall have no right`, which IS treated as a negative -- but that is an explicitly negative copular predicate, which this is not.\n\nCONDITIONS -- ONE entry beginning at the RELATIVE MARKER `who` [855:994], offset asserted at write time. DECIDED BY SECTION 3.8's REMOVAL TEST, not by shape: delete 'who have signed towards Contractor a non-disclosure undertaking...' and the duty applies EVEN TO PERSONNEL WHO HAVE NOT SIGNED, so the circumstances in which the duty applies change -> CONDITION, not object scope. Object scope would require the deletion to leave the duty unchanged and only broaden the SET OF THINGS covered; the things here are `access`, whose extent is untouched.\nNEAREST LOCKED JSON, read rather than cited: C22-01's conditions entry is 'giving any notice required or permitted under this IP Agreement' -- a bare PARTICIPIAL phrase with no `if`/`provided that` marker, which section 3.8's own table lists as a CONDITION ('without it the duty applies to every party at all times'). So a non-`if`-headed, clause-embedded qualifier is established as a conditions entry, and a relative clause is the same shape one step further.\nTHE COMPETING READING ON EXTENT, recorded: the entry could instead begin at `only` [829] or at `to audit personnel` [836], treating the whole recipient restriction as one condition. It is rejected because `only ... to audit personnel` identifies WHO receives the access -- obligee scope, and the obligee is already `ABSENT` for the reason above -- whereas the signing requirement is the gating circumstance. Section 3.8.2 Rule A's own worked markers are `if` and `provided that`, so a relative pronoun is outside its examples and this is the first locked item to begin a conditions entry at `who`.\n\nAPPENDIX E is OBJECT SCOPE inside the condition's own text, quoted verbatim and requiring no resolution -- section 2's v0.28 carve-in for a cross-reference inside verbatim-quoted text covers it exactly. known_gaps [] -- no v1 gap fires on this clause."
+}
