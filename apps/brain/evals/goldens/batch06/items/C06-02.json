@@ -1,0 +1,64 @@
+{
+ "item_id": "C06-02",
+ "segment_id": "C06-051",
+ "doc_id": "C06",
+ "stratum": "standard",
+ "span_char_start": 335,
+ "span_char_end": 555,
+ "span_text": "Merchant shall be 17 Case 18-10248-MFW Doc 632-1 Filed 04/18/18 Page 19 of 60 solely responsible for the disposition and/or abandonment of all Excluded Goods and all costs, expenses, and obligations associated therewith.",
+ "segment_text": "(a) \"Excluded Goods\" means all (1) goods that are not owned by Merchant, including but not limited to goods that belong to sublessees, licensees, department lessees, or concessionaires of Merchant and (2) goods held by Merchant on memo, on consignment (except to the extent otherwise agreed by the applicable consignor), or as bailee. Merchant shall be 17 Case 18-10248-MFW Doc 632-1 Filed 04/18/18 Page 19 of 60 solely responsible for the disposition and/or abandonment of all Excluded Goods and all costs, expenses, and obligations associated therewith. Purchaser shall incur no cost, expense, or obligation in connection with any Excluded Goods.",
+ "modality": "MUST",
+ "action": "PROCESS",
+ "action_accept_set": [
+  "PROCESS"
+ ],
+ "object_class": "excluded_goods",
+ "object_class_accept_set": [
+  "excluded_goods",
+  "goods",
+  "good",
+  "consigned_goods"
+ ],
+ "obligor": "Merchant",
+ "obligor_accept_set": [],
+ "obligee": "ABSENT",
+ "temporal": null,
+ "vague_temporal_phrase": null,
+ "conditions": [],
+ "known_gaps": [
+  "compound_action",
+  "action_not_in_taxonomy",
+  "corpus_artifact_in_span"
+ ],
+ "underspecified": true,
+ "missing_fields": [
+  "obligor",
+  "obligee"
+ ],
+ "rules_cited": [
+  "2",
+  "2.7",
+  "3.1",
+  "3.2",
+  "3.4",
+  "3.5",
+  "3.6",
+  "3.6.1",
+  "3.8",
+  "3.9",
+  "4.3",
+  "8.3",
+  "8.7",
+  "8.8",
+  "8.8.1",
+  "8.8.2",
+  "8.8.4",
+  "8.8.5"
+ ],
+ "annotator_confidence": "CONFIDENT",
+ "reviewer_status": "APPROVED",
+ "adjudicated_by": "reviewer",
+ "guideline_version": "v0.68",
+ "annotated_at": "2026-10-08T17:31:14+00:00",
+ "annotator_notes": "Batch 6, STANDARD-queue position 7 of seed 6102026, and the batch's NINTH item of a ten-item draw. C06's SECOND locked item after C06-01.\n\nONE ITEM FROM S2's RENDER LIMB. Three sentences, ONE obligation-bearing clause, so section 2's band is satisfied comfortably.\nS1 [0:334] is a DEFINITION -- '(a) \"Excluded Goods\" means all (1) goods that are not owned by Merchant ... and (2) goods held by Merchant on memo, on consignment ..., or as bailee.' Section 2's exclusion table's first row is 'Definitions, recitals, signature blocks, pure tables | No obligation-bearing sentences'. Recorded NOT_OBLIGATION_BEARING.\nS3 [556:648] is NEGATIVE POLARITY -- 'Purchaser shall incur NO cost, expense, or obligation in connection with any Excluded Goods.' Its subject IS a party, so section 3.5's non-party filter does not reach it; what excludes it is POLARITY, section 8.8.1's axis. C04-163 is the precedent, read from its exclusion entry rather than cited: its clause (2) 'Bellicum shall not be responsible for payments...' is recorded as a 'copular exemption, same class section 8.8 names as \"not an obligation clause at all\"'. A clause stating that a party BEARS NO burden imposes nothing on anyone. Recorded NOT_OBLIGATION_BEARING.\n\nS2 IS SECTION 8.8.4's CLASS WITH A COORDINATED COMPLEMENT CARRYING BOTH LIMBS, and the precedent for exactly that is C04-13, read from its JSON. 'Merchant shall be ... solely responsible for [A] the disposition and/or abandonment of all Excluded Goods and [B] all costs, expenses, and obligations associated therewith.' Under section 8.8.4 THE COMPLEMENT DECIDES:\n  [A] [436:492] 'the disposition and/or abandonment of all Excluded Goods' -- an ACT NOMINALISATION naming a performance Merchant must RENDER -> obligation-bearing, and this item.\n  [B] [493:554] 'and all costs, expenses, and obligations associated therewith' -- a BURDEN Merchant must ABSORB -> NOT obligation-bearing, section 8.8.4's ABSORB limb.\nC04-13's own segment file records exactly this split for a coordinated complement: the RENDER half is the locked item (action PAY, object product_price) and the ABSORB half is NOT_OBLIGATION_BEARING under 'section 8.8.4 ABSORB limb (c) -- another person's conduct'. So one predicate yielding one item from one of two complements is established practice, not a new move.\n\nACTION -- `PROCESS` with a SINGLETON accept-set and `action_not_in_taxonomy`, because NO taxonomy verb denotes the performance. CHECKED AGAINST `ACTIONS` BY EXECUTION, not assumed: DISPOSE is ABSENT and DESTROY is ABSENT, both verified against the 34-verb list. Section 8.8.2's same-performance test run against every plausible member: DELETE denotes removal of DATA/records rather than physical goods; RETURN denotes giving back TO a counterparty, where disposition and abandonment run to NO ONE; TRANSFER denotes moving title to a recipient, and abandonment has no recipient at all; PROCESS denotes handling or administering and does not denote ENDING OWNERSHIP. None is the same performance, so section 8.8's genuine-gap branch governs and section 8.8.5's CONFIRMED single-verb rule gives the singleton. `PROCESS` is recorded as the nearest member on the handling axis, and per section 8.8.5 this item's clause 2 is a FORCED-CHOICE AGREEMENT CHECK rather than an action-identification measurement -- `report.py`'s G9 discloses it as such.\n\n`compound_action` ALSO FILED, via section 8.3's BRANCH DETERMINANT run in order rather than assumed. Section 4.3 first: 'disposition and/or abandonment' are aspects of ONE indivisible performance -- alternative-or-both modes of ending Merchant's holding of one shared indivisible object ('all Excluded Goods'), one actor, and neither independently breachable given the other, since disposing discharges the duty and so does abandoning. ONE item. Then v0.47's determinant: the dropped verb triggers branch 3 iff it is NEITHER a taxonomy member NOR defensibly mappable to the verb in `action`. `abandonment` is neither -- no member, and not the same performance as PROCESS -- so this is SECTION 8.3 BRANCH 3, whose own worked example is 'label and package': tag BOTH `compound_action` AND `action_not_in_taxonomy`. Section 8.3's own text settles the co-occurrence in terms ('Both apply; section 9's per-tag counts are non-summable and already say so').\nA CITATION I WAS ASKED TO READ DOES NOT EXIST, AND SAYING SO BEATS CITING IT. C14-138 is named in section 10.1 F28's row as an `and/or` compound action, but a search of every committed items/ and exclusions.json file returns NO artifact for that segment: it appears there only as a HAND-OVERRIDE -- a REJECTED flag -- in F28's own disjunction screen. There is no JSON to read, so the branch-3 reasoning above rests on section 8.3's rule text and its 'label and package' example instead.\n\n`corpus_artifact_in_span` FILED, AND THE OFFSETS ARE WHY IT IS UNAVOIDABLE. A bankruptcy docket stamp sits at [353:413] -- '17 Case 18-10248-MFW Doc 632-1 Filed 04/18/18 Page 19 of 60 ' -- SPLICED MID-PREDICATE between 'Merchant shall be' and 'solely responsible for'. It is strictly inside this span [335:555], asserted at write time, and section 3.1's minimal span cannot exclude it without cutting the predicate in half. Section 8.7's class exactly: 'Running header/footer spliced mid-sentence | Not a v1 COMPILER gap -- a corpus-text gap that lands inside a scored span'.\nTHE DETECTOR THAT SHOULD HAVE FOUND IT GAVE A FALSE NEGATIVE, ITS SECOND IN THIS BATCH AND BY A NEW MECHANISM, and that is recorded because it nearly cost this tag. The batch's furniture check was rebuilt at C03-125 from a literal C04-specific string to a RECURRENCE test, which fixed per-document hardcoding. Recurrence cannot see this stamp: its TOKENS vary per page -- the leading page number, `Doc`, `Page N of 60` -- so verbatim occurrences across C06 are ONE, and digit-normalised they are TWO of 122 pool segments, below any plausible floor. Measured, and the measurement corrected an overclaim of mine: a first draft of the gate asserted the template recurs >=5 times and it recurs TWICE. The pool is a FILTERED subset, so most pages' stamps never enter it; no recurrence threshold works for this class and it needs a SHAPE test, now preserved at evals/goldens/holdout/docket_stamp/screen.py with a two-sided gate.\nTHE RETROSPECTIVE SCREEN IS THE REASSURING HALF AND IS REPORTED AS SUCH: run over ALL ELEVEN batch-6 segments, it returns TWO hits -- C03-125's EDGAR source stamp and this one -- and BOTH were already caught and handled at the time. So neither false negative cost any committed work. Pool-wide the shape is rare: 2 of 1,547 segments, both in C06.\n\nPARTIES -- C06 HAS NO COMMITTED SCORING REGISTRY (evals/registry/C06.json does not exist, asserted at write time), which is a NOTE rather than a ground: it had no bearing on eligibility or on any field. obligor `Merchant` is NAMED in the span but cannot resolve against a registry that does not exist, which is section 3.9 trigger 1. obligee `ABSENT` -- the RENDER limb names no counterparty; `Purchaser` appears only in S3, outside this span, and section 3.5 forbids inferring a party from elsewhere. SHAPE COPIED FROM C06-01, read from its JSON: underspecified true, missing_fields ['obligor','obligee'], obligor_accept_set [], no obligee_accept_set key. Its own list is the same two entries for a slightly different reason -- both of ITS parties are named-but-unresolvable, where this item's obligee is genuinely absent.\nCONFIRMED BY EXECUTION THAT THIS MOVES NO DENOMINATOR: `run_scoring.registry_backed_items()` returns (scoreable, unscoreable-with-reason) and splits the 68 locked items 56/12; C06-01 is already in the unscoreable half with the reason \"no scoring registry committed for document 'C06' (document not yet spent -- section 21 R1-R3)\". A C06 item is therefore removed from the scored population BEFORE any denominator is computed, so it cannot move in-force or all-items criterion 2 in either direction. Its three tags would exclude it from the in-force denominator anyway, so the exclusion is over-determined.\n\nTEMPORAL null -- the clause carries no timing phrase at all, the one case section 3.7 permits `null` outright. CONDITIONS [] -- 'solely' is an intensifier on the responsibility rather than a gating circumstance, and 'associated therewith' belongs to the ABSORB complement which is not part of this item's performance. F27 GUARD CLEAN (zero redactions, zero abbreviation dots)."
+}

@@ -306,7 +306,9 @@ def test_the_forward_head_only_rule_is_satisfied_by_every_batch_4_item(items):
     # v0.68 (C14-095, 2026-10-08): 45/68, +3/+3 in LOCKSTEP -- all three of C14-07
     # ('records'/'record'), C14-08 ('access'/'records') and C14-09 ('access') carry a
     # head-only member. The largest single-segment addition in batch 6.
-    assert (carried, total) == (45, 68)
+    # v0.68 (C06-051, 2026-10-08): 46/69, +1/+1 in LOCKSTEP -- C06-02 carries 'goods'
+    # and 'good', both head-only.
+    assert (carried, total) == (46, 69)
 
 
 def test_the_head_only_rule_is_forward_only_and_restamped_nothing(items):

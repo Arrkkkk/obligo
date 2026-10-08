@@ -190,8 +190,15 @@ def test_the_set_is_48_items_over_28_segments():
     # v0.68 (C17-006, 2026-10-08): 65 items over 39 segments.
     # v0.68 (C14-095, 2026-10-08): 68 items over 40 segments -- ONE segment yielding
     # THREE items, the most in batch 6.
-    assert len(items) == 68
-    assert len(rs.segments_from_items(items)) == 40
+    # v0.68 (C06-051, 2026-10-08): 69 items over 41 segments. DIRECTLY RELEVANT HERE:
+    # C06-02 is a §8.8.4 'shall be solely responsible for' predicate whose COORDINATED
+    # complement carries BOTH limbs -- the RENDER half ('the disposition and/or
+    # abandonment of all Excluded Goods') is the item, the ABSORB half ('and all costs,
+    # expenses, and obligations associated therewith') is NOT_OBLIGATION_BEARING in the
+    # segment file. C04-13/C04-033 is the precedent for that split. §8.8.4's measured
+    # cost is unaffected: no locked item it names is touched.
+    assert len(items) == 69
+    assert len(rs.segments_from_items(items)) == 41
 
 
 # --- (3) the evidence the rule rests on --------------------------------------

@@ -1,0 +1,51 @@
+{
+ "segment_id": "C06-051",
+ "doc_id": "C06",
+ "schema": "\u00a72.7 (v0.50) -- complete per-sentence segment disposition, at SUB-SENTENCE granularity because S2's coordinated complement carries both a RENDER and an ABSORB limb.",
+ "reconciliation": {
+  "sentences_total": 3,
+  "obligation_bearing_clauses": 1,
+  "items_annotated": 1,
+  "status": "PASS",
+  "note": "ONE obligation-bearing clause of three sentences. S1 is a DEFINITION (\u00a72's first exclusion row); S3 is NEGATIVE POLARITY (\u00a78.8.1, C04-163's precedent) with a PARTY subject, so polarity rather than \u00a73.5 is what excludes it; S2 carries the only duty, on its RENDER complement, with the ABSORB complement dispositioned separately per \u00a78.8.4 and C04-13's precedent. F27 GUARD CLEAN. \u00a78.7 PAGE FURNITURE: PRESENT -- a docket stamp at [353:413] spliced MID-PREDICATE inside S2, so C06-02 carries corpus_artifact_in_span; \u00a73.1's minimal span cannot exclude it. The batch's recurrence-based furniture detector gave a FALSE NEGATIVE here (the stamp's tokens vary per page), which is why a shape-based screen is now preserved at holdout/docket_stamp/screen.py. REGISTRY NOTE, not a ground: no evals/registry/C06.json."
+ },
+ "dispositions": [
+  {
+   "span_char_start": 0,
+   "span_char_end": 334,
+   "disposition": "NOT_OBLIGATION_BEARING",
+   "rule": "\u00a72 (definitions row)",
+   "reason": "'(a) \"Excluded Goods\" means all (1) goods that are not owned by Merchant ... and (2) goods held by Merchant on memo, on consignment ..., or as bailee.' A DEFINITION -- \u00a72's exclusion table's first row names definitions as carrying no obligation-bearing sentence. The 'except to the extent otherwise agreed by the applicable consignor' carve-out inside it is part of the defined term, not a duty.",
+   "span_text": "(a) \"Excluded Goods\" means all (1) goods that are not owned by Merchant, including but not limited to goods that belong to sublessees, licensees, department lessees, or concessionaires of Merchant and (2) goods held by Merchant on memo, on consignment (except to the extent otherwise agreed by the applicable consignor), or as bailee."
+  },
+  {
+   "span_char_start": 335,
+   "span_char_end": 555,
+   "disposition": "ANNOTATED",
+   "rule": "\u00a73.2 (shall = MUST); \u00a78.8.4 (the complement decides -- RENDER limb); \u00a78.3 branch 3; \u00a78.8/\u00a78.8.5; \u00a78.7 (docket stamp in span)",
+   "reason": "'Merchant shall be [docket stamp] solely responsible for the disposition and/or abandonment of all Excluded Goods and all costs, expenses, and obligations associated therewith.' The RENDER complement [436:492] is an act nominalisation and yields the item; the ABSORB complement [493:554] is a burden and is dispositioned below. -> item C06-02.",
+   "items": [
+    "C06-02"
+   ],
+   "span_text": "Merchant shall be 17 Case 18-10248-MFW Doc 632-1 Filed 04/18/18 Page 19 of 60 solely responsible for the disposition and/or abandonment of all Excluded Goods and all costs, expenses, and obligations associated therewith."
+  },
+  {
+   "span_char_start": 493,
+   "span_char_end": 554,
+   "disposition": "NOT_OBLIGATION_BEARING",
+   "rule": "\u00a78.8.4 ABSORB limb (cost allocation)",
+   "reason": "S2's SECOND complement: 'and all costs, expenses, and obligations associated therewith'. A BURDEN Merchant must ABSORB rather than a performance it must RENDER, so \u00a78.8's copular status class governs. C04-13's segment file records the identical split for a coordinated complement, its ABSORB half dispositioned NOT_OBLIGATION_BEARING under '\u00a78.8.4 ABSORB limb (c)'. Dispositioned at SUB-SENTENCE granularity for that reason.",
+   "span_text": "and all costs, expenses, and obligations associated therewith"
+  },
+  {
+   "span_char_start": 556,
+   "span_char_end": 648,
+   "disposition": "NOT_OBLIGATION_BEARING",
+   "rule": "\u00a78.8.1 (negative polarity); C04-163",
+   "reason": "'Purchaser shall incur NO cost, expense, or obligation in connection with any Excluded Goods.' Its subject IS a party, so \u00a73.5's non-party filter does not reach it -- what excludes it is POLARITY. C04-163's clause (2) ('shall not be responsible for payments') is recorded as a copular exemption, 'the same class \u00a78.8 names as not an obligation clause at all'. A clause stating that a party bears NO burden imposes nothing on anyone.",
+   "span_text": "Purchaser shall incur no cost, expense, or obligation in connection with any Excluded Goods."
+  }
+ ],
+ "not_annotatable": [],
+ "logged_at": "2026-10-08T17:31:14+00:00"
+}
