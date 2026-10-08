@@ -52,7 +52,9 @@ DOCKET = re.compile(
 PAGE_OF = re.compile(r"\bPage\s+\d+\s+of\s+\d+\b", re.I)
 EDGAR_SRC = re.compile(r"\bSource:\s+[A-Z][A-Za-z0-9 .,&'-]+,\s*\d{1,2}-[A-Z]", re.I)
 
-# The six batch-6 segments walked BEFORE C06-051, retrospectively screened.
+# The TEN batch-6 segments walked BEFORE C06-051, retrospectively screened. (Corrected
+# 2026-10-08: this comment read "six" over a ten-entry list -- a stale count, not a
+# stale list; the list itself was always the full set of earlier segments.)
 EARLIER = ["C04-172", "C22-039", "C04-017", "C04-045", "C03-125", "C14-030",
            "C02-079", "C06-028", "C17-006", "C14-095"]
 
