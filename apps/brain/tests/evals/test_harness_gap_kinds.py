@@ -383,7 +383,12 @@ def test_the_legacy_denominator_is_still_computable_and_differs(gold_items):
     # AND it carries a temporal v1 provably cannot represent (§8's `during the Term`
     # row; F25 unminted so no tag is available) -- the same cost F25 prices for
     # C10-03, latent only because C04-017 has no cassette.
-    assert live.legacy_no_known_gaps_denominator == 26
+    # v0.68 (C17-006, 2026-10-08): 27. The +1 is `C17-03` ALONE -- its `known_gaps` is
+    # EMPTY, and it is the first item seated in this denominator by TWO untagged
+    # STRUCTURAL gaps at once: §10.1 F28's disjunctive obligation AND the F25-shaped
+    # unrepresentable `during the Term` temporal. Neither has a minted tag, so nothing
+    # excludes it. Both costs are latent -- C17-006 has no cassette.
+    assert live.legacy_no_known_gaps_denominator == 27
     # v0.65+ (batch 5, 2026-09-25): 27. BOTH scopes move by exactly +1 and the
     # +1 is `C10-03` in both -- it carries no tag at all, so nothing excludes it
     # from either. THE OTHER THREE ARE THE INTERESTING HALF, and they are the
@@ -413,7 +418,9 @@ def test_the_legacy_denominator_is_still_computable_and_differs(gold_items):
     # item, C04-15, which is the simple case: it carries no tag, so nothing excludes
     # it from either. C04-14's `compound_action` is REPRESENTATIONAL and excludes it
     # from both, so the two denominators move in lockstep here.
-    assert live.criterion2_no_known_gaps[1] == 32
+    # v0.68 (C17-006, 2026-10-08): 33 -- BOTH scopes move +1 by the SAME single item,
+    # C17-03, which carries no tag at all, so nothing excludes it from either.
+    assert live.criterion2_no_known_gaps[1] == 33
     assert live.criterion2_no_known_gaps[1] > live.legacy_no_known_gaps_denominator, (
         "the two scopes must still differ -- that difference IS F17"
     )

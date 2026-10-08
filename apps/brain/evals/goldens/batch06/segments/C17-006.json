@@ -1,0 +1,27 @@
+{
+ "segment_id": "C17-006",
+ "doc_id": "C17",
+ "schema": "\u00a72.7 (v0.50) -- complete per-sentence segment disposition.",
+ "reconciliation": {
+  "sentences_total": 1,
+  "obligation_bearing_clauses": 1,
+  "items_annotated": 1,
+  "status": "PASS",
+  "note": "ONE sentence, ONE obligation-bearing clause, ONE item. The count is 1 rather than 2 because the two performances are joined by OR -- alternative modes of discharging one duty (\u00a710.1 F28's class) -- not by AND, which is what makes \u00a74.3.2's worked case (C04-139, 'shall use, AND will cause ... to use') split into two. Asserted by execution at write time. F27 GUARD CLEAN: zero redactions, zero abbreviation dots, one fragment. \u00a78.7 PAGE FURNITURE: NONE, measured document-agnostically by recurrence over C17's 86 pool segments with C04's header gated as a known answer -- so no corpus_artifact_in_span."
+ },
+ "dispositions": [
+  {
+   "span_char_start": 0,
+   "span_char_end": 342,
+   "disposition": "ANNOTATED",
+   "rule": "\u00a73.2 (shall = MUST); \u00a74.3 (disjunction is ONE duty, not two); \u00a710.1 F28 (disjunctive obligation, untagged); F28's C04-12 structural rule (annotate the obligor's-own-performance limb)",
+   "reason": "'Company shall provide, OR shall cause its Affiliates or ... third parties to provide, to RGHI ..., the services described on Exhibit B hereto'. One duty with two alternative modes; limb 1 annotated because its performance is the obligor's own. -> item C17-03.",
+   "items": [
+    "C17-03"
+   ],
+   "span_text": "(b) During the applicable Term of any Service, and in accordance with the terms and conditions of this Agreement, Company shall provide, or shall cause its Affiliates or, subject to Section 2.2, third parties to provide, to RGHI or one or more of its Affiliates, the services described on Exhibit B hereto (the \"Reverse Transition Services\")."
+  }
+ ],
+ "not_annotatable": [],
+ "logged_at": "2026-10-08T11:32:35+00:00"
+}

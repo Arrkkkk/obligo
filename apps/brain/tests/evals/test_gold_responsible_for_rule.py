@@ -187,8 +187,9 @@ def test_the_set_is_48_items_over_28_segments():
     # shape §8.8.4's precondition names (its own example E03-027 is a corpus instance,
     # not a gold item), annotated NORMALLY as an active-verb allocation. §8.8.4's
     # measured cost is unaffected: no locked item it names is touched.
-    assert len(items) == 64
-    assert len(rs.segments_from_items(items)) == 38
+    # v0.68 (C17-006, 2026-10-08): 65 items over 39 segments.
+    assert len(items) == 65
+    assert len(rs.segments_from_items(items)) == 39
 
 
 # --- (3) the evidence the rule rests on --------------------------------------
