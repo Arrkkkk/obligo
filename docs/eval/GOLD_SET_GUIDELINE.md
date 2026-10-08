@@ -3084,6 +3084,25 @@ against segments `E07-010`, `C11-094` and `C04-117`. Until that probe runs, thes
 > selected because they fail today; `E02-010` is the only generalisation evidence and it is ONE
 > segment, not a rate.**
 >
+> **QUEUED FOR THE §10 FREEZE PASS, ADDED 2026-10-08 BY `C14-095`: RULE A HAS NO STATED EXTENT FOR A
+> COMPOUND MARKER, AND THE FIRST ONE HAS NOW BEEN ANNOTATED.** Rule A says the quote begins at the
+> qualifier's own introducing marker, **exclusive of any coordinating adverb or conjunction that
+> merely attaches it to the previous clause** — its worked examples being bare `if` against `and if`,
+> and `provided that` against `further provided that`. `C14-07`'s condition opens on the **compound**
+> marker *"**if and to the extent** such record retention is required by tax or similar authorities…"*,
+> where the `and` is **INTERNAL to the marker** rather than attaching the qualifier to a neighbour —
+> so Rule A's exclusion does not bite, and the entry was begun at `if`, taking the whole compound
+> phrase. **That reading is defensible and is NOT what Rule A says**, because Rule A's exclusion test
+> is stated over *coordinating* words without distinguishing a marker-internal `and` from an
+> attaching one. **WHY IT IS A FREEZE-PASS ITEM RATHER THAN A ROW OR AN AMENDMENT NOW: the answer
+> does not change any locked item's disposition today** — `C14-07`'s entry is the only instance, its
+> extent was reasoned from the removal test and recorded in full, and conforming it later is a
+> quote-extent edit of exactly the kind §10's conforming pass exists to batch. **It is also the same
+> class of question as Rule A's OWN still-open gold-side fix** (the v0.67 probe established that
+> `C04-01` does not conform to Rule A and that the fix is gold-side at the freeze pass), so the two
+> belong in one pass rather than being settled piecemeal. **DO NOT re-derive this from `C14-07`'s
+> notes**: the item records the reasoning, this records that it is queued.
+>
 > **RULE A NEEDED NO CALL, AND ITS PROBE QUESTION WAS MIS-SCOPED — which is a correction to this
 > section's own framing, not just to its status.** Replayed from the committed `v3` cassettes at
 > `C04-117`, the model **already emits Rule A's convention on 3 of 3 runs, byte-identically**
