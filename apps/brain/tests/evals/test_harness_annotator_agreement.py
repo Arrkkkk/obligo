@@ -560,11 +560,13 @@ def test_new_items_are_outside_the_published_run_and_would_have_moved_K(cold):
     # v0.68 (2026-10-07): C04-15 is C04-017's second item, same never-seen segment.
     # v0.68 (2026-10-07): C04-16 lands on C04-045, a THIRD segment the cold run never
     # saw, so it joins the same no-cold-counterpart category.
-    batch6 = {"C04-14", "C04-15", "C04-16"}
+    # v0.68 (2026-10-08): C03-04 lands on C03-125, a FOURTH segment the cold run never
+    # saw -- and the first batch-6 segment from the STANDARD stratum.
+    batch6 = {"C04-14", "C04-15", "C04-16", "C03-04"}
     assert added == ({"C11-02", "C04-06", "C11-03", "C14-06"}
                      | batch4 | batch5 | batch6), added
     assert len(published) == 32
-    assert len(live) == 63
+    assert len(live) == 64
 
     # Batch 4 is the first ADDITION WITH NO COLD COUNTERPART AT ALL, and that is
     # a stronger fact than `C14-06`'s. The 2026-08-29 cold run annotated the 22

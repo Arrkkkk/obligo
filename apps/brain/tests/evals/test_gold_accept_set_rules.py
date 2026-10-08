@@ -299,7 +299,9 @@ def test_the_forward_head_only_rule_is_satisfied_by_every_batch_4_item(items):
     # 'product' and 'goods' head-only, the same members as its sibling C04-14.
     # v0.68 (C04-045, 2026-10-07): 40/63, +1/+1 in LOCKSTEP -- C04-16 carries
     # 'agreement', a head-only member present in its span.
-    assert (carried, total) == (40, 63)
+    # v0.68 (C03-125, 2026-10-08): 41/64, +1/+1 in LOCKSTEP -- C03-04 carries
+    # 'expenses' and 'fee', both head-only. First STANDARD-queue item of batch 6.
+    assert (carried, total) == (41, 64)
 
 
 def test_the_head_only_rule_is_forward_only_and_restamped_nothing(items):

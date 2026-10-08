@@ -182,8 +182,13 @@ def test_the_set_is_48_items_over_28_segments():
     # NOT move, because C04-15 is C04-017's second item rather than a new segment.
     # v0.68 (C04-045, 2026-10-07): 63 items over 37 segments -- the segment count DOES
     # move here, C04-045 being a new segment, unlike C04-15's second item on C04-017.
-    assert len(items) == 63
-    assert len(rs.segments_from_items(items)) == 37
+    # v0.68 (C03-125, 2026-10-08): 64 items over 38 segments. DIRECTLY RELEVANT to this
+    # file: C03-04 is the FIRST LOCKED ITEM of the 'Each Party shall bear its own costs'
+    # shape §8.8.4's precondition names (its own example E03-027 is a corpus instance,
+    # not a gold item), annotated NORMALLY as an active-verb allocation. §8.8.4's
+    # measured cost is unaffected: no locked item it names is touched.
+    assert len(items) == 64
+    assert len(rs.segments_from_items(items)) == 38
 
 
 # --- (3) the evidence the rule rests on --------------------------------------

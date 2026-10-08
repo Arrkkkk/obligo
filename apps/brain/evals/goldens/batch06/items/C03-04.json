@@ -1,0 +1,61 @@
+{
+ "item_id": "C03-04",
+ "segment_id": "C03-125",
+ "doc_id": "C03",
+ "stratum": "standard",
+ "span_char_start": 319,
+ "span_char_end": 645,
+ "span_text": "Except as expressly provided in this Agreement, each Party shall bear its own fees and expenses (including the fees and expenses of its agents, representatives, attorneys, and accountants) incurred in connection with the negotiation, drafting, execution, and performance of this Agreement and the transactions it contemplates.",
+ "segment_text": "Proprietary and Confidential This Agreement and information contained therein is not for use or disclosure outside of AT&T, its Affiliates, and third party representatives, and Vendor except under written agreement by the contracting parties. 43 Source: ATN INTERNATIONAL, INC., 10-Q, 11/8/2019 3.42 Transaction Costs. Except as expressly provided in this Agreement, each Party shall bear its own fees and expenses (including the fees and expenses of its agents, representatives, attorneys, and accountants) incurred in connection with the negotiation, drafting, execution, and performance of this Agreement and the transactions it contemplates.",
+ "modality": "MUST",
+ "action": "PAY",
+ "action_accept_set": [
+  "PAY"
+ ],
+ "object_class": "fees_and_expenses",
+ "object_class_accept_set": [
+  "fees_and_expenses",
+  "expenses",
+  "transaction_costs",
+  "fee"
+ ],
+ "obligor": "each Party",
+ "obligor_accept_set": [],
+ "obligee": "ABSENT",
+ "temporal": null,
+ "vague_temporal_phrase": null,
+ "conditions": [],
+ "known_gaps": [
+  "exception_unsupported"
+ ],
+ "underspecified": true,
+ "missing_fields": [
+  "obligor",
+  "obligee"
+ ],
+ "rules_cited": [
+  "2",
+  "2.7",
+  "3.1",
+  "3.2",
+  "3.4",
+  "3.5",
+  "3.5.1",
+  "3.6",
+  "3.6.1",
+  "3.6.2",
+  "3.8",
+  "3.9",
+  "8.2",
+  "8.7",
+  "8.8",
+  "8.8.2",
+  "8.8.4"
+ ],
+ "annotator_confidence": "CONFIDENT",
+ "reviewer_status": "APPROVED",
+ "adjudicated_by": "reviewer",
+ "guideline_version": "v0.68",
+ "annotated_at": "2026-10-08T10:37:26+00:00",
+ "annotator_notes": "Batch 6, STANDARD-queue position 1 of seed 6102026 -- the first standard item of the batch, the hard target of 4 having been met at C04-045. C03's FOURTH locked item. C03-125's only item.\n\nCOLLISION CHECK RUN OVER THE FIRST EIGHT STANDARD POSITIONS BEFORE ANY WAS TAKEN, not just this one: zero collisions against locked items, segment records or any exclusion log (composite ids `#`-stripped per F32). Registry-less positions are 4 (C06-028) and 7 (C06-051), both C06 -- the document CLAUDE.md's proactive sweep already names. No position is cassette-backed. C03 IS registry-backed (Commnet Wireless, LLC and AT&T Mobility LLC).\n\nF27 SPLITTER GUARD: CLEAN. Zero redaction markers and zero abbreviation dots, so all three of `split_sentences()`'s fragments are real and no rejoin is needed -- the opposite of C04-045 earlier in this batch, where the guard fired.\n\nPAGE FURNITURE: THIS SEGMENT IS 50% FURNITURE BY CHARACTER COUNT, AND MY FIRST DETECTOR MISSED ALL OF IT. The check I had been running was hardcoded to C04's 'Miltenyi Biotec-Bellicum Supply Agreement' header, so it returned NONE for a C03 segment whose furniture is a different string -- a detector silently reporting clean for input it does not handle, caught only because the furniture is visible in the segment text. REBUILT DOCUMENT-AGNOSTICALLY ON RECURRENCE, which is what makes a phrase furniture rather than any one document's wording, and gated on C04's header as a known answer first. Measured over C03's own 204 pool segments: the confidentiality legend 'Proprietary and Confidential' recurs in 35, and the EDGAR source stamp 'Source: ATN INTERNATIONAL, INC., 10-Q, 11/8/2019' in 35 (control: C04's header, 27 of 181).\nThe segment is therefore FOUR spans, not three sentences of content: [0:242] the confidentiality legend, [243:294] page number 43 fused with the EDGAR stamp, [295:318] the REAL section heading '3.42 Transaction Costs.' -- fused into the stamp's fragment by the splitter -- and [319:645] the only obligation.\nNO `corpus_artifact_in_span`, and this is a MEASURED NEGATIVE rather than an omission: all three furniture spans were checked by offset against this span and NONE is contained in it or overlaps it, re-asserted at write time by substring absence. The furniture sits entirely before [319].\n\nTHE LEGEND IS A TRAP WORTH RECORDING: IT READS LIKE A PROHIBITION. '[This] Agreement and information contained therein IS NOT for use or disclosure outside of AT&T, its Affiliates, and third party representatives, and Vendor except under written agreement by the contracting parties.' A reader scanning for modality could take it for a MUST_NOT. It is NOT_OBLIGATION_BEARING on TWO independent grounds, either sufficient: its subject is 'This Agreement and information contained therein', a THING (section 3.5), and 'is not for use or disclosure' is COPULAR STATUS (section 8.8) -- and it is furniture besides (section 8.7), a legend stamped on 35 of C03's segments rather than a clause of the agreement.\n\nACTION -- `PAY`, singleton accept-set, NO `action_not_in_taxonomy`, and section 8.8.4 NAMES THIS CONSTRUCTION VERBATIM rather than merely permitting it by analogy. Its precondition paragraph says the section governs COPULAR predication only and that an active-verb allocation is an ordinary obligation outside it entirely, citing *'Each Party shall BEAR ITS OWN COSTS' (E03-027)* as annotated NORMALLY. That is the near-identical construction to this clause's 'each Party shall bear its own fees and expenses'.\n`bear` -> PAY passes section 8.8.2's same-performance test ON THE GUIDELINE'S OWN WORDS, not on my inference: section 8.8.4's Discriminator 1 counts '64 explicit PAY/BEAR-THE-COST duties across 17 documents' as ONE family, listing 'shall bear its own costs' beside 'shall pay as an Expense' and 'shall reimburse Antares for any costs'. The guideline treats bearing a cost and paying it as the same kind of payment duty, which is exactly what same-performance asks. Four locked PAY items exist for calibration (C02-04, C04-13, C14-06, E08-02).\nRECORDED BECAUSE IT IS UNEXPECTED: section 8.8.4's own worked example E03-027 is a CORPUS INSTANCE, NOT A LOCKED ITEM -- checked, not assumed -- so C03-04 is the FIRST LOCKED ITEM of the 'bear its own costs' shape the section names.\n\n`exception_unsupported` IS FILED on the reviewer's ruling: THE EXCEPTION FRAMING distinguishes 'Except as expressly provided in this Agreement' from section 10.1 F36's vacuous self-referential qualifier, and the ruling is expressly NOT made on the denominator effect. Recorded so the basis is not reconstructed later as a figure-driven choice.\nA FACT MEASURED BEFORE LOCKING, AND IT CUTS AGAINST THE EASY READING: NONE of the five existing `exception_unsupported` items has a SELF-REFERENTIAL carve-out. All five were read from their JSON. The three with a literal 'Except...' are substantive factual conditions -- C02-04 'Except where AMAG is required by Applicable Law', C10-01 'except to the extent the liability arises as a result of the wilful misconduct', C13-02 'except to the extent such recall ... was the direct result of the negligence' -- and C14-01 and E01-01 carry the tag with no literal 'Except' in span at all. So THIS ITEM IS THE FIRST `exception_unsupported` WHOSE CARVE-OUT POINTS AT THE AGREEMENT ITSELF, and the ruling extends the tag to a sub-shape it had no precedent for. `conditions: []` matches four of the five (C10-01's entry is separate 'Subject to...' content).\nTHE NEAR-MISS WITH F36 IS RECORDED AT THAT ROW RATHER THAN RESOLVED HERE: F36's forcing function -- a second instance where the vacuous phrase sits in a span whose item is otherwise in the in-force denominator -- is NOT discharged, because the exception framing takes this clause out of F36's class.\n\nPARTIES -- copied EXACTLY from C22-01, which is the established treatment for a distributive 'Each party' with no counterparty named: obligor 'each Party' VERBATIM (section 3.5.1 branch 2, a subject IS stated so ABSENT would be factually false), `obligor_accept_set` [], obligee `ABSENT`, `underspecified` true, `missing_fields` ['obligor','obligee'], and NO `obligee_accept_set` key (section 3.5.1: that slot has no accept-set field). C22-01's own values were read from its JSON and are byte-identical to these. NO `mutual_obligation`: the tag fires where a DISTINCT counterparty is named (C02-06's 'Each Party' -> 'the other'), and this clause names none -- each Party bears its OWN costs, which binds both parties to SEPARATE, non-reciprocal performances rather than to a duty owed to each other.\n`each Party` is NAMED but not registry-resolvable -- the committed C03 registry holds Commnet Wireless, LLC and AT&T Mobility LLC, not a collective, which is section 3.9 trigger 1.\n\nCONDITIONS [] -- and the two remaining phrases are OBJECT SCOPE, not conditions, under section 3.8's removal test. '(including the fees and expenses of its agents, representatives, attorneys, and accountants)' and 'incurred in connection with the negotiation, drafting, execution, and performance of this Agreement and the transactions it contemplates' both restrict WHICH fees are covered; deleting either leaves the duty applying in the identical circumstances and only broadens the set of things it covers, which is section 3.8's object-scope limb verbatim.\n\nTEMPORAL null -- the clause carries no timing phrase at all, which is the one case section 3.7 permits `null` outright. No tag."
+}

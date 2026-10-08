@@ -1,0 +1,51 @@
+{
+ "segment_id": "C03-125",
+ "doc_id": "C03",
+ "schema": "\u00a72.7 (v0.50) -- complete per-sentence segment disposition. Dispositioned at SUB-SENTENCE granularity because the splitter's second fragment FUSES page furniture with the real section heading.",
+ "reconciliation": {
+  "sentences_total": 3,
+  "obligation_bearing_clauses": 1,
+  "items_annotated": 1,
+  "status": "PASS",
+  "note": "F27 GUARD CLEAN -- zero redactions, zero abbreviation dots, so all three splitter fragments are real and no rejoin was needed (the opposite of C04-045 earlier in this batch). \u00a78.7 PAGE FURNITURE: THIS SEGMENT IS ~50% FURNITURE BY CHARACTER COUNT and the first detector used on it MISSED ALL OF IT, being hardcoded to C04's header; rebuilt on RECURRENCE across the document's own segments and gated on C04's header as a known answer. Measured over C03's 204 pool segments: the confidentiality legend recurs in 35, the EDGAR source stamp in 35. Dispositioned at sub-sentence granularity because fragment 2 fuses page number 43 + the EDGAR stamp with the REAL section heading '3.42 Transaction Costs.'. NO item carries corpus_artifact_in_span: all three furniture spans sit before [319] and none is contained in or overlaps the item's span, verified by offset."
+ },
+ "dispositions": [
+  {
+   "span_char_start": 0,
+   "span_char_end": 242,
+   "disposition": "NOT_OBLIGATION_BEARING",
+   "rule": "\u00a78.7 (page furniture); \u00a73.5 (non-party subject); \u00a78.8 (copular status)",
+   "reason": "THE CONFIDENTIALITY LEGEND, and A TRAP: it READS LIKE A PROHIBITION ('is not for use or disclosure outside of AT&T ... except under written agreement'). Excluded on TWO independent grounds, either sufficient -- its subject is 'This Agreement and information contained therein', a THING, and 'is not for use or disclosure' is copular status -- AND it is furniture, recurring in 35 of C03's 204 pool segments, i.e. a legend stamped on every page rather than a clause of the agreement.",
+   "span_text": "Proprietary and Confidential This Agreement and information contained therein is not for use or disclosure outside of AT&T, its Affiliates, and third party representatives, and Vendor except under written agreement by the contracting parties."
+  },
+  {
+   "span_char_start": 243,
+   "span_char_end": 294,
+   "disposition": "NOT_OBLIGATION_BEARING",
+   "rule": "\u00a78.7 (page furniture)",
+   "reason": "Page number 43 fused with the EDGAR source stamp 'Source: ATN INTERNATIONAL, INC., 10-Q, 11/8/2019', which recurs in 35 of C03's 204 pool segments. No modal, no subject, no predicate.",
+   "span_text": "43 Source: ATN INTERNATIONAL, INC., 10-Q, 11/8/2019"
+  },
+  {
+   "span_char_start": 295,
+   "span_char_end": 318,
+   "disposition": "NOT_OBLIGATION_BEARING",
+   "rule": "\u00a72.6 / \u00a72.7 (heading)",
+   "reason": "The REAL section heading, '3.42 Transaction Costs.' -- fused into the furniture fragment by the splitter rather than standing alone, which is why this segment is dispositioned at sub-sentence granularity.",
+   "span_text": "3.42 Transaction Costs."
+  },
+  {
+   "span_char_start": 319,
+   "span_char_end": 645,
+   "disposition": "ANNOTATED",
+   "rule": "\u00a73.2 (shall = MUST); \u00a78.8.4 (active-verb allocation is an ordinary obligation); \u00a78.2 (exception_unsupported); \u00a73.5.1 branch 2",
+   "reason": "The segment's only obligation: 'Except as expressly provided in this Agreement, each Party shall bear its own fees and expenses ...'. \u00a78.8.4 names 'Each Party shall bear its own costs' verbatim as annotated NORMALLY, so the copular exclusion does not reach it. -> item C03-04.",
+   "items": [
+    "C03-04"
+   ],
+   "span_text": "Except as expressly provided in this Agreement, each Party shall bear its own fees and expenses (including the fees and expenses of its agents, representatives, attorneys, and accountants) incurred in connection with the negotiation, drafting, execution, and performance of this Agreement and the transactions it contemplates."
+  }
+ ],
+ "not_annotatable": [],
+ "logged_at": "2026-10-08T10:37:26+00:00"
+}
