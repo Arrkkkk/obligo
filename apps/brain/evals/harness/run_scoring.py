@@ -82,6 +82,22 @@ GOLDENS_DIR = EVALS_DIR / "goldens"
 # Why C17-021 has two runs and not three. Threaded into the report per section 6.1
 # rather than left to a reader to discover; see CLAUDE.md's named-failure-mode entry.
 SHORT_RUN_REASONS = {
+    # Second instance of the §6.1 class, 2026-10-09, and the first where the
+    # failure is the NORMAL outcome rather than the unlucky one: run 2 returned
+    # HTTP 400 json_validate_failed with an EMPTY failed_generation in two
+    # separate sessions on a byte-identical request, where C17-021's runs 1-2
+    # had succeeded before its run 3 failed. Run 3 was NOT attempted, on
+    # reviewer ruling, because a third identical request is a loop rather than
+    # evidence. Mechanism from its own run-1 cassette: completion_tokens 3072
+    # (provider default; groq.complete() sends no max_tokens) of which
+    # reasoning_tokens 2749 = 89.5%, leaving 323 for content -- a 10.5% margin.
+    # The segment is at the 97.4th percentile of pool length. No request
+    # parameter was changed to obtain the missing runs (§6.1's third rule).
+    "C04-144": (
+        "runs 2-3 unobtainable -- openai/gpt-oss-120b returns HTTP 400 "
+        "json_validate_failed with an empty failed_generation on this segment, "
+        "reproduced on run 2 across two sessions; run 3 not attempted (§6.1)"
+    ),
     "C17-021": (
         "run 3 unobtainable -- openai/gpt-oss-120b returns HTTP 400 json_validate_failed "
         "with an empty failed_generation on this segment, reproduced 3x (§6.1)"

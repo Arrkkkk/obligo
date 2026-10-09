@@ -1,0 +1,48 @@
+{
+  "pass_calls_used": 63,
+  "sessions": {
+    "pre-session": {
+      "probe_waste": 1,
+      "note": "One live call burnt by a withdrawn synthetic TPM probe: system='ping', user='ping' against groq.complete(), which hardcodes response_format json_object, so the model answered in prose and Groq's server-side validation returned 400 json_validate_failed. Tokens were consumed before that validation ran, so the call is NOT free. No cassette written. Charged to the pass cap so 80 stays a true ceiling."
+    },
+    "session1-attempt1": {
+      "guideline_version": "v0.68",
+      "recording_calls": 29,
+      "catalogue_calls_charged": 0,
+      "invocations": 15,
+      "halted": null,
+      "note": "29 calls over 15 invocations = 1.93 calls/invocation against the 2.0857 stage-4 basis. slept=1252s (20.9 min). Earlier record said catalogue_calls:1, which wrongly implied the catalogue GET was charged; it costs no tokens."
+    },
+    "session2-attempt1": {
+      "guideline_version": "v0.65",
+      "recording_calls": 11,
+      "recorded_invocations": 6,
+      "catalogue_calls_charged": 0,
+      "halted": "HTTP 400 on C04-144 run2 extraction call",
+      "note": "CRASHED after 6 of 15 invocations. 10 calls landed in cassettes + 1 charged for the failed 400 (record.py charges in a finally, since a 400'd call still consumed tokens and rate limit) = 11. The ledger was NOT written by this run: the HTTPStatusError propagated out of main() and skipped save_spend, so the file still said 30 while true spend was 41 -- understated by 11. Reconstructed by summing len(responses) over the cassettes on disk plus the one failed call, and corrected here by hand. Driver now catches a fatal HTTP error in the loop so save_spend always runs."
+    },
+    "session2-attempt2": {
+      "guideline_version": "v0.65",
+      "recording_calls": 1,
+      "recorded_invocations": 0,
+      "catalogue_calls_charged": 0,
+      "halted": "HTTP 400 on C04-144 run2 (body captured; json_validate_failed, empty failed_generation)",
+      "note": "Approved plain resume. 6 skipped, second 400 on the same call. TPM gate did NOT run (no RECORDED run), so ceiling stayed at BOOTSTRAP and the summary printed 12000 as though measured -- fixed. This row was ERASED by attempt 3 writing the same 'session2-RESUME' key, and is restored here."
+    },
+    "session2-attempt3": {
+      "guideline_version": "v0.65",
+      "recording_calls": 12,
+      "recorded_invocations": 7,
+      "catalogue_calls_charged": 0,
+      "halted": null,
+      "note": "Isolated resume. C04-144 pre-declared fatal, no run attempted (reviewer ruling). 5 skipped, 7 recorded, ceiling MEASURED 8000 from 12 header observations. C04-033/C04-174/E01-004/E03-022 all reach 3/3."
+    },
+    "session3-attempt1": {
+      "guideline_version": "v0.64",
+      "recording_calls": 9,
+      "catalogue_calls_charged": 0,
+      "invocations": 3,
+      "halted": null
+    }
+  }
+}
