@@ -1,0 +1,51 @@
+{
+  "segment_id": "C04-174",
+  "run": 3,
+  "recorded_at": "2026-10-09T12:17:41+00:00",
+  "model_id": "openai/gpt-oss-120b",
+  "prompt_version": "v3",
+  "segment_sha256": "3f316875b1255d5326909f838aac4e53857ade5df5f9e0ab4cafbb355439a37e",
+  "guideline_version": "v0.65",
+  "responses": [
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-6d998579-3704-4080-8574-257781b7c47e",
+        "object": "chat.completion",
+        "created": 1791548251,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"obligations\":[{\"span_text\":\"Each Party will execute, acknowledge and deliver such further instruments, and do all such other acts, as may be necessary or appropriate in order to carry out the purposes and intent of the Agreement.\",\"modality\":\"MUST\",\"obligor_alias\":\"Each Party\",\"obligee_alias\":\"\",\"action\":\"EXECUTE\",\"object_class\":\"further_instruments\",\"object_raw_text\":\"such further instruments\",\"temporal_raw\":null,\"condition_raws\":[],\"confidence\":0.9}]}",
+              "reasoning": "We need to extract obligations. The segment: \"20.1 Governing Further Actions. Each Party will execute, acknowledge and deliver such further instruments, and do all such other acts, as may be necessary or appropriate in order to carry out the purposes and intent of the Agreement.\"\n\nWe need to identify obligations: \"Each Party will execute, acknowledge and deliver such further instruments, and do all such other acts, as may be necessary or appropriate in order to carry out the purposes and intent of the Agreement.\"\n\nModality: \"will\" indicates a future obligation, likely MUST? In legal language, \"will\" can be considered a promise, but the instruction expects modality categories: MUST, MUST_NOT, SHOULD, MAY. \"Will\" is not explicit \"shall\". Could map to SHOULD? But typical extraction: \"will\" is a commitment, maybe MUST. The guidelines: \"your best guess\". I'd choose \"MUST\". Obligor_alias: \"Each Party\". Obligee_alias: not explicit; it's a mutual obligation, no specific obligee. Could be blank string. The object: \"such further instruments\" and \"all such other acts\". Might need object_class: maybe \"further_instruments\" or \"other_acts\". Could combine? Might need separate obligations? Could treat as one obligation covering both actions. Action: maybe \"EXECUTE\" or \"DELIVER\". Could choose \"EXECUTE\" as primary verb. But there are multiple verbs: execute, acknowledge, deliver, do. Could choose \"EXECUTE\". object_raw_text: \"such further instruments\". temporal_raw: none. condition_raws: none.\n\nCheck that object_raw_text is substring of span_text: yes.\n\nSpan_text must include entire clause. Should we include leading clause \"20.1 Governing Further Actions.\"? That's a heading, not part of the obligation sentence. The obligation sentence starts after that. The clause is \"Each Party will execute, acknowledge and deliver such further instruments, and do all such other acts, as may be necessary or appropriate in order to carry out the purposes and intent of the Agreement.\"\n\nWe need to include that entire sentence. That includes the conditional phrase \"as may be necessary or appropriate in order to carry out the purposes and intent of the Agreement.\" That's not an \"if\" conditional but a \"as may be\". Not required to list condition_raws unless it's an \"if\"-type. So condition_raws empty.\n\nTemporal_raw null.\n\nThus produce JSON with one obligation.\n\nConfidence maybe 0.9.\n\nMake sure JSON compact.\n\nLet's craft:\n\n{\n\"obligations\":[\n{\n\"span_text\":\"Each Party will execute, acknowledge and deliver such further instruments, and do all such other acts, as may be necessary or appropriate in order to carry out the purposes and intent of the Agreement.\",\n\"modality\":\"MUST\",\n\"obligor_alias\":\"Each Party\",\n\"obligee_alias\":\"\",\n\"action\":\"EXECUTE\",\n\"object_class\":\"further_instruments\",\n\"object_raw_text\":\"such further instruments\",\n\"temporal_raw\":null,\n\"condition_raws\":[],\n\"confidence\":0.9\n}\n]\n}\n\nCheck that object_class is appropriate. It's okay.\n\nReturn exactly that JSON."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.333589569,
+          "prompt_tokens": 1453,
+          "prompt_time": 0.065103109,
+          "completion_tokens": 767,
+          "completion_time": 1.621410537,
+          "total_tokens": 2220,
+          "total_time": 1.6865136459999999,
+          "completion_tokens_details": {
+            "reasoning_tokens": 653
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_60e4b492db",
+        "x_groq": {
+          "id": "req_01m4g9hnkde5p8jz2b13pg1cfr",
+          "seed": 1429335916
+        },
+        "service_tier": "on_demand"
+      }
+    }
+  ]
+}

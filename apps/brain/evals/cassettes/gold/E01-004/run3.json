@@ -1,0 +1,51 @@
+{
+  "segment_id": "E01-004",
+  "run": 3,
+  "recorded_at": "2026-10-09T12:18:11+00:00",
+  "model_id": "openai/gpt-oss-120b",
+  "prompt_version": "v3",
+  "segment_sha256": "0b1e60a0892d1e90efa12bb1e9e7797f7366354c18b5e9944911bc7d4df17eed",
+  "guideline_version": "v0.65",
+  "responses": [
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-5ff766e5-20bc-4745-898e-1711c5151e77",
+        "object": "chat.completion",
+        "created": 1791548289,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"obligations\":[{\"span_text\":\"Each Service Recipient and its respective Service Provider shall cooperate in good faith with each other in connection with the performance of the Services hereunder.\",\"modality\":\"MUST\",\"obligor_alias\":\"Each Service Recipient and its respective Service Provider\",\"obligee_alias\":\"each other\",\"action\":\"COOPERATE\",\"object_class\":\"services_performance\",\"object_raw_text\":\"the performance of the Services\",\"temporal_raw\":null,\"condition_raws\":[],\"confidence\":0.9},{\"span_text\":\"Each of TWX and Time, in its capacity as a Service Provider, agrees to appoint one of its respective employees (each such employee, a \u201cService Manager\u201d) who will have overall responsibility for managing and coordinating the delivery of Services, including making available the services of appropriately qualified employees and resources to enable the provision of the Services.\",\"modality\":\"MUST\",\"obligor_alias\":\"Each of TWX and Time, in its capacity as a Service Provider\",\"obligee_alias\":\"\",\"action\":\"APPOINT\",\"object_class\":\"service_manager\",\"object_raw_text\":\"one of its respective employees (each such employee, a \u201cService Manager\u201d)\",\"temporal_raw\":null,\"condition_raws\":[],\"confidence\":0.9},{\"span_text\":\"The Service Managers will consult and coordinate with each other regarding the provision of Services.\",\"modality\":\"SHOULD\",\"obligor_alias\":\"The Service Managers\",\"obligee_alias\":\"each other\",\"action\":\"CONSULT\",\"object_class\":\"services_provision\",\"object_raw_text\":\"the provision of Services\",\"temporal_raw\":null,\"condition_raws\":[],\"confidence\":0.9}]}",
+              "reasoning": "We need to extract obligations. Let's read segment.\n\n\"(c) Each Service Recipient and its respective Service Provider shall cooperate ... Each of TWX and Time, in its capacity as a Service Provider, agrees to appoint one of its respective employees (each such employee, a \u201cService Manager\u201d) who will have overall responsibility for managing and coordinating the delivery of Services, including making available the services ... The Service Managers will consult and coordinate with each other regarding the provision of Services.\"\n\nWe need to identify obligations: sentences/clauses imposing duty, prohibition, permission, expectation.\n\nFirst clause: \"Each Service Recipient and its respective Service Provider shall cooperate in good faith with each other in connection with the performance of the Services hereunder.\"\n\nObligation: cooperate. Modalities: \"shall\" => MUST. Obligor: \"Each Service Recipient and its respective Service Provider\". That's a combined phrase; we need exact literal substring. So obligor_alias should be exactly as appears: \"Each Service Recipient and its respective Service Provider\". Obligee: \"each other\"? The phrase \"with each other\" indicates they cooperate with each other. The obligee alias maybe \"each other\". But we need party the obligation is owed to, exactly as appears. In this clause, they cooperate with each other, so the other party is \"each other\". That is not a party name but phrase. Acceptable? Probably yes. We'll include \"each other\". Action: COOPERATE. object_class: maybe \"services_performance\" or \"services\". object_raw_text: \"the performance of the Services\". Actually the object of cooperation is \"in connection with the performance of the Services hereunder\". The object phrase could be \"the performance of the Services\". We'll capture that. Temporal_raw: none. Condition_raws: none.\n\nSecond clause: \"Each of TWX and Time, in its capacity as a Service Provider, agrees to appoint one of its respective employees (each such employee, a \u201cService Manager\u201d) who will have overall responsibility for managing and coordinating the delivery of Services, including making available the services of appropriately qualified employees and resources to enable the provision of the Services.\"\n\nObligation: \"agrees to appoint\". Modality: \"agrees to\" => SHOULD? Usually \"agrees to\" indicates a commitment, could be MUST. In contract language, \"agrees to\" is a binding obligation, similar to \"shall\". We'll treat as MUST. Obligor: \"Each of TWX and Time, in its capacity as a Service Provider\". That's literal. Obligee: maybe none? The appointment is for the benefit of the other party? Not explicit. Could be \"one of its respective employees\". Not a party. Might leave obligee empty string. But spec expects obligee_alias field; can be empty string if none. We'll set \"\".\n\nAction: APPOINT. object_class: \"service_manager\". object_raw_text: \"one of its respective employees (each such employee, a \u201cService Manager\u201d)\". Temporal: none. Condition: none.\n\nThird clause: \"The Service Managers will consult and coordinate with each other regarding the provision of Services.\"\n\nObligation: \"will consult and coordinate\". \"will\" indicates future, but still an obligation? Could be expectation. Use MUST? Might be SHOULD. But \"will\" is not modal; but indicates intention. Might treat as SHOULD? However typical extraction expects modality MUST, MUST_NOT, SHOULD, MAY. \"will\" is not a modal; we need to guess. Could treat as SHOULD (expected). We'll choose SHOULD. Obligor: \"The Service Managers\". Obligee: \"each other\". Action: CONSULT (or COORDINATE). Could pick CONSULT. object_class: \"services_provision\". object_raw_text: \"the provision of Services\". Temporal: none. Condition: none.\n\nCheck each span_text includes leading clause if any. No leading condition.\n\nNow produce JSON with obligations list.\n\nNeed confidence values; we can assign 0.9 each.\n\nMake sure each field literal substrings.\n\nCheck span_text for first: \"Each Service Recipient and its respective Service Provider shall cooperate in good faith with each other in connection with the performance of the Services hereunder.\"\n\nYes includes all.\n\nTemporal_raw null.\n\nCondition_raws [].\n\nSecond span_text: \"Each of TWX and Time, in its capacity as a Service Provider, agrees to appoint one of its respective employees (each such employee, a \u201cService Manager\u201d) who will have overall responsibility for managing and coordinating the delivery of Services, including making available the services of appropriately qualified employees and resources to enable the provision of the Services.\"\n\nYes.\n\nThird span_text: \"The Service Managers will consult and coordinate with each other regarding the provision of Services.\"\n\nYes.\n\nNow produce JSON compact."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.383074423,
+          "prompt_tokens": 1522,
+          "prompt_time": 0.080460814,
+          "completion_tokens": 1308,
+          "completion_time": 2.913382544,
+          "total_tokens": 2830,
+          "total_time": 2.993843358,
+          "completion_tokens_details": {
+            "reasoning_tokens": 965
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_93703442d9",
+        "x_groq": {
+          "id": "req_01m4g9jrzyekta288q3mjxqeyq",
+          "seed": 1749634424
+        },
+        "service_tier": "on_demand"
+      }
+    }
+  ]
+}

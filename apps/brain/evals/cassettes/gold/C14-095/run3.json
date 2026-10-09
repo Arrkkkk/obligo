@@ -1,0 +1,54 @@
+{
+  "segment_id": "C14-095",
+  "run": 3,
+  "recorded_at": "2026-10-09T08:35:46+00:00",
+  "model_id": "openai/gpt-oss-120b",
+  "prompt_version": "v3",
+  "segment_sha256": "15b0e80e444c04908181d99ff6fef48021bcfadfbe4343075495b6da350397bb",
+  "guideline_version": "v0.68",
+  "responses": [
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-4cd6f76b-278a-4d16-97a2-148476f8a434",
+        "object": "chat.completion",
+        "created": 1791534945,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"obligations\":[{\"span_text\":\"As part of the Manufacturing Outsourcing Services, Contractor shall (1) retain records and supporting documentation detailed in Section 10.2 above if and to the extent such record retention is required by tax or similar authorities, and/or exists in the ERP system, and/or is common practice in the industry, including but not limited to - production files for the following periods: 7 years for records required by tax or similar authorities and ERP data, 3 years for production files, otherwise as required by law or as is the common practice\",\"modality\":\"MUST\",\"obligor_alias\":\"Contractor\",\"obligee_alias\":\"\",\"action\":\"RETAIN\",\"object_class\":\"records\",\"object_raw_text\":\"records and supporting documentation detailed in Section 10.2 above\",\"temporal_raw\":null,\"condition_raws\":[\"if and to the extent such record retention is required by tax or similar authorities, and/or exists in the ERP system, and/or is common practice in the industry\"],\"confidence\":0.9},{\"span_text\":\"As part of the Manufacturing Outsourcing Services, Contractor shall (2) upon notice of no less than five (5) Days from NICE, provide NICE and its designees with reasonable access to such records and documentation for the purpose of conducting NICE' business and reporting\",\"modality\":\"MUST\",\"obligor_alias\":\"Contractor\",\"obligee_alias\":\"NICE\",\"action\":\"PROVIDE\",\"object_class\":\"reasonable_access\",\"object_raw_text\":\"reasonable access to such records and documentation\",\"temporal_raw\":\"upon notice of no less than five (5) Days from NICE\",\"condition_raws\":[],\"confidence\":0.9},{\"span_text\":\"Such access shall only be provided to audit personnel who have signed towards Contractor a non-disclosure undertaking incorporating terms which are substantially the same as those in APPENDIX E\",\"modality\":\"MUST\",\"obligor_alias\":\"Contractor\",\"obligee_alias\":\"audit personnel\",\"action\":\"PROVIDE\",\"object_class\":\"access\",\"object_raw_text\":\"such access\",\"temporal_raw\":null,\"condition_raws\":[],\"confidence\":0.9}]}",
+              "reasoning": "We need to extract obligations. Read segment.\n\n\"10.6. CONTRACTOR RECORD RETENTION AND ACCESS. As part of the Manufacturing Outsourcing Services, Contractor shall (1) retain records and supporting documentation detailed in Section 10.2 above if and to the extent such record retention is required by tax or similar authorities, and/or exists in the ERP system, and/or is common practice in the industry, including but not limited to - production files for the following periods: 7 years for records required by tax or similar authorities and ERP data, 3 years for production files, otherwise as required by law or as is the common practice, and (2) upon notice of no less than five (5) Days from NICE, provide NICE and its designees with reasonable access ... Such access shall only be provided to audit personnel who have signed towards Contractor a non-disclosure undertaking incorporating terms which are substantially the same as those in APPENDIX E.\"\n\nWe have multiple obligations:\n\n1. Contractor shall retain records and supporting documentation ... (with conditions). Modality: MUST (shall). Obligor: Contractor. Obligee? Not explicit; maybe implied to NICE? Not mentioned. Could be no obligee. But we need obligee_alias field; if none, empty string? In example they left empty string for obligee. So we can set \"\".\n\nAction: RETAIN. Object_class: records_and_supporting_documentation maybe \"records\". object_raw_text: \"records and supporting documentation detailed in Section 10.2 above\". Temporal_raw? No explicit deadline. Condition_raws: there are conditions: \"if and to the extent such record retention is required by tax or similar authorities, and/or exists in the ERP system, and/or is common practice in the industry\". Also maybe \"including but not limited to - production files for the following periods: 7 years for records required by tax or similar authorities and ERP data, 3 years for production files, otherwise as required by law or as is the common practice\". Those are not \"if\" but descriptive. The rule says condition_raws list of literal \"if\"-type conditional phrases. So we have \"if and to the extent such record retention is required by tax or similar authorities, and/or exists in the ERP system, and/or is common practice in the industry\". That's a clause starting with \"if\". So include that.\n\nSpan_text must include leading clause \"As part of the Manufacturing Outsourcing Services, Contractor shall (1) retain records and supporting documentation detailed in Section 10.2 above if and to the extent such record retention is required by tax or similar authorities, and/or exists in the ERP system, and/or is common practice in the industry, including but not limited to - production files for the following periods: 7 years for records required by tax or similar authorities and ERP data, 3 years for production files, otherwise as required by law or as is the common practice\". That's long. Ensure condition phrase is substring.\n\n2. Contractor shall, upon notice of no less than five (5) Days from NICE, provide NICE and its designees with reasonable access to such records and documentation for the purpose of conducting NICE' business and reporting. Modality: MUST. Obligor: Contractor. Obligee: NICE (and its designees). Action: PROVIDE (or ACCESS? Provide). We'll use PROVIDE. Object_class: reasonable_access. object_raw_text: \"reasonable access to such records and documentation\". Temporal_raw: \"upon notice of no less than five (5) Days from NICE\". That's a timing phrase. Condition_raws: none? The phrase \"upon notice of no less than five (5) Days from NICE\" is temporal, not condition. No \"if\". So condition list empty.\n\nSpan_text must include leading clause \"As part of the Manufacturing Outsourcing Services, Contractor shall (2) upon notice of no less than five (5) Days from NICE, provide NICE and its designees with reasonable access to such records and documentation for the purpose of conducting NICE' business and reporting.\"\n\n3. \"Such access shall only be provided to audit personnel who have signed towards Contractor a non-disclosure undertaking incorporating terms which are substantially the same as those in APPENDIX E.\" This is an obligation? It says \"shall only be provided\". Who provides? Implicitly Contractor. So Contractor shall only provide such access to audit personnel who have signed ... So it's a restriction. Modality: MUST (shall). Obligor: Contractor (implied). Obligee: not explicit; maybe NICE? Could be \"audit personnel\". But the clause is about who can receive access. The obligee maybe \"audit personnel\". But the clause says \"Such access shall only be provided to audit personnel who have signed ...\". The party who must ensure this is Contractor. So obligee maybe \"audit personnel\". We'll include \"audit personnel\". Action: PROVIDE. Object_class: access. object_raw_text: \"such access\". Temporal_raw: null. Condition_raws: none.\n\nBut need to ensure span_text includes the clause. We'll include the sentence.\n\nNow produce JSON with three obligations, each with confidence maybe 0.9.\n\nCheck each field substring.\n\nFirst obligation span_text includes condition phrase exactly: \"if and to the extent such record retention is required by tax or similar authorities, and/or exists in the ERP system, and/or is common practice in the industry\". Yes.\n\nTemporal_raw null.\n\nSecond obligation temporal_raw: \"upon notice of no less than five (5) Days from NICE\". Must be exact substring. Yes.\n\nThird obligation: no condition, no temporal.\n\nNow produce JSON compact.\n\n"
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.213709832,
+          "prompt_tokens": 1610,
+          "prompt_time": 0.017557895,
+          "completion_tokens": 1601,
+          "completion_time": 3.571420459,
+          "total_tokens": 3211,
+          "total_time": 3.588978354,
+          "prompt_tokens_details": {
+            "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 1153
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_5a93aea882",
+        "x_groq": {
+          "id": "req_01m4fwvhv0emhbm0wnc76mjvek",
+          "seed": 2102637341
+        },
+        "service_tier": "on_demand"
+      }
+    }
+  ]
+}

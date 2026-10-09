@@ -1,0 +1,91 @@
+{
+  "segment_id": "C03-125",
+  "run": 3,
+  "recorded_at": "2026-10-09T08:30:32+00:00",
+  "model_id": "openai/gpt-oss-120b",
+  "prompt_version": "v3",
+  "segment_sha256": "32f4c6e8249d9069bffe942ac28df3145268767f90b6d4759afe140726c27a03",
+  "guideline_version": "v0.68",
+  "responses": [
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-aba2e020-1c3b-45c2-97a2-d08254e1221a",
+        "object": "chat.completion",
+        "created": 1791534574,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"obligations\":[{\"span_text\":\"Except as expressly provided in this Agreement, each Party shall bear its own fees and expenses (including the fees and expenses of its agents, representatives, attorneys, and accountants) incurred in connection with the negotiation, drafting, execution, and performance of this Agreement and the transactions it contemplates.\",\"modality\":\"MUST\",\"obligor_alias\":\"each Party\",\"obligee_alias\":\"\",\"action\":\"BEAR\",\"object_class\":\"fees_and_expenses\",\"object_raw_text\":\"its own fees and expenses (including the fees and expenses of its agents, representatives, attorneys, and accountants)\",\"temporal_raw\":null,\"condition_raws\":[],\"confidence\":0.95}]}",
+              "reasoning": "We need to extract obligations. Read segment:\n\n\"Proprietary and Confidential This Agreement and information contained therein is not for use or disclosure outside of AT&T, its Affiliates, and third party representatives, and Vendor except under written agreement by the contracting parties. 43 Source: ATN INTERNATIONAL, INC., 10-Q, 11/8/2019 3.42 Transaction Costs. Except as expressly ... each Party shall bear its own fees and expenses (including the fees and expenses of its agents, representatives, attorneys, and accountants) incurred in connection with the negotiation, drafting, execution, and performance of this Agreement and the transactions it contemplates.\"\n\nWe have obligations:\n\n1. \"This Agreement and information contained therein is not for use or disclosure outside of AT&T, its Affiliates, and third party representatives, and Vendor except under written agreement by the contracting parties.\"\n\nThis is a prohibition: must NOT use or disclose outside of ... unless written agreement. So modality: MUST_NOT? The phrase \"is not for use or disclosure\" indicates prohibition. Could be \"MUST_NOT\". Obligor? Who is obligated? The clause seems to apply to the parties reading the agreement, maybe \"Vendor\"? Actually says \"outside of AT&T, its Affiliates, and third party representatives, and Vendor\". The subject is \"This Agreement and information contained therein\". It says \"is not for use or disclosure outside of AT&T... and Vendor\". So the obligation is on the recipient (presumably any party). Hard to assign obligor alias. Could be \"Vendor\"? But the clause mentions \"Vendor\" as a party that is allowed to receive? Actually \"outside of AT&T, its Affiliates, and third party representatives, and Vendor\". So the prohibition is on use/disclosure outside of those parties. So the parties who may use/disclose are AT&T, its affiliates, third party reps, and Vendor. The obligation is on any other party (maybe the recipient). The clause doesn't specify a party. Might be ambiguous. The instruction requires obligor_alias exactly as appears within span_text. Could we pick \"Vendor\"? But the clause is not \"Vendor shall not...\" It's \"This Agreement ... is not for use or disclosure outside of AT&T..., and Vendor\". So there is no explicit obligor. Might be not a clear obligation with a party. Might be considered a prohibition on \"use or disclosure\" by any party, but no party named. Might be omitted.\n\nSecond obligation: \"each Party shall bear its own fees and expenses ...\". This is a duty: each Party shall bear its own fees and expenses. So modality MUST. Obligor_alias: \"each Party\". Obligee_alias: maybe none? It says each Party bears its own fees, so the obligee is itself? Could be blank. But we need obligee_alias exactly as appears. Could be empty string? In example they left obligee_alias empty when not applicable. So we can set \"\".\n\nAction: \"BEAR\". Object_class: maybe \"fees_and_expenses\". object_raw_text: \"its own fees and expenses (including the fees and expenses of its agents, representatives, attorneys, and accountants)\". Temporal_raw: none. Condition_raws: none.\n\nNow need span_text includes the whole clause. Must include leading clause if any. The clause is: \"Except as expressly provided in this Agreement, each Party shall bear its own fees and expenses (including the fees and expenses of its agents, representatives, attorneys, and accountants) incurred in connection with the negotiation, drafting, execution, and performance of this Agreement and the transactions it contemplates.\"\n\nWe need to include the leading \"Except as expressly provided in this Agreement,\" as part of span_text because it's a condition. So span_text should be the whole sentence.\n\nNow condition_raws: we have \"Except as expressly provided in this Agreement\". That's a conditional phrase? It's a prepositional phrase, not \"if\". But condition_raws expects \"if\"-type conditional phrases. The rule says list of literal \"if\"-type conditional phrases. This phrase is not \"if\". So maybe condition_raws empty. The leading clause is not an \"if\". So we can leave condition_raws empty.\n\nTemporal_raw: none.\n\nNow first clause: \"This Agreement and information contained therein is not for use or disclosure outside of AT&T, its Affiliates, and third party representatives, and Vendor except under written agreement by the contracting parties.\"\n\nWe need to decide if we can extract as obligation. It is a prohibition: \"is not for use or disclosure\". Obligor? Not explicit. Could be \"Vendor\"? But the clause includes Vendor as allowed recipient. Not a duty on Vendor. So maybe we skip because no clear obligor. The instruction: identify candidate obligations \u2014 sentences or clauses that impose a duty, prohibition, permission, or expectation on one party toward another. This clause imposes a prohibition on \"use or disclosure\" by unspecified parties. It does not name a party, but could be considered an obligation on \"Vendor\"? Actually \"and Vendor\" is part of the allowed parties. The prohibition is on use/disclosure outside of those parties. So the parties who may use/disclose are those listed; the prohibition is on others. Not a clear party. Might be ambiguous; better to include only the clear one.\n\nThus output one obligation.\n\nNow fill fields:\n\nspan_text: exactly as in segment. Need to capture the whole sentence. Let's copy:\n\n\"Except as expressly provided in this Agreement, each Party shall bear its own fees and expenses (including the fees and expenses of its agents, representatives, attorneys, and accountants) incurred in connection with the negotiation, drafting, execution, and performance of this Agreement and the transactions it contemplates.\"\n\nCheck punctuation: In segment, after \"contemplates.\" there is no extra spaces. Ensure exact.\n\nNow modality: \"MUST\". Obligor_alias: \"each Party\". Obligee_alias: \"\" (empty). Action: \"BEAR\". object_class: \"fees_and_expenses\". object_raw_text: \"its own fees and expenses (including the fees and expenses of its agents, representatives, attorneys, and accountants)\". temporal_raw: null. condition_raws: [].\n\nConfidence: maybe 0.95.\n\nNow produce JSON.\n\n"
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.335868613,
+          "prompt_tokens": 1536,
+          "prompt_time": 0.084834335,
+          "completion_tokens": 1432,
+          "completion_time": 3.044572412,
+          "total_tokens": 2968,
+          "total_time": 3.129406747,
+          "completion_tokens_details": {
+            "reasoning_tokens": 1280
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_0708ac49a5",
+        "x_groq": {
+          "id": "req_01m4fwg7aceyx9cdmjst2n3nq2",
+          "seed": 1476707995
+        },
+        "service_tier": "on_demand"
+      }
+    },
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-054b6900-508e-4b37-a147-9c53028d3ab9",
+        "object": "chat.completion",
+        "created": 1791534631,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"repairs\":[{\"index\":0,\"action\":\"PAY\"}]}",
+              "reasoning": "We need to correct the candidate obligation index 0, field \"action\". Must choose an action from the closed list that best matches \"bear its own fees and expenses\". The verb \"bear\" meaning \"pay\" or \"incur\". The closest action is PAY. So action: \"PAY\". Also need to ensure other fields are unchanged. The output JSON should include index 0, action \"PAY\". No other fields to correct. So produce:\n\n{\"repairs\":[{\"index\":0,\"action\":\"PAY\"}]}\n\nCheck format: need compact JSON, no extra spaces? It's okay. Ensure no other fields."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.336141039,
+          "prompt_tokens": 1869,
+          "prompt_time": 0.167875354,
+          "completion_tokens": 149,
+          "completion_time": 0.314473044,
+          "total_tokens": 2018,
+          "total_time": 0.482348398,
+          "completion_tokens_details": {
+            "reasoning_tokens": 126
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_47082602e2",
+        "x_groq": {
+          "id": "req_01m4fwj1v7e8p9h80600h6kt9b",
+          "seed": 1034311054
+        },
+        "service_tier": "on_demand"
+      }
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "segment_id": "C04-174",
+  "run": 2,
+  "recorded_at": "2026-10-09T12:10:52+00:00",
+  "model_id": "openai/gpt-oss-120b",
+  "prompt_version": "v3",
+  "segment_sha256": "3f316875b1255d5326909f838aac4e53857ade5df5f9e0ab4cafbb355439a37e",
+  "guideline_version": "v0.65",
+  "responses": [
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-303c96a1-a941-49f7-adda-075c5a497280",
+        "object": "chat.completion",
+        "created": 1791547852,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"obligations\":[{\"span_text\":\"Each Party will execute, acknowledge and deliver such further instruments, and do all such other acts, as may be necessary or appropriate in order to carry out the purposes and intent of the Agreement.\",\"modality\":\"MUST\",\"obligor_alias\":\"Each Party\",\"obligee_alias\":\"\",\"action\":\"EXECUTE\",\"object_class\":\"further_instruments\",\"object_raw_text\":\"such further instruments\",\"temporal_raw\":null,\"condition_raws\":[],\"confidence\":0.9}]}",
+              "reasoning": "We need to extract obligations. The segment: \"20.1 Governing Further Actions. Each Party will execute, acknowledge and deliver such further instruments, and do all such other acts, as may be necessary or appropriate in order to carry out the purposes and intent of the Agreement.\"\n\nWe need to identify obligations: \"Each Party will execute, acknowledge and deliver such further instruments, and do all such other acts, as may be necessary or appropriate in order to carry out the purposes and intent of the Agreement.\"\n\nModality: \"will\" indicates a future obligation, likely MUST? In contract language, \"will\" is generally a promise, could be considered MUST. The guidelines: modality must be one of MUST, MUST_NOT, SHOULD, MAY. \"will\" is a definite obligation, so we map to MUST.\n\nObligor_alias: \"Each Party\". Must be exactly as appears. So \"Each Party\". Obligee_alias: Not explicitly mentioned; it's a mutual obligation to each other? The clause doesn't specify a specific obligee. Could be blank. In examples, they left obligee_alias empty string when not present. So we can set \"\".\n\nAction: The governing verb: maybe \"EXECUTE\" (or \"DELIVER\" etc). The clause includes multiple verbs: \"execute, acknowledge and deliver ... and do all such other acts\". The main action could be \"EXECUTE\". Choose one. Probably \"EXECUTE\". Could also be \"DELIVER\". We'll pick \"EXECUTE\". Object_class: something like \"further_instruments\". object_raw_text: \"such further instruments\". Temporal_raw: none. Condition_raws: maybe \"as may be necessary or appropriate in order to carry out the purposes and intent of the Agreement.\" That's a conditional phrase starting with \"as may be\". It's not an \"if\" clause but a condition. The rule says condition_raws are list of literal \"if\"-type conditional phrases. This is not an \"if\". So we leave empty list.\n\nCheck span_text must include the whole clause. Should we include the leading \"20.1 Governing Further Actions.\"? That's a heading, not part of the clause. The obligation starts after that. The clause is \"Each Party will execute, acknowledge and deliver such further instruments, and do all such other acts, as may be necessary or appropriate in order to carry out the purposes and intent of the Agreement.\"\n\nWe need to include the entire sentence. That's the span_text.\n\nTemporal_raw: none => null.\n\nNow produce JSON with confidence maybe 0.9.\n\nCheck all fields are substrings of span_text: obligor_alias \"Each Party\" appears. obligee_alias empty string okay. object_raw_text \"such further instruments\" appears. Yes. Action \"EXECUTE\" appears as \"execute\". Good.\n\nReturn JSON.\n\n"
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.340539219,
+          "prompt_tokens": 1461,
+          "prompt_time": 0.094085113,
+          "completion_tokens": 685,
+          "completion_time": 1.413361774,
+          "total_tokens": 2146,
+          "total_time": 1.507446887,
+          "completion_tokens_details": {
+            "reasoning_tokens": 571
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_8ea50c0161",
+        "x_groq": {
+          "id": "req_01m4g95fmcexj8tvfdje6y86zc",
+          "seed": 1017867393
+        },
+        "service_tier": "on_demand"
+      }
+    }
+  ]
+}

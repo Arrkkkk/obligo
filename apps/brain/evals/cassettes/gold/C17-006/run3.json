@@ -1,0 +1,131 @@
+{
+  "segment_id": "C17-006",
+  "run": 3,
+  "recorded_at": "2026-10-09T08:37:54+00:00",
+  "model_id": "openai/gpt-oss-120b",
+  "prompt_version": "v3",
+  "segment_sha256": "21d2cf067e2fafb368390660ecbab48ad28f66fafcb73d4f308244b78300006d",
+  "guideline_version": "v0.68",
+  "responses": [
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-7631b0c1-7216-4213-86d0-d22b6b6a28f6",
+        "object": "chat.completion",
+        "created": 1791535004,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"obligations\":[{\"span_text\":\"(b) During the applicable Term of any Service, and in accordance with the terms and conditions of this Agreement, Company shall provide, or shall cause its Affiliates or, subject to Section 2.2, third parties to provide, to RGHI or one or more of its Affiliates, the services described on Exhibit B hereto (the \\\"Reverse Transition Services\\\").\",\"modality\":\"MUST\",\"obligor_alias\":\"Company\",\"obligee_alias\":\"RGHI\",\"action\":\"PROVIDE\",\"object_class\":\"reverse_transition_services\",\"object_raw_text\":\"the services described on Exhibit B hereto (the \\\"Reverse Transition Services\\\")\",\"temporal_raw\":\"During the applicable Term of any Service\",\"condition_raws\":[],\"confidence\":0.9}]}",
+              "reasoning": "We need to extract obligations. The segment:\n\n\"(b) During the applicable Term of any Service, and in accordance with the terms and conditions of this Agreement, Company shall provide, or shall cause its Affiliates or, subject to Section 2.2, third parties to provide, to RGHI or one or more of its Affiliates, the services described on Exhibit B hereto (the \"Reverse Transition Services\").\"\n\nWe need to identify obligations: \"Company shall provide, or shall cause its Affiliates or, subject to Section 2.2, third parties to provide, to RGHI or one or more of its Affiliates, the services described on Exhibit B hereto (the \"Reverse Transition Services\").\"\n\nModality: \"shall\" => MUST.\n\nObligor_alias: \"Company\". Must be exactly as appears. Yes \"Company\".\n\nObligee_alias: \"RGHI\" or \"one or more of its Affiliates\". The clause says \"to RGHI or one or more of its Affiliates\". So the obligee is RGHI (or its affiliates). We need to pick literal substring. Could include \"RGHI\". We'll set obligee_alias: \"RGHI\". It appears exactly.\n\nAction: \"PROVIDE\". The governing verb is \"provide\". Upper case: PROVIDE.\n\nObject_class: maybe \"reverse_transition_services\". Use snake case.\n\nobject_raw_text: \"the services described on Exhibit B hereto (the \\\"Reverse Transition Services\\\")\". Must be literal substring. Let's capture that phrase exactly as appears: \"the services described on Exhibit B hereto (the \\\"Reverse Transition Services\\\")\". In the text, it's: \"the services described on Exhibit B hereto (the \"Reverse Transition Services\")\". So include quotes.\n\nTemporal_raw: leading clause \"During the applicable Term of any Service\". That's a literal substring. Must be included in span_text. So span_text must include that leading clause. Also \"and in accordance with the terms and conditions of this Agreement,\" is also part of leading clause. The rule: include leading clause that establishes timing, conditions, scope. So we need to include \"During the applicable Term of any Service, and in accordance with the terms and conditions of this Agreement,\" as part of span_text. So span_text should be the whole sentence from \"(b) During the applicable Term of any Service, and in accordance with the terms and conditions of this Agreement, Company shall provide, or shall cause its Affiliates or, subject to Section 2.2, third parties to provide, to RGHI or one or more of its Affiliates, the services described on Exhibit B hereto (the \"Reverse Transition Services\").\"\n\nMake sure we include the leading clause. Temporal_raw: \"During the applicable Term of any Service\". That's literal substring.\n\nCondition_raws: any \"if\"-type conditional phrases? There's \"subject to Section 2.2\". That's not an \"if\". Not \"if\". So none. Could also treat \"subject to Section 2.2\" as condition but not \"if\". So condition_raws empty.\n\nCheck that temporal_raw is substring of span_text: yes.\n\nNow produce JSON with confidence maybe 0.9.\n\nMake sure JSON compact, no extra spaces beyond needed.\n\nReturn {\"obligations\":[{...}]}.\n\nLet's craft fields:\n\nspan_text: include everything exactly as in segment, preserving punctuation and spaces. The segment includes leading \"(b) \". Should we include that? The clause starts with \"(b) During...\". The obligation includes that. It's part of the sentence. Should we include \"(b)\"? It's part of the clause. Probably include it. The span_text must be exact substring. So include \"(b) During the applicable Term of any Service, and in accordance with the terms and conditions of this Agreement, Company shall provide, or shall cause its Affiliates or, subject to Section 2.2, third parties to provide, to RGHI or one or more of its Affiliates, the services described on Exhibit B hereto (the \\\"Reverse Transition Services\\\").\"\n\nMake sure to escape quotes inside JSON. Use backslashes.\n\nobject_raw_text: \"the services described on Exhibit B hereto (the \\\"Reverse Transition Services\\\")\". Must be exact substring. In the original, there is a space before parentheses? It's \"the services described on Exhibit B hereto (the \"Reverse Transition Services\")\". So include that.\n\nNow produce JSON.\n\n"
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.214020718,
+          "prompt_tokens": 1485,
+          "prompt_time": 0.06627214,
+          "completion_tokens": 1079,
+          "completion_time": 2.266246358,
+          "total_tokens": 2564,
+          "total_time": 2.3325184979999998,
+          "completion_tokens_details": {
+            "reasoning_tokens": 906
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_69334c0be3",
+        "x_groq": {
+          "id": "req_01m4fwxcebeb880aqswnkr72s7",
+          "seed": 581360342
+        },
+        "service_tier": "on_demand"
+      }
+    },
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-9342a900-b607-4bd3-ae05-2b1fa3b411a5",
+        "object": "chat.completion",
+        "created": 1791535039,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"repairs\":[{\"index\":0,\"temporal_raw\":\"During the applicable Term\"}]}",
+              "reasoning": "We need to correct the temporal_raw field for candidate index 0. The failure says UNMAPPABLE_TEMPORAL: the timing phrase \"During the applicable Term of any Service\" does not match supported shapes. We need to find a shorter contiguous substring of span_text that is the timing phrase on its own. The span_text includes \"(b) During the applicable Term of any Service, and in accordance with the terms and conditions of this Agreement, Company shall provide, ...\". The phrase \"During the applicable Term of any Service\" is the timing phrase. We need a shorter substring that is a timing phrase on its own, matching one of the supported shapes? Actually the instruction: \"If a SHORTER contiguous substring of span_text is the timing phrase on its own, return exactly that substring, copied character for character. Do not rewrite it into one of those shapes.\" So we need to find a substring that is a timing phrase, maybe just \"During the applicable Term\". That is shorter and still a timing phrase. Does it appear contiguously? Yes: \"During the applicable Term\". In span_text, after \"(b) \" we have \"During the applicable Term of any Service,\". So \"During the applicable Term\" is a substring. Is that a timing phrase? It is \"During the applicable Term\". That seems plausible. It's shorter than original phrase. It is contiguous. So we can set temporal_raw to \"During the applicable Term\". That is a substring of span_text. It is a timing phrase on its own. Should we include \"of any Service\"? That would be longer. The requirement is to shorten it. So we choose \"During the applicable Term\". That is acceptable.\n\nWe must output JSON with repairs array containing index 0 and corrected temporal_raw. Only include fields we are correcting: temporal_raw. So output:\n\n{\n \"repairs\": [\n   {\n     \"index\": 0,\n     \"temporal_raw\": \"During the applicable Term\"\n   }\n ]\n}\n\nMake sure JSON compact, no extra spaces? It's okay. Provide exactly that."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.304698679,
+          "prompt_tokens": 1765,
+          "prompt_time": 0.105558718,
+          "completion_tokens": 448,
+          "completion_time": 0.937378575,
+          "total_tokens": 2213,
+          "total_time": 1.042937293,
+          "completion_tokens_details": {
+            "reasoning_tokens": 420
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_87b3c396db",
+        "x_groq": {
+          "id": "req_01m4fwyf7wej8s6keb684qgtnv",
+          "seed": 253437355
+        },
+        "service_tier": "on_demand"
+      }
+    },
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-7dc6ee44-1f0a-424f-a35f-c239a1b60706",
+        "object": "chat.completion",
+        "created": 1791535074,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"repairs\": []}",
+              "reasoning": "We need to correct the temporal_raw field for candidate index 0. The failure says UNMAPPABLE_TEMPORAL: the phrase \"During the applicable Term\" does not match supported shapes. We need to find a shorter contiguous substring of span_text that is the timing phrase on its own. The span_text includes \"(b) During the applicable Term of any Service, and in accordance with the terms and conditions of this Agreement, Company shall provide, ...\". The phrase \"During the applicable Term\" is part of the text. Is there a shorter substring that is a timing phrase? Possibly \"During the applicable Term\" itself is the phrase, but it's not one of the supported shapes. The supported shapes: 'within <N> <unit> of <trigger>', 'by <YYYY-MM-DD>', 'every <N> <unit>', 'during <YYYY-MM-DD>..<YYYY-MM-DD>', or 'before <trigger>' / 'after <trigger>'. \"During the applicable Term\" does not match. Could we extract \"during\" something? Not a date range. There's no date. So we cannot produce a valid temporal_raw that matches shapes. The instruction: If no shorter verbatim substring of span_text is a clean timing phrase on its own, omit that candidate from your response entirely. So we should omit this candidate entirely (i.e., not include any repair). Since only one candidate and we cannot fix, output {\"repairs\": []}."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.348230705,
+          "prompt_tokens": 1771,
+          "prompt_time": 0.132000273,
+          "completion_tokens": 309,
+          "completion_time": 0.643384916,
+          "total_tokens": 2080,
+          "total_time": 0.775385189,
+          "completion_tokens_details": {
+            "reasoning_tokens": 294
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_02b0d31eca",
+        "x_groq": {
+          "id": "req_01m4fwzj2ze0sb4nv0yv0hzns9",
+          "seed": 1131512198
+        },
+        "service_tier": "on_demand"
+      }
+    }
+  ]
+}

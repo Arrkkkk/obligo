@@ -1,0 +1,91 @@
+{
+  "segment_id": "C17-006",
+  "run": 2,
+  "recorded_at": "2026-10-09T08:28:56+00:00",
+  "model_id": "openai/gpt-oss-120b",
+  "prompt_version": "v3",
+  "segment_sha256": "21d2cf067e2fafb368390660ecbab48ad28f66fafcb73d4f308244b78300006d",
+  "guideline_version": "v0.68",
+  "responses": [
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-94e6c03f-7d8f-42d2-956e-2ba74f9f66f0",
+        "object": "chat.completion",
+        "created": 1791534502,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"obligations\":[{\"span_text\":\"(b) During the applicable Term of any Service, and in accordance with the terms and conditions of this Agreement, Company shall provide, or shall cause its Affiliates or, subject to Section 2.2, third parties to provide, to RGHI or one or more of its Affiliates, the services described on Exhibit B hereto (the \\\"Reverse Transition Services\\\").\",\"modality\":\"MUST\",\"obligor_alias\":\"Company\",\"obligee_alias\":\"RGHI\",\"action\":\"PROVIDE\",\"object_class\":\"reverse_transition_services\",\"object_raw_text\":\"the services described on Exhibit B hereto (the \\\"Reverse Transition Services\\\")\",\"temporal_raw\":\"During the applicable Term of any Service\",\"condition_raws\":[],\"confidence\":0.95}]}",
+              "reasoning": "We need to extract obligations. The segment:\n\n\"(b) During the applicable Term of any Service, and in accordance with the terms and conditions of this Agreement, Company shall provide, or shall cause its Affiliates or, subject to Section 2.2, third parties to provide, to RGHI or one or more of its Affiliates, the services described on Exhibit B hereto (the \"Reverse Transition Services\").\"\n\nWe need to identify obligations: \"Company shall provide, or shall cause its Affiliates or, subject to Section 2.2, third parties to provide, to RGHI or one or more of its Affiliates, the services described on Exhibit B hereto (the \"Reverse Transition Services\").\"\n\nModality: \"shall\" => MUST.\n\nObligor_alias: \"Company\". Must be exactly as appears. Yes \"Company\".\n\nObligee_alias: \"RGHI\" or \"one or more of its Affiliates\". The clause says \"to RGHI or one or more of its Affiliates\". So the obligee is RGHI (or its affiliates). We need to pick literal substring. Could include \"RGHI\". We'll set obligee_alias: \"RGHI\". It appears exactly.\n\nAction: governing verb: \"PROVIDE\". Upper case.\n\nObject_class: something like \"reverse_transition_services\". Use snake_case.\n\nobject_raw_text: the phrase naming the object: \"the services described on Exhibit B hereto (the \\\"Reverse Transition Services\\\")\". Must be literal substring. Let's capture exactly: \"the services described on Exhibit B hereto (the \\\"Reverse Transition Services\\\")\". In the text, it's: \"the services described on Exhibit B hereto (the \"Reverse Transition Services\")\". So include quotes as in original. We'll need to escape quotes in JSON.\n\nTemporal_raw: leading clause \"During the applicable Term of any Service\". That's a literal substring. Must be included in span_text. So span_text must include that leading clause. Also \"and in accordance with the terms and conditions of this Agreement,\" is also part of leading clause. The entire leading clause is \"During the applicable Term of any Service, and in accordance with the terms and conditions of this Agreement,\". Should be included.\n\nThus span_text: the whole sentence including leading clause and the rest, ending with period. Let's copy exactly:\n\n\"(b) During the applicable Term of any Service, and in accordance with the terms and conditions of this Agreement, Company shall provide, or shall cause its Affiliates or, subject to Section 2.2, third parties to provide, to RGHI or one or more of its Affiliates, the services described on Exhibit B hereto (the \\\"Reverse Transition Services\\\").\"\n\nCheck punctuation: original ends with \").\". Actually original: \"... (the \"Reverse Transition Services\").\" So after closing parenthesis, period. So we need to include that.\n\nThus span_text includes (b) at start. Should we include (b)? It's part of clause. Yes.\n\nNow condition_raws: any \"if\"-type conditional phrases. There's \"subject to Section 2.2\". That's not an \"if\" phrase but could be considered condition. The rule says condition_raws are list of literal \"if\"-type conditional phrases. \"subject to Section 2.2\" is not \"if\". So none.\n\nTemporal_raw: \"During the applicable Term of any Service\". That's literal substring. Must be exactly as appears. It appears with capital D. Include that.\n\nNow produce JSON with confidence maybe 0.95.\n\nCheck that all fields are substrings of span_text. \"Company\" appears. \"RGHI\" appears. \"the services described on Exhibit B hereto (the \\\"Reverse Transition Services\\\")\" appears exactly. Need to ensure spacing matches. In span_text, after \"the services described on Exhibit B hereto (the \"Reverse Transition Services\")\". So object_raw_text includes that phrase. We'll include exactly as in text, with quotes escaped.\n\nTemporal_raw: \"During the applicable Term of any Service\". Yes appears.\n\nNow produce JSON.\n\n"
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.384612174,
+          "prompt_tokens": 1481,
+          "prompt_time": 0.061399614,
+          "completion_tokens": 1002,
+          "completion_time": 2.26893529,
+          "total_tokens": 2483,
+          "total_time": 2.330334904,
+          "completion_tokens_details": {
+            "reasoning_tokens": 829
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_bb691ea66b",
+        "x_groq": {
+          "id": "req_01m4fwe1qtezj8d6cdtb9d7pga",
+          "seed": 679271153
+        },
+        "service_tier": "on_demand"
+      }
+    },
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-6c9303e3-f683-4032-863c-34bda353cf19",
+        "object": "chat.completion",
+        "created": 1791534536,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"repairs\": []}",
+              "reasoning": "We need to correct temporal_raw for candidate index 0. The diagnostic says UNMAPPABLE_TEMPORAL: the phrase \"During the applicable Term of any Service\" does not match supported shapes. We need to find a shorter contiguous substring of span_text that is the timing phrase on its own. The span_text includes that phrase at the beginning: \"(b) During the applicable Term of any Service, and in accordance ...\". The phrase \"During the applicable Term of any Service\" is the timing phrase, but it's not in supported shapes. We need a shorter substring that is a timing phrase on its own. Could we extract \"During the applicable Term\"? That's still not matching shapes. The supported shapes: 'within <N> <unit> of <trigger>', 'by <YYYY-MM-DD>', 'every <N> <unit>', 'during <YYYY-MM-DD>..<YYYY-MM-DD>', or 'before <trigger>' / 'after <trigger>'. So we need a substring that matches one of those shapes. The text does not contain any date or numeric. So maybe we cannot find a matching substring. The instruction: If no shorter verbatim substring of span_text is a clean timing phrase on its own, omit that candidate from your response entirely. So we should omit this candidate entirely (i.e., not include any repair). Since only one candidate and we cannot fix temporal_raw, we output {\"repairs\": []}."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.30958607,
+          "prompt_tokens": 1761,
+          "prompt_time": 0.083338388,
+          "completion_tokens": 304,
+          "completion_time": 0.629343025,
+          "total_tokens": 2065,
+          "total_time": 0.712681413,
+          "completion_tokens_details": {
+            "reasoning_tokens": 289
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_df9620fe21",
+        "x_groq": {
+          "id": "req_01m4fwf4gqe1v99rxyhsvvgrvy",
+          "seed": 1170715150
+        },
+        "service_tier": "on_demand"
+      }
+    }
+  ]
+}

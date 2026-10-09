@@ -1,0 +1,91 @@
+{
+  "segment_id": "C03-125",
+  "run": 2,
+  "recorded_at": "2026-10-09T08:23:45+00:00",
+  "model_id": "openai/gpt-oss-120b",
+  "prompt_version": "v3",
+  "segment_sha256": "32f4c6e8249d9069bffe942ac28df3145268767f90b6d4759afe140726c27a03",
+  "guideline_version": "v0.68",
+  "responses": [
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-3bf753df-f066-4fc6-95a6-b50ee037be87",
+        "object": "chat.completion",
+        "created": 1791534166,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"obligations\":[{\"span_text\":\"Except as expressly provided in this Agreement, each Party shall bear its own fees and expenses (including the fees and expenses of its agents, representatives, attorneys, and accountants) incurred in connection with the negotiation, drafting, execution, and performance of this Agreement and the transactions it contemplates.\",\"modality\":\"MUST\",\"obligor_alias\":\"each Party\",\"obligee_alias\":\"\",\"action\":\"BEAR\",\"object_class\":\"fees_and_expenses\",\"object_raw_text\":\"its own fees and expenses\",\"temporal_raw\":null,\"condition_raws\":[\"Except as expressly provided in this Agreement\"],\"confidence\":0.9}]}",
+              "reasoning": "We need to extract obligations. Read segment:\n\n\"Proprietary and Confidential This Agreement and information contained therein is not for use or disclosure outside of AT&T, its Affiliates, and third party representatives, and Vendor except under written agreement by the contracting parties. 43 Source: ATN INTERNATIONAL, INC., 10-Q, 11/8/2019 3.42 Transaction Costs. Except as expressly ... each Party shall bear its own fees and expenses (including the fees and expenses of its agents, representatives, attorneys, and accountants) incurred in connection with the negotiation, drafting, execution, and performance of this Agreement and the transactions it contemplates.\"\n\nWe have obligations:\n\n1. \"This Agreement and information contained therein is not for use or disclosure outside of AT&T, its Affiliates, and third party representatives, and Vendor except under written agreement by the contracting parties.\"\n\nThis is a prohibition: must NOT use or disclose outside of ... unless written agreement. So modality: MUST_NOT? The phrase \"is not for use or disclosure\" indicates prohibition. Could be \"MUST_NOT\". Obligor? Who is obligated? The clause seems to apply to the parties generally, maybe \"each Party\"? But the sentence mentions \"This Agreement and information ... is not for use or disclosure outside of AT&T, its Affiliates, and third party representatives, and Vendor except under written agreement by the contracting parties.\" The subject is \"This Agreement and information contained therein\". The prohibition is on use/disclosure by anyone. Could treat obligor as \"each Party\"? Not explicitly in sentence. Might be ambiguous. Since we need literal obligor_alias from span_text. The only party names present: \"AT&T\", \"its Affiliates\", \"third party representatives\", \"Vendor\". No \"Party\". So we cannot assign obligor alias not present. Could we set obligor_alias as empty? The spec expects obligor_alias exactly as appears. Could be empty string if not clear? In example they left obligee empty sometimes. But obligor likely required. Could we set obligor_alias as \"\"? Not sure. Might drop this candidate if cannot identify obligor. But we could treat \"Vendor\" as obligor? The clause says \"outside of AT&T ... and Vendor\". That seems to list parties allowed to have info. Not obligor. So maybe not an obligation.\n\nSecond: \"each Party shall bear its own fees and expenses ...\". That's an obligation: each Party shall bear its own fees and expenses. Modality MUST. Obligor_alias: \"each Party\". That's literal substring. Obligee_alias? It says each Party shall bear its own fees... So the party is both obligor and obligee? Actually they bear their own fees, so they owe to themselves. Could set obligee_alias empty string. Action: \"BEAR\". Object_class: maybe \"fees_and_expenses\". object_raw_text: \"its own fees and expenses\". Temporal_raw: none. Condition_raws: none.\n\nWe need to include leading clause if any. The sentence: \"Except as expressly provided in this Agreement, each Party shall bear its own fees and expenses (including the fees and expenses of its agents, representatives, attorneys, and accountants) incurred in connection with the negotiation, drafting, execution, and performance of this Agreement and the transactions it contemplates.\"\n\nWe need to include the leading clause \"Except as expressly provided in this Agreement,\" as part of span_text because it's a condition? It's a conditional phrase. It starts with \"Except as ...\". That's a condition. So we need to include it in span_text, and also list condition_raws containing that phrase. The phrase is \"Except as expressly provided in this Agreement\". That's a literal substring.\n\nThus span_text = \"Except as expressly provided in this Agreement, each Party shall bear its own fees and expenses (including the fees and expenses of its agents, representatives, attorneys, and accountants) incurred in connection with the negotiation, drafting, execution, and performance of this Agreement and the transactions it contemplates.\"\n\nNow extract fields:\n\nmodality: MUST (since \"shall\").\n\nobligor_alias: \"each Party\"\n\nobligee_alias: maybe empty string \"\" because not specified.\n\naction: \"BEAR\"\n\nobject_class: maybe \"fees_and_expenses\". Use snake_case.\n\nobject_raw_text: \"its own fees and expenses\"\n\ntemporal_raw: null\n\ncondition_raws: [\"Except as expressly provided in this Agreement\"]\n\nCheck that condition phrase is substring of span_text: yes.\n\nNow also consider first clause: \"This Agreement and information contained therein is not for use or disclosure outside of AT&T, its Affiliates, and third party representatives, and Vendor except under written agreement by the contracting parties.\"\n\nObligation: prohibition of use/disclosure. Could be modality MUST_NOT. Obligor? Could be \"This Agreement and information contained therein\"? That's not a party. Might be ambiguous. Probably better to skip because obligor not a party. The spec expects obligor_alias to be a party alias appearing in span_text. Could be \"Vendor\"? But the clause says \"outside of AT&T ... and Vendor\". That lists parties allowed to receive. Not obligor. So skip.\n\nThus only one obligation.\n\nNow produce JSON.\n\nInclude confidence maybe 0.9.\n\nReturn {\"obligations\": [ ... ]}. Ensure compact JSON.\n\n"
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.344188619,
+          "prompt_tokens": 1538,
+          "prompt_time": 0.071477759,
+          "completion_tokens": 1230,
+          "completion_time": 2.571241792,
+          "total_tokens": 2768,
+          "total_time": 2.642719551,
+          "completion_tokens_details": {
+            "reasoning_tokens": 1087
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_64b2f1c926",
+        "x_groq": {
+          "id": "req_01m4fw3svae1vtbjp6a5jsz1hs",
+          "seed": 1112855150
+        },
+        "service_tier": "on_demand"
+      }
+    },
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-36c4f476-b585-45ee-af6a-7efe58a88cc4",
+        "object": "chat.completion",
+        "created": 1791534224,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"repairs\":[{\"index\":0,\"action\":\"PAY\"}]}",
+              "reasoning": "We need to output repairs JSON with corrected fields for index 0. Only field to correct is action. Must choose from allowed list, closest meaning to \"bear\". \"Bear its own fees and expenses\" means \"pay\". So action = PAY. Keep other fields unchanged; we only include corrected fields. So output:\n\n{\n \"repairs\": [\n   {\"index\":0, \"action\":\"PAY\"}\n ]\n}\n\nCheck format: need compact JSON, no extra spaces? It's okay. Ensure no other fields. Return exactly that."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.338878569,
+          "prompt_tokens": 1861,
+          "prompt_time": 0.078362979,
+          "completion_tokens": 130,
+          "completion_time": 0.270013567,
+          "total_tokens": 1991,
+          "total_time": 0.348376546,
+          "completion_tokens_details": {
+            "reasoning_tokens": 107
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_4200b3f836",
+        "x_groq": {
+          "id": "req_01m4fw5meqef7s0fvd120g7k9f",
+          "seed": 1926168205
+        },
+        "service_tier": "on_demand"
+      }
+    }
+  ]
+}

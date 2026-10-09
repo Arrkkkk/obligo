@@ -1,0 +1,131 @@
+{
+  "segment_id": "E02-006",
+  "run": 2,
+  "recorded_at": "2026-10-09T12:25:31+00:00",
+  "model_id": "openai/gpt-oss-120b",
+  "prompt_version": "v3",
+  "segment_sha256": "24520d5cce374e6e56d2fb0e4c5cae10ad2e4af699c242679c0ac1be052805e7",
+  "guideline_version": "v0.64",
+  "responses": [
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-2899e078-63f4-48da-8bda-77d22be25db4",
+        "object": "chat.completion",
+        "created": 1791548636,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"obligations\":[{\"span_text\":\"b) MedQuist shall provide CBay with the billing data necessary for CBay to generate an invoice for the work performed by MedQuist to a Client Facility under this Agreement.\",\"modality\":\"MUST\",\"obligor_alias\":\"MedQuist\",\"obligee_alias\":\"CBay\",\"action\":\"PROVIDE\",\"object_class\":\"billing_data\",\"object_raw_text\":\"the billing data necessary for CBay to generate an invoice for the work performed by MedQuist to a Client Facility under this Agreement\",\"temporal_raw\":null,\"condition_raws\":[],\"confidence\":0.9},{\"span_text\":\"CBay will in turn generate an invoice to Client Facility consistent with the billing data from MedQuist within three (3) calendar days of receipt of the billing data from MedQuist.\",\"modality\":\"MUST\",\"obligor_alias\":\"CBay\",\"obligee_alias\":\"Client Facility\",\"action\":\"GENERATE\",\"object_class\":\"invoice\",\"object_raw_text\":\"an invoice to Client Facility consistent with the billing data from MedQuist\",\"temporal_raw\":\"within three (3) calendar days of receipt of the billing data from MedQuist\",\"condition_raws\":[],\"confidence\":0.9}]}",
+              "reasoning": "We need to extract obligations. The segment contains two sentences:\n\n1. \"b) MedQuist shall provide CBay with the billing data necessary for CBay to generate an invoice for the work performed by MedQuist to a Client Facility under this Agreement.\"\n\nObligation: MedQuist shall provide CBay with the billing data necessary...\n\nModality: \"shall\" => MUST.\n\nObligor_alias: \"MedQuist\"\n\nObligee_alias: \"CBay\"\n\nAction: PROVIDE\n\nObject_class: maybe \"billing_data\"\n\nobject_raw_text: \"the billing data necessary for CBay to generate an invoice for the work performed by MedQuist to a Client Facility under this Agreement\" but need literal phrase naming object. The phrase \"the billing data necessary for CBay to generate an invoice for the work performed by MedQuist to a Client Facility under this Agreement\". That's long but it's literal substring.\n\nTemporal_raw: none.\n\nCondition_raws: none.\n\nCheck that object_raw_text is substring of span_text. Yes.\n\n2. \"CBay will in turn generate an invoice to Client Facility consistent with the billing data from MedQuist within three (3) calendar days of receipt of the billing data from MedQuist.\"\n\nObligation: CBay will generate an invoice to Client Facility ... within three (3) calendar days of receipt...\n\nModality: \"will\" => SHOULD? Typically \"will\" indicates a future action, but in obligations classification, \"shall\" is MUST, \"will\" could be considered MUST? Usually \"shall\" is mandatory, \"will\" can be indicative of future but still an obligation. The guidelines only allow modalities: MUST, MUST_NOT, SHOULD, MAY. \"will\" likely maps to SHOULD? But many extraction frameworks treat \"will\" as MUST. However we need best guess. I'd map \"will\" to SHOULD? Hmm. The phrase \"CBay will in turn generate an invoice...\" seems mandatory. I'd choose \"MUST\". But guidelines: \"shall\" => MUST, \"must\" => MUST, \"should\" => SHOULD, \"may\" => MAY, \"must not\" => MUST_NOT. \"will\" ambiguous. I'd choose \"MUST\" as it's an obligation. Let's choose MUST.\n\nObligor_alias: \"CBay\"\n\nObligee_alias: \"Client Facility\"\n\nAction: GENERATE (or ISSUE). Use GENERATE.\n\nObject_class: \"invoice\"\n\nobject_raw_text: \"an invoice to Client Facility consistent with the billing data from MedQuist\"\n\nTemporal_raw: \"within three (3) calendar days of receipt of the billing data from MedQuist\"\n\nCondition_raws: none.\n\nCheck that temporal_raw is substring of span_text. Yes.\n\nNow produce JSON with two obligations, include confidence maybe 0.9 each.\n\nMake sure span_text includes full sentence. Include leading \"b) \" maybe part of sentence? The clause starts with \"b) MedQuist shall provide...\" Should we include \"b) \"? It's part of the text. The span_text should be the exact substring. Include \"b) MedQuist shall provide CBay with the billing data necessary for CBay to generate an invoice for the work performed by MedQuist to a Client Facility under this Agreement.\"\n\nSecond span_text: \"CBay will in turn generate an invoice to Client Facility consistent with the billing data from MedQuist within three (3) calendar days of receipt of the billing data from MedQuist.\"\n\nNow produce JSON compact."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.382238154,
+          "prompt_tokens": 1486,
+          "prompt_time": 0.079366983,
+          "completion_tokens": 974,
+          "completion_time": 2.025674602,
+          "total_tokens": 2460,
+          "total_time": 2.105041585,
+          "completion_tokens_details": {
+            "reasoning_tokens": 710
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_9241e9962b",
+        "x_groq": {
+          "id": "req_01m4g9xd8meketdpq51f9vbzdc",
+          "seed": 864397474
+        },
+        "service_tier": "on_demand"
+      }
+    },
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-15b53e41-0e05-4110-8404-696cc2623df4",
+        "object": "chat.completion",
+        "created": 1791548672,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"repairs\":[{\"index\":0,\"temporal_raw\":\"within three (3) calendar days of receipt\"}]}",
+              "reasoning": "We need to produce JSON with repairs array. Only one candidate index 0, field to correct temporal_raw. Need to find a shorter contiguous substring of span_text that is the timing phrase on its own. Span_text: \"CBay will in turn generate an invoice to Client Facility consistent with the billing data from MedQuist within three (3) calendar days of receipt of the billing data from MedQuist.\"\n\nWe need a substring that is the timing phrase. The phrase \"within three (3) calendar days of receipt of the billing data from MedQuist\" is the timing phrase, but it's too long? The rule says must be a shorter contiguous substring of span_text that is the timing phrase on its own. Could we extract \"within three (3) calendar days\"? That's a contiguous substring and is a timing phrase? It matches shape 'within <N> <unit> of <trigger>'? Actually \"within three (3) calendar days\" lacks \"of <trigger>\", but shape allowed includes 'within <N> <unit> of <trigger>'. Without \"of\", maybe not matching. But we just need a shorter substring that is the timing phrase on its own, not necessarily matching shape? The failure reason says UNMAPPABLE_TEMPORAL because does not match supported shapes. We need to provide a shorter substring that matches one of the shapes. The supported shapes: \n1. 'within <N> <unit> of <trigger>'\n2. 'by <YYYY-MM-DD>'\n3. 'every <N> <unit>'\n4. 'during <YYYY-MM-DD>..<YYYY-MM-DD>'\n5. 'before <trigger>' / 'after <trigger>'\n\nWe need to produce a temporal_raw that matches one of these shapes. The original phrase includes \"within three (3) calendar days of receipt of the billing data from MedQuist\". That matches shape 1: within <N> <unit> of <trigger>. N = three (3) calendar days? Actually N is number, unit is days, trigger is \"receipt of the billing data from MedQuist\". So the phrase is \"within three (3) calendar days of receipt of the billing data from MedQuist\". That matches shape 1. So why is it unmappable? Possibly because they require numeric N without parentheses? Or they require \"within <N> <unit> of <trigger>\" where unit is singular/plural? The phrase includes \"calendar days\". Might be okay. But maybe they consider \"three (3) calendar days\" as not matching because includes parentheses. Could we shorten to \"within three calendar days of receipt of the billing data from MedQuist\"? That's still long but maybe acceptable. But they ask for a shorter contiguous substring of span_text. Could we extract \"within three (3) calendar days of receipt of the billing data from MedQuist\"? That's the same as original. Need shorter. Could we extract \"within three (3) calendar days\"? That matches shape? No \"of <trigger>\" missing. Could we extract \"within three (3) calendar days of receipt\"? That includes trigger \"receipt\". But trigger likely needs full phrase. Could be \"within three (3) calendar days of receipt\". That matches shape: within N unit of trigger (trigger = receipt). That's a contiguous substring. Does it appear? Yes: \"...within three (3) calendar days of receipt of the billing data...\" So substring \"within three (3) calendar days of receipt\" is contiguous. That matches shape: within <N> <unit> of <trigger>. Trigger = receipt. That's okay. So we can set temporal_raw to that substring.\n\nCheck that substring appears exactly: In span_text: \"...within three (3) calendar days of receipt of the billing data...\" So \"within three (3) calendar days of receipt\" is present. Yes.\n\nThus we output repair with index 0, temporal_raw set to that substring. No other fields to correct.\n\nWe must output JSON with \"repairs\": [ { \"index\":0, \"temporal_raw\":\"within three (3) calendar days of receipt\" } ]\n\nMake sure no extra fields. The spec: include only fields you are correcting; omit the rest. So only temporal_raw.\n\nReturn compact JSON.\n\n"
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.220423969,
+          "prompt_tokens": 1745,
+          "prompt_time": 0.098707764,
+          "completion_tokens": 906,
+          "completion_time": 2.078782919,
+          "total_tokens": 2651,
+          "total_time": 2.177490683,
+          "completion_tokens_details": {
+            "reasoning_tokens": 873
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_69334c0be3",
+        "x_groq": {
+          "id": "req_01m4g9yg16ehrsnrp4bzb158w5",
+          "seed": 1367499857
+        },
+        "service_tier": "on_demand"
+      }
+    },
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-ae032c11-278b-4ce8-875d-eb500e94e974",
+        "object": "chat.completion",
+        "created": 1791548731,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"repairs\":[{\"index\":0,\"temporal_raw\":\"within three (3) calendar days of receipt\"}]}",
+              "reasoning": "We need to produce JSON with repairs array. Only one candidate index 0, field temporal_raw needs correction. Need to find a shorter contiguous substring of span_text that is the timing phrase on its own. Span_text: \"CBay will in turn generate an invoice to Client Facility consistent with the billing data from MedQuist within three (3) calendar days of receipt of the billing data from MedQuist.\"\n\nWe need a substring that is the timing phrase. The phrase \"within three (3) calendar days of receipt of the billing data from MedQuist\" is the full phrase. But we need a shorter substring that is a clean timing phrase on its own. The supported shapes: 'within <N> <unit> of <trigger>'. Here we have \"within three (3) calendar days of receipt\". That matches shape: within N unit of trigger. The trigger is \"receipt\". But the phrase includes extra \"of the billing data from MedQuist\". The minimal substring that matches shape could be \"within three (3) calendar days of receipt\". That is a contiguous substring? Yes, appears earlier: \"... within three (3) calendar days of receipt of the billing data ...\". So substring \"within three (3) calendar days of receipt\" is contiguous and matches shape. That is shorter than original (original had extra \"of the billing data from MedQuist\"). So we can set temporal_raw to that substring.\n\nCheck that substring appears exactly in span_text: Let's locate: \"... within three (3) calendar days of receipt of the billing data ...\". So \"within three (3) calendar days of receipt\" is present. Good.\n\nThus we output repair with index 0, temporal_raw corrected. No other fields.\n\nWe must output JSON with \"temporal_raw\": \"within three (3) calendar days of receipt\". The other fields omitted.\n\nThus final JSON: {\"repairs\":[{\"index\":0,\"temporal_raw\":\"within three (3) calendar days of receipt\"}]}\n\nCheck format: compact, no spaces? It's okay to have spaces. Provide exactly.\n\n"
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.340144575,
+          "prompt_tokens": 1721,
+          "prompt_time": 0.090743777,
+          "completion_tokens": 458,
+          "completion_time": 0.980079975,
+          "total_tokens": 2179,
+          "total_time": 1.070823752,
+          "completion_tokens_details": {
+            "reasoning_tokens": 425
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_1d982b31b2",
+        "x_groq": {
+          "id": "req_01m4ga0am4e81s7zmmvh72s81y",
+          "seed": 690115648
+        },
+        "service_tier": "on_demand"
+      }
+    }
+  ]
+}

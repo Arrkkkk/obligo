@@ -1,0 +1,54 @@
+{
+  "segment_id": "C04-017",
+  "run": 2,
+  "recorded_at": "2026-10-09T08:24:23+00:00",
+  "model_id": "openai/gpt-oss-120b",
+  "prompt_version": "v3",
+  "segment_sha256": "85c7cd70d594f9f2beff39782091976c432b75c3380599a581ba1a06814907e5",
+  "guideline_version": "v0.68",
+  "responses": [
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-415bc918-de6b-42d2-8d35-c2908ea7a27d",
+        "object": "chat.completion",
+        "created": 1791534263,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"obligations\":[{\"span_text\":\"During the Term of this Agreement, and subject to the terms and conditions hereof, Miltenyi will non-exclusively supply and sell to Bellicum or its Licensees or Subcontractors, Miltenyi Products listed on Exhibit B solely for the Permitted Use (as defined below).\",\"modality\":\"MUST\",\"obligor_alias\":\"Miltenyi\",\"obligee_alias\":\"Bellicum or its Licensees or Subcontractors\",\"action\":\"SUPPLY\",\"object_class\":\"miltenyi_products\",\"object_raw_text\":\"Miltenyi Products listed on Exhibit B\",\"temporal_raw\":\"During the Term of this Agreement\",\"condition_raws\":[],\"confidence\":0.9},{\"span_text\":\"During the Term of this Agreement, and subject to the terms and conditions hereof, Bellicum or its Licensees or Subcontractors will purchase from Miltenyi, Miltenyi Products listed on Exhibit B solely for the Permitted Use (as defined below).\",\"modality\":\"MUST\",\"obligor_alias\":\"Bellicum or its Licensees or Subcontractors\",\"obligee_alias\":\"Miltenyi\",\"action\":\"PURCHASE\",\"object_class\":\"miltenyi_products\",\"object_raw_text\":\"Miltenyi Products listed on Exhibit B\",\"temporal_raw\":\"During the Term of this Agreement\",\"condition_raws\":[],\"confidence\":0.9}]}",
+              "reasoning": "We need to extract obligations. Read segment:\n\n\"2.1 Supply of Product. During the Term of this Agreement, and subject to the terms and conditions hereof, Miltenyi will non-exclusively supply and sell to Bellicum or its Licensees or Subcontractors, and Bellicum or its Licensees or Subcontractors will purchase from Miltenyi, Miltenyi Products listed on Exhibit B solely for the Permitted Use (as defined below). Each Purchase Order placed 5 Miltenyi Biotec-Bellicum Supply Agreement (Execution Copy, March 27, 2019) under this Agreement shall be exclusively governed by the terms and conditions of this Agreement and the Quality Agreement, as amended from time to time, unless ...\"\n\nWe need obligations: sentences with duty, prohibition, permission, expectation.\n\nFirst sentence: \"During the Term of this Agreement, and subject to the terms and conditions hereof, Miltenyi will non-exclusively supply and sell to Bellicum or its Licensees or Subcontractors, and Bellicum or its Licensees or Subcontractors will purchase from Miltenyi, Miltenyi Products listed on Exhibit B solely for the Permitted Use (as defined below).\"\n\nObligation: Miltenyi will supply and sell (MUST? \"will\" indicates obligation, likely MUST). Also Bellicum will purchase. So two obligations? Could treat as two separate obligations. The clause includes both parties. We can split.\n\nFirst: Miltenyi will non-exclusively supply and sell to Bellicum or its Licensees or Subcontractors, Miltenyi Products listed on Exhibit B solely for the Permitted Use.\n\nspan_text must include leading clause \"During the Term of this Agreement, and subject to the terms and conditions hereof,\" because it's timing. So span_text: \"During the Term of this Agreement, and subject to the terms and conditions hereof, Miltenyi will non-exclusively supply and sell to Bellicum or its Licensees or Subcontractors, Miltenyi Products listed on Exhibit B solely for the Permitted Use (as defined below).\"\n\nCheck: includes object phrase \"Miltenyi Products listed on Exhibit B\". Action: SUPPLY (or SELL). Could choose SUPPLY. object_class maybe \"miltenyi_products\". object_raw_text: \"Miltenyi Products listed on Exhibit B\". temporal_raw: \"During the Term of this Agreement\". condition_raws: \"and subject to the terms and conditions hereof\" maybe considered condition but it's not an \"if\". It's a phrase. Condition list expects \"if\"-type conditional phrases. Not present. So empty list.\n\nObligor_alias: \"Miltenyi\". Obligee_alias: \"Bellicum or its Licensees or Subcontractors\". The clause includes \"or its Licensees or Subcontractors\". That's part of obligee alias. Must be literal substring. So \"Bellicum or its Licensees or Subcontractors\". Good.\n\nModality: \"MUST\" (since \"will\" indicates duty). Could also be \"SHOULD\". We'll choose MUST.\n\nSecond obligation: \"Bellicum or its Licensees or Subcontractors will purchase from Miltenyi, Miltenyi Products listed on Exhibit B solely for the Permitted Use\". Need leading clause same timing. So span_text: \"During the Term of this Agreement, and subject to the terms and conditions hereof, Bellicum or its Licensees or Subcontractors will purchase from Miltenyi, Miltenyi Products listed on Exhibit B solely for the Permitted Use (as defined below).\"\n\nObligor_alias: \"Bellicum or its Licensees or Subcontractors\". Obligee_alias: \"Miltenyi\". Action: PURCHASE. object_raw_text: \"Miltenyi Products listed on Exhibit B\". object_class: \"miltenyi_products\". temporal_raw same. condition_raws empty.\n\nThird sentence: \"Each Purchase Order placed 5 Miltenyi Biotec-Bellicum Supply Agreement (Execution Copy, March 27, 2019) under this Agreement shall be exclusively governed by the terms and conditions of this Agreement and the Quality Agreement, as amended from time to time, unless specifically otherwise agreed between the Parties in writing.\"\n\nObligation: Purchase Order shall be exclusively governed by terms... This is a requirement on \"Each Purchase Order\". Who is obligated? The parties? It says \"Each Purchase Order ... shall be exclusively governed by the terms and conditions of this Agreement and the Quality Agreement\". That's a statement about the Purchase Order, not a party. Could be considered an obligation on the parties to ensure that Purchase Orders are governed. Hard to assign obligor. Might be both parties. But phrase doesn't specify party. Could treat as \"the Parties\" but not present in span_text? It says \"unless specifically otherwise agreed between the Parties\". So maybe obligor is ambiguous. Might skip this clause because unclear obligor/obligee.\n\nAlso there is a prohibition: \"Any terms and conditions of any Purchase Order ... shall have no effect and such terms and conditions are hereby excluded and rejected.\" That's a prohibition on parties adding terms. Could be obligation that parties shall not include additional terms. Obligor? \"Any terms and conditions ... shall have no effect\" not a party. Might be too vague.\n\nThus we include two obligations.\n\nNow construct JSON.\n\nNeed confidence field? Example includes confidence. Not required but likely needed? The spec didn't mention confidence field explicitly in required fields, but examples include it. The shape described earlier: each candidate includes fields listed plus \"confidence\". The initial description didn't list confidence, but examples include it. Probably we should include confidence. Safer to include confidence numeric.\n\nWe'll set confidence 0.9 for each.\n\nNow produce JSON compact.\n\n"
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.343753392,
+          "prompt_tokens": 1604,
+          "prompt_time": 0.017784913,
+          "completion_tokens": 1489,
+          "completion_time": 3.36824697,
+          "total_tokens": 3093,
+          "total_time": 3.3860318830000002,
+          "prompt_tokens_details": {
+            "cached_tokens": 1280
+          },
+          "completion_tokens_details": {
+            "reasoning_tokens": 1191
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_64b2f1c926",
+        "x_groq": {
+          "id": "req_01m4fw6q8ae1cv1s60k911v96c",
+          "seed": 162857654
+        },
+        "service_tier": "on_demand"
+      }
+    }
+  ]
+}

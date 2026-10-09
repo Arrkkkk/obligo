@@ -1,0 +1,51 @@
+{
+  "segment_id": "C14-095",
+  "run": 1,
+  "recorded_at": "2026-10-09T08:20:37+00:00",
+  "model_id": "openai/gpt-oss-120b",
+  "prompt_version": "v3",
+  "segment_sha256": "15b0e80e444c04908181d99ff6fef48021bcfadfbe4343075495b6da350397bb",
+  "guideline_version": "v0.68",
+  "responses": [
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-f705313f-16aa-4015-b352-a347a737537e",
+        "object": "chat.completion",
+        "created": 1791534036,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"obligations\":[{\"span_text\":\"As part of the Manufacturing Outsourcing Services, Contractor shall (1) retain records and supporting documentation detailed in Section 10.2 above if and to the extent such record retention is required by tax or similar authorities, and/or exists in the ERP system, and/or is common practice in the industry, including but not limited to - production files for the following periods: 7 years for records required by tax or similar authorities and ERP data, 3 years for production files, otherwise as required by law or as is the common practice\",\"modality\":\"MUST\",\"obligor_alias\":\"Contractor\",\"obligee_alias\":\"\",\"action\":\"RETAIN\",\"object_class\":\"records_and_supporting_documentation\",\"object_raw_text\":\"records and supporting documentation\",\"temporal_raw\":null,\"condition_raws\":[\"if and to the extent such record retention is required by tax or similar authorities, and/or exists in the ERP system, and/or is common practice in the industry\"],\"confidence\":0.9},{\"span_text\":\"Contractor shall (2) upon notice of no less than five (5) Days from NICE, provide NICE and its designees with reasonable access to such records and documentation for the purpose of conducting NICE' business and reporting\",\"modality\":\"MUST\",\"obligor_alias\":\"Contractor\",\"obligee_alias\":\"NICE\",\"action\":\"PROVIDE\",\"object_class\":\"reasonable_access\",\"object_raw_text\":\"reasonable access to such records and documentation\",\"temporal_raw\":null,\"condition_raws\":[\"upon notice of no less than five (5) Days from NICE\"],\"confidence\":0.9}]}",
+              "reasoning": "We need to extract obligations. Read segment.\n\n\"10.6. CONTRACTOR RECORD RETENTION AND ACCESS. As part of the Manufacturing Outsourcing Services, Contractor shall (1) retain records and supporting documentation detailed in Section 10.2 above if and to the extent such record retention is required by tax or similar authorities, and/or exists in the ERP system, and/or is common practice in the industry, including but not limited to - production files for the following periods: 7 years for records required by tax or similar authorities and ERP data, 3 years for production files, otherwise as required by law or as is the common practice, and (2) upon notice of no less than five (5) Days from NICE, provide NICE and its designees with reasonable access to such records and documentation for the purpose of conducting NICE' business and reporting. Such access shall only be provided to audit personnel who have signed towards Contractor a non-disclosure undertaking incorporating terms which are substantially the same as those in APPENDIX E.\"\n\nWe have obligations:\n\n1) Contractor shall retain records and supporting documentation ... (conditions: if and to the extent such record retention is required by tax or similar authorities, and/or exists in the ERP system, and/or is common practice in the industry). So modality MUST (shall). Obligor: Contractor. Obligee? Not explicit; maybe implied to NICE? Not mentioned. Could be no obligee. But we need obligee_alias literal from span_text. There's no \"to\" phrase. So maybe empty string? In example they left obligee empty. So we can set \"\".\n\nAction: RETAIN. Object_class: records_and_supporting_documentation? maybe \"records\". object_raw_text: \"records and supporting documentation\". Temporal: none. Condition_raws: list of conditional phrases: \"if and to the extent such record retention is required by tax or similar authorities, and/or exists in the ERP system, and/or is common practice in the industry\". That's a literal substring. Need to ensure it's exactly as in text. The phrase is \"if and to the extent such record retention is required by tax or similar authorities, and/or exists in the ERP system, and/or is common practice in the industry\". Yes.\n\n2) Contractor shall, upon notice of no less than five (5) Days from NICE, provide NICE and its designees with reasonable access to such records and documentation for the purpose ... So modality MUST. Obligor Contractor. Obligee NICE (and its designees). Action: PROVIDE. Object_class: reasonable_access. object_raw_text: \"reasonable access to such records and documentation\". Temporal: maybe none. Condition_raws: \"upon notice of no less than five (5) Days from NICE\". That's a leading clause. Must include in span_text. So span_text should include that leading clause. The clause is \"upon notice of no less than five (5) Days from NICE, provide NICE and its designees with reasonable access to such records and documentation for the purpose of conducting NICE' business and reporting.\" Also preceding \"Contractor shall (2)\". The whole sentence: \"Contractor shall (2) upon notice of no less than five (5) Days from NICE, provide NICE and its designees with reasonable access to such records and documentation for the purpose of conducting NICE' business and reporting.\" Need to include leading clause \"upon notice...\" as part of span_text. Also condition_raws list includes that phrase.\n\n3) \"Such access shall only be provided to audit personnel who have signed towards Contractor a non-disclosure undertaking incorporating terms which are substantially the same as those in APPENDIX E.\" This is an obligation on Contractor? \"Such access shall only be provided to audit personnel...\" The subject is \"Such access\". It's about providing access only to audit personnel. The obligor is Contractor implicitly (since they control access). But the clause doesn't have \"shall\" with Contractor. It says \"Such access shall only be provided to audit personnel who have signed...\". The obligor could be Contractor (implied). But the clause doesn't name Contractor. The obligor_alias must be literal substring within span_text. There's no party name. So we cannot assign obligor. Might need to skip because obligor missing. Could treat obligor as empty? But spec says obligor_alias must be literal as appears. Could be empty string? Not sure. Probably better to skip this clause because ambiguous.\n\nThus produce two obligations.\n\nNow construct JSON.\n\nFirst obligation span_text: need include full clause. Let's capture exactly:\n\n\"As part of the Manufacturing Outsourcing Services, Contractor shall (1) retain records and supporting documentation detailed in Section 10.2 above if and to the extent such record retention is required by tax or similar authorities, and/or exists in the ERP system, and/or is common practice in the industry, including but not limited to - production files for the following periods: 7 years for records required by tax or similar authorities and ERP data, 3 years for production files, otherwise as required by law or as is the common practice, and (2) upon notice of no less than five (5) Days from NICE, provide NICE and its designees with reasonable access to such records and documentation for the purpose of conducting NICE' business and reporting.\"\n\nBut that's whole paragraph. We need separate obligations. For first, we could cut up to before \"(2)\". Span_text should include leading clause \"As part of the Manufacturing Outsourcing Services, Contractor shall (1) retain records and supporting documentation detailed in Section 10.2 above if and to the extent such record retention is required by tax or similar authorities, and/or exists in the ERP system, and/or is common practice in the industry, including but not limited to - production files for the following periods: 7 years for records required by tax or similar authorities and ERP data, 3 years for production files, otherwise as required by law or as is the common practice\". That's long but okay.\n\nMake sure condition phrase is included.\n\nSecond obligation span_text: \"Contractor shall (2) upon notice of no less than five (5) Days from NICE, provide NICE and its designees with reasonable access to such records and documentation for the purpose of conducting NICE' business and reporting.\"\n\nInclude leading clause.\n\nNow fill fields.\n\nFirst:\n\nmodality: MUST (shall)\nobligor_alias: \"Contractor\"\nobligee_alias: \"\" (empty)\naction: RETAIN\nobject_class: \"records_and_supporting_documentation\"\nobject_raw_text: \"records and supporting documentation\"\ntemporal_raw: null\ncondition_raws: [\"if and to the extent such record retention is required by tax or similar authorities, and/or exists in the ERP system, and/or is common practice in the industry\"]\n\nSecond:\n\nmodality: MUST\nobligor_alias: \"Contractor\"\nobligee_alias: \"NICE\"\naction: PROVIDE\nobject_class: \"reasonable_access\"\nobject_raw_text: \"reasonable access to such records and documentation\"\ntemporal_raw: null\ncondition_raws: [\"upon notice of no less than five (5) Days from NICE\"]\n\nConfidence maybe 0.9 each.\n\nReturn JSON compact.\n\n"
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.343502312,
+          "prompt_tokens": 1604,
+          "prompt_time": 0.081950512,
+          "completion_tokens": 1819,
+          "completion_time": 3.796083963,
+          "total_tokens": 3423,
+          "total_time": 3.8780344749999998,
+          "completion_tokens_details": {
+            "reasoning_tokens": 1474
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_02b0d31eca",
+        "x_groq": {
+          "id": "req_01m4fvzsmtey18bcz12njj55dg",
+          "seed": 1395095857
+        },
+        "service_tier": "on_demand"
+      }
+    }
+  ]
+}

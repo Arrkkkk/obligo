@@ -1,0 +1,91 @@
+{
+  "segment_id": "C03-125",
+  "run": 1,
+  "recorded_at": "2026-10-09T08:16:11+00:00",
+  "model_id": "openai/gpt-oss-120b",
+  "prompt_version": "v3",
+  "segment_sha256": "32f4c6e8249d9069bffe942ac28df3145268767f90b6d4759afe140726c27a03",
+  "guideline_version": "v0.68",
+  "responses": [
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-0685ff58-e108-4ced-816c-deb6e5a15cac",
+        "object": "chat.completion",
+        "created": 1791533736,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"obligations\":[{\"span_text\":\"Except as expressly provided in this Agreement, each Party shall bear its own fees and expenses (including the fees and expenses of its agents, representatives, attorneys, and accountants) incurred in connection with the negotiation, drafting, execution, and performance of this Agreement and the transactions it contemplates.\",\"modality\":\"MUST\",\"obligor_alias\":\"each Party\",\"obligee_alias\":\"\",\"action\":\"BEAR\",\"object_class\":\"fees_and_expenses\",\"object_raw_text\":\"its own fees and expenses\",\"temporal_raw\":null,\"condition_raws\":[\"Except as expressly provided in this Agreement\"],\"confidence\":0.9}]}",
+              "reasoning": "We need to extract obligations. Read segment:\n\n\"Proprietary and Confidential This Agreement and information contained therein is not for use or disclosure outside of AT&T, its Affiliates, and third party representatives, and Vendor except under written agreement by the contracting parties. 43 Source: ATN INTERNATIONAL, INC., 10-Q, 11/8/2019 3.42 Transaction Costs. Except as expressly provided in this Agreement, each Party shall bear its own fees and expenses (including the fees and expenses of its agents, representatives, attorneys, and accountants) incurred in connection with the negotiation, drafting, execution, and performance of this Agreement and the transactions it contemplates.\"\n\nWe need to find obligations: sentences that impose duty, prohibition, permission, expectation.\n\nFirst sentence: \"This Agreement and information contained therein is not for use or disclosure outside of AT&T, its Affiliates, and third party representatives, and Vendor except under written agreement by the contracting parties.\"\n\nThis is a prohibition: \"is not for use or disclosure outside of ...\" So obligor? Who is prohibited? The clause says \"This Agreement and information ... is not for use or disclosure outside of AT&T, its Affiliates, and third party representatives, and Vendor except under written agreement by the contracting parties.\" The subject is \"This Agreement and information contained therein\". Not a party. But the prohibition applies to anyone? Could be \"any party\". Not clear. Might not be a clear obligor. Might be considered an obligation on \"Vendor\"? Actually includes \"Vendor\" as part of allowed recipients. The clause says not for use or disclosure outside of AT&T, its Affiliates, and third party representatives, and Vendor except under written agreement. So the prohibition is on \"use or disclosure\" outside those parties. Who is prohibited? Likely any party, but not explicit. Might be ambiguous; we may skip if cannot identify obligor and obligee.\n\nSecond clause: \"Except as expressly provided in this Agreement, each Party shall bear its own fees and expenses (including the fees and expenses of its agents, representatives, attorneys, and accountants) incurred in connection with the negotiation, drafting, execution, and performance of this Agreement and the transactions it contemplates.\"\n\nObligation: each Party shall bear its own fees and expenses. So obligor: \"each Party\". obligee: none? It is an internal duty, not owed to another party. Could set obligee as empty string. The object: \"its own fees and expenses\". Temporal: none. Condition: \"Except as expressly provided in this Agreement\". That's a condition phrase starting with \"Except as\". It's a conditional exception, but it's a condition phrase. Should be included in condition_raws list as literal substring.\n\nWe need to include leading clause if condition is leading. The sentence starts with \"Except as expressly provided in this Agreement, each Party shall bear...\" So span_text must include that leading clause. So span_text = \"Except as expressly provided in this Agreement, each Party shall bear its own fees and expenses (including the fees and expenses of its agents, representatives, attorneys, and accountants) incurred in connection with the negotiation, drafting, execution, and performance of this Agreement and the transactions it contemplates.\"\n\nNow fill fields:\n\nmodality: \"MUST\" (shall = must). obligor_alias: \"each Party\". obligee_alias: \"\" (empty). action: \"BEAR\". object_class: maybe \"fees_and_expenses\". object_raw_text: \"its own fees and expenses\". temporal_raw: null. condition_raws: [\"Except as expressly provided in this Agreement\"] (must be literal substring). Check that substring appears exactly in span_text: yes.\n\nNow also maybe the first sentence is an obligation: prohibition \"is not for use or disclosure\". Could treat as \"MUST_NOT\" with obligor \"Vendor\"? But the clause includes \"and Vendor\". Actually phrase: \"outside of AT&T, its Affiliates, and third party representatives, and Vendor\". So the allowed parties include Vendor. The prohibition is on use/disclosure outside of those parties. So the obligor could be \"any Party\" but not explicit. Might skip due to unclear obligor.\n\nThus output one obligation.\n\nNeed confidence field. Provide a confidence value, maybe 0.9.\n\nReturn JSON with obligations list.\n\nCheck JSON formatting: compact.\n\n"
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.212906155,
+          "prompt_tokens": 1536,
+          "prompt_time": 0.065619501,
+          "completion_tokens": 1027,
+          "completion_time": 2.139891734,
+          "total_tokens": 2563,
+          "total_time": 2.205511235,
+          "completion_tokens_details": {
+            "reasoning_tokens": 884
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_5a93aea882",
+        "x_groq": {
+          "id": "req_01m4fvppefe4p83r252qwb21en",
+          "seed": 1750056816
+        },
+        "service_tier": "on_demand"
+      }
+    },
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-86ecafc6-85bb-464c-b49d-73f7a272a2e1",
+        "object": "chat.completion",
+        "created": 1791533770,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"repairs\":[{\"index\":0,\"action\":\"PAY\"}]}",
+              "reasoning": "We need to output repairs JSON with corrected fields for index 0. The failure is action not in taxonomy. We must choose an action from list that best matches \"bear its own fees and expenses\". The verb \"bear\" meaning \"pay\" or \"incur\". The closest action is PAY (or WITHHOLD? No, paying fees). So action = PAY.\n\nWe also need to ensure modality is correct? The candidate already has modality \"MUST\". That's fine.\n\nWe need to output only corrected fields: index, action, maybe also object_class? No, only field to correct is action. So output:\n\n{\n \"repairs\": [\n   {\"index\":0, \"action\":\"PAY\"}\n ]\n}\n\nCheck JSON format: compact, no extra spaces? It's okay.\n\nNo temporal_raw needed.\n\nThus final answer."
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.343184255,
+          "prompt_tokens": 1861,
+          "prompt_time": 0.096389723,
+          "completion_tokens": 190,
+          "completion_time": 0.396323097,
+          "total_tokens": 2051,
+          "total_time": 0.49271282,
+          "completion_tokens_details": {
+            "reasoning_tokens": 167
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_64b2f1c926",
+        "x_groq": {
+          "id": "req_01m4fvqs86e1eb9n0djb1vmk86",
+          "seed": 1578713378
+        },
+        "service_tier": "on_demand"
+      }
+    }
+  ]
+}

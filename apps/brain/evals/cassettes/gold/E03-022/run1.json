@@ -1,0 +1,131 @@
+{
+  "segment_id": "E03-022",
+  "run": 1,
+  "recorded_at": "2026-10-09T08:45:04+00:00",
+  "model_id": "openai/gpt-oss-120b",
+  "prompt_version": "v3",
+  "segment_sha256": "186d813ab23cba4e1b1004c9283369452b08862f0d5cb553660dd394c89ec187",
+  "guideline_version": "v0.65",
+  "responses": [
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-e48d808b-589f-49fe-94a5-602e302361df",
+        "object": "chat.completion",
+        "created": 1791535388,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"obligations\":[{\"span_text\":\"As soon as reasonably practicable after the Effective Date, the Parties shall agree to the terms and conditions of a quality agreement (the \u201cQuality Agreement\u201d) setting forth in detail the quality assurance arrangements and procedures for the Manufacture of the Product, which Quality Agreement shall be incorporated herein by reference.\",\"modality\":\"MUST\",\"obligor_alias\":\"the Parties\",\"obligee_alias\":\"\",\"action\":\"AGREE\",\"object_class\":\"quality_agreement\",\"object_raw_text\":\"the terms and conditions of a quality agreement\",\"temporal_raw\":\"As soon as reasonably practicable after the Effective Date\",\"condition_raws\":[],\"confidence\":0.9},{\"span_text\":\"For clarity, the Parties shall agree to the terms and conditions of (a) the Quality 5 \u200b Agreement for the Product for Development use as soon as reasonably practicable after the Effective Date, and (b) the Quality Agreement for the Product for Commercial uses, if different than the Quality Agreement specified in subsection (a), as soon as reasonably practicable after the first MAA for the Product is submitted in the Kissei Territory; provided that the Quality Agreement may be amended if mutually agreed by the Parties.\",\"modality\":\"MUST\",\"obligor_alias\":\"the Parties\",\"obligee_alias\":\"\",\"action\":\"AGREE\",\"object_class\":\"quality_agreement\",\"object_raw_text\":\"the terms and conditions of (a) the Quality 5 \u200b Agreement for the Product for Development use as soon as reasonably practicable after the Effective Date, and (b) the Quality Agreement for the Product for Commercial uses\",\"temporal_raw\":\"as soon as reasonably practicable after the Effective Date\",\"condition_raws\":[\"if different than the Quality Agreement specified in subsection (a)\",\"if mutually agreed by the Parties\"],\"confidence\":0.9}]}",
+              "reasoning": "We need to extract obligations. Read segment.\n\nText:\n\n\"2.6Quality Agreement. As soon as reasonably practicable after the Effective Date, the Parties shall agree to the terms and conditions of a quality agreement (the \u201cQuality Agreement\u201d) setting forth in detail the quality assurance arrangements and procedures for the Manufacture of the Product, which Quality Agreement shall be incorporated herein by reference. For clarity, the Parties shall agree to the terms and conditions of (a) the Quality 5 \u200b Agreement for the Product for Development use as soon as reasonably practicable after the Effective Date, and (b) the Quality Agreement for the Product for Commercial uses, if different than the Quality Agreement specified in subsection (a), as soon as reasonably practicable after the first MAA for the Product is submitted in the Kissei Territory; provided that the Quality Agreement may\u00a0be amended if mutually agreed by the Parties. To the extent that the terms of this Supply Agreement and those of the Quality Agreement are in conflict, the terms of this Supply Agreement shall control except with respect to quality issues, which shall be governed by the Quality Agreement. For clarity, if there are any financial terms in the Quality Agreement that are in conflict with this Supply Agreement, this Supply Agreement shall control with respect to such financial terms.\"\n\nWe need obligations: sentences with duty, prohibition, permission, expectation.\n\nIdentify:\n\n1. \"As soon as reasonably practicable after the Effective Date, the Parties shall agree to the terms and conditions of a quality agreement (the \u201cQuality Agreement\u201d) setting forth in detail the quality assurance arrangements and procedures for the Manufacture of the Product, which Quality Agreement shall be incorporated herein by reference.\"\n\nObligation: Parties shall agree to the terms and conditions of a quality agreement. Modality: MUST? \"shall\" indicates MUST. Obligor: the Parties. Obligee: not explicit; maybe each other? Could be mutual. But we need obligee_alias exactly as appears. The clause doesn't specify a party to whom they owe. Could be ambiguous. Might leave obligee empty? The spec expects obligee_alias field; can be empty string if not present. In example they left empty. So we can set obligee_alias: \"\".\n\nAction: AGREE. Object_class: quality_agreement_terms? maybe \"quality_agreement\". object_raw_text: \"the terms and conditions of a quality agreement\". Temporal_raw: \"As soon as reasonably practicable after the Effective Date\". Condition_raws: none.\n\nCheck that temporal_raw is substring of span_text. Yes.\n\n2. Next: \"For clarity, the Parties shall agree to the terms and conditions of (a) the Quality 5 \u200b Agreement for the Product for Development use as soon as reasonably practicable after the Effective Date, and (b) the Quality Agreement for the Product for Commercial uses, if different than the Quality Agreement specified in subsection (a), as soon as reasonably practicable after the first MAA for the Product is submitted in the Kissei Territory; provided that the Quality Agreement may be amended if mutually agreed by the Parties.\"\n\nObligation: Parties shall agree to the terms and conditions of (a)... and (b)... So same \"shall agree\". Modality MUST. Obligor: the Parties. Obligee: \"\".\n\nAction: AGREE. Object_raw_text: \"the terms and conditions of (a) the Quality 5 \u200b Agreement for the Product for Development use ... and (b) the Quality Agreement for the Product for Commercial uses\". That's long. Could maybe split but we need one candidate. Temporal_raw: there are two timing phrases: \"as soon as reasonably practicable after the Effective Date\" for (a) and \"as soon as reasonably practicable after the first MAA for the Product is submitted in the Kissei Territory\" for (b). Which to capture? Could capture the first? But we need literal substring. Might include both? Temporal_raw expects a single string. Could choose the first phrase. But the clause includes both; maybe we can set temporal_raw null? But there is timing. Could include the first phrase as it's part of span_text. It's okay.\n\nCondition_raws: there is \"if different than the Quality Agreement specified in subsection (a)\". That's a conditional phrase. Also \"provided that the Quality Agreement may be amended if mutually agreed by the Parties.\" That's a condition? It's a \"provided that\" clause, not \"if\". The spec says condition_raws list of literal \"if\"-type conditional phrases. So include \"if different than the Quality Agreement specified in subsection (a)\". Also maybe \"if mutually agreed by the Parties\" but that's within \"provided that ... may be amended if mutually agreed\". That's also an \"if\". Could include both. But need literal substring. We'll include both.\n\nBut note that \"if mutually agreed by the Parties\" is part of \"provided that the Quality Agreement may be amended if mutually agreed by the Parties.\" That's a condition for amendment, not for the agreement. But still an \"if\". We'll include.\n\nThus condition_raws list: [\"if different than the Quality Agreement specified in subsection (a)\", \"if mutually agreed by the Parties\"].\n\nCheck that these substrings appear exactly in span_text. Yes.\n\nTemporal_raw: choose \"as soon as reasonably practicable after the Effective Date\". That's substring.\n\n3. Next: \"To the extent that the terms of this Supply Agreement and those of the Quality Agreement are in conflict, the terms of this Supply Agreement shall control except with respect to quality issues, which shall be governed by the Quality Agreement.\"\n\nObligation? It's a rule about control. Not a duty to act. Not an obligation. Might be considered a provision, not an obligation. Probably not.\n\n4. Next: \"For clarity, if there are any financial terms in the Quality Agreement that are in conflict with this Supply Agreement, this Supply Agreement shall control with respect to such financial terms.\"\n\nAgain not an obligation, just rule.\n\nThus we have two obligations.\n\nNow construct JSON.\n\nNeed confidence field? Example includes confidence. Not required? The spec didn't mention confidence but examples include. The shape includes confidence. Should we include? The spec didn't explicitly require but examples have it. Safer to include confidence numeric. Provide maybe 0.9 each.\n\nNow produce JSON compact.\n\nCheck fields: span_text must be exact verbatim substring. Need to copy exactly including punctuation.\n\nFirst span_text: \"As soon as reasonably practicable after the Effective Date, the Parties shall agree to the terms and conditions of a quality agreement (the \u201cQuality Agreement\u201d) setting forth in detail the quality assurance arrangements and procedures for the Manufacture of the Product, which Quality Agreement shall be incorporated herein by reference.\"\n\nMake sure includes leading clause \"As soon as reasonably practicable after the Effective Date,\".\n\nSecond span_text: \"For clarity, the Parties shall agree to the terms and conditions of (a) the Quality 5 \u200b Agreement for the Product for Development use as soon as reasonably practicable after the Effective Date, and (b) the Quality Agreement for the Product for Commercial uses, if different than the Quality Agreement specified in subsection (a), as soon as reasonably practicable after the first MAA for the Product is submitted in the Kissei Territory; provided that the Quality Agreement may be amended if mutually agreed by the Parties.\"\n\nNote there is a weird space after \"5\". Keep as in segment: \"Quality 5 \u200b Agreement\". There's a zero-width space maybe. We'll copy as is.\n\nNow fill fields.\n\nFirst:\n\nmodality: \"MUST\"\nobligor_alias: \"the Parties\"\nobligee_alias: \"\" (empty string)\naction: \"AGREE\"\nobject_class: \"quality_agreement\"\nobject_raw_text: \"the terms and conditions of a quality agreement\"\ntemporal_raw: \"As soon as reasonably practicable after the Effective Date\"\ncondition_raws: []\n\nSecond:\n\nmodality: \"MUST\"\nobligor_alias: \"the Parties\"\nobligee_alias: \"\"\naction: \"AGREE\"\nobject_class: \"quality_agreement\"\nobject_raw_text: \"the terms and conditions of (a) the Quality 5 \u200b Agreement for the Product for Development use ... and (b) the Quality Agreement for the Product for Commercial uses\"\nBut need literal phrase. Could just copy the phrase up to \"uses\". We'll include the whole phrase as appears: \"the terms and conditions of (a) the Quality 5 \u200b Agreement for the Product for Development use as soon as reasonably practicable after the Effective Date, and (b) the Quality Agreement for the Product for Commercial uses\". That's okay.\n\ntemporal_raw: \"as soon as reasonably practicable after the Effective Date\" (note lower case). In span_text it's \"as soon as reasonably practicable after the Effective Date\". Yes.\n\ncondition_raws: [\"if different than the Quality Agreement specified in subsection (a)\", \"if mutually agreed by the Parties\"]\n\nCheck that \"if mutually agreed by the Parties\" appears exactly. In text: \"if mutually agreed by the Parties\". Yes.\n\nNow produce JSON.\n\n"
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.382269216,
+          "prompt_tokens": 1651,
+          "prompt_time": 0.083892996,
+          "completion_tokens": 2221,
+          "completion_time": 4.6659130730000005,
+          "total_tokens": 3872,
+          "total_time": 4.749806069,
+          "completion_tokens_details": {
+            "reasoning_tokens": 1843
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_ca5edfaab2",
+        "x_groq": {
+          "id": "req_01m4fx90cwe668z5k1x00md8bg",
+          "seed": 97271042
+        },
+        "service_tier": "on_demand"
+      }
+    },
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-19d3d371-00c2-4f06-ba1e-89231b67abdc",
+        "object": "chat.completion",
+        "created": 1791535444,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"repairs\":[{\"index\":0,\"temporal_raw\":\"after the Effective Date\"},{\"index\":1,\"temporal_raw\":\"after the Effective Date\"}]}",
+              "reasoning": "We need to produce repairs JSON with corrected fields for each candidate where possible.\n\nWe have two failures, both about temporal_raw being unmappable. Need to provide a shorter contiguous substring of span_text that is the timing phrase on its own.\n\nThe span_text includes \"As soon as reasonably practicable after the Effective Date, ...\" The timing phrase is \"As soon as reasonably practicable after the Effective Date\". Is there a shorter substring that is a timing phrase on its own? Possibly \"after the Effective Date\". That's a contiguous substring within the span_text. That matches shape \"after <trigger>\" which is allowed: 'after <trigger>'. So \"after the Effective Date\" is a valid timing phrase shape. It is a contiguous substring. So we can set temporal_raw to \"after the Effective Date\". That is shorter and matches allowed shape.\n\nCheck candidate 0: span_text includes that phrase at start. So we can set temporal_raw to \"after the Effective Date\". Good.\n\nCandidate 1: span_text includes \"... as soon as reasonably practicable after the Effective Date, and (b) ... as soon as reasonably practicable after the first MAA for the Product is submitted ...\". The temporal_raw currently is \"as soon as reasonably practicable after the Effective Date\". We need a shorter substring that is a timing phrase on its own. Could use \"after the Effective Date\". That's present. Also there is \"after the first MAA for the Product is submitted\". That's longer. But we need a shorter contiguous substring that is the timing phrase. \"after the Effective Date\" works. It's present. So set temporal_raw to \"after the Effective Date\". That matches allowed shape.\n\nThus we can repair both candidates with temporal_raw corrected.\n\nWe must output JSON with repairs array containing objects with index and temporal_raw corrected. Only include fields we are correcting. So each object: {\"index\":0,\"temporal_raw\":\"after the Effective Date\"} and similarly for index 1.\n\nMake sure JSON compact, no extra spaces? It's okay.\n\nReturn {\"repairs\":[...]}.\n\n"
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.343122997,
+          "prompt_tokens": 2351,
+          "prompt_time": 0.094425366,
+          "completion_tokens": 459,
+          "completion_time": 0.966416963,
+          "total_tokens": 2810,
+          "total_time": 1.060842329,
+          "completion_tokens_details": {
+            "reasoning_tokens": 418
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_fe269835c7",
+        "x_groq": {
+          "id": "req_01m4fxav0beahsymwgbxg0vpsx",
+          "seed": 173435989
+        },
+        "service_tier": "on_demand"
+      }
+    },
+    {
+      "status_code": 200,
+      "json": {
+        "id": "chatcmpl-bee8de77-61ab-43e6-bc80-71e2ef3f6a8a",
+        "object": "chat.completion",
+        "created": 1791535504,
+        "model": "openai/gpt-oss-120b",
+        "choices": [
+          {
+            "index": 0,
+            "message": {
+              "role": "assistant",
+              "content": "{\"repairs\":[{\"index\":0,\"action\":\"COMPLY\"},{\"index\":1,\"action\":\"COMPLY\"}]}",
+              "reasoning": "We need to produce repairs JSON for each candidate where we can correct the specified field(s). Both failures are about action field not in taxonomy. We need to replace with an allowed verb that best matches \"agree\". The list includes \"COMPLY\", \"COOPERATE\", \"NEGOTIATE\", \"CONSULT\", \"ESTABLISH\", \"FINALIZE\", \"PROVIDE\", \"REPORT\", etc. \"Agree to the terms and conditions\" is like \"COMMIT\" but not in list. Could map to \"COMPLY\" (to comply with terms) or \"COOPERATE\". Perhaps \"COMPLY\" is closest: parties shall agree to terms => they must comply with terms? Might be \"COMPLY\". Another could be \"NEGOTIATE\" but they are agreeing, not negotiating. \"COOPERATE\" maybe. I'd choose \"COMPLY\". Ensure modality remains \"MUST\" unchanged (not to correct). object_class is fine. temporal_raw is given but not asked to correct. So we just output action corrected.\n\nWe need to output for each index with corrected action.\n\nJSON format: {\"repairs\": [ { \"index\": 0, \"action\": \"COMPLY\" }, { \"index\": 1, \"action\": \"COMPLY\" } ] }\n\nCheck that we only include fields we are correcting. Yes.\n\nMake sure no extra spaces, valid JSON.\n\n"
+            },
+            "logprobs": null,
+            "finish_reason": "stop"
+          }
+        ],
+        "usage": {
+          "queue_time": 0.213896938,
+          "prompt_tokens": 2491,
+          "prompt_time": 0.13530035,
+          "completion_tokens": 316,
+          "completion_time": 0.660405977,
+          "total_tokens": 2807,
+          "total_time": 0.795706327,
+          "completion_tokens_details": {
+            "reasoning_tokens": 283
+          }
+        },
+        "usage_breakdown": null,
+        "system_fingerprint": "fp_69334c0be3",
+        "x_groq": {
+          "id": "req_01m4fxcnmvexrappaqrphw83dz",
+          "seed": 101742422
+        },
+        "service_tier": "on_demand"
+      }
+    }
+  ]
+}
