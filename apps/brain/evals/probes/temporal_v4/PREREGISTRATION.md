@@ -1,7 +1,7 @@
 # F34 temporal-interaction probe — PRE-REGISTRATION
 
 **Reviewer-approved 2026-10-19: Option B — `C04-017`, `C17-006`, `C11-094` as control; cap 27;
-halt and resume only on reviewer approval. NO CALL HAS BEEN MADE. This document is committed and
+cap REVISED to 18 on 2026-10-19; halt and resume only on reviewer approval. NO CALL HAS BEEN MADE. This document is committed and
 pushed BEFORE any call so that nothing in it can be adjusted once results are known** — the
 `d0ba6ec` precedent, and §7's discipline applied to a prompt probe.
 
@@ -67,6 +67,15 @@ set to 27 in code exactly as ruled and will not be exceeded — but a cap 50% ab
 ceiling is not a live halt mechanism, and a future reader should not mistake "the cap was
 respected" for "the cap was tested". **If the reviewer wants a binding cap, 18 is the ceiling and
 17 is +3sd.** The sizing is not changed unilaterally.
+
+**REVISED 2026-10-19 BY THE REVIEWER: THE CAP IS 18, NOT 27.** Recorded as dated new text rather
+than by editing the paragraph above, so the reasoning that produced the first figure stays
+readable. **And a better basis than the global mean is now available, measured rather than
+inherited: THE SAME SIX INVOCATIONS COST EXACTLY 12 CALLS UNDER `v3`** — read off the committed
+gold cassettes' own `responses` arrays, `C04-017` `[2, 1, 2]` and `C17-006` `[2, 2, 3]`. That is
+a **segment-specific** figure for the identical invocations, where the 13 above is the
+28-document-corpus mean applied to a count of 6. **18 is therefore +50% over the directly
+comparable measurement.**
 
 **The control arm's cassettes carry `guideline_version: v0.66`** against the targets' `v0.68`.
 That is **provenance only here**: `score_probe.py` reads cassettes with plain `json.loads` rather
@@ -157,10 +166,23 @@ pass is informative.
 
 ## 6. BUDGET AND HALT
 
-- **Hard cap: 27 model calls** (reviewer-approved), enforced by `record.Budget` in code rather
-  than by counting. Exhaustion is checked at the START of each run, so a run already paid for is
+- **HARD CAP: 18 MODEL CALLS — REVISED 2026-10-19 BY THE REVIEWER FROM 27.** Enforced by
+  `record.Budget` in code rather than by counting. **At 18 the cap STOPS BEING HEADROOM AND
+  BECOMES A STRUCTURAL ASSERTION, which is the substantive effect of the revision rather than
+  mere tightening.** 6 invocations x a maximum of 3 calls each is **exactly 18**, and 3 is a
+  structural per-invocation ceiling rather than an observed maximum: one extraction call plus at
+  most `max_repairs = 2` repair calls, **with repair calls BATCHED ACROSS CANDIDATES rather than
+  issued per candidate** — verified against the artifacts, not assumed, since `C04-017` run 1
+  quarantines **two** candidates that both carry `repair_calls=[1]`, i.e. one shared call, and
+  `C17-006` run 3 is the two-repair-call case at `repair_calls=[1, 2]`. **So the cap cannot be
+  exceeded unless one of those documented invariants is false, and if `BudgetExhausted` ever
+  fires it is evidence of that rather than of an over-spend.** The old 27 could not fire for a
+  duller reason — it simply sat 50% above the ceiling.
+- *(Superseded, left as written: "Hard cap: 27 model calls (reviewer-approved)", enforced by `record.Budget` in code rather
+  than by counting.)*
+- Exhaustion is checked at the START of each run, so a run already paid for is
   always written.
-- **Planned spend ≈ 13 calls** over 6 live invocations. Repair calls count against the cap — and
+- **Planned spend: 12 calls**, the measured `v3` cost of these same six invocations (§2's dated revision); 13 is the global-mean estimate it supersedes. Repair calls count against the cap — and
   repair is expected here, since `C17-006` run 3 under `v3` spent two.
 - **Execution order, chosen so an early halt still yields an interpretable result:**
   1. `v4` × `C17-006` × 3 — the cleaner target: ONE gold item, no byte-identical span group, and
