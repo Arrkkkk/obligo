@@ -1,0 +1,284 @@
+{
+ "control": [
+  {
+   "label": "CONTROL  v3 x C11-094 (baseline)",
+   "segment": "C11-094",
+   "runs": [
+    {
+     "run": 1,
+     "compiled": true,
+     "retained": true,
+     "clause6": true,
+     "iou": 1.0,
+     "temporal_raw": "within a reasonable time after the Principal's death or mental incapacity",
+     "pred_temporal": {
+      "form": "RELATIVE_TO_TRIGGER",
+      "direction": "AFTER",
+      "trigger": "the Principal's death or mental incapacity"
+     }
+    },
+    {
+     "run": 2,
+     "compiled": true,
+     "retained": true,
+     "clause6": true,
+     "iou": 1.0,
+     "temporal_raw": "within a reasonable time after the Principal's death or mental incapacity",
+     "pred_temporal": {
+      "form": "RELATIVE_TO_TRIGGER",
+      "direction": "AFTER",
+      "trigger": "the Principal's death or mental incapacity"
+     }
+    },
+    {
+     "run": 3,
+     "compiled": true,
+     "retained": true,
+     "clause6": true,
+     "iou": 1.0,
+     "temporal_raw": "within a reasonable time after the Principal's death or mental incapacity",
+     "pred_temporal": {
+      "form": "RELATIVE_TO_TRIGGER",
+      "direction": "AFTER",
+      "trigger": "the Principal's death or mental incapacity"
+     }
+    }
+   ]
+  },
+  {
+   "label": "CONTROL  v4 x C11-094",
+   "segment": "C11-094",
+   "runs": [
+    {
+     "run": 1,
+     "compiled": true,
+     "retained": true,
+     "clause6": true,
+     "iou": 1.0,
+     "temporal_raw": "within a reasonable time after the Principal's death or mental incapacity",
+     "pred_temporal": {
+      "form": "RELATIVE_TO_TRIGGER",
+      "direction": "AFTER",
+      "trigger": "the Principal's death or mental incapacity"
+     }
+    },
+    {
+     "run": 2,
+     "compiled": true,
+     "retained": true,
+     "clause6": true,
+     "iou": 1.0,
+     "temporal_raw": "within a reasonable time after the Principal's death or mental incapacity",
+     "pred_temporal": {
+      "form": "RELATIVE_TO_TRIGGER",
+      "direction": "AFTER",
+      "trigger": "the Principal's death or mental incapacity"
+     }
+    },
+    {
+     "run": 3,
+     "compiled": true,
+     "retained": true,
+     "clause6": true,
+     "iou": 1.0,
+     "temporal_raw": "within a reasonable time after the Principal's death or mental incapacity",
+     "pred_temporal": {
+      "form": "RELATIVE_TO_TRIGGER",
+      "direction": "AFTER",
+      "trigger": "the Principal's death or mental incapacity"
+     }
+    }
+   ]
+  }
+ ],
+ "control_verdict": [
+  "CONTROL HOLDS",
+  "3/3 v4 runs retain temporal_raw AND match the v3 clause-6 outcome (v3 clause6 passes on >=2 of 3: True)"
+ ],
+ "arms": [
+  {
+   "label": "baseline v3 x C17-006",
+   "segment": "C17-006",
+   "modal": "QUARANTINED_SAME",
+   "note": "3/3",
+   "runs": [
+    {
+     "run": 1,
+     "bucket": "QUARANTINED_SAME",
+     "why": "REPAIR_MADE_NO_PROGRESS/UNMAPPABLE_TEMPORAL; temporal_raw='During the applicable Term of any Service'",
+     "temporal_raw": "During the applicable Term of any Service",
+     "conditions": [],
+     "iou": 1.0,
+     "n_typechecked": 0,
+     "n_quarantined": 1,
+     "n_rejected": 0
+    },
+    {
+     "run": 2,
+     "bucket": "QUARANTINED_SAME",
+     "why": "REPAIR_MADE_NO_PROGRESS/UNMAPPABLE_TEMPORAL; temporal_raw='During the applicable Term of any Service'",
+     "temporal_raw": "During the applicable Term of any Service",
+     "conditions": [],
+     "iou": 1.0,
+     "n_typechecked": 0,
+     "n_quarantined": 1,
+     "n_rejected": 0
+    },
+    {
+     "run": 3,
+     "bucket": "QUARANTINED_SAME",
+     "why": "REPAIR_MADE_NO_PROGRESS/UNMAPPABLE_TEMPORAL; temporal_raw='During the applicable Term'",
+     "temporal_raw": "During the applicable Term",
+     "conditions": [],
+     "iou": 1.0,
+     "n_typechecked": 0,
+     "n_quarantined": 1,
+     "n_rejected": 0
+    }
+   ]
+  },
+  {
+   "label": "baseline v3 x C04-017",
+   "segment": "C04-017",
+   "modal": "QUARANTINED_SAME",
+   "note": "2/3 UNSTABLE {'SPAN_NOT_FOUND': 1, 'QUARANTINED_SAME': 2}",
+   "runs": [
+    {
+     "run": 1,
+     "bucket": "QUARANTINED_SAME",
+     "why": "REPAIR_MADE_NO_PROGRESS/UNMAPPABLE_TEMPORAL; temporal_raw='During the Term of this Agreement'",
+     "temporal_raw": "During the Term of this Agreement",
+     "conditions": [],
+     "iou": 0.941,
+     "n_typechecked": 0,
+     "n_quarantined": 2,
+     "n_rejected": 0
+    },
+    {
+     "run": 2,
+     "bucket": "SPAN_NOT_FOUND",
+     "why": "SPAN_NOT_FOUND",
+     "temporal_raw": "During the Term of this Agreement",
+     "conditions": [],
+     "iou": -1.0,
+     "n_typechecked": 0,
+     "n_quarantined": 0,
+     "n_rejected": 2
+    },
+    {
+     "run": 3,
+     "bucket": "QUARANTINED_SAME",
+     "why": "REPAIR_MADE_NO_PROGRESS/UNMAPPABLE_TEMPORAL; temporal_raw='During the Term of this Agreement'",
+     "temporal_raw": "During the Term of this Agreement",
+     "conditions": [],
+     "iou": 1.0,
+     "n_typechecked": 0,
+     "n_quarantined": 2,
+     "n_rejected": 0
+    }
+   ]
+  },
+  {
+   "label": "TARGET   v4 x C17-006",
+   "segment": "C17-006",
+   "modal": "QUARANTINED_SAME",
+   "note": "3/3",
+   "runs": [
+    {
+     "run": 1,
+     "bucket": "QUARANTINED_SAME",
+     "why": "REPAIR_MADE_NO_PROGRESS/UNMAPPABLE_TEMPORAL; temporal_raw='During the applicable Term of any Service'",
+     "temporal_raw": "During the applicable Term of any Service",
+     "conditions": [
+      "and in accordance with the terms and conditions of this Agreement",
+      "subject to Section 2.2"
+     ],
+     "iou": 1.0,
+     "n_typechecked": 0,
+     "n_quarantined": 1,
+     "n_rejected": 0
+    },
+    {
+     "run": 2,
+     "bucket": "QUARANTINED_SAME",
+     "why": "REPAIR_MADE_NO_PROGRESS/UNMAPPABLE_TEMPORAL; temporal_raw='During the applicable Term of any Service'",
+     "temporal_raw": "During the applicable Term of any Service",
+     "conditions": [
+      "and in accordance with the terms and conditions of this Agreement",
+      "subject to Section 2.2"
+     ],
+     "iou": 1.0,
+     "n_typechecked": 0,
+     "n_quarantined": 1,
+     "n_rejected": 0
+    },
+    {
+     "run": 3,
+     "bucket": "QUARANTINED_SAME",
+     "why": "REPAIR_MADE_NO_PROGRESS/UNMAPPABLE_TEMPORAL; temporal_raw='During the applicable Term of any Service'",
+     "temporal_raw": "During the applicable Term of any Service",
+     "conditions": [
+      "and in accordance with the terms and conditions of this Agreement",
+      "subject to Section 2.2"
+     ],
+     "iou": 1.0,
+     "n_typechecked": 0,
+     "n_quarantined": 1,
+     "n_rejected": 0
+    }
+   ]
+  },
+  {
+   "label": "TARGET   v4 x C04-017",
+   "segment": "C04-017",
+   "modal": "QUARANTINED_SAME",
+   "note": "3/3",
+   "runs": [
+    {
+     "run": 1,
+     "bucket": "QUARANTINED_SAME",
+     "why": "REPAIR_MADE_NO_PROGRESS/UNMAPPABLE_TEMPORAL; temporal_raw='During the Term of this Agreement'",
+     "temporal_raw": "During the Term of this Agreement",
+     "conditions": [
+      "subject to the terms and conditions hereof"
+     ],
+     "iou": 1.0,
+     "n_typechecked": 0,
+     "n_quarantined": 2,
+     "n_rejected": 0
+    },
+    {
+     "run": 2,
+     "bucket": "QUARANTINED_SAME",
+     "why": "REPAIR_MADE_NO_PROGRESS/UNMAPPABLE_TEMPORAL; temporal_raw='During the Term of this Agreement'",
+     "temporal_raw": "During the Term of this Agreement",
+     "conditions": [
+      "and subject to the terms and conditions hereof"
+     ],
+     "iou": 1.0,
+     "n_typechecked": 0,
+     "n_quarantined": 2,
+     "n_rejected": 0
+    },
+    {
+     "run": 3,
+     "bucket": "QUARANTINED_SAME",
+     "why": "REPAIR_MADE_NO_PROGRESS/UNMAPPABLE_TEMPORAL; temporal_raw='During the Term of this Agreement'",
+     "temporal_raw": "During the Term of this Agreement",
+     "conditions": [
+      "subject to the terms and conditions hereof"
+     ],
+     "iou": 1.0,
+     "n_typechecked": 0,
+     "n_quarantined": 2,
+     "n_rejected": 0
+    }
+   ]
+  }
+ ],
+ "hazard_verdict": "REFUTED",
+ "hazard_verdict_basis": {
+  "C17-006": "QUARANTINED_SAME",
+  "C04-017": "QUARANTINED_SAME"
+ }
+}
